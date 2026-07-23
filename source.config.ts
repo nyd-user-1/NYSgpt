@@ -22,6 +22,7 @@ export const { docs, meta } = defineDocs({
       readTime: z.string().optional(),
       author: z.string().optional(),
       thumbnail: z.string().optional(),
+      tint: z.string().optional(),
     }),
   },
 });

@@ -15,6 +15,8 @@ import {
 import { AuthorCard } from "@/components/author-card";
 import { getAuthor, type AuthorKey } from "@/lib/authors";
 import { CopyHeader } from "@/components/copy-header";
+import { ProjectMeta } from "@/components/mdx/project-meta";
+import { TechStack } from "@/components/mdx/tech-stack";
 
 const createHeading = (level: number) => {
   const Heading = ({
@@ -48,6 +50,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     AccordionItem,
     AccordionTrigger,
     Author,
+    ProjectMeta,
+    TechStack,
     h1: createHeading(1),
     h2: createHeading(2),
     h3: createHeading(3),

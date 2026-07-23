@@ -1,138 +1,187 @@
-import { docs, meta } from "@/.source";
-import { loader } from "fumadocs-core/source";
-import { createMDXSource } from "fumadocs-mdx";
-import { Suspense } from "react";
-import { BlogCard } from "@/components/blog-card";
-import { TagFilter } from "@/components/tag-filter";
-import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
+import { AppLayout } from "@/components/AppLayout";
+import { RevealFx } from "@/components/RevealFx";
+import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
+import { HomeNameplate } from "./HomeNameplate";
+import { CountUp } from "@/components/CountUp";
 
-interface BlogData {
-  title: string;
-  description: string;
-  date: string;
-  tags?: string[];
-  featured?: boolean;
-  readTime?: string;
-  author?: string;
-  authorImage?: string;
-  thumbnail?: string;
-}
-
-interface BlogPage {
-  url: string;
-  data: BlogData;
-}
-
-const blogSource = loader({
-  baseUrl: "/blog",
-  source: createMDXSource(docs, meta),
-});
-
-const formatDate = (date: Date): string => {
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+export const metadata = {
+  title: "NYSgpt",
+  description:
+    "Case studies and build notes from the NYSgpt family of AI products — the features, components, and design patterns behind each one.",
 };
 
-export default async function HomePage({
-  searchParams,
-}: {
-  searchParams: Promise<{ tag?: string }>;
-}) {
-  const resolvedSearchParams = await searchParams;
-  const allPages = blogSource.getPages() as BlogPage[];
-  const sortedBlogs = allPages.sort((a, b) => {
-    const dateA = new Date(a.data.date).getTime();
-    const dateB = new Date(b.data.date).getTime();
-    return dateB - dateA;
-  });
+const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
+const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const;
+const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
 
-  const allTags = [
-    "All",
-    ...Array.from(
-      new Set(sortedBlogs.flatMap((blog) => blog.data.tags || []))
-    ).sort(),
+type Card = {
+  href: string;
+  title: string;
+  body: string;
+  /** The project's primary accent — title color + light bg tint on hover. */
+  accent: string;
+  /** Mono footer: a live count from the project's database + its unit label. */
+  count: number;
+  unit: string;
+  /** Optional compact display: decimals + suffix (e.g. 16.4 + "M"). */
+  decimals?: number;
+  suffix?: string;
+};
+
+export default function HomePage() {
+  // The masthead ledger — four headline totals. Each links to its Dashboard lens.
+  const LEDGER = [
+    { value: 33598857, unit: "Records", href: "/dashboard?lens=records" },
+    { value: 510922, unit: "Documents", href: "/dashboard?lens=documents" },
+    { value: 563, unit: "APIs", href: "/dashboard?lens=apis" },
+    { value: 470, unit: "Scripts", href: "/dashboard?lens=scripts" },
   ];
 
-  const selectedTag = resolvedSearchParams.tag || "All";
-  const filteredBlogs =
-    selectedTag === "All"
-      ? sortedBlogs
-      : sortedBlogs.filter((blog) => blog.data.tags?.includes(selectedTag));
-
-  const tagCounts = allTags.reduce((acc, tag) => {
-    if (tag === "All") {
-      acc[tag] = sortedBlogs.length;
-    } else {
-      acc[tag] = sortedBlogs.filter((blog) =>
-        blog.data.tags?.includes(tag)
-      ).length;
-    }
-    return acc;
-  }, {} as Record<string, number>);
+  // The section entry points → a numbered contents plate (the broadsheet's table
+  // of contents). Hairline grid, each cell indexed in mono.
+  const CARDS: Card[] = [
+    { href: "/search", title: "Artificial Intelligence", accent: "#033882", body: "A public registry, library, and incident record for AI — New York's RAISE Act, independently implemented.", count: 532, unit: "models" },
+    { href: "/benchmarks", title: "Childcare", accent: "#2f6d6a", body: "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.", count: 16800, unit: "providers" },
+    { href: "/library", title: "EHR", accent: "#3f8290", body: "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.", count: 16.4, decimals: 1, suffix: "M", unit: "published rates" },
+    { href: "/incidents", title: "Energy", accent: "#d97706", body: "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.", count: 4.3, decimals: 1, suffix: "B", unit: "MWh generated" },
+    { href: "/labs", title: "Insurance", accent: "#16a34a", body: "Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.", count: 17306, unit: "vehicles rated" },
+    { href: "/dashboard", title: "Policy", accent: "#3d63dd", body: "The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.", count: 292754, unit: "votes counted" },
+    { href: "/research", title: "Science", accent: "#00BFFF", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", count: 46728, unit: "publications" },
+    { href: "/registry", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", count: 56.2, decimals: 1, suffix: "M", unit: "rooftops scanned" },
+    { href: "/models", title: "Sports", accent: "#033882", body: "New York high-school football as a live stat ledger — players, box scores, and every yard logged.", count: 685342, unit: "yards logged" },
+    { href: "/forum", title: "Tariffs", accent: "#c9a961", body: "Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.", count: 220178, unit: "federal rulings" },
+  ];
 
   return (
-    <div className="min-h-screen bg-background relative">
-      <div className="absolute top-0 left-0 z-0 w-full h-[200px] [mask-image:linear-gradient(to_top,transparent_25%,black_95%)]">
-        <FlickeringGrid
-          className="absolute top-0 left-0 size-full"
-          squareSize={4}
-          gridGap={6}
-          color="#6B7280"
-          maxOpacity={0.2}
-          flickerChance={0.05}
-        />
-      </div>
-      <div className="p-6 border-b border-border flex flex-col gap-6 min-h-[250px] justify-center relative z-10">
-        <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-col gap-2">
-            <h1 className="font-medium text-4xl md:text-5xl tracking-tighter">
-              Magic UI Blog
-            </h1>
-            <p className="text-muted-foreground text-sm md:text-base lg:text-lg">
-              Latest news and updates from Magic UI.
-            </p>
-          </div>
+    <AppLayout paperMode>
+      <div
+        className="flex-1 overflow-y-auto no-scrollbar"
+        style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}
+      >
+        <div className="mx-auto w-full max-w-[1360px] px-6 sm:px-10 md:px-14 pt-8 pb-16">
+          {/* ─────────────────────────  NAMEPLATE  ───────────────────────── */}
+
+          <RevealFx delay={0.08} translateY={6}>
+            <div className="grid grid-cols-1 items-stretch border-t border-b border-[var(--paper-rule)] lg:grid-cols-[auto_1fr]">
+              <HomeNameplate />
+              {/* Ledger — 2×2 hairline grid of figures, flush to the nameplate via
+                  a left rule. Bottom-row cells drop their border-b. */}
+              <div className="grid grid-cols-2 border-t border-l border-[var(--paper-rule)] lg:border-t-0">
+                {LEDGER.map((l, i) => (
+                  <Link
+                    key={l.unit}
+                    href={l.href}
+                    className={`group/fig flex flex-col justify-center border-r border-[var(--paper-rule)] px-5 py-6 sm:px-7 transition-colors hover:bg-[var(--paper-quiet)] ${
+                      i < 2 ? "border-b" : ""
+                    }`}
+                  >
+                    <p
+                      className="text-[clamp(1.8rem,3.4vw,3rem)] leading-none text-[var(--paper-text)] tabular-nums transition-colors group-hover/fig:text-[var(--paper-strong)]"
+                      style={MONO}
+                    >
+                      <CountUp value={l.value} />
+                    </p>
+                    <p
+                      className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)] transition-colors group-hover/fig:text-[var(--paper-strong)]"
+                      style={SANS}
+                    >
+                      {l.unit}
+                    </p>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </RevealFx>
+
+          {/* ─────────────────────────  CONTENTS PLATE  ───────────────────────── */}
+
+          <RevealFx delay={0.22} translateY={4}>
+            <h2
+              className="mt-6 mb-4 text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]"
+              style={MONO}
+            >
+              The System for Artificial Intelligence Model Safety (SAMS)
+            </h2>
+          </RevealFx>
+
+          {/* Numbered contents grid — each cell indexed 01–10 like a table of
+              contents. One mask-wipe reveals the whole plate. */}
+          <RevealFx delay={0.26} translateY={6}>
+            <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
+              {CARDS.map((card, i) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  style={
+                    {
+                      "--accent": card.accent,
+                      "--accent-tint": `color-mix(in oklab, ${card.accent} 5%, var(--paper))`,
+                    } as React.CSSProperties
+                  }
+                  className="group/card flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors hover:bg-[var(--accent-tint)]"
+                >
+                  {/* Folio number + arrow */}
+                  <div className="flex items-start justify-between">
+                    <span
+                      className="text-[10px] tabular-nums tracking-[0.2em] text-[var(--paper-faint)] group-hover/card:text-[var(--accent)] transition-colors"
+                      style={MONO}
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <ArrowUpRight className="h-4 w-4 shrink-0 -translate-x-0.5 translate-y-0.5 text-[var(--paper-faint)] opacity-0 transition-all duration-200 group-hover/card:translate-x-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 group-hover/card:text-[var(--accent)]" />
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="mt-3 text-[20px] leading-none text-[var(--paper-text)] transition-colors group-hover/card:[color:var(--accent)]"
+                    style={SERIF}
+                  >
+                    {card.title}
+                  </h3>
+
+                  {/* Body */}
+                  <p
+                    className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]"
+                    style={SANS}
+                  >
+                    {card.body}
+                  </p>
+
+                  {/* Stat footer */}
+                  <span
+                    className="mt-4 inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] text-[var(--paper-faint)] group-hover/card:text-[var(--accent)] transition-colors tabular-nums"
+                    style={MONO}
+                  >
+                    <span
+                      aria-hidden
+                      className="h-[5px] w-[5px] rounded-full bg-[var(--paper-rule)] transition-colors group-hover/card:bg-[var(--accent)]"
+                    />
+                    <CountUp
+                      value={card.count}
+                      decimals={card.decimals}
+                      suffix={card.suffix}
+                    />
+                    &nbsp;{card.unit}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </RevealFx>
+
+          {/* Byline under the Index */}
+          <RevealFx delay={0.7} translateY={3}>
+            <div
+              className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
+              style={MONO}
+            >
+              <span>By NYSgpt</span>
+              <span>© 2026 All Rights Reserved. 2525 LLC</span>
+            </div>
+          </RevealFx>
         </div>
-        {allTags.length > 0 && (
-          <div className="max-w-7xl mx-auto w-full">
-            <TagFilter
-              tags={allTags}
-              selectedTag={selectedTag}
-              tagCounts={tagCounts}
-            />
-          </div>
-        )}
       </div>
-
-      <div className="max-w-7xl mx-auto w-full px-6 lg:px-0">
-        <Suspense fallback={<div>Loading articles...</div>}>
-          <div
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative overflow-hidden border-x border-border ${
-              filteredBlogs.length < 4 ? "border-b" : "border-b-0"
-            }`}
-          >
-            {filteredBlogs.map((blog) => {
-              const date = new Date(blog.data.date);
-              const formattedDate = formatDate(date);
-
-              return (
-                <BlogCard
-                  key={blog.url}
-                  url={blog.url}
-                  title={blog.data.title}
-                  description={blog.data.description}
-                  date={formattedDate}
-                  thumbnail={blog.data.thumbnail}
-                  showRightBorder={filteredBlogs.length < 3}
-                />
-              );
-            })}
-          </div>
-        </Suspense>
-      </div>
-    </div>
+    </AppLayout>
   );
 }

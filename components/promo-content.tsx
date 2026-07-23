@@ -1,6 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 import React from "react";
 import { cn } from "@/lib/utils";
+import { siteConfig } from "@/lib/site";
 
 interface PromoContentProps {
   variant?: "desktop" | "mobile";
@@ -15,25 +15,23 @@ export function PromoContent({
     return (
       <div className={cn("border-t border-border bg-muted/20 p-3", className)}>
         <div className="flex items-center gap-3">
-          <img
-            src="/magicui-logo.png"
-            alt="Magic UI"
-            className="w-8 h-8 rounded object-cover flex-shrink-0"
-          />
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded bg-foreground text-xs font-bold text-background">
+            N
+          </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-medium text-foreground/90 truncate">
-              Try Magic UI Pro
+              The NYSgpt family
             </p>
             <p className="text-xs text-muted-foreground truncate">
-              Beautiful design system
+              One stack, many products
             </p>
           </div>
           <a
-            href="#"
+            href={siteConfig.url}
             className="text-xs text-primary hover:text-primary/80 font-medium"
             onClick={(e) => e.stopPropagation()}
           >
-            Learn more
+            Explore
           </a>
         </div>
       </div>
@@ -45,18 +43,16 @@ export function PromoContent({
       className={cn("border border-border rounded-lg p-4 bg-card", className)}
     >
       <div className="flex flex-col gap-4">
-        <img
-          src="/magicui-pro.png"
-          alt="Magic UI"
-          className="w-full h-40 rounded-md object-cover"
-        />
+        <div className="flex h-40 w-full items-center justify-center rounded-md bg-gradient-to-br from-muted to-muted/40 text-4xl font-semibold tracking-tighter text-foreground/80">
+          NYSgpt
+        </div>
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold tracking-tighter">
-            Try Magic UI Pro
+            The NYSgpt family
           </h3>
           <p className="text-sm text-muted-foreground">
-            Magic UI Pro is a design system for building beautiful and
-            responsive web applications.
+            A growing set of AI products built on one shared stack, design
+            system, and set of components — each documented here.
           </p>
         </div>
       </div>

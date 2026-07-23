@@ -1,0 +1,101 @@
+---
+title: "Games — a semantic color system in a single static file"
+description: "Bank It is a zero-dependency party game whose entire look is a named CSS-variable palette: semantic tokens, a cycling slot palette for boards, and two design knobs that tune chunkiness and depth."
+date: "2026-07-15"
+tags: ["Color Systems", "Components"]
+readTime: "6 min read"
+author: "brendan"
+thumbnail: "/thumbnails/react-components-libraries.jpg"
+tint: "#ececf6"
+---
+
+**Bank It** (becoming Games in the NYSgpt family) is a push-your-luck party
+game — pick a category, see 20 answers, tap the 10 you think are on the hidden
+list. It ships as one self-contained `index.html`: no build step, no
+dependencies, no framework. Which makes it the cleanest possible demonstration
+of a **color system**, because there's nothing but the tokens.
+
+<ProjectMeta domain="games.nysgpt.com" live="https://games.nysgpt.com" />
+
+<TechStack technologies={["Vanilla JS", "CSS custom properties", "No build step"]} />
+
+## Semantic tokens, not raw hex
+
+The palette isn't a bag of colors — it's a set of *roles*. There's a base ramp
+(`--bg`, `--panel`, `--ink`) and, crucially, gameplay-semantic tokens
+(`--hit`, `--miss`, `--reveal`) so the rules of the game are expressed in the
+color layer:
+
+```css
+:root{
+  /* ---- LIGHT (default): sunny game-show palette ---- */
+  --bg:#ff7a3c;              /* the warm tangerine stage */
+  --panel:#fffaf2;
+  --ink:#2a1a3e;
+  --shadow:#a8320a;          /* chunky drop-shadow under everything */
+
+  --hit:#37c871;            /* a correct tile */
+  --miss:#ff4d4d;          /* a wrong tap */
+  --reveal:#ffd23f;        /* unrevealed answers shown at the end */
+
+  --radius:1;              /* chunkiness of corners */
+  --pop:1;                 /* drop-shadow depth */
+}
+```
+
+Those last two — `--radius` and `--pop` — are the fun part: dimensionless design
+*knobs*. Multiply them into every corner radius and shadow, and the whole game's
+"chunkiness" becomes a single tunable value instead of a hundred hard-coded
+pixels.
+
+## One dark theme, redefined at the root
+
+Dark mode isn't a second stylesheet — it's the same tokens, redefined under a
+`data-theme` attribute, so every component that reads `var(--ink)` follows along
+for free:
+
+```css
+:root[data-theme="dark"]{
+  --bg:#241133;
+  --panel:#2e1a44;
+  --ink:#fdf3ff;
+  --shadow:#0c0418;
+}
+:root{color-scheme:light}
+:root[data-theme="dark"]{color-scheme:dark}
+```
+
+The toggle is four lines and persists to `localStorage`, and because it flips one
+attribute on `<html>`, there's no flash and no per-component wiring:
+
+```js
+function toggleTheme(){
+  const dark = root.getAttribute("data-theme") === "dark";
+  if (dark) root.removeAttribute("data-theme");
+  else root.setAttribute("data-theme", "dark");
+  localStorage.setItem("nysgpt-theme-f3", dark ? "light" : "dark");
+}
+```
+
+## A cycling slot palette for boards
+
+Every board gets a color, but authors never pick hex — they pick a *slot*, and
+the board cycles through a fixed, curated accent palette. New content stays
+on-brand automatically:
+
+```js
+// 0 purple · 1 teal · 2 pink · 3 green · 4 yellow · 5 orange · 6 blue
+const SLOT_COLORS =
+  ["#8b5cf6","#1fc7b6","#ff4d8d","#37c871","#ffd23f","#ff8b2d","#4d9fff"];
+
+const slot = (board.colorSlot ?? index) % SLOT_COLORS.length;
+```
+
+## Why it matters
+
+Games is proof that a coherent color system is an *idea*, not a library. Semantic
+tokens, root-level theming, a curated accent set, and a couple of dimensionless
+knobs — the same structure that shows up, much larger, in Liminal's and BankIt's
+color panels — expressed here in a file you can open by double-clicking.
+
+<Author id="brendan" />

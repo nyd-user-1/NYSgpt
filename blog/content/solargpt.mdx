@@ -1,0 +1,111 @@
+---
+title: "SolarGPT — geographic drill-down and reprojected raster overlays"
+description: "The most map-heavy project in the family: state → county → ZIP drill-down on styled Google Maps, choropleths bound to live KPIs, and solar-flux GeoTIFFs decoded and reprojected to WGS84 in the browser."
+date: "2026-07-10"
+tags: ["Charts", "Panels"]
+featured: true
+readTime: "9 min read"
+author: "brendan"
+thumbnail: "/solar-sketch.avif"
+tint: "#f6efdf"
+---
+
+SolarGPT is where the family spent the most time learning to work with
+geographic data. On the surface it's solar-roofing lead generation with a
+geographic drill-down (state → county → city → ZIP) and a quote form. Underneath,
+it's a small GIS: choropleths bound to live KPIs, and actual raster processing in
+the browser. This is the project whose panel and data patterns seeded the others
+(and it spans two subdomains — solar and energy).
+
+<ProjectMeta
+  domain="solar.nysgpt.com · energy.nysgpt.com"
+  live="https://solar.nysgpt.com"
+/>
+
+<TechStack
+  technologies={["Next.js 15", "React 19", "Google Maps (vis.gl)", "geotiff", "proj4", "Neon", "recharts"]}
+/>
+
+## Coloring the map from the data
+
+The base map is stripped down — labels off, roads off, water tinted — so the only
+thing carrying color is the data itself. A GeoJSON layer sits on top, colored per
+county from a KPI lookup, and clicking a county drills down through the router:
+
+```tsx
+// src/components/GEAChoropleth.tsx
+import { APIProvider, Map, useMap } from "@vis.gl/react-google-maps";
+import { GEA_COLORS, getGeaColor } from "@/lib/gea-colors";
+
+const MAP_STYLE = [
+  { featureType: "all", elementType: "labels", stylers: [{ visibility: "off" }] },
+  { featureType: "water", elementType: "geometry", stylers: [{ color: "#dbeafe" }] },
+  { featureType: "landscape", elementType: "geometry", stylers: [{ color: "#f8f8f8" }] },
+  { featureType: "road", elementType: "all", stylers: [{ visibility: "off" }] },
+  { featureType: "poi", elementType: "all", stylers: [{ visibility: "off" }] },
+];
+```
+
+A fixed color ramp (`GEA_COLORS` / `getGeaColor`) and a `darkenHex` helper for the
+borders keep every map drawing from the same set of colors.
+
+## Reprojecting solar-flux rasters in the browser
+
+The most technically involved feature: overlaying Google's solar-flux data,
+which arrives as GeoTIFF rasters in whatever CRS the tile was authored in (often
+UTM). SolarGPT decodes the TIFF, reads its geokeys, and reprojects the bounding
+box to WGS84 with `proj4` — all client-side, with the heavy libraries
+dynamically imported so they never touch the initial bundle:
+
+```tsx
+// src/components/SolarFluxOverlay.tsx
+const [{ fromArrayBuffer }, geokeysToProj4Mod, proj4Mod] = await Promise.all([
+  import("geotiff"),
+  import("geotiff-geokeys-to-proj4"),
+  import("proj4"),
+]);
+
+const tiff = await fromArrayBuffer(fluxBuf);
+const image = await tiff.getImage();
+
+// Reproject the bounding box from the GeoTIFF's native CRS to WGS84
+const geoKeys = image.getGeoKeys();
+const projObj = geokeysToProj4.toProj4(geoKeys);
+const projection = proj4(projObj.proj4, "WGS84");
+const box = image.getBoundingBox();
+const sw = projection.forward({ x: box[0] * projObj.coordinatesConversionParameters.x, y: box[1] * projObj.coordinatesConversionParameters.y });
+
+const rasters = await image.readRasters();
+```
+
+A second 1-bit mask raster (roof / not-roof) is decoded the same way and applied
+per-pixel, so the flux only paints on actual rooftops. This is real GIS work
+happening in a Next.js client component — no server-side geoprocessing tier.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="panel" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">The map and its detail panel</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      <code>AppPanelMap</code> puts the choropleth and a detail drawer side by
+      side. Hovering a county shows a KPI chip; clicking opens that county's
+      profile next to the map.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="perf" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Loading the heavy libraries only when needed</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      <code>geotiff</code>, <code>geokeys-to-proj4</code>, and <code>proj4</code>
+      are only imported when someone opens a flux overlay, so most visitors never
+      download them.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+SolarGPT proves the family can handle genuinely hard data — coordinate systems,
+raster masks, tens of thousands of geographic features — without a specialized
+backend. The lessons (curated color ramps, panel-beside-map, pay-for-what-you-use
+imports) show up everywhere else in NYSgpt.
+
+<Author id="brendan" />

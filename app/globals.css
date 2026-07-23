@@ -150,3 +150,87 @@
     border-bottom-right-radius: 0 !important;
   }
 }
+
+/* Homepage post cards — clear/white by default; on hover the card reveals a
+   muted tint (set inline via --card-tint) complementing the dominant tone of its
+   illustration. In dark mode the light tint is mixed into the dark card so it
+   reads as a subtle wash rather than a bright panel. */
+.blog-card {
+  background-color: var(--card);
+}
+.blog-card:hover {
+  background-color: var(--card-tint, var(--card));
+}
+.dark .blog-card:hover {
+  background-color: color-mix(in oklab, var(--card-tint, transparent) 22%, var(--card));
+}
+
+/* Hero / header ground — faint horizontal rules (48px pitch) on an off-white
+   ground, in place of the dot-matrix. */
+.hero-ruled {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 47px,
+      rgba(0, 0, 0, 0.03) 47px,
+      rgba(0, 0, 0, 0.03) 48px
+    ),
+    var(--background);
+}
+.dark .hero-ruled {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 47px,
+      rgba(255, 255, 255, 0.04) 47px,
+      rgba(255, 255, 255, 0.04) 48px
+    ),
+    var(--background);
+}
+
+/* ── 44b editorial shell tokens, scoped to the landing (.nysgpt-app) so the
+   blog pages keep their own palette. ── */
+.nysgpt-app {
+  --bg: #f9f9f9;
+  --surface: #ffffff;
+  --border: rgba(0, 0, 0, 0.09);
+  --inp-bg: rgba(0, 0, 0, 0.04);
+  --txt: #111118;
+  --muted: rgba(17, 17, 24, 0.48);
+
+  --paper: #ffffff;
+  --paper-text: #16181d;
+  --paper-muted: rgba(22, 24, 29, 0.58);
+  --paper-faint: rgba(22, 24, 29, 0.4);
+  --paper-rule: #16181d;
+  --paper-rule-soft: rgba(22, 24, 29, 0.06);
+  --paper-quiet: rgba(22, 24, 29, 0.035);
+  --paper-strong: #033882;
+}
+.dark .nysgpt-app {
+  --bg: #0f0f13;
+  --surface: #1a1a22;
+  --border: rgba(255, 255, 255, 0.09);
+  --inp-bg: rgba(255, 255, 255, 0.06);
+  --txt: #f0f0f5;
+  --muted: rgba(240, 240, 245, 0.48);
+
+  --paper: #15120d;
+  --paper-text: #f0e9d8;
+  --paper-muted: rgba(240, 233, 216, 0.58);
+  --paper-faint: rgba(240, 233, 216, 0.36);
+  --paper-rule: #f0e9d8;
+  --paper-rule-soft: rgba(240, 233, 216, 0.06);
+  --paper-quiet: rgba(240, 233, 216, 0.035);
+  --paper-strong: #b6d0f4;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

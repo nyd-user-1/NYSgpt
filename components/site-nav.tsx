@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -9,13 +8,9 @@ export function SiteNav() {
         <div className="mr-4 flex">
           <Link
             href="/"
-            className="mr-6 flex items-center space-x-2 font-medium text-lg tracking-tighter h-8 w-8 rounded-md overflow-hidden"
+            className="mr-6 flex items-center font-semibold text-lg tracking-tighter"
           >
-            <img
-              src="/magicui-logo.png"
-              alt="Magic UI"
-              className="w-10 h-10 object-cover"
-            />
+            NYSgpt
           </Link>
         </div>
 

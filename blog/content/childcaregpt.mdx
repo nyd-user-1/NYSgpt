@@ -1,0 +1,112 @@
+---
+title: "ChildcareGPT — turning a 28-page government PDF into a form people can finish"
+description: "A subsidy application nobody can get through becomes a tabbed, self-validating wizard — and then writes the user's answers back into the official OCFS PDF with pdf-lib, so what comes out is the real, fileable document."
+date: "2026-07-03"
+tags: ["PDF", "Components"]
+readTime: "8 min read"
+author: "brendan"
+thumbnail: "/gemini-childcare.png"
+tint: "#f2ece5"
+---
+
+The New York childcare subsidy application (form OCFS-6025) is 28 pages of
+government PDF. ChildcareGPT does two hard things with it: it turns that PDF into
+a guided form a real person can actually complete, and then it fills the
+*official* PDF back with their answers — so the output isn't a summary, it's the
+document they can file.
+
+<ProjectMeta domain="childcare.nysgpt.com" live="https://childcare.nysgpt.com" />
+
+<TechStack
+  technologies={["Next.js", "pdf-lib", "Turf.js", "Google Maps", "Neon", "MDX"]}
+/>
+
+## A wizard that guides instead of validates
+
+The application is broken into tabs — About, Household, Activities, Household
+Income, Signature — and each tab is a set of section cards that carry their own
+status: confirmed, flagged, or warned. The clever part is that flagged sections
+**auto-confirm** once the user resolves their open items, so the form nudges
+rather than scolds:
+
+```tsx
+// src/app/application/page.tsx
+const TABS = ["About", "Household", "Activities", "Household Income", "Signature"];
+
+// Auto-confirm warned sections once their open items are all resolved
+useEffect(() => {
+  if (warnedSections.has("circumstances") && homeless && military && natGuard && otherFunding)
+    confirmSection("circumstances");
+  if (warnedSections.has("activities") && checkActivitiesOk())
+    confirmSection("activities");
+  if (warnedSections.has("members") && !members.slice(0, visibleRows).some((m) => m.name && !m.sex))
+    confirmSection("members");
+}, [/* ...the fields each section depends on */]);
+```
+
+Confirming a section collapses it; flagging keeps it open and highlighted. The
+result is a long form that always shows you exactly what's left — the same
+"state of work made visible" instinct as TerminalGPT's status rings, applied to
+a questionnaire.
+
+## Writing answers back into the real PDF
+
+The payoff step: load the official `OCFS-6025.pdf`, get its AcroForm, and set
+every field from state. Small typed helpers (`tf`, `cb`, `yn`) keep 28 pages of
+field-mapping readable, and every `try/catch` means a renamed field never crashes
+the export:
+
+```tsx
+async function buildPdfBytes(): Promise<Uint8Array> {
+  const baseBytes = await fetch("/OCFS-6025.pdf").then((r) => r.arrayBuffer());
+  const pdfDoc = await PDFDocument.load(baseBytes);
+  const form = pdfDoc.getForm();
+
+  const tf = (name: string, val: string) => {
+    try { form.getTextField(name).setText(val || ""); } catch {}
+  };
+  const cb = (name: string, checked: boolean) => {
+    try { const f = form.getCheckBox(name); checked ? f.check() : f.uncheck(); } catch {}
+  };
+  const yn = (base: string, val?: string) => {
+    cb(`${base}_yes`, val === "Yes");
+    cb(`${base}_no`, val === "No");
+  };
+
+  tf("full_name", `${firstName} ${lastName}`.trim());
+  tf("address_county", county);
+  // ...the rest of the 28 pages
+}
+```
+
+Both the download and the email routes call `buildPdfBytes`, so the form a family
+downloads is byte-identical to the one that gets sent — a single source of truth
+for the output.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="income" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Structured income capture</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Household income is captured as typed keys (work, self-employment, child
+      support, SSA, disability, rental, dividends, pension, and more) rather than
+      a free-text box, so it maps cleanly onto the PDF's line items.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="geo" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Eligibility by geography</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      <code>@turf/boolean-point-in-polygon</code> plus Google Maps let the app
+      reason about where an applicant lives — point-in-polygon against service
+      areas, without a mapping backend.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+Most "AI form fillers" produce a nice summary you still have to transcribe.
+ChildcareGPT closes the loop: a humane intake experience on the front, the
+authoritative PDF on the back, and typed data in between. That's the difference
+between helping someone understand a form and actually helping them file it.
+
+<Author id="brendan" />

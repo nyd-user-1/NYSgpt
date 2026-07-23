@@ -1,0 +1,89 @@
+---
+title: "Portfolio — the case-study pattern this whole site is built on"
+description: "resume.nysgpt.com is where the NYSgpt case study started: an MDX content model where every project is a document with structured frontmatter. This blog is that idea, generalized into its own site."
+date: "2026-06-24"
+tags: ["Components", "CSS"]
+readTime: "5 min read"
+author: "brendan"
+thumbnail: "/thumbnails/react-landing-page-templates.jpg"
+tint: "#eeeef2"
+---
+
+Before there was a case-study blog for the whole family, there was
+`resume.nysgpt.com` — Brendan's portfolio, and the place the case-study *format*
+was invented. It's built on the Once UI **Magic Portfolio** template, and its
+real contribution to the family isn't a component; it's a **content model**.
+
+<ProjectMeta domain="resume.nysgpt.com" live="https://resume.nysgpt.com" />
+
+<TechStack
+  technologies={["Next.js", "MDX", "Once UI", "Sass", "gray-matter"]}
+/>
+
+## Every project is a document
+
+Each project on the portfolio is an MDX file with structured frontmatter — title,
+date, a dense summary, an image set, a live link, and the team. The body is the
+case study itself. Here's the actual frontmatter for the HQ write-up that became
+this site's TerminalGPT post:
+
+```mdx
+---
+title: "HQ: An Agentic OS for Claude Code (v1.2)"
+publishedAt: "2026-06-18"
+summary: "A localhost-only cockpit for Claude Code that both watches it and
+  drives it — a warm live-REPL terminal, a session ledger priced in dollars, a
+  thirteen-corpus search, and a batch planner that forecasts cost before you
+  spend it."
+images:
+  - "/images/projects/project-09/hq5.avif"
+link: "https://hq-tawny.vercel.app"
+team:
+  - name: "Brendan Stanton"
+    role: "Founder"
+---
+```
+
+Content as data has a compounding payoff: the same file drives the project page,
+the card grid, and the OG image, and versioned case studies can link to their own
+predecessors (the HQ v1.2 write-up links back to "HQ v1.1: The Cockpit That Only
+Watched"). This blog is the same instinct, scaled up — every project in the family
+gets a document, and the site is a projection of those documents.
+
+## Why it's the template
+
+The portfolio proved three things the NYSgpt blog inherits directly:
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="mdx" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">MDX as the source of truth</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Prose and components in the same file, with typed frontmatter — the exact
+      model this blog uses via Fumadocs.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="tokens" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">A design system underneath</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Once UI supplies tokens and primitives so the writing stays consistent
+      without hand-styling every page — the same reason this site leans on a
+      shared component kit.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="voice" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">A house voice</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Dense, specific summaries; a "why it matters" close; versioned honesty
+      about what changed. That voice started here.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+Portfolio is the seed. It established that the best way to present this work is
+one document per project, written in a consistent voice, driven by MDX. The blog
+you're reading is that pattern promoted from a personal site to the family's
+system of record.
+
+<Author id="brendan" />

@@ -1,0 +1,137 @@
+---
+title: "Liminal — a watercolor cursor, a categorical palette, and Stripe done twice"
+description: "The practice-management build shows three things well: a pointer-following watercolor effect whose every knob is a live-tunable CSS variable, a categorical color system that keys services to calendar chips, and a Stripe integration with a mock twin for demos."
+date: "2026-06-20"
+tags: ["Color Systems", "CSS", "Ecommerce"]
+featured: true
+readTime: "8 min read"
+author: "brendan"
+thumbnail: "/ehr-sketch.avif"
+tint: "#e8f0ef"
+---
+
+Liminal is an all-in-one practice-management and EHR product — the largest and
+most conventional app in the family, which is exactly why its flourishes stand
+out. Three are worth pulling apart: a **watercolor hover effect** that's pure
+CSS, a **categorical color system**, and a **Stripe** integration built with the
+same live/mock discipline as TariffsGPT.
+
+<ProjectMeta domain="leuk.nysgpt.com" live="https://leuk.nysgpt.com" />
+
+<TechStack
+  technologies={["Next.js 16", "React 19", "Tailwind v4", "Neon", "Stripe", "CSS masks"]}
+/>
+
+## Watercolor, entirely in CSS
+
+Hover an illustration and a soft watercolor bloom spreads from the pointer — no
+canvas, no WebGL, no JS animation loop. It's a single `::after` pseudo-element: a
+radial gradient positioned at the live cursor coordinates (`--mx` / `--my`),
+shaped by a **dual-ellipse mask**, blurred, and set to `mix-blend-mode: multiply`
+so it stains the art like real pigment:
+
+```css
+.watercolor-hover::after {
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--wc-inset, 8%));
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    var(--wc-core, rgba(30, 58, 74, 0.35)),
+    var(--wc-mid, rgba(94, 140, 130, 0.25)) var(--wc-mid-stop, 35%),
+    var(--wc-edge, rgba(200, 140, 80, 0.15)) var(--wc-edge-stop, 55%),
+    transparent var(--wc-end-stop, 70%)
+  );
+  mask-image: var(--wc-mask,
+    radial-gradient(ellipse 64% 66% at 46% 42%, #000 40%, transparent 90%),
+    radial-gradient(ellipse 58% 62% at 58% 62%, #000 36%, transparent 88%));
+  mask-composite: add;
+  filter: blur(var(--wc-blur, 24px));
+  mix-blend-mode: var(--wc-blend, multiply);
+  opacity: 0;
+  transform: scale(var(--wc-rest-scale, 0.6));
+  transition: opacity var(--wc-fade, 0.7s) ease, transform var(--wc-grow, 1.3s) ease;
+}
+.watercolor-hover:hover::after {
+  opacity: var(--wc-opacity, 1);
+  transform: scale(var(--wc-hover-scale, 1.2));
+}
+```
+
+The masterstroke is that **every visual knob is a `--wc-*` custom property with
+its original value as the fallback** — core color, mid stop, blur radius, blend
+mode, rest and hover scale. The effect is frozen at its designed look until a dev
+`WatercolorPlayground` overrides those variables live on `:root`, so the whole
+thing is tunable in the browser without touching the stylesheet. (There's even a
+custom SVG paintbrush cursor, and a `prefers-reduced-motion` branch that drops
+the growth animation.)
+
+## A categorical color system
+
+Elsewhere Liminal is disciplined rather than showy: a fixed categorical palette
+(the "Leuk" set) keys each service to its calendar chip color through a tiny
+`ColorSwatch` primitive — the same slot-palette idea as Games and Solar, in a
+clinical context:
+
+```tsx
+// components/ui/color-swatch.tsx
+export const EVENT_COLORS = [
+  "#3F8290", // teal
+  "#3BA55C", // green
+  "#E0447C", // magenta
+  "#8A8F3C", // olive
+  "#3B6FD4", // blue
+  "#7C86E8", // periwinkle
+  "#E07B3C", // orange
+] as const;
+```
+
+One curated set, referenced everywhere, so a new service can never introduce an
+off-brand color — it can only pick a slot.
+
+## Stripe, plus a mock twin
+
+Liminal takes payments for real, and — like TariffsGPT — the same route runs live
+or mock depending on configuration, with the webhook as the authoritative
+backstop and an audit-logged payment record either way:
+
+```ts
+// app/portal/invoices/[id]/pay/route.ts
+//  - LIVE (STRIPE_SECRET_KEY): create a Checkout Session for the balance and
+//    return { url }; the webhook records the payment (authoritative backstop).
+//  - MOCK (no key): record a card payment for the balance right here and
+//    return { paid: true } — keeps the demo flow inside the portal.
+```
+
+That the payment route also calls `logEvent` (append-only audit) and scopes to
+the caller's own invoices is the EHR context showing through: commerce here has
+to be traceable, not just functional.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="dual" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Two Stripe surfaces</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      A practitioner "collect" flow and a client-portal "pay" flow share the same
+      Stripe plumbing but enforce different roles — payments are scoped to the
+      caller's own records.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="ds" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">A living design system</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Liminal ships a browsable <code>/design-system</code> catalog of its
+      primitives and feature components — the reuse-first discipline that keeps a
+      large app coherent.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+Liminal is the family's proof that a serious, dense application still has room for
+craft: an effect built entirely from CSS variables so it can be tuned live, a
+color system that makes off-brand impossible, and commerce that's auditable by
+default. Big app, same values — put the durable thing where it belongs, and leave
+the knobs exposed.
+
+<Author id="brendan" />

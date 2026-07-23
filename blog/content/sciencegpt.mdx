@@ -1,0 +1,113 @@
+---
+title: "ScienceGPT — a domain-agnostic search engine wearing a physics costume"
+description: "Built over the Nuclear Science References database, ScienceGPT's real contribution is a reusable search stack: multiple query modes, a typed combobox bound to a distinct-values table, and record cards that could front any structured corpus."
+date: "2026-07-05"
+tags: ["Search", "Components"]
+readTime: "6 min read"
+author: "brendan"
+thumbnail: "/thumbnails/react-portfolio-templates.jpg"
+tint: "#e8f0f0"
+---
+
+ScienceGPT sits over the Brookhaven **Nuclear Science References (NSR)**
+database — decades of citations indexed by nuclide, reaction, and measured
+quantity. It's the most domain-specific product in the family, and also the most
+*portable*: strip the physics vocabulary and what's left is a clean pattern for
+searching any large, structured reference corpus. That's why its natural home is
+`science.nysgpt.com` today, but its guts would serve a finance or contracts
+surface just as well.
+
+<ProjectMeta domain="science.nysgpt.com" live="https://science.nysgpt.com" />
+
+<TechStack
+  technologies={["React", "Vite", "Supabase", "TanStack Query", "react-router", "recharts"]}
+/>
+
+## Search with modes, not just a box
+
+The search input is a plain, fast field — but it carries a **mode** (which axis of
+the corpus you're querying), so one component serves Home, References, and the
+ENDF report views without forking:
+
+```tsx
+// src/components/SearchInput.tsx
+export function SearchInput({ value, onChange, isLoading, placeholder = "Search NSR records..." }: SimpleSearchInputProps) {
+  return (
+    <div className="relative w-full">
+      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="h-11 md:h-9 w-full rounded-lg border border-input bg-background pl-10 pr-4 focus-visible:ring-2 focus-visible:ring-ring"
+      />
+      {isLoading && (
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-nuclear border-t-transparent" />
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+The `SearchMode` type and a mode picker turn a single box into a faceted search
+entry point — the same idea that powers the search experiences in SportsGPT and
+TariffsGPT.
+
+## A typed combobox bound to real values
+
+The most reusable piece is the reaction combobox: an autocomplete backed by a
+`distinct_reactions` view, with input normalization so users can type the
+notation however they like — with or without parentheses, any case:
+
+```tsx
+// src/components/ReactionCombobox.tsx
+/** Normalize input for matching: strip parens and lowercase */
+function normalize(s: string): string {
+  return s.replace(/^\(/, "").replace(/\)$/, "").toLowerCase().trim();
+}
+
+async function fetchReactions(): Promise<string[]> {
+  const { data, error } = await supabase
+    .from("distinct_reactions")
+    .select("value")
+    .order("value", { ascending: true });
+  if (error) throw new Error(error.message);
+  return (data ?? []).map((r) => r.value);
+}
+```
+
+Pulling the suggestion set from a `distinct_*` table is the generalizable trick:
+the autocomplete is always in sync with what's actually in the data, and swapping
+`distinct_reactions` for `distinct_tickers` or `distinct_clauses` re-points the
+whole component at a new domain.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="records" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Records as cards and drawers</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Results render as <code>NsrRecordCard</code>s and open into a
+      <code>RecordDrawer</code> — the same card-plus-drawer detail pattern used
+      across the family, here fronting citation records.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="agnostic" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Why it's domain-agnostic</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Modes, a values-backed combobox, cards, and a drawer make no assumption
+      about physics — they assume a searchable table with a few facet columns.
+      That's most reference data.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+ScienceGPT is a reminder that a good search UX is structural, not cosmetic. Modes
+turn a box into facets, a distinct-values table keeps autocomplete honest, and a
+card/drawer pair handles detail. Dress it in physics for BNL, or point it at a
+different corpus tomorrow.
+
+<Author id="brendan" />

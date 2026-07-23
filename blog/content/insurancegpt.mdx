@@ -1,0 +1,105 @@
+---
+title: "InsuranceGPT — commerce inside the conversation"
+description: "The family's only buy-in-chat experience: quote results render as ranked cards in the message stream, and a checkout drawer takes you from answer to purchase without leaving the thread."
+date: "2026-07-08"
+tags: ["Ecommerce", "Panels"]
+readTime: "7 min read"
+author: "brendan"
+thumbnail: "/insurance-sketch.avif"
+tint: "#f5ecee"
+---
+
+InsuranceGPT (internally, QuoteTorch) is the one product in the family where you
+can shop and check out *inside the chat*. You ask for auto coverage, the
+assistant returns ranked quote cards in the message stream, you pick one, and a
+checkout drawer slides in — no separate cart page, no context switch. It's the
+family's proof that a conversational UI can carry a full commerce flow.
+
+<ProjectMeta domain="insurance.nysgpt.com" live="https://insurance.nysgpt.com" />
+
+<TechStack
+  technologies={["React", "Vite", "Stripe.js", "Neon", "TanStack Virtual", "recharts"]}
+/>
+
+## Quotes are components, not text
+
+A quote isn't a paragraph the model wrote — it's a structured record rendered as
+a ranked card, so it can be compared, clicked, and acted on. Rank badge, carrier,
+coverage, vehicle, and a big monthly price:
+
+```tsx
+// src/components/QuoteCard.tsx
+export function QuoteCard({ record, onClick, rank }: Props) {
+  return (
+    <Card className="cursor-pointer transition-all hover:border-torch/30 hover:shadow-lg" onClick={onClick}>
+      <div className="p-4">
+        <div className="flex items-center gap-2 mb-1">
+          {rank && (
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-torch/10 text-[10px] font-bold text-torch">
+              {rank}
+            </span>
+          )}
+          <h3 className="text-sm font-semibold truncate">{record.carrier}</h3>
+          <Badge variant="secondary">{record.coverage}</Badge>
+        </div>
+        <div className="text-xl font-bold text-torch">${record.monthlyRate}</div>
+      </div>
+    </Card>
+  );
+}
+```
+
+The `torch` accent runs through the whole product as a CSS variable, so cards,
+badges, and hovers stay on one system regardless of where they appear in the
+stream.
+
+## A checkout drawer that's honest about being a demo
+
+Picking a quote opens a checkout drawer that walks through card entry →
+processing → confirmation. The commerce here is a **mock UI** — and the code says
+so, plainly, right where the real integration would go:
+
+```tsx
+// src/components/CheckoutDrawer.tsx
+async function handlePay() {
+  if (!cardNumber || !expiry || !cvc || !nameOnCard) return;
+  setSubmitting(true);
+  // Simulate a brief processing delay (real impl calls /api/stripe to get
+  // a PaymentIntent client_secret, then confirms via Stripe.js)
+  await new Promise((r) => setTimeout(r, 1800));
+  setSubmitting(false);
+  setStep("confirmed");
+}
+```
+
+The drawer already carries the real Stripe framing ("Powered by Stripe,"
+"InsuranceGPT never stores card details") and `@stripe/react-stripe-js` is
+wired in — so swapping the simulated delay for a `PaymentIntent` is a
+contained change, not a rebuild. That's the value of modeling the full flow
+first: the seams are already in the right places.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="virtual" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Virtualized results</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Long quote lists render through <code>@tanstack/react-virtual</code>, so a
+      big result set stays smooth inside the conversation.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="panel" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Drawer + panel lineage</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      The quote and checkout drawers are part of the same panel-system lineage as
+      Solar and 44b — a consistent slide-in surface for detail and action.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+Most AI shopping assistants hand you a link and wish you luck. InsuranceGPT keeps
+the whole transaction — compare, select, pay — in the thread, with structured
+components instead of prose. Even as a mock, it maps the exact surface a real
+checkout would occupy, which is the hard part done.
+
+<Author id="brendan" />

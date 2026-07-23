@@ -1,0 +1,130 @@
+---
+title: "TariffsGPT — a command palette, a real Stripe upgrade, and PDFs that pay you back"
+description: "Three production-grade pieces: a command palette that navigates, acts, and falls back to the assistant; a Stripe upgrade with a fail-closed mock path; and a customs-form parser that reads a CBP 7501 PDF and computes the refund you're owed."
+date: "2026-06-27"
+tags: ["Search", "PDF", "Ecommerce"]
+featured: true
+readTime: "9 min read"
+author: "brendan"
+thumbnail: "/gemini-tariffs.png"
+tint: "#f1ebe1"
+---
+
+TariffsGPT helps importers understand duties, rulings, and refunds — and it's the
+most production-hardened product in the family. Three parts are worth studying:
+the **command palette** (the search experience), the **Stripe upgrade** (real
+commerce, done carefully), and the **7501 reader** (a PDF that turns into money
+owed).
+
+<ProjectMeta domain="tariffs.nysgpt.com" live="https://tariffs.nysgpt.com" />
+
+<TechStack
+  technologies={["Next.js", "Stripe", "pdf-lib", "Neon", "d3-geo", "TopoJSON"]}
+/>
+
+## A command palette that always has an answer
+
+The palette is the primary way to move through the app. Short queries show
+navigation and actions, filtered as you type; static matches render *instantly*
+while data results stream in underneath; and at the foot there's always an escape
+hatch — "Ask the assistant: &lt;query&gt;" — so the search never dead-ends:
+
+```tsx
+// src/components/CommandPalette.tsx
+//   • empty / short query  → NAVIGATE (routes) + ACTIONS, filtered as you type
+//   • always, at the foot  → "Ask the assistant: <query>" → /chat?q=<query>
+//   static matches render instantly; data results stream in underneath.
+
+type Result =
+  | { id: string; type: "nav"; label: string; href: string }
+  | { id: string; type: "action"; label: string; run: () => void }
+  | { id: string; type: "ask"; query: string };
+```
+
+Actions live right next to navigation — "Check refund eligibility," "Toggle
+light / dark mode," "New chat" — so the palette is a command surface, not just a
+jump list. The instant-static / streaming-data split is what makes it feel fast
+even when the data isn't back yet.
+
+## Stripe that fails closed
+
+TariffsGPT has a real Pro upgrade. The elegant part is that the *same endpoint*
+runs live or mock depending on whether a Stripe key is present — so the entire
+gated experience is testable locally with zero config — **but the mock path
+refuses to run in production**, so a missing key is a locked door, not a free-Pro
+button:
+
+```ts
+// src/app/api/stripe/checkout/route.ts
+const stripe = getStripe();
+
+if (!stripe) {
+  // Mock is a DEV convenience. It must NEVER run in production — there, a
+  // missing key is a misconfiguration, not a free-Pro button. Fail closed.
+  if (process.env.NODE_ENV === "production") {
+    return Response.json(
+      { error: "Upgrades are temporarily unavailable." },
+      { status: 503 }
+    );
+  }
+  await setPlan(user.id, "paid");
+  return Response.json({ upgraded: true, mock: true });
+}
+
+// LIVE: create a Checkout Session, reuse the saved customer, return { url }.
+```
+
+"Swapping in the real key needs no code change" is the design goal, and the
+`NODE_ENV` guard is the discipline that makes shipping it safe.
+
+## A PDF that computes your refund
+
+The standout document feature: upload a CBP **7501** entry summary and get money
+back. The route extracts the PDF's AcroForm fields, normalizes the entry,
+resolves each Chapter-99 overlay code against a tariff table, and computes the
+recoverable IEEPA pool from the entered value × each refundable line's rate:
+
+```ts
+// src/app/api/parse-7501/route.ts
+import { PDFDocument, PDFTextField } from "pdf-lib";
+import { parse7501Fields, type ParsedLine } from "@/lib/parse-7501";
+
+/**
+ * POST /api/parse-7501  (multipart, field "file": a CBP 7501 PDF)
+ * Extracts AcroForm fields, resolves each Chapter-99 overlay against
+ * tariff_codes (refundable? + rate), and computes the recoverable IEEPA pool.
+ * Only fillable AcroForm 7501s are supported — scanned/flattened PDFs are
+ * rejected with a clear message (no OCR yet).
+ */
+```
+
+Reading the fillable-only limitation *and stating it plainly to the user* is the
+mark of a shipped feature — it knows exactly what it can and can't do, and says
+so instead of failing mysteriously on a scanned form.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="read" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">The annotated 7501 reader</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Alongside the parser, a "read a 7501" walkthrough annotates the form with
+      numbered notes explaining the 9903 overlay codes — the same document, taught
+      instead of just processed.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="maps" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Trade geography</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      <code>d3-geo</code> + <code>topojson-client</code> render country-level trade
+      maps without a tile provider — projections computed straight from TopoJSON.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+TariffsGPT is what the family's patterns look like once they're hardened for
+production: search that always resolves, commerce that fails closed, and a
+document pipeline honest about its limits. It's the same DNA as the other
+projects — modes, panels, PDFs — carried the last mile to "money changes hands."
+
+<Author id="brendan" />

@@ -1,12 +1,34 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/lib/site";
 import { metadataKeywords } from "./metadata";
-import { SiteNav } from "@/components/site-nav";
-import Footer from "@/components/footer";
 import "@/app/globals.css";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-mono",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   themeColor: "black",
@@ -30,7 +52,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${dmSans.variable} ${fraunces.variable} ${mono.variable} antialiased`}
       suppressHydrationWarning
     >
       <body>
@@ -40,9 +62,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SiteNav />
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>

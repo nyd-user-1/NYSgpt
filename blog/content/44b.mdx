@@ -1,0 +1,117 @@
+---
+title: "44b — a side panel that outlives the page, and Slack as a filing bridge"
+description: "An AI-accountability registry modeled on insurance filing systems. Its signature is a portal-based side panel that survives navigation, and a Slack integration where every statutory filing gets its own channel — without a Slack outage ever breaking a filing."
+date: "2026-07-12"
+tags: ["Panels", "Components"]
+featured: true
+readTime: "8 min read"
+author: "brendan"
+thumbnail: "/44b-sketch.avif"
+tint: "#ebedf4"
+---
+
+44b is a public registry, library, and incident record for artificial
+intelligence — an independent reference implementation of New York's Article
+44-B compliance regime (the RAISE Act). Think "SERFF, for AI": safety protocols,
+transparency reports, and incident disclosures move through a submission →
+review → objection → amendment → disposition lifecycle on a public docket. Two
+pieces of its build travel well beyond the domain.
+
+<ProjectMeta domain="44b.nysgpt.com" live="https://44b.nysgpt.com" source="https://github.com/nyd-user-1" />
+
+<TechStack
+  technologies={["Next.js", "Neon", "NextAuth", "Slack API", "recharts", "Framer Motion"]}
+/>
+
+## A mounted side panel
+
+Across 44b, detail views open in a right-hand panel — a filing, a model, a lab —
+that stays mounted while the page behind it changes. The trick is that the panel
+doesn't render *in* the page; it renders into a persistent root node that lives
+in the layout, via `createPortal`:
+
+```tsx
+// src/components/AppPanel.tsx
+export function AppPanel({ open, onClose, title, children, searchable, ... }) {
+  const [root, setRoot] = useState<Element | null>(null);
+  useEffect(() => { setRoot(document.getElementById("app-panel-root")); }, []);
+  if (!root) return null;
+
+  const w = expanded ? "sm:w-[50vw]" : "sm:w-[423px]";
+
+  return createPortal(
+    <div className={`shrink-0 transition-all duration-300 ${open ? `w-full ${w} sm:ml-[18px]` : "w-0"}`}>
+      {open && (
+        <div className={`h-full w-full ${w} rounded-2xl bg-[var(--paper)] flex flex-col shadow-[0_4px_32px_rgba(0,0,0,0.10)] border border-[var(--paper-rule)]`}>
+          {/* header, search, prev/next, expand-to-50vw, body, footer */}
+        </div>
+      )}
+    </div>,
+    root
+  );
+}
+```
+
+Because the target lives above the routed content, the panel animates its width
+open/closed (`w-0` → `423px` → `50vw`) independently of the page, keeps its own
+search state, and offers prev/next navigation through a result set — all without
+remounting. It's the same instinct as TerminalGPT's parallel-route panel,
+reached with a portal instead of a route slot.
+
+## In-app Slack integration
+
+Every statutory filing provisions its own Slack channel, and the registry posts
+lifecycle events into it. The engineering constraint is the interesting part: a
+Slack outage must **never** fail a legally meaningful action. So the lifecycle
+notifier is best-effort and swallows every failure, while the explicit "post to
+this channel" path throws honestly:
+
+```ts
+// src/lib/slack/postMessage.ts
+/** chat.postMessage to the filing's channel (provisions it lazily). Throws on failure. */
+export async function postToFilingChannel(filingId: string, text: string) {
+  const channel = await ensureSlackChannel(filingId);
+  if (!channel) throw new Error("No Slack channel for this filing — bridge not configured.");
+  await chatPostMessage(channel, text);
+}
+
+/** Best-effort lifecycle notification — swallows every failure. */
+export async function notifyFilingEvent(filingId: string, text: string) {
+  try {
+    await postToFilingChannel(filingId, text);
+  } catch (e) {
+    console.warn("[slack] lifecycle notify failed:", e instanceof Error ? e.message : e);
+  }
+}
+```
+
+The channel is provisioned lazily on first use (`ensureSlackChannel`), so filings
+only create Slack surface when they actually need it.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="corpus" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">A 28.6k-document library</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      The Library section indexes a ~28,600-document research corpus — papers,
+      policy, standards, and statute — with the same editorial table components
+      (sortable headers, sticky control bars, scroll tables) used across the app.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="docket" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">A public docket with audit trail</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Filings carry a full lifecycle and audit trail, rendered through the same
+      panel system — the detail panel is where you review, object, and dispose.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+44b is where the NYSgpt panel pattern got its most rigorous test: a panel that
+has to survive navigation, hold search and pagination, expand to half the
+viewport, and coexist with a serious compliance workflow. Pair that with an
+integration discipline — never let a notification break a filing — and you get a
+product that feels like infrastructure.
+
+<Author id="brendan" />

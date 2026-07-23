@@ -1,0 +1,108 @@
+---
+title: "SportsGPT — a hotkey-fast stat search and a gallery that moves like silk"
+description: "Two standout experiences: a faceted, keyboard-driven leaderboard search that filters and sorts thousands of players in place, and a spring-animated, swipeable image gallery built on Framer Motion."
+date: "2026-06-30"
+tags: ["Search", "Animations"]
+readTime: "7 min read"
+author: "brendan"
+thumbnail: "/sports-sketch.avif"
+tint: "#ebf1ea"
+---
+
+SportsGPT is a stats-and-standings product, and it's home to two of the family's
+best interactions: the **search** — a faceted, hotkey-driven leaderboard you can
+fly through — and an **animation** — a gallery modal that swipes and springs like
+a native app. They're a nice pairing because one is about speed of *thought* and
+the other about speed of *feel*.
+
+<ProjectMeta domain="sports.nysgpt.com" live="https://sports.nysgpt.com" />
+
+<TechStack
+  technologies={["Next.js", "Framer Motion", "react-swipeable", "Neon", "NextAuth", "recharts"]}
+/>
+
+## Search as a control surface
+
+The leaderboard isn't a search box bolted onto a table — it's a small control
+surface. Query, division, season, a versus mode, and per-stat sort columns all
+live as state and compose into one filtered, sorted view, with a keyboard hotkey
+to focus (and clear) the field:
+
+```tsx
+// src/app/leaderboard/Shell.tsx
+const [query, setQuery] = useState("");
+const [activeDiv, setActiveDiv] = useState<DivisionKey>("All");
+const [selectedSeason, setSelectedSeason] = useState<number | "all">("all");
+const [versusMode, setVersusMode] = useState(false);
+const [passCol, setPassCol] = useState<PassCol>("pass_yards");
+const [passDir, setPassDir] = useState<SortDir>("desc");
+
+const searchRef = useRef<HTMLInputElement>(null);
+useSearchHotkey(searchRef, () => setQuery("")); // focus on hit, clear on Escape
+```
+
+Everything downstream is a `useMemo` over that state, so typing, faceting, and
+re-sorting are instant and never hit the network — the dataset is in memory and
+the UI is just a projection of these few values. It's the pattern ScienceGPT and
+TariffsGPT share, tuned here for the speed a stats nerd expects.
+
+## A gallery modal that springs and swipes
+
+The gallery modal is the animation people remember. It composes Framer Motion's
+`MotionConfig` (one shared spring for the whole modal), a per-image
+enter/exit, and a spring-animated filmstrip — all wrapped in `react-swipeable`
+so touch gestures drive the same transitions as the arrow keys:
+
+```tsx
+// src/app/gallery/components/SharedModal.tsx
+const handlers = useSwipeable({ /* onSwipedLeft/Right → change image */ });
+
+<MotionConfig transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}>
+  <motion.div
+    key={currentIdx}
+    initial={{ opacity: 0, scale: 0.96 }}
+    animate={{ opacity: 1, scale: 1 }}
+  >
+    {/* current image */}
+  </motion.div>
+
+  {/* the thumbnail strip slides to keep the active frame centered */}
+  <motion.div
+    initial={{ left: `calc(50% - ${offsetPx}px)` }}
+    animate={{ left: `calc(50% - ${offsetPx}px)` }}
+    transition={{ type: "spring", stiffness: 320, damping: 32 }}
+  />
+</MotionConfig>
+```
+
+The trick that makes it feel expensive: the filmstrip's `left` is animated as a
+spring toward a computed offset, so the active thumbnail always glides to center
+no matter how fast you swipe. One `MotionConfig` keeps every transition on the
+same physical model, so nothing feels out of step.
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="keys" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Keyboard-first</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      <code>react-use-keypress</code> and a search hotkey make the whole app
+      driveable without a mouse — focus search, page the gallery, escape to
+      clear.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="versus" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Versus mode</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      A boolean flips the leaderboard into a head-to-head comparison — same data,
+      same filters, a different projection. Modes over rebuilds, again.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+SportsGPT shows the two halves of a great UI. Search is architecture — hold the
+right state, project it with `useMemo`, and speed is free. Animation is
+restraint — one shared spring, a couple of well-chosen transitions, and gestures
+mapped to the same motions as keys. Do both and the app feels alive.
+
+<Author id="brendan" />

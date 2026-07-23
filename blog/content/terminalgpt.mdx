@@ -1,0 +1,214 @@
+---
+title: "TerminalGPT — a localhost dashboard where the disk is the database"
+description: "How HQ turns the files Claude Code already writes to disk into a live, searchable control room — with a panel that survives navigation, a daemon that outlives the server, and status rings that show the state of every session."
+date: "2026-07-20"
+tags: ["Panels", "Components", "Animations", "Parallel Routes"]
+featured: true
+readTime: "9 min read"
+author: "brendan"
+thumbnail: "/thumbnails/nextjs-portfolio-templates.jpg"
+tint: "#edf0f1"
+---
+
+TerminalGPT (internally, **HQ**) is a localhost-only observability and control
+layer over Claude Code. It ships as three runtime dependencies — `next`,
+`react`, `react-dom` — and no database, no auth, no telemetry, and no deploy.
+The entire architecture rests on one inversion:
+
+> **Claude Code is the writer; HQ is the reader. The disk is the database.**
+
+Every feature is `node:fs` over paths the CLI already maintains — transcripts at
+`~/.claude/projects/**/*.jsonl`, memory notes, usage, git history — turned into a
+live dashboard. That constraint is what makes the rest of the design interesting:
+when there's no server state to lean on, the *client* architecture has to carry
+the product.
+
+<ProjectMeta
+  label="Install"
+  domain="npx @nysgpt/hq"
+  live="https://www.npmjs.com/package/@nysgpt/hq"
+  liveLabel="View on npm"
+/>
+
+<TechStack
+  technologies={["Next.js 15", "React 19", "node:fs", "Unix sockets", "ProseMirror", "Tailwind v4"]}
+/>
+
+## The panel that sticks with you
+
+The signature interaction: a right-hand panel you can open onto any surface —
+metrics, activity, a console — that **does not remount when you navigate**. It's
+built as a Next.js parallel route. The root layout declares a `panel` slot
+alongside `children`, so the two render trees update independently:
+
+```tsx
+// app/layout.tsx
+export default function RootLayout({
+  children,
+  panel,
+}: Readonly<{
+  children: React.ReactNode;
+  panel: React.ReactNode;
+}>) {
+  return (
+    <html lang="en" className="h-full antialiased">
+      <body className="h-full overflow-hidden bg-zinc-950 text-zinc-100">
+        <Shell panel={panel}>{children}</Shell>
+      </body>
+    </html>
+  );
+}
+```
+
+A thin wrapper reads the URL to decide whether the panel is open, and — this is
+the part that took the most iteration — closing the panel pushes to `/` while
+**keeping the terminal pins**, so the live terminal in the layout never
+remounts and Terminal 2 never closes:
+
+```tsx
+// app/ui/panel-wrapper.tsx
+export default function PanelWrapper({ panel }: { panel: React.ReactNode }) {
+  const pathname = usePathname() ?? "/";
+  const router = useRouter();
+  const open = PANEL_ROUTES.some(
+    (r) => pathname === r || pathname.startsWith(r + "/")
+  );
+
+  return (
+    <AppPanel
+      open={open}
+      onClose={() => router.push(withPins("/", window.location.search), { scroll: false })}
+    >
+      {panel}
+    </AppPanel>
+  );
+}
+```
+
+The payoff: a running terminal session stays warm and scrolled while you flip
+through ~40 panels beside it.
+
+## Keeping warm sessions alive across restarts
+
+HQ keeps warm `claude` processes around so a new turn doesn't have to cold-start.
+The problem we hit: when those child processes are owned by the Next server, every
+restart of the dev server kills them mid-turn. You lose in-flight work, pending
+permission prompts, and the warm context — and you can even end up with two
+`claude` processes resuming the same transcript. The fix was to move ownership out
+of Next into a standalone daemon that talks HTTP over a Unix domain socket (no TCP
+port to allocate or collide, and scoped to the user by filesystem permissions):
+
+```js
+// lib/repl-daemon.mjs — the persistent owner of warm `claude` processes.
+// State that must outlive Next can't live inside Next. This standalone process
+// owns the children; lib/repl.ts is a thin client that RPCs to it over a unix
+// domain socket. Restart Next all you want — the agents survive.
+import http from "node:http";
+import { spawn } from "node:child_process";
+import { classify, resolvePermissionMode } from "./permission-classify.mjs";
+
+const HQ_DIR = path.join(
+  process.env.CLAUDE_CONFIG_DIR || path.join(os.homedir(), ".claude"),
+  "hq"
+);
+const SOCK = process.env.HQ_DAEMON_SOCK || path.join(HQ_DIR, "repl-daemon.sock");
+```
+
+Deliberately plain `.mjs` with zero `@/` imports so it runs on bare `node` and
+ships next to the shim it spawns. The lesson generalizes: **anything that must
+survive a restart cannot live inside the thing that restarts.**
+
+## Color-coded work states
+
+Each session's boundary box shows its turn-state — thinking, done, idle — with a
+traveling pulse that spins around the border. It's driven by a registered CSS
+custom property so the angle can actually animate:
+
+```css
+/* app/globals.css */
+@property --hq-spin {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes hq-border-spin {
+  to { --hq-spin: 360deg; }
+}
+```
+
+There's a war story baked into this: Turbopack's dev CSS pipeline silently drops
+the descendant chip selector that production Lightning CSS keeps, so the
+component injects its state rules at runtime via a native `<style>` tag — only
+the shared `@property` and `@keyframes` live in the stylesheet. A reminder that
+"works in dev" and "works in build" are different claims.
+
+## Click-to-copy chips
+
+Inline `code` in a reply becomes grab-able — a commit hash, a command, a class
+name — flashing green on copy without swapping the text, so the sentence never
+reflows:
+
+```tsx
+// app/ui/copy-code.tsx
+export default function CopyCode({ children, copyText }: {
+  children: string; copyText?: string;
+}) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <code
+      onClick={() => {
+        navigator.clipboard.writeText(copyText ?? children);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1200);
+      }}
+      className={`cursor-pointer rounded px-1 py-0.5 transition-colors ${
+        copied ? "bg-emerald-500/15 text-emerald-300"
+                : "bg-zinc-800 text-violet-300 hover:bg-zinc-700"
+      }`}
+    >
+      {children}
+    </code>
+  );
+}
+```
+
+`copyText` lets the copied value differ from the shown one — display a short
+session id, copy the full UUID.
+
+## What else is in the box
+
+<Accordion type="multiple" className="w-full not-prose flex flex-col gap-2">
+  <AccordionItem value="wall" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">The wall</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      A team board where the whole card is the affordance — click it to fill the
+      wall with that team; Tasks and Mailbox drill in. Getting the click targets
+      and drill-down `stopPropagation` right across nested cards was the hardest
+      layout in the app.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="search" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">One search box</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      A single input over transcripts, memory, notes, and scripts — indexed live
+      off disk, no external search service.
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="usage" className="flex flex-col gap-2">
+    <AccordionTrigger className="cursor-pointer">Usage &amp; cost</AccordionTrigger>
+    <AccordionContent className="flex flex-col gap-4">
+      Tokens and dollars per session and per turn, plus caching savings — all
+      tallied from the same JSONL the terminal mirror reads.
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+
+## Why it matters
+
+TerminalGPT is the clearest expression of a pattern the whole NYSgpt family
+shares: **lean dependencies, a strong client architecture, and state kept where
+it belongs.** The parallel-route panel, the out-of-process daemon, and the
+disk-as-database stance are all the same idea applied at different layers — put
+the durable thing outside the disposable one.
+
+<Author id="brendan" />
