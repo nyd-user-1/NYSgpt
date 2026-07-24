@@ -53,6 +53,8 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
   return (
     <Link
       href={card.href}
+      target="_blank"
+      rel="noreferrer noopener"
       style={
         {
           "--accent": card.accent,

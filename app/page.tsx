@@ -28,16 +28,16 @@ export default function HomePage() {
   // The section entry points → a numbered contents plate (the broadsheet's table
   // of contents). Hairline grid, each cell indexed in mono.
   const CARDS: HomeCardData[] = [
-    { href: "/blog/44b", title: "Artificial Intelligence", accent: "#033882", body: "A public registry, library, and incident record for AI — New York's RAISE Act, independently implemented.", value: 532, unit: "models" },
-    { href: "/blog/childcaregpt", title: "Childcare", accent: "#2f6d6a", body: "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.", value: 16_800, unit: "providers" },
-    { href: "/blog/liminal", title: "EHR", accent: "#3f8290", body: "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.", value: 16_400_000, unit: "published rates" },
-    { href: "/blog/solargpt", title: "Energy", accent: "#d97706", body: "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.", value: 4_300_000_000, unit: "MWh generated" },
-    { href: "/blog/insurancegpt", title: "Insurance", accent: "#16a34a", body: "Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.", value: 17_306, unit: "vehicles rated" },
-    { href: "/blog/policygpt", title: "Policy", accent: "#3d63dd", body: "The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.", value: 292_754, unit: "votes counted" },
-    { href: "/blog/sciencegpt", title: "Science", accent: "#00BFFF", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", value: 46_728, unit: "publications" },
-    { href: "/blog/solargpt", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", value: 56_200_000, unit: "rooftops scanned" },
-    { href: "/blog/sportsgpt", title: "Sports", accent: "#033882", body: "New York high-school football as a live stat ledger — players, box scores, and every yard logged.", value: 685_342, unit: "yards logged" },
-    { href: "/blog/tariffsgpt", title: "Tariffs", accent: "#c9a961", body: "Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.", value: 220_178, unit: "federal rulings" },
+    { href: "https://44b.nysgpt.com", title: "Artificial Intelligence", accent: "#033882", body: "A public registry, library, and incident record for AI — New York's RAISE Act, independently implemented.", value: 532, unit: "models" },
+    { href: "https://childcare.nysgpt.com", title: "Childcare", accent: "#2f6d6a", body: "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.", value: 16_800, unit: "providers" },
+    { href: "https://leuk.nysgpt.com", title: "EHR", accent: "#3f8290", body: "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.", value: 16_400_000, unit: "published rates" },
+    { href: "https://solar.nysgpt.com", title: "Energy", accent: "#d97706", body: "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.", value: 4_300_000_000, unit: "MWh generated" },
+    { href: "https://insurance.nysgpt.com", title: "Insurance", accent: "#16a34a", body: "Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.", value: 17_306, unit: "vehicles rated" },
+    { href: "https://policy.nysgpt.com", title: "Policy", accent: "#3d63dd", body: "The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.", value: 292_754, unit: "votes counted" },
+    { href: "https://nsr.nysgpt.com", title: "Science", accent: "#00BFFF", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", value: 46_728, unit: "publications" },
+    { href: "https://solar.nysgpt.com", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", value: 56_200_000, unit: "rooftops scanned" },
+    { href: "https://sports.nysgpt.com", title: "Sports", accent: "#033882", body: "New York high-school football as a live stat ledger — players, box scores, and every yard logged.", value: 685_342, unit: "yards logged" },
+    { href: "https://tariffs.nysgpt.com", title: "Tariffs", accent: "#c9a961", body: "Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.", value: 220_178, unit: "federal rulings" },
   ];
 
   return (
