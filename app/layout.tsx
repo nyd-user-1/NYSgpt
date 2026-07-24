@@ -3,6 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { DiscussionProvider } from "@/lib/discussion-store";
+import { DiscussionShell } from "@/components/DiscussionShell";
+import { DiscussionPanel } from "@/components/DiscussionPanel";
 import { siteConfig } from "@/lib/site";
 import { metadataKeywords } from "./metadata";
 import "@/app/globals.css";
@@ -31,7 +34,12 @@ const mono = JetBrains_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: "black",
+  // Tints mobile browser chrome (iOS Safari address/status bar, Android Chrome
+  // status bar). Must track --paper, or light mode gets a black bar up top.
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#15120d" },
+  ],
 };
 
 export const metadata: Metadata = {
@@ -42,6 +50,17 @@ export const metadata: Metadata = {
   },
   description: siteConfig.description,
   keywords: metadataKeywords,
+  icons: {
+    // SVG first so modern browsers take the theme-adaptive mark; .ico is the
+    // legacy fallback. Sources live in public/ — see public/favicon.svg.
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -62,7 +81,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <DiscussionProvider>
+            <DiscussionShell>{children}</DiscussionShell>
+            <DiscussionPanel />
+          </DiscussionProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="NYSgpt">
+  <style>
+    :root {
+      /* Theme-adaptive ink — the outline and the plus dividers. */
+      --icon-ink: #1a1917;
+
+      /* ===== PER-DOMAIN OVERRIDE POINT =====
+         The filled top-left quadrant. Left as var(--icon-ink) it inverts with
+         the theme alongside the strokes. A child site swaps THIS ONE VALUE for
+         its own accent (e.g. --icon-accent: #c8542b) and the outline stays
+         theme-adaptive. */
+      --icon-accent: var(--icon-ink);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --icon-ink: #faf8f4;
+      }
+    }
+
+    /* The `fill`/`stroke` presentation attributes below are light-mode
+       fallbacks for renderers without CSS custom properties; these rules win
+       wherever custom properties are supported. */
+    .ledger-fill { fill: var(--icon-accent, #1a1917); }
+    .ledger-rule { stroke: var(--icon-ink, #1a1917); }
+  </style>
+
+  <!-- Top-left quadrant, filled. Butts exactly to the divider centerlines. -->
+  <rect class="ledger-fill" fill="#1a1917" x="12" y="12" width="38" height="38"/>
+
+  <!-- Box outline + plus divider. Box 12→88 (12% padding), stroke 6 (8% of box). -->
+  <g class="ledger-rule" stroke="#1a1917" stroke-width="6" fill="none">
+    <rect x="12" y="12" width="76" height="76"/>
+    <path d="M50 12V88M12 50H88"/>
+  </g>
+</svg>

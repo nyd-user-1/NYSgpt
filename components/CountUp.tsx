@@ -6,7 +6,10 @@ import { useEffect, useRef, useState } from "react";
  * Animates a number 0 → value with easeOutCubic, formatted with thousands
  * separators. `trigger="view"` (default) fires once when it scrolls into view;
  * `trigger="hover"` fires each time the nearest <a> ancestor is hovered and
- * resets on leave. Respects prefers-reduced-motion.
+ * resets on leave. Passing `active` puts the parent in control instead — it
+ * runs whenever the flag turns true and resets when it turns false, which is
+ * how the cards drive one figure from both hover and tap.
+ * Respects prefers-reduced-motion.
  */
 export function CountUp({
   value,
@@ -14,6 +17,7 @@ export function CountUp({
   decimals = 0,
   suffix = "",
   trigger = "view",
+  active,
   className,
 }: {
   value: number;
@@ -21,6 +25,7 @@ export function CountUp({
   decimals?: number;
   suffix?: string;
   trigger?: "view" | "hover";
+  active?: boolean;
   className?: string;
 }) {
   const [display, setDisplay] = useState(0);
@@ -62,6 +67,16 @@ export function CountUp({
       raf.current = requestAnimationFrame(tick);
     };
 
+    // Controlled: the parent owns the trigger.
+    if (active !== undefined) {
+      if (active) run();
+      else {
+        cancel();
+        setDisplay(0);
+      }
+      return cancel;
+    }
+
     if (trigger === "hover") {
       const card = el.closest("a");
       if (!card) return;
@@ -93,7 +108,7 @@ export function CountUp({
       io.disconnect();
       cancel();
     };
-  }, [value, duration, trigger]);
+  }, [value, duration, trigger, active]);
 
   return (
     <span ref={ref} className={className}>

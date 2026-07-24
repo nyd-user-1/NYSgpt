@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
-import { PanelLeftOpen, PanelLeftClose, Sun, Moon, MessagesSquare } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, Sun, Moon } from "lucide-react";
+import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
@@ -121,17 +122,8 @@ export function AppLayout({
 
           <div className="flex-1" />
 
-          {/* Commons button — panel wired in step 3. */}
-          <button
-            aria-label="Open the Commons"
-            className={`hidden sm:flex h-10 w-10 items-center justify-center rounded-full shadow-md transition-colors mr-2 ${
-              paperMode
-                ? "border border-[var(--paper-rule)] bg-[var(--paper)] text-[var(--paper-faint)] hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)]"
-                : "border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:bg-[var(--inp-bg)] hover:text-[var(--txt)]"
-            }`}
-          >
-            <MessagesSquare className="h-4 w-4" style={{ color: "#033882" }} />
-          </button>
+          {/* Commons button — toggles the follow-you panel. */}
+          <DiscussionHeaderButton paperMode={paperMode} />
 
           <button
             onClick={toggleTheme}

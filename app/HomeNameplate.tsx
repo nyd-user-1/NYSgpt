@@ -1,5 +1,7 @@
 "use client";
 
+import { useDiscussion } from "@/lib/discussion-store";
+
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
 
 /**
@@ -8,10 +10,14 @@ const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
  * home page itself stays a server component.
  */
 export function HomeNameplate() {
+  const { openPanel } = useDiscussion();
+  // Stacked (< lg) the nameplate needs its own right rule; from lg the ledger's
+  // border-l supplies that edge, so drop it there to avoid a doubled 2px line.
   return (
     <button
+      onClick={openPanel}
       aria-label="Open the Commons"
-      className="group/name self-stretch flex items-center justify-center border-l border-[var(--paper-rule)] px-6 py-8 transition-colors hover:bg-[var(--paper-quiet)] cursor-pointer sm:px-10 lg:w-[360px]"
+      className="group/name self-stretch flex items-center justify-center border-l border-r border-[var(--paper-rule)] px-6 py-8 transition-colors hover:bg-[var(--paper-quiet)] active:bg-[var(--paper-quiet)] [-webkit-tap-highlight-color:transparent] cursor-pointer sm:px-10 lg:w-[360px] lg:border-r-0"
     >
       <span
         className="text-[var(--paper-text)] leading-[0.82] transition-colors group-hover/name:text-[var(--paper-strong)]"
