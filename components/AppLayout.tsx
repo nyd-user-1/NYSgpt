@@ -23,28 +23,30 @@ export function AppLayout({
   const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    const isDark = saved ? saved === "dark" : false;
-    setDark(isDark);
-    document.documentElement.classList.toggle("dark", isDark);
+    setDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   function toggleTheme(e: React.MouseEvent) {
     const x = e.clientX;
     const y = e.clientY;
-    const next = !dark;
+    const nextIsDark = !dark;
 
     const apply = () => {
-      setDark(next);
-      document.documentElement.classList.toggle("dark", next);
-      localStorage.setItem("theme", next ? "dark" : "light");
+      // Match 44b exactly: flip the class synchronously (so the view-transition
+      // snapshot captures the new theme and the reveal emanates from the click)
+      // and persist to the localStorage key next-themes reads on load. No
+      // setTheme — next-themes' disableTransitionOnChange fires during the
+      // transition and hijacks it into the default center cross-fade.
+      setDark(nextIsDark);
+      document.documentElement.classList.toggle("dark", nextIsDark);
+      localStorage.setItem("theme", nextIsDark ? "dark" : "light");
     };
 
-    const startVT = (document as unknown as {
+    const doc = document as Document & {
       startViewTransition?: (cb: () => void) => { ready: Promise<void> };
-    }).startViewTransition;
+    };
 
-    if (!startVT) {
+    if (!doc.startViewTransition) {
       apply();
       return;
     }
@@ -53,24 +55,26 @@ export function AppLayout({
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y)
     );
-    const transition = startVT(() => {
+    const transition = doc.startViewTransition(() => {
       flushSync(apply);
     });
-    transition.ready.then(() => {
-      document.documentElement.animate(
-        {
-          clipPath: [
-            `circle(0px at ${x}px ${y}px)`,
-            `circle(${endRadius}px at ${x}px ${y}px)`,
-          ],
-        },
-        {
-          duration: 600,
-          easing: "cubic-bezier(.76,.32,.29,.99)",
-          pseudoElement: "::view-transition-new(root)",
-        }
-      );
-    });
+    transition.ready
+      .then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`,
+            ],
+          },
+          {
+            duration: 600,
+            easing: "cubic-bezier(.76,.32,.29,.99)",
+            pseudoElement: "::view-transition-new(root)",
+          }
+        );
+      })
+      .catch(() => {});
   }
 
   return (

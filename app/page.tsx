@@ -42,16 +42,16 @@ export default function HomePage() {
   // The section entry points → a numbered contents plate (the broadsheet's table
   // of contents). Hairline grid, each cell indexed in mono.
   const CARDS: Card[] = [
-    { href: "/search", title: "Artificial Intelligence", accent: "#033882", body: "A public registry, library, and incident record for AI — New York's RAISE Act, independently implemented.", count: 532, unit: "models" },
-    { href: "/benchmarks", title: "Childcare", accent: "#2f6d6a", body: "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.", count: 16800, unit: "providers" },
-    { href: "/library", title: "EHR", accent: "#3f8290", body: "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.", count: 16.4, decimals: 1, suffix: "M", unit: "published rates" },
-    { href: "/incidents", title: "Energy", accent: "#d97706", body: "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.", count: 4.3, decimals: 1, suffix: "B", unit: "MWh generated" },
-    { href: "/labs", title: "Insurance", accent: "#16a34a", body: "Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.", count: 17306, unit: "vehicles rated" },
-    { href: "/dashboard", title: "Policy", accent: "#3d63dd", body: "The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.", count: 292754, unit: "votes counted" },
-    { href: "/research", title: "Science", accent: "#00BFFF", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", count: 46728, unit: "publications" },
-    { href: "/registry", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", count: 56.2, decimals: 1, suffix: "M", unit: "rooftops scanned" },
-    { href: "/models", title: "Sports", accent: "#033882", body: "New York high-school football as a live stat ledger — players, box scores, and every yard logged.", count: 685342, unit: "yards logged" },
-    { href: "/forum", title: "Tariffs", accent: "#c9a961", body: "Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.", count: 220178, unit: "federal rulings" },
+    { href: "/blog/44b", title: "Artificial Intelligence", accent: "#033882", body: "A public registry, library, and incident record for AI — New York's RAISE Act, independently implemented.", count: 532, unit: "models" },
+    { href: "/blog/childcaregpt", title: "Childcare", accent: "#2f6d6a", body: "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.", count: 16800, unit: "providers" },
+    { href: "/blog/liminal", title: "EHR", accent: "#3f8290", body: "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.", count: 16.4, decimals: 1, suffix: "M", unit: "published rates" },
+    { href: "/blog/solargpt", title: "Energy", accent: "#d97706", body: "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.", count: 4.3, decimals: 1, suffix: "B", unit: "MWh generated" },
+    { href: "/blog/insurancegpt", title: "Insurance", accent: "#16a34a", body: "Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.", count: 17306, unit: "vehicles rated" },
+    { href: "/blog/policygpt", title: "Policy", accent: "#3d63dd", body: "The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.", count: 292754, unit: "votes counted" },
+    { href: "/blog/sciencegpt", title: "Science", accent: "#00BFFF", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", count: 46728, unit: "publications" },
+    { href: "/blog/solargpt", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", count: 56.2, decimals: 1, suffix: "M", unit: "rooftops scanned" },
+    { href: "/blog/sportsgpt", title: "Sports", accent: "#033882", body: "New York high-school football as a live stat ledger — players, box scores, and every yard logged.", count: 685342, unit: "yards logged" },
+    { href: "/blog/tariffsgpt", title: "Tariffs", accent: "#c9a961", body: "Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.", count: 220178, unit: "federal rulings" },
   ];
 
   return (
@@ -110,7 +110,26 @@ export default function HomePage() {
               contents. One mask-wipe reveals the whole plate. */}
           <RevealFx delay={0.26} translateY={6}>
             <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
-              {CARDS.map((card, i) => (
+              {CARDS.map((card, i) => {
+                const bigValue =
+                  card.count.toLocaleString("en-US", {
+                    minimumFractionDigits: card.decimals ?? 0,
+                    maximumFractionDigits: card.decimals ?? 0,
+                  }) + (card.suffix ?? "");
+                const len = bigValue.length;
+                const bigSize =
+                  len <= 3
+                    ? "5rem"
+                    : len <= 4
+                    ? "4.2rem"
+                    : len <= 5
+                    ? "3.6rem"
+                    : len <= 6
+                    ? "3rem"
+                    : len <= 7
+                    ? "2.7rem"
+                    : "2.3rem";
+                return (
                 <Link
                   key={card.href}
                   href={card.href}
@@ -120,8 +139,25 @@ export default function HomePage() {
                       "--accent-tint": `color-mix(in oklab, ${card.accent} 5%, var(--paper))`,
                     } as React.CSSProperties
                   }
-                  className="group/card flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors hover:bg-[var(--accent-tint)]"
+                  className="group/card relative flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors hover:bg-[var(--accent-tint)]"
                 >
+                  {/* Big value, revealed on hover */}
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute inset-0 flex items-center justify-center px-3 text-center leading-none tabular-nums opacity-0 transition-opacity duration-200 group-hover/card:opacity-100"
+                    style={{ ...MONO, color: "var(--accent)", fontSize: bigSize }}
+                  >
+                    <CountUp
+                      value={card.count}
+                      decimals={card.decimals}
+                      suffix={card.suffix}
+                      trigger="hover"
+                      duration={900}
+                    />
+                  </span>
+
+                  {/* Card content (fades out on hover) */}
+                  <div className="flex flex-1 flex-col transition-opacity duration-200 group-hover/card:opacity-0">
                   {/* Folio number + arrow */}
                   <div className="flex items-start justify-between">
                     <span
@@ -165,8 +201,10 @@ export default function HomePage() {
                     />
                     &nbsp;{card.unit}
                   </span>
+                  </div>
                 </Link>
-              ))}
+                );
+              })}
             </div>
           </RevealFx>
 
