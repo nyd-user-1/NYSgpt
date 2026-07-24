@@ -27,8 +27,11 @@ export function AppLayout({
   }, []);
 
   function toggleTheme(e: React.MouseEvent) {
-    const x = e.clientX;
-    const y = e.clientY;
+    // Anchor the reveal to the button's center (robust vs. edge clicks / keyboard
+    // activation where clientX/Y can be 0).
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = rect.left + rect.width / 2;
+    const y = rect.top + rect.height / 2;
     const nextIsDark = !dark;
 
     const apply = () => {
