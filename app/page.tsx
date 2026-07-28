@@ -28,7 +28,7 @@ export default function HomePage() {
   // The section entry points → a numbered contents plate (the broadsheet's table
   // of contents). Hairline grid, each cell indexed in mono.
   const CARDS: HomeCardData[] = [
-    { href: "https://44b.nysgpt.com", title: "Artificial Intelligence", accent: "#033882", body: "Select patents, papers, and policies concerning AI, the research behind them, and related peer review records.", value: 1_300_000, unit: "AI patents" },
+    { href: "https://44b.nysgpt.com", title: "Artificial Intelligence", accent: "#033882", body: "Select patents, papers, and policies concerning AI, the research behind them, and related peer review records.", value: 2_200_000, unit: "patents & papers" },
     { href: "https://childcare.nysgpt.com", title: "Childcare", accent: "#2f6d6a", body: "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.", value: 16_800, unit: "providers" },
     { href: "https://leuk.nysgpt.com", title: "EHR", accent: "#3f8290", body: "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.", value: 16_400_000, unit: "rates" },
     { href: "https://solar.nysgpt.com", title: "Energy", accent: "#d97706", body: "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.", value: 4_300_000_000, unit: "MWh generated" },
