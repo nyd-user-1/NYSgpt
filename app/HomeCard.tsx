@@ -145,10 +145,10 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
           }`}
           style={MONO}
         >
-          <span
-            aria-hidden
-            className="h-[5px] w-[5px] shrink-0 rounded-full bg-[var(--paper-rule)]"
-          />
+          <span aria-hidden className="relative flex h-[5px] w-[5px] shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+            <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
+          </span>
           <CountUp
             value={figure.count}
             decimals={figure.decimals}
