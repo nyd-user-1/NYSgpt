@@ -2,7 +2,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { RevealFx } from "@/components/RevealFx";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { HomeMasthead } from "./HomeMasthead";
-import { HomeCard } from "./HomeCard";
+import { HomeContents } from "./HomeContents";
 import { LEDGER, CARDS } from "@/lib/home-data";
 
 export const metadata = {
@@ -27,20 +27,10 @@ export default function HomePage() {
             <HomeMasthead ledger={LEDGER} />
           </RevealFx>
 
-          {/* SAMS */}
-          <RevealFx delay={0.22} translateY={4}>
-            <h2 className="mt-6 mb-4 text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>
-              The System for Artificial Intelligence Model Safety (SAMS)
-            </h2>
-          </RevealFx>
-
-          {/* Contents plate — each cell indexed 01–10 like a table of contents. */}
-          <RevealFx delay={0.26} translateY={6}>
-            <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
-              {CARDS.map((card, i) => (
-                <HomeCard key={card.href + card.title} card={card} index={i} />
-              ))}
-            </div>
+          {/* Contents plate: heading + Refresh + the 5×2 grid, one client island
+              so Refresh can swap the ten products for the ten newest papers. */}
+          <RevealFx delay={0.22} translateY={5}>
+            <HomeContents initial={CARDS} />
           </RevealFx>
 
           {/* Byline */}

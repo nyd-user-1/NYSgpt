@@ -27,7 +27,7 @@ const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
  * middle-clickable. On touch, where hover can never fire, the first tap reveals
  * the figure and the corner arrow is what navigates.
  */
-export function HomeCard({ card, index }: { card: HomeCardData; index: number }) {
+export function HomeCard({ card, index, panel = true }: { card: HomeCardData; index: number; panel?: boolean }) {
   const [active, setActive] = useState(false);
   const [hoverCapable, setHoverCapable] = useState(true);
   const arrowRef = useRef<HTMLSpanElement>(null);
@@ -112,7 +112,8 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
             <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
           </span>
         </div>
-        <h3 className="mt-3 text-[20px] leading-none transition-colors" style={{ ...SERIF, color: active ? "var(--accent)" : "var(--paper-text)" }}>
+        {/* line-clamp guards the paper titles (Refresh); product titles never reach it. */}
+        <h3 className="mt-3 line-clamp-4 text-[20px] leading-[1.1] transition-colors" style={{ ...SERIF, color: active ? "var(--accent)" : "var(--paper-text)" }}>
           {card.title}
         </h3>
         <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>{card.body}</p>
@@ -131,7 +132,9 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
             opposite corners so neither is a near-miss for the other.
             `arrowRef` still guards this one so the card's tap-to-reveal handler
             (touch devices) lets a real tap through. */}
-        <span
+        {/* `panel` is off for the Refresh paper cards: openProduct(index) would
+            open the wrong product's view for a paper sitting in that slot. */}
+        {panel && <span
           ref={arrowRef}
           className={`-m-2 flex shrink-0 items-center transition-opacity duration-200 ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         >
@@ -148,7 +151,7 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
           >
             <PanelRight className="h-4 w-4 text-[var(--accent)]" />
           </button>
-        </span>
+        </span>}
       </div>
     </Link>
   );
