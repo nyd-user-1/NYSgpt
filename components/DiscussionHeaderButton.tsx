@@ -1,18 +1,17 @@
 'use client'
 
 import { MessagesSquare } from 'lucide-react'
-import { useDiscussion } from '@/lib/discussion-store'
+import { useSwitchboard } from '@/components/SwitchboardPanel'
 
 /**
- * Header trigger for the Commons drawer — sits next to the search icon in the
- * AppLayout header. Toggles the same persistent panel the floating launcher does.
+ * Header trigger for the switchboard drawer — sits next to the theme toggle in
+ * the AppLayout header. Toggles the same persistent panel the nameplate does.
  *
  * `bare` drops the circular border/background chrome (just the icon), for the
  * relocated placement under the PageNav rule.
  */
 export function DiscussionHeaderButton({ paperMode, bare }: { paperMode?: boolean; bare?: boolean }) {
-  // `seen` is read by the unseen-activity dot below (currently disabled).
-  const { toggle, open } = useDiscussion()
+  const { toggle, open } = useSwitchboard()
 
   const chrome = bare
     ? `mr-2 ${paperMode
@@ -25,7 +24,7 @@ export function DiscussionHeaderButton({ paperMode, bare }: { paperMode?: boolea
   return (
     <button
       onClick={toggle}
-      aria-label="Open the Commons"
+      aria-label="Open the switchboard"
       aria-pressed={open}
       className={`relative hidden sm:flex items-center justify-center transition-colors ${chrome}`}
     >

@@ -235,6 +235,28 @@
   scrollbar-width: none;
 }
 
+/* Link "wipe" underline (ported from 44b) — no line at rest; on hover the
+   underline fills in left→right. currentColor, so it matches the text it sits
+   under. Put on a <span> around the text, with `group` on the parent so the
+   whole row triggers it. The switchboard panel's digest links carry it
+   explicitly — the panel portals to <body>, outside any prose scope. */
+.link-wipe {
+  display: inline-block;
+  padding-bottom: 3px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0 1.5px;
+  transition: background-size 0.4s ease;
+}
+.group:hover .link-wipe,
+.link-wipe:hover {
+  background-size: 100% 1.5px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .link-wipe { transition: none; }
+}
+
 /* Theme-toggle view transition — disable the browser's default cross-fade so
    the expanding-circle reveal (AppLayout.toggleTheme) emanates from the click
    point instead of fading from center. New theme layers above the old. */

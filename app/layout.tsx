@@ -3,9 +3,9 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { DiscussionProvider } from "@/lib/discussion-store";
-import { DiscussionShell } from "@/components/DiscussionShell";
-import { DiscussionPanel } from "@/components/DiscussionPanel";
+import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
+import { getDigest } from "@/lib/digest";
+import { CARDS } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
 import { metadataKeywords } from "./metadata";
 import "@/app/globals.css";
@@ -63,11 +63,18 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+// The switchboard's Discord drill-down reads live figures from the corpus
+// database. ISR keeps every page statically servable while re-reading the
+// digest at most every five minutes — fresh enough for a nightly-harvest feed,
+// and the site never blocks on (or 500s from) the database.
+export const revalidate = 300;
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const digest = await getDigest();
   return (
     <html
       lang="en"
@@ -81,10 +88,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <DiscussionProvider>
-            <DiscussionShell>{children}</DiscussionShell>
-            <DiscussionPanel />
-          </DiscussionProvider>
+          {/* The provider mounts the panel itself (portaled to <body>), so the
+              shell wrapper and the drawer stay in one system. */}
+          <SwitchboardProvider cards={CARDS} digest={digest}>
+            <SwitchboardShell>{children}</SwitchboardShell>
+          </SwitchboardProvider>
         </ThemeProvider>
       </body>
     </html>

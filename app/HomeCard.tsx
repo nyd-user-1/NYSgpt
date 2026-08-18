@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, PanelRight } from "lucide-react";
 import { CountUp } from "@/components/CountUp";
 import { compact } from "@/lib/compact";
+import { useSwitchboard } from "@/components/SwitchboardPanel";
+import type { HomeCardData } from "@/lib/home-data";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
 const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const;
@@ -16,17 +18,6 @@ const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as cons
  * to the viewport, never to the length of the number.
  */
 const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
-
-export type HomeCardData = {
-  href: string;
-  title: string;
-  body: string;
-  /** The project's primary accent — title color + light bg tint when active. */
-  accent: string;
-  /** Raw count from the project's database; compact() handles the display. */
-  value: number;
-  unit: string;
-};
 
 /**
  * A contents-plate cell. Hovering (or tapping, on touch) swaps the blurb for
@@ -41,6 +32,7 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
   const [hoverCapable, setHoverCapable] = useState(true);
   const arrowRef = useRef<HTMLSpanElement>(null);
   const figure = compact(card.value);
+  const { openProduct } = useSwitchboard();
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover)");
@@ -53,8 +45,7 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
   return (
     <Link
       href={card.href}
-      target="_blank"
-      rel="noreferrer noopener"
+      {...(card.sameTab ? {} : { target: "_blank", rel: "noreferrer noopener" })}
       style={
         {
           "--accent": card.accent,
@@ -82,91 +73,81 @@ export function HomeCard({ card, index }: { card: HomeCardData; index: number })
         }`}
         style={{ color: "var(--accent)" }}
       >
-        <span
-          className="leading-none tabular-nums"
-          style={{ ...MONO, fontSize: FIGURE_SIZE }}
-        >
-          <CountUp
-            value={figure.count}
-            decimals={figure.decimals}
-            suffix={figure.suffix}
-            active={active}
-            duration={900}
-          />
+        <span className="leading-none tabular-nums" style={{ ...MONO, fontSize: FIGURE_SIZE }}>
+          <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} active={active} duration={900} />
         </span>
-        <span
-          className="text-[10px] uppercase tracking-[0.2em]"
-          style={SANS}
-        >
-          {card.unit}
-        </span>
+        <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>{card.unit}</span>
       </span>
 
-      {/* Card content (fades out as the figure comes up) */}
-      <div
-        className={`flex flex-1 flex-col transition-opacity duration-200 ${
-          active ? "opacity-0" : "opacity-100"
-        }`}
+      {/* Top-right on hover: go to the site. It shares this corner with the live
+          dot, which fades out when the card activates.
+          ⚠ FADED OUT IS NOT GONE. `opacity-0` is purely visual — the element
+          keeps its box and keeps taking pointer events, and `animate-ping`
+          scales the dot's ring 2×, so an invisible emerald ring sat directly
+          over this arrow's centre and swallowed every hover. The grey disc was
+          never missing; it was never reached. The content block below carries
+          `pointer-events-none` while active for exactly this reason. Measured
+          with elementFromPoint 2026-08-14 — do not "fix" it by restyling here. */}
+      <span
+        aria-hidden
+        /* `transition-colors` as well as opacity — with opacity alone the grey
+           hover disc snapped in rather than fading, which read as missing. */
+        className={`absolute right-3 top-3 flex items-center justify-center rounded-full p-2 transition-[opacity,background-color] duration-200 hover:bg-[var(--paper-rule-soft)] ${active ? "opacity-100" : "opacity-0"}`}
       >
-        <span
-          className={`text-[10px] tabular-nums tracking-[0.2em] transition-colors ${
-            active ? "text-[var(--accent)]" : "text-[var(--paper-faint)]"
-          }`}
-          style={MONO}
-        >
-          {String(index + 1).padStart(2, "0")}
-        </span>
+        <ArrowUpRight className="h-4 w-4 text-[var(--accent)]" />
+      </span>
 
-        <h3
-          className="mt-3 text-[20px] leading-none transition-colors"
-          style={{ ...SERIF, color: active ? "var(--accent)" : "var(--paper-text)" }}
-        >
-          {card.title}
-        </h3>
-
-        <p
-          className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]"
-          style={SANS}
-        >
-          {card.body}
-        </p>
-      </div>
-
-      {/* Bottom row. A flex sibling rather than an overlay, so the arrow
-          reserves its own width instead of colliding with a long label. */}
-      <div className="mt-4 flex items-end justify-between gap-3">
-        {/* Stat footer — same figure, stated in the small print. Fades with
-            the blurb; the arrow beside it does not. */}
-        <span
-          className={`inline-flex min-w-0 items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] tabular-nums transition-opacity duration-200 ${
-            active
-              ? "opacity-0"
-              : "opacity-100 text-[var(--paper-faint)]"
-          }`}
-          style={MONO}
-        >
-          <span aria-hidden className="relative flex h-[5px] w-[5px] shrink-0">
+      <div className={`flex flex-1 flex-col transition-opacity duration-200 ${active ? "pointer-events-none opacity-0" : "opacity-100"}`}>
+        <div className="flex items-center justify-between">
+          <span
+            className={`text-[10px] tabular-nums tracking-[0.2em] transition-colors ${active ? "text-[var(--accent)]" : "text-[var(--paper-faint)]"}`}
+            style={MONO}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          {/* Live dot — top-right, opposite the index number. Decoration only,
+              so it never takes a pointer: it shares this corner with the ↗. */}
+          <span aria-hidden className="pointer-events-none relative flex h-[5px] w-[5px] shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
             <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
           </span>
-          <CountUp
-            value={figure.count}
-            decimals={figure.decimals}
-            suffix={figure.suffix}
-          />
+        </div>
+        <h3 className="mt-3 text-[20px] leading-none transition-colors" style={{ ...SERIF, color: active ? "var(--accent)" : "var(--paper-text)" }}>
+          {card.title}
+        </h3>
+        <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>{card.body}</p>
+      </div>
+
+      <div className="mt-4 flex items-end justify-between gap-3">
+        <span
+          className={`inline-flex min-w-0 items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] tabular-nums transition-opacity duration-200 ${active ? "opacity-0" : "opacity-100 text-[var(--paper-faint)]"}`}
+          style={MONO}
+        >
+          <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} />
           &nbsp;{card.unit}
         </span>
-
-        {/* Navigate affordance — hidden at rest, only appears with the
-            figure. On touch it is the only thing that navigates. */}
+        {/* Bottom-right: open the panel. The ↗ that used to live here moved to
+            the card's top-right (above) — the two affordances now sit at
+            opposite corners so neither is a near-miss for the other.
+            `arrowRef` still guards this one so the card's tap-to-reveal handler
+            (touch devices) lets a real tap through. */}
         <span
           ref={arrowRef}
-          className={`-m-2 flex shrink-0 items-center justify-center rounded-full p-2 transition-opacity duration-200 hover:bg-[var(--paper-rule-soft)] ${
-            active ? "opacity-100" : "opacity-0"
-          }`}
-          aria-hidden
+          className={`-m-2 flex shrink-0 items-center transition-opacity duration-200 ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         >
-          <ArrowUpRight className="h-4 w-4 text-[var(--accent)]" />
+          <button
+            type="button"
+            aria-label={`Open the ${card.title} panel`}
+            onClick={(e) => {
+              // The cell is a <Link>; without this the panel opens AND we navigate.
+              e.preventDefault();
+              e.stopPropagation();
+              openProduct(index);
+            }}
+            className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-[var(--paper-rule-soft)]"
+          >
+            <PanelRight className="h-4 w-4 text-[var(--accent)]" />
+          </button>
         </span>
       </div>
     </Link>
