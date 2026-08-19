@@ -23,7 +23,7 @@ import type { HomeCardData } from '@/lib/home-data'
  * Resting: index, title, and a "Published January 10, 2026" footer — no body
  * under the title, so a paper cell never outgrows the 210px product cell and
  * the plate holds ~425px. Hover/tap: the description (authors — category.
- * abstract…) fades in where the products count their figure up. Category
+ * abstract…) wipes in (RevealFx) where the products count their figure up. Category
  * codes render as proper names ("Machine Learning", not "cs.LG"); duplicate
  * names across codes were ruled acceptable here.
  *
