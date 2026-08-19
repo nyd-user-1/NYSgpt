@@ -31,7 +31,7 @@ import type { HomeCardData } from '@/lib/home-data'
  * index 3 is not the fourth product, so the panel affordance is dropped.
  * `paper` switches the cell to the paper shape: fixed 210px (the plate caps at
  * ~425px), no resting blurb, a "Published …" footer, and the description
- * scrambling in on hover where a product counts its figure.
+ * fading in on hover where a product counts its figure.
  */
 
 const BEAT_MS = 420

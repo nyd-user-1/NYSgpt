@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, PanelRight } from "lucide-react";
 import { CountUp } from "@/components/CountUp";
-import { Scramble } from "@/components/Scramble";
 import { compact } from "@/lib/compact";
 import { useSwitchboard } from "@/components/SwitchboardPanel";
 import type { HomeCardData } from "@/lib/home-data";
@@ -31,8 +30,9 @@ const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
  * `paper` (the Refresh cards) inverts the resting/hover split: at rest the cell
  * is index + title + a "Published …" footer — no blurb, and a FIXED 210px
  * height so ten papers can never outgrow the ~425px plate. On hover the
- * description scrambles in (Scramble, the non-numeric counterpart to CountUp)
- * where a product would count its figure.
+ * description fades in where a product would count its figure — a plain fade,
+ * deliberately: Scramble was tried here 2026-08-18 and ruled "too, too much"
+ * for a paragraph in a cell this small. Letter effects are for stat values.
  */
 export function HomeCard({ card, index, panel = true, paper = false }: { card: HomeCardData; index: number; panel?: boolean; paper?: boolean }) {
   const [active, setActive] = useState(false);
@@ -73,7 +73,7 @@ export function HomeCard({ card, index, panel = true, paper = false }: { card: H
       }`}
     >
       {/* The reveal — in place of the resting content. Products count their
-          headline figure up; papers scramble their description in (they have
+          headline figure up; papers fade their description in (they have
           no figure, and their description was evicted from the resting card
           so the title could hold the 210px cell). */}
       {paper ? (
@@ -84,7 +84,7 @@ export function HomeCard({ card, index, panel = true, paper = false }: { card: H
           }`}
           style={{ ...SANS, color: "var(--accent)" }}
         >
-          <Scramble text={card.body} active={active} duration={900} className="text-[12px] leading-[1.55]" />
+          <span className="text-[12px] leading-[1.55]">{card.body}</span>
         </span>
       ) : (
         <span
