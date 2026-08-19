@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, PanelRight } from "lucide-react";
 import { CountUp } from "@/components/CountUp";
-import { RevealFx } from "@/components/RevealFx";
 import { compact } from "@/lib/compact";
 import { useSwitchboard } from "@/components/SwitchboardPanel";
 import type { HomeCardData } from "@/lib/home-data";
@@ -31,10 +30,10 @@ const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
  * `paper` (the Refresh cards) inverts the resting/hover split: at rest the cell
  * is index + title + a "Published …" footer — no blurb, and a FIXED 210px
  * height so ten papers can never outgrow the ~425px plate. On hover the
- * description wipes in (RevealFx, the masthead's own entrance) where a product
- * would count its figure. Scramble was tried here first and ruled "too, too
- * much" — letter-cycling effects are for stat values, not paragraphs; the
- * block-level mask wipe is the one reveal that survives at this size.
+ * description fades in where a product would count its figure — a plain 200ms
+ * fade, and that is a RULING, not an omission: Scramble was tried (letter
+ * churn, "too, too much") and then RevealFx's mask wipe was tried and cut the
+ * same night. No entrance effect on this paragraph.
  */
 export function HomeCard({ card, index, panel = true, paper = false }: { card: HomeCardData; index: number; panel?: boolean; paper?: boolean }) {
   const [active, setActive] = useState(false);
@@ -75,24 +74,19 @@ export function HomeCard({ card, index, panel = true, paper = false }: { card: H
       }`}
     >
       {/* The reveal — in place of the resting content. Products count their
-          headline figure up; papers wipe their description in (they have
+          headline figure up; papers fade their description in (they have
           no figure, and their description was evicted from the resting card
-          so the title could hold the 210px cell). RevealFx in controlled mode:
-          the wipe re-runs on every hover and resets instantly on leave, hidden
-          under this wrapper's opacity fade. A div, not a span — RevealFx
-          renders a div, and a div inside a span is invalid nesting. */}
+          so the title could hold the 210px cell). */}
       {paper ? (
-        <div
+        <span
           aria-hidden
           className={`pointer-events-none absolute inset-0 flex items-center px-5 py-10 transition-opacity duration-200 ${
             active ? "opacity-100" : "opacity-0"
           }`}
           style={{ ...SANS, color: "var(--accent)" }}
         >
-          <RevealFx active={active} className="text-[12px] leading-[1.55]">
-            {card.body}
-          </RevealFx>
-        </div>
+          <span className="text-[12px] leading-[1.55]">{card.body}</span>
+        </span>
       ) : (
         <span
           aria-hidden
