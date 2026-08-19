@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useRef, useState } from 'react'
-import { RotateCw } from 'lucide-react'
+import { ArrowLeft, ArrowRight, RotateCw } from 'lucide-react'
 import { HomeCard } from './HomeCard'
 import type { HomeCardData } from '@/lib/home-data'
 
@@ -13,6 +13,14 @@ import type { HomeCardData } from '@/lib/home-data'
  * papers most recently harvested into the 44b Library; refresh again and it
  * walks back ten more (page 1, 2, …), so repeated clicks keep turning up new
  * work rather than re-dealing the same ten. Data: /api/recent-papers.
+ *
+ * ── The pager (papers mode only)
+ * Once the plate shows papers, a Prev · Next pair sits opposite the heading —
+ * the 44b breadcrumb pager, inline. Next deals the next ten (the refresh
+ * icon's exact move); Prev walks back toward the newest ten and, from the
+ * first page, returns the plate to the ten products. Everything runs through
+ * one deal(page) — page -1 IS the products view, so the back-to-products path
+ * gets the same skeleton beat as a fetch and the plate never snaps.
  *
  * ── The skeleton beat, ported from 44b's /chat "AI Headlines"
  * 44b redeals its starters instantly, then holds a ~420 ms skeleton so the
@@ -50,11 +58,21 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
   // Next page of papers to ask for. Lives in a ref: it's bookkeeping, not view.
   const nextPage = useRef(0)
 
-  const refresh = useCallback(async () => {
+  /** Deal the plate to `page` of papers; page -1 is the ten products. */
+  const deal = useCallback(async (page: number) => {
     if (dealing) return
     setDealing(true)
     const beat = new Promise<void>(r => setTimeout(r, BEAT_MS))
-    const page = nextPage.current
+    if (page < 0) {
+      // Back to the products — local data, but it gets the same beat so the
+      // return reads as a deal, not a snap.
+      await beat
+      setCards(initial)
+      setPapers(false)
+      nextPage.current = 0
+      setDealing(false)
+      return
+    }
     const load = fetch(`/api/recent-papers?page=${page}`)
       .then(r => (r.ok ? r.json() : null))
       .then((d: { cards?: HomeCardData[] } | null) => d?.cards ?? [])
@@ -69,24 +87,60 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
       nextPage.current = 0
     }
     setDealing(false)
-  }, [dealing])
+  }, [dealing, initial])
+
+  const refresh = useCallback(() => deal(nextPage.current), [deal])
+  // The page on display is nextPage - 1, so back = nextPage - 2; below zero
+  // deal() reads it as the products view.
+  const prev = useCallback(() => deal(Math.max(nextPage.current - 2, -1)), [deal])
 
   return (
     <>
-      <div className="mt-6 mb-4 flex items-center gap-1.5">
-        <h2 className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>
-          {papers ? 'Recent papers' : 'Refresh'}
-        </h2>
-        {/* Turn the plate: the ten most recent papers, then the ten before those. */}
-        <button
-          type="button"
-          aria-label={papers ? 'Ten more recent papers' : 'Show the ten most recent papers'}
-          onClick={refresh}
-          disabled={dealing}
-          className="rounded p-1 text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] disabled:cursor-default"
-        >
-          <RotateCw className={`h-3.5 w-3.5 ${dealing ? 'animate-spin' : ''}`} />
-        </button>
+      <div className="mt-6 mb-4 flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <h2 className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>
+            {papers ? 'Recent papers' : 'Refresh'}
+          </h2>
+          {/* Turn the plate: the ten most recent papers, then the ten before those. */}
+          <button
+            type="button"
+            aria-label={papers ? 'Ten more recent papers' : 'Show the ten most recent papers'}
+            onClick={refresh}
+            disabled={dealing}
+            className="rounded p-1 text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] disabled:cursor-default"
+          >
+            <RotateCw className={`h-3.5 w-3.5 ${dealing ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
+
+        {/* Papers mode only: the 44b breadcrumb pager, inline and opposite the
+            heading. Prev walks toward the newest ten and, from the first page,
+            hands the plate back to the products; Next deals the next ten. */}
+        {papers && (
+          <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em]" style={MONO}>
+            <button
+              type="button"
+              aria-label="Newer papers, or back to the products"
+              onClick={prev}
+              disabled={dealing}
+              className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Prev
+            </button>
+            <span aria-hidden style={{ color: 'color-mix(in srgb, var(--paper-text) 18%, transparent)' }}>·</span>
+            <button
+              type="button"
+              aria-label="The next ten papers"
+              onClick={refresh}
+              disabled={dealing}
+              className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default"
+            >
+              Next
+              <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Contents plate — each cell indexed 01–10 like a table of contents. */}
