@@ -14,6 +14,11 @@ export type HomeCardData = {
   value: number;
   unit: string;
   /**
+   * Paper cards (Refresh) only: the bottom-left mono line — "Published
+   * January 10, 2026". Products leave it unset and print value + unit there.
+   */
+  footer?: string;
+  /**
    * Open in THIS tab rather than a new one. Set for 44B — the flagship the
    * mothership hands the reader to — so following it reads as moving deeper
    * into the system rather than leaving it. The nine other sub-brand

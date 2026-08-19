@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, PanelRight } from "lucide-react";
 import { CountUp } from "@/components/CountUp";
+import { Scramble } from "@/components/Scramble";
 import { compact } from "@/lib/compact";
 import { useSwitchboard } from "@/components/SwitchboardPanel";
 import type { HomeCardData } from "@/lib/home-data";
@@ -26,8 +27,14 @@ const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
  * The card stays a real <a> so it keeps link semantics — crawlable, focusable,
  * middle-clickable. On touch, where hover can never fire, the first tap reveals
  * the figure and the corner arrow is what navigates.
+ *
+ * `paper` (the Refresh cards) inverts the resting/hover split: at rest the cell
+ * is index + title + a "Published …" footer — no blurb, and a FIXED 210px
+ * height so ten papers can never outgrow the ~425px plate. On hover the
+ * description scrambles in (Scramble, the non-numeric counterpart to CountUp)
+ * where a product would count its figure.
  */
-export function HomeCard({ card, index, panel = true }: { card: HomeCardData; index: number; panel?: boolean }) {
+export function HomeCard({ card, index, panel = true, paper = false }: { card: HomeCardData; index: number; panel?: boolean; paper?: boolean }) {
   const [active, setActive] = useState(false);
   const [hoverCapable, setHoverCapable] = useState(true);
   const arrowRef = useRef<HTMLSpanElement>(null);
@@ -61,23 +68,38 @@ export function HomeCard({ card, index, panel = true }: { card: HomeCardData; in
         e.preventDefault();
         setActive((v) => !v);
       }}
-      className={`group/card relative flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors [-webkit-tap-highlight-color:transparent] ${
+      className={`group/card relative flex ${paper ? "h-[210px] overflow-hidden" : "min-h-[210px]"} flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors [-webkit-tap-highlight-color:transparent] ${
         active ? "bg-[var(--accent-tint)]" : ""
       }`}
     >
-      {/* The figure — centered, revealed in place of the blurb. */}
-      <span
-        aria-hidden
-        className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 px-3 text-center transition-opacity duration-200 ${
-          active ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ color: "var(--accent)" }}
-      >
-        <span className="leading-none tabular-nums" style={{ ...MONO, fontSize: FIGURE_SIZE }}>
-          <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} active={active} duration={900} />
+      {/* The reveal — in place of the resting content. Products count their
+          headline figure up; papers scramble their description in (they have
+          no figure, and their description was evicted from the resting card
+          so the title could hold the 210px cell). */}
+      {paper ? (
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute inset-0 flex items-center px-5 py-10 transition-opacity duration-200 ${
+            active ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ ...SANS, color: "var(--accent)" }}
+        >
+          <Scramble text={card.body} active={active} duration={900} className="text-[12px] leading-[1.55]" />
         </span>
-        <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>{card.unit}</span>
-      </span>
+      ) : (
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 px-3 text-center transition-opacity duration-200 ${
+            active ? "opacity-100" : "opacity-0"
+          }`}
+          style={{ color: "var(--accent)" }}
+        >
+          <span className="leading-none tabular-nums" style={{ ...MONO, fontSize: FIGURE_SIZE }}>
+            <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} active={active} duration={900} />
+          </span>
+          <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>{card.unit}</span>
+        </span>
+      )}
 
       {/* Top-right on hover: go to the site. It shares this corner with the live
           dot, which fades out when the card activates.
@@ -116,7 +138,9 @@ export function HomeCard({ card, index, panel = true }: { card: HomeCardData; in
         <h3 className="mt-3 line-clamp-4 text-[20px] leading-[1.1] transition-colors" style={{ ...SERIF, color: active ? "var(--accent)" : "var(--paper-text)" }}>
           {card.title}
         </h3>
-        <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>{card.body}</p>
+        {/* Papers carry no resting blurb — their description lives in the hover
+            reveal above, which is what keeps every paper cell at 210px. */}
+        {!paper && <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>{card.body}</p>}
       </div>
 
       <div className="mt-4 flex items-end justify-between gap-3">
@@ -124,8 +148,15 @@ export function HomeCard({ card, index, panel = true }: { card: HomeCardData; in
           className={`inline-flex min-w-0 items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] tabular-nums transition-opacity duration-200 ${active ? "opacity-0" : "opacity-100 text-[var(--paper-faint)]"}`}
           style={MONO}
         >
-          <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} />
-          &nbsp;{card.unit}
+          {paper ? (
+            /* "Published January 10, 2026" — the paper's own date, not a stat. */
+            card.footer
+          ) : (
+            <>
+              <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} />
+              &nbsp;{card.unit}
+            </>
+          )}
         </span>
         {/* Bottom-right: open the panel. The ↗ that used to live here moved to
             the card's top-right (above) — the two affordances now sit at

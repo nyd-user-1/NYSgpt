@@ -1,5 +1,5 @@
 import { sql } from '@/lib/db'
-import { categoryLabel } from '@/lib/arxiv-categories'
+import { categoryName } from '@/lib/arxiv-categories'
 import type { HomeCardData } from '@/lib/home-data'
 
 /**
@@ -16,14 +16,16 @@ import type { HomeCardData } from '@/lib/home-data'
  * created_at is when the nightly harvest wrote the row (~350 papers/night);
  * published_date is arXiv's date, which the harvest catches a day or two late
  * and which the 07-28 bulk load would otherwise dominate. `page` walks back
- * ten at a time on the same ordering.
+ * ten at a time on the same ordering. published_date still matters — it is
+ * what the card's footer prints.
  *
- * ── The hover figure
- * The product cards reveal a headline count on hover. A paper has no obvious
- * count of its own, so each card shows how many papers in ITS primary arXiv
- * category the harvest added in the last 14 days — a real, varied figure that
- * says how busy that corner of the corpus is. 14 days sits inside the nightly
- * cadence and outside the bulk load.
+ * ── The card shape (2026-08-18 ruling)
+ * Resting: index, title, and a "Published January 10, 2026" footer — no body
+ * under the title, so a paper cell never outgrows the 210px product cell and
+ * the plate holds ~425px. Hover/tap: the description (authors — category.
+ * abstract…) scrambles in where the products count their figure up. Category
+ * codes render as proper names ("Machine Learning", not "cs.LG"); duplicate
+ * names across codes were ruled acceptable here.
  *
  * Every read is wrapped: a failure yields [] and the client keeps the plate it
  * had. Never a 500 from a marketing surface.
@@ -33,7 +35,6 @@ export const PAPERS_PER_PAGE = 10
 
 /** The 44B accent — every paper card links into 44b, so they carry its colour. */
 const PAPER_ACCENT = '#033882'
-const CATEGORY_WINDOW_DAYS = 14
 const BODY_CHARS = 150
 
 type Row = {
@@ -42,8 +43,21 @@ type Row = {
   developer: string | null
   category: string | null
   abstract: string | null
+  published: string // 'YYYY-MM-DD', via to_char — never null (COALESCEd)
 }
-type CatRow = { category: string; n: number }
+
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+]
+
+/** '2026-01-10' → 'January 10, 2026'. String math, not Date — a bare ISO date
+ *  fed to `new Date` parses as UTC midnight and prints a day early in NY. */
+function longDate(iso: string): string {
+  const [y, m, d] = iso.split('-').map(Number)
+  if (!y || !m || !d) return ''
+  return `${MONTHS[m - 1]} ${d}, ${y}`
+}
 
 function snippet(text: string | null, max: number): string {
   if (!text) return ''
@@ -55,38 +69,31 @@ function snippet(text: string | null, max: number): string {
 
 export async function getRecentPapers(page = 0): Promise<HomeCardData[]> {
   const offset = Math.max(0, Math.floor(page)) * PAPERS_PER_PAGE
-  const since = new Date(Date.now() - CATEGORY_WINDOW_DAYS * 24 * 3600e3)
   try {
-    const [rows, cats] = await Promise.all([
-      // Ids first, bodies second: sorting the whole row would drag every
-      // paper's jsonb through the sort. Backed by idx_documents_paper_created
-      // (created_at DESC, id DESC) WHERE doc_type='paper' — added 2026-08-18.
-      sql`WITH recent AS (
-             SELECT id, created_at FROM documents
-              WHERE doc_type = 'paper'
-              ORDER BY created_at DESC, id DESC
-              LIMIT ${PAPERS_PER_PAGE} OFFSET ${offset})
-           SELECT d.slug, d.title, d.developer, d.topics[1] AS category,
-                  d.body_json->0->'paragraphs'->>0 AS abstract
-             FROM documents d JOIN recent r USING (id)
-            ORDER BY r.created_at DESC, d.id DESC` as unknown as Promise<Row[]>,
-      sql`SELECT topics[1] AS category, count(*)::int AS n
-            FROM documents
-           WHERE doc_type = 'paper' AND created_at >= ${since} AND topics[1] IS NOT NULL
-           GROUP BY 1` as unknown as Promise<CatRow[]>,
-    ])
-    const byCat = new Map(cats.map(c => [c.category, c.n]))
+    // Ids first, bodies second: sorting the whole row would drag every
+    // paper's jsonb through the sort. Backed by idx_documents_paper_created
+    // (created_at DESC, id DESC) WHERE doc_type='paper' — added 2026-08-18.
+    const rows = (await sql`WITH recent AS (
+           SELECT id, created_at FROM documents
+            WHERE doc_type = 'paper'
+            ORDER BY created_at DESC, id DESC
+            LIMIT ${PAPERS_PER_PAGE} OFFSET ${offset})
+         SELECT d.slug, d.title, d.developer, d.topics[1] AS category,
+                d.body_json->0->'paragraphs'->>0 AS abstract,
+                to_char(COALESCE(d.published_date, d.created_at), 'YYYY-MM-DD') AS published
+           FROM documents d JOIN recent r USING (id)
+          ORDER BY r.created_at DESC, d.id DESC`) as unknown as Row[]
     return rows.map(r => {
-      const cat = r.category ?? ''
       const authors = r.developer?.trim() || 'arXiv'
-      const label = cat ? categoryLabel(cat) : 'Uncategorised'
+      const label = r.category ? categoryName(r.category) : ''
       return {
         href: `https://44b.nysgpt.com/library/${r.slug}`,
         title: r.title,
         accent: PAPER_ACCENT,
-        body: `${authors} — ${label}. ${snippet(r.abstract, BODY_CHARS)}`.trim(),
-        value: byCat.get(cat) ?? 0,
-        unit: cat ? `${cat} · ${CATEGORY_WINDOW_DAYS} days` : 'Papers',
+        body: `${authors}${label ? ` — ${label}.` : ' —'} ${snippet(r.abstract, BODY_CHARS)}`.trim(),
+        value: 0, // papers don't count anything; HomeCard's paper variant never renders the figure
+        unit: '',
+        footer: `Published ${longDate(r.published)}`,
         sameTab: true,
       }
     })

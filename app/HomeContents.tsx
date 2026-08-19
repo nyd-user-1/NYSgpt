@@ -26,10 +26,12 @@ import type { HomeCardData } from '@/lib/home-data'
  * An empty or failed response leaves the current cards in place and stops the
  * spin. A marketing page never shows an empty grid because a database blinked.
  *
- * ── Why the paper cards get `panel={false}`
+ * ── Why the paper cards get `panel={false}` and `paper`
  * HomeCard's ↘ opens the switchboard's PRODUCT view by index; a paper at
- * index 3 is not the fourth product. The paper cards keep the hover figure and
- * the ↗ but drop the panel affordance.
+ * index 3 is not the fourth product, so the panel affordance is dropped.
+ * `paper` switches the cell to the paper shape: fixed 210px (the plate caps at
+ * ~425px), no resting blurb, a "Published …" footer, and the description
+ * scrambling in on hover where a product counts its figure.
  */
 
 const BEAT_MS = 420
@@ -99,16 +101,16 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
                 aria-hidden
                 className="flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5"
               >
+                {/* Index, a two-line title, the Published footer — the paper
+                    card's resting shape, which is all a deal ever lands on. */}
                 <span className="h-[10px] w-[18px] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
                 <span className="mt-4 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: a }} />
                 <span className="mt-2 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: b }} />
-                <span className="mt-3 h-[10px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: '92%' }} />
-                <span className="mt-1.5 h-[10px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: '70%' }} />
-                <span className="mt-auto h-[10px] w-[40%] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
+                <span className="mt-auto h-[10px] w-[55%] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
               </div>
             ))
           : cards.map((card, i) => (
-              <HomeCard key={card.href + card.title} card={card} index={i} panel={!papers} />
+              <HomeCard key={card.href + card.title} card={card} index={i} panel={!papers} paper={papers} />
             ))}
       </div>
     </>
