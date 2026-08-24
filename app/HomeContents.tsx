@@ -15,10 +15,12 @@ import type { HomeCardData } from '@/lib/home-data'
  * work rather than re-dealing the same ten. Data: /api/recent-papers.
  *
  * ── The pager (papers mode only)
- * Once the plate shows papers, a Prev · Next pair sits opposite the heading —
- * the 44b breadcrumb pager, inline. Next deals the next ten (the refresh
- * icon's exact move); Prev walks back toward the newest ten and, from the
- * first page, returns the plate to the ten products. Everything runs through
+ * A Prev · Next pair sits opposite the heading in both views — the 44b
+ * breadcrumb pager, inline. Next deals the next ten (the refresh icon's exact
+ * move; from the products it deals the newest ten); Prev walks back toward
+ * the newest ten and, from the first page, returns the plate to the ten
+ * products. On the products view Prev is present but disabled — there is
+ * nothing before the table of contents. Everything runs through
  * one deal(page) — page -1 IS the products view, so the back-to-products path
  * gets the same skeleton beat as a fetch and the plate never snaps.
  *
@@ -113,34 +115,34 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
           </button>
         </div>
 
-        {/* Papers mode only: the 44b breadcrumb pager, inline and opposite the
-            heading. Prev walks toward the newest ten and, from the first page,
-            hands the plate back to the products; Next deals the next ten. */}
-        {papers && (
-          <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em]" style={MONO}>
-            <button
-              type="button"
-              aria-label="Newer papers, or back to the products"
-              onClick={prev}
-              disabled={dealing}
-              className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" />
-              Prev
-            </button>
-            <span aria-hidden style={{ color: 'color-mix(in srgb, var(--paper-text) 18%, transparent)' }}>·</span>
-            <button
-              type="button"
-              aria-label="The next ten papers"
-              onClick={refresh}
-              disabled={dealing}
-              className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default"
-            >
-              Next
-              <ArrowRight className="h-3.5 w-3.5" />
-            </button>
-          </div>
-        )}
+        {/* The 44b breadcrumb pager, inline and opposite the heading, in both
+            views. Prev walks toward the newest ten and, from the first page,
+            hands the plate back to the products — on the products themselves it
+            is disabled and dimmed, since nothing precedes the table of contents.
+            Next deals the next ten; from the products, the newest ten. */}
+        <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em]" style={MONO}>
+          <button
+            type="button"
+            aria-label={papers ? 'Newer papers, or back to the products' : 'Already on the products'}
+            onClick={prev}
+            disabled={dealing || !papers}
+            className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default disabled:hover:text-[var(--paper-faint)] disabled:opacity-40"
+          >
+            <ArrowLeft className="h-3.5 w-3.5" />
+            Prev
+          </button>
+          <span aria-hidden style={{ color: 'color-mix(in srgb, var(--paper-text) 18%, transparent)' }}>·</span>
+          <button
+            type="button"
+            aria-label={papers ? 'The next ten papers' : 'Show the ten most recent papers'}
+            onClick={refresh}
+            disabled={dealing}
+            className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default"
+          >
+            Next
+            <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        </div>
       </div>
 
       {/* Contents plate — each cell indexed 01–10 like a table of contents. */}
