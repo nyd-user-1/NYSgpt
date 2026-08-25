@@ -39,6 +39,8 @@ export function HomeCard({ card, index, panel = true, paper = false }: { card: H
   const [active, setActive] = useState(false);
   const [hoverCapable, setHoverCapable] = useState(true);
   const arrowRef = useRef<HTMLSpanElement>(null);
+  /** The top-right ↗ — the ONE outbound affordance on a product card. */
+  const topArrowRef = useRef<HTMLSpanElement>(null);
   const figure = compact(card.value);
   const { openProduct } = useSwitchboard();
 
@@ -63,6 +65,21 @@ export function HomeCard({ card, index, panel = true, paper = false }: { card: H
       onMouseEnter={() => hoverCapable && setActive(true)}
       onMouseLeave={() => hoverCapable && setActive(false)}
       onClick={(e) => {
+        // Product cards: the BLOCK opens the panel; the top-right ↗ is the
+        // one outbound affordance (ruling 2026-08-24). Papers keep the link.
+        if (panel && !paper) {
+          if (arrowRef.current?.contains(e.target as Node)) return; // PanelRight's own handler
+          if (topArrowRef.current?.contains(e.target as Node)) return; // ↗ → let the href fire
+          if (!hoverCapable && !active && e.detail !== 0) {
+            // touch: first tap still reveals; the second opens the panel
+            e.preventDefault();
+            setActive(true);
+            return;
+          }
+          e.preventDefault();
+          openProduct(index);
+          return;
+        }
         if (hoverCapable) return; // mouse: the whole card navigates, as before
         if (e.detail === 0) return; // keyboard Enter: navigate, don't toggle
         if (arrowRef.current?.contains(e.target as Node)) return; // the arrow navigates
@@ -112,9 +129,12 @@ export function HomeCard({ card, index, panel = true, paper = false }: { card: H
           `pointer-events-none` while active for exactly this reason. Measured
           with elementFromPoint 2026-08-14 — do not "fix" it by restyling here. */}
       <span
-        aria-hidden
+        ref={topArrowRef}
         /* `transition-colors` as well as opacity — with opacity alone the grey
-           hover disc snapped in rather than fading, which read as missing. */
+           hover disc snapped in rather than fading, which read as missing.
+           Clicks here bubble to the card <Link> UNprevented — this corner is
+           where the outbound navigation lives now that the block itself opens
+           the panel. */
         className={`absolute right-3 top-3 flex items-center justify-center rounded-full p-2 transition-[opacity,background-color] duration-200 hover:bg-[var(--paper-rule-soft)] ${active ? "opacity-100" : "opacity-0"}`}
       >
         <ArrowUpRight className="h-4 w-4 text-[var(--accent)]" />

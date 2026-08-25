@@ -247,15 +247,24 @@ function SwitchboardPanel() {
   // One level down the live dot becomes a back arrow and the title becomes the
   // destination — that pair IS the navigation model, so no view stack is needed.
   const deep = Boolean(product || channel)
-  const title = product?.title ?? channel?.name ?? 'Switchboard'
+  // A product's header is its DOMAIN, not its name — the hero figure + the
+  // "Visit <name>" footer already carry the name, and the domain is the one
+  // fact the old layout buried in a footnote line (design 2026-08-24).
+  const title = product ? product.href.replace(/^https?:\/\//, '') : channel?.name ?? 'Switchboard'
 
   return createPortal(
     <>
       {/* Scrim — mobile only; on desktop the panel floats beside the page. */}
+      {/* ⚠ `nysgpt-app` on BOTH portaled roots: the paper tokens are scoped to
+          `.nysgpt-app` in globals.css, and this portal renders into
+          document.body — OUTSIDE the AppLayout div that carries the class.
+          Without it every var(--paper-*) here silently fails: the bg fell back
+          to the body's colder black and the rules to currentColor, which is
+          why the panel's black never matched the main container's. */}
       <div
         onClick={close}
         aria-hidden
-        className={`fixed inset-0 z-[60] bg-black/20 transition-opacity sm:hidden ${
+        className={`nysgpt-app fixed inset-0 z-[60] bg-black/20 transition-opacity sm:hidden ${
           open ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
@@ -266,7 +275,7 @@ function SwitchboardPanel() {
           the same thing. */}
       <aside
         aria-hidden={!open}
-        className={`fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto transition-transform duration-300 ease-in-out ${
+        className={`nysgpt-app fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto transition-transform duration-300 ease-in-out ${
           expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
         } ${open ? 'translate-x-0' : 'translate-x-full sm:translate-x-[calc(100%+18px)] pointer-events-none'}`}
       >
@@ -306,6 +315,9 @@ function SwitchboardPanel() {
           </div>
 
           <div className="no-scrollbar flex-1 overflow-y-auto">
+            {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
+                to the panel's bottom edge when the content runs short. */}
+            <div className="flex min-h-full flex-col">
             {channel ? (
               /* ── CHANNEL VIEW ────────────────────────────────────────── */
               <>
@@ -377,15 +389,9 @@ function SwitchboardPanel() {
             ) : product ? (
               /* ── PRODUCT VIEW ────────────────────────────────────────── */
               <>
-                <div className="border-b border-[var(--paper-rule)] px-5 py-6">
-                  <h2 className="text-[26px] leading-none text-[var(--paper-text)]" style={SERIF}>
-                    {product.title}
-                  </h2>
-                  <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>
-                    {product.body}
-                  </p>
-                </div>
-
+                {/* Hero — the headline figure leads in the product's accent,
+                    with the description directly beneath it. The product's
+                    NAME lives in the Visit footer; its DOMAIN is the header. */}
                 <div className="border-b border-[var(--paper-rule)] px-5 py-6">
                   <p
                     className="leading-none tabular-nums"
@@ -396,11 +402,63 @@ function SwitchboardPanel() {
                   <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>
                     {product.unit}
                   </p>
+                  <p className="mt-4 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>
+                    {product.body}
+                  </p>
                 </div>
 
-                <p className="px-5 py-4 text-[11px] leading-[1.6] text-[var(--paper-faint)]" style={SANS}>
-                  {product.href.replace(/^https?:\/\//, '')}
-                </p>
+                {/* Sub-stats — a ruled 2-col grid, the masthead ledger's idiom
+                    at panel scale. Only cards carrying measured breakdowns
+                    render it (today: Artificial Intelligence). Sorted here,
+                    large → small in reading order (ruling 2026-08-24), so the
+                    data file can keep its entries grouped however it likes.
+                    Each cell is a LINK to the surface holding that layer, with
+                    the home cards' hover treatment: accent tint, the figure
+                    taking the accent, and an ↗ in the corner. */}
+                {product.stats && product.stats.length > 0 && (
+                  <div
+                    className="grid grid-cols-2"
+                    style={{
+                      '--stat-accent': product.accent,
+                      /* 5%, exactly the home cards' --accent-tint mix. */
+                      '--stat-tint': `color-mix(in oklab, ${product.accent} 5%, var(--paper))`,
+                    } as React.CSSProperties}
+                  >
+                    {[...product.stats].sort((a, b) => b.value - a.value).map((s, i, arr) => (
+                      /* The home cards' hover, verbatim: accent tint on the
+                         cell, value AND label take the accent, the ↗ carries
+                         the p-2 rounded-full chrome with the muted bg on its
+                         own hover, and the figure re-counts on each hover
+                         (CountUp trigger="view-hover" — attaches to this
+                         <Link> itself). */
+                      <Link
+                        key={s.unit}
+                        href={s.href}
+                        className={`group/stat relative block border-b border-[var(--paper-rule)] px-5 py-6 transition-colors hover:bg-[var(--stat-tint)] ${i % 2 === 0 ? 'border-r' : ''} ${
+                          i === arr.length - 1 && arr.length % 2 === 1 ? 'col-span-2 !border-r-0' : ''
+                        }`}
+                      >
+                        <span
+                          className="absolute right-3 top-3 flex items-center justify-center rounded-full p-2 opacity-0 transition-[opacity,background-color] duration-200 hover:bg-[var(--paper-rule-soft)] group-hover/stat:opacity-100"
+                        >
+                          <ArrowUpRight className="h-4 w-4 text-[var(--stat-accent)]" />
+                        </span>
+                        <p
+                          className="leading-none tabular-nums text-[var(--paper-text)] transition-colors group-hover/stat:text-[var(--stat-accent)]"
+                          style={{ ...MONO, fontSize: 'clamp(1.7rem,3.6vw,2.2rem)' }}
+                        >
+                          <CountUp {...countProps(s.value)} duration={900} trigger="view-hover" />
+                        </p>
+                        <p
+                          className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)] transition-colors group-hover/stat:text-[var(--stat-accent)]"
+                          style={SANS}
+                        >
+                          {s.unit}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                )}
               </>
             ) : (
               /* ── MENU VIEW ───────────────────────────────────────────── */
@@ -451,10 +509,11 @@ function SwitchboardPanel() {
                 bottom while the cards run underneath, which is the ask. The
                 translucent background plus blur is what makes "underneath"
                 legible — an opaque bar would be indistinguishable from a
-                sibling. Inside the scroll container, so it scrolls into place
-                on short views rather than floating over empty space. */}
+                sibling. `mt-auto` (against the min-h-full flex wrapper) pins it
+                to the panel's bottom edge even when the content runs short —
+                the Visit link lives at the bottom, always (ruling 2026-08-24). */}
             {deep && (
-              <div className="sticky bottom-0 z-10 border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
+              <div className="sticky bottom-0 z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
                 {/* ⚠ Branch on WHICH view this is — never `channel?.x ?? product!.x`.
                     `??` only short-circuits on a non-nullish left side, and
                     `sameTab` is undefined for Slack and Discord, so that spelling
@@ -480,6 +539,7 @@ function SwitchboardPanel() {
                 </Link>
               </div>
             )}
+            </div>
           </div>
         </div>
       </aside>
