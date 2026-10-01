@@ -1,0 +1,24 @@
+# nysgpt.com on AWS Amplify Hosting (2026-10-01; before that, Vercel).
+#
+# Next 15 with ISR, built with pnpm. No DATABASE_URL is set on purpose: the
+# switchboard must never wake a database for a visitor or a crawler. Without
+# it the nightly digest reads "not available" and Refresh keeps the product
+# cards; both already fail soft (lib/digest.ts, lib/recent-papers.ts).
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - corepack enable
+        - corepack prepare pnpm@11.1.1 --activate
+        - pnpm install --frozen-lockfile
+    build:
+      commands:
+        - pnpm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .next/cache/**/*

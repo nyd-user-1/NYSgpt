@@ -25,9 +25,12 @@ export function compact(value: number): Figure {
       const mantissa = value / tier.limit;
       const decimals = mantissa < 100 ? 1 : 0;
       const factor = 10 ** decimals;
+      const count = Math.floor(mantissa * factor) / factor;
+      // A whole figure prints without its ".0": 12,021,607,502 reads 12B, not
+      // 12.0B (2026-10-01, the masthead's lead tile).
       return {
-        count: Math.floor(mantissa * factor) / factor,
-        decimals,
+        count,
+        decimals: Number.isInteger(count) ? 0 : decimals,
         suffix: tier.suffix,
       };
     }

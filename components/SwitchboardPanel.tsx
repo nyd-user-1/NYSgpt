@@ -250,7 +250,7 @@ function SwitchboardPanel() {
   // A product's header is its DOMAIN, not its name — the hero figure + the
   // "Visit <name>" footer already carry the name, and the domain is the one
   // fact the old layout buried in a footnote line (design 2026-08-24).
-  const title = product ? product.href.replace(/^https?:\/\//, '') : channel?.name ?? 'Switchboard'
+  const title = product ? (product.domain ?? product.href.replace(/^https?:\/\//, '')) : channel?.name ?? 'Switchboard'
 
   return createPortal(
     <>
