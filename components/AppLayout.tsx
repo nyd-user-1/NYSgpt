@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { flushSync } from "react-dom";
 import { PanelLeftOpen, PanelLeftClose, Sun, Moon } from "lucide-react";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
+import { VisitorLog } from "@/components/VisitorLog";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
@@ -93,7 +94,9 @@ export function AppLayout({
           className={`w-full sm:w-[240px] h-full rounded-none sm:rounded-2xl overflow-hidden sm:border bg-[var(--paper)] ${
             paperMode ? "sm:border-[var(--paper-rule)]" : "sm:border-[var(--border)]"
           }`}
-        />
+        >
+          <VisitorLog />
+        </div>
       </div>
 
       <div

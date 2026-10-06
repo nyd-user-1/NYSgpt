@@ -1,9 +1,17 @@
 'use client'
 
-import { useCallback, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, RotateCw } from 'lucide-react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react'
 import { HomeCard } from './HomeCard'
-import type { HomeCardData } from '@/lib/home-data'
+import { IN_HOUSE, PRODUCT_EXTRAS, TOOLS, type HomeCardData } from '@/lib/home-data'
+import dynamic from 'next/dynamic'
+import { CardDialog } from './CardDialog'
+
+// The Inspector's overlay loads when a reader turns it on, not with the page.
+const InspectorMode = dynamic(() => import('./InspectorMode').then(m => m.InspectorMode), { ssr: false })
+
+/** Each of our own plates' heading. Papers keep "Recent papers". */
+const PLATE_HEADING = ['Custom AI', 'Custom Tools', 'Dev Tools']
 
 /**
  * The contents plate — the section heading with its refresh, and the 5×2 grid.
@@ -45,6 +53,8 @@ import type { HomeCardData } from '@/lib/home-data'
  */
 
 const BEAT_MS = 420
+/** The last of the three plates on the rail. */
+const LAST_PLATE = 2
 /** Skeleton bar widths per cell — varied like real titles, one set per row of five. */
 const SKELETON = [
   ['82%', '58%'], ['66%', '74%'], ['90%', '46%'], ['71%', '63%'], ['60%', '80%'],
@@ -53,9 +63,54 @@ const SKELETON = [
 
 const MONO = { fontFamily: 'var(--font-mono), ui-monospace, monospace' } as const
 
-export function HomeContents({ initial }: { initial: HomeCardData[] }) {
+export function HomeContents({ initial: products }: { initial: HomeCardData[] }) {
+  // The products carry their source line and dialog from PRODUCT_EXTRAS.
+  const initial = useMemo(() => products.map(c => ({ ...c, ...PRODUCT_EXTRAS[c.title] })), [products])
   const [cards, setCards] = useState<HomeCardData[]>(initial)
+  /** The card whose dialog is open. */
+  const [open, setOpen] = useState<HomeCardData | null>(null)
+  /** The Inspector is on over the page (its card's dialog button, or a held ⌘C). */
+  const [inspecting, setInspecting] = useState(false)
+
+  /**
+   * Long-press ⌘C (Ctrl+C elsewhere) toggles the Inspector from anywhere on
+   * the page — GovBlock's binding (apps/web/components/dev/inspector.tsx),
+   * ported: 600 ms, releasing early cancels, and the default is never
+   * prevented — a quick ⌘C still copies, only a held one toggles this.
+   * GovBlock gates its inspector to dev because it reads React's development
+   * build; this one reads the page's own data-inspect marks, which ship, so
+   * the binding is always live.
+   */
+  useEffect(() => {
+    let timer: number | null = null
+    const cancel = () => {
+      if (timer !== null) window.clearTimeout(timer)
+      timer = null
+    }
+    const down = (e: KeyboardEvent) => {
+      const mod = navigator.platform.startsWith('Mac') ? e.metaKey : e.ctrlKey
+      if (e.key !== 'c' || !mod || e.repeat || timer !== null) return
+      timer = window.setTimeout(() => {
+        timer = null
+        // A toggle, as on GovBlock: the press that opens it closes it.
+        setOpen(null)
+        setInspecting(v => !v)
+      }, 600)
+    }
+    const up = (e: KeyboardEvent) => {
+      if (e.key === 'c' || e.key === 'Meta' || e.key === 'Control') cancel()
+    }
+    document.addEventListener('keydown', down)
+    document.addEventListener('keyup', up)
+    return () => {
+      document.removeEventListener('keydown', down)
+      document.removeEventListener('keyup', up)
+      cancel()
+    }
+  }, [])
   const [papers, setPapers] = useState(false)
+  /** Which plate of our own is up: 0 the products, 1 the tools, 2 the in-house instruments. */
+  const [plate, setPlate] = useState(0)
   const [dealing, setDealing] = useState(false)
   // Next page of papers to ask for. Lives in a ref: it's bookkeeping, not view.
   const nextPage = useRef(0)
@@ -71,6 +126,7 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
       await beat
       setCards(initial)
       setPapers(false)
+      setPlate(0)
       nextPage.current = 0
       setDealing(false)
       return
@@ -92,20 +148,64 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
   }, [dealing, initial])
 
   const refresh = useCallback(() => deal(nextPage.current), [deal])
+
+  /** The three plates, now same-shape pages on one sideways rail. */
+  const PLATES = useMemo(() => [initial, TOOLS, IN_HOUSE], [initial])
+  /** The dialog's arrows: the card before or after the open one, round its own plate. */
+  const step = useCallback((by: -1 | 1) => {
+    const deck = papers ? cards : PLATES[Math.min(plate, LAST_PLATE)]
+    setOpen(now => {
+      const i = now ? deck.findIndex(c => c.title === now.title) : -1
+      return i < 0 ? now : deck[(i + by + deck.length) % deck.length]
+    })
+  }, [papers, cards, PLATES, plate])
   // The page on display is nextPage - 1, so back = nextPage - 2; below zero
   // deal() reads it as the products view.
   const prev = useCallback(() => deal(Math.max(nextPage.current - 2, -1)), [deal])
 
+  /**
+   * The plate scrolls sideways — hermes's rail (src/components/scroll-row.tsx):
+   * hidden scrollbar, snap, chevrons that page by 0.8 widths, the left one
+   * fading in once scrolling starts. Re-dressed in this page's chrome.
+   */
+  const rail = useRef<HTMLDivElement>(null)
+  const [edge, setEdge] = useState({ left: false, right: false })
+  const measure = useCallback(() => {
+    const el = rail.current
+    if (!el) return
+    setEdge({ left: el.scrollLeft > 4, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 })
+  }, [])
+  useEffect(() => {
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [measure])
+  // A deal replaces the cards: back to the start of the rail, then re-measure.
+  useEffect(() => {
+    rail.current?.scrollTo({ left: 0 })
+    measure()
+  }, [cards, dealing, measure])
+  const pageRail = (dir: 1 | -1) => rail.current?.scrollBy({ left: dir * rail.current.clientWidth, behavior: 'smooth' })
+  /** Scroll keeps the chevrons and the heading honest: the plate on show is the page under the viewport. */
+  const onRailScroll = () => {
+    measure()
+    const el = rail.current
+    if (el && !papers && !dealing) setPlate(Math.min(LAST_PLATE, Math.max(0, Math.round(el.scrollLeft / el.clientWidth))))
+  }
+  const chevron = (show: boolean) =>
+    `flex h-8 w-8 items-center justify-center rounded-full border border-[var(--paper-rule)] bg-[var(--paper)] text-[var(--paper-faint)] shadow-sm transition-[opacity,color,background-color] duration-200 hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] ${show ? '' : 'pointer-events-none opacity-0'}`
+
   return (
     <>
-      <div className="mt-6 mb-4 flex items-center justify-between">
+      <div data-inspect="PlateHeader" className="mt-6 mb-4 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <h2 className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>
-            {papers ? 'Recent papers' : 'Refresh'}
+          <h2 data-inspect="PlateHeading" className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>
+            {papers ? 'Recent papers' : PLATE_HEADING[plate]}
           </h2>
           {/* Turn the plate: the ten most recent papers, then the ten before those. */}
           <button
             type="button"
+            data-inspect="RefreshButton"
             aria-label={papers ? 'Ten more recent papers' : 'Show the ten most recent papers'}
             onClick={refresh}
             disabled={dealing}
@@ -115,60 +215,93 @@ export function HomeContents({ initial }: { initial: HomeCardData[] }) {
           </button>
         </div>
 
-        {/* The 44b breadcrumb pager, inline and opposite the heading, in both
-            views. Prev walks toward the newest ten and, from the first page,
-            hands the plate back to the products — on the products themselves it
-            is disabled and dimmed, since nothing precedes the table of contents.
-            Next deals the next ten; from the products, the newest ten. */}
-        <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em]" style={MONO}>
+        {/* The rail's arrows — hermes's pair in this page's round-button
+            chrome, and the ONE pager (the Prev · Next text pair is gone,
+            2026-10-05). On the plates they scroll a page; on the papers the
+            left walks back toward the newest ten and home to the products,
+            the right deals the next ten. */}
+        <div className="hidden items-center gap-1.5 sm:flex">
           <button
             type="button"
-            aria-label={papers ? 'Newer papers, or back to the products' : 'Already on the products'}
-            onClick={prev}
-            disabled={dealing || !papers}
-            className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default disabled:hover:text-[var(--paper-faint)] disabled:opacity-40"
+            aria-label={papers ? 'Newer papers, or back to the products' : 'Scroll the plate left'}
+            onClick={papers ? prev : () => pageRail(-1)}
+            className={chevron(papers ? !dealing : edge.left)}
           >
-            <ArrowLeft className="h-3.5 w-3.5" />
-            Prev
+            <ChevronLeft className="h-4 w-4" />
           </button>
-          <span aria-hidden style={{ color: 'color-mix(in srgb, var(--paper-text) 18%, transparent)' }}>·</span>
           <button
             type="button"
-            aria-label={papers ? 'The next ten papers' : 'Show the ten most recent papers'}
-            onClick={refresh}
-            disabled={dealing}
-            className="flex items-center gap-1.5 text-[var(--paper-faint)] transition-colors hover:text-[var(--paper-text)] disabled:cursor-default"
+            aria-label={papers ? 'The next ten papers' : 'Scroll the plate right'}
+            onClick={papers ? refresh : () => pageRail(1)}
+            className={chevron(papers ? !dealing : edge.right)}
           >
-            Next
-            <ArrowRight className="h-3.5 w-3.5" />
+            <ChevronRight className="h-4 w-4" />
           </button>
         </div>
       </div>
 
-      {/* Contents plate — each cell indexed 01–10 like a table of contents. */}
+      {/* Contents plates — three same-shape pages on one sideways rail: the
+          ten products (5×2), the tools (5×2), and the in-house pair (1×2 at
+          the same height). The chevrons and Prev·Next scroll between pages;
+          no scrollbar shows (hermes's rail). Papers deal into a single page
+          in the same frame. */}
       <div
         aria-busy={dealing}
-        className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5"
+        data-inspect="ContentsPlate"
+        ref={rail}
+        onScroll={onRailScroll}
+        className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto"
       >
-        {dealing
-          ? SKELETON.map(([a, b], i) => (
-              <div
-                key={`s-${i}`}
-                aria-hidden
-                className="flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5"
-              >
-                {/* Index, a two-line title, the Published footer — the paper
-                    card's resting shape, which is all a deal ever lands on. */}
-                <span className="h-[10px] w-[18px] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
-                <span className="mt-4 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: a }} />
-                <span className="mt-2 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: b }} />
-                <span className="mt-auto h-[10px] w-[55%] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
+        {dealing ? (
+          <div className="w-full shrink-0 snap-start">
+            <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
+              {SKELETON.map(([a, b], i) => (
+                <div
+                  key={`s-${i}`}
+                  aria-hidden
+                  className="flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5"
+                >
+                  {/* Index, a two-line title, the Published footer — the paper
+                      card's resting shape, which is all a deal ever lands on. */}
+                  <span className="h-[10px] w-[18px] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
+                  <span className="mt-4 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: a }} />
+                  <span className="mt-2 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: b }} />
+                  <span className="mt-auto h-[10px] w-[55%] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : papers ? (
+          <div className="w-full shrink-0 snap-start">
+            <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
+              {cards.map((card, i) => (
+                <HomeCard key={card.href + card.title} card={card} index={i} panel={false} paper />
+              ))}
+            </div>
+          </div>
+        ) : (
+          PLATES.map((deck, p) => (
+            <div key={p} className="w-full shrink-0 snap-start">
+              <div className={`grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 ${p === LAST_PLATE ? '' : 'lg:grid-cols-5'}`}>
+                {deck.map((card, i) => (
+                  <HomeCard key={card.href + card.title} card={card} index={i} panel={p === 0} large={p === LAST_PLATE} onOpen={() => setOpen(card)} />
+                ))}
               </div>
-            ))
-          : cards.map((card, i) => (
-              <HomeCard key={card.href + card.title} card={card} index={i} panel={!papers} paper={papers} />
-            ))}
+            </div>
+          ))
+        )}
       </div>
+
+      <CardDialog
+        card={open}
+        onClose={() => setOpen(null)}
+        onStep={step}
+        onInspect={() => {
+          setOpen(null)
+          setInspecting(true)
+        }}
+      />
+      {inspecting && <InspectorMode onExit={() => setInspecting(false)} />}
     </>
   )
 }

@@ -1,0 +1,18 @@
+{
+  "HomeCard": "app/HomeCard.tsx:64",
+  "CardIndex": "app/HomeCard.tsx:169",
+  "CardTitle": "app/HomeCard.tsx:183",
+  "CardBlurb": "app/HomeCard.tsx:188",
+  "CardFooter": "app/HomeCard.tsx:193",
+  "PlateHeader": "app/HomeContents.tsx:138",
+  "PlateHeading": "app/HomeContents.tsx:140",
+  "RefreshButton": "app/HomeContents.tsx:146",
+  "PlatePager": "app/HomeContents.tsx:161",
+  "ContentsPlate": "app/HomeContents.tsx:189",
+  "HomeMasthead": "app/HomeMasthead.tsx:30",
+  "Wordmark": "app/HomeMasthead.tsx:35",
+  "LedgerCell": "app/HomeMasthead.tsx:60",
+  "LedgerFigure": "app/HomeMasthead.tsx:64",
+  "LedgerUnit": "app/HomeMasthead.tsx:71",
+  "Byline": "app/page.tsx:39"
+}

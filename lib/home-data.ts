@@ -5,6 +5,7 @@
  */
 
 export type HomeCardData = {
+  /** Empty for a tool with no public page: the cell renders, but goes nowhere. */
   href: string;
   /**
    * The name the panel prints as its header. Set where `href` is the
@@ -39,6 +40,260 @@ export type HomeCardData = {
    * it must be a PUBLIC index (44B's detail pages sit behind auth).
    */
   stats?: { value: number; unit: string; href: string }[];
+  /** The resting bottom line. Products: where the data comes from. Tools: what kind of tool. */
+  sources?: string;
+  /** The card dialog: Problem, Agitate, Solution. */
+  pas?: { problem: string; agitate: string; solution: string };
+  /**
+   * The dialog's headline: the ordinary way against this tool. One sentence, or
+   * a pair: the ordinary way first, then the tool's answer once the reader has
+   * pressed the illustration's button (the headline changes with it).
+   */
+  statement?: string | [string, string];
+  /** The dialog's title, where it differs from the card's. */
+  dialogTitle?: string;
+  /**
+   * The dialog's copy for a card with a paired statement: what it says before
+   * and after the reader presses the illustration's button. The first line of
+   * each is its lead.
+   */
+  story?: { before: string[]; after: string[] };
+  /**
+   * The dialog's screenshots. More than one and the browser frame grows a
+   * Prev · Next pager. Unset, the frame shows /products/<slug>.png. Shots
+   * listed here are full pages carrying their own framing, so they draw
+   * contained on the shot's own ground instead of cover-cropped.
+   */
+  shots?: string[];
+};
+
+const TOOL_INK = "#033882";
+const HF = "https://huggingface.co/NYSgpt";
+const GOV = "https://policy.nysgpt.com";
+
+/** The second plate — the tooling under the products, stated generally. The
+ *  figures are approximate (~), measured or summed on 2026-10-02.
+ *
+ *  Each tool's story is what its dialog says: "before" while the
+ *  illustration shows the ordinary way, "after" once the reader has pressed
+ *  its button. The first line of each is the lead. The evidence is from the
+ *  projects' own evaluation reports and counts (2026-10-03), one vertical per
+ *  tool so nothing is told twice, with the institutions' names left out. */
+export const TOOLS: HomeCardData[] = [
+  { href: HF, title: "Encoder", dialogTitle: "Custom Encoder", accent: TOOL_INK,
+    statement: ["Regular Search lists a popular answer.", "Custom Encoding surfaces the best answer."],
+    sources: "Model", value: 1_200_000_000, unit: "~ parameters trained",
+    body: "A custom embedding model trained on your own data, so search understands your data.",
+    story: {
+      before: [
+        "A researcher types a question the way a colleague would ask it. Ordinary search reads it as a bag of words and hands back anything that shares them. General-purpose AI search does better, but it learned language from the open web, not from your field.",
+        "In a specialised archive that gap is wide. Most papers in a physics reference library have a title and nothing else, and older work uses older terms. The phrase an expert types is rarely the phrase the author wrote, so the right paper sits in the archive and never comes up.",
+        "People stop trusting search and fall back on memory and colleagues. New staff never find what the veterans know is there. And every query sent to an outside model sends your documents along with it."
+      ],
+      after: [
+        "A custom encoder learns your field from your own documents. In biomedicine, its practice questions came from the subject headings and keywords already attached to the papers; in physics, from the summaries expert indexers write for every paper. No labelling project, no click logs.",
+        "In a physics library of 277,000 papers, the right paper landed in the first ten results 49% of the time, up from 17% for the general model it started from, with the largest gains on title-only papers and work from before 1970. Across 433,000 biomedical papers, it beat the leading biomedical search model, which learned from 255 million real search clicks, using just 100,000 examples.",
+        "It runs on your own servers and arrives with an embedding for every record, so search by meaning works on day one and your documents never leave."
+      ],
+    } },
+  { href: HF, title: "Reranker", accent: TOOL_INK,
+    statement: ["Regular search leaves the correct answer off the page.", "Custom Reranking puts it first."],
+    sources: "Model", value: 323_000_000, unit: "~ parameters trained",
+    body: "Put the best answer first, trained on how your field judges relevance.",
+    story: {
+      before: [
+        "Search is built for speed. It pulls back a few hundred candidates in milliseconds and sorts them by a rough score. The right answer is usually somewhere in that list. It is rarely at the top.",
+        "Readers do not dig. They read the first few results, decide the answer is not there, and leave. An AI assistant does worse: it answers from the top handful of results, so when the ranking is wrong the answer is wrong, stated with confidence and citing the wrong sources.",
+        "In research, law or medicine, the cost is not a slow search. It is a decision made on the second-best evidence, because the best evidence was on page two and nobody went there. Better first-stage search alone cannot fix the order."
+      ],
+      after: [
+        "A reranker reads each candidate side by side with the question, the way a specialist would, and puts the one that answers it first. It learns what relevant means from your field's own judgments: in AI research, from peer reviewers' summaries of the papers they reviewed.",
+        "Tested on 3,157 questions it had never seen, each with nine closely related papers to choose from, it put the correct paper first 93% of the time and in the top three 98% of the time. A leading general-purpose embedding model managed 68%. Over a physics library, it more than doubled how often the right paper came first.",
+        "It makes 57% fewer ranking errors than the open model it started from, answers in about 41 milliseconds, and is small enough to run on your own hardware. Your readers, and your AI, start from the best evidence."
+      ],
+    } },
+  { href: "", title: "Classifier", accent: TOOL_INK,
+    statement: ["Manual Tagging never catches up.", "Custom Classification sorts every item as it arrives."],
+    sources: "Model", value: 433_000, unit: "~ documents sorted",
+    body: "Sort a field's documents into its own categories, automatically.",
+    story: {
+      before: [
+        "Every archive runs on labels. A paper needs its field, a bill needs its committee, a support email needs its team. Someone has to read each one and decide, and new ones arrive every day.",
+        "Tagging by hand falls behind within a week, and no two people tag the same way. A preprint server takes in thousands of papers a month across dozens of subject areas; a legislature files thousands of bills a session, each waiting for someone to work out where it goes. Untagged items pile up where nobody can filter, route or count them.",
+        "The archive keeps growing and gets harder to use. Simple questions, like how much of this do we have, go unanswered, and the backlog becomes a project nobody has time to start."
+      ],
+      after: [
+        "A custom classifier learns your categories from the items you have already sorted, then labels every new one the moment it arrives. There is no new labelling work: it trains on decisions your organisation has already made.",
+        "Trained on one state legislature's bills, it names the committee a newly filed bill will be sent to, and is right 85.6% of the time. Across 325,000 biomedical preprints, it files each paper into one of 76 subject areas from its title and abstract, beating a similarity-search baseline by seven points overall and by fifteen on the small subjects, where help is needed most.",
+        "Where an item honestly belongs in two places, it offers two or three choices instead of forcing one. Everything is filterable, routable and countable from the day it lands."
+      ],
+    } },
+  { href: GOV, title: "Compiler", accent: TOOL_INK,
+    statement: ["Regular Documents are laid out for printing.", "Compiled Documents are structured for AI to read."],
+    sources: "Data", value: 2_200_000, unit: "~ sections compiled",
+    body: "Turn any document into its field's standard structure, then into AI-ready Markdown and JSON.",
+    story: {
+      before: [
+        "Documents are made for printers. A statute, a contract or a regulation tells a human reader where each section starts, what it cites and what changed, through numbering, indentation and footnotes. Software sees none of that. It sees one long run of characters.",
+        "Hand that page to an AI and it guesses. It merges two subsections into one, loses the footnote that changes the meaning, and cannot tell this year's version from last year's. Ask which clause was amended, and by what, and the answer is invented.",
+        "So teams copy and paste. Analysts rebuild the same document by hand for every new tool, every search index and every chatbot, and the structure the author put there is lost each time the file is opened."
+      ],
+      after: [
+        "The compiler reads a document the way its field defines it and writes that structure down. Every section gets its own address, every citation becomes a link to the thing it cites, and every amendment is recorded against the text it changed. The result is the field's own standard format, plus clean Markdown and JSON.",
+        "It has compiled the statutes of all fifty states and the federal code, about 2.2 million sections, into the legal profession's standard XML. A lawyer, a search index or an AI can now ask for one subsection of one title as it stood on one date, and get exactly that.",
+        "Your documents become data an AI can quote, compare and track, without anyone retyping them."
+      ],
+    } },
+  { href: "", title: "Loaders", accent: TOOL_INK,
+    statement: ["Resold Data arrives late, with someone else's errors.", "Custom Loaders pull it from the original source."],
+    sources: "Data", value: 12_000_000_000, unit: "~ records loaded",
+    body: "Pull records straight from the original source, on a schedule, at any scale.",
+    story: {
+      before: [
+        "The data worth having belongs to someone else. Agencies, insurers and regulators publish it on their own schedules and in their own formats: a web page here, a PDF there, a spreadsheet, an API that changes without notice.",
+        "Buying it from a reseller is faster, but the copies arrive weeks late, with someone else's errors and no way to check them against the original. Collecting it in-house means a team writing and repairing scrapers forever, and the files keep getting bigger. Some are too large to open on a desktop at all.",
+        "Every new source starts the work again from nothing, so the data you need for the next decision is always the data you do not have yet."
+      ],
+      after: [
+        "Loaders go straight to the original source, whatever form it takes, and bring every record back in one consistent shape. Each record is checked on arrival and keeps a link to the file it came from, so any number can be traced back to where it was published.",
+        "In health care, loaders brought in 16.4 million published insurer rates and 9.7 million provider records directly from the transparency files insurers and federal agencies publish, files measured in hundreds of gigabytes. Across every vertical, the same loaders have brought in about twelve billion records.",
+        "Point a loader at a website, a PDF, a spreadsheet or an API, and it runs on a schedule from then on. Your data comes from the source, not from a reseller."
+      ],
+    } },
+  { href: "", title: "Lake", accent: TOOL_INK,
+    statement: ["Regular Files need a new script for every question.", "A Custom Lake answers the question as you ask it."],
+    sources: "Data", value: 852_000_000, unit: "~ rows queryable",
+    body: "Ask every record held a question, and pay only when you ask.",
+    story: {
+      before: [
+        "Large datasets end up as files. Billions of rows sit in folders that nothing can read without custom code, so every question starts with an engineer writing a new script.",
+        "Loading it all into a database solves that and creates a bill. A database big enough to hold everything costs money every hour it is switched on, whether anyone asks it anything or not. Most organisations pick one: keep the data cheap and unusable, or usable and expensive.",
+        "Meanwhile nobody can answer the simplest question about the collection itself: how many records do we actually hold? The answer depends on which copy you count, and the copies disagree."
+      ],
+      after: [
+        "A lake turns your files into tables you can question in plain words or in SQL, with nothing running between questions. Every file carries a manifest, so every record can be counted, and you pay only for the data each question reads, usually a fraction of a cent.",
+        "In elections and campaign finance, forty-six years of federal campaign-finance filings, more than five billion lines, were converted into queryable tables for less than a dollar. Beside them sit 120 million precinct returns and 46 million ranked-choice ballots, ready to join.",
+        "Ask which candidate raised the most in a district, or how a precinct voted across six elections, and the answer comes back in seconds. The data stays cheap to keep and stops being expensive to use."
+      ],
+    } },
+  { href: "", title: "Pipeline", accent: TOOL_INK,
+    statement: ["Regular Data is stale the day after it loads.", "A Custom Pipeline keeps every source current."],
+    sources: "Data", value: 168_000_000, unit: "~ records kept fresh",
+    body: "Keep every source fresh on one switch.",
+    story: {
+      before: [
+        "Data starts going stale the day after it is loaded. Every source updates on its own schedule and in its own way: one posts nightly, one weekly, one whenever a clerk gets to it.",
+        "Fifty-two sources means fifty-two schedules, fifty-two ways to fail and no single view of which ones did. A broken feed looks exactly like a quiet week. Duplicates slip in, records arrive without their identifiers, and bad rows reach the dashboard before anyone notices.",
+        "The first person to spot the problem is usually a customer, a reporter or an executive in a meeting, which is the worst possible person to spot it."
+      ],
+      after: [
+        "One pipeline runs every source the same way. It discovers what changed at the source, fetches only that, checks it, and publishes what passes. A record that fails a check, a duplicate or a missing identifier, is held back with the reason attached instead of published.",
+        "For legislation, one pipeline keeps all fifty states, the District of Columbia and Congress current, about 168 million records of bills, votes, sponsors and actions. Every jurisdiction's status sits on one board, so a stalled source is visible the morning it stalls, not the week someone complains.",
+        "You get one switch for every source, one place to look and data you can trust on the day you use it."
+      ],
+    } },
+  { href: `${GOV}/clips`, title: "Clips", accent: TOOL_INK,
+    statement: ["Long Documents go unread.", "Custom Clips get them watched."],
+    sources: "Media", value: 3_500_000, unit: "~ documents ready to clip",
+    body: "Turn any document, whether a bill, a research paper or an article, into a short video explainer.",
+    story: {
+      before: [
+        "The documents that matter most are the ones nobody reads. Bills, research papers and reports are written by specialists, for specialists, at length.",
+        "A twenty-page bill can change how a whole state votes, and the people it affects hear about it secondhand, in a headline, if at all. Research that could change practice sits behind an abstract written for other researchers. Comms teams spend days turning each one into something people will watch, one at a time.",
+        "Attention has moved to short video, and most of what is published never makes the trip. The people who would benefit never learn what is in it."
+      ],
+      after: [
+        "Clips turns a document into a short video that explains it, drawn from the document's own words and facts, in your style. Press play on a bill, a paper or a report and the key points come back as a sequence of screens, each one a single idea with the number that proves it.",
+        "For legislation, 3.5 million bills are ready to clip. One press turns a bill into a short video of what it does, who sponsored it and where it stands, built from its own text and votes. Hearings and floor speeches are cut the same way, into the moments worth sharing.",
+        "The full document is always one tap away, so nothing is lost; it is finally seen."
+      ],
+    } },
+  { href: `${GOV}/consensus`, title: "Consensus", accent: TOOL_INK,
+    statement: ["A Regular Poll picks a winning side.", "Consensus finds what both sides agree on."],
+    sources: "Civic", value: 0, unit: "",
+    body: "Gather opinion at scale; groups emerge from the votes, not the loudest voice.",
+    story: {
+      before: [
+        "A poll asks one question and reports who won. Fifty-one to forty-nine makes a headline, but it gives a decision-maker nothing to act on: half the room is told it lost, and the other half that it barely won. Neither side learns anything about the other.",
+        "Public comment is worse. Hearings and comment boxes fill with whoever has the time and the strongest feelings. Officials hear the same voices at every meeting, the extremes on both ends, and conclude the public is hopelessly split.",
+        "Most people never weigh in, so the common ground they share never shows up anywhere. Every issue looks like a fight between two camps, positions harden, and the proposals most people would accept never reach the table."
+      ],
+      after: [
+        "Consensus asks the room many short questions instead of one. People vote agree, disagree or pass on statements their neighbours wrote, and the groups form from the voting itself, not from party labels or who spoke loudest. A statement only counts as common ground when every group agrees, so a large group cannot outvote a small one.",
+        "In one mid-sized city, 2,031 residents cast about 225,000 votes on 896 statements. Two groups emerged that stood 75 points apart on a single ordinance. The same two groups agreed, about four in five, that new developments must account for traffic, that officials with a stake in a project should not vote on it, and that the city needed more competition among cable providers.",
+        "Each agreed statement becomes a policy starting point, ready for a legislator, an agency or a campaign to act on."
+      ],
+    } },
+  { href: "", title: "Agentic Inbox", accent: TOOL_INK,
+    statement: ["Regular Chat keeps you at the screen while the text streams in.", "An Agentic Inbox takes the task while you go to lunch."],
+    sources: "Agent", value: 6_200_000_000, unit: "~ records it answers from",
+    body: "Email an agent a task and get on with your day; the finished work arrives in your inbox.",
+    story: {
+      before: [
+        "Chat assistants only work while you watch them. You ask a question, and the answer streams in a line at a time while you sit and wait.",
+        "Step away and the work stops. Close the tab and it is gone. A serious question, the kind that means checking fifty sources and writing up what they say, takes an hour of that, and the hour is yours: you cannot take a call, go to a meeting or start something else.",
+        "So the big questions do not get asked. People settle for the quick answer that fits in the time they can spare, and the report that would have changed the decision never gets written."
+      ],
+      after: [
+        "An agentic inbox gives the agent its own email address. You send it a task the way you send a colleague an email, then go to your meeting, to lunch or home. It works on its own, and the finished report, with its sources, is waiting in your inbox when you get back.",
+        "In one test, an agent was asked by email for a report on an election reform across every state and Congress back to 2009. It found 947 bills, identified the 13 that became law and delivered a 16-page report 41 minutes later, with nobody watching. A shorter question, where one federal bill stands, came back in 95 seconds.",
+        "Send the task. Get on with your day."
+      ],
+    } },
+];
+
+/** The third plate — the in-house instruments. */
+export const IN_HOUSE: HomeCardData[] = [
+  { href: "https://hq.nysgpt.com", title: "HQ", accent: TOOL_INK,
+    statement: "A Regular Terminal shows one session, HQ shows the whole fleet — live, priced and searchable.",
+    sources: "Development", value: 1_500_000_000, unit: "~ tokens accounted",
+    body: "The workspace that replaces the bare terminal for working with coding agents.",
+    shots: ["/products/hq.png", "/products/hq-analytics.png", "/products/hq-states.png"],
+    // HQ has no illustration button to flip the stage, so `after` mirrors
+    // `before` and the write-up stands as one piece.
+    story: {
+      before: [
+        "HQ is the workspace that replaces the bare terminal for working with coding agents. Every live session runs in a state-colored panel — working, waiting, done, interrupted — under a daemon whose warm processes outlive the server, with up to four panes side by side. Replies and permission prompts come back from the dashboard, policy-checked, and components drag into the prompt as the file paths they live at.",
+        "Nothing ages out silently. Every session ever run stays searchable — transcripts, memory, notes, source, down to whether Claude wrote the line — and a ledger prices each one in tokens and dollars, per session and per turn, with caching savings counted. Weekly caps and a live burn alarm watch the spend. The metrics are computed from disk, no API required, and HQ is its own telemetry receiver, so there is no collector to run.",
+        "A local gateway sits in the request path from a session's birth, so a live session can flip onto AWS Bedrock mid-conversation with no restart — fail-open, a broken backstop never breaking the session, and passthrough, never inspecting a request or response body. HQ is the tool this site was built with.",
+      ],
+      after: [
+        "HQ is the workspace that replaces the bare terminal for working with coding agents. Every live session runs in a state-colored panel — working, waiting, done, interrupted — under a daemon whose warm processes outlive the server, with up to four panes side by side. Replies and permission prompts come back from the dashboard, policy-checked, and components drag into the prompt as the file paths they live at.",
+        "Nothing ages out silently. Every session ever run stays searchable — transcripts, memory, notes, source, down to whether Claude wrote the line — and a ledger prices each one in tokens and dollars, per session and per turn, with caching savings counted. Weekly caps and a live burn alarm watch the spend. The metrics are computed from disk, no API required, and HQ is its own telemetry receiver, so there is no collector to run.",
+        "A local gateway sits in the request path from a session's birth, so a live session can flip onto AWS Bedrock mid-conversation with no restart — fail-open, a broken backstop never breaking the session, and passthrough, never inspecting a request or response body. HQ is the tool this site was built with.",
+      ],
+    } },
+  { href: "", title: "Inspector", accent: TOOL_INK,
+    statement: ["A Screenshot costs about 2,700 tokens, on every turn.", "The Inspector saves about 2,680 of those tokens, on every turn."],
+    sources: "Development", value: 852, unit: "~ components mapped",
+    body: "Point at anything on a page and hand its exact location to an AI.",
+    story: {
+      before: [
+        "To ask an AI to change something on a page, you first have to show it which thing you mean. Most people take a screenshot and describe the rest.",
+        "A full-screen screenshot costs about 2,700 tokens. The whole conversation, picture included, is sent again on every turn, so twenty turns of back-and-forth spends about 54,000 tokens on one image. The AI still has to guess which of a hundred elements you were pointing at.",
+        "It often guesses wrong. It edits the wrong button, restyles the wrong card or changes a component used in forty places, and the next twenty turns go to undoing it."
+      ],
+      after: [
+        "The Inspector lets you point instead of describe. Turn it on, move over the page and click the element you mean. It copies a short brief — the component, the file and the exact line where it is written — ready to paste into any AI chat.",
+        "The brief is about twenty tokens: a saving of about 2,680 on every turn it replaces a screenshot. A twenty-turn conversation drops from 54,000 tokens to about 360 — 99 percent of the spend gone, and a quarter of a 200,000-token context window handed back to the actual work. Multiply by every conversation and every seat, and the saving reads on the API bill.",
+        "It also removes the guess: the AI goes straight to the line that draws the thing you clicked. In house, it maps 852 components across the product family. Try it on this page — turn it on, click anything, and see exactly what an AI would be told."
+      ],
+    } },
+];
+
+/** The products' bottom lines and dialogs, by title. A product's dialog also
+ *  shows its screenshot, read from public/products/<title as a slug>.png. */
+export const PRODUCT_EXTRAS: Record<string, Pick<HomeCardData, "sources" | "pas" | "statement">> = {
+  "Artificial Intelligence": { statement: "Regular Search finds a paper, Custom AI finds the patents, models and peer reviews behind it.", sources: "arXiv · USPTO · Hugging Face", pas: { problem: "AI research is scattered across papers, patents, model hubs and policy documents that don't link to each other.", agitate: "Anyone tracking what a model is built on, who holds the patent or what the reviewers said searches five places and reconciles them by hand, and still misses the connections.", solution: "One linked corpus of papers, citations, patents, models, datasets, peer reviews and AI regulations, searchable by meaning, with a chat that answers from the sources." } },
+  "Childcare": { statement: "A Regular Form takes 28 pages and an evening, Custom AI fills it in from a conversation.", sources: "NY OCFS · US DOL", pas: { problem: "New York's childcare subsidy application is a 28-page PDF.", agitate: "The parents who most need help are the least able to spend an evening on eligibility rules, and one wrong box sends the form back.", solution: "A guided conversation finds licensed care nearby, estimates the real cost, checks eligibility and fills in the official form, ready to file." } },
+  "EHR": { statement: "A Regular EHR sets prices without seeing what payers pay, Custom AI starts from the published rates.", sources: "CMS · NPPES · DOL Form 5500", pas: { problem: "Small practices run scheduling, notes and billing in separate tools, and set prices without seeing what payers actually pay.", agitate: "Every disconnected system means double entry and missed revenue, and the published insurer rates sit in files too large to open.", solution: "One practice-management system and EHR with millions of published rates and every provider built in, so billing starts from real numbers." } },
+  "Energy": { statement: "Regular Energy Data is spread over dozens of releases, Custom AI answers from every plant in one place.", sources: "EIA · NYISO · NREL", pas: { problem: "Data on every power plant in the country is public, but spread across dozens of federal and grid-operator releases.", agitate: "A simple question, such as what runs this grid, what it emits and what power costs by the hour, means joining spreadsheets with different keys and years.", solution: "Every generator, plant and balancing authority in one place: capacity, fuel, emissions, net generation and hourly prices, ready to query and chart." } },
+  "Insurance": { statement: "A Regular Quote shows a price, Custom AI shows the price beside the car's crash rating.", sources: "NHTSA", pas: { problem: "Buying auto coverage means comparing prices without knowing how safe the car is.", agitate: "Safety ratings live on one government site and prices on another, and nothing puts them side by side.", solution: "Compare and buy coverage inside a chat that knows the NHTSA crash rating of every make and model." } },
+  "Policy": { statement: "Regular Tracking means fifty-two websites, Custom AI follows a bill across every state from one search.", sources: "Congress · 50 states · LDA", pas: { problem: "What legislatures do, their bills, votes, sponsors and lobbying, is published in fifty-two different formats.", agitate: "Following one issue across states means fifty-two websites, and the lobbying behind a bill sits in a separate federal database.", solution: "Every bill, vote, sponsor, committee and lobbying filing for Congress and all fifty states, in one searchable record." } },
+  "Science": { statement: "Regular Search matches keywords, Custom AI finds every measurement of a reaction.", sources: "NNDC · ENSDF · EXFOR", pas: { problem: "Seventy years of nuclear-physics literature is indexed, but only by keyword.", agitate: "A researcher looking for every measurement of one reaction on one nuclide wades through references that only match on words.", solution: "Brookhaven's Nuclear Science References, linked by nuclide, reaction and measured quantity, with search by meaning." } },
+  "Solar": { statement: "A Regular Quote is a sales pitch, Custom AI shows a roof's numbers street by street.", sources: "Project Sunroof · LBNL · NREL", pas: { problem: "Whether a roof is worth solar depends on data scattered across satellite imagery, utility tariffs and installer records.", agitate: "Homeowners get a sales pitch instead of the numbers, and planners can't see the potential street by street.", solution: "Rooftop solar potential from state to ZIP code, with rates, existing installs and carbon offsets." } },
+  "Sports": { statement: "Regular Stats stay in team notebooks, Custom AI keeps every game, player and yard on one ledger.", sources: "Box scores · NYSED", pas: { problem: "High-school football statistics disappear into team notebooks and local papers.", agitate: "Recruits, scouts and families have no single record of what happened on the field.", solution: "A live ledger of every game, player and yard in New York high-school football, with box scores and season leaders." } },
+  "Tariffs": { statement: "A Regular Broker takes weeks to find a refund, Custom AI reads the 7501 and shows what is owed.", sources: "CBP CROSS · USITC HTS", pas: { problem: "Importers routinely overpay duties because classification turns on thousands of rulings.", agitate: "Refunds are available, but finding the ruling that applies and doing the duty math takes a broker and weeks.", solution: "Upload a CBP 7501, and the chat finds the matching rulings and HTS codes, computes the duty and shows the refund owed." } },
 };
 
 /** The masthead ledger — four headline totals, from the full count of

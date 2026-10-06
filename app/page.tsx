@@ -36,11 +36,12 @@ export default function HomePage() {
           {/* Byline */}
           <RevealFx delay={0.7} translateY={3}>
             <div
+              data-inspect="Byline"
               className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
               style={MONO}
             >
-              <span>By NYSgpt</span>
-              <span>© 2026 All Rights Reserved. 2525 LLC</span>
+              <span>2525 LLC</span>
+              <span>© 2026 All Rights Reserved.</span>
             </div>
           </RevealFx>
         </div>
