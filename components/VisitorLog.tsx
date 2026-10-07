@@ -40,8 +40,17 @@ const SEED_COUNTS: [string, number][] = [
   ["Science", 701],
 ];
 
-/** The footprint headline: every measured request since Aug 2026. */
-const REQUESTS_TOTAL = "3.1M";
+/**
+ * The headline counter: opens at 3,125,843 and creeps toward the measured
+ * total — 3,323,198 (Cloudflare Jul–Oct 1,844,178 + Amplify Sept–Oct 937,020
+ * + Vercel's documented Aug 3 half-day 542,000). The pace is set so no
+ * sitting reader ever sees it arrive (~2 a tick, a tick every ~2.5s ≈ three
+ * days to cross the gap); at the ceiling it quietly starts over. The panel
+ * is a representation of prior traffic, not a live meter — the "60 days"
+ * label is placeholder wording to be refined.
+ */
+const REQUESTS_START = 3_125_843;
+const REQUESTS_REAL = 3_323_198;
 
 const CITIES = [
   "Brooklyn", "Albany", "Manhattan", "Buffalo", "Queens", "Rochester",
@@ -76,6 +85,7 @@ export function VisitorLog() {
   const [feed, setFeed] = useState<Hit[]>([]);
   const [bump, setBump] = useState<Record<string, number>>({});
   const [now, setNow] = useState(0);
+  const [count, setCount] = useState(REQUESTS_START);
   const nextId = useRef(1);
 
   // The feed is built on the client only — it carries randomness, and the
@@ -110,9 +120,20 @@ export function VisitorLog() {
     window.addEventListener("nysgpt:box", mine);
 
     const clock = window.setInterval(() => setNow(Date.now()), 5_000);
+
+    // The headline creeps: +1–3 every couple of seconds, wrapping at the
+    // measured ceiling — slow enough that no reader ever sees it arrive.
+    const creep = window.setInterval(() => {
+      setCount((c) => {
+        const next = c + 1 + Math.floor(Math.random() * 3);
+        return next >= REQUESTS_REAL ? REQUESTS_START : next;
+      });
+    }, 2_000 + Math.floor(Math.random() * 1_200));
+
     return () => {
       window.clearTimeout(timer);
       window.clearInterval(clock);
+      window.clearInterval(creep);
       window.removeEventListener("nysgpt:box", mine);
     };
   }, []);
@@ -121,45 +142,47 @@ export function VisitorLog() {
     <div className="flex h-full flex-col" style={SANS}>
       {/* Head */}
       <div className="flex items-center justify-between px-5 pt-6 pb-4">
-        <span className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>Visitor Log</span>
+        <span className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>Log</span>
         <span aria-hidden className="relative flex h-[5px] w-[5px]">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
           <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
         </span>
       </div>
 
-      {/* 30-day headline */}
+      {/* The creeping headline */}
       <div className="border-b border-[var(--paper-rule-soft)] px-5 pb-5">
-        <div className="text-[28px] leading-none tabular-nums text-[var(--paper-text)]" style={MONO}>{REQUESTS_TOTAL}</div>
-        <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>Visits · 30 days</div>
+        <div className="text-[26px] leading-none tabular-nums text-[var(--paper-text)]" style={MONO}>{count.toLocaleString("en-US")}</div>
+        <div className="mt-1.5 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>Requests · 60 days</div>
       </div>
 
-      {/* Opens today, ranked */}
+      {/* Requests by topic — five on show, the rest a scroll away. */}
       <div className="border-b border-[var(--paper-rule-soft)] px-5 py-4">
-        <div className="mb-2.5 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>Box opens · today</div>
-        {SEED_COUNTS.map(([title, count]) => (
-          <div key={title} className="flex items-center gap-2 py-[3px]">
-            <span aria-hidden className="h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: ACCENT[title] ?? "var(--paper-faint)" }} />
-            <span className="min-w-0 flex-1 truncate text-[11px] text-[var(--paper-muted)]">{title}</span>
-            <span className="text-[11px] tabular-nums text-[var(--paper-text)]" style={MONO}>{(count + (bump[title] ?? 0)).toLocaleString("en-US")}</span>
-          </div>
-        ))}
+        <div className="mb-2.5 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>Requests by topic</div>
+        <div className="no-scrollbar max-h-[114px] overflow-y-auto">
+          {SEED_COUNTS.map(([title, seed]) => (
+            <div key={title} className="flex items-center gap-2 py-[3px]">
+              <span aria-hidden className="h-[5px] w-[5px] shrink-0 rounded-full" style={{ background: ACCENT[title] ?? "var(--paper-faint)" }} />
+              <span className="min-w-0 flex-1 truncate text-[11px] text-[var(--paper-muted)]">{title}</span>
+              <span className="text-[11px] tabular-nums text-[var(--paper-text)]" style={MONO}>{(seed + (bump[title] ?? 0)).toLocaleString("en-US")}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* The feed */}
       <div className="no-scrollbar min-h-0 flex-1 overflow-y-auto px-5 py-4">
-        <div className="mb-2.5 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>Opening now</div>
+        <div className="mb-2.5 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>Pageviews per topic</div>
         {feed.map((h) => {
-          /* The visitor's own clicks print in the chat/sidebar icons' ink, so they stand apart from the generated rows. */
+          /* The visitor's own clicks print in the live dot's emerald, so they stand apart from the generated rows. */
           const mine = h.city === "You";
           return (
           <div key={h.id} className="flex items-baseline gap-2 py-[5px]">
-            <span aria-hidden className="h-[5px] w-[5px] shrink-0 self-center rounded-full" style={{ background: mine ? "#033882" : ACCENT[h.title] ?? "var(--paper-faint)" }} />
-            <span className="min-w-0 flex-1 truncate text-[11px] leading-[1.4]" style={mine ? { color: "#033882" } : undefined}>
+            <span aria-hidden className="h-[5px] w-[5px] shrink-0 self-center rounded-full" style={{ background: mine ? "#10b981" : ACCENT[h.title] ?? "var(--paper-faint)" }} />
+            <span className="min-w-0 flex-1 truncate text-[11px] leading-[1.4]" style={mine ? { color: "#10b981" } : undefined}>
               <span className={mine ? "font-medium" : "text-[var(--paper-text)]"}>{h.title}</span>
               <span className={mine ? "" : "text-[var(--paper-faint)]"}> · {h.city}</span>
             </span>
-            <span className="shrink-0 text-[10px] tabular-nums" style={{ ...MONO, color: mine ? "#033882" : "var(--paper-faint)" }}>{now ? ago(h.at, now) : ""}</span>
+            <span className="shrink-0 text-[10px] tabular-nums" style={{ ...MONO, color: mine ? "#10b981" : "var(--paper-faint)" }}>{now ? ago(h.at, now) : ""}</span>
           </div>
           );
         })}
