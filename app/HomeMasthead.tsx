@@ -2,14 +2,16 @@
 
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
+import { useState } from 'react'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
+import { AwsFlip } from './AwsFlip'
 
 /**
  * The nysgpt.com masthead — nameplate cell plus the four-layer ledger, matched
  * to 44B's home masthead.
  *
- *  - the nameplate links to NYSgpt's AWS startup page: on hover AWS rises in
- *    letter by letter; the first ledger cell toggles the switchboard panel.
+ *  - the nameplate links to NYSgpt's AWS startup page: on hover AWS flips in
+ *    like a departures board; the first ledger cell toggles the switchboard panel.
  *  - each ledger cell shows its layer's word at rest (Data, Models, Platforms,
  *    Tools); hovering swaps the word for the figure, counted up from zero with
  *    its label, and leaving resets it (2026-10-08).
@@ -31,6 +33,8 @@ const SIZE = 'clamp(1.8rem, 3.4vw, 3rem)'
 
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { toggle } = useSwitchboard()
+  /** Bumped on each hover of the nameplate, to replay the AWS flip. */
+  const [flips, setFlips] = useState(0)
 
   return (
     // A rounded frame matching the app shell (2026-10-08); the grid inside sits
@@ -41,7 +45,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           Side by side the ledger's own border-l closes that seam, so it is
           dropped at lg to avoid a double rule. */}
       {/* The nameplate links to NYSgpt's AWS startup page (2026-10-08): on hover
-          the wordmark gives way to AWS, its letters rising in one after another,
+          the wordmark gives way to AWS, flipped in like a departures board,
           with "Click to open", the cards' own phrase,
           and a click opens the page in a new tab. The Data cell still opens the
           switchboard. */}
@@ -51,6 +55,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
         target="_blank"
         rel="noreferrer noopener"
         aria-label="NYSgpt on AWS Startups"
+        onMouseEnter={() => setFlips((n) => n + 1)}
         className="group/name relative self-stretch flex items-center justify-center border-l border-r lg:border-r-0 border-[var(--paper-rule)] px-6 py-8 no-underline transition-colors hover:bg-[var(--paper-quiet)] sm:px-10 lg:w-[360px]"
       >
         <span
@@ -65,16 +70,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
             className="flex leading-[0.82] text-[var(--paper-strong)]"
             style={{ ...SERIF, fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: 400, letterSpacing: '-0.03em' }}
           >
-            {/* Each letter rises into place after the one before it. */}
-            {'AWS'.split('').map((ch, i) => (
-              <span
-                key={i}
-                className="inline-block translate-y-[0.45em] opacity-0 transition-[transform,opacity] duration-500 ease-out group-hover/name:translate-y-0 group-hover/name:opacity-100"
-                style={{ transitionDelay: `${i * 90}ms` }}
-              >
-                {ch}
-              </span>
-            ))}
+            <AwsFlip play={flips} />
           </span>
           <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>Click to open</span>
         </span>
@@ -134,7 +130,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
                   style={{ ...MONO, fontSize: l.exact ? `min(${SIZE}, calc(100cqw / ${(l.value.toLocaleString('en-US').length * 0.62).toFixed(2)}))` : SIZE }}
                 >
                   {l.exact ? (
-                    <CountUp value={l.value} duration={1400} trigger="hover" />
+                    <CountUp value={l.value} duration={2600} trigger="hover" />
                   ) : (
                     <CountUp value={fig.count} decimals={fig.decimals} suffix={fig.suffix} duration={1400} trigger="hover" />
                   )}
