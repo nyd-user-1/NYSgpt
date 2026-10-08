@@ -8,9 +8,8 @@ import { useSwitchboard } from '@/components/SwitchboardPanel'
  * The nysgpt.com masthead — nameplate cell plus the four-layer ledger, matched
  * to 44B's home masthead.
  *
- *  - the nameplate is a BUTTON: hover tints the cell and turns the wordmark
- *    accent; click toggles the switchboard panel, exactly as 44B's nameplate
- *    toggles the Commons. The first ledger cell does the same.
+ *  - the nameplate links to NYSgpt's AWS startup page: hover fades the
+ *    wordmark to AWS; the first ledger cell toggles the switchboard panel.
  *  - each ledger cell shows its layer's word at rest (Data, Models, Platforms,
  *    Tools); hovering swaps the word for the figure, counted up from zero with
  *    its label, and leaving resets it (2026-10-08).
@@ -23,6 +22,9 @@ const SERIF = { fontFamily: 'var(--font-display), Georgia, serif' } as const
 export type LedgerEntry = { word: string; value: number; unit: string; exact?: boolean; color: string }
 
 const FADE = 'transition-opacity duration-200'
+
+/** NYSgpt's page on the AWS Startups showcase. */
+const AWS_STARTUP = 'https://startups.aws.com/showcase/startup-details/ea42a691-3fe8-4572-8edf-70be4999ec83'
 
 /**
  * The cell width an exact figure needs before it is spelled out, by its length
@@ -45,19 +47,34 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
       {/* border-r closes the cell's right edge when the masthead stacks below lg.
           Side by side the ledger's own border-l closes that seam, so it is
           dropped at lg to avoid a double rule. */}
-      <button
+      {/* The nameplate links to NYSgpt's AWS startup page (2026-10-08): on hover
+          the wordmark fades to AWS with "Click to open", the cards' own phrase,
+          and a click opens the page in a new tab. The Data cell still opens the
+          switchboard. */}
+      <a
         data-inspect="Wordmark"
-        onClick={toggle}
-        aria-label="Open or close the switchboard"
-        className="group/name self-stretch flex items-center justify-center border-l border-r lg:border-r-0 border-[var(--paper-rule)] px-6 py-8 transition-colors hover:bg-[var(--paper-quiet)] cursor-pointer sm:px-10 lg:w-[360px]"
+        href={AWS_STARTUP}
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label="NYSgpt on AWS Startups"
+        className="group/name relative self-stretch flex items-center justify-center border-l border-r lg:border-r-0 border-[var(--paper-rule)] px-6 py-8 no-underline transition-colors hover:bg-[var(--paper-quiet)] sm:px-10 lg:w-[360px]"
       >
         <span
-          className="text-[var(--paper-text)] leading-[0.82] transition-colors group-hover/name:text-[var(--paper-strong)]"
+          className={`text-[var(--paper-text)] leading-[0.82] ${FADE} group-hover/name:opacity-0`}
           style={{ ...SERIF, fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: 400, letterSpacing: '-0.03em' }}
         >
           NYSgpt
         </span>
-      </button>
+        <span className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 ${FADE} group-hover/name:opacity-100`}>
+          <span
+            className="leading-[0.82] text-[var(--paper-strong)]"
+            style={{ ...SERIF, fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: 400, letterSpacing: '-0.03em' }}
+          >
+            AWS
+          </span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>Click to open</span>
+        </span>
+      </a>
 
       {/* Bottom-row cells drop border-b so it does not double with the
           container's own bottom rule. */}
@@ -72,7 +89,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
                  default; these cells link nowhere, so mark the scope explicitly. */
               data-countup-scope
               data-inspect="LedgerCell"
-              /* The first cell toggles the switchboard, as the wordmark does. */
+              /* The first cell toggles the switchboard. */
               {...(i === 0
                 ? {
                     role: 'button',
