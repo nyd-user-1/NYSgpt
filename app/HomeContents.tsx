@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { HomeCard } from './HomeCard'
-import { IN_HOUSE, KINDS, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
+import { APIS, IN_HOUSE, KINDS, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
 import dynamic from 'next/dynamic'
 import { CardDialog } from './CardDialog'
 
@@ -47,7 +47,7 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
    *  PRODUCT_EXTRAS. A box wears its kind's colour (KINDS), not its own. */
   const boxes = useMemo(
     () =>
-      [...products.map(c => ({ ...c, ...PRODUCT_EXTRAS[c.title], tag: 'Platform' })), ...TOOLS]
+      [...products.map(c => ({ ...c, ...PRODUCT_EXTRAS[c.title], tag: 'Platform' })), ...TOOLS, ...APIS]
         .filter(c => !OFF_RAIL.has(c.title))
         .map(c => (c.tag ? { ...c, accent: KINDS[c.tag as Kind] } : c))
         .sort((a, b) => a.title.localeCompare(b.title)),

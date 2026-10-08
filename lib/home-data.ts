@@ -4,6 +4,8 @@
  * follow the reader across routes). One copy, or the panel and the page drift.
  */
 
+import { API_SAMPLES } from "./api-samples";
+
 export type HomeCardData = {
   /** Empty for a tool with no public page: the cell renders, but goes nowhere. */
   href: string;
@@ -73,6 +75,8 @@ export type HomeCardData = {
    * 2026-10-01, databases and S3 alike; docs/TASK-SWITCHBOARD-COUNTS.md).
    */
   api?: { base: string; example: string; endpoints: [path: string, records: number][] };
+  /** An API box's real response to `api.example`, from API_SAMPLES; drawn where a product shows its screenshot. */
+  sample?: string;
 };
 
 const TOOL_INK = "#033882";
@@ -293,6 +297,38 @@ export const PRODUCT_EXTRAS: Record<string, Pick<HomeCardData, "sources" | "pas"
   "Video": { statement: "See how a video will do before you post it, and what would make it better.", sources: "Wesleyan Media Project · Swayable · Upworthy", pas: { problem: "Advocacy groups put real money into videos without knowing which ones will spread or change anyone's mind.", agitate: "By the time the numbers come in, the moment has passed, and the next video starts from the same guess.", solution: "Hermes watches how videos from influential and reform channels spread in their first 72 hours, and reads each one through every lens it can: audio, transcript, public reach, paid support. Record yours, from a provided script or your own, and it scores the cut as Likely Performance, suggests changes, and scores the improved version as Enhanced Performance. Once it's posted, Hermes tracks how it actually does and feeds that back into its model, so every video sharpens the next forecast." } },
   "Tariffs": { statement: "A broker and a few weeks, or one upload of the 7501.", sources: "CBP CROSS · USITC HTS", pas: { problem: "Importers routinely overpay duties because classification turns on thousands of rulings.", agitate: "Refunds are available, but finding the ruling that applies and doing the duty math takes a broker and weeks.", solution: "Upload a CBP 7501, and the chat finds the matching rulings and HTS codes, computes the duty and shows the refund owed." }, api: { base: "https://api.nysgpt.com/v1/tariffs", example: "/rulings?hts=8471.30", endpoints: [["/rulings", 221_605], ["/search", 221_603], ["/rulings/documents", 221_306], ["/rulings/terms", 41_301], ["/hts", 35_795], ["/hts/codes", 19_949], ["/duties", 7_950], ["/rulings/refund-eligible", 6_637], ["/brokers", 2_515], ["/countries", 150]] } },
 };
+
+/**
+ * The live API (2026-10-08): one key, one base, the same three kinds of call
+ * on every dataset (a search, a record by id, and that record joined to what
+ * no single public source connects it to). Read-only, behind API Gateway keys
+ * and usage plans (Free 1,000 calls a month, Pro 100,000); the function is
+ * aws/api/index.mjs. Records are what each dataset's calls reach, from the
+ * 2026-09-30 counts above.
+ */
+const API = "https://api.nysgpt.com/v1";
+export const APIS: HomeCardData[] = [
+  { href: "", title: "Gov API", tag: "Data", accent: "", value: 105_103_993, unit: "records",
+    body: "Bills, sponsors, roll calls and every member's vote, from all fifty states and Congress.",
+    statement: "A bill, who sponsored it and how each member voted, in one call.",
+    sample: API_SAMPLES.gov,
+    api: { base: `${API}/gov`, example: "/bills/1948255", endpoints: [["/rollcalls/{id}", 89_135_777], ["/bills/{id}", 12_084_763], ["/bills?q=", 2_129_901], ["/people?q=", 22_726]] } },
+  { href: "", title: "Energy API", tag: "Data", accent: "", value: 67_400, unit: "records",
+    body: "Every US power plant joined to its generators and what each fuel actually generated.",
+    statement: "A plant, its generators and its output by fuel, in one call.",
+    sample: API_SAMPLES.energy,
+    api: { base: `${API}/energy`, example: "/plants/2693", endpoints: [["/plants/{id}", 51_268], ["/plants?q=&state=", 16_132]] } },
+  { href: "", title: "Health API", tag: "Data", accent: "", value: 28_566_085, unit: "records",
+    body: "Any NPI joined to the insurer networks it sits in and the rates those insurers publish for it.",
+    statement: "A provider, its networks and its negotiated rates, in one call.",
+    sample: API_SAMPLES.health,
+    api: { base: `${API}/health`, example: "/providers/1902855828", endpoints: [["/providers/{npi}", 28_566_085], ["/providers?zip=", 1_947_004]] } },
+  { href: "", title: "Tariffs API", tag: "Data", accent: "", value: 257_400, unit: "records",
+    body: "Customs rulings joined to the tariff lines they classify under, with the duty rate on each.",
+    statement: "A customs ruling and the duty it points to, in one call.",
+    sample: API_SAMPLES.tariffs,
+    api: { base: `${API}/tariffs`, example: "/rulings/M80185", endpoints: [["/rulings/{id}", 257_400], ["/rulings?q=", 221_605], ["/hts/{code}", 35_795]] } },
+];
 
 /** The ten products — the contents plate, and the panel's product rows. */
 export const CARDS: HomeCardData[] = [

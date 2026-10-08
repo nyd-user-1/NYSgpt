@@ -13,7 +13,7 @@ const LONG = new Intl.NumberFormat("en-US");
  * endpoint with the records behind it (largest first, the short figure in the
  * row and the exact one on hover), and one call as a client would make it.
  */
-export function ApiPanel({ api }: { api: NonNullable<HomeCardData["api"]> }) {
+export function ApiPanel({ api, live }: { api: NonNullable<HomeCardData["api"]>; live?: boolean }) {
   const [copied, setCopied] = useState(false);
   const endpoints = [...api.endpoints].sort((a, b) => b[1] - a[1]);
   const path = api.example.replace(/\?.*$/, "");
@@ -43,11 +43,12 @@ export function ApiPanel({ api }: { api: NonNullable<HomeCardData["api"]> }) {
         ))}
       </ul>
 
-      <pre className="m-0 overflow-x-auto bg-zinc-950 px-3 py-3 text-[11.5px] leading-relaxed text-zinc-100">
+      {/* A live API's box shows its real call and response beside this, so the sketch is left off. */}
+      {!live && <pre className="m-0 overflow-x-auto bg-zinc-950 px-3 py-3 text-[11.5px] leading-relaxed text-zinc-100">
         <span className="text-zinc-500">$ </span>curl &quot;{api.base}{api.example}&quot; \{"\n"}
-        {"    "}-H &quot;Authorization: Bearer <span className="text-amber-300">nk_live_…</span>&quot;{"\n\n"}
+        {"    "}-H &quot;x-api-key: <span className="text-amber-300">your key</span>&quot;{"\n\n"}
         <span className="text-zinc-400">{`{ "object": "list", "url": "${new URL(api.base).pathname}${path}", "has_more": true, "data": [ … ] }`}</span>
-      </pre>
+      </pre>}
     </section>
   );
 }

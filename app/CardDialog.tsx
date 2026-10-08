@@ -10,6 +10,7 @@ import { TOOLS, type HomeCardData } from "@/lib/home-data";
 import { CARD_ICONS } from "./card-icons";
 import { ApiPanel } from "./ApiPanel";
 import { ProductShot } from "./ProductShot";
+import { ApiSample } from "./ApiSample";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
 const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
@@ -121,7 +122,7 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
 
             <div className="min-h-0 flex-1 overflow-y-auto lg:flex lg:h-[min(600px,calc(88vh-8.5rem))] lg:flex-none lg:overflow-hidden">
               <div className="border-b bg-muted/40 p-4 lg:flex lg:min-h-0 lg:min-w-0 lg:flex-[1.75] lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
-                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : <ProductShot key={shown.title} card={shown} />}
+                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.sample ? <ApiSample card={shown} /> : <ProductShot key={shown.title} card={shown} />}
               </div>
               <div className="p-5 lg:min-h-0 lg:min-w-0 lg:flex-1 lg:overflow-y-auto">
                 {swapping ? (
@@ -140,7 +141,7 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
                         <p className="m-0 text-sm text-muted-foreground">{lead}</p>
                         {shown.api ? (
                           // The API reference stands in for the prose.
-                          <ApiPanel api={shown.api} />
+                          <ApiPanel api={shown.api} live={!!shown.sample} />
                         ) : (
                           paragraphs.map((text) => (
                             <p key={text} className="m-0 mt-5 text-sm leading-relaxed">{text}</p>
