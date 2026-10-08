@@ -7,7 +7,7 @@ const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as cons
  */
 export function ApiBuy({ dataset, name }: { dataset: string; name: string }) {
   return (
-    <div className="mt-6 grid grid-cols-2 gap-2">
+    <div className="grid shrink-0 grid-cols-2 gap-2">
       <form action="/api/checkout" method="post">
         <input type="hidden" name="dataset" value={dataset} />
         <button type="submit" className="flex h-12 w-full flex-col items-center justify-center rounded-xl bg-foreground text-background hover:opacity-90">

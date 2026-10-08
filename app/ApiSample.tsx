@@ -24,7 +24,7 @@ export function ApiSample({ card, table, inline }: { card: HomeCardData; table?:
   const json = table ? JSON.stringify({ data: [table.sample], meta: { source: `${table.schema}.${table.table}` } }, null, 2) : card.sample;
 
   return (
-    <figure className={`flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm ${inline ? "mt-6 mb-0" : "m-0 min-h-[20rem] lg:min-h-0 lg:flex-1"}`}>
+    <figure className={`flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm ${inline ? "m-0" : "m-0 min-h-[20rem] lg:min-h-0 lg:flex-1"}`}>
       <div className="flex h-10 shrink-0 items-center gap-3 border-b bg-muted/50 px-3 text-[11.5px]" style={MONO}>
         <span className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-700">GET</span>
         <span className="min-w-0 flex-1 truncate">{call.replace("https://", "")}</span>
