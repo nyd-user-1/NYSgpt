@@ -395,6 +395,8 @@ function SwitchboardPanel() {
                 {/* Hero — the headline figure leads in the product's accent,
                     with the description directly beneath it. The product's
                     NAME lives in the Visit footer; its DOMAIN is the header. */}
+                {/* An API's page is its endpoint list alone. */}
+                {!product.catalog && (
                 <div className="border-b border-[var(--paper-rule)] px-5 py-6">
                   <p
                     className="leading-none tabular-nums"
@@ -409,6 +411,7 @@ function SwitchboardPanel() {
                     {product.body}
                   </p>
                 </div>
+                )}
 
                 {/* Sub-stats — a ruled 2-col grid, the masthead ledger's idiom
                     at panel scale. Only cards carrying measured breakdowns
