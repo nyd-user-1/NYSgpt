@@ -435,7 +435,7 @@ function SwitchboardPanel() {
                          <Link> itself). */
                       <Link
                         key={s.unit}
-                        {...linkProps(s.href)}
+                        {...(s.href ? linkProps(s.href) : { href: '#', onClick: (e: React.MouseEvent) => e.preventDefault() })}
                         className={`group/stat relative block border-b border-[var(--paper-rule)] px-5 py-6 transition-colors hover:bg-[var(--stat-tint)] ${i % 2 === 0 ? 'border-r' : ''} ${
                           i === arr.length - 1 && arr.length % 2 === 1 ? 'col-span-2 !border-r-0' : ''
                         }`}
@@ -514,7 +514,7 @@ function SwitchboardPanel() {
                 sibling. `mt-auto` (against the min-h-full flex wrapper) pins it
                 to the panel's bottom edge even when the content runs short —
                 the Visit link lives at the bottom, always (ruling 2026-08-24). */}
-            {deep && (
+            {deep && (channel || product!.href) && (
               <div className="sticky bottom-0 z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
                 {/* ⚠ Branch on WHICH view this is — never `channel?.x ?? product!.x`.
                     `??` only short-circuits on a non-nullish left side, and

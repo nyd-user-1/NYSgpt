@@ -5,6 +5,7 @@
  */
 
 import { API_SAMPLES } from "./api-samples";
+import { API_TABLES } from "./api-tables";
 
 export type HomeCardData = {
   /** Empty for a tool with no public page: the cell renders, but goes nowhere. */
@@ -700,3 +701,16 @@ export const LEDGER: { word: string; value: number; unit: string; exact?: boolea
   { word: "Platforms", value: 3_125_952, unit: "Requests", exact: true, color: KINDS.Platform },
   { word: "Tools", value: TOOLS.filter((t) => t.tag === "Tool").length + IN_HOUSE.length, unit: "AI tools", color: KINDS.Tool },
 ];
+
+/**
+ * The switchboard's products (2026-10-08): every box on the homepage (the
+ * platforms, the tools and models, the dev tools and the ten APIs) A–Z, so the
+ * masthead's Data cell opens onto all of it. Each wears its kind's colour; an
+ * API lists its largest tables. A box with no site of its own has no Visit footer.
+ */
+export const SWITCHBOARD: HomeCardData[] = [
+  ...CARDS,
+  ...TOOLS.map((c) => ({ ...c, accent: KINDS[(c.tag ?? "Tool") as Kind] })),
+  ...IN_HOUSE.map((c) => ({ ...c, accent: KINDS.Tool })),
+  ...APIS.map((a) => ({ ...a, accent: KINDS.Data, stats: a.catalog ? API_TABLES[a.catalog] : undefined })),
+].sort((a, b) => a.title.localeCompare(b.title));

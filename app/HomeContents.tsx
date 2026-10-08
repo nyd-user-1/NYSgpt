@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { HomeCard } from './HomeCard'
-import { APIS, IN_HOUSE, KINDS, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
+import { APIS, IN_HOUSE, KINDS, SWITCHBOARD, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
 import dynamic from 'next/dynamic'
 import { CardDialog } from './CardDialog'
 
@@ -56,7 +56,7 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
   /** The dev tools are tools: they wear the Tool colour and chip. */
   const devTools = useMemo(() => IN_HOUSE.map(c => ({ ...c, tag: 'Tool', accent: KINDS.Tool })), [])
   /** A product's place in the switchboard, by title. */
-  const productIndex = useMemo(() => new Map(products.map((c, i) => [c.title, i])), [products])
+  const productIndex = useMemo(() => new Map(SWITCHBOARD.map((c, i) => [c.title, i])), [])
   const columns = Math.ceil(boxes.length / 2)
 
   /** The card whose dialog is open. */

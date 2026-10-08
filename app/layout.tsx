@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
 import { getDigest } from "@/lib/digest";
-import { CARDS } from "@/lib/home-data";
+import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
 import { metadataKeywords } from "./metadata";
 import "@/app/globals.css";
@@ -92,7 +92,7 @@ export default async function RootLayout({
           {/* The provider mounts the panel itself (portaled to <body>), so the
               shell wrapper and the drawer stay in one system. */}
           <ProductStatusProvider cards={CARDS}>
-            <SwitchboardProvider cards={CARDS} digest={digest}>
+            <SwitchboardProvider cards={SWITCHBOARD} digest={digest}>
               <SwitchboardShell>{children}</SwitchboardShell>
             </SwitchboardProvider>
           </ProductStatusProvider>
