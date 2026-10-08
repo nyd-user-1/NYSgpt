@@ -256,24 +256,27 @@ function match(path) {
   if (!c || rest.length) return null
   if (!name) return { dataset, source: "Catalog", fn: async () => c.tables.map(({ path, rows, columns, filters }) => ({ path: `/v1/${dataset}/${path}`, rows, columns, filters })), params: {} }
   const t = c.byPath.get(name)
-  return t ? { dataset, source: `${t.schema}.${t.table}`, fn: (_, qs) => table(dataset, t, qs), params: {} } : null
+  return t ? { dataset, table: t.path, source: `${t.schema}.${t.table}`, fn: (_, qs) => table(dataset, t, qs), params: {} } : null
 }
 
-// A bought key carries its datasets in its description ("datasets:energy",
-// "datasets:*"); a key without one (hand-issued) reads everything. Cached for
-// ten minutes per warm instance.
+// A key's scope is in its description: "scope:<dataset>:<tables|*>" for a
+// plan built in a box's control panel, "datasets:<a,b|*>" for the first keys.
+// A key with neither (hand-issued) reads everything. Cached ten minutes per
+// warm instance.
 const gateway = new APIGatewayClient({})
 const scopes = new Map()
-async function allowed(keyId, dataset) {
+async function allowed(keyId, dataset, table) {
   if (!keyId) return true
   let s = scopes.get(keyId)
   if (!s || s.at < Date.now() - 600_000) {
-    const k = await gateway.send(new GetApiKeyCommand({ apiKey: keyId }))
-    const m = /datasets:([^\s·]+)/.exec(k.description || "")
-    s = { at: Date.now(), sets: m ? m[1].split(",") : ["*"] }
+    const d = (await gateway.send(new GetApiKeyCommand({ apiKey: keyId }))).description || ""
+    const scope = /scope:([^:\s]+):(\S+)/.exec(d)
+    const old = /datasets:([^\s·]+)/.exec(d)
+    s = { at: Date.now(), sets: scope ? [scope[1]] : old ? old[1].split(",") : ["*"], tables: scope && scope[2] !== "*" ? scope[2].split(",") : null }
     scopes.set(keyId, s)
   }
-  return s.sets.includes("*") || s.sets.includes(dataset)
+  if (!(s.sets.includes("*") || s.sets.includes(dataset))) return false
+  return !table || !s.tables || s.tables.includes(table)
 }
 
 const json = (status, body) => ({
@@ -294,8 +297,8 @@ export const handler = async (event) => {
   }
   const m = match(path)
   if (!m) return json(404, { error: "No such endpoint. GET /v1 lists them." })
-  if (!(await allowed(event.requestContext?.identity?.apiKeyId, m.dataset)))
-    return json(403, { error: `This key does not include the ${m.dataset} API. Every dataset: nysgpt.com` })
+  if (!(await allowed(event.requestContext?.identity?.apiKeyId, m.dataset, m.table)))
+    return json(403, { error: `This key's plan does not include ${m.table ? `/${m.table}` : `the ${m.dataset} API`}. Add it at nysgpt.com` })
   const t0 = Date.now()
   try {
     const data = await m.fn(m.params, qs)

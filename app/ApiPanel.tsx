@@ -19,12 +19,14 @@ const ROW = "grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2 
  * A live API box (one with a catalog) lists every table its dataset publishes
  * under the join endpoints, and each row picks the record the dialog shows.
  */
-export function ApiPanel({ api, live, tables, picked, onPick, className = "mt-6" }: {
+export function ApiPanel({ api, live, tables, picked, chosen, onPick, className = "mt-6" }: {
   api: NonNullable<HomeCardData["api"]>;
   className?: string;
   live?: boolean;
   tables?: CatalogTable[] | null;
   picked?: string | null;
+  /** The tables in the reader's plan: their rows are ticked, and a click adds or drops one. */
+  chosen?: Set<string> | null;
   onPick?: (path: string | null) => void;
 }) {
   const [copied, setCopied] = useState(false);
@@ -66,8 +68,8 @@ export function ApiPanel({ api, live, tables, picked, onPick, className = "mt-6"
         ))}
         {tables?.map((t) => (
           <li key={t.path}>
-            <button type="button" onClick={() => onPick?.(t.path)} className={`${ROW} ${picked === t.path ? "bg-muted/60" : "hover:bg-muted/40"}`}>
-              <Get />
+            <button type="button" onClick={() => onPick?.(t.path)} className={`${ROW} ${picked === t.path || chosen?.has(t.path) ? "bg-muted/60" : "hover:bg-muted/40"}`}>
+              {chosen ? <Tick on={chosen.has(t.path)} /> : <Get />}
               <span className="truncate text-foreground">/{t.path}</span>
               <span className="tabular-nums text-muted-foreground" title={`${LONG.format(t.rows)} records`}>{SHORT.format(t.rows)}</span>
             </button>
@@ -82,6 +84,14 @@ export function ApiPanel({ api, live, tables, picked, onPick, className = "mt-6"
         <span className="text-zinc-400">{`{ "object": "list", "url": "${new URL(api.base).pathname}${path}", "has_more": true, "data": [ … ] }`}</span>
       </pre>}
     </section>
+  );
+}
+
+function Tick({ on }: { on: boolean }) {
+  return (
+    <span className={`flex size-4 items-center justify-center rounded-[4px] border ${on ? "border-foreground bg-foreground text-background" : "border-input bg-background"}`}>
+      {on && <svg viewBox="0 0 12 12" className="size-2.5" aria-hidden><path d="M2.5 6.5l2.2 2.2 4.8-5" fill="none" stroke="currentColor" strokeWidth="2" /></svg>}
+    </span>
   );
 }
 

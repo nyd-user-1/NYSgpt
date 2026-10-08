@@ -11,8 +11,8 @@ import { CARD_ICONS } from "./card-icons";
 import { ApiPanel } from "./ApiPanel";
 import { ProductShot } from "./ProductShot";
 import { ApiSample } from "./ApiSample";
-import { ApiBuy } from "./ApiBuy";
-import { useCatalog } from "./useCatalog";
+import { ApiPricer } from "./ApiPricer";
+import { useCatalog, type CatalogTable } from "./useCatalog";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
 const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
@@ -75,6 +75,20 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
     setPicked(null);
   }
   const tables = useCatalog(shown?.catalog);
+  /** An API box's chosen tables, shared by the endpoint table and the control panel; every table to start. */
+  const [selected, setSelected] = useState<Set<string> | null>(null);
+  const [selectedFor, setSelectedFor] = useState<CatalogTable[] | null>(null);
+  if (tables !== selectedFor) {
+    setSelectedFor(tables);
+    setSelected(tables ? new Set(tables.map((t) => t.path)) : null);
+  }
+  const toggle = (path: string | null) => {
+    if (!path || !selected) return;
+    const next = new Set(selected);
+    if (next.has(path)) next.delete(path);
+    else next.add(path);
+    setSelected(next);
+  };
   // A box without a readout of its own opens on its largest table.
   const pickedTable = tables?.find((t) => t.path === picked) ?? (shown?.readout ? null : tables?.[0] ?? null);
 
@@ -130,16 +144,13 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
 
             <div className="thin-scrollbar min-h-0 flex-1 overflow-y-auto lg:flex lg:h-[min(600px,calc(88vh-8.5rem))] lg:flex-none lg:overflow-hidden">
               <div className="thin-scrollbar border-b bg-muted/40 p-4 lg:flex lg:min-h-0 lg:min-w-0 lg:flex-[1.75] lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
-                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.catalog && shown.api ? <ApiPanel className="m-0" api={shown.api} live tables={tables} picked={pickedTable?.path ?? null} onPick={setPicked} /> : <ProductShot key={shown.title} card={shown} />}
+                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.catalog && shown.api ? <ApiPanel className="m-0" api={shown.api} live tables={tables} chosen={selected} onPick={toggle} /> : <ProductShot key={shown.title} card={shown} />}
               </div>
               {shown.catalog && shown.api ? (
                 // An API box: the picked table's record, and the checkout pinned to the bottom,
                 // level with the bottom of the endpoint table beside it.
-                <div className="flex flex-col gap-4 p-4 lg:min-h-0 lg:min-w-0 lg:flex-1">
-                  <div className="thin-scrollbar min-h-0 flex-1 overflow-y-auto">
-                    <ApiSample key={pickedTable?.path ?? ""} card={shown} table={pickedTable} inline />
-                  </div>
-                  <ApiBuy dataset={shown.catalog} name={shown.title} />
+                <div className="flex flex-col p-4 lg:min-h-0 lg:min-w-0 lg:flex-1">
+                  <ApiPricer key={shown.catalog} dataset={shown.catalog} name={shown.title} tables={tables} selected={selected ?? new Set()} onSelect={setSelected} />
                 </div>
               ) : (
               <div className="thin-scrollbar p-5 lg:min-h-0 lg:min-w-0 lg:flex-1 lg:overflow-y-auto">

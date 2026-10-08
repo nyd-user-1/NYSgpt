@@ -1,18 +1,19 @@
 import "server-only";
 
-import { APIGatewayClient, CreateApiKeyCommand, CreateUsagePlanKeyCommand, GetApiKeysCommand } from "@aws-sdk/client-api-gateway";
+import { createHmac } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { APIGatewayClient, CreateApiKeyCommand, CreateUsagePlanKeyCommand, GetApiKeyCommand, GetApiKeysCommand } from "@aws-sdk/client-api-gateway";
+import { CALLS, LICENSES, TERMS, price, type Choice } from "./api-pricing";
 
 /**
- * Buying API access (2026-10-08): Stripe Checkout takes the subscription, and
- * the return page issues an API Gateway key on the Pro usage plan, named for
- * the checkout session so a reload shows the same key instead of minting
- * another. The key's description carries the datasets it may read; the API's
- * Lambda (aws/api/index.mjs) enforces it.
+ * Buying API access (2026-10-08). The reader builds a plan in an API box's
+ * control panel; a free plan gets its key at once (freeKey), a paid one goes
+ * through Stripe Checkout and gets its key on the page Stripe returns to
+ * (keyFor). Either way the key sits on its calls tier's usage plan and its
+ * description carries its scope, "scope:<dataset>:<tables|*>", which the
+ * API's Lambda (aws/api/index.mjs) enforces.
  */
-export const PLANS = {
-  one: { amount: 19_900, label: "Pro", per: "month", calls: "100,000 calls a month" },
-  all: { amount: 99_900, label: "All APIs", per: "month", calls: "100,000 calls a month across every dataset" },
-} as const;
 
 /** The datasets on sale, by slug, as the API names them. */
 export const DATASETS: Record<string, string> = {
@@ -20,8 +21,58 @@ export const DATASETS: Record<string, string> = {
   insurance: "Insurance", science: "Science", solar: "Solar", sports: "Sports", tariffs: "Tariffs",
 };
 
-const PRO_PLAN = "ty621f";
 const gateway = new APIGatewayClient({ region: "us-east-1" });
+
+/** A dataset's tables and their rows, from the catalog the homepage serves. */
+function rowsOf(dataset: string): Record<string, number> {
+  const c = JSON.parse(readFileSync(join(process.cwd(), "public", "catalog", `${dataset}.json`), "utf8"));
+  return Object.fromEntries(c.tables.map((t: { path: string; rows: number }) => [t.path, t.rows]));
+}
+
+/** The reader's choices from a posted control panel, checked against what is on sale. */
+export function choiceFrom(form: FormData): Choice & { all: boolean } {
+  const dataset = String(form.get("dataset") ?? "");
+  if (!DATASETS[dataset]) throw new Error("No such dataset.");
+  const rows = rowsOf(dataset);
+  const raw = String(form.get("tables") ?? "*");
+  const all = raw === "*";
+  const tables = all ? Object.keys(rows) : raw.split(",").filter((t) => t in rows);
+  if (!tables.length) throw new Error("Choose at least one table.");
+  const pick = <T extends { id: string }>(list: readonly T[], v: unknown) => (list.find((x) => x.id === v) ?? list[0]).id;
+  return { dataset, tables, all, calls: pick(CALLS, form.get("calls")), term: pick(TERMS, form.get("term")), license: pick(LICENSES, form.get("license")) };
+}
+
+const scopeOf = (c: Choice & { all: boolean }) => `scope:${c.dataset}:${c.all ? "*" : c.tables.join(",")}`;
+
+async function issue(name: string, plan: string, description: string) {
+  const found = await gateway.send(new GetApiKeysCommand({ nameQuery: name, includeValues: true }));
+  const existing = found.items?.find((k) => k.name === name);
+  if (existing?.value) return existing.value;
+  const key = await gateway.send(new CreateApiKeyCommand({ name, enabled: true, description }));
+  await gateway.send(new CreateUsagePlanKeyCommand({ usagePlanId: plan, keyId: key.id!, keyType: "API_KEY" }));
+  return key.value!;
+}
+
+/** The link that shows a free key once more: its id, signed so ids cannot be guessed into values. */
+const sign = (id: string) => createHmac("sha256", process.env.STRIPE_SECRET_KEY ?? "nysgpt").update(id).digest("hex").slice(0, 32);
+
+/** A free key (1,000 calls a month) for the chosen tables, issued now. Returns the page that shows it. */
+export async function freeKey(c: Choice & { all: boolean }, email: string) {
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new Error("Enter an email address.");
+  const name = `free-${c.dataset}-${email.toLowerCase()}`;
+  await issue(name, CALLS[0].plan, `${scopeOf(c)} · free · ${email}`);
+  const found = await gateway.send(new GetApiKeysCommand({ nameQuery: name }));
+  const id = found.items!.find((k) => k.name === name)!.id!;
+  return `/api-access?key=${id}&sig=${sign(id)}`;
+}
+
+/** A free key's value, from its signed link. */
+export async function freeKeyFrom(id: string, sig: string) {
+  if (sign(id) !== sig) return null;
+  const k = await gateway.send(new GetApiKeyCommand({ apiKey: id, includeValue: true }));
+  const scope = /scope:([^:]+):(\S+)/.exec(k.description ?? "");
+  return k.value && scope ? { key: k.value, dataset: scope[1], tables: scope[2], calls: CALLS[0].label } : null;
+}
 
 async function stripe(path: string, body?: Record<string, string>) {
   const res = await fetch(`https://api.stripe.com/v1/${path}`, {
@@ -35,22 +86,26 @@ async function stripe(path: string, body?: Record<string, string>) {
   return json;
 }
 
-/** A Checkout Session for one dataset, or every one ("all"). Returns the URL to send the buyer to. */
-export async function checkout(dataset: string, origin: string) {
-  const all = dataset === "all";
-  if (!all && !DATASETS[dataset]) throw new Error("No such dataset.");
-  const plan = all ? PLANS.all : PLANS.one;
-  const name = all ? "NYSgpt API: every dataset" : `NYSgpt ${DATASETS[dataset]} API`;
+/** A Checkout Session for the plan, priced here from the choices (never from the browser). Returns its URL. */
+export async function checkout(c: Choice & { all: boolean }, origin: string) {
+  const amount = price(c, rowsOf(c.dataset));
+  if (!amount) throw new Error("That plan is free: no checkout needed.");
+  const term = TERMS.find((t) => t.id === c.term)!;
+  const calls = CALLS.find((x) => x.id === c.calls)!;
+  const license = LICENSES.find((x) => x.id === c.license)!;
+  const scope = scopeOf(c);
   const session = await stripe("checkout/sessions", {
     mode: "subscription",
     "line_items[0][quantity]": "1",
     "line_items[0][price_data][currency]": "usd",
-    "line_items[0][price_data][unit_amount]": String(plan.amount),
+    "line_items[0][price_data][unit_amount]": String(amount * 100),
     "line_items[0][price_data][recurring][interval]": "month",
-    "line_items[0][price_data][product_data][name]": name,
-    "line_items[0][price_data][product_data][description]": plan.calls,
-    "metadata[datasets]": all ? "*" : dataset,
-    "subscription_data[metadata][datasets]": all ? "*" : dataset,
+    "line_items[0][price_data][recurring][interval_count]": String(term.months),
+    "line_items[0][price_data][product_data][name]": `NYSgpt ${DATASETS[c.dataset]} API`,
+    "line_items[0][price_data][product_data][description]": `${c.all ? "Every table" : `${c.tables.length} tables`} · ${calls.label} a month · ${license.label}`,
+    // Stripe holds 500 characters a value; a long table list is kept on the key, not here.
+    "metadata[scope]": scope.length <= 500 ? scope : `scope:${c.dataset}:*`,
+    "metadata[plan]": calls.plan,
     success_url: `${origin}/api-access?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/`,
     allow_promotion_codes: "true",
@@ -62,17 +117,10 @@ export async function checkout(dataset: string, origin: string) {
 export async function keyFor(sessionId: string) {
   const session = await stripe(`checkout/sessions/${encodeURIComponent(sessionId)}`);
   if (session.status !== "complete" || session.payment_status === "unpaid") return null;
-  const datasets: string = session.metadata?.datasets ?? "*";
-  const name = `stripe-${session.id}`;
-  const found = await gateway.send(new GetApiKeysCommand({ nameQuery: name, includeValues: true }));
-  let value = found.items?.find((k) => k.name === name)?.value;
-  if (!value) {
-    const key = await gateway.send(new CreateApiKeyCommand({
-      name, enabled: true,
-      description: `datasets:${datasets} · ${session.customer_details?.email ?? ""} · ${session.subscription ?? ""}`,
-    }));
-    await gateway.send(new CreateUsagePlanKeyCommand({ usagePlanId: PRO_PLAN, keyId: key.id!, keyType: "API_KEY" }));
-    value = key.value;
-  }
-  return { key: value!, datasets: datasets === "*" ? Object.keys(DATASETS) : [datasets], email: session.customer_details?.email as string | undefined };
+  const scope: string = session.metadata?.scope ?? "";
+  const plan: string = session.metadata?.plan || CALLS[2].plan;
+  const email: string | undefined = session.customer_details?.email;
+  const key = await issue(`stripe-${session.id}`, plan, `${scope} · ${email ?? ""} · ${session.subscription ?? ""}`);
+  const m = /scope:([^:]+):(\S+)/.exec(scope);
+  return { key, dataset: m?.[1] ?? "", tables: m?.[2] ?? "*", calls: CALLS.find((x) => x.plan === plan)?.label ?? "", email };
 }
