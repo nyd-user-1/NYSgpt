@@ -3,17 +3,29 @@
 import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 import type { HomeCardData } from "@/lib/home-data";
+import type { CatalogTable } from "./useCatalog";
 
 const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
 const SHORT = new Intl.NumberFormat("en-US", { notation: "compact", maximumFractionDigits: 1 });
 const LONG = new Intl.NumberFormat("en-US");
 
+const ROW = "grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2 text-left transition-colors";
+
 /**
  * A product's API reference in its card dialog: the base URL to copy, every
  * endpoint with the records behind it (largest first, the short figure in the
  * row and the exact one on hover), and one call as a client would make it.
+ *
+ * A live API box (one with a catalog) lists every table its dataset publishes
+ * under the join endpoints, and each row picks the record the dialog shows.
  */
-export function ApiPanel({ api, live }: { api: NonNullable<HomeCardData["api"]>; live?: boolean }) {
+export function ApiPanel({ api, live, tables, picked, onPick }: {
+  api: NonNullable<HomeCardData["api"]>;
+  live?: boolean;
+  tables?: CatalogTable[] | null;
+  picked?: string | null;
+  onPick?: (path: string | null) => void;
+}) {
   const [copied, setCopied] = useState(false);
   const endpoints = [...api.endpoints].sort((a, b) => b[1] - a[1]);
   const path = api.example.replace(/\?.*$/, "");
@@ -35,10 +47,29 @@ export function ApiPanel({ api, live }: { api: NonNullable<HomeCardData["api"]>;
 
       <ul className="m-0 list-none divide-y p-0">
         {endpoints.map(([route, records]) => (
-          <li key={route} className="grid grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2 transition-colors hover:bg-muted/40">
-            <span className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-700 dark:text-emerald-400">GET</span>
-            <span className="truncate text-foreground">{route}</span>
-            <span className="tabular-nums text-muted-foreground" title={`${LONG.format(records)} records`}>{SHORT.format(records)}</span>
+          <li key={route}>
+            {onPick ? (
+              <button type="button" onClick={() => onPick(null)} className={`${ROW} ${picked ? "hover:bg-muted/40" : "bg-muted/60"}`}>
+                <Get />
+                <span className="truncate text-foreground">{route}</span>
+                <span className="tabular-nums text-muted-foreground" title={`${LONG.format(records)} records`}>{SHORT.format(records)}</span>
+              </button>
+            ) : (
+              <div className={`${ROW} hover:bg-muted/40`}>
+                <Get />
+                <span className="truncate text-foreground">{route}</span>
+                <span className="tabular-nums text-muted-foreground" title={`${LONG.format(records)} records`}>{SHORT.format(records)}</span>
+              </div>
+            )}
+          </li>
+        ))}
+        {tables?.map((t) => (
+          <li key={t.path}>
+            <button type="button" onClick={() => onPick?.(t.path)} className={`${ROW} ${picked === t.path ? "bg-muted/60" : "hover:bg-muted/40"}`}>
+              <Get />
+              <span className="truncate text-foreground">/{t.path}</span>
+              <span className="tabular-nums text-muted-foreground" title={`${LONG.format(t.rows)} records`}>{SHORT.format(t.rows)}</span>
+            </button>
           </li>
         ))}
       </ul>
@@ -51,4 +82,8 @@ export function ApiPanel({ api, live }: { api: NonNullable<HomeCardData["api"]>;
       </pre>}
     </section>
   );
+}
+
+function Get() {
+  return <span className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-700 dark:text-emerald-400">GET</span>;
 }

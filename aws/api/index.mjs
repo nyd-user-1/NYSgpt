@@ -1,64 +1,75 @@
 // api.nysgpt.com: one read-only REST API over the NYSgpt datasets.
 //
 // API Gateway checks the key and the plan's quota before this runs, so a bot
-// without a key never reaches a database. Every dataset answers the same three
-// kinds of request: a search, one record by its id, and one record joined to
-// what no single public source connects it to.
+// without a key never reaches a database. Every dataset is its product's own
+// Aurora cluster, read over the RDS Data API (no VPC, no pool, no driver):
 //
-// Dependency-free on purpose (local builds are banned): Neon is reached over its
-// HTTPS SQL endpoint with fetch, and Aurora over the RDS Data API with the SDK
-// the Lambda runtime already ships.
+//   GET /v1                         the datasets
+//   GET /v1/{dataset}               every table it publishes, with columns and filters
+//   GET /v1/{dataset}/{table}       rows, filtered on indexed columns: ?col=, col.gte=, col.lte=, order=, limit=, offset=
+//   GET /v1/{dataset}/...           a few joins: one record with what no single source connects it to
+//
+// The tables come from catalog/*.json, built from the clusters themselves; a
+// table not in its catalog cannot be read. Dependency-free on purpose (local
+// builds are banned): the SDK ships in the Lambda runtime.
 
 import { RDSDataClient, ExecuteStatementCommand } from "@aws-sdk/client-rds-data"
+import { APIGatewayClient, GetApiKeyCommand } from "@aws-sdk/client-api-gateway"
+import { readdirSync, readFileSync } from "node:fs"
 
 const rds = new RDSDataClient({})
+const ARN = "arn:aws:rds:us-east-1:638175140432:cluster:"
+const SECRET = "arn:aws:secretsmanager:us-east-1:638175140432:secret:"
 
-async function neon(url, query, params = []) {
-  const host = new URL(url).hostname
-  const res = await fetch(`https://${host}/sql`, {
-    method: "POST",
-    headers: { "Neon-Connection-String": url, "Content-Type": "application/json" },
-    body: JSON.stringify({ query, params }),
-  })
-  const body = await res.json()
-  if (!res.ok) throw new Error(body.message || `neon ${res.status}`)
-  return body.rows
+// Dataset → its product's cluster. Health is the leuk cluster's public data;
+// leuk-phi is never read. Solar is a slice of the solar cluster's tables.
+const CLUSTERS = {
+  gov: ["govblock", "rds!cluster-ee58a523-8533-4ef9-8436-a38afeb469ec-OYP1jc", "policy"],
+  energy: ["solar", "rds!cluster-be75506a-a452-4fb8-91f3-04bca767adf0-jS457V", "solar"],
+  solar: ["solar", "rds!cluster-be75506a-a452-4fb8-91f3-04bca767adf0-jS457V", "solar"],
+  health: ["leuk", "rds!cluster-0765911c-d2fa-4cb6-ab7c-37d894c83b4b-IugwnE", "leuk"],
+  tariffs: ["tariffs", "rds!cluster-8f84eea9-738b-4419-b790-f8896404ddfc-0ehFVQ", "tariffs"],
+  science: ["nsr", "rds!cluster-7939e7b3-a70e-444e-a851-d93a4f14aea1-JNOYBn", "nsr"],
+  childcare: ["childcare", "rds!cluster-bbe4fe60-ee32-4bf8-9994-67985de204c9-HmzZBa", "childcare"],
+  insurance: ["insurance", "rds!cluster-1ab764bb-5f80-4f41-9770-06fb8b8a12ec-7HJ4Wh", "insurance"],
+  sports: ["sports", "rds!cluster-155ee307-3be6-4ade-b2f3-728024bdaed6-XZJhHP", "sports"],
+  ai: ["b44", "44b/demo/aurora-u1Apjo", "b44"],
 }
 
-// Aurora pauses when idle; the first call after a pause is refused while it
-// resumes, so retry inside API Gateway's 29-second window.
-async function aurora(sql, params = {}) {
-  const parameters = Object.entries(params).map(([name, v]) => ({
-    name,
-    value: typeof v === "number" ? { longValue: v } : { stringValue: String(v) },
+class NotFound extends Error {}
+class BadRequest extends Error {}
+
+/**
+ * One statement on a dataset's cluster. `params` is a list bound as :p1, :p2…
+ * Aurora pauses when idle and refuses calls while it resumes, so retry inside
+ * API Gateway's 29-second window.
+ */
+async function sql(dataset, statement, params = []) {
+  const [cluster, secret, database] = CLUSTERS[dataset]
+  const parameters = params.map((v, i) => ({
+    name: `p${i + 1}`,
+    value: v === null ? { isNull: true } : typeof v === "number" && Number.isInteger(v) ? { longValue: v } : { stringValue: String(v) },
   }))
   for (let i = 0; ; i++) {
     try {
       const r = await rds.send(new ExecuteStatementCommand({
-        resourceArn: process.env.GOV_CLUSTER_ARN,
-        secretArn: process.env.GOV_SECRET_ARN,
-        database: process.env.GOV_DATABASE || "policy",
-        sql,
-        parameters,
-        formatRecordsAs: "JSON",
+        resourceArn: ARN + cluster, secretArn: SECRET + secret, database, sql: statement, parameters, formatRecordsAs: "JSON",
       }))
       return JSON.parse(r.formattedRecords || "[]")
     } catch (e) {
-      if (e.name !== "DatabaseResumingException" || i >= 10) throw e
-      await new Promise((r) => setTimeout(r, 2500))
+      if (e.name === "DatabaseResumingException" && i < 10) {
+        await new Promise((r) => setTimeout(r, 2500))
+        continue
+      }
+      if (/exceeded|too large|1 ?MB/i.test(e.message)) throw new BadRequest("The response is over 1 MB. Ask for fewer rows with ?limit=.")
+      throw e
     }
   }
 }
 
-const energy = (q, p) => neon(process.env.ENERGY_DATABASE_URL, q, p)
-const tariffs = (q, p) => neon(process.env.TARIFFS_DATABASE_URL, q, p)
-const health = (q, p) => neon(process.env.HEALTH_DATABASE_URL, q, p)
-
-const limitOf = (qs) => Math.min(Math.max(parseInt(qs.limit ?? "25", 10) || 25, 1), 100)
+const ident = (s) => `"${s.replace(/"/g, '""')}"`
+const limitOf = (qs, max = 100) => Math.min(Math.max(parseInt(qs.limit ?? "25", 10) || 25, 1), max)
 const like = (s) => `%${String(s).replace(/[%_\\]/g, (c) => "\\" + c)}%`
-
-class NotFound extends Error {}
-class BadRequest extends Error {}
 const one = (rows) => {
   if (!rows.length) throw new NotFound("No record with that id.")
   return rows[0]
@@ -68,125 +79,166 @@ const need = (v, name) => {
   return v
 }
 
-// [method-less path pattern, dataset, source, handler(params, query)]
+// The catalogs: every table each dataset publishes (built from the clusters).
+const CATALOGS = Object.fromEntries(
+  readdirSync(new URL("./catalog/", import.meta.url))
+    .filter((f) => f.endsWith(".json"))
+    .map((f) => {
+      const c = JSON.parse(readFileSync(new URL(`./catalog/${f}`, import.meta.url), "utf8"))
+      return [c.dataset, { ...c, byPath: new Map(c.tables.map((t) => [t.path, t])) }]
+    })
+)
+
+// Types the Data API returns as JSON values; anything else is read as text.
+const NATIVE = /^(integer|bigint|smallint|numeric|double precision|real|boolean|text|character varying|character|date|timestamp|json|jsonb|uuid)/
+
+async function table(dataset, t, qs) {
+  const types = new Map(t.columns)
+  const where = [], params = []
+  for (const [key, value] of Object.entries(qs)) {
+    if (["limit", "offset", "order"].includes(key)) continue
+    const [col, op = "eq"] = key.split(".")
+    if (!t.filters.includes(col)) throw new BadRequest(t.filters.length ? `Filter on one of: ${t.filters.join(", ")}.` : "This table has no filters; page with limit and offset.")
+    const sqlOp = { eq: "=", gte: ">=", lte: "<=", gt: ">", lt: "<" }[op]
+    if (!sqlOp) throw new BadRequest("Operators: col=, col.gte=, col.lte=, col.gt=, col.lt=")
+    params.push(value)
+    // Cast the value to the column's own type, so the column's index is used.
+    where.push(`${ident(col)} ${sqlOp} cast(:p${params.length} as ${types.get(col)})`)
+  }
+  let order = ""
+  if (qs.order) {
+    const col = qs.order.replace(/^-/, "")
+    if (!t.filters.includes(col)) throw new BadRequest(`Order by one of: ${t.filters.join(", ")}.`)
+    order = ` order by ${ident(col)} ${qs.order.startsWith("-") ? "desc" : "asc"}`
+  }
+  const offset = Math.max(parseInt(qs.offset ?? "0", 10) || 0, 0)
+  params.push(limitOf(qs, 500), offset)
+  const cols = t.columns.map(([c, type]) => (NATIVE.test(type) ? ident(c) : `${ident(c)}::text as ${ident(c)}`)).join(", ")
+  const rows = await sql(dataset, `select ${cols} from ${ident(t.schema)}.${ident(t.table)}${where.length ? " where " + where.join(" and ") : ""}${order} limit :p${params.length - 1} offset :p${params.length}`, params)
+  // jsonb arrives as a string; hand it back as JSON.
+  const json = t.columns.filter(([, type]) => type === "json" || type === "jsonb").map(([c]) => c)
+  if (json.length) for (const r of rows) for (const c of json) if (typeof r[c] === "string") try { r[c] = JSON.parse(r[c]) } catch {}
+  return rows
+}
+
+// A Postgres array read as text ({a,b}) back to a list.
+const list = (s) => (s || "{}").replace(/^\{|\}$/g, "").split(",").map((x) => x.replace(/^"|"$/g, "")).filter(Boolean)
+
+// The joins: [path pattern, dataset, source, handler(params, query)]
 const routes = [
-  // Gov: state and federal legislation, members and roll calls.
-  ["gov/bills", "gov", "State legislatures via the policy database", async (_, qs) =>
-    aurora(
+  ["gov/bills", "gov", "State legislatures and Congress", async (_, qs) =>
+    sql("gov",
       `select bill_id, state, session_id, bill_number, title, status_desc, last_action, last_action_date
-       from "Bills" where title ilike :q ${qs.state ? "and state = :state" : ""}
-       order by last_action_date desc nulls last limit :lim`,
-      { q: like(need(qs.q, "q")), lim: limitOf(qs), ...(qs.state ? { state: qs.state.toUpperCase() } : {}) })],
-  ["gov/bills/:id", "gov", "State legislatures", async ({ id }) => {
-    const bill = one(await aurora(
+       from "Bills" where title ilike :p1 ${qs.state ? "and state = :p3" : ""}
+       order by last_action_date desc nulls last limit :p2`,
+      [like(need(qs.q, "q")), limitOf(qs), ...(qs.state ? [qs.state.toUpperCase()] : [])])],
+  ["gov/bills/:id", "gov", "State legislatures and Congress", async ({ id }) => {
+    const bill = one(await sql("gov",
       `select bill_id, state, session_id, session_title, bill_number, title, description, status_desc,
               committee, last_action, last_action_date, state_link
-       from "Bills" where bill_id = :id`, { id: Number(id) }))
+       from "Bills" where bill_id = :p1`, [Number(id)]))
     const [sponsors, rollCalls] = await Promise.all([
-      aurora(`select p.people_id, p.name, p.party, p.chamber, p.district, s.position
-              from "Sponsors" s join "People" p using (people_id) where s.bill_id = :id order by s.position`, { id: Number(id) }),
-      aurora(`select roll_call_id, date, chamber, description, yea, nay, nv, absent, total
-              from "Roll Call" where bill_id = :id order by date`, { id: Number(id) }),
+      sql("gov", `select p.people_id, p.name, p.party, p.chamber, p.district, s.position
+                  from "Sponsors" s join "People" p using (people_id) where s.bill_id = :p1 order by s.position`, [Number(id)]),
+      sql("gov", `select roll_call_id, date, chamber, description, yea, nay, nv, absent, total
+                  from "Roll Call" where bill_id = :p1 order by date`, [Number(id)]),
     ])
     return { ...bill, sponsors, roll_calls: rollCalls }
   }],
-  ["gov/rollcalls/:id", "gov", "State legislatures", async ({ id }) => {
-    const rc = one(await aurora(
+  ["gov/rollcalls/:id", "gov", "State legislatures and Congress", async ({ id }) => {
+    const rc = one(await sql("gov",
       `select r.roll_call_id, r.bill_id, b.bill_number, b.title, r.date, r.chamber, r.description, r.yea, r.nay, r.nv, r.absent
-       from "Roll Call" r left join "Bills" b using (bill_id) where r.roll_call_id = :id`, { id: Number(id) }))
-    const votes = await aurora(
+       from "Roll Call" r left join "Bills" b using (bill_id) where r.roll_call_id = :p1`, [Number(id)]))
+    const votes = await sql("gov",
       `select p.people_id, p.name, p.party, p.district, v.vote_desc
-       from "Votes" v join "People" p using (people_id) where v.roll_call_id = :id order by p.name`, { id: Number(id) })
+       from "Votes" v join "People" p using (people_id) where v.roll_call_id = :p1 order by p.name`, [Number(id)])
     return { ...rc, votes }
   }],
-  ["gov/people", "gov", "State legislatures", async (_, qs) =>
-    aurora(
+  ["gov/people", "gov", "State legislatures and Congress", async (_, qs) =>
+    sql("gov",
       `select people_id, name, party, role, chamber, district, state from "People"
-       where name ilike :q ${qs.state ? "and state = :state" : ""} order by name limit :lim`,
-      { q: like(need(qs.q, "q")), lim: limitOf(qs), ...(qs.state ? { state: qs.state.toUpperCase() } : {}) })],
+       where name ilike :p1 ${qs.state ? "and state = :p3" : ""} order by name limit :p2`,
+      [like(need(qs.q, "q")), limitOf(qs), ...(qs.state ? [qs.state.toUpperCase()] : [])])],
 
-  // Energy: every US power plant (EIA-860) joined to its generators and its
-  // actual net generation by fuel (EIA-923).
   ["energy/plants", "energy", "EIA-860 and EIA-923", async (_, qs) =>
-    energy(
+    sql("energy",
       `select plant_code, plant_name, city, county, state, ba_code, sector_name, latitude, longitude
        from solargpt.eia860_plants
-       where ($1::text is null or plant_name ilike $1) and ($2::text is null or state = $2)
-       order by plant_name limit $3`,
+       where (cast(:p1 as text) is null or plant_name ilike :p1) and (cast(:p2 as text) is null or state = :p2)
+       order by plant_name limit :p3`,
       [qs.q ? like(qs.q) : null, qs.state ? qs.state.toUpperCase() : null, limitOf(qs)])],
   ["energy/plants/:id", "energy", "EIA-860 and EIA-923", async ({ id }) => {
     const [plant, generators, generation] = await Promise.all([
-      energy(`select * from solargpt.eia860_plants where plant_code = $1`, [Number(id)]).then(one),
-      energy(`select generator_id, technology, prime_mover, energy_source_1, nameplate_mw, summer_mw, winter_mw,
-                     status, operating_year, planned_retirement_year
-              from solargpt.eia860_generators where plant_code = $1 order by generator_id`, [Number(id)]),
-      energy(`select data_year, fuel_code, fuel_label, fuel_group, prime_mover, net_gen_mwh
-              from solargpt.eia923_plant_generation where plant_id = $1 order by data_year desc, net_gen_mwh desc nulls last`, [Number(id)]),
+      sql("energy", `select * from solargpt.eia860_plants where plant_code = :p1`, [Number(id)]).then(one),
+      sql("energy", `select generator_id, technology, prime_mover, energy_source_1, nameplate_mw, summer_mw, winter_mw,
+                            status, operating_year, planned_retirement_year
+                     from solargpt.eia860_generators where plant_code = :p1 order by generator_id`, [Number(id)]),
+      sql("energy", `select data_year, fuel_code, fuel_label, fuel_group, prime_mover, net_gen_mwh
+                     from solargpt.eia923_plant_generation where plant_id = :p1 order by data_year desc, net_gen_mwh desc nulls last`, [Number(id)]),
     ])
-    const nameplate_mw = generators.reduce((s, g) => s + (g.nameplate_mw || 0), 0)
+    const nameplate_mw = generators.reduce((s, g) => s + (Number(g.nameplate_mw) || 0), 0)
     return { ...plant, nameplate_mw: Math.round(nameplate_mw * 10) / 10, generators, net_generation: generation }
   }],
 
-  // Tariffs: CBP CROSS rulings joined to the HTS lines they classify under.
   ["tariffs/rulings", "tariffs", "CBP CROSS rulings", async (_, qs) =>
-    tariffs(
-      `select ruling_number, ruling_date, subject, tariffs, collection
-       from cross_rulings where subject ilike $1 order by ruling_date desc nulls last limit $2`,
-      [like(need(qs.q, "q")), limitOf(qs)])],
+    (await sql("tariffs",
+      `select ruling_number, ruling_date, subject, tariffs::text as tariffs, collection
+       from cross_rulings where subject ilike :p1 order by ruling_date desc nulls last limit :p2`,
+      [like(need(qs.q, "q")), limitOf(qs)])).map((r) => ({ ...r, tariffs: list(r.tariffs) }))],
   ["tariffs/rulings/:id", "tariffs", "CBP CROSS rulings and the HTS", async ({ id }) => {
-    const r = one(await tariffs(
-      `select ruling_number, ruling_date, subject, categories, collection, tariffs, related_rulings,
-              modifies, modified_by, revokes, revoked_by, is_usmca, source_url, left(full_text, 4000) as text_excerpt
-       from cross_rulings where ruling_number = $1`, [id.toUpperCase()]))
+    const r = one(await sql("tariffs",
+      `select ruling_number, ruling_date, subject, categories, collection, tariffs::text as tariffs, related_rulings::text as related_rulings,
+              modifies::text as modifies, modified_by::text as modified_by, revokes::text as revokes, revoked_by::text as revoked_by,
+              is_usmca, source_url, left(full_text, 4000) as text_excerpt
+       from cross_rulings where ruling_number = :p1`, [id.toUpperCase()]))
+    for (const k of ["tariffs", "related_rulings", "modifies", "modified_by", "revokes", "revoked_by"]) r[k] = list(r[k])
     // Rulings write 6110.20.2077, the schedule 6110.20.20.77: match on digits,
     // and return every line above the code too, since the duty rate sits on the
     // 8-digit line and the statistical suffix below it.
-    const codes = (r.tariffs || []).map((t) => t.replace(/\D/g, "")).filter((d) => d.length >= 6)
+    const codes = r.tariffs.map((t) => t.replace(/\D/g, "")).filter((d) => d.length >= 6)
     const hts = codes.length
-      ? await tariffs(
-          `select htsno, indent, description, general, special, other, units from hts_schedule h
+      ? await sql("tariffs",
+          `select htsno, indent, description, general, special, other, units::text as units from hts_schedule h
            where length(regexp_replace(htsno, '\\D', '', 'g')) >= 4
-             and exists (select 1 from unnest($1::text[]) c where c like regexp_replace(h.htsno, '\\D', '', 'g') || '%')
-           order by seq`, [codes])
+             and exists (select 1 from unnest(cast(:p1 as text[])) c where c like regexp_replace(h.htsno, '\\D', '', 'g') || '%')
+           order by seq`, [`{${codes.join(",")}}`])
       : []
     return { ...r, hts_lines: hts }
   }],
   ["tariffs/hts/:id", "tariffs", "Harmonized Tariff Schedule and CBP CROSS rulings", async ({ id }) => {
     const digits = id.replace(/\D/g, "")
     if (digits.length < 4) throw new BadRequest("An HTS number has at least 4 digits.")
-    const line = one(await tariffs(
-      `select htsno, chapter, heading, indent, description, general, special, other, units, footnotes
-       from hts_schedule where regexp_replace(htsno, '\\D', '', 'g') = $1 order by seq limit 1`, [digits]))
-    const rulings = await tariffs(
-      `select ruling_number, ruling_date, subject, tariffs from cross_rulings
-       where (' ' || cross_tariff_digits(tariffs)) like '% ' || $1 || '%'
+    const line = one(await sql("tariffs",
+      `select htsno, chapter, heading, indent, description, general, special, other, units::text as units, footnotes::text as footnotes
+       from hts_schedule where regexp_replace(htsno, '\\D', '', 'g') = :p1 order by seq limit 1`, [digits]))
+    const rulings = await sql("tariffs",
+      `select ruling_number, ruling_date, subject from cross_rulings
+       where (' ' || cross_tariff_digits(tariffs)) like '% ' || :p1 || '%'
        order by ruling_date desc nulls last limit 25`, [digits])
     return { ...line, recent_rulings: rulings }
   }],
 
-  // Health: every NPI (NPPES) joined to the payer networks it sits in and the
-  // rates those payers have published for it.
-  ["health/providers/:id", "health", "NPPES, payer directories and Transparency in Coverage files", async ({ id }) => {
-    const p = one(await health(
+  ["health/providers/:id", "health", "NPPES, insurer directories and price files", async ({ id }) => {
+    const p = one(await sql("health",
       `select npi, entity_type, org_name, first_name, last_name, credential, loc_addr1, loc_city, loc_state, zip5,
               loc_phone, primary_taxonomy, enumeration_date, last_update, deactivation_date
-       from nppes_npi where npi = $1`, [id]))
+       from nppes_npi where npi = :p1`, [id]))
     const [networks, rates] = await Promise.all([
-      health(`select s.name as payer, n.network_name, pnp.accepting_new_patients, pnp.source_last_updated
-              from provider_network_participation pnp
-              join payer_sources s on s.id = pnp.payer_source_id
-              left join payer_networks n on n.id = pnp.network_id
-              where pnp.npi = $1 order by s.name limit 100`, [id]),
-      health(`select payer, plan_or_network, billing_code, billing_class, negotiated_type, negotiated_rate, place_of_service, as_of
-              from provider_rate_signals where npi = $1 order by payer, billing_code limit 100`, [id]),
+      sql("health", `select s.name as payer, n.network_name, pnp.accepting_new_patients, pnp.source_last_updated
+                     from provider_network_participation pnp
+                     join payer_sources s on s.id = pnp.payer_source_id
+                     left join payer_networks n on n.id = pnp.network_id
+                     where pnp.npi = :p1 order by s.name limit 100`, [id]),
+      sql("health", `select payer, plan_or_network, billing_code, billing_class, negotiated_type, negotiated_rate, place_of_service, as_of
+                     from provider_rate_signals where npi = :p1 order by payer, billing_code limit 100`, [id]),
     ])
     return { ...p, networks, negotiated_rates: rates }
   }],
   ["health/providers", "health", "NPPES", async (_, qs) =>
-    health(
+    sql("health",
       `select npi, org_name, loc_addr1, loc_city, loc_state, zip5, primary_taxonomy
-       from nppes_npi where entity_type = 2 and deactivation_date is null and zip5 = $1
-       ${qs.q ? "and org_name ilike $3" : ""} order by org_name limit $2`,
+       from nppes_npi where entity_type = 2 and deactivation_date is null and zip5 = :p1
+       ${qs.q ? "and org_name ilike :p3" : ""} order by org_name limit :p2`,
       [need(qs.zip, "zip"), limitOf(qs), ...(qs.q ? [like(qs.q)] : [])])],
 ]
 
@@ -199,7 +251,29 @@ function match(path) {
     if (pp.every((seg, i) => (seg.startsWith(":") ? ((params[seg.slice(1)] = decodeURIComponent(parts[i])), true) : seg === parts[i])))
       return { dataset, source, fn, params }
   }
-  return null
+  const [dataset, name, ...rest] = parts
+  const c = CATALOGS[dataset]
+  if (!c || rest.length) return null
+  if (!name) return { dataset, source: "Catalog", fn: async () => c.tables.map(({ path, rows, columns, filters }) => ({ path: `/v1/${dataset}/${path}`, rows, columns, filters })), params: {} }
+  const t = c.byPath.get(name)
+  return t ? { dataset, source: `${t.schema}.${t.table}`, fn: (_, qs) => table(dataset, t, qs), params: {} } : null
+}
+
+// A bought key carries its datasets in its description ("datasets:energy",
+// "datasets:*"); a key without one (hand-issued) reads everything. Cached for
+// ten minutes per warm instance.
+const gateway = new APIGatewayClient({})
+const scopes = new Map()
+async function allowed(keyId, dataset) {
+  if (!keyId) return true
+  let s = scopes.get(keyId)
+  if (!s || s.at < Date.now() - 600_000) {
+    const k = await gateway.send(new GetApiKeyCommand({ apiKey: keyId }))
+    const m = /datasets:([^\s·]+)/.exec(k.description || "")
+    s = { at: Date.now(), sets: m ? m[1].split(",") : ["*"] }
+    scopes.set(keyId, s)
+  }
+  return s.sets.includes("*") || s.sets.includes(dataset)
 }
 
 const json = (status, body) => ({
@@ -213,10 +287,15 @@ export const handler = async (event) => {
   const path = (event.path || "").replace(/^\/v1/, "")
   const qs = event.queryStringParameters || {}
   if (path === "" || path === "/") {
-    return json(200, { endpoints: routes.map(([p, d]) => ({ dataset: d, path: `/v1/${p}` })) })
+    return json(200, {
+      datasets: Object.values(CATALOGS).map((c) => ({ dataset: c.dataset, path: `/v1/${c.dataset}`, tables: c.tables.length, rows: c.tables.reduce((s, t) => s + t.rows, 0) })),
+      joins: routes.map(([p, d]) => ({ dataset: d, path: `/v1/${p}` })),
+    })
   }
   const m = match(path)
   if (!m) return json(404, { error: "No such endpoint. GET /v1 lists them." })
+  if (!(await allowed(event.requestContext?.identity?.apiKeyId, m.dataset)))
+    return json(403, { error: `This key does not include the ${m.dataset} API. Every dataset: nysgpt.com` })
   const t0 = Date.now()
   try {
     const data = await m.fn(m.params, qs)

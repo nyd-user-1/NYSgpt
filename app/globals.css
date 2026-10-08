@@ -235,6 +235,37 @@
   scrollbar-width: none;
 }
 
+/* The dialogs' scrollbar: a thin rounded thumb inset from the edge, no track,
+   the overlay style macOS draws on its own. The border on the thumb is the
+   inset. --thumb is darkened over a dark ground (.thin-scrollbar-dark). */
+.thin-scrollbar {
+  --thumb: rgba(0, 0, 0, 0.22);
+}
+.thin-scrollbar-dark {
+  --thumb: rgba(255, 255, 255, 0.22);
+}
+.thin-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-track,
+.thin-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--thumb);
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 9999px;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .thin-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--thumb) transparent;
+  }
+}
+
 /* Link "wipe" underline (ported from 44b) — no line at rest; on hover the
    underline fills in left→right. currentColor, so it matches the text it sits
    under. Put on a <span> around the text, with `group` on the parent so the

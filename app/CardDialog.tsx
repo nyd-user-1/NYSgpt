@@ -11,6 +11,8 @@ import { CARD_ICONS } from "./card-icons";
 import { ApiPanel } from "./ApiPanel";
 import { ProductShot } from "./ProductShot";
 import { ApiSample } from "./ApiSample";
+import { ApiBuy } from "./ApiBuy";
+import { useCatalog } from "./useCatalog";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
 const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
@@ -65,10 +67,16 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
   const { linkProps } = useProductStatus();
   /** Whether the reader has pressed the illustration's button: the copy follows it. */
   const [after, setAfter] = useState(false);
+  /** The table picked in an API box's endpoint list; none shows the box's own example. */
+  const [picked, setPicked] = useState<string | null>(null);
   if (card && card !== shown) {
     setShown(card);
     setAfter(false);
+    setPicked(null);
   }
+  const tables = useCatalog(shown?.catalog);
+  // A box without a readout of its own opens on its largest table.
+  const pickedTable = tables?.find((t) => t.path === picked) ?? (shown?.readout ? null : tables?.[0] ?? null);
 
   // The words on show trail the words wanted by one skeleton's length.
   const want = `${shown?.title}|${after}`;
@@ -120,11 +128,11 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
               </span>
             </DialogHeader>
 
-            <div className="min-h-0 flex-1 overflow-y-auto lg:flex lg:h-[min(600px,calc(88vh-8.5rem))] lg:flex-none lg:overflow-hidden">
-              <div className="border-b bg-muted/40 p-4 lg:flex lg:min-h-0 lg:min-w-0 lg:flex-[1.75] lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
-                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.sample ? <ApiSample card={shown} /> : <ProductShot key={shown.title} card={shown} />}
+            <div className="thin-scrollbar min-h-0 flex-1 overflow-y-auto lg:flex lg:h-[min(600px,calc(88vh-8.5rem))] lg:flex-none lg:overflow-hidden">
+              <div className="thin-scrollbar border-b bg-muted/40 p-4 lg:flex lg:min-h-0 lg:min-w-0 lg:flex-[1.75] lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
+                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.catalog ? <ApiSample key={pickedTable?.path ?? ""} card={shown} table={pickedTable} /> : <ProductShot key={shown.title} card={shown} />}
               </div>
-              <div className="p-5 lg:min-h-0 lg:min-w-0 lg:flex-1 lg:overflow-y-auto">
+              <div className="thin-scrollbar p-5 lg:min-h-0 lg:min-w-0 lg:flex-1 lg:overflow-y-auto">
                 {swapping ? (
                   <CopySkeleton />
                 ) : (
@@ -141,7 +149,10 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
                         <p className="m-0 text-sm text-muted-foreground">{lead}</p>
                         {shown.api ? (
                           // The API reference stands in for the prose.
-                          <ApiPanel api={shown.api} live={!!shown.sample} />
+                          <>
+                          {shown.catalog && <ApiBuy dataset={shown.catalog} name={shown.title} />}
+                          <ApiPanel api={shown.api} live={!!shown.catalog} tables={tables} picked={pickedTable?.path ?? null} onPick={shown.catalog ? setPicked : undefined} />
+                          </>
                         ) : (
                           paragraphs.map((text) => (
                             <p key={text} className="m-0 mt-5 text-sm leading-relaxed">{text}</p>

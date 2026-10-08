@@ -77,6 +77,10 @@ export type HomeCardData = {
   api?: { base: string; example: string; endpoints: [path: string, records: number][] };
   /** An API box's real response to `api.example`, from API_SAMPLES; drawn where a product shows its screenshot. */
   sample?: string;
+  /** The same response read aloud: one row per fact, with the source it came from. */
+  readout?: { title: string; rows: [label: string, value: string, source: string][] };
+  /** An API box's dataset in aws/api/catalog: every table it publishes, listed and sampled in the dialog. */
+  catalog?: string;
 };
 
 const TOOL_INK = "#033882";
@@ -308,26 +312,83 @@ export const PRODUCT_EXTRAS: Record<string, Pick<HomeCardData, "sources" | "pas"
  */
 const API = "https://api.nysgpt.com/v1";
 export const APIS: HomeCardData[] = [
-  { href: "", title: "Gov API", tag: "Data", accent: "", value: 105_103_993, unit: "records",
-    body: "Bills, sponsors, roll calls and every member's vote, from all fifty states and Congress.",
+  { href: "", title: "Gov API", tag: "Data", accent: "", value: 168_850_728, unit: "records",
+    body: "133 tables: bills, texts, sponsors, roll calls and every member's vote, laws, lobbying and campaign finance, from all fifty states and Congress.",
     statement: "A bill, who sponsored it and how each member voted, in one call.",
-    sample: API_SAMPLES.gov,
+    readout: { title: "S03822 · New York Senate, 2025", rows: [
+      ["Bill", "Lets nurse practitioners make the determinations physicians already can", "Bill record"],
+      ["Status", "Signed by the Governor, Chapter 159", "Bill record"],
+      ["Sponsors", "8: 4 Democrats, 4 Republicans", "Sponsorships"],
+      ["Senate vote", "59 yes, 1 no", "Roll calls"],
+      ["Assembly vote", "133 yes, 1 no", "Roll calls"],
+      ["Committee votes", "6, all unanimous", "Roll calls"],
+    ] },
+    sample: API_SAMPLES.gov, catalog: "gov",
     api: { base: `${API}/gov`, example: "/bills/1948255", endpoints: [["/rollcalls/{id}", 89_135_777], ["/bills/{id}", 12_084_763], ["/bills?q=", 2_129_901], ["/people?q=", 22_726]] } },
-  { href: "", title: "Energy API", tag: "Data", accent: "", value: 67_400, unit: "records",
-    body: "Every US power plant joined to its generators and what each fuel actually generated.",
+  { href: "", title: "Energy API", tag: "Data", accent: "", value: 27_884_715, unit: "records",
+    body: "93 tables: every US power plant and generator, grid operations by the hour, prices, outages and emissions.",
     statement: "A plant, its generators and its output by fuel, in one call.",
-    sample: API_SAMPLES.energy,
+    readout: { title: "Robert Moses Niagara · Lewiston, NY", rows: [
+      ["Owner", "New York Power Authority", "EIA-860 plant"],
+      ["Grid", "New York ISO", "EIA-860 plant"],
+      ["Capacity", "2,429 MW across 13 generators", "EIA-860 generators"],
+      ["Fuel", "Hydro, from the Niagara River", "EIA-860 generators"],
+      ["Generated", "15.6 million MWh in 2024", "EIA-923 generation"],
+    ] },
+    sample: API_SAMPLES.energy, catalog: "energy",
     api: { base: `${API}/energy`, example: "/plants/2693", endpoints: [["/plants/{id}", 51_268], ["/plants?q=&state=", 16_132]] } },
-  { href: "", title: "Health API", tag: "Data", accent: "", value: 28_566_085, unit: "records",
-    body: "Any NPI joined to the insurer networks it sits in and the rates those insurers publish for it.",
+  { href: "", title: "Health API", tag: "Data", accent: "", value: 36_948_025, unit: "records",
+    body: "50 tables: every NPI, the insurer networks it sits in, the rates insurers publish, plans, employers and Form 5500 filings.",
     statement: "A provider, its networks and its negotiated rates, in one call.",
-    sample: API_SAMPLES.health,
+    readout: { title: "Middletown Medical PC · Middletown, NY", rows: [
+      ["Provider", "Group practice, NPI 1902855828", "NPPES"],
+      ["Networks", "11 Humana networks", "Insurer directories"],
+      ["Published rates", "3,540 negotiated rates", "Insurer price files"],
+      ["Example", "Psychiatric evaluation (90791): $124 to $194 with Aetna", "Insurer price files"],
+    ] },
+    sample: API_SAMPLES.health, catalog: "health",
     api: { base: `${API}/health`, example: "/providers/1902855828", endpoints: [["/providers/{npi}", 28_566_085], ["/providers?zip=", 1_947_004]] } },
-  { href: "", title: "Tariffs API", tag: "Data", accent: "", value: 257_400, unit: "records",
-    body: "Customs rulings joined to the tariff lines they classify under, with the duty rate on each.",
+  { href: "", title: "Tariffs API", tag: "Data", accent: "", value: 534_818, unit: "records",
+    body: "11 tables: every CBP customs ruling, the full tariff schedule, import duties, trade flows and licensed brokers.",
     statement: "A customs ruling and the duty it points to, in one call.",
-    sample: API_SAMPLES.tariffs,
+    readout: { title: "Ruling M80185 · February 15, 2006", rows: [
+      ["Goods", "Women's pullovers from China", "CBP ruling"],
+      ["Classified under", "6110.20.20.77", "CBP ruling"],
+      ["Tariff line", "Sweaters and pullovers, of cotton", "Tariff schedule"],
+      ["Duty", "16.5%", "Tariff schedule"],
+    ] },
+    sample: API_SAMPLES.tariffs, catalog: "tariffs",
     api: { base: `${API}/tariffs`, example: "/rulings/M80185", endpoints: [["/rulings/{id}", 257_400], ["/rulings?q=", 221_605], ["/hts/{code}", 35_795]] } },
+  { href: "", title: "AI API", tag: "Data", accent: "", value: 61_783_655, unit: "records",
+    body: "85 tables: AI papers and citations, patents and assignments, Hugging Face models, benchmarks, chips, data centers and funding.",
+    statement: "Papers, patents, models and the benchmarks that rank them, in one API.",
+    sample: "", catalog: "ai",
+    api: { base: `${API}/ai`, example: "/document-citations?limit=1", endpoints: [] } },
+  { href: "", title: "Science API", tag: "Data", accent: "", value: 5_322_648, unit: "records",
+    body: "33 tables: Brookhaven's Nuclear Science References by nuclide, reaction and author, with ENSDF and EXFOR.",
+    statement: "Seventy years of nuclear physics, searchable by nuclide and reaction.",
+    sample: "", catalog: "science",
+    api: { base: `${API}/science`, example: "/nsr-authors?limit=1", endpoints: [] } },
+  { href: "", title: "Solar API", tag: "Data", accent: "", value: 1_437_085, unit: "records",
+    body: "27 tables: rooftop solar potential by tract and ZIP, installs and installers, utility rates and hourly emissions.",
+    statement: "Every roof's solar potential and every installed system, by ZIP.",
+    sample: "", catalog: "solar",
+    api: { base: `${API}/solar`, example: "/urdb-zip-rates?limit=1", endpoints: [] } },
+  { href: "", title: "Childcare API", tag: "Data", accent: "", value: 19_659, unit: "records",
+    body: "5 tables: every licensed childcare facility in New York with capacity, plus costs and demographics by county and ZIP.",
+    statement: "Every licensed childcare seat in New York, by ZIP.",
+    sample: "", catalog: "childcare",
+    api: { base: `${API}/childcare`, example: "/facilities?limit=1", endpoints: [] } },
+  { href: "", title: "Insurance API", tag: "Data", accent: "", value: 17_306, unit: "records",
+    body: "NHTSA crash tests and star ratings for every rated make, model and year.",
+    statement: "The crash rating of every rated car, in one call.",
+    sample: "", catalog: "insurance",
+    api: { base: `${API}/insurance`, example: "/safercar-data?limit=1", endpoints: [] } },
+  { href: "", title: "Sports API", tag: "Data", accent: "", value: 37_265, unit: "records",
+    body: "11 tables: New York high-school football games, box scores, rosters, players and season stats.",
+    statement: "Every game, player and yard of New York high-school football.",
+    sample: "", catalog: "sports",
+    api: { base: `${API}/sports`, example: "/player-game-stats?limit=1", endpoints: [] } },
 ];
 
 /** The ten products — the contents plate, and the panel's product rows. */
