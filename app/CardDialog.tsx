@@ -130,7 +130,7 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
 
             <div className="thin-scrollbar min-h-0 flex-1 overflow-y-auto lg:flex lg:h-[min(600px,calc(88vh-8.5rem))] lg:flex-none lg:overflow-hidden">
               <div className="thin-scrollbar border-b bg-muted/40 p-4 lg:flex lg:min-h-0 lg:min-w-0 lg:flex-[1.75] lg:flex-col lg:overflow-y-auto lg:border-r lg:border-b-0">
-                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.catalog ? <ApiSample key={pickedTable?.path ?? ""} card={shown} table={pickedTable} /> : <ProductShot key={shown.title} card={shown} />}
+                {drawn ? <ToolIllustration key={shown.title} title={shown.title} onStage={setAfter} onInspect={onInspect} /> : shown.catalog && shown.api ? <ApiPanel className="m-0" api={shown.api} live tables={tables} picked={pickedTable?.path ?? null} onPick={setPicked} /> : <ProductShot key={shown.title} card={shown} />}
               </div>
               <div className="thin-scrollbar p-5 lg:min-h-0 lg:min-w-0 lg:flex-1 lg:overflow-y-auto">
                 {swapping ? (
@@ -150,8 +150,15 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
                         {shown.api ? (
                           // The API reference stands in for the prose.
                           <>
-                          {shown.catalog && <ApiBuy dataset={shown.catalog} name={shown.title} />}
-                          <ApiPanel api={shown.api} live={!!shown.catalog} tables={tables} picked={pickedTable?.path ?? null} onPick={shown.catalog ? setPicked : undefined} />
+                          {shown.catalog ? (
+                            // An API box: the endpoint table is the main pane; the row picked there shows here.
+                            <>
+                              <ApiBuy dataset={shown.catalog} name={shown.title} />
+                              <ApiSample key={pickedTable?.path ?? ""} card={shown} table={pickedTable} inline />
+                            </>
+                          ) : (
+                            <ApiPanel api={shown.api} />
+                          )}
                           </>
                         ) : (
                           paragraphs.map((text) => (

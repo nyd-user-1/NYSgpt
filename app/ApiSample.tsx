@@ -17,14 +17,14 @@ const show = (v: unknown) => (v === null || v === undefined ? "—" : typeof v =
  * response one click away. With a table picked in the endpoint list, it shows
  * that table's real first row instead, every column with its type.
  */
-export function ApiSample({ card, table }: { card: HomeCardData; table?: CatalogTable | null }) {
+export function ApiSample({ card, table, inline }: { card: HomeCardData; table?: CatalogTable | null; inline?: boolean }) {
   const [raw, setRaw] = useState(false);
   if (!card.api) return null;
   const call = table ? `${card.api.base}/${table.path}?limit=1` : `${card.api.base}${card.api.example}`;
   const json = table ? JSON.stringify({ data: [table.sample], meta: { source: `${table.schema}.${table.table}` } }, null, 2) : card.sample;
 
   return (
-    <figure className="m-0 flex min-h-[20rem] flex-col overflow-hidden rounded-lg border bg-background shadow-sm lg:min-h-0 lg:flex-1">
+    <figure className={`flex flex-col overflow-hidden rounded-lg border bg-background shadow-sm ${inline ? "mt-6 mb-0" : "m-0 min-h-[20rem] lg:min-h-0 lg:flex-1"}`}>
       <div className="flex h-10 shrink-0 items-center gap-3 border-b bg-muted/50 px-3 text-[11.5px]" style={MONO}>
         <span className="rounded bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-emerald-700">GET</span>
         <span className="min-w-0 flex-1 truncate">{call.replace("https://", "")}</span>
@@ -35,24 +35,23 @@ export function ApiSample({ card, table }: { card: HomeCardData; table?: Catalog
       {raw ? (
         <pre className="thin-scrollbar thin-scrollbar-dark m-0 min-h-0 flex-1 overflow-auto bg-zinc-950 px-4 py-3 text-[11.5px] leading-relaxed text-zinc-300" style={MONO}>{json}</pre>
       ) : table ? (
-        <div className="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-6 py-5">
+        <div className={`${inline ? "" : "thin-scrollbar min-h-0 flex-1 overflow-y-auto"} px-6 py-5`}>
           <p className="m-0 text-2xl" style={SERIF}>/{table.path}</p>
           <p className="m-0 mt-1 mb-4 text-sm text-muted-foreground">
             {LONG.format(table.rows)} records · {table.columns.length} fields · filter by {table.filters.join(", ")}
           </p>
           <dl className="m-0 divide-y">
             {table.columns.map(([name, type]) => (
-              <div key={name} className="grid grid-cols-[11rem_1fr_auto] items-baseline gap-4 py-2.5">
+              <div key={name} className="grid grid-cols-[8.5rem_1fr] items-baseline gap-4 py-2.5">
                 <dt className="truncate text-sm text-muted-foreground" style={MONO}>{name}</dt>
                 <dd className="m-0 min-w-0 text-[14px] break-words">{show(table.sample[name])}</dd>
-                <span className="text-[10px] uppercase tracking-[0.14em] text-muted-foreground" style={MONO}>{type.replace(/ with(out)? time zone/, "")}</span>
               </div>
             ))}
           </dl>
         </div>
       ) : (
         card.readout && (
-          <div className="thin-scrollbar min-h-0 flex-1 overflow-y-auto px-6 py-5">
+          <div className={`${inline ? "" : "thin-scrollbar min-h-0 flex-1 overflow-y-auto"} px-6 py-5`}>
             <p className="m-0 mb-4 text-2xl" style={SERIF}>{card.readout.title}</p>
             <dl className="m-0 divide-y">
               {card.readout.rows.map(([label, value, source]) => (

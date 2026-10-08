@@ -19,8 +19,9 @@ const ROW = "grid w-full grid-cols-[auto_1fr_auto] items-center gap-3 px-3 py-2 
  * A live API box (one with a catalog) lists every table its dataset publishes
  * under the join endpoints, and each row picks the record the dialog shows.
  */
-export function ApiPanel({ api, live, tables, picked, onPick }: {
+export function ApiPanel({ api, live, tables, picked, onPick, className = "mt-6" }: {
   api: NonNullable<HomeCardData["api"]>;
+  className?: string;
   live?: boolean;
   tables?: CatalogTable[] | null;
   picked?: string | null;
@@ -37,7 +38,7 @@ export function ApiPanel({ api, live, tables, picked, onPick }: {
   };
 
   return (
-    <section className="mt-6 overflow-hidden rounded-xl border bg-background text-[12.5px]" style={MONO}>
+    <section className={`${className} overflow-hidden rounded-xl border bg-background text-[12.5px]`} style={MONO}>
       <div className="flex h-10 items-center gap-2 border-b bg-muted/40 pr-1.5 pl-3">
         <span className="min-w-0 flex-1 truncate text-foreground">{api.base}</span>
         <button type="button" onClick={copy} aria-label="Copy the base URL" className="flex size-7 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
