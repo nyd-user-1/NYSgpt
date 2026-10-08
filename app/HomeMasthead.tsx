@@ -65,12 +65,13 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           NYSgpt
         </span>
         {/* The AWS mark dissolves in over the wordmark, with a small zoom. */}
-        <span className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-500 group-hover/name:opacity-100">
+        <span className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 opacity-0 transition-opacity duration-500 group-hover/name:opacity-100">
           <img
             src="/aws-logo.png"
             alt=""
             className="h-auto w-[44%] max-w-[150px] scale-95 transition-transform duration-500 ease-out group-hover/name:scale-105"
           />
+          <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>Click to open</span>
         </span>
       </a>
 
