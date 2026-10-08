@@ -51,14 +51,16 @@ export function HomeCard({ card, index, productIndex, category, featured = false
   const hasFigure = card.value > 0;
   /** A tool with no public page renders the same cell, but as a plain block. */
   const linked = card.href !== "";
-  /** The hover colours: on hover, or always for a box that rests in them. */
-  const lit = active || rest === "accent";
+  const { openProduct, open: panelOpen, view, cards: panelCards } = useSwitchboard();
+  /** The box whose product the open switchboard is showing: it wears its hover colours, with none of the hover's motion. */
+  const selected = panelOpen && view.kind === "product" && panelCards[view.index]?.title === card.title;
+  /** The hover colours: on hover, while selected in the switchboard, or always for a box that rests in them. */
+  const lit = active || selected || rest === "accent";
   /** Whether the top-right ↗ shows: a link out, or a featured box's own move. */
   const arrow = linked || featured;
   /** "~ rows" marks an approximate figure: the tilde prints before the number. */
   const approx = card.unit.startsWith("~");
   const unit = card.unit.replace(/^~\s*/, "");
-  const { openProduct } = useSwitchboard();
   const { statusOf, linkProps } = useProductStatus();
   const status = paper ? "idle" : statusOf(card.href);
   const link = linkProps(card.href);
