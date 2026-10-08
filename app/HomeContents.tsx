@@ -135,20 +135,23 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
           app docks one to its input. It sits outside the rail, so it stays put
           while the plate scrolls sideways. Its foot tucks 16px under the plate, whose
           rounded top corners sit over it, as a chat app's input sits over its banner. A sample (2026-10-08). */}
-      {notice && (
-        <div className="relative -mb-4 mt-[72px] flex items-center gap-3 rounded-t-[22px] border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 pt-2 pb-6 text-[13px] text-[var(--paper-muted)]">
-          <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
-          <span className="min-w-0 flex-1 truncate">Ten data APIs are live: 245 tables, free to start.</span>
-          <button type="button" onClick={openMenu} className="shrink-0 font-medium text-[var(--paper-text)] hover:underline">See them</button>
-          <button type="button" onClick={() => setNotice(false)} aria-label="Dismiss" className="shrink-0 rounded p-0.5 text-[var(--paper-faint)] hover:text-[var(--paper-text)]">
-            <X className="size-3.5" aria-hidden />
-          </button>
-        </div>
-      )}
+      {/* The plate keeps its place whether or not the banner shows: the banner is
+          out of the flow, anchored above the plate and tucked 16px behind it. */}
+      <div className="relative mt-[72px]">
+        {notice && (
+          <div className="absolute inset-x-0 bottom-[calc(100%-16px)] flex items-center gap-3 rounded-t-[22px] border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 pt-2 pb-6 text-[13px] text-[var(--paper-muted)]">
+            <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
+            <span className="min-w-0 flex-1 truncate">Ten data APIs are live: 245 tables, free to start.</span>
+            <button type="button" onClick={openMenu} className="shrink-0 font-medium text-[var(--paper-text)] hover:underline">See them</button>
+            <button type="button" onClick={() => setNotice(false)} aria-label="Dismiss" className="shrink-0 rounded p-0.5 text-[var(--paper-faint)] hover:text-[var(--paper-text)]">
+              <X className="size-3.5" aria-hidden />
+            </button>
+          </div>
+        )}
       <div
         data-inspect="ContentsPlate"
         ref={rail}
-        className={`no-scrollbar ${notice ? '' : 'mt-[72px]'} flex snap-x snap-mandatory gap-6 overflow-x-auto [--col:100%] sm:[--col:50%] lg:[--col:20%]`}
+        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto [--col:100%] sm:[--col:50%] lg:[--col:20%]"
       >
         {/* The frame keeps its rounded corners and sits over the banner's tucked-in foot. */}
         <div className={`${FRAME} relative z-10 w-full bg-[var(--paper)]`}>
@@ -182,6 +185,7 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       <CardDialog
