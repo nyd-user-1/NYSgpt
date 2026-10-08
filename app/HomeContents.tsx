@@ -136,7 +136,7 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
           while the plate scrolls sideways. Its foot tucks 16px under the plate, whose
           rounded top corners sit over it, as a chat app's input sits over its banner. A sample (2026-10-08). */}
       {notice && (
-        <div className="relative -mb-4 mt-[72px] flex items-center gap-3 rounded-t-2xl border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 pt-2 pb-6 text-[13px] text-[var(--paper-muted)]">
+        <div className="relative -mb-4 mt-[72px] flex items-center gap-3 rounded-t-[22px] border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 pt-2 pb-6 text-[13px] text-[var(--paper-muted)]">
           <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
           <span className="min-w-0 flex-1 truncate">Ten data APIs are live: 245 tables, free to start.</span>
           <button type="button" onClick={openMenu} className="shrink-0 font-medium text-[var(--paper-text)] hover:underline">See them</button>
