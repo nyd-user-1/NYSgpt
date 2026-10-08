@@ -8,6 +8,7 @@ import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
 import type { HomeCardData } from '@/lib/home-data'
+import { SwitchboardApiList } from './SwitchboardApiList'
 import type { Digest } from '@/lib/digest'
 
 /**
@@ -417,7 +418,9 @@ function SwitchboardPanel() {
                     Each cell is a LINK to the surface holding that layer, with
                     the home cards' hover treatment: accent tint, the figure
                     taking the accent, and an ↗ in the corner. */}
-                {product.stats && product.stats.length > 0 && (
+                {product.catalog ? (
+                  <SwitchboardApiList key={product.catalog} dataset={product.catalog} />
+                ) : product.stats && product.stats.length > 0 && (
                   <div
                     className="grid grid-cols-2"
                     style={{
