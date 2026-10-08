@@ -5,6 +5,8 @@ import { HomeCard } from './HomeCard'
 import { APIS, IN_HOUSE, KINDS, SWITCHBOARD, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
 import dynamic from 'next/dynamic'
 import { CardDialog } from './CardDialog'
+import { X } from 'lucide-react'
+import { useSwitchboard } from '@/components/SwitchboardPanel'
 
 // The Inspector's overlay loads when a reader turns it on, not with the page.
 const InspectorMode = dynamic(() => import('./InspectorMode').then(m => m.InspectorMode), { ssr: false })
@@ -61,6 +63,9 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
 
   /** The card whose dialog is open. */
   const [open, setOpen] = useState<HomeCardData | null>(null)
+  /** The composer banner over the plate, until the reader dismisses it. */
+  const [notice, setNotice] = useState(true)
+  const { openMenu } = useSwitchboard()
   /** The Inspector is on over the page (its card's dialog button, or a held ⌘C). */
   const [inspecting, setInspecting] = useState(false)
 
@@ -126,10 +131,24 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
           (overscroll-contain) rather than spilling into the rail, so the dev
           tools arrive only from their box. A column is a fifth of the frame on
           desktop, a half on a tablet, the whole frame on a phone. */}
+      {/* The composer banner: a notice docked to the plate's top edge, as a chat
+          app docks one to its input. It sits outside the rail, so it stays put
+          while the plate scrolls sideways, and overlaps the plate's top rule by a
+          pixel so the two read as one piece. A sample (2026-10-08). */}
+      {notice && (
+        <div className="relative z-10 mx-auto -mb-px mt-[72px] flex w-[min(640px,calc(100%-3rem))] items-center gap-3 rounded-t-xl border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 py-2 text-[13px] text-[var(--paper-muted)]">
+          <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
+          <span className="min-w-0 flex-1 truncate">Ten data APIs are live: 245 tables, free to start.</span>
+          <button type="button" onClick={openMenu} className="shrink-0 font-medium text-[var(--paper-text)] hover:underline">See them</button>
+          <button type="button" onClick={() => setNotice(false)} aria-label="Dismiss" className="shrink-0 rounded p-0.5 text-[var(--paper-faint)] hover:text-[var(--paper-text)]">
+            <X className="size-3.5" aria-hidden />
+          </button>
+        </div>
+      )}
       <div
         data-inspect="ContentsPlate"
         ref={rail}
-        className="no-scrollbar mt-[72px] flex snap-x snap-mandatory gap-6 overflow-x-auto [--col:100%] sm:[--col:50%] lg:[--col:20%]"
+        className={`no-scrollbar ${notice ? '' : 'mt-[72px]'} flex snap-x snap-mandatory gap-6 overflow-x-auto [--col:100%] sm:[--col:50%] lg:[--col:20%]`}
       >
         <div className={`${FRAME} w-full`}>
           <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain">
