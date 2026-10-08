@@ -8,8 +8,8 @@ import { useSwitchboard } from '@/components/SwitchboardPanel'
  * The nysgpt.com masthead — nameplate cell plus the four-layer ledger, matched
  * to 44B's home masthead.
  *
- *  - the nameplate links to NYSgpt's AWS startup page: hover fades the
- *    wordmark to AWS; the first ledger cell toggles the switchboard panel.
+ *  - the nameplate links to NYSgpt's AWS startup page: on hover AWS rises in
+ *    letter by letter; the first ledger cell toggles the switchboard panel.
  *  - each ledger cell shows its layer's word at rest (Data, Models, Platforms,
  *    Tools); hovering swaps the word for the figure, counted up from zero with
  *    its label, and leaving resets it (2026-10-08).
@@ -26,15 +26,8 @@ const FADE = 'transition-opacity duration-200'
 /** NYSgpt's page on the AWS Startups showcase. */
 const AWS_STARTUP = 'https://startups.aws.com/showcase/startup-details/ea42a691-3fe8-4572-8edf-70be4999ec83'
 
-/**
- * The cell width an exact figure needs before it is spelled out, by its length
- * with separators (at the cell-relative size below, a 14-character figure
- * fits from 22rem, 13 from 20rem, 9 from 12rem). Narrower cells, whether a
- * small window or one squeezed by the side panels, show the short form.
- * Whole class names, so Tailwind can see them.
- */
-const SPELL = (chars: number) =>
-  chars <= 9 ? ['@min-[12rem]:hidden', '@min-[12rem]:block'] : chars <= 13 ? ['@min-[20rem]:hidden', '@min-[20rem]:block'] : ['@min-[22rem]:hidden', '@min-[22rem]:block']
+/** The ledger's word and its figure share one size. */
+const SIZE = 'clamp(1.8rem, 3.4vw, 3rem)'
 
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { toggle } = useSwitchboard()
@@ -48,7 +41,8 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           Side by side the ledger's own border-l closes that seam, so it is
           dropped at lg to avoid a double rule. */}
       {/* The nameplate links to NYSgpt's AWS startup page (2026-10-08): on hover
-          the wordmark fades to AWS with "Click to open", the cards' own phrase,
+          the wordmark gives way to AWS, its letters rising in one after another,
+          with "Click to open", the cards' own phrase,
           and a click opens the page in a new tab. The Data cell still opens the
           switchboard. */}
       <a
@@ -67,10 +61,20 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
         </span>
         <span className={`pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-0 ${FADE} group-hover/name:opacity-100`}>
           <span
-            className="leading-[0.82] text-[var(--paper-strong)]"
+            aria-hidden
+            className="flex leading-[0.82] text-[var(--paper-strong)]"
             style={{ ...SERIF, fontSize: 'clamp(2.5rem, 8vw, 4.5rem)', fontWeight: 400, letterSpacing: '-0.03em' }}
           >
-            AWS
+            {/* Each letter rises into place after the one before it. */}
+            {'AWS'.split('').map((ch, i) => (
+              <span
+                key={i}
+                className="inline-block translate-y-[0.45em] opacity-0 transition-[transform,opacity] duration-500 ease-out group-hover/name:translate-y-0 group-hover/name:opacity-100"
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
+                {ch}
+              </span>
+            ))}
           </span>
           <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>Click to open</span>
         </span>
@@ -81,7 +85,6 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
       <div className="grid grid-cols-2 border-t border-l border-[var(--paper-rule)] lg:border-t-0">
         {ledger.map((l, i) => {
           const fig = compact(l.value)
-          const [short, full] = SPELL(l.value.toLocaleString('en-US').length)
           return (
             <div
               key={l.word}
@@ -112,8 +115,8 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
                   grid cell, so the box keeps its size as they swap. */}
               <p
                 data-inspect="LedgerWord"
-                className={`[grid-area:1/1] m-0 text-[clamp(1.8rem,3.4vw,3rem)] leading-none text-[var(--paper-text)] ${FADE} group-hover/fig:opacity-0`}
-                style={{ ...SERIF, letterSpacing: '-0.02em' }}
+                className={`[grid-area:1/1] m-0 leading-none text-[var(--paper-text)] ${FADE} group-hover/fig:opacity-0`}
+                style={{ ...SERIF, fontSize: SIZE, letterSpacing: '-0.02em' }}
               >
                 {l.word}
               </p>
@@ -124,16 +127,18 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
               <div aria-hidden className={`[grid-area:1/1] opacity-0 ${FADE} group-hover/fig:opacity-100`}>
                 <p
                   data-inspect="LedgerFigure"
-                  className={`m-0 text-[clamp(1.8rem,3.4vw,3rem)] leading-none text-[var(--kind)] tabular-nums ${l.exact ? short : ''}`}
-                  style={MONO}
+                  className="m-0 leading-none text-[var(--kind)] tabular-nums whitespace-nowrap"
+                  /* The word's own size; an exact figure, spelled out in full,
+                     steps down only as far as the cell's width needs (cqw is the
+                     cell's, which the side panels narrow). */
+                  style={{ ...MONO, fontSize: l.exact ? `min(${SIZE}, calc(100cqw / ${(l.value.toLocaleString('en-US').length * 0.62).toFixed(2)}))` : SIZE }}
                 >
-                  <CountUp value={fig.count} decimals={fig.decimals} suffix={fig.suffix} duration={1400} trigger="hover" />
-                </p>
-                {l.exact && (
-                  <p className={`m-0 hidden text-[clamp(1.4rem,9cqw,2.6rem)] leading-none text-[var(--kind)] tabular-nums ${full}`} style={MONO}>
+                  {l.exact ? (
                     <CountUp value={l.value} duration={1400} trigger="hover" />
-                  </p>
-                )}
+                  ) : (
+                    <CountUp value={fig.count} decimals={fig.decimals} suffix={fig.suffix} duration={1400} trigger="hover" />
+                  )}
+                </p>
                 <p data-inspect="LedgerUnit" className="m-0 mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--kind)]" style={SANS}>
                   {l.unit}
                 </p>
