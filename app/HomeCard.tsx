@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, PanelRight } from "lucide-react";
+import { ArrowUpRight, Check, PanelRight } from "lucide-react";
+import { ClassicSpinner } from "@/components/ClassicSpinner";
 import { CountUp } from "@/components/CountUp";
+import { useProductStatus } from "@/components/ProductStatus";
 import { compact } from "@/lib/compact";
 import { useSwitchboard } from "@/components/SwitchboardPanel";
 import type { HomeCardData } from "@/lib/home-data";
@@ -18,6 +20,9 @@ const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as cons
  * to the viewport, never to the length of the number.
  */
 const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
+
+/** How long a product's check shows once it comes up, before the live dot returns. */
+const CHECK_MS = 2_500;
 
 /**
  * A contents-plate cell. Hovering (or tapping, on touch) swaps the blurb for
@@ -35,7 +40,7 @@ const FIGURE_SIZE = "clamp(2.4rem, 3.4vw, 3.6rem)";
  * churn, "too, too much") and then RevealFx's mask wipe was tried and cut the
  * same night. No entrance effect on this paragraph.
  */
-export function HomeCard({ card, index, panel = true, paper = false, large = false, onOpen }: { card: HomeCardData; index: number; panel?: boolean; paper?: boolean; /** One of two boxes that fill the plate between them (the in-house plate). */ large?: boolean; onOpen?: () => void }) {
+export function HomeCard({ card, index, productIndex, category, featured = false, rest, panel = true, paper = false, large = false, onOpen }: { card: HomeCardData; index: number; /** The card's place among the products, for the switchboard; its printed number follows `index`. */ productIndex?: number; /** The box's family, printed bottom-left (AI Platforms, AI Tooling, Dev Tools). */ category?: string; /** Keeps the ↗ though it links nowhere (the Dev Tools box). */ featured?: boolean; /** The look at rest: its hover colours ("accent"), or a light grey ("grey"). */ rest?: "accent" | "grey"; panel?: boolean; paper?: boolean; /** One of two boxes that fill the plate between them (the in-house plate). */ large?: boolean; onOpen?: () => void }) {
   const [active, setActive] = useState(false);
   const [hoverCapable, setHoverCapable] = useState(true);
   const arrowRef = useRef<HTMLSpanElement>(null);
@@ -46,10 +51,25 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
   const hasFigure = card.value > 0;
   /** A tool with no public page renders the same cell, but as a plain block. */
   const linked = card.href !== "";
+  /** The hover colours: on hover, or always for a box that rests in them. */
+  const lit = active || rest === "accent";
+  /** Whether the top-right ↗ shows: a link out, or a featured box's own move. */
+  const arrow = linked || featured;
   /** "~ rows" marks an approximate figure: the tilde prints before the number. */
   const approx = card.unit.startsWith("~");
   const unit = card.unit.replace(/^~\s*/, "");
   const { openProduct } = useSwitchboard();
+  const { statusOf, linkProps } = useProductStatus();
+  const status = paper ? "idle" : statusOf(card.href);
+  const link = linkProps(card.href);
+  /** The check shows for a moment when the product comes up, then gives way to the live dot. */
+  const [checked, setChecked] = useState(false);
+  useEffect(() => {
+    if (status !== "ready") return setChecked(false);
+    setChecked(true);
+    const t = setTimeout(() => setChecked(false), CHECK_MS);
+    return () => clearTimeout(t);
+  }, [status]);
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover)");
@@ -63,7 +83,7 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
     <Cell
       data-inspect="HomeCard"
       linked={linked}
-      href={card.href}
+      href={link.href}
       newTab={!card.sameTab}
       style={
         {
@@ -74,12 +94,15 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
       onMouseEnter={() => hoverCapable && setActive(true)}
       onMouseLeave={() => hoverCapable && setActive(false)}
       onClick={(e) => {
+        // A product still waking: the ↗ shows the notice instead of leaving.
+        if (link.onClick && topArrowRef.current?.contains(e.target as Node)) return link.onClick(e);
         // The BLOCK opens the card dialog (2026-10-02; before that, product
         // blocks opened the panel, which now has only its own corner icon).
         // The top-right ↗ is the one outbound affordance. Papers keep the link.
         if (onOpen && !paper) {
           if (arrowRef.current?.contains(e.target as Node)) return; // the panel icon's own handler
-          if (topArrowRef.current?.contains(e.target as Node)) return; // ↗ → let the href fire
+          // ↗ → let the href fire. A featured box with no link has no href: its ↗ opens like its body.
+          if (linked && topArrowRef.current?.contains(e.target as Node)) return;
           if (!hoverCapable && !active && e.detail !== 0) {
             e.preventDefault();
             setActive(true);
@@ -102,7 +125,7 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
           }
           e.preventDefault();
           window.dispatchEvent(new CustomEvent("nysgpt:box", { detail: card.title }));
-          openProduct(index);
+          openProduct(productIndex ?? index);
           return;
         }
         if (hoverCapable) return; // mouse: the whole card navigates, as before
@@ -112,7 +135,7 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
         setActive((v) => !v);
       }}
       className={`group/card relative flex ${paper ? "h-[210px] overflow-hidden px-5 py-5" : large ? "min-h-[300px] px-8 py-8 lg:min-h-[421px]" : "min-h-[210px] px-5 py-5"} flex-col border-b border-r border-[var(--paper-rule)] transition-colors [-webkit-tap-highlight-color:transparent] ${
-        active ? "bg-[var(--accent-tint)]" : ""
+        lit ? "bg-[var(--accent-tint)]" : rest === "grey" ? "bg-[var(--paper-quiet)]" : ""
       }`}
     >
       {/* The reveal — in place of the resting content. Products count their
@@ -141,7 +164,8 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
             {approx && "~"}
             <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} active={active} duration={900} />
           </span>
-          <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>{unit}</span>
+          {/* Under the figure, the invitation rather than its unit (2026-10-08): the box opens on click. */}
+          <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>Click to open</span>
         </span>
       )}
 
@@ -154,7 +178,7 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
           never missing; it was never reached. The content block below carries
           `pointer-events-none` while active for exactly this reason. Measured
           with elementFromPoint 2026-08-14 — do not "fix" it by restyling here. */}
-      {linked && <span
+      {arrow && <span
         ref={topArrowRef}
         /* `transition-colors` as well as opacity — with opacity alone the grey
            hover disc snapped in rather than fading, which read as missing.
@@ -167,37 +191,63 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
       </span>}
 
       <div className={`flex flex-1 flex-col transition-opacity duration-200 ${active && hasFigure ? "pointer-events-none opacity-0" : "opacity-100"}`}>
-        <div className="flex items-center justify-between">
-          <span
-            data-inspect="CardIndex"
-            className={`text-[10px] tabular-nums tracking-[0.2em] transition-colors ${active ? "text-[var(--accent)]" : "text-[var(--paper-faint)]"}`}
-            style={MONO}
-          >
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          {/* Live dot — top-right, opposite the index number. Decoration only,
-              so it never takes a pointer: it shares this corner with the ↗. */}
-          <span aria-hidden className="pointer-events-none relative flex h-[5px] w-[5px] shrink-0">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-            <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
+        {/* The title opens the box, with the live dot opposite its first line;
+            the number moved to the foot, opposite the tag (2026-10-08). */}
+        <div className="flex items-start justify-between gap-3">
+          {/* line-clamp guards the paper titles (Refresh); product titles never reach it. */}
+          <h3 data-inspect="CardTitle" className={`m-0 line-clamp-4 transition-colors ${large ? "text-[44px] leading-[1.05]" : "text-[20px] leading-[1.1]"}`} style={{ ...SERIF, color: lit ? "var(--accent)" : "var(--paper-text)" }}>
+            {card.title}
+          </h3>
+          <span className={`flex shrink-0 items-center ${large ? "h-[46px]" : "h-[22px]"}`}>
+            {/* Live dot — top-right, level with the title's first line. Decoration only,
+                so it never takes a pointer: it shares this corner with the ↗.
+                Signed in, it says whether the product is awake: a spinner while
+                it wakes, a check once it answers (components/ProductStatus).
+                It steps aside on hover for the ↗ even on a card with no figure,
+                whose content block stays put (2026-10-08, Consensus). */}
+            <span className={`flex shrink-0 transition-opacity duration-200 ${active && arrow ? "opacity-0" : ""}`}>
+            {status === "loading" ? (
+              <span aria-label="Loading" className="pointer-events-none flex h-[5px] w-[5px] shrink-0 items-center justify-center">
+                <ClassicSpinner className="shrink-0 scale-[0.4]" />
+              </span>
+            ) : status === "ready" && checked ? (
+              <span aria-label="Ready" className="pointer-events-none flex h-[5px] w-[5px] shrink-0 items-center justify-center">
+                <Check className="size-3.5 shrink-0 text-emerald-500" strokeWidth={3} />
+              </span>
+            ) : status === "ready" ? (
+              // Awake: the live dot again, larger and ringed in grey so it reads as on.
+              <span aria-label="Ready" className="pointer-events-none flex h-[5px] w-[5px] shrink-0 items-center justify-center">
+                <span className="flex size-[13px] shrink-0 items-center justify-center rounded-full ring-1 ring-zinc-300 dark:ring-zinc-600">
+                  <span className="relative flex size-[7px]">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                    <span className="relative inline-flex size-[7px] rounded-full bg-emerald-500" />
+                  </span>
+                </span>
+              </span>
+            ) : (
+              <span aria-hidden className="pointer-events-none relative flex h-[5px] w-[5px] shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
+              </span>
+            )}
+            </span>
           </span>
         </div>
-        {/* line-clamp guards the paper titles (Refresh); product titles never reach it. */}
-        <h3 data-inspect="CardTitle" className={`line-clamp-4 transition-colors ${large ? "mt-5 text-[44px] leading-[1.05]" : "mt-3 text-[20px] leading-[1.1]"}`} style={{ ...SERIF, color: active ? "var(--accent)" : "var(--paper-text)" }}>
-          {card.title}
-        </h3>
         {/* Papers carry no resting blurb — their description lives in the hover
             reveal above, which is what keeps every paper cell at 210px. */}
         {!paper && <p data-inspect="CardBlurb" className={`flex-1 text-[var(--paper-muted)] ${large ? "mt-4 max-w-[34rem] text-[17px] leading-[1.5]" : "mt-2 text-[12px] leading-[1.5]"}`} style={SANS}>{card.body}</p>}
       </div>
 
-      <div className="mt-4 flex items-end justify-between gap-3">
+      <div className="relative mt-4 flex items-end justify-between gap-3">
         <span
           data-inspect="CardFooter"
           className={`inline-flex min-w-0 items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] tabular-nums transition-opacity duration-200 ${active && hasFigure ? "opacity-0" : "opacity-100 text-[var(--paper-faint)]"}`}
           style={MONO}
         >
-          {!paper && card.sources ? (
+          {category && !paper ? (
+            // The box's kind, in its colour.
+            <span className="font-medium text-[var(--accent)]">{category}</span>
+          ) : !paper && card.sources ? (
             /* The sources line came off the cards (Brendan, 2026-10-05). The
                span stays so the panel button keeps its bottom-right seat. */
             null
@@ -211,16 +261,23 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
             </>
           )}
         </span>
-        {/* Bottom-right: open the panel. The ↗ that used to live here moved to
+        {/* Bottom-right: the number, and on hover the panel button over it. The ↗ that used to live here moved to
             the card's top-right (above) — the two affordances now sit at
             opposite corners so neither is a near-miss for the other.
             `arrowRef` still guards this one so the card's tap-to-reveal handler
             (touch devices) lets a real tap through. */}
         {/* `panel` is off for the Refresh paper cards: openProduct(index) would
             open the wrong product's view for a paper sitting in that slot. */}
+        <span
+          data-inspect="CardIndex"
+          className={`shrink-0 text-[10px] tabular-nums tracking-[0.2em] transition-[opacity,color] duration-200 ${active && (hasFigure || panel) ? "opacity-0" : ""} ${lit ? "text-[var(--accent)]" : "text-[var(--paper-faint)]"}`}
+          style={MONO}
+        >
+          {String(index + 1).padStart(2, "0")}
+        </span>
         {panel && <span
           ref={arrowRef}
-          className={`-m-2 flex shrink-0 items-center transition-opacity duration-200 ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          className={`absolute -right-2 -bottom-2 flex shrink-0 items-center transition-opacity duration-200 ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}
         >
           <button
             type="button"
@@ -229,7 +286,7 @@ export function HomeCard({ card, index, panel = true, paper = false, large = fal
               // The cell is a <Link>; without this the panel opens AND we navigate.
               e.preventDefault();
               e.stopPropagation();
-              openProduct(index);
+              openProduct(productIndex ?? index);
             }}
             className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-[var(--paper-rule-soft)]"
           >

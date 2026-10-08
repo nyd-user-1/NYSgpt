@@ -1,72 +1,64 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, RotateCw } from 'lucide-react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { HomeCard } from './HomeCard'
-import { IN_HOUSE, PRODUCT_EXTRAS, TOOLS, type HomeCardData } from '@/lib/home-data'
+import { IN_HOUSE, KINDS, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
 import dynamic from 'next/dynamic'
 import { CardDialog } from './CardDialog'
 
 // The Inspector's overlay loads when a reader turns it on, not with the page.
 const InspectorMode = dynamic(() => import('./InspectorMode').then(m => m.InspectorMode), { ssr: false })
 
-/** Each of our own plates' heading. Papers keep "Recent papers". */
-const PLATE_HEADING = ['Custom AI', 'Custom Tools', 'Dev Tools']
-
 /**
- * The contents plate — the section heading with its refresh, and the 5×2 grid.
+ * The contents rail (2026-10-08) — every box on one sideways scroll.
  *
- * ── What "Refresh" does
- * The plate opens on the ten products. Refresh replaces them with the ten
- * papers most recently harvested into the 44b Library; refresh again and it
- * walks back ten more (page 1, 2, …), so repeated clicks keep turning up new
- * work rather than re-dealing the same ten. Data: /api/recent-papers.
+ * The products and the tools, A–Z, sit two rows tall in one rounded frame a
+ * screen wide, and scroll sideways inside it: five columns to the frame on
+ * desktop, two on a tablet, one on a phone. The Dev Tools box is among them; it opens
+ * no dialog but slides the rail to a second frame, set apart by a gap, that
+ * holds the two dev tools (HQ and the Inspector) as large boxes. Scrolling
+ * back returns to the rest. No heading and no arrow buttons: the rail is
+ * scrolled by trackpad, wheel or swipe.
  *
- * ── The pager (papers mode only)
- * A Prev · Next pair sits opposite the heading in both views — the 44b
- * breadcrumb pager, inline. Next deals the next ten (the refresh icon's exact
- * move; from the products it deals the newest ten); Prev walks back toward
- * the newest ten and, from the first page, returns the plate to the ten
- * products. On the products view Prev is present but disabled — there is
- * nothing before the table of contents. Everything runs through
- * one deal(page) — page -1 IS the products view, so the back-to-products path
- * gets the same skeleton beat as a fetch and the plate never snaps.
- *
- * ── The skeleton beat, ported from 44b's /chat "AI Headlines"
- * 44b redeals its starters instantly, then holds a ~420 ms skeleton so the
- * change reads as "a new edition being set" instead of a flicker. Same here:
- * the icon spins, the ten cells go to pulsing bars, and the new cards land
- * together — never one at a time. The fetch runs UNDER the beat: we wait for
- * whichever is later, the data or the 420 ms, so a fast response still gets
- * the beat and a slow one just holds the skeleton a little longer.
- *
- * ── Failure keeps the plate
- * An empty or failed response leaves the current cards in place and stops the
- * spin. A marketing page never shows an empty grid because a database blinked.
- *
- * ── Why the paper cards get `panel={false}` and `paper`
- * HomeCard's ↘ opens the switchboard's PRODUCT view by index; a paper at
- * index 3 is not the fourth product, so the panel affordance is dropped.
- * `paper` switches the cell to the paper shape: fixed 210px (the plate caps at
- * ~425px), no resting blurb, a "Published …" footer, and the description
- * fading in on hover where a product counts its figure.
+ * Before this the products, the tools and the dev tools were three plates
+ * each a screen wide, with a heading and a pair of arrows above them, and a
+ * refresh that dealt recent papers into the plate (retired with the heading).
  */
 
-const BEAT_MS = 420
-/** The last of the three plates on the rail. */
-const LAST_PLATE = 2
-/** Skeleton bar widths per cell — varied like real titles, one set per row of five. */
-const SKELETON = [
-  ['82%', '58%'], ['66%', '74%'], ['90%', '46%'], ['71%', '63%'], ['60%', '80%'],
-  ['77%', '52%'], ['64%', '69%'], ['86%', '57%'], ['58%', '75%'], ['73%', '61%'],
-]
+/**
+ * Off the rail (2026-10-08, the tightening): Sports, which fits none of the
+ * four verticals; Solar, the same app as Energy, whose box now carries both;
+ * and Compiler, Lake and Loaders, which the Pipeline box now speaks for. They
+ * stay in the data, the switchboard and the gate.
+ */
+const OFF_RAIL = new Set(['Sports', 'Solar', 'Compiler', 'Lake', 'Loaders'])
 
-const MONO = { fontFamily: 'var(--font-mono), ui-monospace, monospace' } as const
+/** The box that opens the Dev Tools frame. */
+const DEV_TOOLS = 'Dev Tools'
+
+/** A rounded frame matching the app shell. The grid inside sits 1px outward
+ *  (-m-px), so its own edge rules fall under the frame's border and are
+ *  clipped, leaving one rounded outline; it grows to fill the frame (flex-1)
+ *  since the rail stretches both frames to the taller. */
+const FRAME = 'flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)]'
 
 export function HomeContents({ initial: products }: { initial: HomeCardData[] }) {
-  // The products carry their source line and dialog from PRODUCT_EXTRAS.
-  const initial = useMemo(() => products.map(c => ({ ...c, ...PRODUCT_EXTRAS[c.title] })), [products])
-  const [cards, setCards] = useState<HomeCardData[]>(initial)
+  /** Every box but the dev tools, A–Z; each product carries its dialog from
+   *  PRODUCT_EXTRAS. A box wears its kind's colour (KINDS), not its own. */
+  const boxes = useMemo(
+    () =>
+      [...products.map(c => ({ ...c, ...PRODUCT_EXTRAS[c.title], tag: 'Platform' })), ...TOOLS]
+        .filter(c => !OFF_RAIL.has(c.title))
+        .map(c => (c.tag ? { ...c, accent: KINDS[c.tag as Kind] } : c))
+        .sort((a, b) => a.title.localeCompare(b.title)),
+    [products],
+  )
+  /** The dev tools are tools: they wear the Tool colour and chip. */
+  const devTools = useMemo(() => IN_HOUSE.map(c => ({ ...c, tag: 'Tool', accent: KINDS.Tool })), [])
+  /** A product's place in the switchboard, by title. */
+  const productIndex = useMemo(() => new Map(products.map((c, i) => [c.title, i])), [products])
+  const columns = Math.ceil(boxes.length / 2)
+
   /** The card whose dialog is open. */
   const [open, setOpen] = useState<HomeCardData | null>(null)
   /** The Inspector is on over the page (its card's dialog button, or a held ⌘C). */
@@ -108,188 +100,68 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
       cancel()
     }
   }, [])
-  const [papers, setPapers] = useState(false)
-  /** Which plate of our own is up: 0 the products, 1 the tools, 2 the in-house instruments. */
-  const [plate, setPlate] = useState(0)
-  const [dealing, setDealing] = useState(false)
-  // Next page of papers to ask for. Lives in a ref: it's bookkeeping, not view.
-  const nextPage = useRef(0)
 
-  /** Deal the plate to `page` of papers; page -1 is the ten products. */
-  const deal = useCallback(async (page: number) => {
-    if (dealing) return
-    setDealing(true)
-    const beat = new Promise<void>(r => setTimeout(r, BEAT_MS))
-    if (page < 0) {
-      // Back to the products — local data, but it gets the same beat so the
-      // return reads as a deal, not a snap.
-      await beat
-      setCards(initial)
-      setPapers(false)
-      setPlate(0)
-      nextPage.current = 0
-      setDealing(false)
-      return
-    }
-    const load = fetch(`/api/recent-papers?page=${page}`)
-      .then(r => (r.ok ? r.json() : null))
-      .then((d: { cards?: HomeCardData[] } | null) => d?.cards ?? [])
-      .catch(() => [] as HomeCardData[])
-    const [next] = await Promise.all([load, beat])
-    if (next.length > 0) {
-      setCards(next)
-      setPapers(true)
-      nextPage.current = page + 1
-    } else if (page > 0) {
-      // Walked off the end of the Library — start over from the newest.
-      nextPage.current = 0
-    }
-    setDealing(false)
-  }, [dealing, initial])
+  const rail = useRef<HTMLDivElement>(null)
+  const devFrame = useRef<HTMLDivElement>(null)
+  const toDevTools = () => {
+    const el = rail.current
+    const to = devFrame.current
+    if (el && to) el.scrollTo({ left: to.offsetLeft - el.offsetLeft, behavior: 'smooth' })
+  }
 
-  const refresh = useCallback(() => deal(nextPage.current), [deal])
-
-  /** The three plates, now same-shape pages on one sideways rail. */
-  const PLATES = useMemo(() => [initial, TOOLS, IN_HOUSE], [initial])
-  /** The dialog's arrows: the card before or after the open one, round its own plate. */
-  const step = useCallback((by: -1 | 1) => {
-    const deck = papers ? cards : PLATES[Math.min(plate, LAST_PLATE)]
+  /** The dialog's arrows: the box before or after the open one, among those that open a dialog. */
+  const step = (by: -1 | 1) => {
+    const deck = open && devTools.some(c => c.title === open.title) ? devTools : boxes.filter(c => c.title !== DEV_TOOLS)
     setOpen(now => {
       const i = now ? deck.findIndex(c => c.title === now.title) : -1
       return i < 0 ? now : deck[(i + by + deck.length) % deck.length]
     })
-  }, [papers, cards, PLATES, plate])
-  // The page on display is nextPage - 1, so back = nextPage - 2; below zero
-  // deal() reads it as the products view.
-  const prev = useCallback(() => deal(Math.max(nextPage.current - 2, -1)), [deal])
-
-  /**
-   * The plate scrolls sideways — hermes's rail (src/components/scroll-row.tsx):
-   * hidden scrollbar, snap, chevrons that page by 0.8 widths, the left one
-   * fading in once scrolling starts. Re-dressed in this page's chrome.
-   */
-  const rail = useRef<HTMLDivElement>(null)
-  const [edge, setEdge] = useState({ left: false, right: false })
-  const measure = useCallback(() => {
-    const el = rail.current
-    if (!el) return
-    setEdge({ left: el.scrollLeft > 4, right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4 })
-  }, [])
-  useEffect(() => {
-    measure()
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
-  }, [measure])
-  // A deal replaces the cards: back to the start of the rail, then re-measure.
-  useEffect(() => {
-    rail.current?.scrollTo({ left: 0 })
-    measure()
-  }, [cards, dealing, measure])
-  const pageRail = (dir: 1 | -1) => rail.current?.scrollBy({ left: dir * rail.current.clientWidth, behavior: 'smooth' })
-  /** Scroll keeps the chevrons and the heading honest: the plate on show is the page under the viewport. */
-  const onRailScroll = () => {
-    measure()
-    const el = rail.current
-    if (el && !papers && !dealing) setPlate(Math.min(LAST_PLATE, Math.max(0, Math.round(el.scrollLeft / el.clientWidth))))
   }
-  const chevron = (show: boolean) =>
-    `flex h-8 w-8 items-center justify-center rounded-full border border-[var(--paper-rule)] bg-[var(--paper)] text-[var(--paper-faint)] shadow-sm transition-[opacity,color,background-color] duration-200 hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] ${show ? '' : 'pointer-events-none opacity-0'}`
 
   return (
     <>
-      <div data-inspect="PlateHeader" className="mt-6 mb-4 flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <h2 data-inspect="PlateHeading" className="text-[10px] uppercase tracking-[0.32em] text-[var(--paper-faint)]" style={MONO}>
-            {papers ? 'Recent papers' : PLATE_HEADING[plate]}
-          </h2>
-          {/* Turn the plate: the ten most recent papers, then the ten before those. */}
-          <button
-            type="button"
-            data-inspect="RefreshButton"
-            aria-label={papers ? 'Ten more recent papers' : 'Show the ten most recent papers'}
-            onClick={refresh}
-            disabled={dealing}
-            className="rounded p-1 text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] disabled:cursor-default"
-          >
-            <RotateCw className={`h-3.5 w-3.5 ${dealing ? 'animate-spin' : ''}`} />
-          </button>
-        </div>
-
-        {/* The rail's arrows — hermes's pair in this page's round-button
-            chrome, and the ONE pager (the Prev · Next text pair is gone,
-            2026-10-05). On the plates they scroll a page; on the papers the
-            left walks back toward the newest ten and home to the products,
-            the right deals the next ten. */}
-        <div className="hidden items-center gap-1.5 sm:flex">
-          <button
-            type="button"
-            aria-label={papers ? 'Newer papers, or back to the products' : 'Scroll the plate left'}
-            onClick={papers ? prev : () => pageRail(-1)}
-            className={chevron(papers ? !dealing : edge.left)}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button
-            type="button"
-            aria-label={papers ? 'The next ten papers' : 'Scroll the plate right'}
-            onClick={papers ? refresh : () => pageRail(1)}
-            className={chevron(papers ? !dealing : edge.right)}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-
-      {/* Contents plates — three same-shape pages on one sideways rail: the
-          ten products (5×2), the tools (5×2), and the in-house pair (1×2 at
-          the same height). The chevrons and Prev·Next scroll between pages;
-          no scrollbar shows (hermes's rail). Papers deal into a single page
-          in the same frame. */}
+      {/* The rail holds two frames, each a screen wide: the boxes, and the dev
+          tools beyond a gap. The boxes scroll inside their own frame, so its
+          rounded ends always show; that scroll stops at its end
+          (overscroll-contain) rather than spilling into the rail, so the dev
+          tools arrive only from their box. A column is a fifth of the frame on
+          desktop, a half on a tablet, the whole frame on a phone. */}
       <div
-        aria-busy={dealing}
         data-inspect="ContentsPlate"
         ref={rail}
-        onScroll={onRailScroll}
-        className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto"
+        className="no-scrollbar mt-[72px] flex snap-x snap-mandatory gap-6 overflow-x-auto [--col:100%] sm:[--col:50%] lg:[--col:20%]"
       >
-        {dealing ? (
-          <div className="w-full shrink-0 snap-start">
-            <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
-              {SKELETON.map(([a, b], i) => (
-                <div
-                  key={`s-${i}`}
-                  aria-hidden
-                  className="flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5"
-                >
-                  {/* Index, a two-line title, the Published footer — the paper
-                      card's resting shape, which is all a deal ever lands on. */}
-                  <span className="h-[10px] w-[18px] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
-                  <span className="mt-4 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: a }} />
-                  <span className="mt-2 h-[16px] animate-pulse rounded bg-[var(--paper-rule-soft)]" style={{ width: b }} />
-                  <span className="mt-auto h-[10px] w-[55%] animate-pulse rounded bg-[var(--paper-rule-soft)]" />
-                </div>
+        <div className={`${FRAME} w-full`}>
+          <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain">
+            <div
+              className="grid h-full grid-flow-col grid-rows-[repeat(2,minmax(210px,auto))] border-t border-l border-[var(--paper-rule)] [&>*]:snap-start"
+              style={{ width: `calc(${columns} * var(--col))`, gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+            >
+              {boxes.map((card, i) => (
+                <HomeCard
+                  key={card.href + card.title}
+                  card={card}
+                  index={i}
+                  productIndex={productIndex.get(card.title)}
+                  category={card.tag}
+                  rest={card.title === DEV_TOOLS ? 'grey' : undefined}
+                  featured={card.title === DEV_TOOLS}
+                  panel={productIndex.has(card.title)}
+                  onOpen={card.title === DEV_TOOLS ? toDevTools : () => setOpen(card)}
+                />
               ))}
             </div>
           </div>
-        ) : papers ? (
-          <div className="w-full shrink-0 snap-start">
-            <div className="grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-5">
-              {cards.map((card, i) => (
-                <HomeCard key={card.href + card.title} card={card} index={i} panel={false} paper />
-              ))}
-            </div>
+        </div>
+
+        {/* The dev tools, off screen until the Dev Tools box slides them in. */}
+        <div ref={devFrame} className={`${FRAME} w-full`}>
+          <div className="-m-px grid flex-1 grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2">
+            {devTools.map((card, i) => (
+              <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} large onOpen={() => setOpen(card)} />
+            ))}
           </div>
-        ) : (
-          PLATES.map((deck, p) => (
-            <div key={p} className="w-full shrink-0 snap-start">
-              <div className={`grid grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 ${p === LAST_PLATE ? '' : 'lg:grid-cols-5'}`}>
-                {deck.map((card, i) => (
-                  <HomeCard key={card.href + card.title} card={card} index={i} panel={p === 0} large={p === LAST_PLATE} onOpen={() => setOpen(card)} />
-                ))}
-              </div>
-            </div>
-          ))
-        )}
+        </div>
       </div>
 
       <CardDialog

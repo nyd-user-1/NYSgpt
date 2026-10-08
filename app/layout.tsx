@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
 import { getDigest } from "@/lib/digest";
 import { CARDS } from "@/lib/home-data";
@@ -90,9 +91,11 @@ export default async function RootLayout({
         >
           {/* The provider mounts the panel itself (portaled to <body>), so the
               shell wrapper and the drawer stay in one system. */}
-          <SwitchboardProvider cards={CARDS} digest={digest}>
-            <SwitchboardShell>{children}</SwitchboardShell>
-          </SwitchboardProvider>
+          <ProductStatusProvider cards={CARDS}>
+            <SwitchboardProvider cards={CARDS} digest={digest}>
+              <SwitchboardShell>{children}</SwitchboardShell>
+            </SwitchboardProvider>
+          </ProductStatusProvider>
         </ThemeProvider>
       </body>
     </html>

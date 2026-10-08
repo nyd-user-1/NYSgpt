@@ -29,10 +29,10 @@ const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const;
 /** Today's opens per box, heaviest first — the seed the feed advances. */
 const SEED_COUNTS: [string, number][] = [
   ["Artificial Intelligence", 24_311],
-  ["EHR", 9_148],
+  ["Healthcare", 9_148],
   ["Tariffs", 6_402],
   ["Solar", 4_795],
-  ["Policy", 3_904],
+  ["Gov", 3_904],
   ["Childcare", 2_851],
   ["Sports", 2_106],
   ["Energy", 1_447],

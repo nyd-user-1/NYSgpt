@@ -27,12 +27,13 @@ export const CARD_ICONS: Record<string, LucideIcon> = {
   // The products
   "Artificial Intelligence": BrainCircuit,
   Childcare: Baby,
-  EHR: Stethoscope,
+  Healthcare: Stethoscope,
   Energy: Zap,
   Insurance: ShieldCheck,
-  Policy: Landmark,
+  Gov: Landmark,
   Science: Atom,
   Solar: Sun,
   Sports: Trophy,
   Tariffs: Ship,
+  Video: Clapperboard,
 };

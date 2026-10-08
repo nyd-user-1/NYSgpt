@@ -14,6 +14,9 @@ frontend:
         - pnpm install --frozen-lockfile
     build:
       commands:
+        # The sign-in gate's settings come from the Amplify app's environment;
+        # the server only sees them through .env.production.
+        - env | grep -E '^(NYSGPT_COGNITO_POOL_ID|NYSGPT_COGNITO_CLIENT_ID|DEMO_BASIC_AUTH)=' >> .env.production || true
         - pnpm run build
   artifacts:
     baseDirectory: .next

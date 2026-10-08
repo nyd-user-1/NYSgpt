@@ -5,8 +5,10 @@ import dynamic from "next/dynamic";
 import { ArrowLeft, ArrowRight, ArrowUpRight, SquareDashedMousePointer, X } from "lucide-react";
 import { Dialog, DialogClose, DialogDescription, DialogHeader, DialogPopup, DialogTitle } from "@/components/animate-ui/components/base/dialog";
 import { compact } from "@/lib/compact";
+import { useProductStatus } from "@/components/ProductStatus";
 import { TOOLS, type HomeCardData } from "@/lib/home-data";
 import { CARD_ICONS } from "./card-icons";
+import { ApiPanel } from "./ApiPanel";
 import { ProductShot } from "./ProductShot";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
@@ -59,6 +61,7 @@ function CopySkeleton() {
 export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCardData | null; onClose: () => void; onStep?: (by: -1 | 1) => void; onInspect?: () => void }) {
   // The last card stays drawn while the dialog closes, so it leaves at its own size.
   const [shown, setShown] = useState(card);
+  const { linkProps } = useProductStatus();
   /** Whether the reader has pressed the illustration's button: the copy follows it. */
   const [after, setAfter] = useState(false);
   if (card && card !== shown) {
@@ -135,9 +138,14 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
                     ) : (
                       <>
                         <p className="m-0 text-sm text-muted-foreground">{lead}</p>
-                        {paragraphs.map((text) => (
-                          <p key={text} className="m-0 mt-5 text-sm leading-relaxed">{text}</p>
-                        ))}
+                        {shown.api ? (
+                          // The API reference stands in for the prose.
+                          <ApiPanel api={shown.api} />
+                        ) : (
+                          paragraphs.map((text) => (
+                            <p key={text} className="m-0 mt-5 text-sm leading-relaxed">{text}</p>
+                          ))
+                        )}
                       </>
                     )}
                     {/* The Inspector's card closes on its own button, down here under the copy. */}
@@ -156,7 +164,7 @@ export function CardDialog({ card, onClose, onStep, onInspect }: { card: HomeCar
                 {figure ? `${approx ? "~" : ""}${figure.count.toFixed(figure.decimals)}${figure.suffix} ${unit}` : ""}
               </span>
               {shown.href && (
-                <a href={shown.href} target="_blank" rel="noreferrer noopener" className="flex items-center gap-1 font-medium text-foreground hover:underline">
+                <a {...linkProps(shown.href)} target="_blank" rel="noreferrer noopener" className="flex items-center gap-1 font-medium text-foreground hover:underline">
                   Open <ArrowUpRight className="size-3.5" aria-hidden />
                 </a>
               )}

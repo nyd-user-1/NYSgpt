@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, Sparkles, ArrowUpRight } from 'lucide-react'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
+import { useProductStatus } from '@/components/ProductStatus'
 import type { HomeCardData } from '@/lib/home-data'
 import type { Digest } from '@/lib/digest'
 
@@ -226,6 +227,7 @@ function ChannelRow({
 function SwitchboardPanel() {
   const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
+  const { linkProps } = useProductStatus()
 
   useEffect(() => setMounted(true), [])
 
@@ -433,7 +435,7 @@ function SwitchboardPanel() {
                          <Link> itself). */
                       <Link
                         key={s.unit}
-                        href={s.href}
+                        {...linkProps(s.href)}
                         className={`group/stat relative block border-b border-[var(--paper-rule)] px-5 py-6 transition-colors hover:bg-[var(--stat-tint)] ${i % 2 === 0 ? 'border-r' : ''} ${
                           i === arr.length - 1 && arr.length % 2 === 1 ? 'col-span-2 !border-r-0' : ''
                         }`}
@@ -520,7 +522,7 @@ function SwitchboardPanel() {
                     dereferences a null `product` and throws the whole panel away.
                     The `!` is precisely what hides it from the type checker. */}
                 <Link
-                  href={channel ? channel.href : product!.href}
+                  {...(channel ? { href: channel.href } : linkProps(product!.href))}
                   {...((channel ? channel.sameTab : product!.sameTab) ? {} : { target: '_blank', rel: 'noreferrer noopener' })}
                   className="group/visit flex items-center gap-3 px-5 py-4 transition-colors hover:bg-[var(--paper-quiet)]"
                 >

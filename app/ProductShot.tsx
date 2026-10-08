@@ -1,14 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowLeft, ArrowRight, ImageIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, ImageIcon } from "lucide-react";
 import type { HomeCardData } from "@/lib/home-data";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
 const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
-
-/** The page ground of a full-page shot, sampled from the shots themselves, so a contained image sits on its own color. */
-const SHOT_GROUND = "#18181b";
 
 /** "Artificial Intelligence" → /products/artificial-intelligence.png: where a product's screenshot is kept. */
 export const shotOf = (title: string) => `/products/${title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}.png`;
@@ -23,12 +20,12 @@ export function ProductShot({ card }: { card: HomeCardData }) {
   const [at, setAt] = useState(0);
   const src = srcs[at] ?? srcs[0];
   const [missing, setMissing] = useState(false);
-  const step = (by: number) => {
-    setAt((at + by + srcs.length) % srcs.length);
+  const go = (i: number) => {
+    setAt(i);
     setMissing(false);
   };
-  // A listed shot is a full page with its own framing: show all of it on its
-  // own ground. The one-file default fills the frame from the top, as before.
+  // A listed shot is cropped at the browser's edge, so the frame takes the
+  // shot's own height: no bands. The one-file default fills the frame from the top, as before.
   const contain = !!card.shots;
   const address = card.domain ?? card.href.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
 
@@ -48,7 +45,7 @@ export function ProductShot({ card }: { card: HomeCardData }) {
         </span>
         <span className="w-10" aria-hidden />
       </div>
-      <div className={contain ? "relative w-full aspect-[1600/922]" : "relative min-h-0 flex-1"} style={contain ? { background: SHOT_GROUND } : undefined}>
+      <div className={`group relative ${contain ? (missing ? "w-full aspect-[16/9]" : "w-full") : "min-h-0 flex-1"}`}>
         {missing ? (
           <div
             className="absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center"
@@ -62,20 +59,51 @@ export function ProductShot({ card }: { card: HomeCardData }) {
           </div>
         ) : (
           // eslint-disable-next-line @next/next/no-img-element -- a local file that may not exist yet; the fallback is the placeholder
-          <img key={src} src={src} alt={`${card.title}: a screen from the product`} onError={() => setMissing(true)} className={`absolute inset-0 size-full ${contain ? "object-contain" : "object-cover object-top"}`} />
+          contain ? (
+            // Every shot is drawn, stacked. The current one fades in on top while
+            // the one it replaces stays at full strength beneath, then drops away
+            // once covered: an additive dissolve, with no dip to the ground between.
+            srcs.map((shot, i) => (
+              <img
+                key={shot}
+                src={shot}
+                alt={i === at ? `${card.title}: a screen from the product` : ""}
+                aria-hidden={i !== at}
+                onError={() => i === at && setMissing(true)}
+                className={i === at ? "relative z-10 block h-auto w-full opacity-100 transition-opacity duration-500 ease-out" : "absolute inset-0 size-full object-cover object-top opacity-0 transition-opacity delay-500 duration-0"}
+              />
+            ))
+          ) : (
+            <img key={src} src={src} alt={`${card.title}: a screen from the product`} onError={() => setMissing(true)} className="absolute inset-0 size-full object-cover object-top" />
+          )
+        )}
+        {srcs.length > 1 && !missing && (
+          <>
+            {/* The arrows show on hover, one at each side of the shot. */}
+            <button type="button" onClick={() => go((at - 1 + srcs.length) % srcs.length)} aria-label="The screen before" className="absolute top-1/2 flex size-9 -translate-y-1/2 items-center justify-center z-20 rounded-full bg-background/90 text-foreground opacity-0 shadow-md ring-1 ring-black/5 backdrop-blur transition-opacity duration-200 group-hover:opacity-100 focus-visible:opacity-100 hover:bg-background left-3">
+              <ChevronLeft className="size-5" aria-hidden />
+            </button>
+            <button type="button" onClick={() => go((at + 1) % srcs.length)} aria-label="The screen after" className="absolute top-1/2 flex size-9 -translate-y-1/2 items-center justify-center z-20 rounded-full bg-background/90 text-foreground opacity-0 shadow-md ring-1 ring-black/5 backdrop-blur transition-opacity duration-200 group-hover:opacity-100 focus-visible:opacity-100 hover:bg-background right-3">
+              <ChevronRight className="size-5" aria-hidden />
+            </button>
+            {/* One dot per shot, over the shot's foot; the current one stretches into a pill and the pill slides as the shot changes. */}
+            <div className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center rounded-full bg-black/45 px-1.5 py-0.5 backdrop-blur-sm">
+              {srcs.map((shot, i) => (
+                <button
+                  key={shot}
+                  type="button"
+                  onClick={() => go(i)}
+                  aria-label={`Screen ${i + 1} of ${srcs.length}`}
+                  aria-current={i === at}
+                  className="flex h-6 items-center px-1"
+                >
+                  <span className={`block h-2.5 rounded-full transition-all duration-300 ease-out ${i === at ? "w-7 bg-white" : "w-2.5 bg-white/50 hover:bg-white/80"}`} />
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </div>
-      {srcs.length > 1 && (
-        <div className="flex h-9 shrink-0 items-center justify-between border-t bg-muted/50 px-3 text-[10px] uppercase tracking-[0.28em] text-muted-foreground" style={MONO}>
-          <button type="button" onClick={() => step(-1)} className="flex items-center gap-1.5 transition-colors hover:text-foreground">
-            <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> Prev
-          </button>
-          <span className="tabular-nums">{at + 1} / {srcs.length}</span>
-          <button type="button" onClick={() => step(1)} className="flex items-center gap-1.5 transition-colors hover:text-foreground">
-            Next <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-          </button>
-        </div>
-      )}
     </figure>
   );
 }

@@ -3,6 +3,7 @@ import { RevealFx } from "@/components/RevealFx";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { HomeMasthead } from "./HomeMasthead";
 import { HomeContents } from "./HomeContents";
+import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { LEDGER, CARDS } from "@/lib/home-data";
 
 export const metadata = {
@@ -37,11 +38,14 @@ export default function HomePage() {
           <RevealFx delay={0.7} translateY={3}>
             <div
               data-inspect="Byline"
-              className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
+              /* Inset 16px each side, the frames' corner radius, so both ends start
+                 where the bottom rule turns into its curve. */
+              className="mt-3 flex items-center justify-between px-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
               style={MONO}
             >
-              <span>2525 LLC</span>
-              <span>© 2026 All Rights Reserved.</span>
+              <FeedbackDialog />
+              {/* -mr cancels the tracking after the last letter, so the text ends on the inset. */}
+              <span className="-mr-[0.28em]">© 2026 All Rights Reserved.</span>
             </div>
           </RevealFx>
         </div>

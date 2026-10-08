@@ -1,18 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { flushSync } from "react-dom";
-import { PanelLeftOpen, PanelLeftClose, Sun, Moon } from "lucide-react";
+import { useState } from "react";
+import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
+import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
- * sidebar, with a header (sidebar toggle · Commons · theme toggle) and a
+ * sidebar, with a header (sidebar toggle · Commons) and a
  * follow-you panel root on the right. Ported from /Code/44b.
  *
- * Step 1 renders the visible chrome only: the sidebar body and the Commons
- * panel are placeholders, wired in later steps.
+ * The sidebar is the visitor log above the user panel, which holds the
+ * light/dark switch and sign in or out (2026-10-07).
  */
 export function AppLayout({
   children,
@@ -22,65 +22,6 @@ export function AppLayout({
   paperMode?: boolean;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-  }, []);
-
-  function toggleTheme(e: React.MouseEvent) {
-    // Anchor the reveal to the button's center (robust vs. edge clicks / keyboard
-    // activation where clientX/Y can be 0).
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = rect.left + rect.width / 2;
-    const y = rect.top + rect.height / 2;
-    const nextIsDark = !dark;
-
-    const apply = () => {
-      // Match 44b exactly: flip the class synchronously (so the view-transition
-      // snapshot captures the new theme and the reveal emanates from the click)
-      // and persist to the localStorage key next-themes reads on load. No
-      // setTheme — next-themes' disableTransitionOnChange fires during the
-      // transition and hijacks it into the default center cross-fade.
-      setDark(nextIsDark);
-      document.documentElement.classList.toggle("dark", nextIsDark);
-      localStorage.setItem("theme", nextIsDark ? "dark" : "light");
-    };
-
-    const doc = document as Document & {
-      startViewTransition?: (cb: () => void) => { ready: Promise<void> };
-    };
-
-    if (!doc.startViewTransition) {
-      apply();
-      return;
-    }
-
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-    const transition = doc.startViewTransition(() => {
-      flushSync(apply);
-    });
-    transition.ready
-      .then(() => {
-        document.documentElement.animate(
-          {
-            clipPath: [
-              `circle(0px at ${x}px ${y}px)`,
-              `circle(${endRadius}px at ${x}px ${y}px)`,
-            ],
-          },
-          {
-            duration: 600,
-            easing: "cubic-bezier(.76,.32,.29,.99)",
-            pseudoElement: "::view-transition-new(root)",
-          }
-        );
-      })
-      .catch(() => {});
-  }
 
   return (
     <div className="nysgpt-app flex h-dvh overflow-hidden p-0 sm:p-[18px] bg-[var(--surface)] sm:bg-[var(--bg)]">
@@ -95,7 +36,12 @@ export function AppLayout({
             paperMode ? "sm:border-[var(--paper-rule)]" : "sm:border-[var(--border)]"
           }`}
         >
-          <VisitorLog />
+          <div className="flex h-full flex-col">
+            <div className="min-h-0 flex-1">
+              <VisitorLog />
+            </div>
+            <UserPanel />
+          </div>
         </div>
       </div>
 
@@ -127,22 +73,6 @@ export function AppLayout({
 
           {/* Commons button — toggles the follow-you panel. */}
           <DiscussionHeaderButton paperMode={paperMode} />
-
-          <button
-            onClick={toggleTheme}
-            aria-label="Toggle dark mode"
-            className={`hidden sm:flex h-10 w-10 items-center justify-center rounded-full shadow-md transition-colors ${
-              paperMode
-                ? "border border-[var(--paper-rule)] bg-[var(--paper)] text-[var(--paper-faint)] hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)]"
-                : "border border-[var(--border)] bg-[var(--surface)] text-[var(--muted)] hover:bg-[var(--inp-bg)] hover:text-[var(--txt)]"
-            }`}
-          >
-            {dark ? (
-              <Sun className="h-4 w-4" style={{ color: "#e0a13c", fill: "#e0a13c" }} />
-            ) : (
-              <Moon className="h-4 w-4" style={{ color: "#033882", fill: "#fdf0c9" }} />
-            )}
-          </button>
         </div>
 
         {children}
