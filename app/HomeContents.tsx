@@ -136,7 +136,7 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
           while the plate scrolls sideways, and overlaps the plate's top rule by a
           pixel so the two read as one piece. A sample (2026-10-08). */}
       {notice && (
-        <div className="relative z-10 mx-4 -mb-px mt-[72px] flex items-center gap-3 rounded-t-xl border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 py-2 text-[13px] text-[var(--paper-muted)]">
+        <div className="relative z-10 -mb-px mt-[72px] flex items-center gap-3 rounded-t-2xl border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 py-2 text-[13px] text-[var(--paper-muted)]">
           <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
           <span className="min-w-0 flex-1 truncate">Ten data APIs are live: 245 tables, free to start.</span>
           <button type="button" onClick={openMenu} className="shrink-0 font-medium text-[var(--paper-text)] hover:underline">See them</button>
@@ -150,7 +150,8 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
         ref={rail}
         className={`no-scrollbar ${notice ? '' : 'mt-[72px]'} flex snap-x snap-mandatory gap-6 overflow-x-auto [--col:100%] sm:[--col:50%] lg:[--col:20%]`}
       >
-        <div className={`${FRAME} w-full`}>
+        {/* Under the banner the frame's top corners go square, so the two join as one edge. */}
+        <div className={`${FRAME} w-full ${notice ? 'rounded-t-none' : ''}`}>
           <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain">
             <div
               className="grid h-full grid-flow-col grid-rows-[repeat(2,minmax(210px,auto))] border-t border-l border-[var(--paper-rule)] [&>*]:snap-start"
