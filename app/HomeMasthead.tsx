@@ -71,7 +71,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
             alt=""
             className="h-auto w-[44%] max-w-[150px] scale-95 transition-transform duration-500 ease-out group-hover/name:scale-105"
           />
-          <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>Click to open</span>
+          <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>Built on</span>
         </span>
       </a>
 

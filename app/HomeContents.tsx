@@ -42,7 +42,7 @@ const DEV_TOOLS = 'Dev Tools'
  *  (-m-px), so its own edge rules fall under the frame's border and are
  *  clipped, leaving one rounded outline; it grows to fill the frame (flex-1)
  *  since the rail stretches both frames to the taller. */
-const FRAME = 'flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)]'
+const FRAME = 'isolate flex shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)]'
 
 export function HomeContents({ initial: products }: { initial: HomeCardData[] }) {
   /** Every box but the dev tools, A–Z; each product carries its dialog from
@@ -138,16 +138,6 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
       {/* The plate keeps its place whether or not the banner shows: the banner is
           out of the flow, anchored above the plate and tucked 16px behind it. */}
       <div className="relative mt-[72px]">
-        {notice && (
-          <div className="absolute inset-x-0 bottom-[calc(100%-16px)] flex items-center gap-3 rounded-t-[22px] border border-b-0 border-[var(--paper-rule)] bg-[var(--paper-quiet)] px-4 pt-2 pb-6 text-[13px] text-[var(--paper-muted)]">
-            <span className="size-1.5 shrink-0 rounded-full bg-emerald-500" aria-hidden />
-            <span className="min-w-0 flex-1 truncate">Ten data APIs are live: 245 tables, free to start.</span>
-            <button type="button" onClick={openMenu} className="shrink-0 font-medium text-[var(--paper-text)] hover:underline">See them</button>
-            <button type="button" onClick={() => setNotice(false)} aria-label="Dismiss" className="shrink-0 rounded p-0.5 text-[var(--paper-faint)] hover:text-[var(--paper-text)]">
-              <X className="size-3.5" aria-hidden />
-            </button>
-          </div>
-        )}
       <div
         data-inspect="ContentsPlate"
         ref={rail}

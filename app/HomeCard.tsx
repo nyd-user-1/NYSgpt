@@ -167,7 +167,7 @@ export function HomeCard({ card, index, productIndex, category, featured = false
             <CountUp value={figure.count} decimals={figure.decimals} suffix={figure.suffix} active={active} duration={900} />
           </span>
           {/* Under the figure, the invitation rather than its unit (2026-10-08): the box opens on click. */}
-          <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>Click to open</span>
+          <span className="text-[10px] uppercase tracking-[0.2em]" style={SANS}>Built on</span>
         </span>
       )}
 
