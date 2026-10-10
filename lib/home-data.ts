@@ -98,7 +98,7 @@ const GOV = "https://policy.nysgpt.com";
 export const TOOLS: HomeCardData[] = [
   { href: HF, title: "Encoder", dialogTitle: "Custom Encoder", accent: "#0e7490", tag: "Model",
     statement: ["Regular Search lists a popular answer.", "Custom Encoding surfaces the best answer."],
-    sources: "Model", value: 1_200_000_000, unit: "~ parameters trained",
+    sources: "Model", value: 1_200_000_000, unit: "~ parameters",
     body: "A custom embedding model trained on your own data, so search understands your data.",
     story: {
       before: [
@@ -114,7 +114,7 @@ export const TOOLS: HomeCardData[] = [
     } },
   { href: HF, title: "Reranker", accent: "#c026d3", tag: "Model",
     statement: ["Regular search leaves the correct answer off the page.", "Custom Reranking puts it first."],
-    sources: "Model", value: 323_000_000, unit: "~ parameters trained",
+    sources: "Model", value: 323_000_000, unit: "~ parameters",
     body: "Put the best answer first, trained on how your field judges relevance.",
     story: {
       before: [
@@ -226,7 +226,7 @@ export const TOOLS: HomeCardData[] = [
     } },
   { href: "", title: "Agentic Inbox", accent: "#7c3aed", tag: "Tool",
     statement: ["Regular Chat keeps you at the screen while the text streams in.", "An Agentic Inbox takes the task while you go to lunch."],
-    sources: "Agent", value: 6_200_000_000, unit: "~ records it answers from",
+    sources: "Agent", value: 6_200_000_000, unit: "~ records",
     body: "Email an agent a task and get on with your day; the finished work arrives in your inbox.",
     story: {
       before: [
@@ -656,7 +656,7 @@ export const CARDS: HomeCardData[] = [
       { value: 10_043, unit: "nuclides", href: "https://amplify.duruug4qfhs29.amplifyapp.com/ensdf/chart" },
     ],
   },
-  { href: "https://main.d2bart0mempmp5.amplifyapp.com", domain: "solar.nysgpt.com", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", value: 56_295_190, unit: "rooftops scanned",
+  { href: "https://main.d2bart0mempmp5.amplifyapp.com", domain: "solar.nysgpt.com", title: "Solar", accent: "#f59e0b", body: "State-to-ZIP drill-down over rooftop solar potential and reprojected satellite flux rasters.", value: 56_295_190, unit: "records",
     shots: ["/products/solar-gea-regions.avif", "/products/solar-suffolk-county.png"],
     // Measured 2026-09-30 from the solar DB (Neon solar): Project Sunroof sums
     // at census-tract level, plus Tracking the Sun, URDB and Cambium layers.
