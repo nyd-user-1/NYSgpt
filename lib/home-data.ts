@@ -286,6 +286,76 @@ export const IN_HOUSE: HomeCardData[] = [
     } },
 ];
 
+const MODEL_INK = "#7c3aed"
+
+/**
+ * The six public NYSgpt models on Hugging Face (2026-10-10).
+ * Two private classifiers (cshl-MESH-tagger, cshl-category) are omitted.
+ * Each card links directly to its HF model page.
+ */
+export const HF_MODELS: HomeCardData[] = [
+  {
+    href: 'https://huggingface.co/NYSgpt/nsr-encoder',
+    title: 'NSR Encoder',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.6B bge-m3 encoder fine-tuned on Nuclear Science References — papers, nuclides and reactions — for semantic search by meaning.',
+    value: 567_800_000,
+    unit: 'Parameters',
+    sources: 'NNDC · ENSDF · EXFOR',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/nsr-reranker',
+    title: 'NSR Reranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.1B ModernBERT reranker that scores candidate nuclear-science passages for precision retrieval on top of the encoder.',
+    value: 149_600_000,
+    unit: 'Parameters',
+    sources: 'NNDC · ENSDF · EXFOR',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/biomed-encoder',
+    title: 'Biomed Encoder',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.6B bge-m3 encoder fine-tuned on biomedical literature for semantic search across health, leukemia and pharmaceutical datasets.',
+    value: 567_800_000,
+    unit: 'Parameters',
+    sources: 'PubMed · ClinicalTrials',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/biomed-reranker',
+    title: 'Biomed Reranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.1B ModernBERT reranker for biomedical passage ranking, pairing with the Biomed Encoder in a two-stage retrieval pipeline.',
+    value: 149_600_000,
+    unit: 'Parameters',
+    sources: 'PubMed · ClinicalTrials',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/44b-reranker',
+    title: '44b Reranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.1B ModernBERT reranker trained on the 44B corpus — government bills, votes, filings and law — for cross-domain legislative retrieval.',
+    value: 149_600_000,
+    unit: 'Parameters',
+    sources: 'Congress · 50 states · LDA',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/44b-reranker-mini',
+    title: '44b Reranker Mini',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 22.7M MiniLM reranker — fast and lightweight — for low-latency legislative re-ranking where the full 44b reranker is too slow.',
+    value: 22_700_000,
+    unit: 'Parameters',
+    sources: 'Congress · 50 states · LDA',
+  },
+]
+
 /** The products' bottom lines and dialogs, by title. A product's dialog also
  *  shows its screenshot, read from public/products/<title as a slug>.png. */
 export const PRODUCT_EXTRAS: Record<string, Pick<HomeCardData, "sources" | "pas" | "statement" | "api">> = {

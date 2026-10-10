@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { HomeCard } from './HomeCard'
-import { APIS, IN_HOUSE, KINDS, SWITCHBOARD, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from '@/lib/home-data'
+import { APIS, IN_HOUSE, KINDS, SWITCHBOARD, PRODUCT_EXTRAS, TOOLS, HF_MODELS, type HomeCardData, type Kind } from '@/lib/home-data'
 import dynamic from 'next/dynamic'
 import { CardDialog } from './CardDialog'
 import { X } from 'lucide-react'
@@ -108,11 +108,32 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
 
   const rail = useRef<HTMLDivElement>(null)
   const devFrame = useRef<HTMLDivElement>(null)
+  const modelsFrame = useRef<HTMLDivElement>(null)
   const toDevTools = () => {
     const el = rail.current
     const to = devFrame.current
     if (el && to) el.scrollTo({ left: to.offsetLeft - el.offsetLeft, behavior: 'smooth' })
   }
+  const toModels = () => {
+    const el = rail.current
+    const to = modelsFrame.current
+    if (el && to) el.scrollTo({ left: to.offsetLeft - el.offsetLeft, behavior: 'smooth' })
+  }
+
+  // The masthead "Tools" cell dispatches this event so it can trigger the same
+  // scroll without prop-drilling across the two client islands (2026-10-10).
+  useEffect(() => {
+    const handler = () => toDevTools()
+    window.addEventListener('scroll-to-dev-tools', handler)
+    return () => window.removeEventListener('scroll-to-dev-tools', handler)
+  }, [])
+
+  // The masthead "Models" cell dispatches this event to scroll to slide 4 (2026-10-10).
+  useEffect(() => {
+    const handler = () => toModels()
+    window.addEventListener('scroll-to-models', handler)
+    return () => window.removeEventListener('scroll-to-models', handler)
+  }, [])
 
   /** The dialog's arrows: the box before or after the open one, among those that open a dialog. */
   const step = (by: -1 | 1) => {
@@ -172,6 +193,16 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
           <div className="-m-px grid flex-1 grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2">
             {devTools.map((card, i) => (
               <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} large onOpen={() => setOpen(card)} />
+            ))}
+          </div>
+        </div>
+
+        {/* Slide 4: the six public NYSgpt models on Hugging Face (2026-10-10).
+            Each card links out to its HF model page; no dialog. */}
+        <div ref={modelsFrame} className={`${FRAME} w-full`}>
+          <div className="-m-px grid flex-1 grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2 lg:grid-cols-3" style={{ gridTemplateRows: 'repeat(2, minmax(210px, auto))' }}>
+            {HF_MODELS.map((card, i) => (
+              <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} large onOpen={() => { if (card.href) window.open(card.href, '_blank', 'noreferrer') }} />
             ))}
           </div>
         </div>
