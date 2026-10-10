@@ -102,34 +102,8 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
                       }
                     },
                   }
-                : i === 1
-                ? {
-                    role: 'button',
-                    tabIndex: 0,
-                    'aria-label': 'Scroll to Models',
-                    onClick: () => window.dispatchEvent(new CustomEvent('scroll-to-models')),
-                    onKeyDown: (e: React.KeyboardEvent) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault()
-                        window.dispatchEvent(new CustomEvent('scroll-to-models'))
-                      }
-                    },
-                  }
-                : i === 3
-                ? {
-                    role: 'button',
-                    tabIndex: 0,
-                    'aria-label': 'Scroll to Dev Tools',
-                    onClick: () => window.dispatchEvent(new CustomEvent('scroll-to-dev-tools')),
-                    onKeyDown: (e: React.KeyboardEvent) => {
-                      if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault()
-                        window.dispatchEvent(new CustomEvent('scroll-to-dev-tools'))
-                      }
-                    },
-                  }
                 : {})}
-              className={`@container group/fig relative grid min-h-[7.5rem] items-center border-r border-[var(--paper-rule)] px-5 py-6 sm:px-7 transition-colors hover:bg-[var(--kind-tint)] ${i < 2 ? 'border-b' : ''} ${i === 0 || i === 1 || i === 3 ? 'cursor-pointer' : ''}`}
+              className={`@container group/fig relative grid min-h-[7.5rem] items-center border-r border-[var(--paper-rule)] px-5 py-6 sm:px-7 transition-colors hover:bg-[var(--kind-tint)] ${i < 2 ? 'border-b' : ''} ${i === 0 ? 'cursor-pointer' : ''}`}
               /* The word's kind colour, as the boxes of that kind wear it on hover. */
               style={{ '--kind': l.color, '--kind-tint': `color-mix(in oklab, ${l.color} 5%, var(--paper))` } as React.CSSProperties}
             >
