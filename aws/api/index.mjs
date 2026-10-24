@@ -143,7 +143,22 @@ const routes = [
       sql("gov", `select roll_call_id, date, chamber, description, yea, nay, nv, absent, total
                   from "Roll Call" where bill_id = :p1 order by date`, [Number(id)]),
     ])
-    return { ...bill, sponsors, roll_calls: rollCalls }
+    // Each member's vote on each roll call. Capped so a bill with dozens of
+    // House roll calls stays under the Data API's 1 MB response limit; the rest
+    // are at /rollcalls/{id}.
+    const votes = rollCalls.length
+      ? await sql("gov",
+          `select v.roll_call_id, p.people_id, p.name, p.party, p.district, v.vote_desc
+           from "Votes" v join "People" p using (people_id)
+           where v.roll_call_id = any(cast(:p1 as bigint[])) order by v.roll_call_id, p.name limit 5000`,
+          [`{${rollCalls.map((r) => r.roll_call_id).join(",")}}`])
+      : []
+    const byRollCall = new Map()
+    for (const { roll_call_id, ...v } of votes) {
+      const k = String(roll_call_id)
+      byRollCall.set(k, [...(byRollCall.get(k) ?? []), v])
+    }
+    return { ...bill, sponsors, roll_calls: rollCalls.map((r) => ({ ...r, votes: byRollCall.get(String(r.roll_call_id)) ?? [] })) }
   }],
   ["gov/rollcalls/:id", "gov", "State legislatures and Congress", async ({ id }) => {
     const rc = one(await sql("gov",

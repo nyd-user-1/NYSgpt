@@ -1,0 +1,900 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "NYSgpt Gov API",
+    "version": "1.0.0",
+    "description": "US legislative and government records for all fifty states and Congress: bills and bill texts, sponsors, roll calls and each member's vote, enacted law including the US Code, lobbying filings and FEC campaign finance. Every response is JSON in the form {data, meta}."
+  },
+  "servers": [
+    {
+      "url": "https://api.nysgpt.com/v1"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "paths": {
+    "/gov/bills": {
+      "get": {
+        "operationId": "searchBills",
+        "summary": "Search bills by title",
+        "description": "Finds bills whose title contains the search words, in all fifty states and Congress, most recent action first. Use the bill_id from a result with getBill.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Words to find in the bill title, e.g. 'nurse practitioners'.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "description": "Two-letter state code, or US for Congress.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Rows to return, 1 to 100. Default 25.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching bills.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/BillSummary"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooMany"
+          }
+        }
+      }
+    },
+    "/gov/bills/{id}": {
+      "get": {
+        "operationId": "getBill",
+        "summary": "Get a bill with its sponsors, roll calls and each member's vote",
+        "description": "One bill: status, last action, committee, its sponsors with party and district, and every roll call on it with the tally and each member's vote.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The bill_id, from searchBills.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The bill.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Bill"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooMany"
+          }
+        }
+      }
+    },
+    "/gov/rollcalls/{id}": {
+      "get": {
+        "operationId": "getRollCall",
+        "summary": "Get a roll call with each member's vote",
+        "description": "One roll call: the bill, date, chamber, tally, and every member's vote with party and district.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The roll_call_id, from getBill.",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The roll call.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/RollCall"
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooMany"
+          }
+        }
+      }
+    },
+    "/gov/people": {
+      "get": {
+        "operationId": "searchLegislators",
+        "summary": "Search legislators by name",
+        "description": "Finds state legislators and members of Congress by name, with party, role, chamber, district and state.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Part of the legislator's name.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": false,
+            "description": "Two-letter state code, or US for Congress.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Rows to return, 1 to 100. Default 25.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 25
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching legislators.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Person"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooMany"
+          }
+        }
+      }
+    },
+    "/gov": {
+      "get": {
+        "operationId": "listTables",
+        "summary": "List the dataset's tables",
+        "description": "Every table with its row count, columns and the columns it can be filtered and ordered on. Read this before queryTable.",
+        "responses": {
+          "200": {
+            "description": "The tables.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Table"
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooMany"
+          }
+        }
+      }
+    },
+    "/gov/{table}": {
+      "get": {
+        "operationId": "queryTable",
+        "summary": "Query any table",
+        "description": "Rows from one table, filtered on its filter columns (see listTables): col=value for equality, col.gte, col.lte, col.gt, col.lt for ranges. order=col ascending or order=-col descending. limit 1 to 500 (default 25) and offset for paging. Note that /gov/bills is the title search; read the bills table through searchBills and getBill.",
+        "parameters": [
+          {
+            "name": "table",
+            "in": "path",
+            "required": true,
+            "description": "The table's path, from listTables.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "2025-lobbyist-dataset",
+                "actions",
+                "bill-agendas",
+                "bill-calendars",
+                "bill-committees",
+                "bill-crosswalk",
+                "bill-laws",
+                "bill-messages",
+                "bill-milestones",
+                "bill-relations",
+                "bill-texts",
+                "bill-versions",
+                "bill-xref",
+                "budget-2027-aprops",
+                "budget-2027-capital-aprops",
+                "budget-2027-spending",
+                "calendar",
+                "calendar-entries",
+                "chamber-results",
+                "committees",
+                "congress-amendment-actions",
+                "congress-amendment-cosponsors",
+                "congress-amendment-texts",
+                "congress-amendments",
+                "congress-bill-actions",
+                "congress-bill-committees",
+                "congress-bill-subjects",
+                "congress-bills",
+                "congress-cbo-estimates",
+                "congress-committee-communications",
+                "congress-committee-meetings",
+                "congress-committee-members",
+                "congress-committee-nominations",
+                "congress-committee-prints",
+                "congress-committee-reports",
+                "congress-committees",
+                "congress-communications",
+                "congress-congresses",
+                "congress-cosponsors",
+                "congress-crs-reports",
+                "congress-hearing-texts",
+                "congress-hearings",
+                "congress-house-requirements",
+                "congress-house-vote-positions",
+                "congress-house-votes",
+                "congress-laws",
+                "congress-member-cosponsored",
+                "congress-member-sponsored",
+                "congress-members",
+                "congress-nomination-actions",
+                "congress-nomination-committees",
+                "congress-nomination-hearings",
+                "congress-nominations",
+                "congress-print-texts",
+                "congress-record-articles",
+                "congress-record-daily",
+                "congress-related-bills",
+                "congress-report-texts",
+                "congress-requirement-communications",
+                "congress-senate-vote-positions",
+                "congress-senate-votes",
+                "congress-summaries",
+                "congress-text-formats",
+                "congress-titles",
+                "congress-treaties",
+                "congress-treaty-actions",
+                "congress-treaty-committees",
+                "contracts",
+                "discretionary",
+                "documents",
+                "election-races",
+                "election-results",
+                "expressions",
+                "fec-committees",
+                "fec-contributions",
+                "fec-independent-expenditures",
+                "fec-receipts-by-employer",
+                "fec-receipts-by-size",
+                "fec-receipts-by-state",
+                "fec-totals",
+                "finance",
+                "finance-contributors",
+                "finance-sectors",
+                "forms",
+                "history-table",
+                "house-offices",
+                "house-staff",
+                "individual-lobbyists",
+                "laws",
+                "legislators",
+                "lobbying-activities",
+                "lobbying-bills",
+                "lobbying-filings",
+                "lobbying-spend",
+                "lobbyist-compensation",
+                "lobbyist-filings",
+                "lobbyists",
+                "lobbyists-clients",
+                "meetings",
+                "member-elections",
+                "member-vote-tallies",
+                "model-bill-matches",
+                "model-bills",
+                "news-stories",
+                "ny-budget-appropriations",
+                "ny-budget-capital",
+                "ny-budget-spending",
+                "openstates-bill-texts",
+                "openstates-bills",
+                "openstates-documents",
+                "openstates-people",
+                "openstates-sponsors",
+                "openstates-votes",
+                "people-xref",
+                "progress",
+                "rcv-contests",
+                "referrals",
+                "revenue",
+                "roll-call",
+                "roll-calls",
+                "same-as",
+                "school-funding",
+                "school-funding-totals",
+                "senate-contact",
+                "session-people",
+                "sponsors",
+                "subjects",
+                "top-50-public-policy-problems",
+                "top-two-races",
+                "votes",
+                "xml-library"
+              ]
+            }
+          },
+          {
+            "name": "filters",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "description": "Filters as column=value pairs, e.g. state=NY or status_date.gte=2025-01-01.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "required": false,
+            "description": "A filter column to sort on; prefix with - for descending.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Rows to return, 1 to 500. Default 25.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 500,
+              "default": 25
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Rows to skip, for paging.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The rows.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true
+                      }
+                    },
+                    "meta": {
+                      "$ref": "#/components/schemas/Meta"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "429": {
+            "$ref": "#/components/responses/TooMany"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "A missing or invalid parameter, or a response over 1 MB (ask for fewer rows).",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "A missing or invalid key, or a key whose plan does not include this table.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "No such table or record.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TooMany": {
+        "description": "The plan's monthly calls or rate limit is reached.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Meta": {
+        "type": "object",
+        "properties": {
+          "dataset": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "ms": {
+            "type": "integer"
+          }
+        }
+      },
+      "BillSummary": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "bill_number": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status_desc": {
+            "type": "string"
+          },
+          "last_action": {
+            "type": "string"
+          },
+          "last_action_date": {
+            "type": "string"
+          },
+          "bill_id": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Sponsor": {
+        "type": "object",
+        "properties": {
+          "people_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "party": {
+            "type": "string"
+          },
+          "chamber": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "position": {
+            "type": "integer"
+          }
+        }
+      },
+      "Vote": {
+        "type": "object",
+        "properties": {
+          "people_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "party": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "vote_desc": {
+            "type": "string",
+            "description": "Yea, Nay, NV or Absent."
+          }
+        }
+      },
+      "RollCallTally": {
+        "type": "object",
+        "properties": {
+          "roll_call_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "date": {
+            "type": "string"
+          },
+          "chamber": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "yea": {
+            "type": "integer"
+          },
+          "nay": {
+            "type": "integer"
+          },
+          "nv": {
+            "type": "integer"
+          },
+          "absent": {
+            "type": "integer"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "votes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vote"
+            }
+          }
+        }
+      },
+      "Bill": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string"
+          },
+          "session_id": {
+            "type": "string"
+          },
+          "session_title": {
+            "type": "string"
+          },
+          "bill_number": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "status_desc": {
+            "type": "string"
+          },
+          "committee": {
+            "type": "string"
+          },
+          "last_action": {
+            "type": "string"
+          },
+          "last_action_date": {
+            "type": "string"
+          },
+          "state_link": {
+            "type": "string"
+          },
+          "bill_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sponsors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sponsor"
+            }
+          },
+          "roll_calls": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RollCallTally"
+            }
+          }
+        }
+      },
+      "RollCall": {
+        "type": "object",
+        "properties": {
+          "roll_call_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "bill_id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "bill_number": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "chamber": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "yea": {
+            "type": "integer"
+          },
+          "nay": {
+            "type": "integer"
+          },
+          "nv": {
+            "type": "integer"
+          },
+          "absent": {
+            "type": "integer"
+          },
+          "votes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Vote"
+            }
+          }
+        }
+      },
+      "Person": {
+        "type": "object",
+        "properties": {
+          "people_id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "party": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "chamber": {
+            "type": "string"
+          },
+          "district": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          }
+        }
+      },
+      "Table": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "rows": {
+            "type": "integer"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "filters": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

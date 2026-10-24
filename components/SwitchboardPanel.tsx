@@ -9,6 +9,7 @@ import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
 import type { HomeCardData } from '@/lib/home-data'
 import { SwitchboardApiList } from './SwitchboardApiList'
+import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
 
 /**
@@ -65,11 +66,17 @@ const INTRO =
   'Add a custom AI platform with RAG, or subscribe via MCP or API. Purpose-trained agents ' +
   'and fine-tuned models on request.'
 
+/** An AWS Marketplace buyer's view: registration after subscribing, or their console. */
+export type AwsView =
+  | { kind: 'aws-register'; plan: AwsPlan; signedIn: string | null }
+  | { kind: 'aws-console'; sub: AwsSubscription }
+
 /** `channel` is the Slack / Discord / Ask drill-down; `product` is one card. */
 type View =
   | { kind: 'menu' }
   | { kind: 'product'; index: number }
   | { kind: 'channel'; id: ChannelId }
+  | AwsView
 
 export type ChannelId = 'slack' | 'discord' | 'ask'
 
@@ -87,6 +94,7 @@ type Ctx = {
   openMenu: () => void
   openProduct: (index: number) => void
   openChannel: (id: ChannelId) => void
+  openAws: (view: AwsView) => void
 }
 
 const PanelCtx = createContext<Ctx | null>(null)
@@ -106,12 +114,13 @@ export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCa
   const openMenu = useCallback(() => { setView({ kind: 'menu' }); setOpen(true) }, [])
   const openProduct = useCallback((index: number) => { setView({ kind: 'product', index }); setOpen(true) }, [])
   const openChannel = useCallback((id: ChannelId) => { setView({ kind: 'channel', id }); setOpen(true) }, [])
+  const openAws = useCallback((v: AwsView) => { setView(v); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
   // way to resume wherever you happened to leave off.
   const toggle = useCallback(() => setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v }), [])
 
   return (
-    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel }}>
+    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws }}>
       {children}
       <SwitchboardPanel />
     </PanelCtx.Provider>
@@ -236,7 +245,7 @@ function SwitchboardPanel() {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
-      if (view.kind !== 'menu') openMenu()
+      if (view.kind === 'product' || view.kind === 'channel') openMenu()
       else close()
     }
     window.addEventListener('keydown', onKey)
@@ -254,7 +263,10 @@ function SwitchboardPanel() {
   // "Visit <name>" footer already carry the name, and the domain is the one
   // fact the old layout buried in a footnote line (design 2026-08-24).
   // A box with no site of its own (an API, a tool) is headed by its name.
-  const title = product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard'
+  // An AWS buyer's views are headed by the product they bought, and have no way
+  // back to the menu: a Marketplace buyer did not come from the switchboard.
+  const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
+  const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
 
   return createPortal(
     <>
@@ -322,7 +334,11 @@ function SwitchboardPanel() {
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
             <div className="flex min-h-full flex-col">
-            {channel ? (
+            {view.kind === 'aws-register' ? (
+              <AwsRegister plan={view.plan} signedIn={view.signedIn} />
+            ) : view.kind === 'aws-console' ? (
+              <AwsConsole sub={view.sub} />
+            ) : channel ? (
               /* ── CHANNEL VIEW ────────────────────────────────────────── */
               <>
                 <div className="border-b border-[var(--paper-rule)] px-5 py-6">

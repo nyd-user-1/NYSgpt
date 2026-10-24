@@ -1,4 +1,10 @@
-import { ConfirmSignUpCommand, ResendConfirmationCodeCommand, SignUpCommand } from "@aws-sdk/client-cognito-identity-provider";
+import {
+  ConfirmForgotPasswordCommand,
+  ConfirmSignUpCommand,
+  ForgotPasswordCommand,
+  ResendConfirmationCodeCommand,
+  SignUpCommand,
+} from "@aws-sdk/client-cognito-identity-provider";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { cognito, currentUser, SESSION_COOKIE, signIn } from "@/lib/auth";
@@ -21,11 +27,14 @@ const FRIENDLY: Record<string, string> = {
   ExpiredCodeException: "That code expired. Send a new one below.",
   NotAuthorizedException: "Wrong email or password.",
   UserNotFoundException: "Wrong email or password.",
-  PasswordResetRequiredException: "This account needs a new password. Ask for a reset.",
+  PasswordResetRequiredException: "This account needs a new password. Choose Forgot password to set one.",
   LimitExceededException: "Too many tries. Wait a minute and try again.",
   TooManyRequestsException: "Too many tries. Wait a minute and try again.",
   NotConfigured: "Sign-in isn't configured here.",
 };
+
+/** The pool's own password rule, checked here so a typo costs no Cognito call. */
+const weak = (pw: string) => pw.length < 10 || !/[a-z]/.test(pw) || !/\d/.test(pw);
 
 export async function GET(_req: Request, { params }: { params: Promise<{ action: string }> }) {
   if ((await params).action !== "me") return NextResponse.json({ error: "Unknown action" }, { status: 404 });
@@ -47,9 +56,8 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     }
     if (!CLIENT) return NextResponse.json({ error: FRIENDLY.NotConfigured }, { status: 503 });
     if (action === "signup") {
-      // The pool's own password rule, checked first so a typo doesn't use up the day's allowance.
-      const pw = body.password ?? "";
-      if (pw.length < 10 || !/[a-z]/.test(pw) || !/\d/.test(pw)) return NextResponse.json({ error: FRIENDLY.InvalidPasswordException }, { status: 400 });
+      // Checked before the allowance, so a typo doesn't use up the day's sign-ups.
+      if (weak(body.password ?? "")) return NextResponse.json({ error: FRIENDLY.InvalidPasswordException }, { status: 400 });
       if (!(await within("signups", LIMITS.signups))) return NextResponse.json({ error: "New accounts are paused for today. Try again tomorrow." }, { status: 429 });
       await cognito.send(new SignUpCommand({ ClientId: CLIENT, Username: email, Password: body.password ?? "", UserAttributes: [{ Name: "email", Value: email }] }));
       return NextResponse.json({ ok: true });
@@ -60,6 +68,27 @@ export async function POST(req: Request, { params }: { params: Promise<{ action:
     }
     if (action === "resend") {
       await cognito.send(new ResendConfirmationCodeCommand({ ClientId: CLIENT, Username: email }));
+      return NextResponse.json({ ok: true });
+    }
+    // Forgot password: a code to the account's confirmed email, then the code and
+    // a new password. The app client hides unknown emails (PreventUserExistenceErrors),
+    // so "forgot" succeeds for any address and the form never says which have accounts.
+    if (action === "forgot") {
+      try {
+        await cognito.send(new ForgotPasswordCommand({ ClientId: CLIENT, Username: email }));
+      } catch (e) {
+        // Cognito's word for an account whose email was never confirmed.
+        if ((e as { name?: string }).name === "InvalidParameterException")
+          return NextResponse.json({ error: "This account's email isn't confirmed yet. Sign in to get a confirmation code." }, { status: 400 });
+        throw e;
+      }
+      return NextResponse.json({ ok: true });
+    }
+    if (action === "reset") {
+      if (weak(body.password ?? "")) return NextResponse.json({ error: FRIENDLY.InvalidPasswordException }, { status: 400 });
+      await cognito.send(
+        new ConfirmForgotPasswordCommand({ ClientId: CLIENT, Username: email, ConfirmationCode: (body.code ?? "").trim(), Password: body.password ?? "" }),
+      );
       return NextResponse.json({ ok: true });
     }
     return NextResponse.json({ error: "Unknown action" }, { status: 404 });

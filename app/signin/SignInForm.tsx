@@ -19,9 +19,11 @@ const post = async (action: string, body: object) => {
  * Sign in, or make an account (ported from Hermes, 2026-10-07): email and
  * password, then the six-digit code Cognito emails, then signed in and on to
  * `next`. An account that never confirmed lands on the code step at sign-in.
+ * Forgot password (2026-10-24): the email, then the emailed code and a new
+ * password, then signed in with it.
  */
 export function SignInForm({ mode, next }: { mode: Mode; next: string }) {
-  const [step, setStep] = useState<"form" | "code">("form");
+  const [step, setStep] = useState<"form" | "code" | "forgot" | "reset">("form");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [code, setCode] = useState("");
@@ -46,7 +48,18 @@ export function SignInForm({ mode, next }: { mode: Mode; next: string }) {
     setError(null);
     setNotice(null);
     try {
-      if (step === "code") {
+      if (step === "forgot") {
+        const r = await post("forgot", { email });
+        if (r.ok) {
+          setCode("");
+          setPassword("");
+          setStep("reset");
+        } else setError(r.error ?? "Something went wrong. Try again.");
+      } else if (step === "reset") {
+        const r = await post("reset", { email, code, password });
+        if (r.ok) await signin();
+        else setError(r.error ?? "Something went wrong. Try again.");
+      } else if (step === "code") {
         const r = await post("confirm", { email, code });
         if (r.ok) await signin();
         else setError(r.error ?? "Something went wrong. Try again.");
@@ -61,6 +74,71 @@ export function SignInForm({ mode, next }: { mode: Mode; next: string }) {
       setBusy(false);
     }
   };
+
+  const back = (
+    <button
+      type="button"
+      disabled={busy}
+      onClick={() => {
+        setStep("form");
+        setError(null);
+        setNotice(null);
+      }}
+      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+    >
+      Back to sign in
+    </button>
+  );
+
+  if (step === "forgot")
+    return (
+      <form onSubmit={submit} className="flex flex-col gap-4">
+        <label className="flex flex-col gap-1.5 text-sm font-medium">
+          Email
+          <input type="email" required autoFocus autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} className={FIELD} />
+        </label>
+        {error && <p className="m-0 text-sm font-medium text-red-600">{error}</p>}
+        <button type="submit" disabled={busy} className={BUTTON}>
+          {busy ? "One moment…" : "Send a reset code"} <ArrowRight className="size-4" aria-hidden />
+        </button>
+        {back}
+      </form>
+    );
+
+  if (step === "reset")
+    return (
+      <form onSubmit={submit} className="flex flex-col gap-4">
+        <p className="m-0 flex items-start gap-2.5 rounded-xl bg-muted/60 px-4 py-3 text-sm leading-relaxed">
+          <MailCheck className="mt-0.5 size-4 shrink-0" aria-hidden />
+          {notice ?? `If ${email} has an account, a six-digit code is on its way to it.`}
+        </p>
+        <label className="flex flex-col gap-1.5 text-sm font-medium">
+          Code
+          <input autoFocus inputMode="numeric" autoComplete="one-time-code" value={code} onChange={(e) => setCode(e.target.value)} className={`${FIELD} tabular-nums tracking-[0.3em]`} />
+        </label>
+        <label className="flex flex-col gap-1.5 text-sm font-medium">
+          New password
+          <input type="password" required minLength={10} autoComplete="new-password" value={password} onChange={(e) => setPassword(e.target.value)} className={FIELD} />
+          <span className="text-xs font-normal text-muted-foreground">At least 10 characters, with a lowercase letter and a number.</span>
+        </label>
+        {error && <p className="m-0 text-sm font-medium text-red-600">{error}</p>}
+        <button type="submit" disabled={busy || code.trim().length < 6} className={BUTTON}>
+          {busy ? "One moment…" : "Set password and sign in"} <ArrowRight className="size-4" aria-hidden />
+        </button>
+        <button
+          type="button"
+          disabled={busy}
+          onClick={async () => {
+            await post("forgot", { email });
+            setNotice(`A new code is on its way to ${email}.`);
+          }}
+          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Send a new code
+        </button>
+        {back}
+      </form>
+    );
 
   if (step === "code")
     return (
@@ -102,6 +180,20 @@ export function SignInForm({ mode, next }: { mode: Mode; next: string }) {
         <input type="password" required minLength={mode === "signup" ? 10 : undefined} autoComplete={mode === "signup" ? "new-password" : "current-password"} value={password} onChange={(e) => setPassword(e.target.value)} className={FIELD} />
         {mode === "signup" && <span className="text-xs font-normal text-muted-foreground">At least 10 characters, with a lowercase letter and a number.</span>}
       </label>
+      {/* Outside the label: a button inside one would become the label's control. */}
+      {mode === "signin" && (
+        <button
+          type="button"
+          onClick={() => {
+            setStep("forgot");
+            setError(null);
+            setNotice(null);
+          }}
+          className="-mt-2 self-end text-sm text-muted-foreground transition-colors hover:text-foreground"
+        >
+          Forgot password?
+        </button>
+      )}
       {error && <p className="m-0 text-sm font-medium text-red-600">{error}</p>}
       <button type="submit" disabled={busy} className={BUTTON}>
         {busy ? "One moment…" : mode === "signup" ? "Create account" : "Sign in"} <ArrowRight className="size-4" aria-hidden />

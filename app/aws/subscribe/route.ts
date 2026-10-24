@@ -1,8 +1,13 @@
 import { createHash, randomBytes } from "node:crypto";
+import { NextResponse } from "next/server";
 import { ExecuteStatementCommand, RDSDataClient, type SqlParameter } from "@aws-sdk/client-rds-data";
-import { MarketplaceMeteringClient, ResolveCustomerCommand } from "@aws-sdk/client-marketplace-metering";
+import { PENDING_COOKIE, PRODUCTS, resolve, seal } from "@/lib/marketplace";
 
 /**
+ * The fulfillment URL of every NYSgpt listing on AWS Marketplace. A data API
+ * listing (lib/marketplace.ts PRODUCTS) goes on to /aws/register with the
+ * buyer's license in a signed cookie; anything else is the 44B MCP server.
+ *
  * AWS Marketplace's registration page for the 44B MCP server (2026-10-08).
  * When a buyer subscribes, AWS posts here with `x-amzn-marketplace-token`; the
  * token resolves to the buyer's customer id, and the page mints them a 44B key
@@ -15,7 +20,6 @@ import { MarketplaceMeteringClient, ResolveCustomerCommand } from "@aws-sdk/clie
  */
 
 const db = new RDSDataClient({ region: "us-east-1" });
-const metering = new MarketplaceMeteringClient({ region: "us-east-1" });
 const B44 = {
   resourceArn: "arn:aws:rds:us-east-1:638175140432:cluster:b44",
   secretArn: "arn:aws:secretsmanager:us-east-1:638175140432:secret:44b/demo/aurora-u1Apjo",
@@ -49,14 +53,22 @@ export async function POST(req: Request) {
   const token = String(form?.get("x-amzn-marketplace-token") ?? "");
   if (!token) return page("<h1>No subscription token</h1><p>Open this page from your AWS Marketplace subscription.</p>", 400);
 
-  let customer: string, account: string;
+  let r: Awaited<ReturnType<typeof resolve>>;
   try {
-    const r = await metering.send(new ResolveCustomerCommand({ RegistrationToken: token }));
-    customer = r.CustomerIdentifier!;
-    account = r.CustomerAWSAccountId ?? "";
+    r = await resolve(token);
   } catch {
     return page("<h1>That subscription could not be confirmed</h1><p>The token from AWS has expired or is not valid. Return to your AWS Marketplace subscription and choose <b>Set up your account</b> again.</p>", 400);
   }
+
+  if (PRODUCTS[r.product]) {
+    const res = new NextResponse(null, { status: 303, headers: { Location: "/aws/register" } });
+    const value = await seal({ license: r.license, account: r.account, product: r.product, at: Date.now() });
+    res.cookies.set(PENDING_COOKIE, value, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", maxAge: 86_400, path: "/" });
+    return res;
+  }
+
+  const customer = r.customer;
+  const account = r.account;
 
   const email = `aws-${customer.toLowerCase()}@marketplace.nysgpt.com`;
   const [user] = await sql(
