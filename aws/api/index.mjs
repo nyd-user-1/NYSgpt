@@ -9,6 +9,7 @@
 //   GET /v1/{dataset}               every table it publishes, with columns and filters
 //   GET /v1/{dataset}/{table}       rows, filtered on indexed columns: ?col=, col.gte=, col.lte=, order=, limit=, offset=
 //   GET /v1/{dataset}/...           a few joins: one record with what no single source connects it to
+//   POST /mcp                       the same reads as MCP tools, for a reader's own model (mcp.mjs)
 //
 // The tables come from catalog/*.json, built from the clusters themselves; a
 // table not in its catalog cannot be read. Dependency-free on purpose (local
@@ -18,6 +19,7 @@ import { RDSDataClient, ExecuteStatementCommand } from "@aws-sdk/client-rds-data
 import { APIGatewayClient, GetApiKeyCommand } from "@aws-sdk/client-api-gateway"
 import { AthenaClient, StartQueryExecutionCommand, GetQueryExecutionCommand, GetQueryResultsCommand, StopQueryExecutionCommand } from "@aws-sdk/client-athena"
 import { readdirSync, readFileSync } from "node:fs"
+import { mcp } from "./mcp.mjs"
 
 const rds = new RDSDataClient({})
 const ARN = "arn:aws:rds:us-east-1:638175140432:cluster:"
@@ -448,19 +450,43 @@ const scopes = new Map()
 // /api/free-key (lib/api-pricing.ts NO_FREE_TIER): a free key's description
 // reads "scope:<dataset>:<tables> · free · <email>" (lib/api-access.ts freeKey).
 const PAID_ONLY = new Set(["ai"])
+
+/** A key's scope, read from its description. */
+export function scopeFrom(d) {
+  const scope = /scope:([^:\s]+):(\S+)/.exec(d)
+  const old = /datasets:([^\s·]+)/.exec(d)
+  return { sets: scope ? [scope[1]] : old ? old[1].split(",") : ["*"], tables: scope && scope[2] !== "*" ? scope[2].split(",") : null, free: / · free · /.test(d) }
+}
+
+/** Whether a scope opens a dataset, or one of its tables. */
+export function admits(s, dataset, table) {
+  if (s.free && PAID_ONLY.has(dataset)) return false
+  if (!(s.sets.includes("*") || s.sets.includes(dataset))) return false
+  return !table || !s.tables || s.tables.includes(table)
+}
+
 async function allowed(keyId, dataset, table) {
   if (!keyId) return true
   let s = scopes.get(keyId)
   if (!s || s.at < Date.now() - 600_000) {
     const d = (await gateway.send(new GetApiKeyCommand({ apiKey: keyId }))).description || ""
-    const scope = /scope:([^:\s]+):(\S+)/.exec(d)
-    const old = /datasets:([^\s·]+)/.exec(d)
-    s = { at: Date.now(), sets: scope ? [scope[1]] : old ? old[1].split(",") : ["*"], tables: scope && scope[2] !== "*" ? scope[2].split(",") : null, free: / · free · /.test(d) }
+    s = { at: Date.now(), ...scopeFrom(d) }
     scopes.set(keyId, s)
   }
-  if (s.free && PAID_ONLY.has(dataset)) return false
-  if (!(s.sets.includes("*") || s.sets.includes(dataset))) return false
-  return !table || !s.tables || s.tables.includes(table)
+  return admits(s, dataset, table)
+}
+
+// What the MCP server (mcp.mjs) is handed: the catalogs, the table reader, the
+// joins and the key check, the functions the REST routes above run. Never
+// sql() or a client. A dataset's tools appear only once it is listed here;
+// gov waits for Brendan's word.
+export const DEPS = {
+  datasets: ["ai"],
+  catalogs: CATALOGS,
+  readTable: (dataset, t, qs) => (ATHENA[dataset] ? lakeTable : table)(dataset, t, qs),
+  joins: routes,
+  allowed,
+  errors: { BadRequest, NotFound, TooSlow, Busy },
 }
 
 const json = (status, body) => ({
@@ -471,6 +497,7 @@ const json = (status, body) => ({
 })
 
 export const handler = async (event) => {
+  if (event.path === "/mcp") return mcp(event, DEPS)
   const path = (event.path || "").replace(/^\/v1/, "")
   const qs = event.queryStringParameters || {}
   if (path === "" || path === "/") {
