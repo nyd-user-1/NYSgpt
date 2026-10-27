@@ -1,0 +1,24 @@
+# One-off build check for the security fixes (2026-10-27): the Amplify account
+# can't afford a failed build, so the same install and build amplify.yml runs
+# goes here first. Lives only on this branch; main never carries it.
+name: build-check
+on:
+  push:
+    branches: [ci/security-fixes]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [20, 22]
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: corepack enable && corepack prepare pnpm@11.1.1 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
