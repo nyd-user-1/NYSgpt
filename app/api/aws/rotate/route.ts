@@ -11,7 +11,9 @@ export async function POST(req: Request) {
   const { keyId = "" } = (await req.json().catch(() => ({}))) as { keyId?: string };
 
   try {
-    if (!(await rotate(user.email, keyId))) return NextResponse.json({ error: "That key is not on this account." }, { status: 404 });
+    const r = await rotate(user.email, keyId);
+    if (r === "missing") return NextResponse.json({ error: "That key is not on this account." }, { status: 404 });
+    if (r === "ended") return NextResponse.json({ error: "This subscription has ended. Subscribe again in AWS Marketplace for a new key." }, { status: 409 });
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("aws rotate", e);

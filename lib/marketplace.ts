@@ -264,18 +264,24 @@ export async function subscriptionsOf(email: string): Promise<AwsSubscription[]>
   return subs.filter((s): s is AwsSubscription => s !== null);
 }
 
-/** A new key for the subscription; the old one stops working at once. */
-export async function rotate(email: string, keyId: string) {
+/**
+ * A new key for the subscription; the old one stops working at once. Only
+ * while AWS still reports the license and the key is switched on: once a
+ * subscription ends, the EventBridge handler switches the key off, and a
+ * rotation must not hand back a working one.
+ */
+export async function rotate(email: string, keyId: string): Promise<"ok" | "missing" | "ended"> {
   const old = await gateway.send(new GetApiKeyCommand({ apiKey: keyId, includeValue: false }));
   const tags = old.tags ?? {};
-  if (tags.email !== email || !PRODUCTS[tags.mpProduct]) return false;
-  const plan = (await currentPlan(keyId)) ?? tierOf(tags.mpDimension ?? "")?.calls.plan;
-  if (!plan) return false;
+  if (tags.email !== email || !PRODUCTS[tags.mpProduct]) return "missing";
+  const live = await entitlementOf(tags.mpProduct, tags.mpLicense ?? "").catch(() => null);
+  if (!live || !old.enabled) return "ended";
+  const plan = (await currentPlan(keyId)) ?? live.calls.plan;
   const fresh = await newKey(old.name!, old.description ?? "", tags);
   await placeOn(fresh.id!, plan);
   await gateway.send(new DeleteApiKeyCommand({ apiKey: keyId }));
   if (tags.mpAgreement) {
     await deliver(PRODUCTS[tags.mpProduct].productId, tags.mpAgreement, fresh.value!).catch((e) => console.error("PutDeploymentParameter", e));
   }
-  return true;
+  return "ok";
 }

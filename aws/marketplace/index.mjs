@@ -3,7 +3,8 @@
 // aws.agreement-marketplace). A buyer's key is the API Gateway key tagged with
 // their license (lib/marketplace.ts claim): a changed license moves it to the
 // usage plan of the tier now entitled; an ended license or agreement switches
-// it off. Dependency-free: the SDK ships in the Lambda runtime.
+// it off and takes it off its plan. Dependency-free: the SDK ships in the
+// Lambda runtime.
 
 import {
   APIGatewayClient,
@@ -37,12 +38,25 @@ async function marketplaceKeys() {
 const setEnabled = (key, on) =>
   gateway.send(new UpdateApiKeyCommand({ apiKey: key.id, patchOperations: [{ op: "replace", path: "/enabled", value: String(on) }] }))
 
-async function placeOn(keyId, plan) {
+const planOf = async (keyId) => {
   const all = Object.values(PLANS).concat("bsayrn")
-  const now = (await Promise.all(all.map((p) => gateway.send(new GetUsagePlanKeyCommand({ usagePlanId: p, keyId })).then(() => p, () => null)))).find(Boolean)
+  return (await Promise.all(all.map((p) => gateway.send(new GetUsagePlanKeyCommand({ usagePlanId: p, keyId })).then(() => p, () => null)))).find(Boolean)
+}
+
+async function placeOn(keyId, plan) {
+  const now = await planOf(keyId)
   if (now === plan) return
   if (now) await gateway.send(new DeleteUsagePlanKeyCommand({ usagePlanId: now, keyId }))
   await gateway.send(new CreateUsagePlanKeyCommand({ usagePlanId: plan, keyId, keyType: "API_KEY" }))
+}
+
+// An ended subscription's key is switched off and taken off its usage plan, so
+// nothing that copies the plan from the old key (a rotation) can revive it. A
+// new claim on a live license puts it back (lib/marketplace.ts claim).
+async function retire(key) {
+  await setEnabled(key, false)
+  const plan = await planOf(key.id)
+  if (plan) await gateway.send(new DeleteUsagePlanKeyCommand({ usagePlanId: plan, keyId: key.id }))
 }
 
 export const handler = async (event) => {
@@ -56,7 +70,7 @@ export const handler = async (event) => {
   if (!mine.length) return
 
   if (type.startsWith("License Deprovisioned") || type.startsWith("Purchase Agreement Ended")) {
-    await Promise.all(mine.map((k) => setEnabled(k, false)))
+    await Promise.all(mine.map(retire))
     return
   }
 
@@ -65,7 +79,7 @@ export const handler = async (event) => {
     const dimension = (r.Entitlements ?? []).map((e) => e.Dimension).find((x) => tierPlan(x))
     for (const k of mine) {
       if (!dimension) {
-        await setEnabled(k, false)
+        await retire(k)
         continue
       }
       await placeOn(k.id, tierPlan(dimension))
