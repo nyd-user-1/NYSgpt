@@ -1,8 +1,9 @@
 // api.nysgpt.com: one read-only REST API over the NYSgpt datasets.
 //
 // API Gateway checks the key and the plan's quota before this runs, so a bot
-// without a key never reaches a database. Every dataset is its product's own
-// Aurora cluster, read over the RDS Data API (no VPC, no pool, no driver):
+// without a key never reaches a database. A dataset is either its product's
+// own Aurora cluster, read over the RDS Data API (no VPC, no pool, no driver),
+// or Parquet in the S3 lake, read through Athena (ATHENA below):
 //
 //   GET /v1                         the datasets
 //   GET /v1/{dataset}               every table it publishes, with columns and filters
@@ -15,6 +16,7 @@
 
 import { RDSDataClient, ExecuteStatementCommand } from "@aws-sdk/client-rds-data"
 import { APIGatewayClient, GetApiKeyCommand } from "@aws-sdk/client-api-gateway"
+import { AthenaClient, StartQueryExecutionCommand, GetQueryExecutionCommand, GetQueryResultsCommand, StopQueryExecutionCommand } from "@aws-sdk/client-athena"
 import { readdirSync, readFileSync } from "node:fs"
 
 const rds = new RDSDataClient({})
@@ -33,11 +35,19 @@ const CLUSTERS = {
   childcare: ["childcare", "rds!cluster-bbe4fe60-ee32-4bf8-9994-67985de204c9-HmzZBa", "childcare"],
   insurance: ["insurance", "rds!cluster-1ab764bb-5f80-4f41-9770-06fb8b8a12ec-7HJ4Wh", "insurance"],
   sports: ["sports", "rds!cluster-155ee307-3be6-4ade-b2f3-728024bdaed6-XZJhHP", "sports"],
-  ai: ["b44", "44b/demo/aurora-u1Apjo", "b44"],
+}
+
+// Dataset → its Glue database, for datasets served from the lake. The AI
+// API's cluster was deleted 10-15; its final snapshot is Parquet under
+// lake/v1/ai, and nysgpt_ai registers only the 85 tables in catalog/ai.json.
+const ATHENA = {
+  ai: { database: "nysgpt_ai", workgroup: "primary", output: "s3://govblock-lake-638175140432/lake/v1/_athena/results/" },
 }
 
 class NotFound extends Error {}
 class BadRequest extends Error {}
+class TooSlow extends Error {}
+class Busy extends Error {}
 
 /**
  * One statement on a dataset's cluster. `params` is a list bound as :p1, :p2…
@@ -119,6 +129,155 @@ async function table(dataset, t, qs) {
   // jsonb arrives as a string; hand it back as JSON.
   const json = t.columns.filter(([, type]) => type === "json" || type === "jsonb").map(([c]) => c)
   if (json.length) for (const r of rows) for (const c of json) if (typeof r[c] === "string") try { r[c] = JSON.parse(r[c]) } catch {}
+  return rows
+}
+
+// The lake. The snapshot export wrote every type but whole numbers, floats
+// and booleans as text (dates, timestamps, numeric, arrays, jsonb), so a
+// filter value becomes a typed SQL literal here, checked against the column's
+// catalog type, and goes to Athena as an execution parameter: the statement
+// itself holds only catalog names, fixed operators and numbers made here.
+const athena = new AthenaClient({})
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
+
+async function lake(dataset, statement, params, deadline) {
+  const { database, workgroup, output } = ATHENA[dataset]
+  let id
+  for (let i = 0; !id; i++) {
+    try {
+      id = (await athena.send(new StartQueryExecutionCommand({
+        QueryString: statement,
+        QueryExecutionContext: { Catalog: "AwsDataCatalog", Database: database },
+        WorkGroup: workgroup,
+        ResultConfiguration: { OutputLocation: output },
+        // The lake is a fixed snapshot, so an identical query's answer stays good.
+        ResultReuseConfiguration: { ResultReuseByAgeConfiguration: { Enabled: true, MaxAgeInMinutes: 60 } },
+        ...(params.length ? { ExecutionParameters: params } : {}),
+      }))).QueryExecutionId
+    } catch (e) {
+      if (e.name !== "TooManyRequestsException") throw e
+      if (i >= 3 || Date.now() > deadline - 4000) throw new Busy()
+      await sleep(400 * 2 ** i)
+    }
+  }
+  for (let wait = 150; ; wait = Math.min(wait * 1.5, 1000)) {
+    if (Date.now() + wait > deadline) {
+      await athena.send(new StopQueryExecutionCommand({ QueryExecutionId: id })).catch(() => {})
+      throw new TooSlow()
+    }
+    await sleep(wait)
+    const { Status } = (await athena.send(new GetQueryExecutionCommand({ QueryExecutionId: id }))).QueryExecution
+    if (Status.State === "SUCCEEDED") break
+    if (Status.State === "FAILED" || Status.State === "CANCELLED") {
+      console.error("athena", id, Status.State, Status.StateChangeReason)
+      // Category 2 is the user's query (a value out of a column's range, say).
+      if (Status.AthenaError?.ErrorCategory === 2) throw new BadRequest("The query was refused. Check the filter values against the column types at /v1/" + dataset + ".")
+      throw new Error(`Athena ${Status.State}: ${Status.StateChangeReason}`)
+    }
+  }
+  const { ResultSet } = await athena.send(new GetQueryResultsCommand({ QueryExecutionId: id, MaxResults: 1000 }))
+  // The first row of a SELECT's results is its header.
+  return ResultSet.Rows.slice(1).map((r) => r.Data.map((d) => d.VarCharValue ?? null))
+}
+
+// Postgres array text ({a,"b c",NULL}) back to a list.
+function pgArray(s) {
+  if (typeof s !== "string" || s[0] !== "{") return s
+  if (s === "{}") return []
+  const out = []
+  let cur = "", quoted = false, inQuote = false
+  for (let i = 1; i < s.length; i++) {
+    const c = s[i]
+    if (inQuote) {
+      if (c === "\\") cur += s[++i]
+      else if (c === '"') inQuote = false
+      else cur += c
+    } else if (c === '"') inQuote = quoted = true
+    else if (c === "," || c === "}") {
+      out.push(!quoted && cur === "NULL" ? null : cur)
+      cur = ""
+      quoted = false
+      if (c === "}") break
+    } else cur += c
+  }
+  return out
+}
+
+const WHOLE = /^(integer|bigint|smallint)$/
+const FLOAT = /^(real|double precision|numeric)/
+const text = (v) => `'${v.replace(/'/g, "''")}'`
+
+// A filter value as a SQL literal of the column's type, or a 400.
+function literal(col, type, v) {
+  if (v.length > 1000) throw new BadRequest(`?${col}= is over 1,000 characters.`)
+  if (WHOLE.test(type)) {
+    if (!/^-?\d{1,19}$/.test(v) || BigInt(v) > 9223372036854775807n || BigInt(v) < -9223372036854775808n) throw new BadRequest(`?${col}= takes a whole number.`)
+    return BigInt(v).toString()
+  }
+  if (FLOAT.test(type)) {
+    if (!/^-?(\d+\.?\d*|\.\d+)([eE][-+]?\d+)?$/.test(v) || !Number.isFinite(Number(v))) throw new BadRequest(`?${col}= takes a number.`)
+    return `DOUBLE ${text(String(Number(v)))}`
+  }
+  if (type === "boolean") {
+    const b = { true: "true", t: "true", 1: "true", false: "false", f: "false", 0: "false" }[v.toLowerCase()]
+    if (!b) throw new BadRequest(`?${col}= takes true or false.`)
+    return b
+  }
+  if (type === "date" && !/^\d{4}-\d{2}-\d{2}$/.test(v)) throw new BadRequest(`?${col}= takes a date, YYYY-MM-DD.`)
+  if (type.startsWith("timestamp")) {
+    // Stored as UTC text, "2026-07-28 20:40:53.066763+00", which sorts as it reads.
+    const m = /^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}:\d{2}(?::\d{2}(?:\.\d{1,6})?)?))?(Z|\+00(?::?00)?)?$/.exec(v)
+    if (!m) throw new BadRequest(`?${col}= takes a UTC time, YYYY-MM-DD or YYYY-MM-DD HH:MM:SS.`)
+    return text(m[2] ? `${m[1]} ${m[2]}${m[3] ? "+00" : ""}` : m[1])
+  }
+  return text(v)
+}
+
+// The column as the literal compares to it: numeric is stored as text.
+const lakeCol = (col, type) => (/^numeric/.test(type) ? `try_cast(${ident(col)} as double)` : ident(col))
+
+// A value from Athena (always text) back to the JSON the cluster path sends.
+const fromLake = (type) =>
+  WHOLE.test(type) || /^(real|double precision)$/.test(type) ? (v) => Number(v)
+  : type === "boolean" ? (v) => v === "true"
+  : /^jsonb?$/.test(type) ? (v) => { try { return JSON.parse(v) } catch { return v } }
+  : type.endsWith("[]") ? pgArray
+  : (v) => v
+
+async function lakeTable(dataset, t, qs) {
+  const deadline = Date.now() + 24_000
+  const types = new Map(t.columns)
+  const where = [], params = []
+  for (const [key, value] of Object.entries(qs)) {
+    if (["limit", "offset", "order"].includes(key)) continue
+    const [col, op = "eq"] = key.split(".")
+    if (!t.filters.includes(col)) throw new BadRequest(t.filters.length ? `Filter on one of: ${t.filters.join(", ")}.` : "This table has no filters; page with limit and offset.")
+    const sqlOp = { eq: "=", gte: ">=", lte: "<=", gt: ">", lt: "<" }[op]
+    if (!sqlOp) throw new BadRequest("Operators: col=, col.gte=, col.lte=, col.gt=, col.lt=")
+    const type = types.get(col)
+    if (type.endsWith("[]") && op !== "eq") throw new BadRequest(`${col} is a list; match it whole, as ?${col}={a,b}.`)
+    params.push(literal(col, type, String(value)))
+    where.push(`${lakeCol(col, type)} ${sqlOp} ?`)
+  }
+  const offset = Math.min(Math.max(parseInt(qs.offset ?? "0", 10) || 0, 0), Number.MAX_SAFE_INTEGER)
+  let order = ""
+  if (qs.order) {
+    const col = qs.order.replace(/^-/, "")
+    if (!t.filters.includes(col)) throw new BadRequest(`Order by one of: ${t.filters.join(", ")}.`)
+    // Postgres's defaults: nulls sort last going up, first going down.
+    order = ` order by ${lakeCol(col, types.get(col))} ${qs.order.startsWith("-") ? "desc nulls first" : "asc nulls last"}`
+  } else if (offset) {
+    // Athena reads files in parallel, so without an order a second page can
+    // repeat the first. Page on the table's first column.
+    const [col, type] = t.columns[0]
+    order = ` order by ${lakeCol(col, type)} asc nulls last`
+  }
+  const cols = t.columns.map(([c]) => ident(c)).join(", ")
+  const statement = `select ${cols} from ${ident(ATHENA[dataset].database)}.${ident(t.table)}${where.length ? " where " + where.join(" and ") : ""}${order}${offset ? ` offset ${offset}` : ""} limit ${limitOf(qs)}`
+  const conv = t.columns.map(([c, type]) => [c, fromLake(type)])
+  const rows = (await lake(dataset, statement, params, deadline)).map((r) => Object.fromEntries(conv.map(([c, f], i) => [c, r[i] === null ? null : f(r[i])])))
+  // A Lambda answers at most 6 MB.
+  if (Buffer.byteLength(JSON.stringify(rows)) > 5_000_000) throw new BadRequest("The response is over 5 MB. Ask for fewer rows with ?limit=.")
   return rows
 }
 
@@ -272,7 +431,7 @@ function match(path) {
   if (!c || rest.length) return null
   if (!name) return { dataset, source: "Catalog", fn: async () => c.tables.map(({ path, rows, columns, filters }) => ({ path: `/v1/${dataset}/${path}`, rows, columns, filters })), params: {} }
   const t = c.byPath.get(name)
-  return t ? { dataset, table: t.path, source: `${t.schema}.${t.table}`, fn: (_, qs) => table(dataset, t, qs), params: {} } : null
+  return t ? { dataset, table: t.path, source: `${t.schema}.${t.table}`, fn: (_, qs) => (ATHENA[dataset] ? lakeTable : table)(dataset, t, qs), params: {} } : null
 }
 
 // A key's scope is in its description: "scope:<dataset>:<tables|*>" for a
@@ -325,6 +484,8 @@ export const handler = async (event) => {
   } catch (e) {
     if (e instanceof NotFound) return json(404, { error: e.message })
     if (e instanceof BadRequest) return json(400, { error: e.message })
+    if (e instanceof TooSlow) return json(504, { error: "The query ran past 24 seconds and was stopped. Narrow it with a filter." })
+    if (e instanceof Busy) return json(503, { error: "The API is busy. Try again in a few seconds." })
     console.error(path, e)
     return json(500, { error: "The query failed. It has been logged." })
   }
