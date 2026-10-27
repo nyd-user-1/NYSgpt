@@ -39,7 +39,8 @@ const CLUSTERS = {
 
 // Dataset → its Glue database, for datasets served from the lake. The AI
 // API's cluster was deleted 10-15; its final snapshot is Parquet under
-// lake/v1/ai, and nysgpt_ai registers only the 85 tables in catalog/ai.json.
+// lake/v1/ai. nysgpt_ai registers the 85 tables the cluster's API published;
+// catalog/ai.json serves 81, withholding four that hold people's details.
 // The nysgpt-api workgroup stops any one query at 2 GB scanned and enforces
 // its own results location (SSE-S3). The catalog serves no embedding or
 // tsvector columns; each table's `omitted` lists them, for a later opt-in.
