@@ -112,7 +112,8 @@ async function table(dataset, t, qs) {
     order = ` order by ${ident(col)} ${qs.order.startsWith("-") ? "desc" : "asc"}`
   }
   const offset = Math.max(parseInt(qs.offset ?? "0", 10) || 0, 0)
-  params.push(limitOf(qs, 500), offset)
+  // 100 rows a call, as the docs and the Marketplace listing say (security report F2).
+  params.push(limitOf(qs), offset)
   const cols = t.columns.map(([c, type]) => (NATIVE.test(type) ? ident(c) : `${ident(c)}::text as ${ident(c)}`)).join(", ")
   const rows = await sql(dataset, `select ${cols} from ${ident(t.schema)}.${ident(t.table)}${where.length ? " where " + where.join(" and ") : ""}${order} limit :p${params.length - 1} offset :p${params.length}`, params)
   // jsonb arrives as a string; hand it back as JSON.

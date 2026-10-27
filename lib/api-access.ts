@@ -4,7 +4,8 @@ import { createHmac } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { APIGatewayClient, CreateApiKeyCommand, CreateUsagePlanKeyCommand, GetApiKeyCommand, GetApiKeysCommand } from "@aws-sdk/client-api-gateway";
-import { CALLS, LICENSES, TERMS, price, type Choice } from "./api-pricing";
+import { CALLS, LICENSES, TERMS, hasFreeTier, price, type Choice } from "./api-pricing";
+import { LIMITS, within } from "./limits";
 
 /**
  * Buying API access (2026-10-08). The reader builds a plan in an API box's
@@ -44,10 +45,12 @@ export function choiceFrom(form: FormData): Choice & { all: boolean } {
 
 const scopeOf = (c: Choice & { all: boolean }) => `scope:${c.dataset}:${c.all ? "*" : c.tables.join(",")}`;
 
-async function issue(name: string, plan: string, description: string) {
+/** The key named `name`, or a new one; `beforeCreate` runs (and may throw) only when a key is about to be made. */
+async function issue(name: string, plan: string, description: string, beforeCreate?: () => Promise<void>) {
   const found = await gateway.send(new GetApiKeysCommand({ nameQuery: name, includeValues: true }));
   const existing = found.items?.find((k) => k.name === name);
   if (existing?.value) return existing.value;
+  await beforeCreate?.();
   const key = await gateway.send(new CreateApiKeyCommand({ name, enabled: true, description }));
   await gateway.send(new CreateUsagePlanKeyCommand({ usagePlanId: plan, keyId: key.id!, keyType: "API_KEY" }));
   return key.value!;
@@ -56,11 +59,25 @@ async function issue(name: string, plan: string, description: string) {
 /** The link that shows a free key once more: its id, signed so ids cannot be guessed into values. */
 const sign = (id: string) => createHmac("sha256", process.env.STRIPE_SECRET_KEY ?? "nysgpt").update(id).digest("hex").slice(0, 32);
 
-/** A free key (1,000 calls a month) for the chosen tables, issued now. Returns the page that shows it. */
-export async function freeKey(c: Choice & { all: boolean }, email: string) {
+/** Thrown when a day's free keys are spent; the route answers 429. */
+export class FreeKeyLimit extends Error {
+  name = "FreeKeyLimit";
+}
+
+/**
+ * A free key (1,000 calls a month) for the chosen tables, issued now. Returns
+ * the page that shows it. New keys are capped per address and site-wide each
+ * day (security report F2): the address can be forged, so the site-wide cap is
+ * the one that keeps the account's 10,000-key quota for paying buyers.
+ */
+export async function freeKey(c: Choice & { all: boolean }, email: string, address: string) {
+  if (!hasFreeTier(c.dataset)) throw new Error(`The ${DATASETS[c.dataset]} API has no free tier.`);
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) throw new Error("Enter an email address.");
   const name = `free-${c.dataset}-${email.toLowerCase()}`;
-  await issue(name, CALLS[0].plan, `${scopeOf(c)} · free · ${email}`);
+  await issue(name, CALLS[0].plan, `${scopeOf(c)} · free · ${email}`, async () => {
+    if (!(await within(`free-key#${address}`, LIMITS.freeKeysPerAddress)) || !(await within("free-key", LIMITS.freeKeys)))
+      throw new FreeKeyLimit("Free keys are paused for today. Try again tomorrow.");
+  });
   const found = await gateway.send(new GetApiKeysCommand({ nameQuery: name }));
   const id = found.items!.find((k) => k.name === name)!.id!;
   return `/api-access?key=${id}&sig=${sign(id)}`;

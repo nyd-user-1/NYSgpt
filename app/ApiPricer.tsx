@@ -3,7 +3,7 @@
 import { useState, type ReactNode } from "react";
 import { Popover } from "@base-ui/react/popover";
 import { Check, ChevronDown } from "lucide-react";
-import { CALLS, LICENSES, TERMS, price, type Choice } from "@/lib/api-pricing";
+import { CALLS, LICENSES, TERMS, hasFreeTier, price, type Choice } from "@/lib/api-pricing";
 import type { CatalogTable } from "./useCatalog";
 
 const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
@@ -29,7 +29,10 @@ export function ApiPricer({ dataset, name, tables, selected, onSelect }: {
   selected: Set<string>;
   onSelect: (next: Set<string>) => void;
 }) {
-  const [calls, setCalls] = useState<string>("1k");
+  const tiers = hasFreeTier(dataset) ? CALLS : CALLS.filter((c) => c.share > 0);
+  const [picked, setCalls] = useState<string>(tiers[0].id);
+  // A box that is never free can't hold the free tier, even if the panel outlives a dataset change.
+  const calls = tiers.some((t) => t.id === picked) ? picked : tiers[0].id;
   const [term, setTerm] = useState<string>("1");
   const [license, setLicense] = useState<string>("internal");
   const rows = Object.fromEntries((tables ?? []).map((t) => [t.path, t.rows]));
@@ -79,7 +82,7 @@ export function ApiPricer({ dataset, name, tables, selected, onSelect }: {
           </div>
         </Group>
 
-        <Single title="Calls a month" options={CALLS} value={calls} onChange={setCalls} note={(id) => (id === "1k" ? "Free" : "")} />
+        <Single title="Calls a month" options={tiers} value={calls} onChange={setCalls} note={(id) => (id === "1k" ? "Free" : "")} />
         <Single title="Term" options={TERMS} value={term} onChange={setTerm} note={(id) => (id === "6" ? "10% off" : id === "12" ? "27% off" : "")} />
         <Single title="License" options={LICENSES} value={license} onChange={setLicense} note={() => ""} />
       </div>

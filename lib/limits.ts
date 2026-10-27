@@ -11,6 +11,10 @@ export const LIMITS = {
   signups: 20,
   /** Database knocks per account per day: waking all nine takes about 200, keeping them awake about 135 an hour. */
   wakes: 1000,
+  /** New free API keys per day, site-wide: at this rate the 10,000-key quota lasts the year (security report F2). */
+  freeKeys: 25,
+  /** New free API keys per day from one address. */
+  freeKeysPerAddress: 3,
 };
 
 const ddb = new DynamoDBClient({ region: "us-east-1" });

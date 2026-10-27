@@ -4,8 +4,9 @@
  * the button is the price charged: the server recomputes it from the choices
  * and never takes a figure from the browser.
  *
- * Free is a key with 1,000 calls a month over any tables. The dial runs from
- * there to "everything", which costs what the dataset's ceiling says. Gov's
+ * Free is a key with 1,000 calls a month over any tables, on every dataset but
+ * those in NO_FREE_TIER. The dial runs from there to "everything", which costs
+ * what the dataset's ceiling says. Gov's
  * ceiling is GovBlock Complete on AWS Data Exchange ($7,500 a month; $40,500
  * for 6 months; $66,000 for 12, set 2026-10-06), and its terms carry the same
  * discounts. The other ceilings are scaled to their data against that anchor.
@@ -16,6 +17,13 @@ export const CEILING: Record<string, number> = {
   gov: 7_500, health: 5_000, ai: 3_000, energy: 3_000, tariffs: 2_000,
   science: 1_000, solar: 1_000, childcare: 500, insurance: 500, sports: 500,
 };
+
+/**
+ * Datasets sold only as paid plans (2026-10-27, security report F2). Gov is the
+ * Legislative API on AWS Marketplace; a free key over every table undercut it.
+ */
+export const NO_FREE_TIER = new Set(["gov"]);
+export const hasFreeTier = (dataset: string) => !NO_FREE_TIER.has(dataset);
 
 /** Calls a month: the API Gateway usage plan each tier is issued on, and its share of the ceiling. */
 export const CALLS = [
