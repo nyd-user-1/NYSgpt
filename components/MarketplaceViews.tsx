@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { MailCheck, Check, Copy, Mail, RotateCw } from 'lucide-react'
+import { Check, Copy, Mail, RotateCw } from 'lucide-react'
 
 /**
  * The AWS Marketplace buyer's two views in the switchboard panel (2026-10-24):
@@ -62,7 +62,6 @@ const LABEL = 'flex flex-col gap-1.5 text-sm font-medium text-[var(--paper-text)
 const GHOST =
   'inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-[var(--paper-rule)]/25 px-4 text-[14px] font-medium text-[var(--paper-text)] transition-colors hover:bg-[var(--paper-quiet)] disabled:opacity-60'
 const LINK = 'text-[var(--paper-strong)]'
-const QUIET = 'text-[13px] text-[var(--paper-muted)] transition-colors hover:text-[var(--paper-text)]'
 
 async function post(path: string, body: object) {
   const r = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
@@ -103,19 +102,16 @@ function SupportFooter() {
 }
 
 /**
- * Registration: a new account (email, password, then the code Cognito emails)
- * or the signed-in one, then the key for the subscription (/api/aws/claim),
- * then the console.
+ * Registration: a new account (email and password, made by /api/aws/account
+ * for a subscription AWS has confirmed) or the signed-in one, then the key for
+ * the subscription (/api/aws/claim), then the console.
  */
 export function AwsRegister({ plan, signedIn }: { plan: AwsPlan; signedIn: string | null }) {
-  const [step, setStep] = useState<'form' | 'code'>('form')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [company, setCompany] = useState('')
-  const [code, setCode] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [notice, setNotice] = useState<string | null>(null)
 
   const run = async (fn: () => Promise<string | null>) => {
     setBusy(true)
@@ -137,20 +133,8 @@ export function AwsRegister({ plan, signedIn }: { plan: AwsPlan; signedIn: strin
   const signup = (e: React.FormEvent) => {
     e.preventDefault()
     run(async () => {
-      const r = await post('/api/auth/signup', { email, password })
+      const r = await post('/api/aws/account', { email, password })
       if (!r.ok) return r.error ?? GENERIC
-      setStep('code')
-      return null
-    })
-  }
-
-  const confirm = (e: React.FormEvent) => {
-    e.preventDefault()
-    run(async () => {
-      const c = await post('/api/auth/confirm', { email, code })
-      if (!c.ok) return c.error ?? GENERIC
-      const s = await post('/api/auth/signin', { email, password })
-      if (!s.ok) return s.error ?? GENERIC
       return claim()
     })
   }
@@ -177,39 +161,6 @@ export function AwsRegister({ plan, signedIn }: { plan: AwsPlan; signedIn: strin
             {busy ? 'One moment…' : 'Get my key'}
           </button>
         </div>
-      ) : step === 'code' ? (
-        <form onSubmit={confirm} className="flex flex-col gap-4 border-b border-[var(--paper-rule)] px-5 py-6" style={SANS}>
-          <p className="m-0 flex items-start gap-2.5 rounded-xl bg-[var(--paper-quiet)] px-4 py-3 text-sm leading-relaxed text-[var(--paper-text)]">
-            <MailCheck className="mt-0.5 size-4 shrink-0" aria-hidden />
-            {notice ?? `A six-digit code is on its way to ${email}.`}
-          </p>
-          <label className={LABEL}>
-            Code
-            <input
-              autoFocus
-              inputMode="numeric"
-              autoComplete="one-time-code"
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-              className={`${FIELD} tabular-nums tracking-[0.3em]`}
-            />
-          </label>
-          {error && <p className="m-0 text-sm font-medium text-red-600">{error}</p>}
-          <button type="submit" disabled={busy || code.trim().length < 6} className={`${BUTTON} w-full`}>
-            {busy ? 'One moment…' : 'Confirm and get my key'}
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={async () => {
-              await post('/api/auth/resend', { email })
-              setNotice(`A new code is on its way to ${email}.`)
-            }}
-            className={QUIET}
-          >
-            Send a new code
-          </button>
-        </form>
       ) : (
         <form onSubmit={signup} className="flex flex-col gap-4 border-b border-[var(--paper-rule)] px-5 py-6" style={SANS}>
           <label className={LABEL}>
