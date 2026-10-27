@@ -13,8 +13,9 @@ import { LIMITS, within } from "@/lib/limits";
  * answers `ready`, and every few minutes after. Signed-in readers only,
  * product hosts only, and at most LIMITS.wakes knocks per account per day.
  *
- * The role (nysgpt-amplify-compute) may run statements on these nine
- * clusters and read their nine secrets, nothing else.
+ * The role (nysgpt-amplify-compute) may run statements on these clusters
+ * and read their secrets, nothing else. 44B's cluster (b44) was deleted
+ * 10-15, so its host is checked by its page alone.
  */
 
 export const dynamic = "force-dynamic";
@@ -25,7 +26,6 @@ const SECRET = "arn:aws:secretsmanager:us-east-1:638175140432:secret";
 
 /** Product host → its cluster, secret and database. */
 const DATABASES: Record<string, { cluster: string; secret: string; database: string }> = {
-  "amplify.d39b380ic58tna.amplifyapp.com": { cluster: "b44", secret: "44b/demo/aurora-u1Apjo", database: "b44" },
   "amplify.d30k1ocuoke6r4.amplifyapp.com": { cluster: "childcare", secret: "rds!cluster-bbe4fe60-ee32-4bf8-9994-67985de204c9-HmzZBa", database: "childcare" },
   "amplify.d3ekz2nd1zxars.amplifyapp.com": { cluster: "leuk", secret: "rds!cluster-0765911c-d2fa-4cb6-ab7c-37d894c83b4b-IugwnE", database: "leuk" },
   "main.d2bart0mempmp5.amplifyapp.com": { cluster: "solar", secret: "rds!cluster-be75506a-a452-4fb8-91f3-04bca767adf0-jS457V", database: "solar" },

@@ -40,8 +40,11 @@ const CLUSTERS = {
 // Dataset → its Glue database, for datasets served from the lake. The AI
 // API's cluster was deleted 10-15; its final snapshot is Parquet under
 // lake/v1/ai, and nysgpt_ai registers only the 85 tables in catalog/ai.json.
+// The nysgpt-api workgroup stops any one query at 2 GB scanned and enforces
+// its own results location (SSE-S3). The catalog serves no embedding or
+// tsvector columns; each table's `omitted` lists them, for a later opt-in.
 const ATHENA = {
-  ai: { database: "nysgpt_ai", workgroup: "primary", output: "s3://govblock-lake-638175140432/lake/v1/_athena/results/" },
+  ai: { database: "nysgpt_ai", workgroup: "nysgpt-api", output: "s3://govblock-lake-638175140432/lake/v1/_athena/results/" },
 }
 
 class NotFound extends Error {}
