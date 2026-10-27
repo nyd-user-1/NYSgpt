@@ -444,6 +444,10 @@ function match(path) {
 // warm instance.
 const gateway = new APIGatewayClient({})
 const scopes = new Map()
+// Datasets with no free tier, refused to free keys here as well as at
+// /api/free-key (lib/api-pricing.ts NO_FREE_TIER): a free key's description
+// reads "scope:<dataset>:<tables> · free · <email>" (lib/api-access.ts freeKey).
+const PAID_ONLY = new Set(["ai"])
 async function allowed(keyId, dataset, table) {
   if (!keyId) return true
   let s = scopes.get(keyId)
@@ -451,9 +455,10 @@ async function allowed(keyId, dataset, table) {
     const d = (await gateway.send(new GetApiKeyCommand({ apiKey: keyId }))).description || ""
     const scope = /scope:([^:\s]+):(\S+)/.exec(d)
     const old = /datasets:([^\s·]+)/.exec(d)
-    s = { at: Date.now(), sets: scope ? [scope[1]] : old ? old[1].split(",") : ["*"], tables: scope && scope[2] !== "*" ? scope[2].split(",") : null }
+    s = { at: Date.now(), sets: scope ? [scope[1]] : old ? old[1].split(",") : ["*"], tables: scope && scope[2] !== "*" ? scope[2].split(",") : null, free: / · free · /.test(d) }
     scopes.set(keyId, s)
   }
+  if (s.free && PAID_ONLY.has(dataset)) return false
   if (!(s.sets.includes("*") || s.sets.includes(dataset))) return false
   return !table || !s.tables || s.tables.includes(table)
 }

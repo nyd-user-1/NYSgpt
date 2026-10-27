@@ -21,8 +21,10 @@ export const CEILING: Record<string, number> = {
 /**
  * Datasets sold only as paid plans (2026-10-27, security report F2). Gov is the
  * Legislative API on AWS Marketplace; a free key over every table undercut it.
+ * The AI API goes to Marketplace as a paid listing too. The API Lambda refuses
+ * free keys on these as well (aws/api/index.mjs PAID_ONLY).
  */
-export const NO_FREE_TIER = new Set(["gov"]);
+export const NO_FREE_TIER = new Set(["gov", "ai"]);
 export const hasFreeTier = (dataset: string) => !NO_FREE_TIER.has(dataset);
 
 /** Calls a month: the API Gateway usage plan each tier is issued on, and its share of the ceiling. */
