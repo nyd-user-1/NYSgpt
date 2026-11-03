@@ -27,7 +27,7 @@ export function AppLayout({
     <div className="nysgpt-app flex h-dvh overflow-hidden p-0 sm:p-[18px] bg-[var(--surface)] sm:bg-[var(--bg)]">
       {/* Sidebar — wired in step 2; collapsed (w-0) until opened. */}
       <div
-        className={`shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
+        className={`shrink-0 transition-[width,margin] duration-300 ease-in-out overflow-hidden ${
           sidebarOpen ? "w-full sm:w-[240px] sm:mr-[18px]" : "w-0"
         }`}
       >

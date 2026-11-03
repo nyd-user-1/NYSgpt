@@ -302,17 +302,27 @@ function SwitchboardPanel() {
         }`}
       />
 
-      {/* ⚠ These classes are the drawer's contract — same z-index, same insets,
-          same widths, same closed transform, same easing as 44B's panels. Every
-          bug in this panel so far came from writing an "equivalent" instead of
-          the same thing. */}
+      {/* The One-Body Push (Brendan, 2026-11-03) — pax-trinity's panel motion
+          (shell.tsx:541/650), named here: on desktop the drawer animates its
+          WIDTH, not a transform. The aside is a clipped column (overflow-hidden)
+          whose width runs 0 ↔ 423px/50vw on the same 300ms ease-in-out clock as
+          SwitchboardShell's padding, and the fixed-width card inside is revealed
+          by the clip, never squished. Transform + padding ran on two clocks
+          (compositor vs layout) and drifted; width + padding are one reflow, so
+          chrome, gutter and page move as one body. Mobile keeps the transform
+          slide over its scrim, as trinity does. The widen toggle now animates
+          too — transition-transform alone left the 423px↔50vw change snapping. */}
       <aside
         aria-hidden={!open}
-        className={`nysgpt-app fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto transition-transform duration-300 ease-in-out ${
-          expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
-        } ${open ? 'translate-x-0' : 'translate-x-full sm:translate-x-[calc(100%+18px)] pointer-events-none'}`}
+        className={`nysgpt-app fixed z-[60] inset-y-0 right-0 w-full overflow-hidden sm:inset-y-[18px] sm:right-[18px] sm:left-auto transition-[width,transform] duration-300 ease-in-out ${
+          open
+            ? `translate-x-0 ${expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'}`
+            : 'translate-x-full pointer-events-none sm:translate-x-0 sm:w-0'
+        }`}
       >
-        <div className="flex h-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] sm:rounded-2xl sm:border">
+        <div className={`flex h-full w-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] transition-[width] duration-300 ease-in-out sm:rounded-2xl sm:border ${
+          expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
+        }`}>
 
           {/* Header — the dot becomes a back arrow one level down, and the title
               becomes the product name. That IS the navigation affordance. */}
