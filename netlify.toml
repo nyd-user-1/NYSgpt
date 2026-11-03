@@ -1,5 +1,10 @@
-# Netlify build of the Next.js app (2026-11-03). Production stays on Amplify;
-# the Next Runtime is auto-installed, so command + publish is the whole config.
+# Netlify build of the Next.js app (2026-11-03). Production stays on Amplify.
+# The plugin is declared, not auto-detected: on this API-created site the first
+# build ran with no plugins and published .next as static files — every route
+# 404 (deploy 6aea2f08, plugins: none, "No functions deployed").
 [build]
 command = "pnpm run build"
 publish = ".next"
+
+[[plugins]]
+package = "@netlify/plugin-nextjs"
