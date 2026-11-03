@@ -1,0 +1,27 @@
+# The Cloudflare build (2026-11-03): a push to the cloudflare branch builds the
+# Next app through @opennextjs/cloudflare and deploys the worker named nysgpt
+# (wrangler.jsonc). GitHub Actions runs it because the Workers Builds wizard's
+# repo connection isn't reachable from the account's API tokens; the deploy
+# lands on Cloudflare either way. Secrets: CLOUDFLARE_API_TOKEN (workers edit),
+# CLOUDFLARE_ACCOUNT_ID.
+name: Deploy to Cloudflare
+on:
+  push:
+    branches: [cloudflare]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: corepack enable && corepack prepare pnpm@11.1.1 --activate
+      - run: pnpm install --frozen-lockfile
+      - run: npx opennextjs-cloudflare build
+      - run: npx opennextjs-cloudflare deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
