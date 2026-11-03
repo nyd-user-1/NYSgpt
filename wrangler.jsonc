@@ -1,0 +1,19 @@
+{
+  // Cloudflare Workers deploy of the Next.js app through @opennextjs/cloudflare
+  // (2026-11-03). Production stays on Amplify; this worker is the Cloudflare
+  // build of the same repo. Workers Builds CI runs:
+  //   build:  npx opennextjs-cloudflare build
+  //   deploy: npx opennextjs-cloudflare deploy
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nysgpt",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

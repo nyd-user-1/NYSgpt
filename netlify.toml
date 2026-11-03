@@ -1,0 +1,5 @@
+# Netlify build of the Next.js app (2026-11-03). Production stays on Amplify;
+# the Next Runtime is auto-installed, so command + publish is the whole config.
+[build]
+command = "pnpm run build"
+publish = ".next"
