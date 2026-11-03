@@ -4,7 +4,6 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { HomeCard } from './HomeCard'
 import { APIS, IN_HOUSE, KINDS, SWITCHBOARD, PRODUCT_EXTRAS, TOOLS, HF_MODELS, type HomeCardData, type Kind } from '@/lib/home-data'
 import dynamic from 'next/dynamic'
-import { CardDialog } from './CardDialog'
 import { X } from 'lucide-react'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 
@@ -61,13 +60,17 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
   const productIndex = useMemo(() => new Map(SWITCHBOARD.map((c, i) => [c.title, i])), [])
   const columns = Math.ceil(boxes.length / 2)
 
-  /** The card whose dialog is open. */
-  const [open, setOpen] = useState<HomeCardData | null>(null)
   /** The composer banner over the plate, until the reader dismisses it. */
   const [notice, setNotice] = useState(true)
-  const { openMenu } = useSwitchboard()
-  /** The Inspector is on over the page (its card's dialog button, or a held ⌘C). */
+  const { openMenu, openProduct } = useSwitchboard()
+  /** The Inspector is on over the page (its panel button, or a held ⌘C). */
   const [inspecting, setInspecting] = useState(false)
+  /** A box opens its page in the half-screen panel (2026-11-03; the popover
+   *  dialog it replaced lives on in app/CardDialog.tsx, unused). */
+  const openBox = (card: HomeCardData) => {
+    const i = productIndex.get(card.title)
+    if (i !== undefined) openProduct(i, true)
+  }
 
   /**
    * Long-press ⌘C (Ctrl+C elsewhere) toggles the Inspector from anywhere on
@@ -90,7 +93,6 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
       timer = window.setTimeout(() => {
         timer = null
         // A toggle, as on GovBlock: the press that opens it closes it.
-        setOpen(null)
         setInspecting(v => !v)
       }, 600)
     }
@@ -135,14 +137,12 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
     return () => window.removeEventListener('scroll-to-models', handler)
   }, [])
 
-  /** The dialog's arrows: the box before or after the open one, among those that open a dialog. */
-  const step = (by: -1 | 1) => {
-    const deck = open && devTools.some(c => c.title === open.title) ? devTools : boxes.filter(c => c.title !== DEV_TOOLS)
-    setOpen(now => {
-      const i = now ? deck.findIndex(c => c.title === now.title) : -1
-      return i < 0 ? now : deck[(i + by + deck.length) % deck.length]
-    })
-  }
+  // The panel's Inspector switch turns the overlay on over the page.
+  useEffect(() => {
+    const handler = () => setInspecting(true)
+    window.addEventListener('nysgpt:inspect', handler)
+    return () => window.removeEventListener('nysgpt:inspect', handler)
+  }, [])
 
   return (
     <>
@@ -181,7 +181,7 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
                   rest={card.title === DEV_TOOLS ? 'grey' : undefined}
                   featured={card.title === DEV_TOOLS}
                   panel={productIndex.has(card.title)}
-                  onOpen={card.title === DEV_TOOLS ? toDevTools : () => setOpen(card)}
+                  onOpen={card.title === DEV_TOOLS ? toDevTools : () => openBox(card)}
                 />
               ))}
             </div>
@@ -192,37 +192,36 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
         <div ref={devFrame} className={`${FRAME} w-full`}>
           <div className="-m-px grid flex-1 grid-cols-1 border-t border-l border-[var(--paper-rule)] sm:grid-cols-2">
             {devTools.map((card, i) => (
-              <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} large onOpen={() => setOpen(card)} />
+              <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} large onOpen={() => openBox(card)} />
             ))}
           </div>
         </div>
 
-        {/* Slide 4: the six public NYSgpt models on Hugging Face (2026-10-10).
-            Standard card size (no `large`) so the frame matches the plate's
-            existing height. 3 cols × 2 rows. No dialog — each card is a plain
-            link that opens its HF page in a new tab (panel=false, no onOpen). */}
+        {/* Slide 4: every NYSgpt model on Hugging Face (2026-11-03). Standard
+            card size (no `large`) so the frame matches the plate's existing
+            height, two rows tall like the boxes frame, and scrolling sideways
+            inside its own frame the same way — three columns in view, each
+            column one family's pair (the grid flows column-major). No dialog —
+            each card is a plain link that opens its HF page in a new tab
+            (panel=false, no onOpen). */}
         <div ref={modelsFrame} className={`${FRAME} w-full`}>
-          <div
-            className="-m-px grid flex-1 border-t border-l border-[var(--paper-rule)]"
-            style={{ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gridTemplateRows: 'repeat(2, minmax(210px, auto))' }}
-          >
-            {HF_MODELS.map((card, i) => (
-              <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} />
-            ))}
+          <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain">
+            <div
+              className="grid h-full grid-flow-col grid-rows-[repeat(2,minmax(210px,auto))] border-t border-l border-[var(--paper-rule)] [&>*]:snap-start"
+              style={{
+                width: `calc(${Math.ceil(HF_MODELS.length / 2)} * 100% / 3)`,
+                gridTemplateColumns: `repeat(${Math.ceil(HF_MODELS.length / 2)}, minmax(0, 1fr))`,
+              }}
+            >
+              {HF_MODELS.map((card, i) => (
+                <HomeCard key={card.href + card.title} card={card} index={i} category={card.tag} panel={false} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
       </div>
 
-      <CardDialog
-        card={open}
-        onClose={() => setOpen(null)}
-        onStep={step}
-        onInspect={() => {
-          setOpen(null)
-          setInspecting(true)
-        }}
-      />
       {inspecting && <InspectorMode onExit={() => setInspecting(false)} />}
     </>
   )

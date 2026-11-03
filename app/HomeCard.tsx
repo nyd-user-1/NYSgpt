@@ -127,7 +127,7 @@ export function HomeCard({ card, index, productIndex, category, featured = false
           }
           e.preventDefault();
           window.dispatchEvent(new CustomEvent("nysgpt:box", { detail: card.title }));
-          openProduct(productIndex ?? index);
+          openProduct(productIndex ?? index, true);
           return;
         }
         if (hoverCapable) return; // mouse: the whole card navigates, as before
@@ -288,7 +288,7 @@ export function HomeCard({ card, index, productIndex, category, featured = false
               // The cell is a <Link>; without this the panel opens AND we navigate.
               e.preventDefault();
               e.stopPropagation();
-              openProduct(productIndex ?? index);
+              openProduct(productIndex ?? index, true);
             }}
             className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-[var(--paper-rule-soft)]"
           >

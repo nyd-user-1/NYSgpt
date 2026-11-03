@@ -289,9 +289,12 @@ export const IN_HOUSE: HomeCardData[] = [
 const MODEL_INK = "#7c3aed"
 
 /**
- * The six public NYSgpt models on Hugging Face (2026-10-10).
- * Two private classifiers (cshl-MESH-tagger, cshl-category) are omitted.
- * Each card links directly to its HF model page.
+ * Every model in the NYSgpt org on Hugging Face (24 repos, 2026-11-03), in
+ * family pairs: the retrieval pairs (NSR, Rxiv Biomed, 44b), the CSHL-CPT
+ * librarian classifiers, and the sixteen Martian models — the YouTube-Shorts
+ * research line, where every fitted model is published, pass or fail. The
+ * slide renders them two rows tall, column-major, so each pair stacks in one
+ * column. Each card links directly to its HF model page.
  */
 export const HF_MODELS: HomeCardData[] = [
   {
@@ -316,23 +319,23 @@ export const HF_MODELS: HomeCardData[] = [
   },
   {
     href: 'https://huggingface.co/NYSgpt/biomed-encoder',
-    title: 'Biomed Encoder',
+    title: 'Rxiv Biomed Encoder',
     tag: 'Model',
     accent: MODEL_INK,
-    body: 'A 0.6B bge-m3 encoder fine-tuned on biomedical literature for semantic search across health and pharmaceutical datasets.',
+    body: 'A 0.6B bge-m3 encoder fine-tuned on 433,449 bioRxiv and medRxiv preprints for semantic search across biomedical literature.',
     value: 567_800_000,
     unit: 'Parameters',
-    sources: 'PubMed · ClinicalTrials',
+    sources: 'bioRxiv · medRxiv',
   },
   {
     href: 'https://huggingface.co/NYSgpt/biomed-reranker',
-    title: 'Biomed Reranker',
+    title: 'Rxiv Biomed Reranker',
     tag: 'Model',
     accent: MODEL_INK,
-    body: 'A 0.1B ModernBERT reranker for biomedical passage ranking, pairing with the Biomed Encoder in a two-stage retrieval pipeline.',
+    body: 'A 0.1B ModernBERT reranker for biomedical passage ranking, pairing with the Rxiv Biomed Encoder in a two-stage retrieval pipeline.',
     value: 149_600_000,
     unit: 'Parameters',
-    sources: 'PubMed · ClinicalTrials',
+    sources: 'bioRxiv · medRxiv',
   },
   {
     href: 'https://huggingface.co/NYSgpt/44b-reranker',
@@ -353,6 +356,186 @@ export const HF_MODELS: HomeCardData[] = [
     value: 22_700_000,
     unit: 'Parameters',
     sources: 'Congress · 50 states · LDA',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/cshl-category',
+    title: 'CSHL Category',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "A 0.1B ModernBERT librarian that reads a preprint's title and abstract and files it into one of 76 bioRxiv/medRxiv subject categories.",
+    value: 149_700_000,
+    unit: 'Parameters',
+    sources: 'bioRxiv · medRxiv',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/cshl-MESH-tagger',
+    title: 'CSHL MeSH Tagger',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.2B ModernBERT multi-label tagger predicting MeSH descriptors (4,920-way) for preprints. Measured, beaten by a kNN vote over stored embeddings, and published for the record.',
+    value: 153_400_000,
+    unit: 'Parameters',
+    sources: 'bioRxiv · medRxiv',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-encoder',
+    title: 'Martian Encoder',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "A 0.6B bge-m3 encoder fine-tuned on 18,455 political YouTube Shorts, so a short's title, description and transcript sit near same-channel shorts that did as well as it did.",
+    value: 567_800_000,
+    unit: 'Parameters',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-reranker',
+    title: 'Martian Reranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "A 0.1B ModernBERT cross-encoder that re-scores the Martian Encoder's candidates: given two shorts, how alike they are in what made them perform.",
+    value: 149_600_000,
+    unit: 'Parameters',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-resonance-encoder',
+    title: 'Martian Resonance Encoder',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'The Martian Encoder recipe plus a behavioral co-occurrence term (PLUM): co-outlier and co-surge pairs teach it how audiences behave, not just what shorts say. The selected arm.',
+    value: 567_800_000,
+    unit: 'Parameters',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-resonance-encoder-full',
+    title: 'Martian Resonance Encoder Full',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "The resonance encoder's sibling arm, adding publish-week co-surge pairs — higher on the semantic gate, lower on the behavioral one, so the behavior arm was selected.",
+    value: 567_800_000,
+    unit: 'Parameters',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-video-encoder',
+    title: 'Martian Video Encoder',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A two-layer projection head on frozen VideoPrism — 16 frames in, one 512-d vector out — trained toward shorts that performed alike. Failed its gate; published for the record.',
+    value: 984_320,
+    unit: 'Parameters',
+    sources: 'YouTube Shorts · VideoPrism',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-headline-ranker',
+    title: 'Martian Headline Ranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A 0.1B BERT scorer of which of two headlines for the same story wins the click, trained on 41,175 winner–loser pairs from randomized headline tests.',
+    value: 109_500_000,
+    unit: 'Parameters',
+    sources: 'Upworthy Research Archive',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-classifier',
+    title: 'Martian Classifier',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "The chance a short becomes an outlier — lifetime views 3× its channel's median — from what it carries at publish: title, description, tags, length, timing, thumbnail.",
+    value: 6,
+    unit: 'Versions',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-velocity-classifier',
+    title: 'Martian Velocity Classifier',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'Whether a short will be a Hit at 72 hours from its first hours of views — one logistic model per horizon, serving the chance per watched short on live tracking.',
+    value: 3,
+    unit: 'Horizons',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-composition-ranker',
+    title: 'Martian Composition Ranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'Which of two same-channel shorts broke out, read from how each is made — pace, hook, loudness, on-screen text, speech — so a finding reads as an edit, not an embedding.',
+    value: 23,
+    unit: 'Craft features',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-winning-modes',
+    title: 'Martian Winning Modes',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'Recurring craft configurations among 3× breakouts, k-means over 24 craft axes. One mode of five survives held-out channels: an early first cut, frequent cuts, dense on-screen text.',
+    value: 24,
+    unit: 'Craft axes',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-feed-ranker',
+    title: 'Martian Feed Ranker',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "Which short a given reader will watch through, from video and reader features — pretrained on KuaiRand-1K's randomly exposed impressions until Martian's own reader rows exist.",
+    value: 41_718,
+    unit: 'Impressions',
+    sources: 'KuaiRand-1K',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-retention-regressor',
+    title: 'Martian Retention Regressor',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'How much of a short a viewer watches, from its length, upload type and tags — ridge regression pretrained on KuaiRand-1K until connected channels supply YouTube retention.',
+    value: 41_718,
+    unit: 'Impressions',
+    sources: 'KuaiRand-1K',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-publish-policy',
+    title: 'Martian Publish Policy',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'A contextual bandit over topic, length and publish hour — Bayesian logistic regression acting by Thompson sampling — warm-started by replaying 18,307 settled shorts in publish order.',
+    value: 18_307,
+    unit: 'Shorts replayed',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-learning-loops',
+    title: 'Martian Learning Loops',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: 'Eleven learning loops beside the publish policy — title style, thumbnail traits, cadence, paid flights and more — each evaluation registered before its fit and judged by its own rule.',
+    value: 11,
+    unit: 'Loops',
+    sources: 'YouTube · 64 political channels',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-persuasion-reference',
+    title: 'Martian Persuasion Reference',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "How a political ad's coded traits moved favorability and vote choice in Swayable's randomized tests: per-trait effects from 146 studies, cited beside a video's findings.",
+    value: 146,
+    unit: 'Studies',
+    sources: 'Swayable · APSR 2024',
+  },
+  {
+    href: 'https://huggingface.co/NYSgpt/martian-semantic-id-model',
+    title: 'Martian Semantic-ID Model',
+    tag: 'Model',
+    accent: MODEL_INK,
+    body: "Three-level residual k-means semantic IDs over the Martian Encoder's index (PLUM). Failed its gate on both allowed attempts — the neighbors carry more than the cells — recorded, not served.",
+    value: 168,
+    unit: 'Codes',
+    sources: 'YouTube · 64 political channels',
   },
 ]
 
@@ -754,11 +937,14 @@ export type Kind = keyof typeof KINDS;
  *    plus Hermes, counted 2026-10-08 (pax bucket 99,865,808 + pax-ledger 315).
  *    A floor: Stata and R files are unread, and the lake and FEC files added
  *    since Oct 1 are still being counted.
- *  - Models: parameters across the eight NYSgpt models on Hugging Face, all
- *    fine-tuned from open bases (2 × 567.8M bge-m3 encoders, 3 × 149.6M
- *    ModernBERT rerankers, 149.7M + 153.4M ModernBERT classifiers, 22.7M
- *    MiniLM reranker). The Hub rounds each to 0.1M; the figure sums the
- *    bases' published counts plus heads, so it is close, not audited.
+ *  - Models: parameters across the NYSgpt models on Hugging Face (24 repos,
+ *    2026-11-03), summed from each repo's safetensors total: five 567,754,752
+ *    bge-m3 encoders, four 149,605,633 ModernBERT rerankers, the two CSHL
+ *    classifiers (153,388,344 + 149,663,308), the 22,713,601 MiniLM, the
+ *    109,482,240 BERT headline ranker, plus the video head's 984,320 (no
+ *    safetensors; two stated linear layers). The coefficient-file models
+ *    (logistic regressions, references, policies) carry a few hundred
+ *    weights each and are not in the sum.
  *  - Platforms: requests served across the platforms, the visitor log's figure.
  *  - Tools: the boxes tagged Tool plus the two dev tools.
  * Each cell shows its word at rest and counts its figure on hover; `exact`
@@ -766,7 +952,7 @@ export type Kind = keyof typeof KINDS;
  */
 export const LEDGER: { word: string; value: number; unit: string; exact?: boolean; color: string }[] = [
   { word: "Data", value: 12_121_473_625, unit: "Records", exact: true, color: KINDS.Data },
-  { word: "Models", value: 1_910_089_220, unit: "Parameters", exact: true, color: KINDS.Model },
+  { word: "Models", value: 3_873_428_105, unit: "Parameters", exact: true, color: KINDS.Model },
   { word: "Platforms", value: 3_125_952, unit: "Requests", exact: true, color: KINDS.Platform },
   { word: "Tools", value: TOOLS.filter((t) => t.tag === "Tool").length + IN_HOUSE.length, unit: "AI tools", color: KINDS.Tool },
 ];

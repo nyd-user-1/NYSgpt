@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Models slide — sketch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #ffffff;
+    --paper-text: #16181d;
+    --paper-muted: rgba(22, 24, 29, 0.58);
+    --paper-faint: rgba(22, 24, 29, 0.4);
+    --paper-rule: #16181d;
+    --paper-rule-soft: rgba(22, 24, 29, 0.06);
+    --accent: #7c3aed;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "DM Sans", sans-serif;
+    --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #15120d;
+      --paper-text: #f0e9d8;
+      --paper-muted: rgba(240, 233, 216, 0.58);
+      --paper-faint: rgba(240, 233, 216, 0.36);
+      --paper-rule: #f0e9d8;
+      --paper-rule-soft: rgba(240, 233, 216, 0.06);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--paper-text);
+    font-family: var(--sans);
+    padding: 48px clamp(16px, 4vw, 64px) 96px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .note {
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--paper-faint);
+    margin: 0 0 20px 2px;
+  }
+  .note b { color: var(--accent); font-weight: 500; }
+
+  /* The frame: rounded, one rule, the grid's own edge rules clipped under it. */
+  .frame {
+    border: 1px solid var(--paper-rule);
+    border-radius: 16px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .scroller {
+    margin: -1px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .scroller::-webkit-scrollbar { display: none; }
+
+  /* Two rows, column-major: each family pair stacks in one column.
+     Width = columns/3 of the frame, so three columns sit in view. */
+  .grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(2, minmax(210px, auto));
+    border-top: 1px solid var(--paper-rule);
+    border-left: 1px solid var(--paper-rule);
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 210px;
+    padding: 20px;
+    border-right: 1px solid var(--paper-rule);
+    border-bottom: 1px solid var(--paper-rule);
+    text-decoration: none;
+    color: inherit;
+    scroll-snap-align: start;
+    transition: background-color 0.2s;
+  }
+  .card:hover { background: color-mix(in oklab, var(--accent) 5%, var(--paper)); }
+
+  .card .top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .card h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.1;
+    transition: color 0.2s;
+  }
+  .card:hover h3 { color: var(--accent); }
+  .card .body {
+    flex: 1;
+    margin: 8px 0 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--paper-muted);
+  }
+
+  /* The live dot, level with the title's first line. */
+  .dot { position: relative; display: flex; height: 5px; width: 5px; flex-shrink: 0; margin-top: 8px; }
+  .dot::before, .dot::after {
+    content: ""; position: absolute; inset: 0; border-radius: 999px; background: #10b981;
+  }
+  .dot::before { animation: ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite; opacity: 0.75; }
+  @keyframes ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+
+  .foot {
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    text-transform: uppercase;
+    font-variant-numeric: tabular-nums;
+  }
+  .foot .tag { letter-spacing: 0.18em; color: var(--accent); font-weight: 500; }
+  .foot .num { letter-spacing: 0.2em; color: var(--paper-faint); }
+
+  /* On hover the resting content gives way to the headline figure. */
+  .rest, .dot, .foot { transition: opacity 0.2s; }
+  .card:hover .rest, .card:hover .dot, .card:hover .foot { opacity: 0; }
+  .rest { display: flex; flex-direction: column; flex: 1; }
+
+  .reveal {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+    padding: 0 12px; text-align: center;
+    color: var(--accent);
+    opacity: 0; transition: opacity 0.2s;
+    pointer-events: none;
+  }
+  .card:hover .reveal { opacity: 1; pointer-events: auto; }
+  .reveal .figure {
+    font-family: var(--mono);
+    font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .reveal .unit { font-family: var(--sans); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; }
+
+  /* Top-right on hover: go to the model's HF page. */
+  .out {
+    position: absolute; top: 12px; right: 12px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 8px; border-radius: 999px;
+    opacity: 0; transition: opacity 0.2s, background-color 0.2s;
+    color: var(--accent);
+  }
+  .card:hover .out { opacity: 1; }
+  .out:hover { background: var(--paper-rule-soft); }
+  .out svg { width: 16px; height: 16px; }
+
+  /* Bottom-right on hover: copy the model's repo id. It takes the corner the
+     index number holds at rest (the foot fades out as this fades in). */
+  .copy {
+    position: absolute; bottom: 8px; right: 8px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 8px; border: 0; border-radius: 999px;
+    background: none; cursor: pointer;
+    opacity: 0; transition: opacity 0.2s, background-color 0.2s;
+    color: var(--accent);
+  }
+  .card:hover .copy { opacity: 1; }
+  .copy:hover { background: var(--paper-rule-soft); }
+  .copy svg { width: 16px; height: 16px; }
+
+  [contenteditable]:focus { outline: 1px dashed var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<p class="note"><b>Models</b> · 23 cards · Alpha Class Series 1.0 copy on the Martian nine — every line of text is editable: click it and type</p>
+
+<div class="frame">
+  <div class="scroller">
+    <div class="grid" id="grid"></div>
+  </div>
+</div>
+
+<script>
+// One entry per model, in slide order: the grid flows column-major, so each
+// adjacent pair stacks in one column (encoder over reranker, and so on).
+const MODELS = [
+  { title: "NSR Encoder", body: "A 0.6B bge-m3 encoder fine-tuned on Nuclear Science References — papers, nuclides and reactions — for semantic search by meaning.", figure: "567.8M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/nsr-encoder" },
+  { title: "NSR Reranker", body: "A 0.1B ModernBERT reranker that scores candidate nuclear-science passages for precision retrieval on top of the encoder.", figure: "149.6M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/nsr-reranker" },
+  { title: "RXIV Encoder", body: "A 0.6B bge-m3 encoder fine-tuned on 433,449 bioRxiv and medRxiv preprints for semantic search across biomedical literature.", figure: "567.8M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/biomed-encoder" },
+  { title: "RXIV Reranker", body: "A 0.1B ModernBERT reranker for biomedical passage ranking, pairing with the RXIV Encoder in a two-stage retrieval pipeline.", figure: "149.6M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/biomed-reranker" },
+  { title: "AI Reranker", body: "A reranker that learned from peer reviewers: thousands of expert summaries written about papers at leading AI research conferences, each matched to the paper it describes. Picks the right paper first 93% of the time.", figure: "149.6M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/44b-reranker" },
+  { title: "AI Reranker Mini", body: "About a seventh of the AI Reranker's size and six times faster — roughly 7 ms per query — trading six points of accuracy, still ahead of keyword search and general embeddings.", figure: "22.7M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/44b-reranker-mini" },
+  { title: "CSHL Category", body: "A 0.1B ModernBERT librarian that reads a preprint's title and abstract and files it into one of 76 bioRxiv/medRxiv subject categories.", figure: "149.7M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/cshl-category" },
+  { title: "CSHL MeSH Tagger", body: "A 0.2B ModernBERT multi-label tagger predicting MeSH descriptors (4,920-way) for preprints. Measured, beaten by a kNN vote over stored embeddings, and published for the record.", figure: "153.4M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/cshl-MESH-tagger" },
+  // The Alpha Class nine (Series 1.0) — the Martian line as productized in
+  // NYSgpt-Alpha-Class-Model-Cards-v4.pdf. Lookalikes is one card for the
+  // encoder + reranker pair, as the PDF sells them.
+  { title: "Lookalikes", body: "Finding the videos that worked like this one. Turns each short's title, description and transcript into a fingerprint of what made it land, then pulls the past shorts that performed most like it; a companion ranker puts the most telling comparisons first.", figure: "717M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/martian-encoder" },
+  { title: "Affinity", body: "The videos the same audience rewarded. Lookalikes plus a lesson from audience behavior — which shorts broke out together on the same channel — so it finds past videos the same audience rewarded, not just ones on the same topic.", figure: "568M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/martian-resonance-encoder" },
+  { title: "Wave", body: "What is catching on this week. Affinity's sibling, which also learns from shorts that took off in the same week; it leans toward the topics catching on right now, for rapid-response and news teams where timing matters as much as content.", figure: "568M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/martian-resonance-encoder-full" },
+  { title: "Odds R", body: "The odds, before anyone has seen it. Reads everything a short carries the moment it goes up — title, description, tags, length, posting time, thumbnail and transcript — and estimates the chance it outperforms its channel by 5×.", figure: "20K", unit: "Training shorts", href: "https://huggingface.co/NYSgpt/martian-classifier" },
+  { title: "Surging", body: "Spotting a breakout in its first hours. Watches a short's views in its first one, three and six hours and estimates whether it will be a breakout by the end of day three — where to put promotion budget while it is still rising.", figure: "3", unit: "Horizons", href: "https://huggingface.co/NYSgpt/martian-velocity-classifier" },
+  { title: "Craft", body: "Why one video beat another, in plain editing terms. Measures how a short is made — how fast it cuts, when the first cut lands, how loud the opening is, how much text is on screen — so every finding reads as an edit, not a score.", figure: "23", unit: "Editing features", href: "https://huggingface.co/NYSgpt/martian-composition-ranker" },
+  { title: "Headlines", body: "Which headline wins the click. Give it two headlines or titles for the same story and it predicts which one people will choose — learned from more than 12,000 real, randomized headline experiments in the Upworthy Research Archive.", figure: "110M", unit: "Parameters", href: "https://huggingface.co/NYSgpt/martian-headline-ranker" },
+  { title: "Stickiness", body: "How much of it people will actually watch. Estimates how much of a short viewers will watch before they swipe away, from its length, format and tags — about a third of shorts under 15 seconds, about an eighth of those near a minute.", figure: "67", unit: "Features", href: "https://huggingface.co/NYSgpt/martian-retention-regressor" },
+  { title: "Lift", body: "Measure movement. A reference library of measured lift: how much each of 28 ad traits shifted favorability and vote choice across 146 randomized political ad tests, from the published archive of Hewitt, Broockman, Coppock and colleagues (APSR 2024).", figure: "146", unit: "Studies", href: "https://huggingface.co/NYSgpt/martian-persuasion-reference" },
+  // Not in the Alpha Class deck — research artifacts, unchanged for now.
+  { title: "Martian Video Encoder", body: "A two-layer projection head on frozen VideoPrism — 16 frames in, one 512-d vector out — trained toward shorts that performed alike. Failed its gate; published for the record.", figure: "984K", unit: "Parameters", href: "https://huggingface.co/NYSgpt/martian-video-encoder" },
+  { title: "Martian Winning Modes", body: "Recurring craft configurations among 3× breakouts, k-means over 24 craft axes. One mode of five survives held-out channels: an early first cut, frequent cuts, dense on-screen text.", figure: "24", unit: "Craft axes", href: "https://huggingface.co/NYSgpt/martian-winning-modes" },
+  { title: "Martian Feed Ranker", body: "Which short a given reader will watch through, from video and reader features — pretrained on KuaiRand-1K's randomly exposed impressions until Martian's own reader rows exist.", figure: "41.7K", unit: "Impressions", href: "https://huggingface.co/NYSgpt/martian-feed-ranker" },
+  { title: "Martian Publish Policy", body: "A contextual bandit over topic, length and publish hour — Bayesian logistic regression acting by Thompson sampling — warm-started by replaying 18,307 settled shorts in publish order.", figure: "18.3K", unit: "Shorts replayed", href: "https://huggingface.co/NYSgpt/martian-publish-policy" },
+  { title: "Martian Learning Loops", body: "Eleven learning loops beside the publish policy — title style, thumbnail traits, cadence, paid flights and more — each evaluation registered before its fit and judged by its own rule.", figure: "11", unit: "Loops", href: "https://huggingface.co/NYSgpt/martian-learning-loops" },
+  { title: "Martian Semantic-ID Model", body: "Three-level residual k-means semantic IDs over the Martian Encoder's index (PLUM). Failed its gate on both allowed attempts — the neighbors carry more than the cells — recorded, not served.", figure: "168", unit: "Codes", href: "https://huggingface.co/NYSgpt/martian-semantic-id-model" },
+];
+
+const ARROW = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>';
+const COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>';
+const CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+const grid = document.getElementById("grid");
+const cols = Math.ceil(MODELS.length / 2);
+grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+grid.style.width = `calc(${cols} * 100% / 3)`;
+
+grid.innerHTML = MODELS.map((m, i) => `
+  <a class="card" href="${m.href}" target="_blank" rel="noreferrer noopener">
+    <div class="rest">
+      <div class="top">
+        <h3 contenteditable spellcheck="false">${m.title}</h3>
+        <span class="dot" aria-hidden="true"></span>
+      </div>
+      <p class="body" contenteditable spellcheck="false">${m.body}</p>
+    </div>
+    <div class="reveal" aria-hidden="true">
+      <span class="figure" contenteditable spellcheck="false">${m.figure}</span>
+      <span class="unit" contenteditable spellcheck="false">${m.unit}</span>
+    </div>
+    <span class="out">${ARROW}</span>
+    <div class="foot">
+      <span class="tag">Model</span>
+      <span class="num">${String(i + 1).padStart(2, "0")}</span>
+    </div>
+    <button class="copy" data-id="${m.href.replace("https://huggingface.co/", "")}" title="Copy ${m.href.replace("https://huggingface.co/", "")}" aria-label="Copy model id">${COPY}</button>
+  </a>
+`).join("");
+
+grid.addEventListener("click", (e) => {
+  // The copy button: the model's repo id to the clipboard, a check for a moment.
+  const btn = e.target.closest(".copy");
+  if (btn) {
+    e.preventDefault();
+    e.stopPropagation();
+    const id = btn.dataset.id;
+    if (navigator.clipboard?.writeText) navigator.clipboard.writeText(id);
+    else {
+      const t = document.createElement("textarea");
+      t.value = id; document.body.appendChild(t); t.select();
+      document.execCommand("copy"); t.remove();
+    }
+    btn.innerHTML = CHECK;
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.innerHTML = COPY; }, 1500);
+    return;
+  }
+  // Editing a line must not follow the card's link.
+  if (e.target.closest("[contenteditable]")) e.preventDefault();
+});
+</script>
+</body>
+</html>

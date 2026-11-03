@@ -5,6 +5,8 @@ import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
+import { ShiftNotes } from "@/components/ShiftNotes";
+import { ShiftNav } from "@/components/ShiftNav";
 import { getDigest } from "@/lib/digest";
 import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
@@ -94,6 +96,11 @@ export default async function RootLayout({
           <ProductStatusProvider cards={CARDS}>
             <SwitchboardProvider cards={SWITCHBOARD} digest={digest}>
               <SwitchboardShell>{children}</SwitchboardShell>
+              {/* The two global gestures, ported from pax-trinity (2026-11-03):
+                  Shift-drag draws a note; Shift and a right-click opens the Nav.
+                  Inside the provider so the Nav can open a box in the panel. */}
+              <ShiftNotes />
+              <ShiftNav />
             </SwitchboardProvider>
           </ProductStatusProvider>
         </ThemeProvider>

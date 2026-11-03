@@ -3,11 +3,11 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, Sparkles, ArrowUpRight } from 'lucide-react'
+import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, Sparkles, ArrowUpRight, SquareDashedMousePointer } from 'lucide-react'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
-import type { HomeCardData } from '@/lib/home-data'
+import { PRODUCT_EXTRAS, type HomeCardData } from '@/lib/home-data'
 import { SwitchboardApiList } from './SwitchboardApiList'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
@@ -92,7 +92,8 @@ type Ctx = {
   toggle: () => void
   close: () => void
   openMenu: () => void
-  openProduct: (index: number) => void
+  /** `expand` opens at half the screen — the boxes' way in (2026-11-03). */
+  openProduct: (index: number, expand?: boolean) => void
   openChannel: (id: ChannelId) => void
   openAws: (view: AwsView) => void
 }
@@ -112,7 +113,11 @@ export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCa
 
   const close = useCallback(() => setOpen(false), [])
   const openMenu = useCallback(() => { setView({ kind: 'menu' }); setOpen(true) }, [])
-  const openProduct = useCallback((index: number) => { setView({ kind: 'product', index }); setOpen(true) }, [])
+  const openProduct = useCallback((index: number, expand?: boolean) => {
+    setView({ kind: 'product', index })
+    if (expand) setExpanded(true)
+    setOpen(true)
+  }, [])
   const openChannel = useCallback((id: ChannelId) => { setView({ kind: 'channel', id }); setOpen(true) }, [])
   const openAws = useCallback((v: AwsView) => { setView(v); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
@@ -256,6 +261,18 @@ function SwitchboardPanel() {
 
   const product = view.kind === 'product' ? cards[view.index] : null
   const channel = view.kind === 'channel' ? CHANNELS[view.id] : null
+  // The card dialog's copy, now the panel's (2026-11-03, the boxes open here):
+  // the statement and the Problem–Agitate–Solution or story paragraphs, merged
+  // from PRODUCT_EXTRAS since SWITCHBOARD carries the raw cards.
+  const extra = product ? { ...product, ...(PRODUCT_EXTRAS[product.title] ?? {}) } : null
+  const statement = !extra ? undefined : Array.isArray(extra.statement) ? extra.statement[0] : extra.statement
+  const paragraphs = !extra
+    ? []
+    : extra.story
+      ? extra.story.before
+      : extra.pas
+        ? [extra.pas.problem, extra.pas.agitate, extra.pas.solution]
+        : []
   // One level down the live dot becomes a back arrow and the title becomes the
   // destination — that pair IS the navigation model, so no view stack is needed.
   const deep = Boolean(product || channel)
@@ -428,6 +445,42 @@ function SwitchboardPanel() {
                     {product.body}
                   </p>
                 </div>
+                )}
+
+                {/* The story the popover used to tell, in the panel's own
+                    idiom: the statement leads, the paragraphs follow. The
+                    Inspector keeps its switch — it closes the panel and turns
+                    the overlay on over the page (HomeContents listens). */}
+                {!product.catalog && (statement || paragraphs.length > 0) && (
+                  <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+                    {statement && (
+                      <p className="text-[17px] leading-[1.4] text-[var(--paper-text)]" style={SERIF}>
+                        {statement}
+                      </p>
+                    )}
+                    {paragraphs.map((text, i) => (
+                      <p
+                        key={text}
+                        className={`text-[13px] leading-[1.7] text-[var(--paper-muted)] ${i === 0 && !statement ? '' : 'mt-4'}`}
+                        style={SANS}
+                      >
+                        {text}
+                      </p>
+                    ))}
+                    {product.title === 'Inspector' && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          close()
+                          window.dispatchEvent(new CustomEvent('nysgpt:inspect'))
+                        }}
+                        className="mt-6 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--paper-text)] text-[14px] font-medium text-[var(--paper)] transition-opacity hover:opacity-90"
+                        style={SANS}
+                      >
+                        <SquareDashedMousePointer className="h-4 w-4" aria-hidden /> Turn on the Inspector
+                      </button>
+                    )}
+                  </div>
                 )}
 
                 {/* Sub-stats — a ruled 2-col grid, the masthead ledger's idiom
