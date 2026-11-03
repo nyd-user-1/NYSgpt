@@ -1,0 +1,18 @@
+{
+  // GitHub Codespaces dev box (2026-11-03): the dev server runs on GitHub's VM,
+  // not this machine. Open the codespace, run `pnpm dev`, and the forwarded
+  // port 3000 opens in the browser with hot reload. Node 22 — pnpm 11 refuses
+  // Node 20 (ci/security-fixes, 0baac3b).
+  "name": "NYSgpt",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "postCreateCommand": "corepack enable && corepack prepare pnpm@11.1.1 --activate && pnpm install",
+  "forwardPorts": [3000],
+  "portsAttributes": {
+    "3000": { "label": "next dev", "onAutoForward": "openPreview" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": ["bradlc.vscode-tailwindcss"]
+    }
+  }
+}
