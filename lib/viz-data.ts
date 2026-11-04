@@ -107,3 +107,42 @@ export async function authorGraph() {
   )
   return { nodes, edges }
 }
+
+/** The measure matrix: Pearson correlations, computed in the database, across nine per-paper
+ *  measures of the whole corpus — year, citations, influential citations, references carried,
+ *  authors, nuclides, reactions, subjects, and whether the paper flowed into EXFOR. ~12s: five
+ *  grouped joins and 36 corr() aggregates over 303,568 rows. */
+export async function measureMatrix(): Promise<{ vars: string[]; cells: [number, number, number][] }> {
+  const VARS = ["yr", "cites", "infl", "refs", "authors", "nuclides", "reactions", "subjects", "exfor"]
+  const pairs: string[] = []
+  for (let i = 0; i < VARS.length; i++) for (let j = i + 1; j < VARS.length; j++) pairs.push(`corr(${VARS[i]}, ${VARS[j]}) as "${VARS[i]}__${VARS[j]}"`)
+  const rows = await q<Record<string, number | null>>(
+    `with f as (
+       select s.pub_year::float as yr,
+              coalesce(s.citation_count, 0)::float cites,
+              coalesce(s.influential_citation_count, 0)::float infl,
+              coalesce(s.reference_count, 0)::float refs,
+              coalesce(a.c, 0)::float authors,
+              coalesce(nn.c, 0)::float nuclides,
+              coalesce(r.c, 0)::float reactions,
+              coalesce(sub.c, 0)::float subjects,
+              (x.key_number is not null)::int::float exfor
+       from nsr s
+       left join (select key_number, count(*) c from nsr_authors group by 1) a using (key_number)
+       left join (select key_number, count(*) c from nsr_nuclides group by 1) nn using (key_number)
+       left join (select key_number, count(*) c from nsr_reactions group by 1) r using (key_number)
+       left join (select key_number, count(*) c from nsr_subjects group by 1) sub using (key_number)
+       left join (select distinct key_number from nsr_exfor) x using (key_number)
+       where s.pub_year between 1900 and 2026
+     )
+     select ${pairs.join(", ")} from f`,
+  )
+  const row = rows[0] ?? {}
+  const cells: [number, number, number][] = VARS.map((_, i) => [i, i, 1] as [number, number, number])
+  for (let i = 0; i < VARS.length; i++)
+    for (let j = i + 1; j < VARS.length; j++) {
+      const v = Number(row[`${VARS[i]}__${VARS[j]}`] ?? 0)
+      cells.push([i, j, v], [j, i, v])
+    }
+  return { vars: VARS, cells }
+}

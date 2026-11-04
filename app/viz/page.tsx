@@ -20,6 +20,7 @@ const PAGES: { href: string; title: string; after: string; line: string }[] = [
   { href: "/viz/surface", title: "The literature landscape", after: "simple-surface (GL)", line: "The field as terrain — a century of publishing in relief." },
   { href: "/viz/graph", title: "The collaboration web", after: "graphgl-large-internet (GL)", line: "1,200 most-published authors, force-settled into their labs and eras." },
   { href: "/viz/reactions", title: "The reaction transit map", after: "lines-ny", line: "The imaginative one: every reaction a bus route across the chart of nuclides." },
+  { href: "/viz/matrix", title: "The measure matrix", after: "matrix-covariance", line: "36 Pearson correlations across nine per-paper measures, computed in the database on load." },
 ]
 
 export default function VizIndex() {
@@ -29,7 +30,7 @@ export default function VizIndex() {
         <Link href="/" className="text-[24px] leading-none transition-opacity hover:opacity-70" style={{ ...SERIF, letterSpacing: "-0.03em" }}>
           NYSgpt
         </Link>
-        <h1 className="mt-8 text-[34px] leading-[1.1]" style={{ ...SERIF, letterSpacing: "-0.02em" }}>Eleven cuts of the corpus</h1>
+        <h1 className="mt-8 text-[34px] leading-[1.1]" style={{ ...SERIF, letterSpacing: "-0.02em" }}>Twelve cuts of the corpus</h1>
         <p className="mt-3 max-w-xl text-[13.5px] leading-[1.7] text-slate-400" style={SANS}>
           One page per chart, every one drawn live from the Nuclear Science References corpus — 303,568 references, 1.21 million paper–nuclide links.
         </p>
