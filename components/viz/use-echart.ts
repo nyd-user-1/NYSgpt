@@ -86,7 +86,14 @@ export function useEChart(build: () => unknown, gl = false, rowOf?: (p: ChartCli
       if (disposed || !ref.current) return
       chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
       let dark = isDark()
-      const option = build() as { dataZoom?: { type?: string }[] }
+      const option = build() as { dataZoom?: { type?: string }[]; xAxis?: unknown; yAxis?: unknown; tooltip?: Record<string, unknown> }
+      // The crosshair's lines (Brendan, 2026-11-04): cartesian charts pair the + cursor with the
+      // inspector's cross — two faint guide lines tracking the pointer. GL scenes have no axes to cross.
+      if (option.xAxis && option.yAxis)
+        option.tooltip = {
+          ...(option.tooltip ?? {}),
+          axisPointer: { type: 'cross', crossStyle: { color: '#94a3b8', width: 1, opacity: 0.6 }, label: { show: false } },
+        }
       const slider = Array.isArray(option.dataZoom) && option.dataZoom.some((d) => d.type === 'slider')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       chart.setOption(themed(option, dark) as any)

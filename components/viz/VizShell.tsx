@@ -1,3 +1,5 @@
+import Link from 'next/link'
+import { X } from 'lucide-react'
 import { AppLayout } from '@/components/AppLayout'
 import { PAPER_BRIDGE } from '@/components/editorial/PaperBridge'
 
@@ -18,8 +20,19 @@ export function VizShell({ children, framed, title }: { children: React.ReactNod
         <style>{`[data-viz-chart], [data-viz-chart] * { cursor: ${CHART_CURSOR} !important; }`}</style>
         <div className="flex-1 overflow-hidden" style={{ backgroundColor: 'var(--paper)', ...PAPER_BRIDGE }}>
           <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
-            <div data-viz-chart className="isolate flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)] p-2">
-              {children}
+            <div className="isolate relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)] p-2">
+              {/* Close: back to /viz, reversing the box the press grew (Brendan, 2026-11-04). */}
+              <Link
+                href="/viz"
+                aria-label="Close the chart"
+                className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-[var(--paper-rule)] bg-[var(--paper)] shadow-md transition-colors hover:bg-[var(--paper-quiet)]"
+              >
+                <X className="h-4 w-4 text-[var(--paper-text)]" />
+              </Link>
+              {/* The + cursor belongs to the chart's own ground alone — not the frame, not the close. */}
+              <div data-viz-chart className="flex min-h-0 min-w-0 flex-1 flex-col">
+                {children}
+              </div>
             </div>
           </div>
         </div>
