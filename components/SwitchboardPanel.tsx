@@ -3,8 +3,9 @@
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, LayoutGrid, Sparkles, ArrowUpRight, SquareDashedMousePointer, Wrench } from 'lucide-react'
+import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, LayoutGrid, Sparkles, ArrowUpRight, SquareDashedMousePointer, Wrench, Palette } from 'lucide-react'
 import { DevToolsPanel } from '@/components/housekeeping/devtools-panel'
+import { ThemePanel } from '@/components/ThemePanel'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
@@ -81,6 +82,7 @@ type View =
   | { kind: 'channel'; id: ChannelId }
   | { kind: 'blocks' }
   | { kind: 'devtools' }
+  | { kind: 'theme' }
   | AwsView
 
 export type ChannelId = 'slack' | 'discord' | 'ask'
@@ -105,6 +107,8 @@ type Ctx = {
   openBlocks: () => void
   /** Opens the Dev tools view (the housekeeping kit, ported from pax-trinity 2026-11-04). */
   openDevtools: () => void
+  /** Opens the Theme view: the live token sheet (2026-11-04). */
+  openTheme: () => void
 }
 
 const PanelCtx = createContext<Ctx | null>(null)
@@ -131,12 +135,13 @@ export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCa
   const openAws = useCallback((v: AwsView) => { setView(v); setOpen(true) }, [])
   const openBlocks = useCallback(() => { setView({ kind: 'blocks' }); setOpen(true) }, [])
   const openDevtools = useCallback(() => { setView({ kind: 'devtools' }); setOpen(true) }, [])
+  const openTheme = useCallback(() => { setView({ kind: 'theme' }); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
   // way to resume wherever you happened to leave off.
   const toggle = useCallback(() => setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v }), [])
 
   return (
-    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBlocks, openDevtools }}>
+    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBlocks, openDevtools, openTheme }}>
       {children}
       <SwitchboardPanel />
     </PanelCtx.Provider>
@@ -251,7 +256,7 @@ function ChannelRow({
 }
 
 function SwitchboardPanel() {
-  const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel, openBlocks, openDevtools } = useSwitchboard()
+  const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel, openBlocks, openDevtools, openTheme } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
   const { linkProps } = useProductStatus()
 
@@ -261,7 +266,7 @@ function SwitchboardPanel() {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
-      if (view.kind === 'product' || view.kind === 'channel' || view.kind === 'blocks' || view.kind === 'devtools') openMenu()
+      if (view.kind === 'product' || view.kind === 'channel' || view.kind === 'blocks' || view.kind === 'devtools' || view.kind === 'theme') openMenu()
       else close()
     }
     window.addEventListener('keydown', onKey)
@@ -274,7 +279,7 @@ function SwitchboardPanel() {
   const channel = view.kind === 'channel' ? CHANNELS[view.id] : null
   // One level down the live dot becomes a back arrow and the title becomes the
   // destination — that pair IS the navigation model, so no view stack is needed.
-  const deep = Boolean(product || channel || view.kind === 'blocks' || view.kind === 'devtools')
+  const deep = Boolean(product || channel || view.kind === 'blocks' || view.kind === 'devtools' || view.kind === 'theme')
   // A product's header is its DOMAIN, not its name — the hero figure + the
   // "Visit <name>" footer already carry the name, and the domain is the one
   // fact the old layout buried in a footnote line (design 2026-08-24).
@@ -282,7 +287,7 @@ function SwitchboardPanel() {
   // An AWS buyer's views are headed by the product they bought, and have no way
   // back to the menu: a Marketplace buyer did not come from the switchboard.
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
-  const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : view.kind === 'blocks' ? 'Blocks' : view.kind === 'devtools' ? 'Dev tools' : channel?.name ?? 'Switchboard')
+  const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : view.kind === 'blocks' ? 'Blocks' : view.kind === 'devtools' ? 'Dev tools' : view.kind === 'theme' ? 'Theme' : channel?.name ?? 'Switchboard')
 
   return createPortal(
     <>
@@ -368,6 +373,10 @@ function SwitchboardPanel() {
               /* ── DEV TOOLS — trinity's kit: comments + Claude loop, pointer,
                      live edit, X-ray, settings (2026-11-04). ── */
               <DevToolsPanel />
+            ) : view.kind === 'theme' ? (
+              /* ── THEME — the live token sheet: swatches, type, elevation,
+                     radii, read from computed styles (2026-11-04). ── */
+              <ThemePanel />
             ) : view.kind === 'blocks' ? (
               /* ── BLOCKS VIEW — trinity's shelf: saved blocks as tiles, the
                      rest dashed empty slots; tiles drag onto the chat. ── */
@@ -491,6 +500,14 @@ function SwitchboardPanel() {
                   <button onClick={openDevtools} className="flex min-w-0 flex-1 items-center gap-3 text-left">
                     <span className="shrink-0 text-[var(--paper-faint)]"><Wrench className="h-4 w-4" /></span>
                     <span className={LABEL} style={SERIF}>Dev tools</span>
+                    <ChevronRight className={GLYPH} />
+                  </button>
+                </div>
+
+                <div className={ROW.replace('border-b', 'border-b')}>
+                  <button onClick={openTheme} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                    <span className="shrink-0 text-[var(--paper-faint)]"><Palette className="h-4 w-4" /></span>
+                    <span className={LABEL} style={SERIF}>Theme</span>
                     <ChevronRight className={GLYPH} />
                   </button>
                 </div>

@@ -307,7 +307,7 @@
 /* Trinity /chat port (2026-11-03): the pax2 tokens the chat's markup  */
 /* reads, carried over with the page. Light values are trinity's own;  */
 /* the .dark overrides map them onto a slate night so the chat doesn't */
-/* glare when the site is dark. Scoped to tokens the chat uses alone.  */
+/* glare when the site is dark. The full family came over 2026-11-04. */
 /* ------------------------------------------------------------------ */
 
 :root {
@@ -322,8 +322,51 @@
   --pax2-shadow-2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
   --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
   --pax2-shadow-header: 0 4px 12px -8px rgb(15 23 42 / 0.21);
+
+  /* The rest of trinity's family (src/app/pax2.css, 2026-11-04): its surfaces and
+     the forecast signals. Light values are trinity's own. */
+  --pax2-mist: #f5f7fb;
+  --pax2-frame: #e9eef5;
+  --pax2-sidebar: #f5f7fb;
+  --pax2-lift: #ffffff;
+  --pax2-raised: #ffffff;
+  --pax2-above: #16a34a;
+  --pax2-above-soft: #f0fdf4;
+  --pax2-below: #dc2626;
+  --pax2-below-soft: #fef2f2;
+  --pax2-observed: #1e3a8a;
+  --pax2-interpretation: #4b5563;
+  --pax2-hypothesis: #dc2626;
+
+  /* Trinity's kit (src/ui/styles/globals.css): the agree/disagree pair, the brand
+     blue and the highlight, the selection pair. */
+  --consensus-agree: #1e3a8a;
+  --consensus-disagree: #dc2626;
+  --brand: oklch(0.623 0.214 259.815);
+  --highlight: oklch(0.852 0.199 91.936);
+  --selection: oklch(0 0 0);
+  --selection-foreground: oklch(1 0 0);
 }
 .dark {
+  /* Trinity's PAX Dark steps (lib/theme.ts), set against the slate night below. */
+  --pax2-mist: #172033;
+  --pax2-frame: #1d2638;
+  --pax2-sidebar: #121a2b;
+  --pax2-lift: #1c2638;
+  --pax2-raised: #1c2638;
+  --pax2-above: #4ade80;
+  --pax2-above-soft: color-mix(in oklab, #4ade80 12%, #0f172a);
+  --pax2-below: #f87171;
+  --pax2-below-soft: color-mix(in oklab, #f87171 10%, #0f172a);
+  --pax2-observed: #93c5fd;
+  --pax2-interpretation: #94a1b5;
+  --pax2-hypothesis: #f87171;
+  --consensus-agree: #60a5fa;
+  --consensus-disagree: #f87171;
+  --brand: oklch(0.707 0.165 254.624);
+  --selection: oklch(0.922 0 0);
+  --selection-foreground: oklch(0.205 0 0);
+
   --pax2-blue: #93c5fd;
   --pax2-light-blue: #60a5fa;
   --pax2-lavender: #1e3a8a;
@@ -345,6 +388,23 @@
   --color-pax2-red: var(--pax2-red);
   --color-pax2-red-deep: var(--pax2-red-deep);
   --color-pax2-red-soft: var(--pax2-red-soft);
+  --color-pax2-mist: var(--pax2-mist);
+  --color-pax2-frame: var(--pax2-frame);
+  --color-pax2-sidebar: var(--pax2-sidebar);
+  --color-pax2-lift: var(--pax2-lift);
+  --color-pax2-raised: var(--pax2-raised);
+  --color-above: var(--pax2-above);
+  --color-above-soft: var(--pax2-above-soft);
+  --color-below: var(--pax2-below);
+  --color-below-soft: var(--pax2-below-soft);
+  --color-observed: var(--pax2-observed);
+  --color-interpretation: var(--pax2-interpretation);
+  --color-hypothesis: var(--pax2-hypothesis);
+  --color-brand: var(--brand);
+  --color-highlight: var(--highlight);
+  --color-selection: var(--selection);
+  --color-selection-foreground: var(--selection-foreground);
+  --font-heading: var(--font-sans);
   --shadow-e1: var(--pax2-shadow-1);
   --shadow-e2: var(--pax2-shadow-2);
   --shadow-e3: var(--pax2-shadow-3);
