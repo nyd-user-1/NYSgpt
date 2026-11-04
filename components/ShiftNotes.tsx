@@ -4,6 +4,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { GripVertical, X } from 'lucide-react'
 
+import { useShellPanel } from '@/components/shell'
+
 const SERIF = { fontFamily: 'var(--font-display), Georgia, serif' } as const
 const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const
 
@@ -230,6 +232,36 @@ function NoteCard({
   const area = useRef<HTMLTextAreaElement>(null)
   const drag = useRef<{ dx: number; dy: number } | null>(null)
   const size = useRef<{ x: number; y: number; w: number; h: number } | null>(null)
+  const { askAbout } = useShellPanel()
+  const [busy, setBusy] = useState(false)
+  const [said, setSaid] = useState<string | null>(null)
+
+  /** Comment: the note and this page's link, to Slack and Discord (app/api/notes/team), place by place. */
+  const comment = async () => {
+    if (!note.text.trim() || busy) return
+    setBusy(true)
+    setSaid(null)
+    try {
+      const res = await fetch('/api/notes/team', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: note.text, url: window.location.href }),
+      })
+      const out = (await res.json().catch(() => ({}))) as {
+        error?: string
+        results?: { place: string; ok: boolean; error?: string }[]
+      }
+      const name = (p: string) => (p === 'slack' ? 'Slack' : 'Discord')
+      setSaid(
+        out.results
+          ? out.results.map(r => (r.ok ? `Posted to ${name(r.place)}` : `${name(r.place)}: ${r.error}`)).join(' · ')
+          : (out.error ?? `It answered ${res.status}.`),
+      )
+    } catch {
+      setSaid("The server can't be reached.")
+    }
+    setBusy(false)
+  }
 
   // A fresh card takes the pen straight away.
   useEffect(() => {
@@ -314,6 +346,27 @@ function NoteCard({
         className="min-h-0 flex-1 resize-none bg-transparent p-4 text-[14px] leading-[1.6] text-[var(--paper-text)] outline-none placeholder:text-[var(--paper-faint)]"
         style={SANS}
       />
+      <div className="flex shrink-0 items-center gap-2 border-t border-[var(--paper-rule)] px-3 py-2" style={SANS}>
+        <button
+          onClick={() => askAbout({ context: () => note.text })}
+          disabled={!note.text.trim()}
+          className="rounded-full border border-[var(--paper-rule)] px-3 py-1 text-[12px] text-[var(--paper-text)] transition-colors hover:bg-[var(--paper-quiet)] disabled:opacity-40"
+        >
+          Chat
+        </button>
+        <button
+          onClick={() => void comment()}
+          disabled={!note.text.trim() || busy}
+          className="rounded-full border border-[var(--paper-rule)] px-3 py-1 text-[12px] text-[var(--paper-text)] transition-colors hover:bg-[var(--paper-quiet)] disabled:opacity-40"
+        >
+          {busy ? 'Posting…' : 'Comment'}
+        </button>
+        {said && (
+          <span role="status" className="min-w-0 flex-1 truncate text-[11px] text-[var(--paper-faint)]" title={said}>
+            {said}
+          </span>
+        )}
+      </div>
       <span
         {...corner}
         aria-label="Resize"

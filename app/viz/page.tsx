@@ -1,6 +1,6 @@
-import Link from "next/link";
 
 import { AppLayout } from "@/components/AppLayout";
+import { PaneLink } from "@/components/PaneLink";
 import { RevealFx } from "@/components/RevealFx";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
@@ -122,9 +122,10 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
   const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 [-webkit-tap-highlight-color:transparent]";
   const style = { "--accent": card.accent } as React.CSSProperties;
   return chart ? (
-    <Link href={chart.href} className={cls} style={style}>
+    // A chart box opens its chart in the second panel (2026-11-04).
+    <PaneLink href={chart.href} className={cls} style={style}>
       {body}
-    </Link>
+    </PaneLink>
   ) : (
     <div className={cls} style={style}>
       {body}

@@ -7,6 +7,8 @@ import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
 import { ShiftNotes } from "@/components/ShiftNotes";
 import { ShiftNav } from "@/components/ShiftNav";
+import { Shell } from "@/components/shell";
+import { EMBED_SCRIPT } from "@/lib/pane";
 import { getDigest } from "@/lib/digest";
 import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
@@ -87,6 +89,10 @@ export default async function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} ${dmSans.variable} ${fraunces.variable} ${mono.variable} antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        {/* Marks a framed load (the second panel, lib/pane.ts) before paint, so its chrome never shows. */}
+        <script dangerouslySetInnerHTML={{ __html: EMBED_SCRIPT }} />
+      </head>
       <body>
         <ThemeProvider
           attribute="class"
@@ -98,12 +104,16 @@ export default async function RootLayout({
               shell wrapper and the drawer stay in one system. */}
           <ProductStatusProvider cards={CARDS}>
             <SwitchboardProvider cards={SWITCHBOARD} digest={digest}>
-              <SwitchboardShell>{children}</SwitchboardShell>
-              {/* The two global gestures, ported from pax-trinity (2026-11-03):
-                  Shift-drag draws a note; Shift and a right-click opens the Nav.
-                  Inside the provider so the Nav can open a box in the panel. */}
-              <ShiftNotes />
-              <ShiftNav />
+              {/* The shell (components/shell.tsx): the second panel beside the page, and the contract the
+                  chat, the notes and the Nav call — so all three sit inside it. */}
+              <Shell>
+                <SwitchboardShell>{children}</SwitchboardShell>
+                {/* The two global gestures, ported from pax-trinity (2026-11-03):
+                    Shift-drag draws a note; Shift and a right-click opens the Nav.
+                    Inside the provider so the Nav can open a box in the panel. */}
+                <ShiftNotes />
+                <ShiftNav />
+              </Shell>
             </SwitchboardProvider>
           </ProductStatusProvider>
         </ThemeProvider>

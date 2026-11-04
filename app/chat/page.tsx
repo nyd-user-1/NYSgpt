@@ -1,6 +1,7 @@
 import Link from "next/link"
 
 import { Chat } from "@/components/chat/chat"
+import { SeededChat } from "@/components/chat/seeded-chat"
 import { openChat } from "@/app/chat-actions"
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton"
 import { onboardGuide } from "@/lib/chat-onboard"
@@ -22,9 +23,9 @@ const NSR_MODE = {
 // scripts/videos/shorts from its catalog and feed; NYSgpt passes none until it has its own.
 // ?c=<id> reopens a saved chat; without it the page is a new chat with a fresh id, so following
 // a saved one starts clean. ?record=1 opens in record mode; ?onboard=1 runs the (placeholder)
-// tour; ?nsr=1 opens in NSR mode.
-export default async function ChatPage({ searchParams }: { searchParams: Promise<{ c?: string; record?: string; onboard?: string; nsr?: string }> }) {
-  const { c, record, onboard, nsr } = await searchParams
+// tour; ?nsr=1 opens in NSR mode; ?seed=<key> carries what the shell's askAbout handed over (a note).
+export default async function ChatPage({ searchParams }: { searchParams: Promise<{ c?: string; record?: string; onboard?: string; nsr?: string; seed?: string }> }) {
+  const { c, record, onboard, nsr, seed } = await searchParams
   const saved = c ? await openChat(c) : null
   const chatId = saved ? saved.meta.id : crypto.randomUUID()
   const guide = onboard === "1" && !saved ? onboardGuide() : undefined
@@ -35,7 +36,7 @@ export default async function ChatPage({ searchParams }: { searchParams: Promise
       {/* The chrome over the chat: the sign-up pages' wordmark at the left (BareHeader's dress),
           the switchboard's discussion button at the right. `nysgpt-app` on the header alone, so
           the button's paper variables resolve without redressing the chat. */}
-      <header className="nysgpt-app pointer-events-none absolute inset-x-0 top-0 z-30 flex items-center justify-between px-6 py-5">
+      <header data-chrome className="nysgpt-app pointer-events-none absolute inset-x-0 top-0 z-30 flex items-center justify-between px-6 py-5">
         <Link href="/" className="pointer-events-auto text-[28px] leading-none text-foreground" style={{ fontFamily: "var(--font-display), Georgia, serif", letterSpacing: "-0.03em" }}>
           NYSgpt
         </Link>
@@ -43,7 +44,11 @@ export default async function ChatPage({ searchParams }: { searchParams: Promise
           <DiscussionHeaderButton />
         </span>
       </header>
-      <Chat key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} onboard={guide} mode={nsr === "1" ? NSR_MODE : undefined} explore={false} scripts={[]} videos={[]} shorts={[]} />
+      {seed && /^[a-z0-9]{1,16}$/.test(seed) ? (
+        <SeededChat seed={seed} key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} onboard={guide} mode={nsr === "1" ? NSR_MODE : undefined} explore={false} scripts={[]} videos={[]} shorts={[]} />
+      ) : (
+        <Chat key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} onboard={guide} mode={nsr === "1" ? NSR_MODE : undefined} explore={false} scripts={[]} videos={[]} shorts={[]} />
+      )}
     </div>
   )
 }

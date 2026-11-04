@@ -5,6 +5,7 @@ import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
+import { useShellPanel } from "@/components/shell";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
@@ -22,11 +23,13 @@ export function AppLayout({
   paperMode?: boolean;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { headerMenu } = useShellPanel();
 
   return (
-    <div className="nysgpt-app flex h-dvh overflow-hidden p-0 sm:p-[18px] bg-[var(--surface)] sm:bg-[var(--bg)]">
+    <div data-app-frame className="nysgpt-app flex h-dvh overflow-hidden p-0 sm:p-[18px] bg-[var(--surface)] sm:bg-[var(--bg)]">
       {/* Sidebar — wired in step 2; collapsed (w-0) until opened. */}
       <div
+        data-chrome
         className={`shrink-0 transition-[width,margin] duration-300 ease-in-out overflow-hidden ${
           sidebarOpen ? "w-full sm:w-[240px] sm:mr-[18px]" : "w-0"
         }`}
@@ -46,13 +49,15 @@ export function AppLayout({
       </div>
 
       <div
+        data-app-card
         className={`relative flex flex-1 flex-col min-w-0 rounded-none sm:rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.07)] sm:border ${
           paperMode
             ? "bg-[var(--paper)] sm:border-[var(--paper-rule)]"
             : "bg-[var(--surface)] sm:border-[var(--border)]"
         }`}
       >
-        <div className="flex items-center px-5 pt-5 pb-5">
+        {/* A plain right-click on the header's empty run opens the Nav for the page (components/shell.tsx). */}
+        <div data-chrome onContextMenu={headerMenu("main")} className="flex items-center px-5 pt-5 pb-5">
           <button
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label="Toggle sidebar"
@@ -82,6 +87,7 @@ export function AppLayout({
 
       {/* Mobile sidebar toggle. */}
       <button
+        data-chrome
         onClick={() => setSidebarOpen((v) => !v)}
         aria-label="Toggle sidebar"
         className="sm:hidden fixed z-50 bottom-4 right-2 flex h-12 w-12 items-center justify-center rounded-full border border-[var(--border)] bg-[var(--surface)] shadow-lg hover:bg-[var(--inp-bg)]"

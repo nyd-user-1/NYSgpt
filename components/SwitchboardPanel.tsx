@@ -267,18 +267,6 @@ function SwitchboardPanel() {
 
   const product = view.kind === 'product' ? cards[view.index] : null
   const channel = view.kind === 'channel' ? CHANNELS[view.id] : null
-  // The card dialog's copy, now the panel's (2026-11-03, the boxes open here):
-  // the statement and the Problem–Agitate–Solution or story paragraphs, merged
-  // from PRODUCT_EXTRAS since SWITCHBOARD carries the raw cards.
-  const extra = product ? { ...product, ...(PRODUCT_EXTRAS[product.title] ?? {}) } : null
-  const statement = !extra ? undefined : Array.isArray(extra.statement) ? extra.statement[0] : extra.statement
-  const paragraphs = !extra
-    ? []
-    : extra.story
-      ? extra.story.before
-      : extra.pas
-        ? [extra.pas.problem, extra.pas.agitate, extra.pas.solution]
-        : []
   // One level down the live dot becomes a back arrow and the title becomes the
   // destination — that pair IS the navigation model, so no view stack is needed.
   const deep = Boolean(product || channel || view.kind === 'blocks')
@@ -446,117 +434,7 @@ function SwitchboardPanel() {
             ) : product ? (
               /* ── PRODUCT VIEW ────────────────────────────────────────── */
               <>
-                {/* Hero — the headline figure leads in the product's accent,
-                    with the description directly beneath it. The product's
-                    NAME lives in the Visit footer; its DOMAIN is the header. */}
-                {/* An API's page is its endpoint list alone. */}
-                {!product.catalog && (
-                <div className="border-b border-[var(--paper-rule)] px-5 py-6">
-                  <p
-                    className="leading-none tabular-nums"
-                    style={{ ...MONO, fontSize: 'clamp(2.2rem,5vw,3rem)', color: product.accent }}
-                  >
-                    <CountUp {...countProps(product.value)} duration={900} />
-                  </p>
-                  <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>
-                    {product.unit}
-                  </p>
-                  <p className="mt-4 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>
-                    {product.body}
-                  </p>
-                </div>
-                )}
-
-                {/* The story the popover used to tell, in the panel's own
-                    idiom: the statement leads, the paragraphs follow. The
-                    Inspector keeps its switch — it closes the panel and turns
-                    the overlay on over the page (HomeContents listens). */}
-                {!product.catalog && (statement || paragraphs.length > 0) && (
-                  <div className="border-b border-[var(--paper-rule)] px-5 py-6">
-                    {statement && (
-                      <p className="text-[17px] leading-[1.4] text-[var(--paper-text)]" style={SERIF}>
-                        {statement}
-                      </p>
-                    )}
-                    {paragraphs.map((text, i) => (
-                      <p
-                        key={text}
-                        className={`text-[13px] leading-[1.7] text-[var(--paper-muted)] ${i === 0 && !statement ? '' : 'mt-4'}`}
-                        style={SANS}
-                      >
-                        {text}
-                      </p>
-                    ))}
-                    {product.title === 'Inspector' && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          close()
-                          window.dispatchEvent(new CustomEvent('nysgpt:inspect'))
-                        }}
-                        className="mt-6 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--paper-text)] text-[14px] font-medium text-[var(--paper)] transition-opacity hover:opacity-90"
-                        style={SANS}
-                      >
-                        <SquareDashedMousePointer className="h-4 w-4" aria-hidden /> Turn on the Inspector
-                      </button>
-                    )}
-                  </div>
-                )}
-
-                {/* Sub-stats — a ruled 2-col grid, the masthead ledger's idiom
-                    at panel scale. Only cards carrying measured breakdowns
-                    render it (today: Artificial Intelligence). Sorted here,
-                    large → small in reading order (ruling 2026-08-24), so the
-                    data file can keep its entries grouped however it likes.
-                    Each cell is a LINK to the surface holding that layer, with
-                    the home cards' hover treatment: accent tint, the figure
-                    taking the accent, and an ↗ in the corner. */}
-                {product.catalog ? (
-                  <SwitchboardApiList key={product.catalog} dataset={product.catalog} />
-                ) : product.stats && product.stats.length > 0 && (
-                  <div
-                    className="grid grid-cols-2"
-                    style={{
-                      '--stat-accent': product.accent,
-                      /* 5%, exactly the home cards' --accent-tint mix. */
-                      '--stat-tint': `color-mix(in oklab, ${product.accent} 5%, var(--paper))`,
-                    } as React.CSSProperties}
-                  >
-                    {[...product.stats].sort((a, b) => b.value - a.value).map((s, i, arr) => (
-                      /* The home cards' hover, verbatim: accent tint on the
-                         cell, value AND label take the accent, the ↗ carries
-                         the p-2 rounded-full chrome with the muted bg on its
-                         own hover, and the figure re-counts on each hover
-                         (CountUp trigger="view-hover" — attaches to this
-                         <Link> itself). */
-                      <Link
-                        key={s.unit}
-                        {...(s.href ? linkProps(s.href) : { href: '#', onClick: (e: React.MouseEvent) => e.preventDefault() })}
-                        className={`group/stat relative block border-b border-[var(--paper-rule)] px-5 py-6 transition-colors hover:bg-[var(--stat-tint)] ${i % 2 === 0 ? 'border-r' : ''} ${
-                          i === arr.length - 1 && arr.length % 2 === 1 ? 'col-span-2 !border-r-0' : ''
-                        }`}
-                      >
-                        <span
-                          className="absolute right-3 top-3 flex items-center justify-center rounded-full p-2 opacity-0 transition-[opacity,background-color] duration-200 hover:bg-[var(--paper-rule-soft)] group-hover/stat:opacity-100"
-                        >
-                          <ArrowUpRight className="h-4 w-4 text-[var(--stat-accent)]" />
-                        </span>
-                        <p
-                          className="leading-none tabular-nums text-[var(--paper-text)] transition-colors group-hover/stat:text-[var(--stat-accent)]"
-                          style={{ ...MONO, fontSize: 'clamp(1.7rem,3.6vw,2.2rem)' }}
-                        >
-                          <CountUp {...countProps(s.value)} duration={900} trigger="view-hover" />
-                        </p>
-                        <p
-                          className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)] transition-colors group-hover/stat:text-[var(--stat-accent)]"
-                          style={SANS}
-                        >
-                          {s.unit}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
-                )}
+                <ProductBody product={product} onInspect={close} />
               </>
             ) : (
               /* ── MENU VIEW ───────────────────────────────────────────── */
@@ -655,6 +533,136 @@ function SwitchboardPanel() {
 }
 
 /** compact() → CountUp's three props, so callers don't repeat the spread. */
+/**
+ * A box's page — the hero figure, its story, its stats or endpoint list — as the switchboard shows it and
+ * as /box/<slug> shows it in the second panel (2026-11-04: the boxes open there). `onInspect` runs before
+ * the Inspector box turns the overlay on (the switchboard closes itself).
+ */
+export function ProductBody({ product, onInspect }: { product: HomeCardData; onInspect?: () => void }) {
+  const { linkProps } = useProductStatus()
+  // The card dialog's copy (2026-11-03): the statement and the Problem–Agitate–Solution or story
+  // paragraphs, merged from PRODUCT_EXTRAS since SWITCHBOARD carries the raw cards.
+  const extra = { ...product, ...(PRODUCT_EXTRAS[product.title] ?? {}) }
+  const statement = Array.isArray(extra.statement) ? extra.statement[0] : extra.statement
+  const paragraphs = extra.story ? extra.story.before : extra.pas ? [extra.pas.problem, extra.pas.agitate, extra.pas.solution] : []
+  const close = () => onInspect?.()
+  return (
+    <>
+    {/* Hero — the headline figure leads in the product's accent,
+        with the description directly beneath it. The product's
+        NAME lives in the Visit footer; its DOMAIN is the header. */}
+    {/* An API's page is its endpoint list alone. */}
+    {!product.catalog && (
+    <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+      <p
+        className="leading-none tabular-nums"
+        style={{ ...MONO, fontSize: 'clamp(2.2rem,5vw,3rem)', color: product.accent }}
+      >
+        <CountUp {...countProps(product.value)} duration={900} />
+      </p>
+      <p className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)]" style={SANS}>
+        {product.unit}
+      </p>
+      <p className="mt-4 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>
+        {product.body}
+      </p>
+    </div>
+    )}
+
+    {/* The story the popover used to tell, in the panel's own
+        idiom: the statement leads, the paragraphs follow. The
+        Inspector keeps its switch — it closes the panel and turns
+        the overlay on over the page (HomeContents listens). */}
+    {!product.catalog && (statement || paragraphs.length > 0) && (
+      <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+        {statement && (
+          <p className="text-[17px] leading-[1.4] text-[var(--paper-text)]" style={SERIF}>
+            {statement}
+          </p>
+        )}
+        {paragraphs.map((text, i) => (
+          <p
+            key={text}
+            className={`text-[13px] leading-[1.7] text-[var(--paper-muted)] ${i === 0 && !statement ? '' : 'mt-4'}`}
+            style={SANS}
+          >
+            {text}
+          </p>
+        ))}
+        {product.title === 'Inspector' && (
+          <button
+            type="button"
+            onClick={() => {
+              close()
+              window.dispatchEvent(new CustomEvent('nysgpt:inspect'))
+            }}
+            className="mt-6 flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--paper-text)] text-[14px] font-medium text-[var(--paper)] transition-opacity hover:opacity-90"
+            style={SANS}
+          >
+            <SquareDashedMousePointer className="h-4 w-4" aria-hidden /> Turn on the Inspector
+          </button>
+        )}
+      </div>
+    )}
+
+    {/* Sub-stats — a ruled 2-col grid, the masthead ledger's idiom
+        at panel scale. Only cards carrying measured breakdowns
+        render it (today: Artificial Intelligence). Sorted here,
+        large → small in reading order (ruling 2026-08-24), so the
+        data file can keep its entries grouped however it likes.
+        Each cell is a LINK to the surface holding that layer, with
+        the home cards' hover treatment: accent tint, the figure
+        taking the accent, and an ↗ in the corner. */}
+    {product.catalog ? (
+      <SwitchboardApiList key={product.catalog} dataset={product.catalog} />
+    ) : product.stats && product.stats.length > 0 && (
+      <div
+        className="grid grid-cols-2"
+        style={{
+          '--stat-accent': product.accent,
+          /* 5%, exactly the home cards' --accent-tint mix. */
+          '--stat-tint': `color-mix(in oklab, ${product.accent} 5%, var(--paper))`,
+        } as React.CSSProperties}
+      >
+        {[...product.stats].sort((a, b) => b.value - a.value).map((s, i, arr) => (
+          /* The home cards' hover, verbatim: accent tint on the
+             cell, value AND label take the accent, the ↗ carries
+             the p-2 rounded-full chrome with the muted bg on its
+             own hover, and the figure re-counts on each hover
+             (CountUp trigger="view-hover" — attaches to this
+             <Link> itself). */
+          <Link
+            key={s.unit}
+            {...(s.href ? linkProps(s.href) : { href: '#', onClick: (e: React.MouseEvent) => e.preventDefault() })}
+            className={`group/stat relative block border-b border-[var(--paper-rule)] px-5 py-6 transition-colors hover:bg-[var(--stat-tint)] ${i % 2 === 0 ? 'border-r' : ''} ${
+              i === arr.length - 1 && arr.length % 2 === 1 ? 'col-span-2 !border-r-0' : ''
+            }`}
+          >
+            <span
+              className="absolute right-3 top-3 flex items-center justify-center rounded-full p-2 opacity-0 transition-[opacity,background-color] duration-200 hover:bg-[var(--paper-rule-soft)] group-hover/stat:opacity-100"
+            >
+              <ArrowUpRight className="h-4 w-4 text-[var(--stat-accent)]" />
+            </span>
+            <p
+              className="leading-none tabular-nums text-[var(--paper-text)] transition-colors group-hover/stat:text-[var(--stat-accent)]"
+              style={{ ...MONO, fontSize: 'clamp(1.7rem,3.6vw,2.2rem)' }}
+            >
+              <CountUp {...countProps(s.value)} duration={900} trigger="view-hover" />
+            </p>
+            <p
+              className="mt-2 text-[10px] uppercase tracking-[0.2em] text-[var(--paper-faint)] transition-colors group-hover/stat:text-[var(--stat-accent)]"
+              style={SANS}
+            >
+              {s.unit}
+            </p>
+          </Link>
+        ))}
+      </div>
+    )}
+    </>
+  )
+}
+
 function countProps(value: number) {
   const f = compact(value)
   return { value: f.count, decimals: f.decimals, suffix: f.suffix }
