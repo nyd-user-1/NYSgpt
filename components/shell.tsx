@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 
 import type { ChipOffer } from "@/lib/question-resolver"
-import { PANE_MAIN, PANE_MESSAGE, PANE_PARAM, PANE_SECOND, SEED_PREFIX, isEmbedded, isPanePath } from "@/lib/pane"
+import { PANE_MAIN, PANE_MESSAGE, PANE_PARAM, PANE_SECOND, SEED_PREFIX, VIZ_POINT, isEmbedded, isPanePath } from "@/lib/pane"
 import { PaneFrame, PaneSync } from "@/components/pane"
 import { useSwitchboard } from "@/components/SwitchboardPanel"
 
@@ -205,6 +205,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
       if (d?.type === PANE_MAIN && typeof d.href === "string" && isPanePath(d.href)) router.push(d.href)
       // Either pane may ask for the third panel; from pane2 it replaces pane2's own page.
       if (d?.type === PANE_SECOND && typeof d.href === "string" && isPanePath(d.href)) setPane2({ src: d.href, href: d.href, n: Date.now() })
+      // A table row pointing at its datum: relay to every chart that might hold it — the main
+      // page (as an event) and the OTHER pane (as a message); the sender already knows.
+      if (d?.type === VIZ_POINT) {
+        window.dispatchEvent(new CustomEvent(VIZ_POINT, { detail: d }))
+        const other = fromPane2 ? paneRef.current?.contentWindow : pane2Ref.current?.contentWindow
+        other?.postMessage(d, window.location.origin)
+      }
     }
     window.addEventListener("message", on)
     return () => window.removeEventListener("message", on)

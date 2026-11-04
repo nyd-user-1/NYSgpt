@@ -2,6 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { VIZ_POINT, isEmbedded } from '@/lib/pane'
+
+/** A pressed row points at its datum: framed, the shell relays it; same-page, the chart hears it directly. */
+function pointAt(slug: string, row: number) {
+  const msg = { type: VIZ_POINT, slug, row }
+  if (isEmbedded()) window.parent.postMessage(msg, window.location.origin)
+  else window.dispatchEvent(new CustomEvent(VIZ_POINT, { detail: msg }))
+}
 
 // A chart's data as a table (2026-11-04: a click on any /viz chart opens it in the second panel). The
 // rows come from the same committed snapshot the chart draws (data/viz/*.json), imported here on demand —
@@ -152,7 +160,12 @@ export function DataTable({ slug }: { slug: string }) {
             const at = from + k
             const on = at === mark
             return (
-              <tr key={at} ref={on ? marked : undefined} className={`border-b border-[var(--paper-rule-soft)] ${on ? 'bg-[var(--paper-quiet)] text-[var(--paper-strong)]' : ''}`}>
+              <tr
+                key={at}
+                ref={on ? marked : undefined}
+                onClick={() => pointAt(slug, at)}
+                className={`cursor-pointer border-b border-[var(--paper-rule-soft)] transition-colors hover:bg-[var(--paper-quiet)] ${on ? 'bg-[var(--paper-quiet)] text-[var(--paper-strong)]' : ''}`}
+              >
                 {r.map((v, i) => (
                   <td key={i} className={`py-1.5 pr-4 ${i ? 'text-right tabular-nums' : 'text-left'}`} style={typeof v === 'number' ? MONO : undefined}>
                     {typeof v === 'number' ? (Number.isInteger(v) ? fmt.format(v) : v.toFixed(3)) : v}

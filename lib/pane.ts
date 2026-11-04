@@ -23,5 +23,9 @@ export const isPanePath = (href: string) => href.startsWith("/") && !href.starts
 /** A box's page, /box/<slug>, from its title: what a box opens in the panel. */
 export const boxSlug = (title: string) => title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
 
+/** A data-table row pointing at its datum (Brendan, 2026-11-04): the table says which row was
+ *  pressed; the chart answers by walking its crosshair to the point. Crosses frames via the shell. */
+export const VIZ_POINT = "nysgpt:viz-point"
+
 /** What askAbout hands the chat it opens: the context, kept under a key the chat's ?seed= names. */
 export const SEED_PREFIX = "nysgpt:chat-seed:"
