@@ -5,6 +5,8 @@ import { RevealFx } from "@/components/RevealFx";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { HomeMasthead } from "../HomeMasthead";
+import { PLATE_H } from "@/lib/plate";
+import { PlateGrid } from "../PlateGrid";
 import { APIS, CARDS, KINDS, LEDGER, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from "@/lib/home-data";
 
 export const metadata = {
@@ -20,7 +22,7 @@ const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as cons
 const OFF_RAIL = new Set(["Sports", "Solar", "Compiler", "Lake", "Loaders"]);
 
 /** The twelve chart pages, dealt onto the boxes in plate order. Static JSON behind every one, so
- *  Next prerenders them and these links prefetch finished pages. */
+ *  Next prerenders them; the links don't prefetch (twelve at once ran the worker past its CPU limit). */
 const CHARTS = [
   { href: "/viz/nebula", title: "The nuclide nebula", body: "Every nuclide the literature has touched, neutrons across and protons up, glowing with the log of its paper count." },
   { href: "/viz/rainfall", title: "The rainfall and the river", body: "Papers entering the corpus each year, and below them the slice that flowed on into EXFOR as compiled data." },
@@ -46,7 +48,6 @@ export default function VizPage() {
     .filter((c) => !OFF_RAIL.has(c.title))
     .map((c) => (c.tag ? { ...c, accent: KINDS[c.tag as Kind] } : c))
     .sort((a, b) => a.title.localeCompare(b.title));
-  const columns = Math.ceil(boxes.length / 2);
 
   return (
     <AppLayout paperMode>
@@ -58,17 +59,13 @@ export default function VizPage() {
 
           <RevealFx delay={0.22} translateY={5}>
             <div className="relative mt-[72px]">
-              <div className="isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)]">
-                <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain [--col:100%] sm:[--col:50%] lg:[--col:20%]">
-                  <div
-                    className="grid h-full grid-flow-col grid-rows-[repeat(2,minmax(210px,auto))] border-t border-l border-[var(--paper-rule)] [&>*]:snap-start"
-                    style={{ width: `calc(${columns} * var(--col))`, gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-                  >
-                    {boxes.map((card, i) => (
-                      <VizBox key={card.href + card.title} card={card} index={i} chart={CHARTS[i]} />
-                    ))}
-                  </div>
-                </div>
+              {/* The plate as / has it (HomeContents): a fixed height, an even grid from its own measured size. */}
+              <div className={`isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)] ${PLATE_H}`}>
+                <PlateGrid className="-m-px min-h-0 flex-1" minW={220}>
+                  {boxes.map((card, i) => (
+                    <VizBox key={card.href + card.title} card={card} index={i} chart={CHARTS[i]} />
+                  ))}
+                </PlateGrid>
               </div>
             </div>
           </RevealFx>
@@ -123,7 +120,8 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
   const style = { "--accent": card.accent } as React.CSSProperties;
   return chart ? (
     // A chart box opens its chart in the second panel (2026-11-04).
-    <PaneLink href={chart.href} className={cls} style={style}>
+    // No prefetch: twelve chart pages fetched at once ran the worker past its CPU limit (2026-11-04).
+    <PaneLink href={chart.href} prefetch={false} className={cls} style={style}>
       {body}
     </PaneLink>
   ) : (

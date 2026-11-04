@@ -193,13 +193,14 @@ export function Shell({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("message", on)
   }, [router])
 
-  // What a click opens in the main page a right-click opens in the second panel (trinity, 2026-10-31): any of
-  // this app's links. With Shift a link keeps the browser's menu; inside the panel's frame the browser's
-  // menu stays.
+  // What a click opens in the main page Shift and a right-click opens in the second panel: any of this app's
+  // links (Brendan, 2026-11-04 — a plain right-click on a link is the browser's menu again). This listener
+  // sits on the document, so it runs before ShiftNav's on the window, which leaves links alone. Inside the
+  // panel's frame the browser's menu stays.
   React.useEffect(() => {
     if (isEmbedded()) return
     const on = (e: MouseEvent) => {
-      if (e.shiftKey || e.defaultPrevented) return
+      if (!e.shiftKey || e.defaultPrevented) return
       const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null
       if (!a || a.target === "_blank" || a.hasAttribute("download") || a.getAttribute("href")?.startsWith("#")) return
       const url = new URL(a.href, window.location.href)

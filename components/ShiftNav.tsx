@@ -39,7 +39,8 @@ const MONO = { fontFamily: 'var(--font-mono), ui-monospace, monospace' } as cons
  * second panel (components/shell.tsx) — and ⌥ Enter or a row's arrow on the
  * other; a box opens its page in the second panel (⌥: the main page), and a
  * box row's ↗ leaves for its site. A plain right-click on a header's empty run
- * opens the same card (the shell's headerMenu). A link, a control, a text field, or an open
+ * opens the same card (the shell's headerMenu). Shift and a right-click on one
+ * of this app's links sends the link to the second panel instead (the shell). A link, a control, a text field, or an open
  * menu or dialog keeps the browser's menu, as does a right-click a surface
  * has already taken. A second Shift right-click moves the card to its point.
  * Firefox never hands a page Shift and a right-click (it shows its own menu

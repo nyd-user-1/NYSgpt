@@ -136,7 +136,7 @@ export function HomeCard({ card, index, productIndex, category, featured = false
         e.preventDefault();
         setActive((v) => !v);
       }}
-      className={`group/card relative flex ${paper ? "h-[210px] overflow-hidden px-5 py-5" : large ? "min-h-[300px] px-8 py-8 lg:min-h-[421px]" : "min-h-[210px] px-5 py-5"} flex-col border-b border-r border-[var(--paper-rule)] transition-colors [-webkit-tap-highlight-color:transparent] ${
+      className={`group/card relative flex ${paper ? "h-[210px] overflow-hidden px-5 py-5" : large ? "min-h-0 overflow-hidden px-8 py-8" : "min-h-[210px] px-5 py-5"} flex-col border-b border-r border-[var(--paper-rule)] transition-colors [-webkit-tap-highlight-color:transparent] ${
         lit ? "bg-[var(--accent-tint)]" : rest === "grey" ? "bg-[var(--paper-quiet)]" : ""
       }`}
     >
