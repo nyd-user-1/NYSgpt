@@ -23,6 +23,9 @@ export type HomeCardData = {
   body: string;
   /** Raw count from the project's database; compact() handles the display. */
   value: number;
+  /** A chat deep-link: the card grows a chat corner (bottom-left on hover) that opens /chat in
+   *  the named mode. The Science box carries /chat?nsr=1. */
+  chat?: string;
   unit: string;
   /**
    * Paper cards (Refresh) only: the bottom-left mono line — "Published
@@ -817,7 +820,7 @@ export const CARDS: HomeCardData[] = [
       { value: 940, unit: "hearings", href: "https://policy.nysgpt.com/hearings" },
     ],
   },
-  { href: "https://amplify.duruug4qfhs29.amplifyapp.com", domain: "nsr.nysgpt.com", title: "Science", accent: "#00BFFF", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", value: 6_406_550, unit: "records",
+  { href: "https://amplify.duruug4qfhs29.amplifyapp.com", domain: "nsr.nysgpt.com", title: "Science", accent: "#00BFFF", chat: "/chat?nsr=1", body: "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.", value: 6_406_550, unit: "records",
     shots: ["/products/science-nuclide-chart.png", "/products/science-recipes.png"],
     // Measured 2026-09-30 from the NSR DB (Neon nsr): exact count(*) of all 42
     // tables, 5,261,457 rows. hrefs unverified: deployment disabled 2026-09-30.
