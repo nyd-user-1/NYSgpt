@@ -21,10 +21,17 @@ export function ExpandBox({ href, className, style, children }: { href: string; 
     e.preventDefault()
     const el = ref.current
     if (!el || box) return
-    const from = el.getBoundingClientRect()
-    // The destination: the plate frame this box lives in — the single combined box.
-    const frame = el.closest('.isolate') ?? el
-    const to = frame.getBoundingClientRect()
+    // The motion starts at the masthead's MAIN box, top left (Brendan, 2026-11-04 — not the
+    // clicked box), and grows over the union of masthead + plate: the one combined box.
+    const word = document.querySelector('[data-inspect="Wordmark"]')
+    const mast = word?.closest('.rounded-2xl') ?? word
+    const plate = el.closest('.isolate') ?? el
+    const from = (word ?? el).getBoundingClientRect()
+    const a = (mast ?? plate).getBoundingClientRect()
+    const b = plate.getBoundingClientRect()
+    const left = Math.min(a.left, b.left)
+    const top = Math.min(a.top, b.top)
+    const to = new DOMRect(left, top, Math.max(a.right, b.right) - left, Math.max(a.bottom, b.bottom) - top)
     setBox({ from, to })
     requestAnimationFrame(() => requestAnimationFrame(() => setGrown(true)))
     window.setTimeout(() => router.push(href), MS)
