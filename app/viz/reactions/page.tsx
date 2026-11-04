@@ -8,7 +8,7 @@ export default function Page() {
   const field = nuclideField()
   const flows = reactionFlows()
   return (
-    <VizShell>
+    <VizShell title="Reactions | Flow Lines">
       <ReactionsChart field={field} flows={flows} />
     </VizShell>
   )

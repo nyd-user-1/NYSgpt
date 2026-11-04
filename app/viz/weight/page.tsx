@@ -7,7 +7,7 @@ export const metadata = { title: "Two-series scatter — Viz" }
 export default function Page() {
   const rows = paperScatter()
   return (
-    <VizShell>
+    <VizShell title="Papers | Two-Series Scatter">
       <WeightChart rows={rows} />
     </VizShell>
   )

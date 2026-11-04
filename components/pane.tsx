@@ -28,6 +28,7 @@ export function PaneFrame({
   src,
   href,
   width,
+  offsetRight,
   dragging,
   nextSize,
   onSize,
@@ -38,6 +39,8 @@ export function PaneFrame({
   src: string
   href: string
   width: string
+  /** Distance from the right edge — set when a third panel stands to this one's right (2026-11-04). */
+  offsetRight?: string
   dragging: boolean
   nextSize: PanelSize
   onSize: () => void
@@ -56,8 +59,8 @@ export function PaneFrame({
   return (
     <section
       data-pane-host
-      style={{ "--pane-w": width } as React.CSSProperties}
-      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[18px] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-header ${dragging ? "" : "transition-[width] duration-300 ease-in-out"}`}
+      style={{ "--pane-w": width, "--pane-r": offsetRight ?? "18px" } as React.CSSProperties}
+      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[var(--pane-r)] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-header ${dragging ? "" : "transition-[width,right] duration-300 ease-in-out"}`}
     >
       <div onContextMenu={onMenu} className="flex shrink-0 items-center gap-3 px-5 pt-5 pb-5">
         <p className="min-w-0 flex-1 truncate text-[22px] leading-none text-[var(--paper-text)]" style={{ ...SERIF, letterSpacing: "-0.02em" }}>

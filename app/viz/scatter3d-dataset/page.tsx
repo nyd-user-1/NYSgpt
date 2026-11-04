@@ -7,7 +7,7 @@ export const metadata = { title: "3D dataset scatter — Viz" }
 export default function Page() {
   const rows = paperTriples()
   return (
-    <VizShell>
+    <VizShell title="Papers | 3D Dataset Scatter">
       <Scatter3dDatasetChart rows={rows} />
     </VizShell>
   )

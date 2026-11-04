@@ -7,7 +7,7 @@ export const metadata = { title: "Stacked area — Viz" }
 export default function Page() {
   const { papers, exfor } = perYear()
   return (
-    <VizShell>
+    <VizShell title="Papers | Stacked Area">
       <RainfallChart papers={papers} exfor={exfor} />
     </VizShell>
   )

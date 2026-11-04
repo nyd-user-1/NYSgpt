@@ -4,7 +4,7 @@ import * as React from "react"
 import { useRouter } from "next/navigation"
 
 import type { ChipOffer } from "@/lib/question-resolver"
-import { PANE_MAIN, PANE_MESSAGE, PANE_PARAM, SEED_PREFIX, isEmbedded, isPanePath } from "@/lib/pane"
+import { PANE_MAIN, PANE_MESSAGE, PANE_PARAM, PANE_SECOND, SEED_PREFIX, isEmbedded, isPanePath } from "@/lib/pane"
 import { PaneFrame, PaneSync } from "@/components/pane"
 import { useSwitchboard } from "@/components/SwitchboardPanel"
 
@@ -130,6 +130,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
   // which reloads the frame when a page is opened into it again.
   const [pane, setPane] = React.useState<{ src: string; href: string; n: number } | null>(null)
   const paneRef = React.useRef<HTMLIFrameElement>(null)
+  // The THIRD panel (Brendan, 2026-11-04): opened by a pane's own openPane (PANE_SECOND). While it
+  // lives, the page keeps only the slim bar and the two panes split the rest. Not in the URL — a
+  // working surface, not an address.
+  const [pane2, setPane2] = React.useState<{ src: string; href: string; n: number } | null>(null)
+  const pane2Ref = React.useRef<HTMLIFrameElement>(null)
   // The second panel opens at the half (trinity, 2026-10-31); its button walks third → half → full.
   const [size, setSize] = React.useState<PanelSize>("half")
   const [split, setSplit] = React.useState(0.5)
@@ -143,8 +148,12 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const openPane = React.useCallback(
     (href: string) => {
       if (!isPanePath(href)) return
-      // Framed, the frame is the panel: it moves itself.
-      if (isEmbedded()) return router.push(href)
+      // Framed, a pane's openPane asks the shell around it for the THIRD panel (2026-11-04) —
+      // it used to move itself; now the chart keeps its panel and the table gets its own.
+      if (isEmbedded()) {
+        window.parent.postMessage({ type: PANE_SECOND, href }, window.location.origin)
+        return
+      }
       sbClose()
       setSize("half")
       setPane({ src: href, href, n: Date.now() })
@@ -184,10 +193,18 @@ export function Shell({ children }: { children: React.ReactNode }) {
   // page in the main container (PANE_MAIN).
   React.useEffect(() => {
     const on = (e: MessageEvent) => {
-      if (e.origin !== window.location.origin || e.source !== paneRef.current?.contentWindow) return
+      if (e.origin !== window.location.origin) return
+      const fromPane = e.source === paneRef.current?.contentWindow
+      const fromPane2 = e.source === pane2Ref.current?.contentWindow
+      if (!fromPane && !fromPane2) return
       const d = e.data as { type?: string; href?: string } | null
-      if (d?.type === PANE_MESSAGE && typeof d.href === "string") setPane((p) => (p && p.href !== d.href ? { ...p, href: d.href! } : p))
+      if (d?.type === PANE_MESSAGE && typeof d.href === "string") {
+        if (fromPane2) setPane2((p) => (p && p.href !== d.href ? { ...p, href: d.href! } : p))
+        else setPane((p) => (p && p.href !== d.href ? { ...p, href: d.href! } : p))
+      }
       if (d?.type === PANE_MAIN && typeof d.href === "string" && isPanePath(d.href)) router.push(d.href)
+      // Either pane may ask for the third panel; from pane2 it replaces pane2's own page.
+      if (d?.type === PANE_SECOND && typeof d.href === "string" && isPanePath(d.href)) setPane2({ src: d.href, href: d.href, n: Date.now() })
     }
     window.addEventListener("message", on)
     return () => window.removeEventListener("message", on)
@@ -285,6 +302,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
   // chrome buttons, stacked. The sidebar leaves the screen entirely.
   const width = size === "third" ? "420px" : size === "half" ? "50vw" : size === "custom" ? `${(split * 100).toFixed(2)}vw` : "calc(100vw - 124px)"
   const full = !!pane && size === "full"
+  // The third panel: both panes split what the slim bar leaves (124px page + 18px between them).
+  const second = !!pane && !!pane2
+  const half2 = "calc((100vw - 142px)/2)"
+  const slim = full || second
   return (
     <PanelCtx.Provider value={panel}>
       <React.Suspense>
@@ -292,25 +313,26 @@ export function Shell({ children }: { children: React.ReactNode }) {
       </React.Suspense>
       {/* The page narrows beside the panel, as SwitchboardShell narrows it beside the switchboard. */}
       <div
-        style={{ "--pane-w": width } as React.CSSProperties}
-        data-page-slim={full || undefined}
+        style={{ "--pane-w": second ? "calc(100vw - 124px)" : width } as React.CSSProperties}
+        data-page-slim={slim || undefined}
         className={`${dragging ? "" : "transition-[padding] duration-300 ease-in-out"} ${pane ? "sm:pr-[calc(var(--pane-w)+18px)]" : ""}`}
       >
         {children}
       </div>
-      {/* The slim bar: at FULL the app card hides its page and its header stacks to a column of
-          the two round buttons; the sidebar (and its toggle's work) leaves the screen. */}
-      {full && (
+      {/* The slim bar: at FULL — or while the third panel lives — the app card hides its page and
+          its header stacks to a column of the two round buttons; the sidebar leaves the screen. */}
+      {slim && (
         <style>{`@media (min-width: 640px) {
           [data-page-slim] [data-app-frame] > [data-chrome]:first-child { width: 0 !important; margin-right: 0 !important; }
           [data-page-slim] [data-app-card] > :not([data-chrome]) { display: none; }
           [data-page-slim] [data-app-card] > [data-chrome] { flex-direction: column; align-items: center; gap: 14px; padding: 14px 0; }
           [data-page-slim] [data-app-card] > [data-chrome] > .flex-1 { display: none; }
+          [data-page-slim] [data-app-card] > [data-chrome] button { margin: 0 !important; }
         }`}</style>
       )}
       {pane && (
         <>
-          {!full && (
+          {!slim && (
             <div
               role="separator"
               aria-orientation="vertical"
@@ -343,14 +365,32 @@ export function Shell({ children }: { children: React.ReactNode }) {
             key={pane.n}
             src={pane.src}
             href={pane.href}
-            width={width}
+            width={second ? half2 : width}
+            offsetRight={second ? `calc(((100vw - 142px)/2) + 36px)` : undefined}
             dragging={dragging}
             nextSize={nextSize}
-            onSize={() => setSize(nextSize)}
-            onClose={() => setPane(null)}
+            onSize={second ? () => {} : () => setSize(nextSize)}
+            onClose={() => {
+              // Closing panel 2 while panel 3 lives promotes the third into its place.
+              if (pane2) { setPane(pane2); setPane2(null) } else setPane(null)
+            }}
             onMenu={headerMenu("pane")}
             frameRef={paneRef}
           />
+          {second && pane2 && (
+            <PaneFrame
+              key={pane2.n}
+              src={pane2.src}
+              href={pane2.href}
+              width={half2}
+              dragging={dragging}
+              nextSize={nextSize}
+              onSize={() => {}}
+              onClose={() => setPane2(null)}
+              onMenu={headerMenu("pane")}
+              frameRef={pane2Ref}
+            />
+          )}
         </>
       )}
     </PanelCtx.Provider>

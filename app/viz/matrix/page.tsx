@@ -7,7 +7,7 @@ export const metadata = { title: "Correlation matrix — Viz" }
 export default function Page() {
   const { vars, cells } = measureMatrix()
   return (
-    <VizShell>
+    <VizShell title="Measures | Correlation Matrix">
       <MatrixChart vars={vars} cells={cells} />
     </VizShell>
   )

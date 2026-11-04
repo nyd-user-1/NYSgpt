@@ -7,7 +7,7 @@ export const metadata = { title: "Noise field — Viz" }
 export default function Page() {
   const field = nuclideField()
   return (
-    <VizShell>
+    <VizShell title="Nuclides | Noise Field">
       <SimplexChart field={field} />
     </VizShell>
   )

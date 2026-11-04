@@ -8,13 +8,13 @@ import { PAPER_BRIDGE } from '@/components/editorial/PaperBridge'
 /** Every chart surface's cursor (2026-11-04: the plus first). The one place to change it. */
 const CHART_CURSOR = 'crosshair'
 
-export function VizShell({ children, framed }: { children: React.ReactNode; framed?: boolean }) {
+export function VizShell({ children, framed, title }: { children: React.ReactNode; framed?: boolean; title?: string }) {
   if (framed)
     return (
       // The one large box (Brendan, 2026-11-04): the exact /viz column — same paddings, so the
       // frame's rect equals the expand clone's end rect — holding a single rounded frame the
       // chart fills and animates inside. No byline; the box is the page.
-      <AppLayout paperMode>
+      <AppLayout paperMode headerTitle={title}>
         <style>{`[data-viz-chart], [data-viz-chart] * { cursor: ${CHART_CURSOR} !important; }`}</style>
         <div className="flex-1 overflow-hidden" style={{ backgroundColor: 'var(--paper)', ...PAPER_BRIDGE }}>
           <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
@@ -26,7 +26,7 @@ export function VizShell({ children, framed }: { children: React.ReactNode; fram
       </AppLayout>
     )
   return (
-    <AppLayout paperMode>
+    <AppLayout paperMode headerTitle={title}>
       {/* ECharts sets its own cursor on the canvas as the pointer moves; !important holds this one. */}
       <style>{`[data-viz-chart], [data-viz-chart] * { cursor: ${CHART_CURSOR} !important; }`}</style>
       <div className="flex min-h-0 flex-1 items-center justify-center px-2 pb-6 sm:px-6" style={{ backgroundColor: 'var(--paper)', ...PAPER_BRIDGE }}>

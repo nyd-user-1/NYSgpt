@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 // A chart's data as a table (2026-11-04: a click on any /viz chart opens it in the second panel). The
 // rows come from the same committed snapshot the chart draws (data/viz/*.json), imported here on demand —
@@ -113,8 +114,9 @@ export function DataTable({ slug }: { slug: string }) {
   const pages = Math.max(1, Math.ceil(table.rows.length / PER))
   const from = page * PER
   const rows = table.rows.slice(from, from + PER)
+  // Chip dress gone (Brendan, 2026-11-04): a bare chevron either side of the count.
   const btn =
-    'rounded-full border border-[var(--paper-rule)] px-3 py-1 text-[11px] uppercase tracking-[0.16em] text-[var(--paper-text)] transition-colors hover:bg-[var(--paper-quiet)] disabled:opacity-30 disabled:hover:bg-transparent'
+    'flex h-6 w-6 items-center justify-center rounded-md text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] disabled:opacity-30 disabled:hover:bg-transparent'
 
   return (
     <div className="px-6 pb-8">
@@ -124,14 +126,14 @@ export function DataTable({ slug }: { slug: string }) {
           {table.note ? ` · ${table.note}` : ''}
         </p>
         <div className="flex items-center gap-2" style={MONO}>
-          <button type="button" className={btn} disabled={page === 0} onClick={() => setPage(p => p - 1)}>
-            Prev
+          <button type="button" aria-label="Previous page" className={btn} disabled={page === 0} onClick={() => setPage(p => p - 1)}>
+            <ChevronLeft className="h-4 w-4" />
           </button>
           <span className="text-[11px] tabular-nums text-[var(--paper-faint)]">
             {page + 1} / {pages}
           </span>
-          <button type="button" className={btn} disabled={page >= pages - 1} onClick={() => setPage(p => p + 1)}>
-            Next
+          <button type="button" aria-label="Next page" className={btn} disabled={page >= pages - 1} onClick={() => setPage(p => p + 1)}>
+            <ChevronRight className="h-4 w-4" />
           </button>
         </div>
       </div>

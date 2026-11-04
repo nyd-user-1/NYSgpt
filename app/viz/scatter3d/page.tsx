@@ -7,7 +7,7 @@ export const metadata = { title: "3D scatter — Viz" }
 export default function Page() {
   const field = nuclideField()
   return (
-    <VizShell>
+    <VizShell title="Nuclides | 3D Scatter">
       <Scatter3dChart field={field} />
     </VizShell>
   )

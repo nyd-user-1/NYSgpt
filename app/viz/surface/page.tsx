@@ -7,7 +7,7 @@ export const metadata = { title: "3D surface — Viz" }
 export default function Page() {
   const field = nuclideField()
   return (
-    <VizShell>
+    <VizShell title="Nuclides | 3D Surface">
       <SurfaceChart field={field} />
     </VizShell>
   )

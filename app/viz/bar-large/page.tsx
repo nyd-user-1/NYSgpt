@@ -7,7 +7,7 @@ export const metadata = { title: "Bar run — Viz" }
 export default function Page() {
   const bars = nuclideBars()
   return (
-    <VizShell>
+    <VizShell title="Nuclides | Bar Run">
       <BarLargeChart bars={bars} />
     </VizShell>
   )
