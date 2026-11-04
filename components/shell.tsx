@@ -280,7 +280,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
     [size, nextSize, pane, seed, openPane, nav, headerMenu, goTo],
   )
 
-  const width = size === "third" ? "420px" : size === "half" ? "50vw" : size === "custom" ? `${(split * 100).toFixed(2)}vw` : "100vw"
+  // At FULL the page doesn't vanish — it collapses to a slim bar, the codespaces way (Brendan,
+  // 2026-11-04): the pane takes all but ~124px, and the app card beneath keeps only its two
+  // chrome buttons, stacked. The sidebar leaves the screen entirely.
+  const width = size === "third" ? "420px" : size === "half" ? "50vw" : size === "custom" ? `${(split * 100).toFixed(2)}vw` : "calc(100vw - 124px)"
   const full = !!pane && size === "full"
   return (
     <PanelCtx.Provider value={panel}>
@@ -290,10 +293,21 @@ export function Shell({ children }: { children: React.ReactNode }) {
       {/* The page narrows beside the panel, as SwitchboardShell narrows it beside the switchboard. */}
       <div
         style={{ "--pane-w": width } as React.CSSProperties}
-        className={`${dragging ? "" : "transition-[padding] duration-300 ease-in-out"} ${pane && !full ? "sm:pr-[calc(var(--pane-w)+18px)]" : ""} ${full ? "sm:invisible" : ""}`}
+        data-page-slim={full || undefined}
+        className={`${dragging ? "" : "transition-[padding] duration-300 ease-in-out"} ${pane ? "sm:pr-[calc(var(--pane-w)+18px)]" : ""}`}
       >
         {children}
       </div>
+      {/* The slim bar: at FULL the app card hides its page and its header stacks to a column of
+          the two round buttons; the sidebar (and its toggle's work) leaves the screen. */}
+      {full && (
+        <style>{`@media (min-width: 640px) {
+          [data-page-slim] [data-app-frame] > [data-chrome]:first-child { width: 0 !important; margin-right: 0 !important; }
+          [data-page-slim] [data-app-card] > :not([data-chrome]) { display: none; }
+          [data-page-slim] [data-app-card] > [data-chrome] { flex-direction: column; align-items: center; gap: 14px; padding: 14px 0; }
+          [data-page-slim] [data-app-card] > [data-chrome] > .flex-1 { display: none; }
+        }`}</style>
+      )}
       {pane && (
         <>
           {!full && (
@@ -329,7 +343,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             key={pane.n}
             src={pane.src}
             href={pane.href}
-            width={full ? "calc(100vw - 36px)" : width}
+            width={width}
             dragging={dragging}
             nextSize={nextSize}
             onSize={() => setSize(nextSize)}
