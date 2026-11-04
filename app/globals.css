@@ -409,3 +409,10 @@
 @media (prefers-reduced-motion: reduce) {
   .chat-mode-ribbon { animation: none; }
 }
+
+/* The second panel's frame (lib/pane.ts, 2026-11-04): framed, the app shows only the page. EMBED_SCRIPT
+   marks <html> data-embed before paint; the shell's chrome hides and the app frame gives up its gutter and
+   card, since the panel around it is the card. */
+html[data-embed] [data-chrome] { display: none !important; }
+html[data-embed] [data-app-frame] { padding: 0 !important; }
+html[data-embed] [data-app-card] { border-width: 0 !important; border-radius: 0 !important; box-shadow: none !important; }

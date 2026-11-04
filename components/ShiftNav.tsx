@@ -2,8 +2,9 @@
 
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import {
+  ArrowUpLeft,
   ArrowUpRight,
   Bell,
   BookOpen,
@@ -23,6 +24,8 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
+import { useShellPanel, type NavAt, type Side } from '@/components/shell'
+import { boxSlug, isEmbedded } from '@/lib/pane'
 
 const SERIF = { fontFamily: 'var(--font-display), Georgia, serif' } as const
 const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const
@@ -32,8 +35,11 @@ const MONO = { fontFamily: 'var(--font-mono), ui-monospace, monospace' } as cons
  * The Nav, ported from pax-trinity's go-to-menu (2026-10-31/11-02) in the
  * paper dress: Shift and a right-click anywhere opens a page switcher at the
  * pointer. Type to find; Recent, Pages and the Boxes otherwise. Enter or a
- * click opens a page here; a box opens in the half-screen panel, and a box
- * row's ↗ leaves for its site. A link, a control, a text field, or an open
+ * click opens a page on the side the menu opened over — the main page, or the
+ * second panel (components/shell.tsx) — and ⌥ Enter or a row's arrow on the
+ * other; a box opens its page in the second panel (⌥: the main page), and a
+ * box row's ↗ leaves for its site. A plain right-click on a header's empty run
+ * opens the same card (the shell's headerMenu). A link, a control, a text field, or an open
  * menu or dialog keeps the browser's menu, as does a right-click a surface
  * has already taken. A second Shift right-click moves the card to its point.
  * Firefox never hands a page Shift and a right-click (it shows its own menu
@@ -64,8 +70,9 @@ type Entry = {
   key: string
   label: string
   icon: LucideIcon
-  /** A page navigates; a box opens the half-screen panel. */
-  go: () => void
+  href: string
+  /** A box: its page opens in the second panel unless ⌥ sends it to the main page. */
+  box?: boolean
   /** A box's site, for the row's ↗. */
   out?: string
 }
@@ -87,12 +94,13 @@ function rank(label: string, needle: string) {
 }
 
 export function ShiftNav() {
-  const router = useRouter()
   const path = usePathname()
-  const { cards, openProduct } = useSwitchboard()
-  const [at, setAt] = useState<{ x: number; y: number } | null>(null)
+  const { cards } = useSwitchboard()
+  const { nav, openNav, closeNav, goTo, paneHref, mainHere } = useShellPanel()
+  const latest = useRef({ openNav, paneHref, mainHere })
+  latest.current = { openNav, paneHref, mainHere }
 
-  // Every page seen lands at the head of Recent, kept in this browser.
+  // Every page seen lands at the head of Recent, kept in this browser — the main page's and the panel's.
   useEffect(() => {
     if (!path) return
     try {
@@ -102,47 +110,40 @@ export function ShiftNav() {
     }
   }, [path])
 
-  // The gesture: Shift and a right-click anywhere that keeps no menu of its own.
+  // The gesture: Shift and a right-click anywhere that keeps no menu of its own. Over the second panel's
+  // header the card drives the panel; inside the panel's frame, the frame's own Nav opens for the panel it is.
   useEffect(() => {
     const on = (e: MouseEvent) => {
       if (!e.shiftKey || e.defaultPrevented) return
       const target = e.target instanceof Element ? e.target : null
       if (target?.closest(NATIVE_MENU)) return
       e.preventDefault()
-      setAt({ x: e.clientX, y: e.clientY })
+      const { openNav, paneHref, mainHere } = latest.current
+      const side: Side = isEmbedded() || target?.closest('[data-pane-host]') ? 'pane' : 'main'
+      const here = isEmbedded() ? window.location.pathname + window.location.search : side === 'pane' ? (paneHref ?? '') : mainHere()
+      openNav({ x: e.clientX, y: e.clientY, side, here })
     }
     window.addEventListener('contextmenu', on)
     return () => window.removeEventListener('contextmenu', on)
   }, [])
 
-  if (!at) return null
-  return (
-    <NavCard
-      at={at}
-      here={path ?? '/'}
-      cards={cards}
-      onPage={href => router.push(href)}
-      onBox={i => openProduct(i, true)}
-      onClose={() => setAt(null)}
-    />
-  )
+  if (!nav) return null
+  return <NavCard at={nav} cards={cards} onOpen={goTo} onClose={closeNav} />
 }
 
 function NavCard({
   at,
-  here,
   cards,
-  onPage,
-  onBox,
+  onOpen,
   onClose,
 }: {
-  at: { x: number; y: number }
-  here: string
+  at: NavAt
   cards: { title: string; href: string }[]
-  onPage: (href: string) => void
-  onBox: (index: number) => void
+  onOpen: (href: string, to: Side) => void
   onClose: () => void
 }) {
+  const { side, here } = at
+  const other: Side = side === 'main' ? 'pane' : 'main'
   const [q, setQ] = useState('')
   const [active, setActive] = useState(0)
   const [menu, setMenu] = useState(false)
@@ -159,9 +160,9 @@ function NavCard({
       key: page.href,
       label: page.label,
       icon: page.icon,
-      go: () => onPage(page.href),
+      href: page.href,
     }),
-    [onPage],
+    [],
   )
 
   const sections = useMemo(() => {
@@ -173,11 +174,12 @@ function NavCard({
       .slice(0, RECENT)
       .map(p => ({ ...entry(p), key: `recent:${p.href}`, icon: History }))
     const pages = PAGES.map(entry)
-    const boxes: Entry[] = cards.map((c, i) => ({
+    const boxes: Entry[] = cards.map(c => ({
       key: `box:${c.title}`,
       label: c.title,
       icon: PanelRight,
-      go: () => onBox(i),
+      href: `/box/${boxSlug(c.title)}`,
+      box: true,
       out: c.href || undefined,
     }))
     if (needle) {
@@ -189,7 +191,7 @@ function NavCard({
       { label: 'Pages', entries: pages },
       { label: 'Boxes', entries: boxes },
     ].filter(s => s.entries.length)
-  }, [q, recents, here, cards, entry, onBox])
+  }, [q, recents, here, cards, entry])
   const flat = sections.flatMap(s => s.entries)
   useEffect(() => setActive(0), [q])
 
@@ -239,9 +241,11 @@ function NavCard({
     onPointerUp: () => (drag.current = null),
   }
 
-  const go = (e: Entry) => {
+  /** Where a row goes: its side, or with ⌥ (or its arrow) the other. A box's side is the second panel. */
+  const target = (e: Entry, alt: boolean): Side => (e.box ? (alt ? 'main' : 'pane') : alt ? other : side)
+  const go = (e: Entry, alt = false) => {
     close()
-    e.go()
+    onOpen(e.href, target(e, alt))
   }
 
   const onKey = (e: React.KeyboardEvent) => {
@@ -253,7 +257,7 @@ function NavCard({
     }
     if (e.key === 'Enter' && flat[active]) {
       e.preventDefault()
-      go(flat[active])
+      go(flat[active], e.altKey)
     }
   }
 
@@ -367,7 +371,7 @@ function NavCard({
                   aria-selected={on}
                   data-active={on}
                   onMouseMove={() => setActive(me)}
-                  onClick={() => go(e)}
+                  onClick={ev => go(e, ev.altKey)}
                   className={`group/nav flex cursor-pointer items-center gap-2.5 px-4 py-1.5 text-sm transition-colors ${
                     on ? 'bg-[var(--paper-quiet)] text-[var(--paper-strong)]' : 'text-[var(--paper-text)]'
                   }`}
@@ -375,6 +379,25 @@ function NavCard({
                 >
                   <e.icon className={`h-4 w-4 shrink-0 ${on ? 'text-[var(--paper-strong)]' : 'text-[var(--paper-faint)]'}`} />
                   <span className="min-w-0 flex-1 truncate">{e.label}</span>
+                  {(() => {
+                    const alt = target(e, true)
+                    return (
+                      <button
+                        type="button"
+                        aria-label={`Open ${e.label} in ${alt === 'pane' ? 'the second panel' : 'the main page'}`}
+                        title={alt === 'pane' ? 'Panel 2' : 'Main page'}
+                        onClick={ev => {
+                          ev.stopPropagation()
+                          go(e, true)
+                        }}
+                        className={`flex size-6 shrink-0 items-center justify-center rounded-md text-[var(--paper-faint)] hover:bg-[var(--paper-rule-soft)] hover:text-[var(--paper-strong)] ${
+                          on ? '' : 'opacity-0 group-hover/nav:opacity-100'
+                        }`}
+                      >
+                        {alt === 'pane' ? <PanelRight className="h-3.5 w-3.5" /> : <ArrowUpLeft className="h-3.5 w-3.5" />}
+                      </button>
+                    )
+                  })()}
                   {e.out && (
                     <a
                       href={e.out}
