@@ -1,6 +1,6 @@
 'use client'
 
-import { useEChart } from '@/components/viz/use-echart'
+import { firstSeriesRow, useEChart } from '@/components/viz/use-echart'
 
 const full = new Intl.NumberFormat('en')
 
@@ -24,6 +24,6 @@ export function HeatmapChart({ field }: { field: { n: number; z: number; c: numb
       visualMap: { show: false, min: 0, max, inRange: { color: ['#0b1a3a', '#1d4ed8', '#00bfff', '#f0f9ff'] } },
       series: [{ type: 'heatmap', data, progressive: 2000, emphasis: { itemStyle: { borderColor: '#fff', borderWidth: 1 } } }],
     }
-  })
+  }, false, firstSeriesRow)
   return <div ref={ref} className="h-[78vh] w-full" />
 }

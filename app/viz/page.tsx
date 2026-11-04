@@ -2,9 +2,13 @@
 import { AppLayout } from "@/components/AppLayout";
 import { PaneLink } from "@/components/PaneLink";
 import { RevealFx } from "@/components/RevealFx";
+import { VizBoxMenu } from "./box-menu";
+import { ExpandBox } from "./expand-box";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { HomeMasthead } from "../HomeMasthead";
+import { PLATE_H } from "@/lib/plate";
+import { PlateGrid } from "../PlateGrid";
 import { APIS, CARDS, KINDS, LEDGER, PRODUCT_EXTRAS, TOOLS, type HomeCardData, type Kind } from "@/lib/home-data";
 
 export const metadata = {
@@ -20,20 +24,21 @@ const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as cons
 const OFF_RAIL = new Set(["Sports", "Solar", "Compiler", "Lake", "Loaders"]);
 
 /** The twelve chart pages, dealt onto the boxes in plate order. Static JSON behind every one, so
- *  Next prerenders them and these links prefetch finished pages. */
+ *  Next prerenders them; the links don't prefetch (twelve at once ran the worker past its CPU limit). */
+// Each box names its chart TYPE and describes its variables (Brendan, 2026-11-04).
 const CHARTS = [
-  { href: "/viz/nebula", title: "The nuclide nebula", body: "Every nuclide the literature has touched, neutrons across and protons up, glowing with the log of its paper count." },
-  { href: "/viz/rainfall", title: "The rainfall and the river", body: "Papers entering the corpus each year, and below them the slice that flowed on into EXFOR as compiled data." },
-  { href: "/viz/bar-large", title: "Every nuclide, ranked", body: "All ~7,900 literature-touched nuclides as one bar run on a log axis, from ²³⁵U down to one-paper exotica." },
-  { href: "/viz/weight", title: "Two populations of papers", body: "The NSR record against the arXiv/APS additions: publication year across, citations up a log axis." },
-  { href: "/viz/heatmap", title: "The nuclide heatmap", body: "The nebula's field as cells, heat by paper count. The empty black is nuclear terra incognita." },
-  { href: "/viz/scatter3d", title: "The nuclide field, lifted", body: "The nebula with its third axis made literal: the valley of stability as a ridge you can orbit." },
-  { href: "/viz/scatter3d-dataset", title: "Ten thousand papers in three measures", body: "A random 10,000 cited papers in space: year across, references deep, citations up." },
-  { href: "/viz/simplex", title: "Literature smoke", body: "Each nuclide exhales a plume, taller and denser with its papers, jittered into weather. A mood instead of a measure." },
-  { href: "/viz/surface", title: "The literature landscape", body: "Altitude is the log of each nuclide's paper count. The diagonal range is the valley of stability, raised into relief." },
-  { href: "/viz/graph", title: "The collaboration web", body: "The 1,200 most-published authors, force-settled; an edge where two share four or more papers." },
-  { href: "/viz/reactions", title: "The reaction transit map", body: "Every reaction a bus route across the chart of nuclides, with moving lights on the 1,200 busiest." },
-  { href: "/viz/matrix", title: "The measure matrix", body: "36 Pearson correlations across nine per-paper measures of all 303,568 references. Navy moves together; red apart." },
+  { href: "/viz/nebula", title: "Scatter field", body: "x neutrons N · y protons Z · size and glow log₁₀ papers. All 7,799 nuclides the literature touches." },
+  { href: "/viz/rainfall", title: "Stacked area", body: "x publication year, 1857–2026 · y papers per year; the lower band is the slice compiled into EXFOR." },
+  { href: "/viz/bar-large", title: "Bar run", body: "x all ~7,900 nuclides, ranked · y papers on a log axis, ²³⁵U down to one-paper exotica." },
+  { href: "/viz/weight", title: "Two-series scatter", body: "x publication year · y citations, log axis. 12,000 sampled papers: NSR against the arXiv/APS additions." },
+  { href: "/viz/heatmap", title: "Heatmap", body: "x N · y Z · heat log papers, over the full chart of nuclides; empty cells are untouched ground." },
+  { href: "/viz/scatter3d", title: "3D scatter", body: "x N · y Z · z log₁₀ papers — the valley of stability raised into a ridge." },
+  { href: "/viz/scatter3d-dataset", title: "3D dataset scatter", body: "x year · y references · z citations, over a random 10,000 cited papers." },
+  { href: "/viz/simplex", title: "Noise field", body: "Simplex-noise plumes, one per nuclide; height and density scale with its papers. A mood, not a measure." },
+  { href: "/viz/surface", title: "3D surface", body: "x N · y Z · z log papers as terrain; the diagonal range is the valley of stability." },
+  { href: "/viz/graph", title: "Force graph", body: "Nodes the 1,200 most-published authors, sized by papers; an edge where two share four or more." },
+  { href: "/viz/reactions", title: "Flow lines", body: "Ground x N · y Z; each line a reaction's (ΔN, ΔZ) trajectory weighted by papers, lights on the 1,200 busiest." },
+  { href: "/viz/matrix", title: "Correlation matrix", body: "9×9 Pearson r across per-paper measures of all 303,568 references. Navy moves together; red apart." },
 ];
 
 /** The / page, duplicated exactly (Brendan, 2026-11-04): masthead, the contents plate's first
@@ -46,34 +51,29 @@ export default function VizPage() {
     .filter((c) => !OFF_RAIL.has(c.title))
     .map((c) => (c.tag ? { ...c, accent: KINDS[c.tag as Kind] } : c))
     .sort((a, b) => a.title.localeCompare(b.title));
-  const columns = Math.ceil(boxes.length / 2);
 
   return (
     <AppLayout paperMode>
-      <div className="flex-1 overflow-y-auto no-scrollbar" style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}>
-        <div className="mx-auto w-full max-w-[1360px] px-6 sm:px-10 md:px-14 pt-8 pb-16">
-          <RevealFx delay={0.08} translateY={6}>
+      <div className="flex-1 overflow-hidden" style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}>
+        <div data-viz-column className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
+          <RevealFx className="shrink-0" delay={0.08} translateY={6}>
             <HomeMasthead ledger={LEDGER} />
           </RevealFx>
 
-          <RevealFx delay={0.22} translateY={5}>
-            <div className="relative mt-[72px]">
-              <div className="isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)]">
-                <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain [--col:100%] sm:[--col:50%] lg:[--col:20%]">
-                  <div
-                    className="grid h-full grid-flow-col grid-rows-[repeat(2,minmax(210px,auto))] border-t border-l border-[var(--paper-rule)] [&>*]:snap-start"
-                    style={{ width: `calc(${columns} * var(--col))`, gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-                  >
-                    {boxes.map((card, i) => (
-                      <VizBox key={card.href + card.title} card={card} index={i} chart={CHARTS[i]} />
-                    ))}
-                  </div>
-                </div>
+          <RevealFx className="flex min-h-0 flex-1 flex-col" delay={0.22} translateY={5}>
+            <div className="relative mt-[72px] flex min-h-0 flex-1 flex-col">
+              {/* The plate as / has it (HomeContents): a fixed height, an even grid from its own measured size. */}
+              <div className={`isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)] ${PLATE_H}`}>
+                <PlateGrid className="-m-px min-h-0 flex-1" minW={220}>
+                  {boxes.map((card, i) => (
+                    <VizBox key={card.href + card.title} card={card} index={i} chart={CHARTS[i]} />
+                  ))}
+                </PlateGrid>
               </div>
             </div>
           </RevealFx>
 
-          <RevealFx delay={0.7} translateY={3}>
+          <RevealFx className="shrink-0" delay={0.7} translateY={3}>
             <div
               className="mt-3 flex items-center justify-between px-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
               style={MONO}
@@ -99,10 +99,8 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
             {chart?.title ?? card.title}
           </h3>
           <span className="flex h-[22px] shrink-0 items-center">
-            <span aria-hidden className="pointer-events-none relative flex h-[5px] w-[5px] shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-              <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
-            </span>
+            {/* The green dot gave way to trinity's three-dot menu (2026-11-04). */}
+            <VizBoxMenu title={chart?.title ?? card.title} anchor={(chart?.href ?? card.href ?? card.title).replace(/^\//, "").replace(/[^a-z0-9]+/gi, "-").toLowerCase()} href={chart?.href ?? card.href} />
           </span>
         </div>
         <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>
@@ -119,13 +117,21 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
       </div>
     </>
   );
-  const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 [-webkit-tap-highlight-color:transparent]";
+  const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors hover:bg-[var(--paper-quiet)] [-webkit-tap-highlight-color:transparent]";
   const style = { "--accent": card.accent } as React.CSSProperties;
   return chart ? (
+    index === 0 ? (
+      // Box 1's test (Brendan, 2026-11-04): the box expands to the plate and the chart fills it.
+      <ExpandBox href={chart.href} className={cls} style={style}>
+        {body}
+      </ExpandBox>
+    ) : (
     // A chart box opens its chart in the second panel (2026-11-04).
-    <PaneLink href={chart.href} className={cls} style={style}>
+    // No prefetch: twelve chart pages fetched at once ran the worker past its CPU limit (2026-11-04).
+    <PaneLink href={chart.href} prefetch={false} className={cls} style={style}>
       {body}
     </PaneLink>
+    )
   ) : (
     <div className={cls} style={style}>
       {body}

@@ -17,6 +17,9 @@ export const SESSION_COOKIE = "nysgpt_session";
 
 export type SessionUser = { email: string };
 
+/** Demo accounts don't exist here; the housekeeping routes (ported from pax-trinity) call this guard. */
+export function forbidDemo(_user: unknown) {}
+
 export async function currentUser(): Promise<SessionUser | null> {
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   if (!token || !verifier) return null;

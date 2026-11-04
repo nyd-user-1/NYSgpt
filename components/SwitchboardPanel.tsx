@@ -1,17 +1,23 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, LayoutGrid, Sparkles, ArrowUpRight, SquareDashedMousePointer } from 'lucide-react'
+import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, LayoutGrid, Sparkles, ArrowUpRight, SquareDashedMousePointer, Wrench, Palette } from 'lucide-react'
+import { DevToolsPanel } from '@/components/housekeeping/devtools-panel'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
 import { PRODUCT_EXTRAS, type HomeCardData } from '@/lib/home-data'
 import { BlocksShelf } from '@/components/BlocksShelf'
 import { SwitchboardApiList } from './SwitchboardApiList'
+import { CornerClose } from '@/components/pane'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
+
+// Trinity's theme palette (components/theme/theme-palette.tsx), loaded as trinity's discussion panel loads it.
+const ThemeControls = dynamic(() => import('@/components/theme/theme-palette').then((m) => m.ThemeControls), { ssr: false })
 
 /**
  * The nysgpt.com switchboard panel — the right-hand drawer, and the store that
@@ -79,6 +85,8 @@ type View =
   | { kind: 'product'; index: number }
   | { kind: 'channel'; id: ChannelId }
   | { kind: 'blocks' }
+  | { kind: 'devtools' }
+  | { kind: 'theme' }
   | AwsView
 
 export type ChannelId = 'slack' | 'discord' | 'ask'
@@ -101,6 +109,10 @@ type Ctx = {
   openAws: (view: AwsView) => void
   /** Opens the Blocks shelf view. */
   openBlocks: () => void
+  /** Opens the Dev tools view (the housekeeping kit, ported from pax-trinity 2026-11-04). */
+  openDevtools: () => void
+  /** Opens the Theme view: trinity's theme palette (2026-11-04). */
+  openTheme: () => void
 }
 
 const PanelCtx = createContext<Ctx | null>(null)
@@ -126,12 +138,14 @@ export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCa
   const openChannel = useCallback((id: ChannelId) => { setView({ kind: 'channel', id }); setOpen(true) }, [])
   const openAws = useCallback((v: AwsView) => { setView(v); setOpen(true) }, [])
   const openBlocks = useCallback(() => { setView({ kind: 'blocks' }); setOpen(true) }, [])
+  const openDevtools = useCallback(() => { setView({ kind: 'devtools' }); setOpen(true) }, [])
+  const openTheme = useCallback(() => { setView({ kind: 'theme' }); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
   // way to resume wherever you happened to leave off.
   const toggle = useCallback(() => setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v }), [])
 
   return (
-    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBlocks }}>
+    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBlocks, openDevtools, openTheme }}>
       {children}
       <SwitchboardPanel />
     </PanelCtx.Provider>
@@ -246,7 +260,7 @@ function ChannelRow({
 }
 
 function SwitchboardPanel() {
-  const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel, openBlocks } = useSwitchboard()
+  const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel, openBlocks, openDevtools, openTheme } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
   const { linkProps } = useProductStatus()
 
@@ -256,7 +270,7 @@ function SwitchboardPanel() {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
-      if (view.kind === 'product' || view.kind === 'channel' || view.kind === 'blocks') openMenu()
+      if (view.kind === 'product' || view.kind === 'channel' || view.kind === 'blocks' || view.kind === 'devtools' || view.kind === 'theme') openMenu()
       else close()
     }
     window.addEventListener('keydown', onKey)
@@ -269,7 +283,7 @@ function SwitchboardPanel() {
   const channel = view.kind === 'channel' ? CHANNELS[view.id] : null
   // One level down the live dot becomes a back arrow and the title becomes the
   // destination — that pair IS the navigation model, so no view stack is needed.
-  const deep = Boolean(product || channel || view.kind === 'blocks')
+  const deep = Boolean(product || channel || view.kind === 'blocks' || view.kind === 'devtools' || view.kind === 'theme')
   // A product's header is its DOMAIN, not its name — the hero figure + the
   // "Visit <name>" footer already carry the name, and the domain is the one
   // fact the old layout buried in a footnote line (design 2026-08-24).
@@ -277,7 +291,7 @@ function SwitchboardPanel() {
   // An AWS buyer's views are headed by the product they bought, and have no way
   // back to the menu: a Marketplace buyer did not come from the switchboard.
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
-  const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : view.kind === 'blocks' ? 'Blocks' : channel?.name ?? 'Switchboard')
+  const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : view.kind === 'blocks' ? 'Blocks' : view.kind === 'devtools' ? 'Dev tools' : view.kind === 'theme' ? 'Theme' : channel?.name ?? 'Switchboard')
 
   return createPortal(
     <>
@@ -314,6 +328,8 @@ function SwitchboardPanel() {
             : 'translate-x-full pointer-events-none sm:translate-x-0 sm:w-0'
         }`}
       >
+        {/* Trinity's drawer: the card and its corner bite (components/pane.tsx CornerClose) in one box the card's width. */}
+        <div className={`relative h-full w-full transition-[width] duration-300 ease-in-out ${expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'}`}>
         <div className={`flex h-full w-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] transition-[width] duration-300 ease-in-out sm:rounded-2xl sm:border ${
           expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
         }`}>
@@ -354,11 +370,20 @@ function SwitchboardPanel() {
           <div className="no-scrollbar flex-1 overflow-y-auto">
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
-            <div className="flex min-h-full flex-col">
+            {/* The Theme view scrolls inside itself with its Copy button pinned at the foot, as in trinity, so it gets the height outright. */}
+            <div className={`flex ${view.kind === 'theme' ? 'h-full' : 'min-h-full'} flex-col`}>
             {view.kind === 'aws-register' ? (
               <AwsRegister plan={view.plan} signedIn={view.signedIn} />
             ) : view.kind === 'aws-console' ? (
               <AwsConsole sub={view.sub} />
+            ) : view.kind === 'devtools' ? (
+              /* ── DEV TOOLS — trinity's kit: comments + Claude loop, pointer,
+                     live edit, X-ray, settings (2026-11-04). ── */
+              <DevToolsPanel />
+            ) : view.kind === 'theme' ? (
+              /* ── THEME — trinity's palette, as it is there: the six themes,
+                     every colour a live control, Copy as CSS at the foot. ── */
+              <ThemeControls />
             ) : view.kind === 'blocks' ? (
               /* ── BLOCKS VIEW — trinity's shelf: saved blocks as tiles, the
                      rest dashed empty slots; tiles drag onto the chat. ── */
@@ -478,6 +503,22 @@ function SwitchboardPanel() {
                   </button>
                 </div>
 
+                <div className={ROW.replace('border-b', 'border-b')}>
+                  <button onClick={openDevtools} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                    <span className="shrink-0 text-[var(--paper-faint)]"><Wrench className="h-4 w-4" /></span>
+                    <span className={LABEL} style={SERIF}>Dev tools</span>
+                    <ChevronRight className={GLYPH} />
+                  </button>
+                </div>
+
+                <div className={ROW.replace('border-b', 'border-b')}>
+                  <button onClick={openTheme} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                    <span className="shrink-0 text-[var(--paper-faint)]"><Palette className="h-4 w-4" /></span>
+                    <span className={LABEL} style={SERIF}>Theme</span>
+                    <ChevronRight className={GLYPH} />
+                  </button>
+                </div>
+
                 <p className="px-5 pb-2 pt-5 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]" style={MONO}>
                   Products
                 </p>
@@ -496,7 +537,7 @@ function SwitchboardPanel() {
                 sibling. `mt-auto` (against the min-h-full flex wrapper) pins it
                 to the panel's bottom edge even when the content runs short —
                 the Visit link lives at the bottom, always (ruling 2026-08-24). */}
-            {deep && (channel || product!.href) && (
+            {deep && (channel || product?.href) && (
               <div className="sticky bottom-0 z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
                 {/* ⚠ Branch on WHICH view this is — never `channel?.x ?? product!.x`.
                     `??` only short-circuits on a non-nullish left side, and
@@ -525,6 +566,8 @@ function SwitchboardPanel() {
             )}
             </div>
           </div>
+        </div>
+        <CornerClose label="Close" onClose={close} />
         </div>
       </aside>
     </>,

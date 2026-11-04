@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, ChevronsUpDown } from "lucide-react";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
@@ -18,9 +18,12 @@ import { useShellPanel } from "@/components/shell";
 export function AppLayout({
   children,
   paperMode,
+  headerTitle,
 }: {
   children: React.ReactNode;
   paperMode?: boolean;
+  /** A page's name in the header, beside the sidebar toggle — "Nuclides | Scatter Field" (2026-11-04). */
+  headerTitle?: string;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { headerMenu } = useShellPanel();
@@ -50,14 +53,15 @@ export function AppLayout({
 
       <div
         data-app-card
-        className={`relative flex flex-1 flex-col min-w-0 rounded-none sm:rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.07)] sm:border ${
+        className={`relative flex flex-1 flex-col min-w-0 rounded-none sm:rounded-2xl overflow-hidden shadow-header sm:border ${
           paperMode
             ? "bg-[var(--paper)] sm:border-[var(--paper-rule)]"
             : "bg-[var(--surface)] sm:border-[var(--border)]"
         }`}
       >
         {/* A plain right-click on the header's empty run opens the Nav for the page (components/shell.tsx). */}
-        <div data-chrome onContextMenu={headerMenu("main")} className="flex items-center px-5 pt-5 pb-5">
+        {/* The header wears trinity's shadow by default — not scroll-gated (Brendan, 2026-11-04). */}
+        <div data-chrome onContextMenu={headerMenu("main")} className="relative z-10 flex items-center px-5 pt-5 pb-5 shadow-header">
           <button
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label="Toggle sidebar"
@@ -73,6 +77,15 @@ export function AppLayout({
               <PanelLeftOpen className="h-4 w-4" style={{ color: "#033882", fill: "#dbe7fa" }} />
             )}
           </button>
+
+          {headerTitle && (
+            <span className="ml-5 hidden items-center gap-1.5 sm:flex">
+              <span className="text-[24px] leading-none text-[var(--paper-text,var(--fg))]" style={{ fontFamily: "var(--font-display), Georgia, serif" }}>
+                {headerTitle}
+              </span>
+              <ChevronsUpDown className="h-3.5 w-3.5 text-[var(--paper-faint,#94a3b8)]" />
+            </span>
+          )}
 
           <div className="flex-1" />
 

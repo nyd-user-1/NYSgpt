@@ -8,7 +8,12 @@ import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardP
 import { ShiftNotes } from "@/components/ShiftNotes";
 import { ShiftNav } from "@/components/ShiftNav";
 import { Shell } from "@/components/shell";
+import { HousekeepingTool } from "@/components/housekeeping/tool";
+import { DevInspector } from "@/components/dev/inspector-lazy";
+import { LiveEditMode } from "@/components/housekeeping/live-edit";
 import { EMBED_SCRIPT } from "@/lib/pane";
+import { THEME_KEY, THEME_SCRIPT } from "@/lib/theme";
+import { ThemeSync } from "@/components/theme/theme-sync";
 import { getDigest } from "@/lib/digest";
 import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
@@ -92,6 +97,9 @@ export default async function RootLayout({
       <head>
         {/* Marks a framed load (the second panel, lib/pane.ts) before paint, so its chrome never shows. */}
         <script dangerouslySetInnerHTML={{ __html: EMBED_SCRIPT }} />
+        {/* Trinity's theme script (lib/theme.ts), before paint — only once a theme has been picked in the
+            Theme view, so NYSgpt's own light/dark stands for everyone who hasn't. */}
+        <script dangerouslySetInnerHTML={{ __html: `try{if(localStorage.getItem(${JSON.stringify(THEME_KEY)}))${THEME_SCRIPT}}catch(e){}` }} />
       </head>
       <body>
         <ThemeProvider
@@ -113,6 +121,13 @@ export default async function RootLayout({
                     Inside the provider so the Nav can open a box in the panel. */}
                 <ShiftNotes />
                 <ShiftNav />
+                {/* Trinity's dev kit (2026-11-04): the housekeeping pointer, the inspector
+                    dock, and Live edit's armed mode — all inert until the panel's Dev tools
+                    rows switch them on. */}
+                <HousekeepingTool />
+                <DevInspector />
+                <LiveEditMode />
+                <ThemeSync />
               </Shell>
             </SwitchboardProvider>
           </ProductStatusProvider>

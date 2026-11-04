@@ -1,6 +1,6 @@
 'use client'
 
-import { useEChart } from '@/components/viz/use-echart'
+import { firstSeriesRow, useEChart } from '@/components/viz/use-echart'
 
 const full = new Intl.NumberFormat('en')
 type Row = { y: number; refs: number; cites: number; nsr: boolean }
@@ -24,6 +24,6 @@ export function Scatter3dDatasetChart({ rows }: { rows: Row[] }) {
         })),
       },
     ],
-  }), true)
+  }), true, firstSeriesRow)
   return <div ref={ref} className="h-[78vh] w-full" />
 }

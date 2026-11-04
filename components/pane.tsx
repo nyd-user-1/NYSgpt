@@ -28,22 +28,28 @@ export function PaneFrame({
   src,
   href,
   width,
+  offsetRight,
   dragging,
   nextSize,
   onSize,
   onClose,
   onMenu,
   frameRef,
+  paired,
 }: {
   src: string
   href: string
   width: string
+  /** Distance from the right edge — set when a third panel stands to this one's right (2026-11-04). */
+  offsetRight?: string
   dragging: boolean
   nextSize: PanelSize
   onSize: () => void
   onClose: () => void
   onMenu: (e: React.MouseEvent) => void
   frameRef: React.RefObject<HTMLIFrameElement | null>
+  /** Beside the page (not FULL, no third panel): the corner bite carries a close, as in trinity's shell. */
+  paired?: boolean
 }) {
   const [title, setTitle] = React.useState(() => pageTitle(null, href))
   // Next sets the title a beat after a client navigation, so read it again shortly after each move.
@@ -54,10 +60,11 @@ export function PaneFrame({
     return () => window.clearTimeout(t)
   }, [href, frameRef])
   return (
+    <>
     <section
       data-pane-host
-      style={{ "--pane-w": width } as React.CSSProperties}
-      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[18px] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-[0_4px_24px_rgba(0,0,0,0.07)] ${dragging ? "" : "transition-[width] duration-300 ease-in-out"}`}
+      style={{ "--pane-w": width, "--pane-r": offsetRight ?? "18px" } as React.CSSProperties}
+      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[var(--pane-r)] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-header ${dragging ? "" : "transition-[width,right] duration-300 ease-in-out"}`}
     >
       <div onContextMenu={onMenu} className="flex shrink-0 items-center gap-3 px-5 pt-5 pb-5">
         <p className="min-w-0 flex-1 truncate text-[22px] leading-none text-[var(--paper-text)]" style={{ ...SERIF, letterSpacing: "-0.02em" }}>
@@ -81,6 +88,37 @@ export function PaneFrame({
         className={`min-h-0 w-full flex-1 border-0 bg-[var(--paper)] ${dragging ? "pointer-events-none" : ""}`}
       />
     </section>
+    {/* The pane is fixed, so the bite rides a fixed box on its bottom-right corner (trinity's sits in the drawer beside the pane). */}
+    {paired && (
+      <div
+        style={{ "--pane-r": offsetRight ?? "18px" } as React.CSSProperties}
+        className={`pointer-events-none fixed bottom-[18px] right-[var(--pane-r)] z-40 size-11 ${dragging ? "" : "transition-[right] duration-300 ease-in-out"}`}
+      >
+        <CornerClose label="Close" onClose={onClose} />
+      </div>
+    )}
+    </>
+  )
+}
+
+// Chrome's split-view tab, from trinity's shell (src/components/shell.tsx:678, 2026-11-04): a bite out of the
+// pane's bottom-right corner holding its close. The pane's border runs around the bite, rounded out where it
+// leaves the edges and in at its inner corner; the bite is painted the shell's ground so the pane reads as cut.
+// NYSgpt's ground behind the panes is the body's (--background) and their border is --paper-rule, and they
+// float from sm, not md.
+const BITE_EDGE = "M43.5 0V0.5A8 8 0 0 1 35.5 8.5H18.5A10 10 0 0 0 8.5 18.5V35.5A8 8 0 0 1 0.5 43.5H0"
+const BITE_FILL = `${BITE_EDGE}V44H44V0Z`
+export function CornerClose({ label, onClose }: { label: string; onClose: () => void }) {
+  return (
+    <div className="pointer-events-none absolute bottom-0 right-0 z-30 hidden size-11 sm:block">
+      <svg aria-hidden viewBox="0 0 44 44" className="absolute inset-0 size-full">
+        <path d={BITE_FILL} className="fill-background" />
+        <path d={BITE_EDGE} fill="none" strokeWidth={1} className="stroke-[var(--paper-rule)]" />
+      </svg>
+      <button type="button" onClick={onClose} aria-label={label} className="pointer-events-auto absolute bottom-1.5 right-1.5 flex size-6 items-center justify-center rounded-md text-slate-500 transition-colors hover:bg-slate-300/70 hover:text-pax2-blue">
+        <X className="size-3.5" strokeWidth={2.25} />
+      </button>
+    </div>
   )
 }
 

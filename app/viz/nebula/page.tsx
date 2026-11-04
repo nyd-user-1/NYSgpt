@@ -1,17 +1,18 @@
 import { VizShell } from "@/components/viz/VizShell"
+import { RevealFx } from "@/components/RevealFx"
 import { nuclideField } from "@/lib/viz-data"
 import { NebulaChart } from "./chart"
 
-export const metadata = { title: "Nebula — Viz" }
+export const metadata = { title: "Scatter field — Viz" }
 
 export default function Page() {
   const field = nuclideField()
   return (
-    <VizShell
-      title="The nuclide nebula"
-      note="After ECharts' scatter-nebula. Every point is a nuclide the literature has touched — neutrons across, protons up. Glow and size follow the log of its paper count, from 1.21 million paper–nuclide links over 303,568 references; the brightest single nuclide carries 24,646 papers."
-    >
-      <NebulaChart field={field} />
+    <VizShell framed title="Nuclides | Scatter Field">
+      {/* The chart arrives INSIDE the box the /viz press just grew, filling it (expand-box.tsx test). */}
+      <RevealFx className="flex min-h-0 min-w-0 flex-1 flex-col" delay={0.1} translateY={4}>
+        <NebulaChart field={field} fill />
+      </RevealFx>
     </VizShell>
   )
 }

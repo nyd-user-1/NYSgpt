@@ -1,10 +1,10 @@
 'use client'
 
-import { useEChart } from '@/components/viz/use-echart'
+import { firstSeriesRow, useEChart } from '@/components/viz/use-echart'
 
 const full = new Intl.NumberFormat('en')
 
-export function NebulaChart({ field }: { field: { n: number; z: number; c: number }[] }) {
+export function NebulaChart({ field, fill }: { field: { n: number; z: number; c: number }[]; fill?: boolean }) {
   const ref = useEChart(() => {
     const data = field.map((p) => [p.n, p.z, p.c, Math.log10(p.c + 1)])
     const max = Math.max(1, ...data.map((p) => p[3] as number))
@@ -23,6 +23,6 @@ export function NebulaChart({ field }: { field: { n: number; z: number; c: numbe
       visualMap: { show: false, dimension: 3, min: 0, max, inRange: { color: ['#172554', '#1d4ed8', '#00bfff', '#e0f2fe'], symbolSize: [2, 9] } },
       series: [{ type: 'scatter', data, blendMode: 'lighter', itemStyle: { opacity: 0.85 } }],
     }
-  })
-  return <div ref={ref} className="h-[78vh] w-full" />
+  }, false, firstSeriesRow)
+  return <div ref={ref} className={fill ? 'h-full min-h-0 w-full flex-1' : 'h-[78vh] w-full'} />
 }
