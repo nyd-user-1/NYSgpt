@@ -1,42 +1,45 @@
 'use client'
 
-// Ported from solar (src/components/SolarPlusMenu.tsx): the + button, its category list, and the
-// drill-down drawer with its search field, opening upward. The categories: Skills (ways of answering the
-// chat carries once picked), Onboarding (questions that teach the platform),
-// Scripts (every script /scripts lists), Videos (on /chat the e2 videos and more Voter Freedom shorts;
-// the scored takes elsewhere), Shorts (the catalog's real shorts), and Voices (the studio's readers —
-// hear one, or write for it), Generate video (a script, put in the chat with its shots to generate; then
-// generic b-roll, each its own shot), and Graphics (the cards Remotion draws, then the scripts, each put in
-// the chat with its Graphics card). Icons wear the sidebar's clothes: 18px, 1.75 stroke, lavender fill on hover.
+// The + menu, trinity's shell (solar's SolarPlusMenu lineage) carrying NYSgpt's rows (2026-11-04):
+// Skills (ways of answering the chat carries once picked), Onboarding (questions that teach the
+// platform), API samples (real api.nysgpt.com responses to walk through), Models (the catalog's
+// 24 cards), Boxes (the homepage topics), and Attach (the chat's PDF upload). Trinity's video
+// rows — Scripts, Videos, Shorts, Voices, Generate video, Graphics, Templates — wait on a video
+// pipeline and stayed home. Icons wear the sidebar's clothes: 18px, 1.75 stroke, lavender fill on
+// row hover. The category list opens upward, no taller than the room above the +; the drill-down
+// drawer adds a search field.
 
 import { useState, useRef, useEffect } from 'react'
-import { Plus, ChevronRight, ArrowLeft, X, Compass, NotebookPen, Paperclip, PlaySquare, Clapperboard, AudioLines, Volume2, Loader2, Film, Shapes, Sparkles, MonitorPlay } from 'lucide-react'
+import { Plus, ChevronRight, ArrowLeft, X, Compass, Paperclip, Sparkles, Braces, Cpu, LayoutGrid } from 'lucide-react'
 
-import { narrate } from '@/app/studio-actions'
+import { API_SAMPLES } from '@/lib/api-samples'
 import { CHAT_SKILLS, type ChatSkill } from '@/lib/chat-skills'
-import { BROLL, GRAPHIC_KINDS, type FootageFocus, type GraphicKind } from '@/lib/footage'
-import type { ListedScript } from '@/lib/script-list'
-import { VOICES, type VoiceId } from '@/lib/studio-style'
+import { compact } from '@/lib/compact'
+import type { FootageFocus, GraphicKind } from '@/lib/footage'
+import { HF_MODELS, SWITCHBOARD } from '@/lib/home-data'
 
-/* ------------------------------------------------------------------ */
-/*  Onboarding questions                                               */
-/* ------------------------------------------------------------------ */
-
-/*  Each one teaches a page of the platform or the loop that joins them. Placeholders until
-    NYSgpt writes its own. */
+/*  Each one teaches a page of the platform or the loop that joins them (Brendan's list, 2026-11-04). */
 const ONBOARDING_QUESTIONS = [
-  'Lorem ipsum dolor sit amet — what does this page do?',
-  'Consectetur adipiscing elit: where do I start?',
-  'Sed do eiusmod tempor — how do these fit together?',
-  'Ut enim ad minim veniam, what can I look up here?',
-  'Quis nostrud exercitation — how do I record a video right here in the chat?',
+  "What's inside the 12.1 billion records?",
+  'What does the Legislative API cover?',
+  'How do I get an API key?',
+  "What's the difference between the NSR and RXIV encoders?",
+  'When do I use a Reranker instead of an Encoder?',
+  'What are the Alpha Class models? What do they do? Describe use cases.',
+  'Which box on the home page should I start with?',
+  'What can I ask about elections and precincts?',
+  'Something looks wrong — how do I check a number?',
 ]
 
-/* ------------------------------------------------------------------ */
-/*  Types                                                              */
-/* ------------------------------------------------------------------ */
+/* The API samples drawer: lib/api-samples' captured responses, one row per dataset. */
+const SAMPLE_ROWS: { id: string; title: string; framing: string }[] = [
+  { id: 'gov', title: 'Gov', framing: 'One bill — sponsors, roll calls, status' },
+  { id: 'energy', title: 'Energy', framing: 'One plant — generators and net generation' },
+  { id: 'tariffs', title: 'Tariffs', framing: 'One CROSS ruling with its HTS lines' },
+  { id: 'health', title: 'Health', framing: 'One NPI — networks and negotiated rates' },
+]
 
-type DrillStep = 'categories' | 'skills' | 'prompts' | 'pick-script' | 'pick-video' | 'pick-short' | 'pick-voice' | 'generate' | 'graphics' | 'graphic-script'
+type DrillStep = 'categories' | 'skills' | 'prompts' | 'pick-sample' | 'pick-model' | 'pick-box'
 
 export type ScriptChip = { id: string; title: string; short: string }
 /** `youtube`: a YouTube video, whose score is its Outlier Score (views over its channel's median). */
@@ -46,48 +49,36 @@ interface Props {
   videos: VideoChip[]
   shorts?: VideoChip[]
   onSelect: (text: string) => void
-  /** A video picked from the menu: the chat attaches its page as context (and a short brings the question bank's chips). */
+  /** A video picked from the menu (unused here until NYSgpt has shorts of its own). */
   onShort?: (v: VideoChip) => void
-  /** Ignored: the menu always opens upward (2026-10-29). */
+  /** Ignored: the menu always opens upward. */
   dropUp?: boolean
-  /** A script picked under Generate video or Graphics: the chat shows it with its footage, `focus` lit. */
   onFootage?: (script: string, focus: FootageFocus) => void
-  /** A generic b-roll shot picked under Generate video: the chat shows it ready to generate. */
   onBroll?: (id: string) => void
-  /** A graphic picked while the chat already holds a script: that script's footage lights it. */
   onGraphic?: (kind: GraphicKind) => void
-  /** Whether the conversation holds a finished script for a graphic to come from. */
   hasScript?: boolean
-  /** Attach: the chat's file upload, housed in the menu rather than beside it (Brendan, 2026-10-24). */
+  /** Attach: the chat's file upload, housed in the menu rather than beside it. */
   onAttach?: () => void
-  /** Video templates: every template, filled with sample data, placed in the chat. */
   onTemplates?: () => void
   /** A skill picked from the top of the menu: the chat carries it as a chip and in every message after. */
   onSkill?: (skill: ChatSkill) => void
 }
 
-/* Sidebar dress for every menu icon (shell.tsx's item): 18px, 1.75 stroke, lavender fill on row hover. */
+/* Sidebar dress for every menu icon: 18px, 1.75 stroke, lavender fill on row hover. */
 const ICON = 'icon-pop size-[18px] shrink-0 transition-colors text-slate-500 group-hover:fill-pax2-lavender group-hover:text-pax2-blue'
 
-const VOICE_LINE = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+const params = (v: number) => {
+  const f = compact(v)
+  return `${f.count.toFixed(f.decimals)}${f.suffix}`
+}
 
-const outlier = (x: number) => `${x >= 10 ? x.toFixed(0) : x.toFixed(1)}×`
-
-/* ------------------------------------------------------------------ */
-/*  Component                                                          */
-/* ------------------------------------------------------------------ */
-
-export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, onBroll, onGraphic, hasScript = false, onAttach, onTemplates, onSkill }: Props) {
-  const [scripts, setScripts] = useState<ListedScript[] | null>(null)
+export function PlusMenu({ onSelect, onAttach, onSkill }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [step, setStep] = useState<DrillStep>('categories')
   const [search, setSearch] = useState('')
-  const [hearing, setHearing] = useState<string | null>(null)
-  const [kind, setKind] = useState<GraphicKind | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
-  // The menu always opens upward (Brendan, 2026-10-29), no taller than the room above the + inside
-  // whatever clips it (the page's card), its rows scrolling past that.
+  // The menu always opens upward, no taller than the room above the + inside whatever clips it
+  // (the page's card), its rows scrolling past that.
   const [room, setRoom] = useState<number | null>(null)
   useEffect(() => {
     if (!menuOpen || !menuRef.current) return
@@ -96,97 +87,47 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
       const o = getComputedStyle(p)
       if (/(hidden|auto|scroll|clip)/.test(o.overflowY + o.overflow)) top = Math.max(top, p.getBoundingClientRect().top)
     }
-    setRoom(Math.max(200, Math.round(menuRef.current.getBoundingClientRect().top - top - 16)))
+    setRoom(Math.max(160, menuRef.current.getBoundingClientRect().top - top - 16))
   }, [menuOpen, step])
 
   useEffect(() => {
-    function h(e: MouseEvent) {
+    const onDown = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) closeMenu()
     }
-    if (menuOpen) document.addEventListener('mousedown', h)
-    return () => document.removeEventListener('mousedown', h)
+    if (menuOpen) document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
   }, [menuOpen])
 
-  // The script list loads the first time the menu opens.
-  useEffect(() => {
-    if (menuOpen && !scripts) import('@/lib/script-list').then((m) => setScripts(m.SCRIPT_LIST))
-  }, [menuOpen, scripts])
-
   const closeMenu = () => { setMenuOpen(false); setStep('categories'); setSearch('') }
-  const askYouTube = (v: VideoChip) => { onSelect(`What explains how “${v.label.split(' · ')[0]}” performed?`); onShort?.(v) }
   const goBack = () => { setStep('categories'); setSearch('') }
   const handleCategoryClick = (cat: Exclude<DrillStep, 'categories'>) => { setSearch(''); setStep(cat) }
-
-  /** Road test: the voice reads one line, made by the studio's own narrate. */
-  const hear = async (voiceId: VoiceId) => {
-    if (hearing) return
-    setHearing(voiceId)
-    try {
-      const n = await narrate(VOICE_LINE, voiceId)
-      audioRef.current?.pause()
-      audioRef.current = new Audio(n.url)
-      await audioRef.current.play()
-    } catch {
-      /* the voice stays silent; the row simply unspins */
-    } finally {
-      setHearing(null)
-    }
-  }
 
   const q = search.toLowerCase()
   const filteredPrompts = ONBOARDING_QUESTIONS.filter(p => !search || p.toLowerCase().includes(q))
   const filteredSkills = CHAT_SKILLS.filter(k => !search || k.name.toLowerCase().includes(q) || k.about.toLowerCase().includes(q))
-  const filteredScripts = (scripts ?? []).filter(s => !search || s.title.toLowerCase().includes(q) || s.framing.toLowerCase().includes(q) || s.text.toLowerCase().includes(q))
-  const filteredVideos = videos.filter(v => !search || v.label.toLowerCase().includes(q))
-  const filteredShorts = shorts.filter(v => !search || v.label.toLowerCase().includes(q))
-  const voices = VOICES.filter(v => v.provider !== 'none').filter(v => !search || v.label.toLowerCase().includes(q))
-
-  const getStepLabel = () => {
-    if (step === 'skills') return 'Skills'
-    if (step === 'prompts') return 'Onboarding'
-    if (step === 'pick-script') return 'Scripts'
-    if (step === 'pick-video') return 'Videos'
-    if (step === 'pick-short') return 'Shorts'
-    if (step === 'pick-voice') return 'Voices'
-    if (step === 'generate') return 'Generate video'
-    if (step === 'graphics') return 'Graphics'
-    if (step === 'graphic-script') return 'Scripts'
-    return ''
-  }
-
-  const isDrawer = step !== 'categories'
+  const filteredSamples = SAMPLE_ROWS.filter(s => !search || s.title.toLowerCase().includes(q) || s.framing.toLowerCase().includes(q))
+  const filteredModels = HF_MODELS.filter(m => !search || m.title.toLowerCase().includes(q) || m.body.toLowerCase().includes(q))
+  const filteredBoxes = SWITCHBOARD.filter(b => !search || b.title.toLowerCase().includes(q) || b.body.toLowerCase().includes(q))
 
   const CATEGORIES: { key: Exclude<DrillStep, 'categories'>; label: string; icon: React.ReactNode }[] = [
     ...(onSkill ? [{ key: 'skills' as const, label: 'Skills', icon: <Sparkles className={ICON} strokeWidth={1.75} /> }] : []),
     { key: 'prompts', label: 'Onboarding', icon: <Compass className={ICON} strokeWidth={1.75} /> },
-    { key: 'pick-script', label: 'Scripts', icon: <NotebookPen className={ICON} strokeWidth={1.75} /> },
-    ...(videos.length ? [{ key: 'pick-video' as const, label: 'Videos', icon: <PlaySquare className={ICON} strokeWidth={1.75} /> }] : []),
-    ...(shorts.length ? [{ key: 'pick-short' as const, label: 'Shorts', icon: <Clapperboard className={ICON} strokeWidth={1.75} /> }] : []),
-    { key: 'pick-voice', label: 'Voices', icon: <AudioLines className={ICON} strokeWidth={1.75} /> },
-    { key: 'generate', label: 'Generate video', icon: <Film className={ICON} strokeWidth={1.75} /> },
-    { key: 'graphics', label: 'Graphics', icon: <Shapes className={ICON} strokeWidth={1.75} /> },
+    { key: 'pick-sample', label: 'API samples', icon: <Braces className={ICON} strokeWidth={1.75} /> },
+    { key: 'pick-model', label: 'Models', icon: <Cpu className={ICON} strokeWidth={1.75} /> },
+    { key: 'pick-box', label: 'Boxes', icon: <LayoutGrid className={ICON} strokeWidth={1.75} /> },
   ]
 
-  const scriptRows = (pick: (s: ListedScript) => void) => (
-    <>
-      {filteredScripts.map((s, i) => (
-        <button key={s.id} onClick={() => { pick(s); closeMenu() }} className={row(i)}>
-          <NotebookPen className={ICON} strokeWidth={1.75} />
-          <span className="min-w-0 flex-1 text-left">
-            <span className="block text-sm font-semibold text-[var(--txt)]">{s.title}</span>
-            <span className="block truncate text-xs text-[var(--muted)]">{s.framing}</span>
-          </span>
-        </button>
-      ))}
-      {scripts && filteredScripts.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
-    </>
-  )
+  const stepLabel: Record<Exclude<DrillStep, 'categories'>, string> = {
+    skills: 'skills',
+    prompts: 'questions',
+    'pick-sample': 'API samples',
+    'pick-model': 'models',
+    'pick-box': 'boxes',
+  }
 
   const row = (i: number) => `group flex w-full items-center gap-3 px-4 py-3 hover:bg-[var(--inp-bg)] transition-colors ${i > 0 ? 'border-t border-[var(--border)]' : ''}`
-  /** Where one list in a drawer ends and the next begins. */
-  const section = (label: string, first = false) => <div className={`px-4 pb-1.5 pt-3 text-xs font-medium text-[var(--muted)] ${first ? '' : 'border-t border-[var(--border)]'}`}>{label}</div>
-  const filteredBroll = BROLL.filter((b) => !search || b.label.toLowerCase().includes(q))
 
+  const isDrawer = step !== 'categories'
   const panelSide = 'bottom-full mb-2'
 
   return (
@@ -212,13 +153,6 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
                 <ChevronRight className="h-4 w-4 ml-auto text-[var(--muted)]" />
               </button>
             ))}
-            {/* A leaf: every video template, filled with sample data, placed in the chat. */}
-            {onTemplates && (
-              <button onClick={() => { onTemplates(); closeMenu() }} className={row(CATEGORIES.length) + ' text-sm font-medium'}>
-                <MonitorPlay className={ICON} strokeWidth={1.75} />
-                <span className="text-[var(--txt)]">Video templates</span>
-              </button>
-            )}
             {/* A leaf, not a drill-down: picking it opens the file dialog. */}
             {onAttach && (
               <button onClick={() => { onAttach(); closeMenu() }} className={row(CATEGORIES.length) + ' text-sm font-medium'}>
@@ -239,7 +173,7 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
             </button>
             <input
               type="text" value={search} onChange={e => setSearch(e.target.value)}
-              placeholder={`Search ${getStepLabel()}…`} autoFocus
+              placeholder={`Search ${stepLabel[step as Exclude<DrillStep, 'categories'>]}…`} autoFocus
               className="flex-1 bg-transparent text-base text-[var(--txt)] outline-none placeholder:text-[var(--muted2)]"
             />
             {search && (
@@ -279,129 +213,65 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
               </>
             )}
 
-            {/* Generate video — a script, shown in the chat with its shots ready to generate; then generic b-roll */}
-            {step === 'generate' && (
+            {/* API samples — a captured api.nysgpt.com response, walked through in the chat */}
+            {step === 'pick-sample' && (
               <>
-                {section('Scripts', true)}
-                {scriptRows((s) => onFootage?.(s.text, 'shots'))}
-                {filteredBroll.length > 0 && section('B-roll')}
-                {filteredBroll.map((b, i) => (
-                  <button key={b.id} onClick={() => { onBroll?.(b.id); closeMenu() }} className={row(i)}>
-                    <Film className={ICON} strokeWidth={1.75} />
-                    <span className="min-w-0 flex-1 text-left text-sm font-semibold text-[var(--txt)]">{b.label}</span>
-                  </button>
-                ))}
-              </>
-            )}
-
-            {/* Graphics — the cards Remotion draws from a script, at no cost; then the scripts themselves */}
-            {step === 'graphics' && (
-              <>
-                {section('Graphics', true)}
-                {GRAPHIC_KINDS.filter((k) => !search || k.label.toLowerCase().includes(q) || k.about.toLowerCase().includes(q)).map((k, i) => (
-                  <button
-                    key={k.id}
-                    onClick={() => {
-                      if (hasScript) { onGraphic?.(k.id); closeMenu() } else { setKind(k.id); setSearch(''); setStep('graphic-script') }
-                    }}
-                    className={row(i) + ' items-start'}
-                  >
-                    <Shapes className={ICON} strokeWidth={1.75} />
-                    <span className="min-w-0 flex-1 text-left">
-                      <span className="block text-sm font-semibold text-[var(--txt)]">{k.label}</span>
-                      <span className="block text-xs text-[var(--muted)]">{k.about}</span>
-                    </span>
-                  </button>
-                ))}
-                {section('Scripts')}
-                {scriptRows((s) => onFootage?.(s.text, 'graphics'))}
-              </>
-            )}
-
-            {/* A graphic picked with no script in the chat yet: the script it comes from */}
-            {step === 'graphic-script' && scriptRows((s) => onFootage?.(s.text, kind ?? 'checklist'))}
-
-            {/* Scripts — the /scripts catalog; picking one brings its text in to make yours */}
-            {step === 'pick-script' && (
-              <>
-                {filteredScripts.map((s, i) => (
+                {filteredSamples.map((s, i) => (
                   <button
                     key={s.id}
-                    onClick={() => { onSelect(`Make this script mine — keep it under 25 seconds, first person, and end with the ask:\n\n“${s.text}”`); closeMenu() }}
-                    className={row(i)}
+                    onClick={() => { onSelect(`Walk me through this ${s.title} API response — what it returns, how I'd change the request to ask my own question, and what a call costs:\n\n\`\`\`json\n${API_SAMPLES[s.id]}\n\`\`\``); closeMenu() }}
+                    className={row(i) + ' items-start'}
                   >
-                    <NotebookPen className={ICON} strokeWidth={1.75} />
+                    <Braces className={ICON} strokeWidth={1.75} />
                     <span className="min-w-0 flex-1 text-left">
                       <span className="block text-sm font-semibold text-[var(--txt)]">{s.title}</span>
-                      <span className="block truncate text-xs text-[var(--muted)]">{s.framing}</span>
+                      <span className="block text-xs text-[var(--muted)]">{s.framing}</span>
                     </span>
                   </button>
                 ))}
-                {scripts && filteredScripts.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
+                {filteredSamples.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
               </>
             )}
 
-            {/* Videos — YouTube videos ask like a short; a take asks about its score */}
-            {step === 'pick-video' && (
-              filteredVideos.length === 0
-                ? <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>
-                : filteredVideos.map((v, i) => (
-                  <button key={v.id} onClick={() => { if (v.youtube) askYouTube(v); else { onSelect(`What explains the score on ${v.label}?`); onShort?.(v) } closeMenu() }} className={row(i)}>
-                    {v.poster
-                      // eslint-disable-next-line @next/next/no-img-element
-                      ? <img src={v.poster} alt="" className="h-8 w-5 object-cover rounded-sm shrink-0 border border-[var(--border)]" />
-                      : <PlaySquare className={ICON} strokeWidth={1.75} />}
-                    <span className="flex-1 text-left text-sm font-semibold text-[var(--txt)]">{v.label}</span>
-                    {v.score != null && <span className="text-xs text-[var(--muted)] tabular">{v.youtube ? outlier(v.score) : v.score.toFixed(0)}</span>}
-                  </button>
-                ))
-            )}
-
-            {/* Shorts — real shorts, highest Outlier Score first */}
-            {step === 'pick-short' && (
-              filteredShorts.length === 0
-                ? <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>
-                : filteredShorts.map((v, i) => (
-                  <button key={v.id} onClick={() => { askYouTube(v); closeMenu() }} className={row(i)}>
-                    {v.poster
-                      // eslint-disable-next-line @next/next/no-img-element
-                      ? <img src={v.poster} alt="" className="h-8 w-12 object-cover rounded-sm shrink-0 border border-[var(--border)]" />
-                      : <Clapperboard className={ICON} strokeWidth={1.75} />}
-                    <span className="flex-1 min-w-0 text-left text-sm font-semibold text-[var(--txt)] truncate">{v.label}</span>
-                    {v.score != null && <span className="text-xs text-[var(--muted)] tabular">{outlier(v.score)}</span>}
-                  </button>
-                ))
-            )}
-
-            {/* Voices — hear one read a line, or write a script for it */}
-            {step === 'pick-voice' && (
+            {/* Models — the catalog's cards; picking one asks what it's for */}
+            {step === 'pick-model' && (
               <>
-                {voices.map((v, i) => (
-                  <div key={v.id} className={row(i) + ' cursor-default'}>
-                    <AudioLines className={ICON} strokeWidth={1.75} />
+                {filteredModels.map((m, i) => (
+                  <button
+                    key={m.title}
+                    onClick={() => { onSelect(`What does ${m.title} do, and when would I reach for it over its neighbors?`); closeMenu() }}
+                    className={row(i) + ' items-start'}
+                  >
+                    <Cpu className={ICON} strokeWidth={1.75} />
                     <span className="min-w-0 flex-1 text-left">
-                      <span className="block text-sm font-semibold text-[var(--txt)]">{v.label}</span>
-                      <span className="block text-xs text-[var(--muted)]">{v.provider}</span>
+                      <span className="block text-sm font-semibold text-[var(--txt)]">{m.title}</span>
+                      <span className="block truncate text-xs text-[var(--muted)]">{m.body}</span>
                     </span>
-                    <button
-                      type="button"
-                      onClick={() => hear(v.id)}
-                      disabled={!!hearing}
-                      title={`Hear ${v.label}`}
-                      className="shrink-0 flex h-7 w-7 items-center justify-center rounded-full text-[var(--muted)] hover:bg-[rgba(0,0,0,0.07)] hover:text-pax2-blue disabled:opacity-40"
-                    >
-                      {hearing === v.id ? <Loader2 className="h-4 w-4 animate-spin" /> : <Volume2 className="h-4 w-4" />}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => { onSelect(`Write a 25-second open-primaries script for ${v.label} to read — hook under 12 words, first person, one concrete number, end with what the viewer should do.`); closeMenu() }}
-                      className="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold text-pax2-blue hover:bg-pax2-lavender/60"
-                    >
-                      Write
-                    </button>
-                  </div>
+                    <span className="shrink-0 text-xs text-[var(--muted)] tabular">{params(m.value)}</span>
+                  </button>
                 ))}
-                {voices.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
+                {filteredModels.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
+              </>
+            )}
+
+            {/* Boxes — the homepage topics; picking one asks what's inside */}
+            {step === 'pick-box' && (
+              <>
+                {filteredBoxes.map((b, i) => (
+                  <button
+                    key={b.title}
+                    onClick={() => { onSelect(`What's inside the ${b.title} box?`); closeMenu() }}
+                    className={row(i) + ' items-start'}
+                  >
+                    <LayoutGrid className={ICON} strokeWidth={1.75} />
+                    <span className="min-w-0 flex-1 text-left">
+                      <span className="block text-sm font-semibold text-[var(--txt)]">{b.title}</span>
+                      <span className="block truncate text-xs text-[var(--muted)]">{b.body}</span>
+                    </span>
+                    {b.tag && <span className="shrink-0 text-xs text-[var(--muted)]">{b.tag}</span>}
+                  </button>
+                ))}
+                {filteredBoxes.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
               </>
             )}
 

@@ -13,6 +13,14 @@
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
+  // Secrets set by hand, once (wrangler secret put; they survive every deploy):
+  //   AWS_BEARER_TOKEN_BEDROCK — the nysgpt-chat-worker IAM user's Bedrock API key
+  //   NSR_DATABASE_URL         — the NSR corpus on Neon
+  "vars": {
+    // The workers.dev build answers without a Cognito session (sign-in isn't wired there).
+    // Delete this line to require sign-in again.
+    "NYSGPT_CHAT_OPEN": "1"
+  },
   "observability": {
     "enabled": true
   }

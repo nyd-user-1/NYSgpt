@@ -1085,7 +1085,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
                   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(input) }
                 }
               }}
-              placeholder={addressMode ? 'Enter an address…' : recordMode ? 'Record mode — tell me a little about you…' : selectedAddress ? 'Ask about this address…' : 'Ask me anything…'}
+              placeholder={addressMode ? 'Enter an address…' : recordMode ? 'Record mode — tell me a little about you…' : selectedAddress ? 'Ask about this address…' : 'Ask about the bills, the papers, the models…'}
               className="flex-1 resize-none bg-transparent py-1 text-[17px] text-[var(--txt)] placeholder:text-[var(--muted2)] outline-none leading-relaxed"
               style={{ minHeight: '40px' }} />
           </div>
