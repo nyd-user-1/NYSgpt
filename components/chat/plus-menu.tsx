@@ -394,7 +394,7 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
                     </button>
                     <button
                       type="button"
-                      onClick={() => { onSelect(`Write a 25-second open-primaries script for ${v.label} to read — hook under 12 words, first person, one concrete number, end with what the viewer should do.`); closeMenu() }}
+                      onClick={() => { onSelect(`Write a 25-second script for ${v.label} to read — hook under 12 words, first person, one concrete number, end with what the viewer should do.`); closeMenu() }}
                       className="shrink-0 rounded-full px-2.5 py-1 text-xs font-semibold text-pax2-blue hover:bg-pax2-lavender/60"
                     >
                       Write
