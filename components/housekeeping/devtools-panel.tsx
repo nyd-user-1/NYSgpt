@@ -44,7 +44,7 @@ export function DevToolsPanel() {
       <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
         <Row icon={<MessageSquareText />} label="Dev Comments" sub="Comments on the app, and the thread Claude answers" onClick={() => setSub('comments')} />
         <ToggleRow icon={<SquareDashedMousePointer />} label="Point and Click" sub="Point, click, and leave edit notes." on={pointerOn} onToggle={togglePointer} />
-        <ToggleRow icon={<PencilLine />} label="Live edit" sub="Rewrite any text in place — the edit files itself with its component and file." on={liveOn} onToggle={toggleLive} />
+        <ToggleRow icon={<PencilLine />} label="Live edit" sub="The page freezes; arrows climb the DOM; rewrite text in place and the edit files itself with its component and file." on={liveOn} onToggle={toggleLive} />
         <XRay />
       </div>
       <div className="shrink-0 border-t border-[var(--paper-rule)]">
