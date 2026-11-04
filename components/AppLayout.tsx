@@ -57,7 +57,8 @@ export function AppLayout({
         }`}
       >
         {/* A plain right-click on the header's empty run opens the Nav for the page (components/shell.tsx). */}
-        <div data-chrome onContextMenu={headerMenu("main")} className="flex items-center px-5 pt-5 pb-5">
+        {/* The header wears trinity's shadow by default — not scroll-gated (Brendan, 2026-11-04). */}
+        <div data-chrome onContextMenu={headerMenu("main")} className="relative z-10 flex items-center px-5 pt-5 pb-5 shadow-header">
           <button
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label="Toggle sidebar"
