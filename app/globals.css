@@ -321,6 +321,7 @@
   --pax2-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
   --pax2-shadow-2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
   --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
+  --pax2-shadow-header: 0 4px 12px -8px rgb(15 23 42 / 0.21);
 }
 .dark {
   --pax2-blue: #93c5fd;
@@ -333,6 +334,7 @@
   --pax2-shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 1px rgb(0 0 0 / 0.3);
   --pax2-shadow-2: 0 4px 14px -4px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
   --pax2-shadow-3: 0 18px 40px -12px rgb(0 0 0 / 0.7), 0 6px 12px -6px rgb(0 0 0 / 0.5);
+  --pax2-shadow-header: 0 4px 12px -8px rgb(0 0 0 / 0.5);
 }
 
 @theme inline {
@@ -346,6 +348,7 @@
   --shadow-e1: var(--pax2-shadow-1);
   --shadow-e2: var(--pax2-shadow-2);
   --shadow-e3: var(--pax2-shadow-3);
+  --shadow-header: var(--pax2-shadow-header);
 }
 
 /* Headings in the chat: the body family at heavier weight and tighter tracking (trinity's rule). */

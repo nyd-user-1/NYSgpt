@@ -57,7 +57,7 @@ export function PaneFrame({
     <section
       data-pane-host
       style={{ "--pane-w": width } as React.CSSProperties}
-      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[18px] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-[0_4px_24px_rgba(0,0,0,0.07)] ${dragging ? "" : "transition-[width] duration-300 ease-in-out"}`}
+      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[18px] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-header ${dragging ? "" : "transition-[width] duration-300 ease-in-out"}`}
     >
       <div onContextMenu={onMenu} className="flex shrink-0 items-center gap-3 px-5 pt-5 pb-5">
         <p className="min-w-0 flex-1 truncate text-[22px] leading-none text-[var(--paper-text)]" style={{ ...SERIF, letterSpacing: "-0.02em" }}>
