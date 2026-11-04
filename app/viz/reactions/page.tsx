@@ -2,11 +2,11 @@ import { VizShell } from "@/components/viz/VizShell"
 import { nuclideField, reactionFlows } from "@/lib/viz-data"
 import { ReactionsChart } from "./chart"
 
-export const dynamic = "force-dynamic"
 export const metadata = { title: "Reactions — Viz" }
 
-export default async function Page() {
-  const [field, flows] = await Promise.all([nuclideField(), reactionFlows()])
+export default function Page() {
+  const field = nuclideField()
+  const flows = reactionFlows()
   return (
     <VizShell
       dark
