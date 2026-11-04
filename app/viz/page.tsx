@@ -117,7 +117,7 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
       </div>
     </>
   );
-  const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 [-webkit-tap-highlight-color:transparent]";
+  const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 transition-colors hover:bg-[var(--paper-quiet)] [-webkit-tap-highlight-color:transparent]";
   const style = { "--accent": card.accent } as React.CSSProperties;
   return chart ? (
     index === 0 ? (
