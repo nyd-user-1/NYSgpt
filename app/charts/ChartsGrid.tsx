@@ -75,7 +75,7 @@ function fieldOption(field: Field): echarts.EChartsOption {
     grid: { left: 44, right: 16, top: 16, bottom: 40 },
     tooltip: {
       formatter: (p) => {
-        const v = (p as { value: [number, number, number] }).value
+        const v = (p as unknown as { value: [number, number, number] }).value
         return `Z ${v[1]} · N ${v[0]} — ${full.format(v[2])} papers`
       },
     },
