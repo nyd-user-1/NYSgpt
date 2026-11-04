@@ -30,7 +30,7 @@ export const paperTriples = () => triplesJson as { y: number; refs: number; cite
 export const reactionFlows = () => flowsJson as { n: number; z: number; dn: number; dz: number; w: number }[]
 
 /** Co-authorship among the 1,200 most-published authors; edges at four-plus shared papers. */
-export const authorGraph = () => graphJson as { nodes: { id: number; name: string; c: number }[]; edges: { s: number; t: number; w: number }[] }
+export const authorGraph = () => graphJson as { nodes: { id: string; name: string; c: number }[]; edges: { s: string; t: string; w: number }[] }
 
 /** 36 Pearson correlations across nine per-paper measures, from the snapshot run. */
 export const measureMatrix = () => matrixJson as { vars: string[]; cells: [number, number, number][] }

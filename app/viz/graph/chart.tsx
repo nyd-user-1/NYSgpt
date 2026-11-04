@@ -3,8 +3,8 @@
 import { useEChart } from '@/components/viz/use-echart'
 
 const full = new Intl.NumberFormat('en')
-type Node = { id: number; name: string; c: number }
-type Edge = { s: number; t: number; w: number }
+type Node = { id: string; name: string; c: number }
+type Edge = { s: string; t: string; w: number }
 
 export function GraphChart({ nodes, edges }: { nodes: Node[]; edges: Edge[] }) {
   const ref = useEChart(() => ({
