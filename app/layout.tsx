@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
@@ -13,25 +13,28 @@ import { siteConfig } from "@/lib/site";
 import { metadataKeywords } from "./metadata";
 import "@/app/globals.css";
 
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
+const dmSans = localFont({
+  src: [
+    { path: "./fonts/dm-sans-latin-wght-normal.woff2", weight: "300 700", style: "normal" },
+    { path: "./fonts/dm-sans-latin-wght-italic.woff2", weight: "300 700", style: "italic" },
+  ],
   variable: "--font-sans",
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+const fraunces = localFont({
+  src: [
+    { path: "./fonts/fraunces-latin-wght-normal.woff2", weight: "300 600", style: "normal" },
+    { path: "./fonts/fraunces-latin-wght-italic.woff2", weight: "300 600", style: "italic" },
+  ],
   variable: "--font-display",
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const mono = localFont({
+  src: "./fonts/jetbrains-mono-latin-wght-normal.woff2",
+  weight: "400 600",
+  style: "normal",
   variable: "--font-mono",
   display: "swap",
 });
