@@ -1,6 +1,6 @@
 'use client'
 
-import { useEChart } from '@/components/viz/use-echart'
+import { firstSeriesRow, useEChart } from '@/components/viz/use-echart'
 
 const full = new Intl.NumberFormat('en')
 
@@ -18,6 +18,6 @@ export function Scatter3dChart({ field }: { field: { n: number; z: number; c: nu
       grid3D: { boxWidth: 170, boxDepth: 110, boxHeight: 56, viewControl: { distance: 240, alpha: 24, beta: 24, autoRotate: true, autoRotateSpeed: 4 }, environment: '#05070d' },
       series: [{ type: 'scatter3D', data, shading: 'color', itemStyle: { opacity: 0.85 } }],
     }
-  }, true)
+  }, true, firstSeriesRow)
   return <div ref={ref} className="h-[78vh] w-full" />
 }

@@ -18,6 +18,6 @@ export function GraphChart({ nodes, edges }: { nodes: Node[]; edges: Edge[] }) {
         forceAtlas2: { steps: 5, stopThreshold: 1, jitterTolerence: 10, edgeWeight: [0.2, 1], gravity: 0.6, scaling: 0.6 },
       },
     ],
-  }), true)
+  }), true, (p) => (p.dataType === 'node' && typeof p.dataIndex === 'number' ? p.dataIndex : null))
   return <div ref={ref} className="h-[78vh] w-full" />
 }

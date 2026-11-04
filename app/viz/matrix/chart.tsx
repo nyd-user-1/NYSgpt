@@ -1,6 +1,6 @@
 'use client'
 
-import { useEChart } from '@/components/viz/use-echart'
+import { firstSeriesRow, useEChart } from '@/components/viz/use-echart'
 
 const LABELS: Record<string, string> = {
   yr: 'Year',
@@ -54,6 +54,6 @@ export function MatrixChart({ vars, cells }: { vars: string[]; cells: [number, n
         },
       ],
     }
-  })
+  }, false, firstSeriesRow)
   return <div ref={ref} className="h-[78vh] w-full" />
 }

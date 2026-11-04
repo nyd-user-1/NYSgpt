@@ -36,6 +36,6 @@ export function RainfallChart({ papers, exfor }: { papers: Row[]; exfor: Row[] }
         { name: 'Into EXFOR', type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: years.map((y) => byYear.get(y) ?? 0), showSymbol: false, smooth: 0.2, lineStyle: { color: '#00bfff', width: 2 }, areaStyle: { color: '#00bfff', opacity: 0.14 } },
       ],
     }
-  })
+  }, false, (p) => (typeof p.dataIndex === 'number' ? p.dataIndex : null))
   return <div ref={ref} className="h-[78vh] w-full" />
 }

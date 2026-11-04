@@ -1,6 +1,9 @@
 'use client'
 
 import * as React from 'react'
+import { usePathname } from 'next/navigation'
+
+import { useShellPanel } from '@/components/shell'
 
 // The /viz pages' one shared mechanism: mount an ECharts canvas in a ref'd div, loading echarts
 // (and echarts-gl, when the chart needs WebGL) on the client only — the GL bundle touches window
@@ -13,6 +16,15 @@ import * as React from 'react'
 // its dark form. Light: ramps that climb from navy to near-white run the other way, so the dense
 // end reads on white; near-white marks go navy. Both: the GL scenes' black environment becomes
 // transparent, the paper shows through.
+//
+// The click (2026-11-04): a click anywhere on a chart opens its data table, /viz/data/<slug>, in the second
+// panel — on the row of the datum clicked when the chart can name it (`rowOf`). A drag (a 3D orbit, a
+// zoom) is not a click, nor is a press on a zoom slider along the foot. Nothing else rides the charts.
+
+/** What ECharts hands a click on a datum. */
+export type ChartClick = { seriesIndex?: number; dataIndex?: number; dataType?: string }
+/** The row a click names when the chart's first series draws the snapshot's rows in order. */
+export const firstSeriesRow = (p: ChartClick) => (p.seriesIndex === 0 && typeof p.dataIndex === 'number' ? p.dataIndex : null)
 
 const DARK: Record<string, string> = {
   '#334155': '#cbd5e1',
@@ -56,8 +68,12 @@ function themed(v: unknown, dark: boolean, inRamp = false): unknown {
 
 const isDark = () => document.documentElement.classList.contains('dark')
 
-export function useEChart(build: () => unknown, gl = false): React.RefObject<HTMLDivElement | null> {
+export function useEChart(build: () => unknown, gl = false, rowOf?: (p: ChartClick) => number | null): React.RefObject<HTMLDivElement | null> {
   const ref = React.useRef<HTMLDivElement>(null)
+  const path = usePathname()
+  const { openPane } = useShellPanel()
+  const latest = React.useRef({ path, openPane, rowOf })
+  latest.current = { path, openPane, rowOf }
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let chart: any
@@ -70,8 +86,35 @@ export function useEChart(build: () => unknown, gl = false): React.RefObject<HTM
       if (disposed || !ref.current) return
       chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
       let dark = isDark()
+      const option = build() as { dataZoom?: { type?: string }[] }
+      const slider = Array.isArray(option.dataZoom) && option.dataZoom.some((d) => d.type === 'slider')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      chart.setOption(themed(build(), dark) as any)
+      chart.setOption(themed(option, dark) as any)
+      // The datum under a click, when there is one; the canvas's own click decides whether it was a click.
+      let hit: number | null = null
+      let down: [number, number] | null = null
+      chart.on('click', (p: ChartClick) => {
+        hit = latest.current.rowOf?.(p) ?? null
+      })
+      const zr = chart.getZr()
+      zr.on('mousedown', (e: { offsetX: number; offsetY: number }) => {
+        down = [e.offsetX, e.offsetY]
+      })
+      zr.on('click', (e: { offsetX: number; offsetY: number }) => {
+        const moved = down ? Math.hypot(e.offsetX - down[0], e.offsetY - down[1]) : 0
+        down = null
+        if (moved > 4 || (slider && e.offsetY > chart.getHeight() - 48)) {
+          hit = null
+          return
+        }
+        // A beat, so a datum's click event (which a GL layer may send after the canvas's) lands first.
+        window.setTimeout(() => {
+          const row = hit
+          hit = null
+          const slug = latest.current.path?.split('/').filter(Boolean).pop()
+          if (slug) latest.current.openPane(`/viz/data/${slug}${row !== null && row >= 0 ? `?row=${row}` : ''}`)
+        }, 0)
+      })
       ro = new ResizeObserver(() => chart?.resize())
       ro.observe(ref.current)
       mo = new MutationObserver(() => {

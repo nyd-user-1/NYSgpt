@@ -1,6 +1,6 @@
 'use client'
 
-import { useEChart } from '@/components/viz/use-echart'
+import { firstSeriesRow, useEChart } from '@/components/viz/use-echart'
 
 const full = new Intl.NumberFormat('en')
 
@@ -23,6 +23,6 @@ export function NebulaChart({ field }: { field: { n: number; z: number; c: numbe
       visualMap: { show: false, dimension: 3, min: 0, max, inRange: { color: ['#172554', '#1d4ed8', '#00bfff', '#e0f2fe'], symbolSize: [2, 9] } },
       series: [{ type: 'scatter', data, blendMode: 'lighter', itemStyle: { opacity: 0.85 } }],
     }
-  })
+  }, false, firstSeriesRow)
   return <div ref={ref} className="h-[78vh] w-full" />
 }
