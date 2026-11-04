@@ -1,11 +1,8 @@
 "use client"
 
-/* eslint-disable react-hooks/refs -- `useDrag` returns its ref object for the
- * caller to attach with `ref={d.ref}`, which is ordinary React: the ref is
- * PASSED during render, never read. The rule cannot tell the difference between
- * handing a ref to JSX and dereferencing one, and `d.moved.current` is read
- * inside an event handler. Contorting correct code around the heuristic would
- * make this worse, not safer. */
+/* Trinity's source disabled react-hooks/refs here (its newer plugin flags `ref={d.ref}`
+ * handoffs); this repo's plugin predates that rule, and naming an unknown rule fails the
+ * build — so the disable stayed home and this note stands in its place. */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { createPortal } from "react-dom"
