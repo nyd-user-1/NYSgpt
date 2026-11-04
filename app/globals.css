@@ -385,3 +385,27 @@
     animation: none !important;
   }
 }
+
+/* The night scale (trinity's fixed darks) — BlockCard's thumbnail scrim reads it. */
+@theme {
+  --color-night-700: #334155;
+  --color-night-800: #1e293b;
+  --color-night-900: #0f172a;
+  --color-night-950: #020617;
+}
+
+/* The chat's mode ribbon (2026-11-04): trinity's attached-context strip, worn as a standing mode —
+   a band tucked behind the input container that names what the chat is wired to. NSR mode wears
+   the Science box's light-blue/blue combo, panning slowly so the mode reads as live. */
+@keyframes chat-ribbon-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+.chat-mode-ribbon {
+  background: linear-gradient(90deg, #00bfff, #2563eb, #1e3a8a, #2563eb, #00bfff);
+  background-size: 200% 100%;
+  animation: chat-ribbon-pan 6s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-mode-ribbon { animation: none; }
+}

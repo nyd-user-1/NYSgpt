@@ -187,7 +187,7 @@ const ask = (v: VideoChip) => `What explains the score on ${v.label}?`
  *  `chipVideo` preloads a video for the question bank's chips (the video page's side panel); on /chat a
  *  short attached from the plus menu brings them. `surface` names where the chips show, for the log.
  *  `record` opens in record mode with the opener in the box (/chat?record=1, from /recording). */
-export function Chat({ scripts = [], videos = [], shorts = [], compact = false, context, attachment, heading, below, explore = true, shelf, chatId, initialMessages, chipVideo, surface = 'chat', record = false, seedChip = null, seedNonce, onboard }: { scripts?: ScriptChip[]; videos?: VideoChip[]; shorts?: VideoChip[]; compact?: boolean; context?: () => string; attachment?: React.ReactNode; heading?: React.ReactNode; below?: React.ReactNode; explore?: boolean; shelf?: React.ReactNode; chatId?: string; initialMessages?: Message[]; chipVideo?: string; surface?: Surface; record?: boolean; seedChip?: ChipOffer | null; seedNonce?: number; /** The onboarding guide (lib/chat-onboard.ts), when the PAX mark opened this chat: rides systemContext, and the opener sends itself. */ onboard?: string }) {
+export function Chat({ scripts = [], videos = [], shorts = [], compact = false, context, attachment, heading, below, explore = true, shelf, chatId, initialMessages, chipVideo, surface = 'chat', record = false, seedChip = null, seedNonce, onboard, mode }: { scripts?: ScriptChip[]; videos?: VideoChip[]; shorts?: VideoChip[]; compact?: boolean; context?: () => string; attachment?: React.ReactNode; heading?: React.ReactNode; below?: React.ReactNode; explore?: boolean; shelf?: React.ReactNode; chatId?: string; initialMessages?: Message[]; chipVideo?: string; surface?: Surface; record?: boolean; seedChip?: ChipOffer | null; seedNonce?: number; /** The onboarding guide (lib/chat-onboard.ts), when the PAX mark opened this chat: rides systemContext, and the opener sends itself. */ onboard?: string; /** A standing mode (NSR mode): the ribbon behind the input names it, its context rides every message, and `off` is where the X goes. */ mode?: { title: string; note: string; context: string; off?: string } }) {
   const [messages, setMessages] = useState<Message[]>(initialMessages ?? [])
   const [input, setInput] = useState(record && !initialMessages?.length ? RECORD_OPENER : '')
   const [loading, setLoading] = useState(false)
@@ -534,7 +534,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // The model reads its own video blocks back with the versions they were saved as (lib/studio.ts withVersions).
-        body: JSON.stringify({ messages: allMessages.map(m => ({ role: m.role, content: m.role === 'assistant' ? withVersions(m.content, (json) => blockKey(chatId, m.id, json)) : m.content })), ...(pdf ? { document: { name: pdf.name, data: pdf.data } } : {}), ...(selectedAddress ? { address: selectedAddress.description, place: placeInsight } : {}), ...((context || attached?.context || recordMode || analysisRef.current || skill || mention || onboard) ? { systemContext: [context?.(), attached?.context, recordMode ? RECORD_GUIDE : null, onboard ?? null, analysisRef.current, skill?.instructions, mention ? mentionContext(mention) : null].filter(Boolean).join('\n\n') } : {}), ...(recordMode ? { record: true } : {}), model }),
+        body: JSON.stringify({ messages: allMessages.map(m => ({ role: m.role, content: m.role === 'assistant' ? withVersions(m.content, (json) => blockKey(chatId, m.id, json)) : m.content })), ...(pdf ? { document: { name: pdf.name, data: pdf.data } } : {}), ...(selectedAddress ? { address: selectedAddress.description, place: placeInsight } : {}), ...((context || attached?.context || recordMode || analysisRef.current || skill || mention || onboard || mode) ? { systemContext: [context?.(), attached?.context, recordMode ? RECORD_GUIDE : null, onboard ?? null, mode?.context ?? null, analysisRef.current, skill?.instructions, mention ? mentionContext(mention) : null].filter(Boolean).join('\n\n') } : {}), ...(recordMode ? { record: true } : {}), model }),
         signal: controller.signal,
       })
       if (!res.ok || !res.body) {
@@ -937,6 +937,20 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
       )}
       {chipTarget && <ChipRow chips={chips} onTap={tapChip} disabled={loading || streaming} />}
       {attachment}
+      {/* The standing mode's ribbon — trinity's attached-context strip worn as a mode: tucked
+          behind the input container, naming what the chat is wired to. */}
+      {mode && (
+        <div className="chat-mode-ribbon -mb-2 flex min-w-0 items-center gap-1.5 rounded-t-2xl px-4 pb-4 pt-2 text-[11px] text-white">
+          <Sparkles className="h-3 w-3 shrink-0" />
+          <span className="shrink-0 font-semibold uppercase tracking-wide">{mode.title}</span>
+          <span className="truncate text-white/80">{mode.note}</span>
+          {mode.off && (
+            <button type="button" onClick={() => window.location.assign(mode.off!)} className="ml-auto shrink-0 rounded text-white/90 hover:text-white" aria-label={`Leave ${mode.title}`}>
+              <X className="h-3 w-3" />
+            </button>
+          )}
+        </div>
+      )}
       {(pdf || pdfError) && (
         <div className="-mb-2 flex min-w-0 items-center gap-1.5 rounded-t-2xl border border-b-0 border-[var(--border)] bg-slate-100 px-4 pb-4 pt-2 text-[11px] text-slate-600">
           <Paperclip className="h-3 w-3 shrink-0" />
@@ -986,9 +1000,11 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
         }}
         onFocus={() => setIsFocused(true)}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && setIsFocused(false)}
-        className={`relative flex flex-col rounded-2xl border ${searchMode ? 'border-pax2-red/60' : addressMode || recordMode || (isEmpty && isFocused) ? 'border-pax2-light-blue' : recordingState !== 'idle' ? 'border-blue-500' : 'border-[var(--border)]'} bg-[var(--inp-bg)] px-4 pt-3 pb-3 transition-all gap-1 shadow-e1 ${isFocused ? 'shadow-[0_8px_24px_rgba(0,0,0,0.08)]' : ''}`}>
-        {/* Record mode's light, and before a chat starts the same light while the cursor is in the box (Brendan, 2026-10-29). */}
-        {!searchMode && (recordMode || (isEmpty && isFocused)) && <BorderLight />}
+        className={`relative flex flex-col rounded-2xl border ${searchMode ? 'border-pax2-red/60' : addressMode || recordMode || isEmpty ? 'border-pax2-light-blue' : recordingState !== 'idle' ? 'border-blue-500' : 'border-[var(--border)]'} bg-[var(--inp-bg)] px-4 pt-3 pb-3 transition-all gap-1 shadow-e1 ${isFocused ? 'shadow-[0_8px_24px_rgba(0,0,0,0.08)]' : ''}`}>
+        {/* The light plays from page load until words are set down, and whenever the cursor is in
+            the box; with text in the box and the cursor away, the blue outline alone holds the
+            state (Brendan, 2026-11-04). Record mode keeps its always-on light. */}
+        {!searchMode && (recordMode || (isEmpty && (isFocused || !input.trim()))) && <BorderLight />}
 
         {mentionItems.length > 0 && (
           <div className="absolute bottom-full left-0 right-0 z-20 mb-2">

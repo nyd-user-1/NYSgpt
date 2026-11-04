@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, PanelRight } from "lucide-react";
+import { ArrowUpRight, Check, MessagesSquare, PanelRight } from "lucide-react";
 import { ClassicSpinner } from "@/components/ClassicSpinner";
 import { CountUp } from "@/components/CountUp";
 import { useProductStatus } from "@/components/ProductStatus";
@@ -241,6 +241,24 @@ export function HomeCard({ card, index, productIndex, category, featured = false
       </div>
 
       <div className="relative mt-4 flex items-end justify-between gap-3">
+        {/* Bottom-left on hover, on the cards that carry a chat deep-link (Science → NSR mode):
+            the chat corner. Same seat-and-reveal as the panel button opposite it. */}
+        {card.chat && (
+          <span className={`absolute -left-2 -bottom-2 flex shrink-0 items-center transition-opacity duration-200 ${active ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+            <button
+              type="button"
+              aria-label={`Chat with ${card.title}`}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window.location.assign(card.chat!);
+              }}
+              className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-[var(--paper-rule-soft)]"
+            >
+              <MessagesSquare className="h-4 w-4 text-[var(--accent)]" />
+            </button>
+          </span>
+        )}
         <span
           data-inspect="CardFooter"
           className={`inline-flex min-w-0 items-center gap-1.5 text-[10px] uppercase tracking-[0.18em] tabular-nums transition-opacity duration-200 ${active && hasFigure ? "opacity-0" : "opacity-100 text-[var(--paper-faint)]"}`}
