@@ -1,13 +1,12 @@
-import { BedrockRuntimeClient, ConverseCommand } from "@aws-sdk/client-bedrock-runtime"
 import { NextResponse } from "next/server"
 
 import { currentUser } from "@/lib/auth"
+import { converseText } from "@/lib/chat-data/bedrock"
 
-// The orb's follow-ups (Brendan, 2026-11-03): clicking the settled orb asks for exactly three short
-// prompts the user would plausibly send next, from the tail of the conversation. Generated on the first
-// click alone (the client caches per message), on the fast model, a few hundred tokens at most.
+// The orb's follow-ups, trinity's pattern: clicking the settled orb asks for exactly three short
+// prompts the user would plausibly send next, from the tail of the conversation. Generated on the
+// first click alone (the client caches per message), on the fast model, a few hundred tokens.
 
-const client = new BedrockRuntimeClient({ region: process.env.NYSGPT_BEDROCK_REGION ?? "us-east-1" })
 const MODEL = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 
 const SYSTEM = `From the conversation, propose exactly three follow-up prompts the user would plausibly send next: each a single short imperative or question in the user's own voice, under 72 characters, concrete to what was just discussed (its numbers, its names), never generic ("tell me more"), never repeating what was already asked. Answer with a JSON array of three strings and nothing else.`
@@ -15,7 +14,7 @@ const SYSTEM = `From the conversation, propose exactly three follow-up prompts t
 export const dynamic = "force-dynamic"
 
 export async function POST(request: Request) {
-  if (!(await currentUser())) return NextResponse.json({ error: "Sign in." }, { status: 401 })
+  if (process.env.NYSGPT_CHAT_OPEN !== "1" && !(await currentUser())) return NextResponse.json({ error: "Sign in." }, { status: 401 })
   const body = (await request.json().catch(() => null)) as { messages?: { role: string; content: string }[]; context?: string } | null
   const tail = (body?.messages ?? []).slice(-8).map((m) => ({
     role: (m.role === "assistant" ? "assistant" : "user") as "assistant" | "user",
@@ -24,15 +23,12 @@ export async function POST(request: Request) {
   if (!tail.length) return NextResponse.json({ error: "Nothing to follow up." }, { status: 400 })
   if (tail[tail.length - 1].role === "assistant") tail.push({ role: "user", content: [{ text: "Propose the three follow-ups now." }] })
   try {
-    const res = await client.send(
-      new ConverseCommand({
-        modelId: MODEL,
-        system: [{ text: body?.context ? `${SYSTEM}\n\nContext bound to the conversation:\n${body.context.slice(0, 1200)}` : SYSTEM }],
-        messages: tail,
-        inferenceConfig: { maxTokens: 300, temperature: 0.7 },
-      }),
-    )
-    const text = res.output?.message?.content?.map((c) => ("text" in c ? c.text : "")).join("") ?? ""
+    const text = await converseText({
+      modelId: MODEL,
+      system: [{ text: body?.context ? `${SYSTEM}\n\nContext bound to the conversation:\n${body.context.slice(0, 1200)}` : SYSTEM }],
+      messages: tail,
+      inferenceConfig: { maxTokens: 300, temperature: 0.7 },
+    })
     const start = text.indexOf("[")
     const end = text.lastIndexOf("]")
     let suggestions: string[] = []
