@@ -4,6 +4,7 @@ import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { HomeMasthead } from "./HomeMasthead";
 import { HomeContents } from "./HomeContents";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
+import { HomeGrid } from "@/components/home-grid";
 import { LEDGER, CARDS } from "@/lib/home-data";
 
 export const metadata = {
@@ -18,10 +19,12 @@ export default function HomePage() {
   return (
     <AppLayout paperMode>
       <div
-        className="flex-1 overflow-hidden"
+        className="relative flex-1 overflow-hidden"
         style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}
       >
-        <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
+        {/* The background grid: the 404's squares with trinity's landing-grid motion, behind the masthead and the plate. */}
+        <HomeGrid />
+        <div className="relative mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
           {/* Nameplate + ledger — a client island so the wordmark can toggle the
               switchboard, and so the figures can re-count on hover. */}
           <RevealFx className="shrink-0" delay={0.08} translateY={6}>
