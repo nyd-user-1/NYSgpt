@@ -9,7 +9,7 @@
 
 import { useEffect, useState } from 'react'
 import { cssPath } from '@/components/housekeeping/overlay/locator'
-import { sourceLabel } from '@/components/housekeeping/overlay/source'
+import { sourceLabel, toneOf } from '@/components/housekeeping/overlay/source'
 
 const CHANGED = 'live-edit:changed'
 let armed = false
@@ -65,7 +65,14 @@ export function LiveEditMode() {
     if (!on) return
     let hover: HTMLElement | null = null
     let prevOutline = ''
-    const clear = () => { if (hover) { hover.style.outline = prevOutline } hover = null }
+    // The mode wears X-ray's own classification: the hover chip names the component and takes
+    // its layer's color (design system purple, shared green, page orange, unknown red) the
+    // moment /api/dev-locate answers — one color system across Point and Click, X-ray, Live edit.
+    const chip = document.createElement('div')
+    chip.setAttribute('data-devinspector', '')
+    chip.style.cssText = 'position:fixed;z-index:2147483646;pointer-events:none;display:none;padding:1px 6px;border-radius:4px;background:#fff;border:1px solid #94a3b8;color:#475569;font:10px/1.6 ui-monospace,Menlo,monospace;box-shadow:0 1px 4px rgba(0,0,0,.15)'
+    document.body.appendChild(chip)
+    const clear = () => { if (hover) { hover.style.outline = prevOutline } hover = null; chip.style.display = 'none' }
     const over = (e: MouseEvent) => {
       const t = (e.target as Element)?.closest('h1,h2,h3,h4,p,span,li,td,th,figcaption,blockquote,label,dt,dd,strong,em') ?? (e.target as Element)
       if (!editable(t) || t === hover) return
@@ -73,6 +80,22 @@ export function LiveEditMode() {
       hover = t
       prevOutline = t.style.outline
       t.style.outline = '1.5px dashed #2563eb'
+      const r = t.getBoundingClientRect()
+      const { name, located } = sourceLabel(t)
+      chip.textContent = name ?? t.localName
+      chip.style.borderColor = '#94a3b8'
+      chip.style.color = '#475569'
+      chip.style.left = `${Math.max(4, r.left)}px`
+      chip.style.top = `${Math.max(4, r.top - 22)}px`
+      chip.style.display = 'block'
+      void located.then(({ file, layer }) => {
+        if (hover !== t) return
+        const tone = toneOf(layer)
+        chip.style.color = tone
+        chip.style.borderColor = tone
+        t.style.outline = `1.5px dashed ${tone}`
+        if (file) chip.textContent = `${name ?? t.localName} — ${file}`
+      })
     }
     const click = (e: MouseEvent) => {
       if (!hover || !hover.contains(e.target as Node)) return
@@ -102,6 +125,7 @@ export function LiveEditMode() {
     document.addEventListener('click', click, true)
     return () => {
       clear()
+      chip.remove()
       document.removeEventListener('mouseover', over, true)
       document.removeEventListener('click', click, true)
     }

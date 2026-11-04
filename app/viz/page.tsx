@@ -24,19 +24,20 @@ const OFF_RAIL = new Set(["Sports", "Solar", "Compiler", "Lake", "Loaders"]);
 
 /** The twelve chart pages, dealt onto the boxes in plate order. Static JSON behind every one, so
  *  Next prerenders them; the links don't prefetch (twelve at once ran the worker past its CPU limit). */
+// Each box names its chart TYPE and describes its variables (Brendan, 2026-11-04).
 const CHARTS = [
-  { href: "/viz/nebula", title: "The nuclide nebula", body: "Every nuclide the literature has touched, neutrons across and protons up, glowing with the log of its paper count." },
-  { href: "/viz/rainfall", title: "The rainfall and the river", body: "Papers entering the corpus each year, and below them the slice that flowed on into EXFOR as compiled data." },
-  { href: "/viz/bar-large", title: "Every nuclide, ranked", body: "All ~7,900 literature-touched nuclides as one bar run on a log axis, from ²³⁵U down to one-paper exotica." },
-  { href: "/viz/weight", title: "Two populations of papers", body: "The NSR record against the arXiv/APS additions: publication year across, citations up a log axis." },
-  { href: "/viz/heatmap", title: "The nuclide heatmap", body: "The nebula's field as cells, heat by paper count. The empty black is nuclear terra incognita." },
-  { href: "/viz/scatter3d", title: "The nuclide field, lifted", body: "The nebula with its third axis made literal: the valley of stability as a ridge you can orbit." },
-  { href: "/viz/scatter3d-dataset", title: "Ten thousand papers in three measures", body: "A random 10,000 cited papers in space: year across, references deep, citations up." },
-  { href: "/viz/simplex", title: "Literature smoke", body: "Each nuclide exhales a plume, taller and denser with its papers, jittered into weather. A mood instead of a measure." },
-  { href: "/viz/surface", title: "The literature landscape", body: "Altitude is the log of each nuclide's paper count. The diagonal range is the valley of stability, raised into relief." },
-  { href: "/viz/graph", title: "The collaboration web", body: "The 1,200 most-published authors, force-settled; an edge where two share four or more papers." },
-  { href: "/viz/reactions", title: "The reaction transit map", body: "Every reaction a bus route across the chart of nuclides, with moving lights on the 1,200 busiest." },
-  { href: "/viz/matrix", title: "The measure matrix", body: "36 Pearson correlations across nine per-paper measures of all 303,568 references. Navy moves together; red apart." },
+  { href: "/viz/nebula", title: "Scatter field", body: "x neutrons N · y protons Z · size and glow log₁₀ papers. All 7,799 nuclides the literature touches." },
+  { href: "/viz/rainfall", title: "Stacked area", body: "x publication year, 1857–2026 · y papers per year; the lower band is the slice compiled into EXFOR." },
+  { href: "/viz/bar-large", title: "Bar run", body: "x all ~7,900 nuclides, ranked · y papers on a log axis, ²³⁵U down to one-paper exotica." },
+  { href: "/viz/weight", title: "Two-series scatter", body: "x publication year · y citations, log axis. 12,000 sampled papers: NSR against the arXiv/APS additions." },
+  { href: "/viz/heatmap", title: "Heatmap", body: "x N · y Z · heat log papers, over the full chart of nuclides; empty cells are untouched ground." },
+  { href: "/viz/scatter3d", title: "3D scatter", body: "x N · y Z · z log₁₀ papers — the valley of stability raised into a ridge." },
+  { href: "/viz/scatter3d-dataset", title: "3D dataset scatter", body: "x year · y references · z citations, over a random 10,000 cited papers." },
+  { href: "/viz/simplex", title: "Noise field", body: "Simplex-noise plumes, one per nuclide; height and density scale with its papers. A mood, not a measure." },
+  { href: "/viz/surface", title: "3D surface", body: "x N · y Z · z log papers as terrain; the diagonal range is the valley of stability." },
+  { href: "/viz/graph", title: "Force graph", body: "Nodes the 1,200 most-published authors, sized by papers; an edge where two share four or more." },
+  { href: "/viz/reactions", title: "Flow lines", body: "Ground x N · y Z; each line a reaction's (ΔN, ΔZ) trajectory weighted by papers, lights on the 1,200 busiest." },
+  { href: "/viz/matrix", title: "Correlation matrix", body: "9×9 Pearson r across per-paper measures of all 303,568 references. Navy moves together; red apart." },
 ];
 
 /** The / page, duplicated exactly (Brendan, 2026-11-04): masthead, the contents plate's first

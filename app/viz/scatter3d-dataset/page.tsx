@@ -2,7 +2,7 @@ import { VizShell } from "@/components/viz/VizShell"
 import { paperTriples } from "@/lib/viz-data"
 import { Scatter3dDatasetChart } from "./chart"
 
-export const metadata = { title: "Scatter 3D dataset — Viz" }
+export const metadata = { title: "3D dataset scatter — Viz" }
 
 export default function Page() {
   const rows = paperTriples()

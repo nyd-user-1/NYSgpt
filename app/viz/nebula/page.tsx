@@ -2,7 +2,7 @@ import { VizShell } from "@/components/viz/VizShell"
 import { nuclideField } from "@/lib/viz-data"
 import { NebulaChart } from "./chart"
 
-export const metadata = { title: "Nebula — Viz" }
+export const metadata = { title: "Scatter field — Viz" }
 
 export default function Page() {
   const field = nuclideField()

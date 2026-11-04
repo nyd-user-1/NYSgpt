@@ -2,7 +2,7 @@ import { VizShell } from "@/components/viz/VizShell"
 import { nuclideField } from "@/lib/viz-data"
 import { SurfaceChart } from "./chart"
 
-export const metadata = { title: "Surface — Viz" }
+export const metadata = { title: "3D surface — Viz" }
 
 export default function Page() {
   const field = nuclideField()
