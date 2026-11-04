@@ -1,19 +1,23 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, LayoutGrid, Sparkles, ArrowUpRight, SquareDashedMousePointer, Wrench, Palette } from 'lucide-react'
 import { DevToolsPanel } from '@/components/housekeeping/devtools-panel'
-import { ThemePanel } from '@/components/ThemePanel'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
 import { PRODUCT_EXTRAS, type HomeCardData } from '@/lib/home-data'
 import { BlocksShelf } from '@/components/BlocksShelf'
 import { SwitchboardApiList } from './SwitchboardApiList'
+import { CornerClose } from '@/components/pane'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
+
+// Trinity's theme palette (components/theme/theme-palette.tsx), loaded as trinity's discussion panel loads it.
+const ThemeControls = dynamic(() => import('@/components/theme/theme-palette').then((m) => m.ThemeControls), { ssr: false })
 
 /**
  * The nysgpt.com switchboard panel — the right-hand drawer, and the store that
@@ -107,7 +111,7 @@ type Ctx = {
   openBlocks: () => void
   /** Opens the Dev tools view (the housekeeping kit, ported from pax-trinity 2026-11-04). */
   openDevtools: () => void
-  /** Opens the Theme view: the live token sheet (2026-11-04). */
+  /** Opens the Theme view: trinity's theme palette (2026-11-04). */
   openTheme: () => void
 }
 
@@ -324,6 +328,8 @@ function SwitchboardPanel() {
             : 'translate-x-full pointer-events-none sm:translate-x-0 sm:w-0'
         }`}
       >
+        {/* Trinity's drawer: the card and its corner bite (components/pane.tsx CornerClose) in one box the card's width. */}
+        <div className={`relative h-full w-full transition-[width] duration-300 ease-in-out ${expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'}`}>
         <div className={`flex h-full w-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] transition-[width] duration-300 ease-in-out sm:rounded-2xl sm:border ${
           expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
         }`}>
@@ -364,7 +370,8 @@ function SwitchboardPanel() {
           <div className="no-scrollbar flex-1 overflow-y-auto">
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
-            <div className="flex min-h-full flex-col">
+            {/* The Theme view scrolls inside itself with its Copy button pinned at the foot, as in trinity, so it gets the height outright. */}
+            <div className={`flex ${view.kind === 'theme' ? 'h-full' : 'min-h-full'} flex-col`}>
             {view.kind === 'aws-register' ? (
               <AwsRegister plan={view.plan} signedIn={view.signedIn} />
             ) : view.kind === 'aws-console' ? (
@@ -374,9 +381,9 @@ function SwitchboardPanel() {
                      live edit, X-ray, settings (2026-11-04). ── */
               <DevToolsPanel />
             ) : view.kind === 'theme' ? (
-              /* ── THEME — the live token sheet: swatches, type, elevation,
-                     radii, read from computed styles (2026-11-04). ── */
-              <ThemePanel />
+              /* ── THEME — trinity's palette, as it is there: the six themes,
+                     every colour a live control, Copy as CSS at the foot. ── */
+              <ThemeControls />
             ) : view.kind === 'blocks' ? (
               /* ── BLOCKS VIEW — trinity's shelf: saved blocks as tiles, the
                      rest dashed empty slots; tiles drag onto the chat. ── */
@@ -559,6 +566,8 @@ function SwitchboardPanel() {
             )}
             </div>
           </div>
+        </div>
+        <CornerClose label="Close" onClose={close} />
         </div>
       </aside>
     </>,

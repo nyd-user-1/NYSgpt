@@ -411,6 +411,112 @@
   --shadow-header: var(--pax2-shadow-header);
 }
 
+/* Trinity's theme engine (src/app/pax2.css, copied 2026-11-04): the Theme view (components/theme/theme-palette.tsx)
+   sets data-theme and the --t-* values on <html>; these two blocks map them onto NYSgpt's tokens. Without
+   data-theme (nobody has picked a theme) neither block applies and NYSgpt's own light/dark stands. */
+/* Themes (Brendan, 2026-10-30): Light, Dark, PAX Light, PAX Dark, Vercel and VS Code, each sixteen base colours (lib/theme.ts,
+   the one source of the values), set on <html> as --t-* with data-theme. This block maps them onto
+   every colour system the app has, so no class or component changes with the theme: PAX's tokens,
+   shadcn's, Tailwind's slate and gray scales (set by role, not flipped: 50–300 the tints and rules, 400–950
+   the type), the design system's surface, Home's paper (below) and the shadows. The sidebar and the right
+   panel stand on the sidebar colour; the mist, which also filled inputs, rails and hovers, is the tint. Before the theme script has
+   run (it runs in <head>, before paint) the light values above stand. :root:root[data-theme] outranks the
+   :root:root above. */
+:root:root[data-theme] {
+  --pax2-blue: var(--t-accent);
+  --pax2-light-blue: var(--t-accent-2);
+  --pax2-lavender: var(--t-wash);
+  --pax2-mist: var(--t-tint);
+  --pax2-sidebar: var(--t-sidebar);
+  --pax2-lift: var(--t-lift);
+  --pax2-surface: var(--t-surface);
+  --pax2-frame: var(--t-frame);
+  --pax2-raised: var(--t-raised);
+  --pax2-red: var(--t-negative);
+  --pax2-red-deep: color-mix(in oklab, var(--t-negative) 72%, var(--t-ink));
+  --pax2-red-soft: color-mix(in oklab, var(--t-negative) 14%, var(--t-surface));
+  --pax2-above: var(--t-positive);
+  --pax2-above-soft: color-mix(in oklab, var(--t-positive) 12%, var(--t-surface));
+  --pax2-below: var(--t-negative);
+  --pax2-below-soft: color-mix(in oklab, var(--t-negative) 10%, var(--t-surface));
+  --pax2-observed: var(--t-accent);
+  --pax2-interpretation: var(--t-ink-3);
+  --pax2-hypothesis: var(--t-negative);
+  --primary: var(--t-accent);
+  --primary-foreground: #ffffff;
+  --ring: var(--t-accent-2);
+  --chart-1: var(--t-accent-2);
+  --chart-3: var(--t-accent);
+  --chart-5: var(--t-negative);
+  --pax2-shadow-1: 0 1px 2px rgb(var(--t-shadow-rgb) / calc(0.04 * var(--t-shadow))), 0 1px 1px rgb(var(--t-shadow-rgb) / calc(0.03 * var(--t-shadow)));
+  --pax2-shadow-2: 0 4px 14px -4px rgb(var(--t-shadow-rgb) / calc(0.1 * var(--t-shadow))), 0 2px 4px -2px rgb(var(--t-shadow-rgb) / calc(0.06 * var(--t-shadow)));
+  --pax2-shadow-3: 0 18px 40px -12px rgb(var(--t-shadow-rgb) / calc(0.22 * var(--t-shadow))), 0 6px 12px -6px rgb(var(--t-shadow-rgb) / calc(0.1 * var(--t-shadow)));
+  /* The header rows' one divider (Brendan, 2026-10-31): scaled by the theme's shadow like the cards', so it reads
+     on the darks too; 0.21 x 1.2 is PAX Light's 0.25, and the darks' 5 and 6 reach full black. */
+  --pax2-shadow-header: 0 4px 12px -8px rgb(var(--t-shadow-rgb) / calc(0.21 * var(--t-shadow)));
+
+  --background: var(--t-surface);
+  --foreground: var(--t-ink);
+  --card: var(--t-surface);
+  --card-foreground: var(--t-ink);
+  --popover: var(--t-raised);
+  --popover-foreground: var(--t-ink);
+  --secondary: var(--t-tint);
+  --secondary-foreground: var(--t-ink);
+  --muted: var(--t-tint);
+  --muted-foreground: var(--t-ink-3);
+  --accent: var(--t-tint);
+  --accent-foreground: var(--t-ink);
+  --border: var(--t-rule);
+  --input: var(--t-rule);
+  --sidebar: var(--t-sidebar);
+  --sidebar-foreground: var(--t-ink);
+  --sidebar-border: var(--t-rule);
+  --surface: var(--t-tint);
+  --surface-foreground: var(--t-ink);
+
+  --color-slate-50: var(--t-tint);
+  --color-slate-100: color-mix(in oklab, var(--t-tint), var(--t-rule));
+  --color-slate-200: var(--t-rule);
+  --color-slate-300: var(--t-rule-strong);
+  --color-slate-400: var(--t-ink-4);
+  --color-slate-500: var(--t-ink-3);
+  --color-slate-600: var(--t-ink-2);
+  --color-slate-700: color-mix(in oklab, var(--t-ink-2) 60%, var(--t-ink));
+  --color-slate-800: color-mix(in oklab, var(--t-ink-2) 25%, var(--t-ink));
+  --color-slate-900: var(--t-ink);
+  --color-slate-950: var(--t-ink);
+  --color-gray-50: var(--t-tint);
+  --color-gray-100: color-mix(in oklab, var(--t-tint), var(--t-rule));
+  --color-gray-200: var(--t-rule);
+  --color-gray-300: var(--t-rule-strong);
+  --color-gray-400: var(--t-ink-4);
+  --color-gray-500: var(--t-ink-3);
+  --color-gray-600: var(--t-ink-2);
+  --color-gray-700: color-mix(in oklab, var(--t-ink-2) 60%, var(--t-ink));
+  --color-gray-800: color-mix(in oklab, var(--t-ink-2) 25%, var(--t-ink));
+  --color-gray-900: var(--t-ink);
+  --color-gray-950: var(--t-ink);
+}
+
+/* Home's paper (paper.css, NYSgpt's boxes) reads the theme too: its black rules are the ink. */
+:root:root[data-theme] .nysgpt-app {
+  --bg: var(--t-frame);
+  --surface: var(--t-surface);
+  --border: var(--t-rule);
+  --inp-bg: var(--t-tint);
+  --txt: var(--t-ink);
+  --muted: var(--t-ink-3);
+  --paper: var(--t-surface);
+  --paper-text: var(--t-ink);
+  --paper-muted: var(--t-ink-3);
+  --paper-faint: var(--t-ink-4);
+  --paper-rule: var(--t-ink);
+  --paper-rule-soft: var(--t-rule);
+  --paper-quiet: var(--t-tint);
+  --paper-strong: var(--t-accent);
+}
+
 /* Headings in the chat: the body family at heavier weight and tighter tracking (trinity's rule). */
 .font-display {
   font-family: var(--font-sans), system-ui, sans-serif;

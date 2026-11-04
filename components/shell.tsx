@@ -376,6 +376,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             }}
             onMenu={headerMenu("pane")}
             frameRef={paneRef}
+            paired={!slim}
           />
           {second && pane2 && (
             <PaneFrame
