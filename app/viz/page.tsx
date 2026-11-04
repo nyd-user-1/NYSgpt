@@ -3,6 +3,7 @@ import { AppLayout } from "@/components/AppLayout";
 import { PaneLink } from "@/components/PaneLink";
 import { RevealFx } from "@/components/RevealFx";
 import { VizBoxMenu } from "./box-menu";
+import { ExpandBox } from "./expand-box";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { HomeMasthead } from "../HomeMasthead";
@@ -119,11 +120,18 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
   const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 [-webkit-tap-highlight-color:transparent]";
   const style = { "--accent": card.accent } as React.CSSProperties;
   return chart ? (
+    index === 0 ? (
+      // Box 1's test (Brendan, 2026-11-04): the box expands to the plate and the chart fills it.
+      <ExpandBox href={chart.href} className={cls} style={style}>
+        {body}
+      </ExpandBox>
+    ) : (
     // A chart box opens its chart in the second panel (2026-11-04).
     // No prefetch: twelve chart pages fetched at once ran the worker past its CPU limit (2026-11-04).
     <PaneLink href={chart.href} prefetch={false} className={cls} style={style}>
       {body}
     </PaneLink>
+    )
   ) : (
     <div className={cls} style={style}>
       {body}
