@@ -302,3 +302,86 @@
 ::view-transition-old(root) {
   z-index: 1;
 }
+
+/* ------------------------------------------------------------------ */
+/* Trinity /chat port (2026-11-03): the pax2 tokens the chat's markup  */
+/* reads, carried over with the page. Light values are trinity's own;  */
+/* the .dark overrides map them onto a slate night so the chat doesn't */
+/* glare when the site is dark. Scoped to tokens the chat uses alone.  */
+/* ------------------------------------------------------------------ */
+
+:root {
+  --pax2-blue: #1e3a8a;
+  --pax2-light-blue: #2563eb;
+  --pax2-lavender: #dbeafe;
+  --pax2-surface: #ffffff;
+  --pax2-red: #dc2626;
+  --pax2-red-deep: #991b1b;
+  --pax2-red-soft: #fee2e2;
+  --pax2-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
+  --pax2-shadow-2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
+}
+.dark {
+  --pax2-blue: #93c5fd;
+  --pax2-light-blue: #60a5fa;
+  --pax2-lavender: #1e3a8a;
+  --pax2-surface: #0f172a;
+  --pax2-red: #f87171;
+  --pax2-red-deep: #fca5a5;
+  --pax2-red-soft: #450a0a;
+  --pax2-shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 1px 1px rgb(0 0 0 / 0.3);
+  --pax2-shadow-2: 0 4px 14px -4px rgb(0 0 0 / 0.5), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --pax2-shadow-3: 0 18px 40px -12px rgb(0 0 0 / 0.7), 0 6px 12px -6px rgb(0 0 0 / 0.5);
+}
+
+@theme inline {
+  --color-pax2-surface: var(--pax2-surface);
+  --color-pax2-blue: var(--pax2-blue);
+  --color-pax2-light-blue: var(--pax2-light-blue);
+  --color-pax2-lavender: var(--pax2-lavender);
+  --color-pax2-red: var(--pax2-red);
+  --color-pax2-red-deep: var(--pax2-red-deep);
+  --color-pax2-red-soft: var(--pax2-red-soft);
+  --shadow-e1: var(--pax2-shadow-1);
+  --shadow-e2: var(--pax2-shadow-2);
+  --shadow-e3: var(--pax2-shadow-3);
+}
+
+/* Headings in the chat: the body family at heavier weight and tighter tracking (trinity's rule). */
+.font-display {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The + menu icons' hover pop (trinity's sidebar dress). */
+@keyframes icon-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.group:hover > .icon-pop { animation: icon-pop 0.5s ease-in-out; }
+@media (prefers-reduced-motion: reduce) {
+  .group:hover > .icon-pop { animation: none; }
+}
+
+/* The angle that turns BorderLight's band (components/border-light.tsx) round its border. */
+@property --pax2-spin {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes pax2-spin {
+  to {
+    --pax2-spin: 360deg;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-pax2-spin] {
+    animation: none !important;
+  }
+}
