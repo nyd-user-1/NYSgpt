@@ -24,14 +24,15 @@ export function ExpandBox({ href, className, style, children }: { href: string; 
     // The motion starts at the masthead's MAIN box, top left (Brendan, 2026-11-04 — not the
     // clicked box), and grows over the union of masthead + plate: the one combined box.
     const word = document.querySelector('[data-inspect="Wordmark"]')
-    const mast = word?.closest('.rounded-2xl') ?? word
-    const plate = el.closest('.isolate') ?? el
     const from = (word ?? el).getBoundingClientRect()
-    const a = (mast ?? plate).getBoundingClientRect()
-    const b = plate.getBoundingClientRect()
-    const left = Math.min(a.left, b.left)
-    const top = Math.min(a.top, b.top)
-    const to = new DOMRect(left, top, Math.max(a.right, b.right) - left, Math.max(a.bottom, b.bottom) - top)
+    // The clone's end rect IS the chart page's frame: the column's content box — same column,
+    // same paddings on both pages — so the swap underneath is invisible and the chart builds
+    // INSIDE the box the wipe leaves standing, never over it.
+    const col = (el.closest('[data-viz-column]') as HTMLElement) ?? el
+    const cr = col.getBoundingClientRect()
+    const cs = getComputedStyle(col)
+    const [pl, pr, pt, pb] = [cs.paddingLeft, cs.paddingRight, cs.paddingTop, cs.paddingBottom].map(parseFloat)
+    const to = new DOMRect(cr.left + pl, cr.top + pt, cr.width - pl - pr, cr.height - pt - pb)
     setBox({ from, to })
     requestAnimationFrame(() => requestAnimationFrame(() => setGrown(true)))
     window.setTimeout(() => router.push(href), MS)

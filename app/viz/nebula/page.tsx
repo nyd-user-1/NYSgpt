@@ -8,10 +8,10 @@ export const metadata = { title: "Scatter field — Viz" }
 export default function Page() {
   const field = nuclideField()
   return (
-    <VizShell>
-      {/* The chart arrives into the box the /viz press just grew (expand-box.tsx test). */}
-      <RevealFx className="flex min-h-0 flex-1 flex-col" delay={0.12} translateY={4}>
-        <NebulaChart field={field} />
+    <VizShell framed>
+      {/* The chart arrives INSIDE the box the /viz press just grew, filling it (expand-box.tsx test). */}
+      <RevealFx className="flex min-h-0 min-w-0 flex-1 flex-col" delay={0.1} translateY={4}>
+        <NebulaChart field={field} fill />
       </RevealFx>
     </VizShell>
   )

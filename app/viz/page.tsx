@@ -55,7 +55,7 @@ export default function VizPage() {
   return (
     <AppLayout paperMode>
       <div className="flex-1 overflow-hidden" style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}>
-        <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
+        <div data-viz-column className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
           <RevealFx className="shrink-0" delay={0.08} translateY={6}>
             <HomeMasthead ledger={LEDGER} />
           </RevealFx>
