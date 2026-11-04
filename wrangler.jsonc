@@ -15,7 +15,9 @@
   },
   // Secrets set by hand, once (wrangler secret put; they survive every deploy):
   //   AWS_BEARER_TOKEN_BEDROCK — the nysgpt-chat-worker IAM user's Bedrock API key
-  //   NSR_DATABASE_URL         — the NSR corpus on Neon
+  //   NSR_ATHENA_KEY_ID        — that user's access key (policy nsr-athena-read): the chat's
+  //   NSR_ATHENA_SECRET          NSR tools query the lake parquet through Athena
+  //   NSR_DATABASE_URL         — unused since 2026-11-04 (the NSR corpus left Neon for the lake)
   "vars": {
     // The workers.dev build answers without a Cognito session (sign-in isn't wired there).
     // Delete this line to require sign-in again.
