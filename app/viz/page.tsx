@@ -2,6 +2,7 @@
 import { AppLayout } from "@/components/AppLayout";
 import { PaneLink } from "@/components/PaneLink";
 import { RevealFx } from "@/components/RevealFx";
+import { VizBoxMenu } from "./box-menu";
 import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { FeedbackDialog } from "@/components/FeedbackDialog";
 import { HomeMasthead } from "../HomeMasthead";
@@ -96,10 +97,8 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
             {chart?.title ?? card.title}
           </h3>
           <span className="flex h-[22px] shrink-0 items-center">
-            <span aria-hidden className="pointer-events-none relative flex h-[5px] w-[5px] shrink-0">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-              <span className="relative inline-flex h-[5px] w-[5px] rounded-full bg-emerald-500" />
-            </span>
+            {/* The green dot gave way to trinity's three-dot menu (2026-11-04). */}
+            <VizBoxMenu title={chart?.title ?? card.title} anchor={(chart?.href ?? card.href ?? card.title).replace(/^\//, "").replace(/[^a-z0-9]+/gi, "-").toLowerCase()} href={chart?.href ?? card.href} />
           </span>
         </div>
         <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>
