@@ -8,6 +8,9 @@ import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardP
 import { ShiftNotes } from "@/components/ShiftNotes";
 import { ShiftNav } from "@/components/ShiftNav";
 import { Shell } from "@/components/shell";
+import { HousekeepingTool } from "@/components/housekeeping/tool";
+import { DevInspector } from "@/components/dev/inspector-lazy";
+import { LiveEditMode } from "@/components/housekeeping/live-edit";
 import { EMBED_SCRIPT } from "@/lib/pane";
 import { getDigest } from "@/lib/digest";
 import { CARDS, SWITCHBOARD } from "@/lib/home-data";
@@ -113,6 +116,12 @@ export default async function RootLayout({
                     Inside the provider so the Nav can open a box in the panel. */}
                 <ShiftNotes />
                 <ShiftNav />
+                {/* Trinity's dev kit (2026-11-04): the housekeeping pointer, the inspector
+                    dock, and Live edit's armed mode — all inert until the panel's Dev tools
+                    rows switch them on. */}
+                <HousekeepingTool />
+                <DevInspector />
+                <LiveEditMode />
               </Shell>
             </SwitchboardProvider>
           </ProductStatusProvider>

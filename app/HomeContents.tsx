@@ -162,11 +162,11 @@ export function HomeContents({ initial: products }: { initial: HomeCardData[] })
           rounded top corners sit over it, as a chat app's input sits over its banner. A sample (2026-10-08). */}
       {/* The plate keeps its place whether or not the banner shows: the banner is
           out of the flow, anchored above the plate and tucked 16px behind it. */}
-      <div className="relative mt-[72px]">
+      <div className="relative mt-[72px] flex min-h-0 flex-1 flex-col">
       <div
         data-inspect="ContentsPlate"
         ref={rail}
-        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto"
+        className="no-scrollbar flex min-h-0 flex-1 snap-x snap-mandatory gap-6 overflow-x-auto"
       >
         {/* The frame keeps its rounded corners and sits over the banner's tucked-in foot. */}
         <div className={`${FRAME} ${PLATE_H} relative z-10 w-full bg-[var(--paper)]`}>

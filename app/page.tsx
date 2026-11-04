@@ -18,24 +18,25 @@ export default function HomePage() {
   return (
     <AppLayout paperMode>
       <div
-        className="flex-1 overflow-y-auto no-scrollbar"
+        className="flex-1 overflow-hidden"
         style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}
       >
-        <div className="mx-auto w-full max-w-[1360px] px-6 sm:px-10 md:px-14 pt-8 pb-16">
+        <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
           {/* Nameplate + ledger — a client island so the wordmark can toggle the
               switchboard, and so the figures can re-count on hover. */}
-          <RevealFx delay={0.08} translateY={6}>
+          <RevealFx className="shrink-0" delay={0.08} translateY={6}>
             <HomeMasthead ledger={LEDGER} />
           </RevealFx>
 
           {/* Contents plate: heading + Refresh + the 5×2 grid, one client island
-              so Refresh can swap the ten products for the ten newest papers. */}
-          <RevealFx delay={0.22} translateY={5}>
+              so Refresh can swap the ten products for the ten newest papers.
+              The column's leftover height is the plate's — nothing scrolls. */}
+          <RevealFx className="flex min-h-0 flex-1 flex-col" delay={0.22} translateY={5}>
             <HomeContents initial={CARDS} />
           </RevealFx>
 
           {/* Byline */}
-          <RevealFx delay={0.7} translateY={3}>
+          <RevealFx className="shrink-0" delay={0.7} translateY={3}>
             <div
               data-inspect="Byline"
               /* Inset 16px each side, the frames' corner radius, so both ends start

@@ -51,14 +51,14 @@ export default function VizPage() {
 
   return (
     <AppLayout paperMode>
-      <div className="flex-1 overflow-y-auto no-scrollbar" style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}>
-        <div className="mx-auto w-full max-w-[1360px] px-6 sm:px-10 md:px-14 pt-8 pb-16">
-          <RevealFx delay={0.08} translateY={6}>
+      <div className="flex-1 overflow-hidden" style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}>
+        <div className="mx-auto flex h-full w-full max-w-[1360px] flex-col px-6 sm:px-10 md:px-14 pt-8 pb-5">
+          <RevealFx className="shrink-0" delay={0.08} translateY={6}>
             <HomeMasthead ledger={LEDGER} />
           </RevealFx>
 
-          <RevealFx delay={0.22} translateY={5}>
-            <div className="relative mt-[72px]">
+          <RevealFx className="flex min-h-0 flex-1 flex-col" delay={0.22} translateY={5}>
+            <div className="relative mt-[72px] flex min-h-0 flex-1 flex-col">
               {/* The plate as / has it (HomeContents): a fixed height, an even grid from its own measured size. */}
               <div className={`isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)] ${PLATE_H}`}>
                 <PlateGrid className="-m-px min-h-0 flex-1" minW={220}>
@@ -70,7 +70,7 @@ export default function VizPage() {
             </div>
           </RevealFx>
 
-          <RevealFx delay={0.7} translateY={3}>
+          <RevealFx className="shrink-0" delay={0.7} translateY={3}>
             <div
               className="mt-3 flex items-center justify-between px-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
               style={MONO}

@@ -1,0 +1,386 @@
+"use client"
+
+import * as React from "react"
+
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
+import { lineDiff, type LineDiff, type Mark } from "@/lib/diff/line-diff"
+import { OCTICON } from "@/lib/diff/octicons"
+
+import "./diff-view.css"
+
+// GitHub's diff, ported from govblock (apps/web/components/policy/diff-view.tsx, its legislation "github
+// view", 2026-11-01), where it was measured from github.com on 2026-09-03 with headless Chromium and rebuilt
+// to the numbers. A fixed-layout table: number columns 40px wide, rows 24px, the text 12px monospace on a
+// 24px line with `pre-wrap`, a 15px marker column for +/−, 24px of padding at the right of the text. A hunk
+// row is one cell across the table, `--gh-diff-hunk-line` behind it, with the 80px expander cell in
+// `--gh-diff-hunk-num` and the `@@ -a,b +c,d @@` line beside it. Added lines sit on `--gh-diff-add-line`
+// with their numbers on `--gh-diff-add-num` and the changed words on `--gh-diff-add-word` at a 3px radius;
+// deletions the same in red. Split view is four columns, a 1px `--gh-diff-border` between the sides, and the
+// empty side in `--gh-diff-empty`. The palette is Primer's, light and dark, in diff-view.css.
+//
+// Three lines of context with the rest folded, the fold arrows that reveal twenty lines above or below, and
+// the ▾ line menu (Copy · Select all · Copy link · Expand above · Expand below · Go to next hunk) come with
+// it. Here it also takes a diff already made (`diff`, as lib/diff/unified.ts builds from a unified diff),
+// where the lines between hunks are absent: those print as the hunk's own header with nothing to unfold.
+// govblock's line comments and search highlighting stay behind; nothing here uses them.
+
+export type Layout = "unified" | "split"
+
+export type LineRef = { side: "L" | "R"; line: number }
+
+const CONTEXT = 3
+const STEP = 20
+
+function Octicon({ name, className }: { name: keyof typeof OCTICON | string; className?: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 16 16" width="16" height="16" fill="currentColor" className={className}>
+      <path d={OCTICON[name]} />
+    </svg>
+  )
+}
+
+/** A line's text with its changed words marked. */
+function Text({ text, marks, tone }: { text: string; marks?: Mark[]; tone?: "add" | "del" }) {
+  const pieces: React.ReactNode[] = []
+  let at = 0
+  const push = (s: string, marked: boolean, key: string) => {
+    if (!s) return
+    pieces.push(marked ? <span key={key} className={cn("gh-x", tone === "add" ? "bg-[var(--gh-diff-add-word)]" : "bg-[var(--gh-diff-del-word)]")}>{s}</span> : <React.Fragment key={key}>{s}</React.Fragment>)
+  }
+  for (const [i, m] of (marks ?? []).entries()) {
+    push(text.slice(at, m.from), false, `p${i}`)
+    push(text.slice(m.from, m.to), true, `m${i}`)
+    at = m.to
+  }
+  push(text.slice(at), false, "tail")
+  return <>{pieces}</>
+}
+
+// ── rows ────────────────────────────────────────────────────────────────────
+
+type Row =
+  | { kind: "line"; a: number | null; b: number | null; tone: "add" | "del" | "ctx"; text: string; marks?: Mark[] }
+  | { kind: "pair"; a: number | null; b: number | null; left: { text: string; marks?: Mark[] } | null; right: { text: string; marks?: Mark[] } | null; tone: "change" | "ctx" }
+  | { kind: "hunk"; gap: number; header: string; up: boolean; down: boolean; all: boolean; above: number; below: number }
+
+/** The hunk header GitHub prints: the ranges of the hunk that follows. */
+function header(aStart: number, aCount: number, bStart: number, bCount: number) {
+  return `@@ -${aStart + 1},${aCount} +${bStart + 1},${bCount} @@`
+}
+
+/**
+ * The blocks as rows, with each equal run cut to three lines of context and
+ * an expander for the rest. `reveal[gapIndex]` is how many lines the reader
+ * has opened from the top and bottom of that gap.
+ */
+function rows(d: LineDiff, layout: Layout, reveal: Record<number, { top: number; bottom: number }>): Row[] {
+  const out: Row[] = []
+  const blocks = d.blocks
+  const lineRow = (a: number | null, b: number | null, tone: "add" | "del" | "ctx", text: string, marks?: Mark[]): Row => ({ kind: "line", a, b, tone, text, marks })
+  // Context: the same words on both sides; when the sides hold them on
+  // different numbers of lines, the extra lines pair with nothing.
+  const ctx = (a: number, b: number, count: number, bCount = count) => {
+    const n = Math.max(count, bCount)
+    for (let i = 0; i < n; i++) {
+      const hasA = i < count
+      const hasB = i < bCount
+      if (layout === "split") out.push({ kind: "pair", a: hasA ? a + i : null, b: hasB ? b + i : null, left: hasA ? { text: d.aLines[a + i] } : null, right: hasB ? { text: d.bLines[b + i] } : null, tone: "ctx" })
+      else out.push(lineRow(hasA ? a + i : null, hasB ? b + i : null, "ctx", hasB ? d.bLines[b + i] : d.aLines[a + i]))
+    }
+  }
+  // A change block's hunk header counts its context; computed per hunk below.
+  const changeAt = (i: number) => blocks[i]?.kind === "change"
+  let hunkOpen = false
+  for (let i = 0; i < blocks.length; i++) {
+    const block = blocks[i]
+    if (block.kind === "equal" && block.header !== undefined) {
+      // Lines the diff does not carry (a unified diff's gap before a hunk): its own header, nothing to unfold.
+      out.push({ kind: "hunk", gap: -1, header: block.header, up: false, down: false, all: false, above: 0, below: 0 })
+      hunkOpen = true
+      continue
+    }
+    if (block.kind === "equal") {
+      const prev = i > 0 && changeAt(i - 1)
+      const next = changeAt(i + 1)
+      const r = reveal[i] ?? { top: 0, bottom: 0 }
+      const bCount = block.bCount ?? block.count
+      // Context that stays open beside the changes. With different line
+      // counts per side, the fold is measured on the longer side.
+      const keepTop = prev ? CONTEXT : 0
+      const keepBottom = next ? CONTEXT : 0
+      const longest = Math.max(block.count, bCount)
+      const top = Math.min(longest, keepTop + r.top)
+      const bottom = Math.min(longest - top, keepBottom + r.bottom)
+      const hidden = longest - top - bottom
+      const aTop = Math.min(block.count, top)
+      const bTop = Math.min(bCount, top)
+      const aBottom = Math.min(block.count - aTop, bottom)
+      const bBottom = Math.min(bCount - bTop, bottom)
+      ctx(block.a, block.b, aTop, bTop)
+      if (hidden > 0) {
+        // The header names the hunk that follows: from the first shown line
+        // after the fold to the end of the next change and its context.
+        const aFrom = block.a + block.count - aBottom
+        const bFrom = block.b + bCount - bBottom
+        let aCount = aBottom
+        let bCountHunk = bBottom
+        for (let j = i + 1; j < blocks.length; j++) {
+          const nb = blocks[j]
+          if (nb.kind === "change") {
+            aCount += nb.del.length
+            bCountHunk += nb.add.length
+          } else {
+            const nr = reveal[j] ?? { top: 0, bottom: 0 }
+            const keep = (changeAt(j - 1) ? CONTEXT : 0) + nr.top
+            aCount += Math.min(nb.count, keep)
+            bCountHunk += Math.min(nb.bCount ?? nb.count, keep)
+            if (Math.max(nb.count, nb.bCount ?? nb.count) > keep) break
+          }
+        }
+        out.push({ kind: "hunk", gap: i, header: next || bottom ? header(aFrom, aCount, bFrom, bCountHunk) : "", up: hidden > STEP, down: hidden > STEP, all: hidden <= STEP, above: top, below: bottom })
+        hunkOpen = true
+      }
+      ctx(block.a + block.count - aBottom, block.b + bCount - bBottom, aBottom, bBottom)
+      continue
+    }
+    if (!hunkOpen && i === 0) {
+      // A file that changes from its first line still gets a header.
+      let aCount = block.del.length
+      let bCount = block.add.length
+      const nb = blocks[1]
+      if (nb?.kind === "equal") {
+        const keep = CONTEXT + (reveal[1]?.top ?? 0)
+        aCount += Math.min(nb.count, keep)
+        bCount += Math.min(nb.bCount ?? nb.count, keep)
+      }
+      out.push({ kind: "hunk", gap: -1, header: header(block.a, aCount, block.b, bCount), up: false, down: false, all: false, above: 0, below: 0 })
+      hunkOpen = true
+    }
+    if (layout === "split") {
+      const n = Math.max(block.del.length, block.add.length)
+      for (let k = 0; k < n; k++) {
+        const left = k < block.del.length ? { text: block.del[k], marks: block.delMarks[k] } : null
+        const right = k < block.add.length ? { text: block.add[k], marks: block.addMarks[k] } : null
+        out.push({ kind: "pair", a: left ? block.a + k : null, b: right ? block.b + k : null, left, right, tone: "change" })
+      }
+    } else {
+      block.del.forEach((text, k) => out.push(lineRow(block.a + k, null, "del", text, block.delMarks[k])))
+      block.add.forEach((text, k) => out.push(lineRow(null, block.b + k, "add", text, block.addMarks[k])))
+    }
+  }
+  return out
+}
+
+// ── the view ────────────────────────────────────────────────────────────────
+
+export function DiffView({
+  diff,
+  before = "",
+  after = "",
+  layout = "unified",
+  anchor = "diff",
+  className,
+}: {
+  /** A diff already made (lib/diff/unified.ts); without it, `before` and `after` are compared. */
+  diff?: LineDiff
+  before?: string
+  after?: string
+  layout?: Layout
+  /** Prefix for line anchors and permalinks: `#<anchor>R77`. */
+  anchor?: string
+  className?: string
+}) {
+  const d = React.useMemo(() => diff ?? lineDiff(before, after), [diff, before, after])
+  const [reveal, setReveal] = React.useState<Record<number, { top: number; bottom: number }>>({})
+  // The row the reader clicked: GitHub's blue ring.
+  const [selected, setSelected] = React.useState<string | null>(null)
+  const table = React.useRef<HTMLTableElement>(null)
+  const list = React.useMemo(() => rows(d, layout, reveal), [d, layout, reveal])
+
+  const expand = (gap: number, where: "top" | "bottom" | "all") =>
+    setReveal((r) => {
+      const cur = r[gap] ?? { top: 0, bottom: 0 }
+      if (where === "all") return { ...r, [gap]: { top: cur.top + 1_000_000, bottom: cur.bottom } }
+      return { ...r, [gap]: { ...cur, [where]: cur[where] + STEP } }
+    })
+
+  const nextHunk = (from: HTMLElement | null) => {
+    const hunks = [...(table.current?.querySelectorAll<HTMLElement>("tr[data-hunk]") ?? [])]
+    const y = from?.getBoundingClientRect().top ?? -1
+    const next = hunks.find((h) => h.getBoundingClientRect().top > y + 1) ?? hunks[0]
+    next?.scrollIntoView({ block: "center", behavior: "smooth" })
+  }
+
+  const copyLink = (ref: LineRef) => {
+    const url = new URL(window.location.href)
+    url.hash = `${anchor}${ref.side}${ref.line + 1}`
+    void navigator.clipboard?.writeText(url.toString())
+  }
+
+  // "Expand above/below" from a line's menu: the nearest fold in that direction.
+  const expandNear = (el: HTMLElement, dir: "above" | "below") => {
+    const tr = el.closest("tr") ?? document.activeElement?.closest("tr")
+    const all = [...(table.current?.querySelectorAll<HTMLElement>("tr") ?? [])]
+    const idx = tr ? all.indexOf(tr as HTMLElement) : -1
+    const range = dir === "above" ? all.slice(0, Math.max(0, idx)).reverse() : all.slice(idx + 1)
+    const h = range.find((r) => r.dataset.hunk !== undefined)
+    if (!h) return
+    const gap = Number(h.dataset.gap)
+    if (Number.isNaN(gap) || gap < 0) return
+    expand(gap, dir === "above" ? "bottom" : "top")
+  }
+
+  const cols = layout === "split" ? 4 : 3
+
+  // The number cells and the text cell for one side of a line.
+  const num = (n: number | null, tone: "add" | "del" | "ctx" | "empty", side: "L" | "R") => (
+    <td
+      className={cn("gh-num", tone === "add" && "bg-[var(--gh-diff-add-num)]", tone === "del" && "bg-[var(--gh-diff-del-num)]", tone === "empty" && "bg-[var(--gh-diff-empty)]", tone === "ctx" && "text-[var(--gh-diff-muted)]")}
+      data-side={side}
+    >
+      <code>{n === null ? "" : n + 1}</code>
+    </td>
+  )
+  const cell = (row: { text: string; marks?: Mark[] } | null, tone: "add" | "del" | "ctx" | "empty", at: LineRef | null, side: "left" | "right", key: string) => {
+    const gapKey = at ? `${at.side}${at.line}` : ""
+    return (
+      <td
+        key={key}
+        className={cn("gh-text group/line", tone === "add" && "bg-[var(--gh-diff-add-line)]", tone === "del" && "bg-[var(--gh-diff-del-line)]", tone === "empty" && "bg-[var(--gh-diff-empty)]", layout === "split" && side === "left" && "border-r border-[var(--gh-diff-border)]")}
+        data-line-anchor={at ? `${anchor}${at.side}${at.line + 1}` : undefined}
+        id={at ? `${anchor}${at.side}${at.line + 1}` : undefined}
+        onClick={(e) => {
+          if (!at || (e.target as HTMLElement).closest("button")) return
+          setSelected((s) => (s === gapKey ? null : gapKey))
+        }}
+      >
+        {row && (
+          <code className={cn("gh-line", tone === "add" && "addition", tone === "del" && "deletion")}>
+            <span className="gh-marker">{tone === "add" ? "+" : tone === "del" ? "-" : " "}</span>
+            <div className="gh-inner">
+              <Text text={row.text} marks={row.marks} tone={tone === "add" ? "add" : "del"} />
+            </div>
+          </code>
+        )}
+        {at && (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button type="button" aria-label="Line options" className="gh-caret">
+                <Octicon name="triangleDown" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" sideOffset={4} className="min-w-60 rounded-lg">
+              <DropdownMenuItem onClick={() => void navigator.clipboard?.writeText(row?.text ?? "")}>
+                <Octicon name="copy" /> Copy <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => {
+                  const sel = window.getSelection()
+                  if (!table.current || !sel) return
+                  const range = document.createRange()
+                  range.selectNodeContents(table.current)
+                  sel.removeAllRanges()
+                  sel.addRange(range)
+                }}
+              >
+                <Octicon name="list-unordered" /> Select all <DropdownMenuShortcut>⌘A</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => copyLink(at)}>
+                <Octicon name="link" /> Copy link <DropdownMenuShortcut>⌥⌘Y</DropdownMenuShortcut>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={(e) => expandNear(e.currentTarget, "above")}>
+                <Octicon name="foldUp" /> Expand above
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={(e) => expandNear(e.currentTarget, "below")}>
+                <Octicon name="foldDown" /> Expand below
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={(e) => nextHunk(e.currentTarget.closest("tr"))}>
+                <Octicon name="arrow-down" /> Go to next hunk <DropdownMenuShortcut>Page down</DropdownMenuShortcut>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )}
+        <span className="sr-only">{gapKey}</span>
+      </td>
+    )
+  }
+
+  return (
+    <div className={cn("gh-diff overflow-x-auto bg-[var(--gh-diff-bg)] text-[var(--gh-diff-fg)]", className)}>
+      <table ref={table} className="gh-table" role="grid" aria-label="Changes">
+        {layout === "split" ? (
+          <colgroup>
+            <col width="40" />
+            <col />
+            <col width="40" />
+            <col />
+          </colgroup>
+        ) : (
+          <colgroup>
+            <col width="40" />
+            <col width="40" />
+            <col width="100%" />
+          </colgroup>
+        )}
+        <tbody>
+          {list.map((row, i) => {
+            if (row.kind === "hunk") {
+              return (
+                <tr key={`h-${i}`} data-hunk data-gap={row.gap} className="gh-hunk-row">
+                  <td colSpan={cols} className="gh-hunk bg-[var(--gh-diff-hunk-line)]">
+                    <div className="flex">
+                      {row.gap >= 0 && (
+                        <div className={cn("gh-expander bg-[var(--gh-diff-hunk-num)]", layout === "split" ? "w-10" : "w-20")}>
+                          {row.all ? (
+                            <button type="button" aria-label="Expand all" onClick={() => expand(row.gap, "all")}>
+                              <Octicon name="unfold" />
+                            </button>
+                          ) : (
+                            <>
+                              <button type="button" aria-label="Expand up" onClick={() => expand(row.gap, "bottom")}>
+                                <Octicon name="foldUp" />
+                              </button>
+                              <button type="button" aria-label="Expand down" onClick={() => expand(row.gap, "top")}>
+                                <Octicon name="foldDown" />
+                              </button>
+                            </>
+                          )}
+                        </div>
+                      )}
+                      <code className="gh-hunk-text text-[var(--gh-diff-muted)]">{row.header}</code>
+                    </div>
+                  </td>
+                </tr>
+              )
+            }
+            if (row.kind === "pair") {
+              const l: LineRef | null = row.a !== null ? { side: "L", line: row.a } : null
+              const r: LineRef | null = row.b !== null ? { side: "R", line: row.b } : null
+              const lt = row.tone === "ctx" ? "ctx" : row.left ? "del" : "empty"
+              const rt = row.tone === "ctx" ? "ctx" : row.right ? "add" : "empty"
+              return (
+                <tr key={`p-${i}`} className="gh-row" data-selected={(l && selected === `L${l.line}`) || (r && selected === `R${r.line}`) || undefined}>
+                  {num(row.a, lt, "L")}
+                  {cell(row.left, lt, l, "left", "l")}
+                  {num(row.b, rt, "R")}
+                  {cell(row.right, rt, r, "right", "r")}
+                </tr>
+              )
+            }
+            const at: LineRef = row.tone === "del" ? { side: "L", line: row.a! } : { side: "R", line: row.b! }
+            return (
+              <tr key={`l-${i}`} className="gh-row" data-selected={selected === `${at.side}${at.line}` || undefined}>
+                {num(row.a, row.tone, "L")}
+                {num(row.b, row.tone, "R")}
+                {cell({ text: row.text, marks: row.marks }, row.tone, at, "right", "t")}
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+      {d.blocks.length === 1 && d.blocks[0].kind === "equal" && !d.blocks[0].header && <p className="px-6 py-8 text-center text-sm text-[var(--gh-diff-muted)]">No changes between these versions.</p>}
+    </div>
+  )
+}
