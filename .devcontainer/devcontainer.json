@@ -5,6 +5,11 @@
   // Node 20 (ci/security-fixes, 0baac3b).
   "name": "NYSgpt",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  // sshd lets `gh codespace ssh` reach in from outside — how Claude on the Mac
+  // runs commands in the codespace (commits left behind, checks, fixes).
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": { "version": "latest" }
+  },
   "postCreateCommand": "corepack enable && corepack prepare pnpm@11.1.1 --activate && pnpm install",
   "forwardPorts": [3000],
   "portsAttributes": {
