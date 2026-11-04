@@ -2,11 +2,10 @@ import { VizShell } from "@/components/viz/VizShell"
 import { perYear } from "@/lib/viz-data"
 import { RainfallChart } from "./chart"
 
-export const dynamic = "force-dynamic"
 export const metadata = { title: "Rainfall — Viz" }
 
-export default async function Page() {
-  const { papers, exfor } = await perYear()
+export default function Page() {
+  const { papers, exfor } = perYear()
   return (
     <VizShell
       title="The rainfall and the river"

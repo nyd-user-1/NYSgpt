@@ -2,11 +2,10 @@ import { VizShell } from "@/components/viz/VizShell"
 import { paperTriples } from "@/lib/viz-data"
 import { Scatter3dDatasetChart } from "./chart"
 
-export const dynamic = "force-dynamic"
 export const metadata = { title: "Scatter 3D dataset — Viz" }
 
-export default async function Page() {
-  const rows = await paperTriples()
+export default function Page() {
+  const rows = paperTriples()
   return (
     <VizShell
       dark

@@ -2,11 +2,10 @@ import { VizShell } from "@/components/viz/VizShell"
 import { nuclideField } from "@/lib/viz-data"
 import { NebulaChart } from "./chart"
 
-export const dynamic = "force-dynamic"
 export const metadata = { title: "Nebula — Viz" }
 
-export default async function Page() {
-  const field = await nuclideField()
+export default function Page() {
+  const field = nuclideField()
   return (
     <VizShell
       dark

@@ -2,11 +2,10 @@ import { VizShell } from "@/components/viz/VizShell"
 import { paperScatter } from "@/lib/viz-data"
 import { WeightChart } from "./chart"
 
-export const dynamic = "force-dynamic"
 export const metadata = { title: "Weight — Viz" }
 
-export default async function Page() {
-  const rows = await paperScatter()
+export default function Page() {
+  const rows = paperScatter()
   return (
     <VizShell
       title="Two populations of papers"
