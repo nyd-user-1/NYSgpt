@@ -8,7 +8,7 @@ import { MODEL_IDS } from "@/lib/model-options"
 // reply streamed back as plain text — the picker's model id when it is on the list, a PDF as a
 // document block on the last user message, the caller's systemContext after the base prompt, the
 // first chunk read before the response goes out so a call that fails at once still answers 500.
-// With the NSR corpus wired (NSR_DATABASE_URL) and an Anthropic model, the answer runs the tool
+// With the NSR corpus wired (the Athena key, lib/chat-data/athena.ts) and an Anthropic model, the answer runs the tool
 // loop: the model may look the corpus up mid-answer, a few rounds at most, one visible answer.
 // Bedrock itself rides lib/chat-data/bedrock.ts: a bearer token on the worker, the SDK elsewhere.
 

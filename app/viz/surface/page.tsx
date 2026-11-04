@@ -8,7 +8,6 @@ export default function Page() {
   const field = nuclideField()
   return (
     <VizShell
-      dark
       title="The literature landscape"
       note="After ECharts' simple-surface, with the corpus in place of the equation: altitude is the log of each nuclide's paper count over the (N, Z) plane. The mountain range running the diagonal is the valley of stability, raised into relief by a century of publishing; drag to orbit it."
     >

@@ -22,18 +22,18 @@ const OFF_RAIL = new Set(["Sports", "Solar", "Compiler", "Lake", "Loaders"]);
 /** The twelve chart pages, dealt onto the boxes in plate order. Static JSON behind every one, so
  *  Next prerenders them and these links prefetch finished pages. */
 const CHARTS = [
-  "/viz/nebula",
-  "/viz/rainfall",
-  "/viz/bar-large",
-  "/viz/weight",
-  "/viz/heatmap",
-  "/viz/scatter3d",
-  "/viz/scatter3d-dataset",
-  "/viz/simplex",
-  "/viz/surface",
-  "/viz/graph",
-  "/viz/reactions",
-  "/viz/matrix",
+  { href: "/viz/nebula", title: "The nuclide nebula", body: "Every nuclide the literature has touched, neutrons across and protons up, glowing with the log of its paper count." },
+  { href: "/viz/rainfall", title: "The rainfall and the river", body: "Papers entering the corpus each year, and below them the slice that flowed on into EXFOR as compiled data." },
+  { href: "/viz/bar-large", title: "Every nuclide, ranked", body: "All ~7,900 literature-touched nuclides as one bar run on a log axis, from ²³⁵U down to one-paper exotica." },
+  { href: "/viz/weight", title: "Two populations of papers", body: "The NSR record against the arXiv/APS additions: publication year across, citations up a log axis." },
+  { href: "/viz/heatmap", title: "The nuclide heatmap", body: "The nebula's field as cells, heat by paper count. The empty black is nuclear terra incognita." },
+  { href: "/viz/scatter3d", title: "The nuclide field, lifted", body: "The nebula with its third axis made literal: the valley of stability as a ridge you can orbit." },
+  { href: "/viz/scatter3d-dataset", title: "Ten thousand papers in three measures", body: "A random 10,000 cited papers in space: year across, references deep, citations up." },
+  { href: "/viz/simplex", title: "Literature smoke", body: "Each nuclide exhales a plume, taller and denser with its papers, jittered into weather. A mood instead of a measure." },
+  { href: "/viz/surface", title: "The literature landscape", body: "Altitude is the log of each nuclide's paper count. The diagonal range is the valley of stability, raised into relief." },
+  { href: "/viz/graph", title: "The collaboration web", body: "The 1,200 most-published authors, force-settled; an edge where two share four or more papers." },
+  { href: "/viz/reactions", title: "The reaction transit map", body: "Every reaction a bus route across the chart of nuclides, with moving lights on the 1,200 busiest." },
+  { href: "/viz/matrix", title: "The measure matrix", body: "36 Pearson correlations across nine per-paper measures of all 303,568 references. Navy moves together; red apart." },
 ];
 
 /** The / page, duplicated exactly (Brendan, 2026-11-04): masthead, the contents plate's first
@@ -90,13 +90,13 @@ export default function VizPage() {
 
 /** A contents-plate cell at rest — HomeCard's resting markup with every hover affordance gone.
  *  The first twelve link to the chart pages; the rest stand as they do on /. */
-function VizBox({ card, index, chart }: { card: HomeCardData; index: number; chart?: string }) {
+function VizBox({ card, index, chart }: { card: HomeCardData; index: number; chart?: (typeof CHARTS)[number] }) {
   const body = (
     <>
       <div className="flex flex-1 flex-col">
         <div className="flex items-start justify-between gap-3">
           <h3 className="m-0 line-clamp-4 text-[20px] leading-[1.1]" style={{ ...SERIF, color: "var(--paper-text)" }}>
-            {card.title}
+            {chart?.title ?? card.title}
           </h3>
           <span className="flex h-[22px] shrink-0 items-center">
             <span aria-hidden className="pointer-events-none relative flex h-[5px] w-[5px] shrink-0">
@@ -106,7 +106,7 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
           </span>
         </div>
         <p className="mt-2 flex-1 text-[12px] leading-[1.5] text-[var(--paper-muted)]" style={SANS}>
-          {card.body}
+          {chart?.body ?? card.body}
         </p>
       </div>
       <div className="relative mt-4 flex items-end justify-between gap-3">
@@ -122,7 +122,7 @@ function VizBox({ card, index, chart }: { card: HomeCardData; index: number; cha
   const cls = "flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 [-webkit-tap-highlight-color:transparent]";
   const style = { "--accent": card.accent } as React.CSSProperties;
   return chart ? (
-    <Link href={chart} className={cls} style={style}>
+    <Link href={chart.href} className={cls} style={style}>
       {body}
     </Link>
   ) : (
