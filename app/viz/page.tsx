@@ -1,54 +1,105 @@
-import Link from "next/link"
+import { Suspense } from "react";
+import Link from "next/link";
 
-export const metadata = { title: "Viz" }
+import { AppLayout } from "@/components/AppLayout";
+import { RevealFx } from "@/components/RevealFx";
+import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
+import { FeedbackDialog } from "@/components/FeedbackDialog";
+import { HomeMasthead } from "../HomeMasthead";
+import { LEDGER } from "@/lib/home-data";
+import { authorGraph, measureMatrix, nuclideBars, nuclideField, paperScatter, paperTriples, perYear, reactionFlows } from "@/lib/viz-data";
+import { MiniBarLarge, MiniGraph, MiniHeatmap, MiniMatrix, MiniNebula, MiniRainfall, MiniReactions, MiniScatter3d, MiniSimplex, MiniSurface, MiniTriples, MiniWeight } from "@/components/viz/minis";
 
-const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const
-const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const
-const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const
+export const dynamic = "force-dynamic";
+export const metadata = {
+  title: "Viz",
+  description: "The contents plate with the twelve corpus charts in its boxes.",
+};
 
-/** Brendan's eleven (2026-11-04): one page per ECharts example he picked, each fed by the NSR
- *  corpus, each standing alone for evaluation. */
-const PAGES: { href: string; title: string; after: string; line: string }[] = [
-  { href: "/viz/nebula", title: "The nuclide nebula", after: "scatter-nebula", line: "Every literature-touched nuclide as glow on the (N, Z) plane." },
-  { href: "/viz/rainfall", title: "The rainfall and the river", after: "area-rainfall", line: "Papers per year above; the slice that flowed into EXFOR, inverted below." },
-  { href: "/viz/bar-large", title: "Every nuclide, ranked", after: "bar-large", line: "~7,900 bars, tallest first, zoomable to any neighborhood." },
-  { href: "/viz/weight", title: "Two populations of papers", after: "scatter-weight", line: "12,000 cited papers — the NSR record against the arXiv/APS additions." },
-  { href: "/viz/heatmap", title: "The nuclide heatmap", after: "heatmap-large", line: "The same field as cells; the black is terra incognita." },
-  { href: "/viz/scatter3d", title: "The nuclide field, lifted", after: "scatter3d (GL)", line: "Paper counts as altitude; the valley of stability as a ridge." },
-  { href: "/viz/scatter3d-dataset", title: "Ten thousand papers in three measures", after: "scatter3D-dataset (GL)", line: "Year × references × citations, row by row into space." },
-  { href: "/viz/simplex", title: "Literature smoke", after: "scatter3d-simplex-noise (GL)", line: "The artistic one: each nuclide exhales a plume sized by its papers." },
-  { href: "/viz/surface", title: "The literature landscape", after: "simple-surface (GL)", line: "The field as terrain — a century of publishing in relief." },
-  { href: "/viz/graph", title: "The collaboration web", after: "graphgl-large-internet (GL)", line: "1,200 most-published authors, force-settled into their labs and eras." },
-  { href: "/viz/reactions", title: "The reaction transit map", after: "lines-ny", line: "The imaginative one: every reaction a bus route across the chart of nuclides." },
-  { href: "/viz/matrix", title: "The measure matrix", after: "matrix-covariance", line: "36 Pearson correlations across nine per-paper measures, computed in the database on load." },
-]
+const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
+const MONO = { fontFamily: "var(--font-mono), ui-monospace, monospace" } as const;
 
-export default function VizIndex() {
+/** The / page, duplicated exactly (Brendan, 2026-11-04) — masthead, plate, byline — with the
+ *  hover state gone and one of the twelve charts standing in each box. Every query starts once
+ *  at the top; each box streams in behind its own Suspense edge as its data lands (the measure
+ *  matrix takes the database ~12 seconds of corr(); the rest arrive in a breath or two). */
+export default function VizPage() {
+  const field = nuclideField();
+  const years = perYear();
+  const bars = nuclideBars();
+  const scatter = paperScatter();
+  const triples = paperTriples();
+  const flows = reactionFlows();
+  const graph = authorGraph();
+  const matrix = measureMatrix();
+
+  const boxes: { title: string; href: string; cell: React.ReactNode }[] = [
+    { title: "Nebula", href: "/viz/nebula", cell: <Async do={async () => <MiniNebula field={await field} />} /> },
+    { title: "Rainfall", href: "/viz/rainfall", cell: <Async do={async () => { const y = await years; return <MiniRainfall papers={y.papers} exfor={y.exfor} /> }} /> },
+    { title: "Bar large", href: "/viz/bar-large", cell: <Async do={async () => <MiniBarLarge bars={await bars} />} /> },
+    { title: "Weight", href: "/viz/weight", cell: <Async do={async () => <MiniWeight rows={await scatter} />} /> },
+    { title: "Heatmap", href: "/viz/heatmap", cell: <Async do={async () => <MiniHeatmap field={await field} />} /> },
+    { title: "Scatter 3D", href: "/viz/scatter3d", cell: <Async do={async () => <MiniScatter3d field={await field} />} /> },
+    { title: "Scatter 3D dataset", href: "/viz/scatter3d-dataset", cell: <Async do={async () => <MiniTriples rows={await triples} />} /> },
+    { title: "Simplex", href: "/viz/simplex", cell: <Async do={async () => <MiniSimplex field={await field} />} /> },
+    { title: "Surface", href: "/viz/surface", cell: <Async do={async () => <MiniSurface field={await field} />} /> },
+    { title: "Graph", href: "/viz/graph", cell: <Async do={async () => { const g = await graph; return <MiniGraph nodes={g.nodes} edges={g.edges} /> }} /> },
+    { title: "Reactions", href: "/viz/reactions", cell: <Async do={async () => <MiniReactions field={await field} flows={await flows} />} /> },
+    { title: "Matrix", href: "/viz/matrix", cell: <Async do={async () => { const m = await matrix; return <MiniMatrix vars={m.vars} cells={m.cells} /> }} /> },
+  ];
+
   return (
-    <div className="min-h-dvh" style={{ background: "#05070d", color: "#e2e8f0" }}>
-      <div className="mx-auto w-full max-w-3xl px-6 py-12">
-        <Link href="/" className="text-[24px] leading-none transition-opacity hover:opacity-70" style={{ ...SERIF, letterSpacing: "-0.03em" }}>
-          NYSgpt
-        </Link>
-        <h1 className="mt-8 text-[34px] leading-[1.1]" style={{ ...SERIF, letterSpacing: "-0.02em" }}>Twelve cuts of the corpus</h1>
-        <p className="mt-3 max-w-xl text-[13.5px] leading-[1.7] text-slate-400" style={SANS}>
-          One page per chart, every one drawn live from the Nuclear Science References corpus — 303,568 references, 1.21 million paper–nuclide links.
-        </p>
-        <ol className="mt-10 flex flex-col">
-          {PAGES.map((p, i) => (
-            <li key={p.href} className="border-t border-slate-800 last:border-b">
-              <Link href={p.href} className="group flex items-baseline gap-4 py-4 transition-colors hover:bg-slate-900/40">
-                <span className="w-7 shrink-0 text-[11px] tabular-nums text-slate-600" style={MONO}>{String(i + 1).padStart(2, "0")}</span>
-                <span className="min-w-0 flex-1">
-                  <span className="block text-[17px] text-slate-100 transition-colors group-hover:text-[#00bfff]" style={SERIF}>{p.title}</span>
-                  <span className="mt-0.5 block text-[12px] leading-[1.5] text-slate-500" style={SANS}>{p.line}</span>
-                </span>
-                <span className="shrink-0 text-[10px] uppercase tracking-[0.14em] text-slate-600" style={MONO}>{p.after}</span>
-              </Link>
-            </li>
-          ))}
-        </ol>
+    <AppLayout paperMode>
+      <div className="flex-1 overflow-y-auto no-scrollbar" style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}>
+        <div className="mx-auto w-full max-w-[1360px] px-6 sm:px-10 md:px-14 pt-8 pb-16">
+          <RevealFx delay={0.08} translateY={6}>
+            <HomeMasthead ledger={LEDGER} />
+          </RevealFx>
+
+          {/* The contents plate, as / lays it: the rounded frame, the two-row
+              column-major grid of 210px cells, scrolling sideways. Each box is
+              its chart, no hover; pressing one opens the chart's own page. */}
+          <RevealFx delay={0.22} translateY={5}>
+            <div className="relative mt-[72px]">
+              <div className="isolate flex flex-col overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)]">
+                <div className="no-scrollbar -m-px flex-1 snap-x snap-proximity overflow-x-auto overscroll-x-contain [--col:100%] sm:[--col:50%] lg:[--col:20%]">
+                  <div
+                    className="grid h-full grid-flow-col grid-rows-[repeat(2,minmax(210px,auto))] border-t border-l border-[var(--paper-rule)] [&>*]:snap-start"
+                    style={{ width: `calc(${Math.ceil(boxes.length / 2)} * var(--col))`, gridTemplateColumns: `repeat(${Math.ceil(boxes.length / 2)}, minmax(0, 1fr))` }}
+                  >
+                    {boxes.map((b, i) => (
+                      <Link key={b.href} href={b.href} className="flex min-h-[210px] flex-col border-b border-r border-[var(--paper-rule)] px-5 py-5 [-webkit-tap-highlight-color:transparent]">
+                        <div className="flex items-start justify-between gap-3">
+                          <h3 className="m-0 text-[20px] leading-[1.1]" style={{ ...SERIF, color: "var(--paper-text)" }}>{b.title}</h3>
+                          <span className="shrink-0 text-[10px] tabular-nums tracking-[0.2em] text-[var(--paper-faint)]" style={MONO}>{String(i + 1).padStart(2, "0")}</span>
+                        </div>
+                        <div className="mt-3 flex-1 overflow-hidden rounded-lg">
+                          <Suspense fallback={<div className="h-full w-full animate-pulse bg-[var(--paper-quiet)]" />}>{b.cell}</Suspense>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </RevealFx>
+
+          <RevealFx delay={0.7} translateY={3}>
+            <div
+              className="mt-3 flex items-center justify-between px-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]"
+              style={MONO}
+            >
+              <FeedbackDialog />
+              <span className="-mr-[0.28em]">© 2026 All Rights Reserved.</span>
+            </div>
+          </RevealFx>
+        </div>
       </div>
-    </div>
-  )
+    </AppLayout>
+  );
+}
+
+/** A box's chart, awaited behind its own Suspense edge. */
+async function Async({ do: run }: { do: () => Promise<React.ReactNode> }) {
+  return run();
 }
