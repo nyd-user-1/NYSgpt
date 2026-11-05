@@ -24,6 +24,7 @@ import {
   SquareDashedMousePointer,
   UnfoldVertical,
 } from "lucide-react"
+import { INSPECTOR_SET, announceInspector, inspectorOn } from "./inspector-state"
 
 /**
  * PAX (Brendan, 2026-10-30): GovBlock's dock (govblock apps/web/components/dev/inspector.tsx), brought
@@ -31,7 +32,7 @@ import {
  * as well as development, for admins. It replaces the
  * Home page's demo copy (app/InspectorMode.tsx, deleted). Each turns on only from its own control:
  * this one from the dock, the pointer from the header's crosshair. So the long ⌘C and ⌥⇧I that
- * GovBlock kept are gone here; Settings' switches and ARM still turn the same things on. Its layers
+ * GovBlock kept are gone here. Its layers
  * read this repo's folders: src/ui and src/govblock-ui the design system, src/components shared,
  * src/app the page.
  *
@@ -42,7 +43,7 @@ import {
  * and whatever is under it is boxed and named. Click to pin, Escape to leave.
  * The one thing it adds is the file and line on the label.
  *
- * CLASSIFIER (the dashed pointer) opens the panel: ARM it, or hold the key
+ * CLASSIFIER (the dashed pointer) opens the panel: turn the Inspector on, or hold the key
  * Settings names (none by default), and hover to read one element, or SCAN
  * PAGE to colour every element on the page by the
  * layer of the file it comes from — design system, shared, page-local, or
@@ -53,7 +54,8 @@ import {
  * whoever fixes them. Kept in localStorage, so a hot reload does not eat them.
  *
  * SETTINGS (the gear): which held key reads an element, which corner the dock
- * sits in, whether a long ⌘C toggles the inspector, and the arm latch.
+ * sits in. (Brendan, 2026-11-05: the Inspector and Keep armed switches left Settings —
+ * the Dev tools row is the one switch, and on is armed. inspector-state.ts.)
  *
  * Each icon turns its tool on and off, and the dock wears react-trace's blue
  * ring while a mode is running (Brendan, 2026-09-13) — before this nothing on
@@ -94,7 +96,7 @@ const PROD = process.env.NODE_ENV !== "development"
 /** Which held key reads the element under the pointer. 44b was ⌥ alone; ⌘ was
  *  added here because it is the key that gets reached for — and that is the
  *  trouble with it (Brendan, 2026-09-13: ⌘ held for anything else raised the
- *  chip). Off unless Settings says otherwise; ARM and the crosshair still work. */
+ *  chip). Off unless Settings says otherwise; the Inspector switch still works. */
 type Hold = "off" | "alt" | "meta" | "both"
 const HOLDS: { value: Hold; label: string }[] = [
   { value: "off", label: "Off" },
@@ -281,7 +283,6 @@ const line = (n: Node) =>
 
 export function DevInspector() {
   const [alt, setAlt] = useState(false)
-  const [latched, setLatched] = useState(false)
   const [open, setOpen] = useState(false)
   const [hover, setHover] = useState<Node | null>(null)
   /** Clicking pins the highlight so the pointer can leave the element and
@@ -294,7 +295,7 @@ export function DevInspector() {
   /** Inspect mode: react-trace's, to the pixel — a crosshair cursor, a blue
    *  rule across the viewport at the pointer, and the element under it boxed
    *  and named. No modifier held; the crosshair on the dock turns it on. */
-  const [inspecting, setInspecting] = useState(false)
+  const [inspecting, setInspecting] = useState(inspectorOn)
   const [mouse, setMouse] = useState<{ x: number; y: number } | null>(null)
   /** Up here rather than inside Tree: the key handler has to know which rows
    *  are drawn to step to the next one. */
@@ -331,11 +332,11 @@ export function DevInspector() {
       setFrozen(null)
       setHover(null)
     }
-    window.addEventListener("inspector:set", on)
-    return () => window.removeEventListener("inspector:set", on)
+    window.addEventListener(INSPECTOR_SET, on)
+    return () => window.removeEventListener(INSPECTOR_SET, on)
   }, [])
   useEffect(() => {
-    window.dispatchEvent(new CustomEvent("inspector:changed", { detail: { on: inspecting } }))
+    announceInspector(inspecting)
   }, [inspecting])
   const [prefs, setPrefs] = useState<Prefs>(PREFS)
   const [comments, setComments] = useState<Comment[]>([])
@@ -354,7 +355,7 @@ export function DevInspector() {
    *  selection as it stood then, and walking would always start from null. */
   const frozenRef = useRef<Node | null>(null)
   frozenRef.current = frozen
-  const armed = alt || latched || inspecting
+  const armed = alt || inspecting
   const HELD = useMemo(() => heldBy(prefs.hold), [prefs.hold])
 
   // Read once the browser is there, so the first render matches the server's.
@@ -439,7 +440,6 @@ export function DevInspector() {
       }
       if (HELD(e)) setAlt(true)
       if (e.key === "Escape") {
-        setLatched(false)
         setAlt(false)
         setHover(null)
         setFrozen(null)
@@ -450,7 +450,7 @@ export function DevInspector() {
         setFilter(new Set())
       }
       const ARROWS = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
-      if ((HELD(e) || latched || inspecting) && ARROWS.includes(e.key)) {
+      if ((HELD(e) || inspecting) && ARROWS.includes(e.key)) {
         // Walk from whatever is pinned, or from the last thing hovered.
         const cur = frozenRef.current?.el ?? lastEl.current
         if (!cur) return
@@ -495,7 +495,7 @@ export function DevInspector() {
       window.removeEventListener("keyup", up)
       window.removeEventListener("blur", blur)
     }
-  }, [latched, inspecting, read, HELD])
+  }, [inspecting, read, HELD])
 
   const onMove = useCallback(
     (e: MouseEvent) => {
@@ -511,18 +511,18 @@ export function DevInspector() {
       // In inspect mode the hover keeps moving after a pin — you are meant to
       // go on looking. In classifier mode the pin freezes it so the chip can
       // be reached with the pointer.
-      if (!(held || latched || inspecting) || (frozen && !inspecting)) return
+      if (!(held || inspecting) || (frozen && !inspecting)) return
       const el = document.elementFromPoint(e.clientX, e.clientY)
       if (!el || el === lastEl.current || el.closest("[data-devinspector]")) return
       lastEl.current = el
       void read(el)
     },
-    [alt, latched, inspecting, frozen, read, HELD]
+    [alt, inspecting, frozen, read, HELD]
   )
 
   const onClick = useCallback(
     async (e: MouseEvent) => {
-      if (!(HELD(e) || latched || inspecting)) return
+      if (!(HELD(e) || inspecting)) return
       const el = document.elementFromPoint(e.clientX, e.clientY)
       if (!el || el.closest("[data-devinspector]")) return
       e.preventDefault()
@@ -531,7 +531,7 @@ export function DevInspector() {
       setFrozen(n)
       if (!inspecting) setOpen(true)
     },
-    [latched, inspecting, read, HELD]
+    [inspecting, read, HELD]
   )
 
 
@@ -604,8 +604,6 @@ export function DevInspector() {
   const panelEl = () => (
         <Panel
           onClose={() => setOpen(false)}
-          latched={latched}
-          setLatched={setLatched}
           counts={counts}
           scan={scan}
           scanning={scanning}
@@ -670,16 +668,14 @@ export function DevInspector() {
         <Chip node={(frozen ?? hover)!} frozen={!!frozen} onRelease={() => setFrozen(null)} />
       )}
 
-      {/* PAX (Brendan, 2026-10-30): the dock sits in its corner at rest and is
-          the only way in, since the long ⌘C is gone; its chevron sends it to
-          the edge. (GovBlock hid it at rest and summoned it with ⌘C.) */}
-      {ready && <Dock
+      {/* The dock shows only while the Inspector is on (Brendan, 2026-11-05): it is the
+          switch's mark on the page, and its crosshair turns it off. Its chevron sends it
+          to the edge. */}
+      {ready && inspecting && <Dock
         inspecting={inspecting}
         onInspect={toggleInspect}
         open={open}
         onOpen={() => setOpen((v) => !v)}
-        latched={latched}
-        setLatched={setLatched}
         tool={tool}
         setTool={setTool}
         pinned={frozen}
@@ -692,7 +688,7 @@ export function DevInspector() {
       {open && (embed?.view === "classifier" ? createPortal(panelEl(), embed.slot) : panelEl())}
       {embed?.view === "settings" &&
         createPortal(
-          <PrefsPop embedded top={false} right={false} prefs={prefs} setPrefs={savePrefs} inspecting={inspecting} onInspect={toggleInspect} latched={latched} setLatched={setLatched} onClose={() => {}} />,
+          <PrefsPop embedded top={false} right={false} prefs={prefs} setPrefs={savePrefs} onClose={() => {}} />,
           embed.slot,
         )}
     </>
@@ -1149,8 +1145,6 @@ function Dock({
   onInspect,
   open,
   onOpen,
-  latched,
-  setLatched,
   tool,
   setTool,
   pinned,
@@ -1163,8 +1157,6 @@ function Dock({
   onInspect: () => void
   open: boolean
   onOpen: () => void
-  latched: boolean
-  setLatched: (v: boolean) => void
   tool: "comments" | "settings" | null
   setTool: (t: "comments" | "settings" | null) => void
   pinned: Node | null
@@ -1201,7 +1193,7 @@ function Dock({
   )
   // A mode: the page under the pointer behaves differently while one is on.
   // The popovers are not modes — their icons go blue, the bar does not.
-  const active = inspecting || latched || open
+  const active = inspecting || open
 
   return (
     <div
@@ -1257,7 +1249,7 @@ function Dock({
         </>
       )}
       {/* The classifier, comments and settings left the dock for Dev Tools (Brendan, 2026-11-01):
-          X-ray's switch, the regular comments, and the Settings layer. The scope is all that remains. */}
+          the Inspector row's switch, the regular comments, and the Settings layer. The scope is all that remains. */}
       {right && toggle}
     </div>
   )
@@ -1411,7 +1403,7 @@ function CommentsPop({
           </p>
         ) : (
           <p style={{ ...note, margin: 0 }}>
-            Pin an element first — the crosshair, {hold === "off" ? "or ARM and click" : `or ${HOLD_NAME[hold]}-click`} — and the note goes on it.
+            Pin an element first — the crosshair, {hold === "off" ? "or turn the Inspector on and click" : `or ${HOLD_NAME[hold]}-click`} — and the note goes on it.
           </p>
         )}
         <textarea
@@ -1488,16 +1480,12 @@ function CommentsPop({
   )
 }
 
-/** Their Core settings (the corner) and our two switches. */
+/** Their Core settings (the corner) and the hold key. */
 function PrefsPop({
   top,
   right,
   prefs,
   setPrefs,
-  inspecting,
-  onInspect,
-  latched,
-  setLatched,
   onClose,
   embedded = false,
 }: {
@@ -1505,10 +1493,6 @@ function PrefsPop({
   right: boolean
   prefs: Prefs
   setPrefs: (p: Prefs) => void
-  inspecting: boolean
-  onInspect: () => void
-  latched: boolean
-  setLatched: (v: boolean) => void
   onClose: () => void
   embedded?: boolean
 }) {
@@ -1561,14 +1545,6 @@ function PrefsPop({
           ))}
         </select>
       </label>
-      <div style={row}>
-        <span>Inspector</span>
-        <Switch on={inspecting} onChange={(v) => { if (v !== inspecting) onInspect() }} label="Inspector" />
-      </div>
-      <div style={row}>
-        <span>Keep armed</span>
-        <Switch on={latched} onChange={setLatched} label="Keep the inspector armed" />
-      </div>
     </Pop>
   )
 }
@@ -1791,8 +1767,6 @@ function Tree({
 
 function Panel({
   onClose,
-  latched,
-  setLatched,
   counts,
   scan,
   scanning,
@@ -1810,8 +1784,6 @@ function Panel({
   embedded = false,
 }: {
   onClose: () => void
-  latched: boolean
-  setLatched: (v: boolean) => void
   counts: Record<Layer, number>
   scan: Map<Element, Layer> | null
   scanning: boolean
@@ -1888,17 +1860,6 @@ function Panel({
         >
           {scanning ? "SCANNING…" : scan ? "RESCAN" : "SCAN"}
         </button>
-        <span
-          style={{
-            fontSize: 10,
-            letterSpacing: "0.12em",
-            color: "var(--muted-foreground)",
-            marginLeft: 4,
-          }}
-        >
-          ARM
-        </span>
-        <Switch on={latched} onChange={setLatched} label="Keep the inspector armed" />
         <button
           type="button"
           onClick={onClose}
@@ -1998,7 +1959,7 @@ function Panel({
           </Head>
           {!hover ? (
             <p style={note}>
-              {hold === "off" ? "Turn ARM on and hover, or use the crosshair." : `Hold ${HOLD_NAME[hold]} and hover.`} ⌥↑ / ⌥↓ walks up and down the tree.
+              {hold === "off" ? "Hover while the Inspector is on." : `Hold ${HOLD_NAME[hold]} and hover.`} ⌥↑ / ⌥↓ walks up and down the tree.
             </p>
           ) : (
             <>
@@ -2085,45 +2046,6 @@ const bare: React.CSSProperties = {
   color: "var(--muted-foreground)",
   font: "inherit",
   padding: 0,
-}
-
-/** A real on/off, not a pill that says which it is (Brendan, 2026-09-12). */
-function Switch({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
-  return (
-    <button
-      type="button"
-      role="switch"
-      aria-checked={on}
-      aria-label={label}
-      title={label}
-      onClick={() => onChange(!on)}
-      style={{
-        position: "relative",
-        width: 28,
-        height: 16,
-        flexShrink: 0,
-        padding: 0,
-        borderRadius: 999,
-        border: `1px solid ${on ? LAYER.system.color : "var(--border)"}`,
-        background: on ? LAYER.system.color : "transparent",
-        cursor: "pointer",
-        transition: "background 150ms, border-color 150ms",
-      }}
-    >
-      <span
-        style={{
-          position: "absolute",
-          top: 1,
-          left: on ? 13 : 1,
-          width: 12,
-          height: 12,
-          borderRadius: 999,
-          background: on ? "#fff" : "var(--muted-foreground)",
-          transition: "left 150ms",
-        }}
-      />
-    </button>
-  )
 }
 
 function Cell({ label, children }: { label: string; children: React.ReactNode }) {

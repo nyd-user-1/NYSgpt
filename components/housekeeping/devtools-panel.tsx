@@ -3,16 +3,18 @@
 // The Dev tools view for the switchboard's right panel (Brendan, 2026-11-04) — trinity's
 // DevToolsRows (discussion-panel.tsx, 2026-11-01) rehomed: Dev Comments is the housekeeping
 // thread (comments + the Claude loop), Point and Click is the pointer, Live edit rewrites
-// text in place and files itself as a comment, X-ray embeds the dock's classifier, Settings
-// the dock's switches. The rows stay ordinary ground while a mode runs (data-sonar-exempt +
+// text in place and files itself as a comment, Inspector (X-ray until 2026-11-05 — the same
+// tool) arms the crosshair, shows its dock and embeds the classifier, Settings the hold key
+// and the dock's corner. The rows stay ordinary ground while a mode runs (data-sonar-exempt +
 // data-devinspector) so any mode can be turned off here.
 
 import dynamic from 'next/dynamic'
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, MessageSquareText, PencilLine, ScanSearch, SlidersHorizontal, SquareDashedMousePointer } from 'lucide-react'
+import { ArrowLeft, Crosshair, MessageSquareText, PencilLine, SlidersHorizontal, SquareDashedMousePointer } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { usePointer } from '@/components/housekeeping/tool'
 import { useLiveEdit } from '@/components/housekeeping/live-edit'
+import { useInspector } from '@/components/dev/inspector-state'
 
 export const INSPECTOR_EMBED = 'inspector:embed'
 
@@ -45,10 +47,10 @@ export function DevToolsPanel() {
         <Row icon={<MessageSquareText />} label="Dev Comments" sub="Comments on the app, and the thread Claude answers" onClick={() => setSub('comments')} />
         <ToggleRow icon={<SquareDashedMousePointer />} label="Point and Click" sub="Point, click, and leave edit notes." on={pointerOn} onToggle={togglePointer} />
         <ToggleRow icon={<PencilLine />} label="Live edit" sub="The page freezes; arrows climb the DOM; rewrite text in place and the edit files itself with its component and file." on={liveOn} onToggle={toggleLive} />
-        <XRay />
+        <InspectorRow />
       </div>
       <div className="shrink-0 border-t border-[var(--paper-rule)]">
-        <Row icon={<SlidersHorizontal />} label="Settings" sub="The pointer tools' switches" onClick={() => setSub('settings')} />
+        <Row icon={<SlidersHorizontal />} label="Settings" sub="The hold key and the Inspector's corner" onClick={() => setSub('settings')} />
       </div>
     </div>
   )
@@ -90,9 +92,10 @@ function ToggleRow({ icon, label, sub, on, onToggle }: { icon: React.ReactNode; 
   )
 }
 
-/** X-ray: the dock's classifier under its own switch, drawn into a slot beneath the row. */
-function XRay() {
-  const [on, setOn] = useState(false)
+/** The Inspector: on is armed — the crosshair, the dock in its corner, and the classifier drawn into a
+ *  slot beneath the row. The dock's crosshair and Escape turn it off too; this switch follows them. */
+function InspectorRow() {
+  const [on, toggle] = useInspector()
   const slot = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!on) return
@@ -101,7 +104,7 @@ function XRay() {
   }, [on])
   return (
     <>
-      <ToggleRow icon={<ScanSearch />} label="X-ray" sub="Every element on the page, classified in place" on={on} onToggle={() => setOn((v) => !v)} />
+      <ToggleRow icon={<Crosshair />} label="Inspector" sub="Point at any element for its component, file, and layer" on={on} onToggle={toggle} />
       {on && (
         <div className="relative my-2 flex min-h-[320px] flex-1 flex-col overflow-hidden rounded-xl border border-[var(--paper-rule)] bg-[var(--paper)]">
           <div ref={slot} className="flex min-h-0 flex-1 flex-col overflow-y-auto" />

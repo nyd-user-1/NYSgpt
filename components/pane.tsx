@@ -108,11 +108,13 @@ export function PaneFrame({
 // float from sm, not md.
 const BITE_EDGE = "M43.5 0V0.5A8 8 0 0 1 35.5 8.5H18.5A10 10 0 0 0 8.5 18.5V35.5A8 8 0 0 1 0.5 43.5H0"
 const BITE_FILL = `${BITE_EDGE}V44H44V0Z`
-export function CornerClose({ label, onClose }: { label: string; onClose: () => void }) {
+/** `ground`: the fill class for what lies behind the corner — the body for the right-hand panels, the app
+ *  frame's --bg for the main card (2026-11-05). */
+export function CornerClose({ label, onClose, ground = "fill-background" }: { label: string; onClose: () => void; ground?: string }) {
   return (
     <div className="pointer-events-none absolute bottom-0 right-0 z-30 hidden size-11 sm:block">
       <svg aria-hidden viewBox="0 0 44 44" className="absolute inset-0 size-full">
-        <path d={BITE_FILL} className="fill-background" />
+        <path d={BITE_FILL} className={ground} />
         <path d={BITE_EDGE} fill="none" strokeWidth={1} className="stroke-[var(--paper-rule)]" />
       </svg>
       <button type="button" onClick={onClose} aria-label={label} className="pointer-events-auto absolute bottom-1.5 right-1.5 flex size-6 items-center justify-center rounded-md text-slate-500 transition-colors hover:bg-slate-300/70 hover:text-pax2-blue">

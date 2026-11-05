@@ -10,6 +10,7 @@ import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
 import { useShellPanel } from "@/components/shell";
+import { CornerClose } from "@/components/pane";
 import { HEADER_TITLES } from "@/lib/header-titles";
 
 /**
@@ -33,7 +34,7 @@ export function AppLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const path = usePathname();
   const title = headerTitle ?? HEADER_TITLES[path];
-  const { headerMenu } = useShellPanel();
+  const { headerMenu, closePage } = useShellPanel();
 
   return (
     <div data-app-frame className="nysgpt-app flex h-dvh overflow-hidden p-0 sm:p-[18px] bg-[var(--surface)] sm:bg-[var(--bg)]">
@@ -58,6 +59,9 @@ export function AppLayout({
         </div>
       </div>
 
+      {/* The card and its corner bite in one box (2026-11-05), as the switchboard's drawer holds its own: the
+          bite sits over the card's border, which it couldn't from inside the card's clip. */}
+      <div className="relative flex min-w-0 flex-1">
       <div
         data-app-card
         className={`relative flex flex-1 flex-col min-w-0 rounded-none sm:rounded-2xl overflow-hidden shadow-header sm:border ${
@@ -100,6 +104,9 @@ export function AppLayout({
         </div>
 
         {children}
+      </div>
+      {/* Trinity's "Close the page": while a panel stands beside the page, the panel takes the whole area. */}
+      {closePage && <CornerClose label="Close the page" onClose={closePage} ground="fill-[var(--bg)]" />}
       </div>
 
       <div id="app-panel-root" className="flex shrink-0 h-full" />

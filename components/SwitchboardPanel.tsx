@@ -105,6 +105,10 @@ type Ctx = {
    *  page's padding from it — the push has to match the panel's actual width. */
   expanded: boolean
   setExpanded: (fn: (v: boolean) => boolean) => void
+  /** The whole area (2026-11-05): the main card's corner close hands it to the switchboard, as trinity's
+   *  "Close the page" does — the page keeps only the slim bar. Closing or narrowing the panel ends it. */
+  full: boolean
+  setFull: (v: boolean) => void
   view: View
   cards: HomeCardData[]
   digest: Digest
@@ -137,9 +141,13 @@ export function SwitchboardProvider({ children }: { children: React.ReactNode })
   const digest = NO_DIGEST
   const [open, setOpen] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  const [full, setFull] = useState(false)
   const [view, setView] = useState<View>({ kind: 'menu' })
 
-  const close = useCallback(() => setOpen(false), [])
+  const close = useCallback(() => {
+    setOpen(false)
+    setFull(false)
+  }, [])
   const openMenu = useCallback(() => { setView({ kind: 'menu' }); setOpen(true) }, [])
   const openProduct = useCallback((index: number, expand?: boolean) => {
     setView({ kind: 'product', index })
@@ -153,10 +161,13 @@ export function SwitchboardProvider({ children }: { children: React.ReactNode })
   const openTheme = useCallback(() => { setView({ kind: 'theme' }); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
   // way to resume wherever you happened to leave off.
-  const toggle = useCallback(() => setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v }), [])
+  const toggle = useCallback(() => {
+    setFull(false)
+    setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v })
+  }, [])
 
   return (
-    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBlocks, openDevtools, openTheme }}>
+    <PanelCtx.Provider value={{ open, expanded, setExpanded, full, setFull, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBlocks, openDevtools, openTheme }}>
       {children}
       <SwitchboardPanel />
     </PanelCtx.Provider>
@@ -179,11 +190,12 @@ export function SwitchboardProvider({ children }: { children: React.ReactNode })
  * 441px = 423 (panel) + 18 (gutter). sm+ only; mobile overlays over a scrim.
  */
 export function SwitchboardShell({ children }: { children: React.ReactNode }) {
-  const { open, expanded } = useSwitchboard()
+  const { open, expanded, full } = useSwitchboard()
+  // Full: the panel is 100vw - 124px, as the second panel's FULL is (components/shell.tsx), plus the gutter.
   return (
     <div
       className={`transition-[padding] duration-300 ease-in-out ${
-        open ? (expanded ? 'sm:pr-[calc(50vw+18px)]' : 'sm:pr-[441px]') : ''
+        open ? (full ? 'sm:pr-[calc(100vw-106px)]' : expanded ? 'sm:pr-[calc(50vw+18px)]' : 'sm:pr-[441px]') : ''
       }`}
     >
       {children}
@@ -271,7 +283,7 @@ function ChannelRow({
 }
 
 function SwitchboardPanel() {
-  const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel, openBlocks, openDevtools, openTheme } = useSwitchboard()
+  const { open, expanded, setExpanded, full, setFull, view, cards, digest, close, openMenu, openProduct, openChannel, openBlocks, openDevtools, openTheme } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
   const { linkProps } = useProductStatus()
 
@@ -302,6 +314,7 @@ function SwitchboardPanel() {
   // An AWS buyer's views are headed by the product they bought, and have no way
   // back to the menu: a Marketplace buyer did not come from the switchboard.
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
+  const width = full ? 'sm:w-[calc(100vw-124px)]' : expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
   const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : view.kind === 'blocks' ? 'Blocks' : view.kind === 'devtools' ? 'Dev tools' : view.kind === 'theme' ? 'Theme' : channel?.name ?? 'Switchboard')
 
   return createPortal(
@@ -335,15 +348,13 @@ function SwitchboardPanel() {
         aria-hidden={!open}
         className={`nysgpt-app fixed z-[60] inset-y-0 right-0 w-full overflow-hidden sm:inset-y-[18px] sm:right-[18px] sm:left-auto transition-[width,transform] duration-300 ease-in-out ${
           open
-            ? `translate-x-0 ${expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'}`
+            ? `translate-x-0 ${width}`
             : 'translate-x-full pointer-events-none sm:translate-x-0 sm:w-0'
         }`}
       >
         {/* Trinity's drawer: the card and its corner bite (components/pane.tsx CornerClose) in one box the card's width. */}
-        <div className={`relative h-full w-full transition-[width] duration-300 ease-in-out ${expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'}`}>
-        <div className={`flex h-full w-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] transition-[width] duration-300 ease-in-out sm:rounded-2xl sm:border ${
-          expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
-        }`}>
+        <div className={`relative h-full w-full transition-[width] duration-300 ease-in-out ${width}`}>
+        <div className={`flex h-full w-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] transition-[width] duration-300 ease-in-out sm:rounded-2xl sm:border ${width}`}>
 
           {/* Header — the dot becomes a back arrow one level down, and the title
               becomes the product name. That IS the navigation affordance. */}
@@ -363,11 +374,11 @@ function SwitchboardPanel() {
               {title}
             </span>
             <button
-              onClick={() => setExpanded(v => !v)}
-              aria-label={expanded ? 'Narrow the panel' : 'Widen the panel'}
+              onClick={() => (full ? setFull(false) : setExpanded(v => !v))}
+              aria-label={full || expanded ? 'Narrow the panel' : 'Widen the panel'}
               className="hidden shrink-0 rounded-lg p-1.5 text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] sm:flex"
             >
-              {expanded ? <Columns3 className="h-4 w-4" /> : <Columns2 className="h-4 w-4" />}
+              {full || expanded ? <Columns3 className="h-4 w-4" /> : <Columns2 className="h-4 w-4" />}
             </button>
             <button
               onClick={close}
@@ -389,7 +400,7 @@ function SwitchboardPanel() {
               <AwsConsole sub={view.sub} />
             ) : view.kind === 'devtools' ? (
               /* ── DEV TOOLS — trinity's kit: comments + Claude loop, pointer,
-                     live edit, X-ray, settings (2026-11-04). ── */
+                     live edit, Inspector, settings (2026-11-04). ── */
               <DevToolsPanel />
             ) : view.kind === 'theme' ? (
               /* ── THEME — trinity's palette, as it is there: the six themes,
@@ -578,7 +589,7 @@ function SwitchboardPanel() {
             </div>
           </div>
         </div>
-        <CornerClose label="Close" onClose={close} />
+        {!full && <CornerClose label="Close" onClose={close} />}
         </div>
       </aside>
     </>,

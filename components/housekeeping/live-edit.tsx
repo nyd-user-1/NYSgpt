@@ -10,7 +10,7 @@
 // motion (the masthead's re-counting figures, reveal effects) holds still while you aim.
 // What the mouse can't reach, the keyboard can: arrows climb the DOM from the hovered node
 // (↑ parent, ↓ first child, ←/→ siblings), Enter edits the selected node, Esc lets go. The
-// hover chip names the component in X-ray's layer color, with its file once located.
+// hover chip names the component in the Inspector's layer color, with its file once located.
 
 import { useEffect, useState } from 'react'
 import { cssPath } from '@/components/housekeeping/overlay/locator'

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { VIZ_POINT } from '@/lib/pane'
 
 import { useShellPanel } from '@/components/shell'
+import { inspectorOn } from '@/components/dev/inspector-state'
 
 // The /viz pages' one shared mechanism: mount an ECharts canvas in a ref'd div, loading echarts
 // (and echarts-gl, when the chart needs WebGL) on the client only — the GL bundle touches window
@@ -75,17 +76,60 @@ const isDark = () => document.documentElement.classList.contains('dark')
 
 type Option = { dataZoom?: { type?: string }[]; xAxis?: unknown; yAxis?: unknown; tooltip?: Record<string, unknown> }
 
-/** The crosshair's lines (Brendan, 2026-11-04): cartesian charts pair the + cursor with the inspector's
- *  cross — two faint guide lines tracking the pointer. GL scenes have no axes to cross. Applied on every
- *  draw: the theme flip's redraw replaces the whole option, so the lines must ride it too. */
+/** ECharts' own axis pointer is off on cartesian charts (Brendan, 2026-11-05): the inspector's rules (below)
+ *  are the chart's one crosshair, so ECharts' grey dashed cross, or an axis chart's snapped line, would be a
+ *  second. The tooltip still follows the pointer. Applied on every draw: the theme flip's redraw replaces
+ *  the whole option. */
 function withCross(o: unknown): Option {
   const option = o as Option
-  if (option.xAxis && option.yAxis)
-    option.tooltip = {
-      ...(option.tooltip ?? {}),
-      axisPointer: { type: 'cross', crossStyle: { color: '#94a3b8', width: 1, opacity: 0.6 }, label: { show: false } },
-    }
+  if (option.xAxis && option.yAxis) option.tooltip = { ...(option.tooltip ?? {}), axisPointer: { type: 'none' } }
   return option
+}
+
+/** The inspector's rules (components/dev/inspector.tsx TraceOverlay), to the pixel: 1px of this blue. */
+const RULE = 'rgba(59,130,246,0.5)'
+
+/** Two rules through a point. Over a chart they cross the window, as the inspector's do; at a datum a table
+ *  row points to, they stay inside the chart's box. */
+function makeRules() {
+  const line = () => {
+    const d = document.createElement('div')
+    d.setAttribute('aria-hidden', 'true')
+    Object.assign(d.style, { position: 'fixed', left: '0', top: '0', pointerEvents: 'none', zIndex: '2147483644', background: RULE, display: 'none' })
+    document.body.append(d)
+    return d
+  }
+  const v = line()
+  const h = line()
+  return {
+    at(x: number, y: number, box?: DOMRect) {
+      Object.assign(v.style, { display: '', left: `${x}px`, top: box ? `${box.top}px` : '0', width: '1px', height: box ? `${box.height}px` : '100dvh' })
+      Object.assign(h.style, { display: '', top: `${y}px`, left: box ? `${box.left}px` : '0', height: '1px', width: box ? `${box.width}px` : '100dvw' })
+    },
+    hide() {
+      v.style.display = 'none'
+      h.style.display = 'none'
+    },
+    remove() {
+      v.remove()
+      h.remove()
+    },
+  }
+}
+
+/** Where a datum sits on a 2D chart's canvas, or null (GL scenes, polar, anything that won't say). */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function pixelOf(chart: any, at: { seriesIndex: number; dataIndex: number }): [number, number] | null {
+  try {
+    const series = chart?.getModel?.()?.getSeriesByIndex(at.seriesIndex)
+    const cs = series?.coordinateSystem
+    if (!cs || cs.type !== 'cartesian2d') return null
+    const data = series.getData()
+    const p = cs.dataToPoint(cs.dimensions.map((d: string) => data.get(data.mapDimension(d), at.dataIndex)))
+    return p && Number.isFinite(p[0]) && Number.isFinite(p[1]) ? [p[0], p[1]] : null
+  } catch {
+    return null
+  }
 }
 
 /** Optional extras (2026-11-04, chart batches A and B).
@@ -124,6 +168,8 @@ export function useEChart<D>(
     let mo: MutationObserver | undefined
     let onMsg: ((e: MessageEvent) => void) | undefined
     let onEvt: EventListener | undefined
+    let rules: ReturnType<typeof makeRules> | undefined
+    let unhook: (() => void) | undefined
     ;(async () => {
       const [echarts, data] = await Promise.all([
         import('echarts').then(async (m) => {
@@ -152,9 +198,50 @@ export function useEChart<D>(
       // old CSS !important blanketed the whole canvas — slider included, since it's the same
       // canvas. Here zrender itself decides: blank ground and data (default/pointer) become the
       // cross; the zoom slider's own move/resize cursors stay; off the canvas, nothing changes.
-      const setCursor = zr.setCursorStyle.bind(zr)
-      zr.setCursorStyle = (c: string) => setCursor(c === 'default' || c === 'pointer' ? 'crosshair' : c)
+      // The patch sits on the handler's DOM proxy (2026-11-05): a hover sets the cursor through
+      // proxy.setCursor directly (zrender Handler.mousemove), so patching zr.setCursorStyle left
+      // the arrow on every move after the first.
+      const box = ref.current
+      const r = makeRules()
+      rules = r
+      let cross = true
+      let over = false
+      const proxy = zr.handler?.proxy as { setCursor?: (c?: string) => void } | undefined
+      if (proxy?.setCursor) {
+        const setCursor = proxy.setCursor.bind(proxy)
+        proxy.setCursor = (c?: string) => {
+          const next = !c || c === 'default' || c === 'pointer' ? 'crosshair' : c
+          cross = next === 'crosshair'
+          if (!cross) r.hide()
+          setCursor(next)
+        }
+      }
       zr.setCursorStyle('crosshair')
+      // The rules ride the + (Brendan, 2026-11-05): anywhere over the chart — plot, axes, a GL scene —
+      // the inspector's two blue lines cross at the pointer; where the cursor is the slider's own, none.
+      // While the inspector itself is on, its rules are already there.
+      const move = (e: PointerEvent) => {
+        if (e.pointerType === 'touch') return
+        over = true
+        if (cross && !inspectorOn()) r.at(e.clientX, e.clientY)
+        else r.hide()
+      }
+      const leave = () => {
+        over = false
+        r.hide()
+      }
+      // Rules left at a pointed datum go when the page moves under them.
+      const stale = () => {
+        if (!over) r.hide()
+      }
+      box.addEventListener('pointermove', move)
+      box.addEventListener('pointerleave', leave)
+      window.addEventListener('scroll', stale, true)
+      unhook = () => {
+        box.removeEventListener('pointermove', move)
+        box.removeEventListener('pointerleave', leave)
+        window.removeEventListener('scroll', stale, true)
+      }
       zr.on('mousedown', (e: { offsetX: number; offsetY: number }) => {
         down = [e.offsetX, e.offsetY]
       })
@@ -180,8 +267,11 @@ export function useEChart<D>(
           if (slug) latest.current.openPane(`/viz/data/${slug}${row !== null && row >= 0 ? `?row=${row}` : ''}`)
         }, 0)
       })
-      ro = new ResizeObserver(() => chart?.resize())
-      ro.observe(ref.current)
+      ro = new ResizeObserver(() => {
+        chart?.resize()
+        stale()
+      })
+      ro.observe(box)
       mo = new MutationObserver(() => {
         if (isDark() === dark) return
         dark = isDark()
@@ -193,13 +283,20 @@ export function useEChart<D>(
         chart?.setOption(themed(withCross(latest.current.build(data, latest.current.view)), dark) as any, latest.current.replace)
       mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
       // A table row pointing here (VIZ_POINT, 2026-11-04): the crosshair walks to that datum —
-      // showTip lands the cross and the tooltip on series 0 at the row's index.
+      // showTip lands the tooltip on series 0 at the row's index, and the rules cross at the datum
+      // (2026-11-05: they replaced ECharts' cross, which used to land there).
       const point = (d: { type?: string; slug?: string; row?: number } | null) => {
         if (!d || d.type !== VIZ_POINT || typeof d.row !== 'number') return
         const slug = latest.current.path?.split('/').filter(Boolean).pop()
         if (d.slug && slug && d.slug !== slug) return
         const at = latest.current.point ? latest.current.point(d.row) : { seriesIndex: 0, dataIndex: d.row }
-        if (at) chart?.dispatchAction({ type: 'showTip', ...at })
+        if (!at) return
+        chart?.dispatchAction({ type: 'showTip', ...at })
+        if (over) return
+        const p = pixelOf(chart, at)
+        if (!p) return r.hide()
+        const b = box.getBoundingClientRect()
+        r.at(b.left + p[0], b.top + p[1], b)
       }
       onMsg = (e: MessageEvent) => { if (e.origin === window.location.origin) point(e.data as Parameters<typeof point>[0]) }
       onEvt = ((e: Event) => point((e as CustomEvent).detail)) as EventListener
@@ -213,6 +310,8 @@ export function useEChart<D>(
       mo?.disconnect()
       if (onMsg) window.removeEventListener('message', onMsg)
       if (onEvt) window.removeEventListener(VIZ_POINT, onEvt)
+      unhook?.()
+      rules?.remove()
       chart?.dispose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

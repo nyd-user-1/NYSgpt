@@ -60,6 +60,9 @@ type PanelState = {
   goTo: (href: string, to: Side) => void
   /** The main page's address, without the second panel's ?pane. */
   mainHere: () => string
+  /** The main card's corner close, while a panel stands beside it (trinity's "Close the page", 2026-11-05):
+   *  the panel beside it takes the whole area and the page keeps the slim bar. Null when nothing is beside it. */
+  closePage: (() => void) | null
 }
 
 const noop = () => {}
@@ -90,6 +93,7 @@ const PanelCtx = React.createContext<PanelState>({
   headerMenu: () => noop,
   goTo: noop,
   mainHere: () => "/",
+  closePage: null,
 })
 
 export const useShellPanel = () => React.useContext(PanelCtx)
@@ -270,6 +274,22 @@ export function Shell({ children }: { children: React.ReactNode }) {
     setSize("custom")
   }
 
+  // At FULL the page doesn't vanish — it collapses to a slim bar, the codespaces way (Brendan,
+  // 2026-11-04): the pane takes all but ~124px, and the app card beneath keeps only its two
+  // chrome buttons, stacked. The sidebar leaves the screen entirely.
+  const width = size === "third" ? "420px" : size === "half" ? "50vw" : size === "custom" ? `${(split * 100).toFixed(2)}vw` : "calc(100vw - 124px)"
+  const full = !!pane && size === "full"
+  // The third panel: both panes split what the slim bar leaves (124px page + 18px between them).
+  const second = !!pane && !!pane2
+  const half2 = "calc((100vw - 142px)/2)"
+  // The switchboard's full (the corner close's, 2026-11-05) slims the page the same way.
+  const slim = full || second || switchboard.full
+  const sbFull = switchboard.setFull
+  const closePage = React.useMemo(
+    () => (pane && !slim ? () => setSize("full") : sbOpen && !switchboard.full ? () => sbFull(true) : null),
+    [pane, slim, sbOpen, switchboard.full, sbFull],
+  )
+
   const panel = React.useMemo<PanelState>(
     () => ({
       setOpen: noop,
@@ -301,19 +321,11 @@ export function Shell({ children }: { children: React.ReactNode }) {
       headerMenu,
       goTo,
       mainHere: mainHereNow,
+      closePage,
     }),
-    [size, nextSize, pane, seed, openPane, nav, headerMenu, goTo],
+    [size, nextSize, pane, seed, openPane, nav, headerMenu, goTo, closePage],
   )
 
-  // At FULL the page doesn't vanish — it collapses to a slim bar, the codespaces way (Brendan,
-  // 2026-11-04): the pane takes all but ~124px, and the app card beneath keeps only its two
-  // chrome buttons, stacked. The sidebar leaves the screen entirely.
-  const width = size === "third" ? "420px" : size === "half" ? "50vw" : size === "custom" ? `${(split * 100).toFixed(2)}vw` : "calc(100vw - 124px)"
-  const full = !!pane && size === "full"
-  // The third panel: both panes split what the slim bar leaves (124px page + 18px between them).
-  const second = !!pane && !!pane2
-  const half2 = "calc((100vw - 142px)/2)"
-  const slim = full || second
   return (
     <PanelCtx.Provider value={panel}>
       <React.Suspense>
