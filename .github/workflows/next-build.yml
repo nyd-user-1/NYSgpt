@@ -1,0 +1,32 @@
+# The full `pnpm run build` (fumadocs-mdx + next build) on GitHub's runners, so a failing Netlify build
+# shows its error here: Netlify's API exposes no build log, and local builds are banned on the Mac.
+name: Next build
+
+on:
+  push:
+    branches: [netlify]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  next-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Next build
+        run: pnpm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=6144
