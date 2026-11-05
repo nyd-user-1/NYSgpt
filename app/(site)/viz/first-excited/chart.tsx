@@ -63,7 +63,7 @@ export function FirstExcitedChart() {
             return `Z ${zs[i]} (${d.els[zs[i]]}) — mean E(2⁺) ${full.format(mean[i])} keV over ${count[i]} isotope${count[i] === 1 ? '' : 's'}`
           },
         },
-        xAxis: { type: 'category', data: zs.map(String), axisLabel: { color: '#64748b', interval: 4 }, ...axisX },
+        xAxis: { type: 'category', data: zs.map(String), ...axisX, axisLabel: { color: '#64748b', interval: 4 } },
         series: [
           {
             id: 'e2',
