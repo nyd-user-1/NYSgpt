@@ -3,7 +3,13 @@
 // scripts/viz-decay-snapshot.mjs). Each chart and its data table derive their rows through the same function
 // here, so a table row and the datum it points at stay in step.
 //
-// The decay-mode colours, the nuclide names and the half-life text match /viz/decay's (lib/viz-decay.ts).
+// The decay types, the decay-mode colours, the nuclide names and the half-life text are lib/nuclide.ts's, shared
+// with /viz/decay; they're re-exported here so the charts import from one place.
+
+import { FAMILIES, FAMILY, familyOf, keyOf, type DecayData, type DecayMode, type DecayNuclide, type Family } from '@/lib/nuclide'
+
+export { FAMILIES, FAMILY, familyOf, familyOfMode, formatSeconds, halfLifeText, keyOf, nucName, sup } from '@/lib/nuclide'
+export type { DecayMode, DecayNuclide, Family } from '@/lib/nuclide'
 
 // ── loading ──────────────────────────────────────────────────────────────────────────────────────
 
@@ -24,18 +30,7 @@ export type Mass = {
 }
 type MassFile = { source: string; els: string[]; cols: string[]; rows: (number | null)[][] }
 
-export type DecayMode = { label: string; dz: number | null; dn: number | null }
-export type DecayNuclide = {
-  z: number
-  n: number
-  el: string
-  /** Half-life in seconds; null = stable; -1 = the deck gives none. */
-  t: number | null
-  lim?: '>' | '<' | '~'
-  /** [mode, branching %], largest first; branching null where the deck lists the mode without a value. */
-  m: [string, number | null][]
-}
-export type Decay = { source: string; modes: Record<string, DecayMode>; nuclides: DecayNuclide[] }
+export type Decay = DecayData
 
 // One request per file per page, as lib/viz-data.ts does it; a failed fetch is dropped so the next mount retries.
 const cache = new Map<string, Promise<unknown>>()
@@ -71,37 +66,7 @@ export const loadMasses = once('masses', () => json('masses').then((raw) => pars
 export const loadDecay = once('decay', () => json('decay').then((raw) => raw as Decay))
 export const loadMassesAndDecay = () => Promise.all([loadMasses(), loadDecay()])
 
-export const keyOf = (z: number, n: number) => z * 1000 + n
-
 // ── names, units, colours ────────────────────────────────────────────────────────────────────────
-
-const SUP: Record<string, string> = { '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹', '-': '⁻' }
-export const sup = (v: number | string) => String(v).replace(/[\d-]/g, (d) => SUP[d])
-/** "⁶⁰Co"; the free neutron is "n". */
-export const nucName = (x: { z: number; n: number; el: string }) => (x.z === 0 && x.n === 1 ? 'n' : `${sup(x.z + x.n)}${x.el}`)
-
-const YEAR = 365.2422 * 86400
-const UNITS: [string, number][] = [
-  ['ys', 1e-24], ['zs', 1e-21], ['as', 1e-18], ['fs', 1e-15], ['ps', 1e-12], ['ns', 1e-9], ['µs', 1e-6], ['ms', 1e-3],
-  ['s', 1], ['min', 60], ['h', 3600], ['d', 86400], ['y', YEAR], ['ky', 1e3 * YEAR], ['My', 1e6 * YEAR], ['Gy', 1e9 * YEAR],
-]
-const three = (v: number) => (v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(2))
-
-/** A span of seconds in the unit that reads best: "5.27 y", "613 s", "2.4E+23 y". */
-export function formatSeconds(s: number): string {
-  if (s >= 1e3 * 1e9 * YEAR) return `${(s / YEAR).toExponential(1).replace('e+', 'E+')} y`
-  if (s < 1e-24) return `${s.toExponential(1).replace('e-', 'E-')} s`
-  let unit = UNITS[0]
-  for (const u of UNITS) if (s >= u[1]) unit = u
-  return `${three(s / unit[1])} ${unit[0]}`
-}
-
-export function halfLifeText(x: DecayNuclide | undefined): string {
-  if (!x) return 'Not in ENSDF'
-  if (x.t === null) return 'Stable'
-  if (x.t < 0) return 'Not given'
-  return `${x.lim ?? ''}${formatSeconds(x.t)}`
-}
 
 /** "α 100%, SF 5.45E-5%" — the branchings as the deck gives them. */
 export function modesText(x: DecayNuclide | undefined, modes: Record<string, DecayMode>): string {
@@ -111,37 +76,6 @@ export function modesText(x: DecayNuclide | undefined, modes: Record<string, Dec
 
 /** keV → "8.795 MeV". */
 export const mev = (kev: number | null, digits = 3) => (kev === null ? '—' : `${(kev / 1000).toFixed(digits)} MeV`)
-
-/** The NNDC chart's colour families, by a nuclide's primary (largest) mode — /viz/decay's palette. */
-export type Family = 'stable' | 'b-' | 'ec' | 'a' | 'sf' | 'p' | 'n' | 'unknown'
-export const FAMILIES: Family[] = ['stable', 'b-', 'ec', 'a', 'sf', 'p', 'n', 'unknown']
-export const FAMILY: Record<Family, { label: string; light: string; dark: string }> = {
-  stable: { label: 'Stable', light: '#16181d', dark: '#f0e9d8' },
-  'b-': { label: 'β−', light: '#2f6fdc', dark: '#5b9cff' },
-  ec: { label: 'β+/EC', light: '#e8730c', dark: '#ff8a3d' },
-  a: { label: 'α', light: '#d9ab00', dark: '#ffd84d' },
-  sf: { label: 'Fission', light: '#1f9d4c', dark: '#3ddc7a' },
-  p: { label: 'p emission', light: '#8b3fd9', dark: '#b57bff' },
-  n: { label: 'n emission', light: '#d42f2f', dark: '#ff5c5c' },
-  unknown: { label: 'Unknown', light: '#a3a3a3', dark: '#6b6b6b' },
-}
-
-export function familyOfMode(mode: string | undefined): Family {
-  if (!mode) return 'unknown'
-  if (mode.endsWith('SF')) return 'sf'
-  if (mode.startsWith('B-') || mode === '2B-') return 'b-'
-  if (mode.startsWith('EC') || mode === '2EC') return 'ec'
-  if (/^\d*P$/.test(mode)) return 'p'
-  if (/^\d*N$/.test(mode)) return 'n'
-  // α and the cluster emissions (¹⁴C, ²⁴Ne …) share α's colour.
-  return 'a'
-}
-
-export function familyOf(x: DecayNuclide | undefined): Family {
-  if (!x) return 'unknown'
-  if (x.t === null) return 'stable'
-  return familyOfMode(x.m[0]?.[0])
-}
 
 /** The theme at draw time: useEChart rebuilds the option when <html>'s class flips, so a build may read it. */
 export const isDark = () => typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
