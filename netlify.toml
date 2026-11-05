@@ -8,3 +8,8 @@ publish = ".next"
 
 [[plugins]]
 package = "@netlify/plugin-nextjs"
+
+# The compile needs more heap than Node's default — the same ceiling that killed the Cloudflare
+# runner (run 41929587548); GitHub's next-build.yml already carries this value.
+[build.environment]
+NODE_OPTIONS = "--max-old-space-size=6144"
