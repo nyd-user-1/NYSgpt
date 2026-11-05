@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { PanelLeftOpen, PanelLeftClose, ChevronsUpDown } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, ChevronsUpDown, Check } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { VIZ_CHARTS } from "@/lib/viz-charts";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
@@ -82,14 +85,13 @@ export function AppLayout({
             )}
           </button>
 
-          {title && (
+          {title && (VIZ_CHARTS.some((c) => c.href === path) ? <ChartSwitcher path={path} title={title} /> : (
             <span className="ml-5 hidden items-center gap-1.5 sm:flex">
               <span className="text-[24px] leading-none text-[var(--paper-text,var(--fg))]" style={{ fontFamily: "var(--font-display), Georgia, serif" }}>
                 {title}
               </span>
-              <ChevronsUpDown className="h-3.5 w-3.5 text-[var(--paper-faint,#94a3b8)]" />
             </span>
-          )}
+          ))}
 
           <div className="flex-1" />
 
@@ -116,5 +118,48 @@ export function AppLayout({
         )}
       </button>
     </div>
+  );
+}
+
+/** The header's chart switcher (Brendan, 2026-11-04): on a /viz chart page the title opens a list of every chart
+ *  page in the /viz index's box order (lib/viz-charts.ts), named as the header names them (lib/header-titles.ts).
+ *  Each item is a real link, so a modifier press opens a tab and shift+right-click reaches the pane. */
+function ChartSwitcher({ path, title }: { path: string; title: string }) {
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label={`${title}: switch chart`}
+          className="ml-5 hidden items-center gap-1.5 rounded-md outline-none sm:flex focus-visible:ring-2 focus-visible:ring-[var(--paper-faint)]"
+        >
+          <span className="text-[24px] leading-none text-[var(--paper-text,var(--fg))]" style={{ fontFamily: "var(--font-display), Georgia, serif" }}>
+            {title}
+          </span>
+          <ChevronsUpDown className="h-3.5 w-3.5 text-[var(--paper-faint,#94a3b8)]" />
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        align="start"
+        sideOffset={8}
+        className="nysgpt-app max-h-[70vh] w-[300px] rounded-xl border-[var(--paper-rule)] bg-[var(--paper)] p-1 text-[var(--paper-text)]"
+      >
+        {VIZ_CHARTS.map((c) => {
+          const on = c.href === path;
+          return (
+            <DropdownMenuItem
+              key={c.href}
+              asChild
+              className={`text-[13px] focus:bg-[var(--paper-quiet)] focus:text-[var(--paper-text)] ${on ? "font-medium text-[var(--paper-strong)]" : ""}`}
+            >
+              <Link href={c.href} aria-current={on ? "page" : undefined}>
+                <span className="min-w-0 flex-1 truncate">{HEADER_TITLES[c.href] ?? c.title}</span>
+                {on && <Check className="h-3.5 w-3.5 text-[var(--paper-strong)]" />}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
