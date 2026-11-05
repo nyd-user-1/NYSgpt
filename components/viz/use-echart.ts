@@ -73,7 +73,41 @@ function themed(v: unknown, dark: boolean, inRamp = false): unknown {
 
 const isDark = () => document.documentElement.classList.contains('dark')
 
-type Option = { dataZoom?: { type?: string }[]; xAxis?: unknown; yAxis?: unknown; tooltip?: Record<string, unknown> }
+type Zoom = { type?: string; id?: string; xAxisIndex?: unknown; yAxisIndex?: unknown; filterMode?: string; [k: string]: unknown }
+type Option = { dataZoom?: Zoom[] | Zoom; xAxis?: unknown; yAxis?: unknown; tooltip?: Record<string, unknown> }
+type Pan = { id: string; axis: 'x' | 'y' }
+
+/** Trackpad navigation (Brendan, 2026-11-04). On a cartesian chart, a pinch zooms — it arrives as a wheel with
+ *  ctrlKey, which ECharts' inside dataZoom takes (zoomOnMouseWheel 'ctrl') — and a two-finger scroll pans: the
+ *  hook moves each inside zoom's window by the wheel's deltaX / deltaY itself, since ECharts' own wheel-move reads
+ *  only the vertical delta. A page's own inside zooms take the same settings; an x zoom is added where there is
+ *  none, linked to the page's slider through their shared axes; a y zoom only on charts with one y axis and no
+ *  slider. Added zooms never filter series ('none'), so the opening view is unchanged. Returns the zooms to pan.
+ *  GL scenes (no xAxis/yAxis) keep their own orbit. */
+const PINCH = { zoomOnMouseWheel: 'ctrl', moveOnMouseWheel: false }
+function withTrackpad(o: Option): Pan[] {
+  if (!o.xAxis || !o.yAxis) return []
+  const zooms: Zoom[] = Array.isArray(o.dataZoom) ? o.dataZoom : o.dataZoom ? [o.dataZoom] : []
+  const pans: Pan[] = []
+  zooms.forEach((z, i) => {
+    if (z.type !== 'inside') return
+    Object.assign(z, PINCH)
+    z.id ??= `pan-${i}`
+    pans.push({ id: z.id, axis: z.yAxisIndex !== undefined && z.xAxisIndex === undefined ? 'y' : 'x' })
+  })
+  const slider = zooms.find((z) => z.type === 'slider' && z.yAxisIndex === undefined)
+  if (!pans.some((p) => p.axis === 'x')) {
+    const xAxisIndex = slider?.xAxisIndex ?? (Array.isArray(o.xAxis) ? o.xAxis.map((_, i) => i) : 0)
+    zooms.push({ type: 'inside', id: 'pan-x', xAxisIndex, filterMode: slider ? (slider.filterMode ?? 'filter') : 'none', moveOnMouseMove: false, ...PINCH })
+    pans.push({ id: 'pan-x', axis: 'x' })
+  }
+  if (!pans.some((p) => p.axis === 'y') && !slider && !Array.isArray(o.yAxis)) {
+    zooms.push({ type: 'inside', id: 'pan-y', yAxisIndex: 0, filterMode: 'none', moveOnMouseMove: false, ...PINCH })
+    pans.push({ id: 'pan-y', axis: 'y' })
+  }
+  o.dataZoom = zooms
+  return pans
+}
 
 /** The crosshair's lines (Brendan, 2026-11-04): cartesian charts pair the + cursor with the inspector's
  *  cross — two faint guide lines tracking the pointer. GL scenes have no axes to cross. Applied on every
@@ -124,6 +158,8 @@ export function useEChart<D>(
     let mo: MutationObserver | undefined
     let onMsg: ((e: MessageEvent) => void) | undefined
     let onEvt: EventListener | undefined
+    let onWheel: ((e: WheelEvent) => void) | undefined
+    let wheelEl: HTMLElement | null = null
     ;(async () => {
       const [echarts, data] = await Promise.all([
         import('echarts').then(async (m) => {
@@ -135,10 +171,17 @@ export function useEChart<D>(
       if (disposed || !ref.current) return
       chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
       let dark = isDark()
-      const option = withCross(build(data, latest.current.view))
+      let pans: Pan[] = []
+      /** Build, add the crosshair and the trackpad zooms, theme, draw — the first draw and every redraw. */
+      const draw = (notMerge: boolean) => {
+        const option = withCross(latest.current.build(data, latest.current.view))
+        pans = withTrackpad(option)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        chart.setOption(themed(option, dark) as any, notMerge)
+        return option
+      }
+      const option = draw(false)
       const slider = Array.isArray(option.dataZoom) && option.dataZoom.some((d) => d.type === 'slider')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      chart.setOption(themed(option, dark) as any)
       // The datum under a click, when there is one; the canvas's own click decides whether it was a click.
       let hit: number | null = null
       let picked: ChartClick | null = null
@@ -185,12 +228,31 @@ export function useEChart<D>(
       mo = new MutationObserver(() => {
         if (isDark() === dark) return
         dark = isDark()
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        chart?.setOption(themed(withCross(latest.current.build(data, latest.current.view)), dark) as any, true)
+        draw(true)
       })
-      redraw.current = () =>
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        chart?.setOption(themed(withCross(latest.current.build(data, latest.current.view)), dark) as any, latest.current.replace)
+      redraw.current = () => draw(latest.current.replace)
+      // A two-finger scroll pans each zoom's window by the wheel's own axis (withTrackpad); a pinch (ctrlKey) is
+      // ECharts' zoom. Held from the page too, so a sideways swipe over a chart never turns into "back".
+      wheelEl = ref.current
+      onWheel = (e: WheelEvent) => {
+        if (!pans.length || e.ctrlKey) return
+        e.preventDefault()
+        const k = e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? chart.getHeight() : 1
+        const panY = pans.some((p) => p.axis === 'y')
+        const model = chart.getModel()
+        for (const p of pans) {
+          const dz = model.queryComponents({ mainType: 'dataZoom', id: p.id })[0]
+          if (!dz) continue
+          const [s, end] = dz.getPercentRange() as [number, number]
+          const span = end - s
+          // Natural scrolling: content follows the fingers. A chart with no y zoom pans x on a vertical scroll too.
+          const d = p.axis === 'x' ? (e.deltaX + (panY ? 0 : e.deltaY)) / chart.getWidth() : -e.deltaY / chart.getHeight()
+          if (span >= 100 || !d) continue
+          const start = Math.min(100 - span, Math.max(0, s + d * k * span))
+          chart.dispatchAction({ type: 'dataZoom', dataZoomId: p.id, start, end: start + span })
+        }
+      }
+      wheelEl.addEventListener('wheel', onWheel, { passive: false })
       mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
       // A table row pointing here (VIZ_POINT, 2026-11-04): the crosshair walks to that datum —
       // showTip lands the cross and the tooltip on series 0 at the row's index.
@@ -213,6 +275,7 @@ export function useEChart<D>(
       mo?.disconnect()
       if (onMsg) window.removeEventListener('message', onMsg)
       if (onEvt) window.removeEventListener(VIZ_POINT, onEvt)
+      if (onWheel) wheelEl?.removeEventListener('wheel', onWheel)
       chart?.dispose()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
