@@ -5,7 +5,7 @@ export const metadata = { title: "First 2⁺ energies — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Nuclides | Aggregate Bar">
+    <VizShell framed title="Nuclides | Aggregate Bar">
       <FirstExcitedChart />
     </VizShell>
   )

@@ -5,7 +5,7 @@ export const metadata = { title: "Capture γ spectra — Viz" }
 
 export default function Page() {
   return (
-    <VizShell>
+    <VizShell framed>
       <SpectraChart />
     </VizShell>
   )

@@ -120,7 +120,7 @@ export function SpectraChart() {
     : []
 
   return (
-    <div className="flex h-[78vh] w-full gap-4">
+    <div className="flex min-h-0 w-full flex-1 gap-4">
       <div className="min-w-0 flex-1">
         <Strips onPick={setPick} />
       </div>

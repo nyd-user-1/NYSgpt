@@ -5,7 +5,7 @@ export const metadata = { title: "EXFOR measurements — Viz" }
 
 export default function Page() {
   return (
-    <VizShell>
+    <VizShell framed>
       <Scatter3dDatasetChart />
     </VizShell>
   )

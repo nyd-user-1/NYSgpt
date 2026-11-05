@@ -18,5 +18,5 @@ export function GraphChart() {
       },
     ],
   }), true, (p) => (p.dataType === 'node' && typeof p.dataIndex === 'number' ? p.dataIndex : null))
-  return <div ref={ref} className="h-[78vh] w-full" />
+  return <div ref={ref} className="min-h-0 w-full flex-1" />
 }

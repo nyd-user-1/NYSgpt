@@ -5,7 +5,7 @@ export const metadata = { title: "Nuclide measure correlations — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Nuclides | Correlation Matrix">
+    <VizShell framed title="Nuclides | Correlation Matrix">
       <MatrixChart />
     </VizShell>
   )

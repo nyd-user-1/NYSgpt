@@ -5,7 +5,7 @@ export const metadata = { title: "3D surface — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Nuclides | 3D Surface">
+    <VizShell framed title="Nuclides | 3D Surface">
       <SurfaceChart />
     </VizShell>
   )

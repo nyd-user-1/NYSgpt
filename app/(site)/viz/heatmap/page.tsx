@@ -5,7 +5,7 @@ export const metadata = { title: "Heatmap — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Nuclides | Heatmap">
+    <VizShell framed title="Nuclides | Heatmap">
       <HeatmapChart />
     </VizShell>
   )

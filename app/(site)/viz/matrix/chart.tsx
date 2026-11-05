@@ -58,5 +58,5 @@ export function MatrixChart() {
     valueRow(3),
     { point: (row) => ({ seriesIndex: 0, dataIndex: row * 2 }) },
   )
-  return <div ref={ref} className="h-[78vh] w-full" />
+  return <div ref={ref} className="min-h-0 w-full flex-1" />
 }

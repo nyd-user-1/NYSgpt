@@ -5,7 +5,7 @@ export const metadata = { title: "Capture γ strips — Viz" }
 
 export default function Page() {
   return (
-    <VizShell>
+    <VizShell framed>
       <SimplexChart />
     </VizShell>
   )

@@ -49,5 +49,5 @@ export function WeightChart() {
     valueRow(2),
     { point: (row) => (where.current[row] ? { seriesIndex: where.current[row][0], dataIndex: where.current[row][1] } : null) },
   )
-  return <div ref={ref} className="h-[78vh] w-full" />
+  return <div ref={ref} className="min-h-0 w-full flex-1" />
 }

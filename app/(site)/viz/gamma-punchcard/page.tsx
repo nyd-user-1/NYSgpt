@@ -5,7 +5,7 @@ export const metadata = { title: "Capture γ punch card — Viz" }
 
 export default function Page() {
   return (
-    <VizShell>
+    <VizShell framed>
       <GammaPunchcardChart />
     </VizShell>
   )

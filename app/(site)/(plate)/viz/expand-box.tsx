@@ -1,9 +1,11 @@
 'use client'
 
-// Box 1's test flight (Brendan, 2026-11-04): a press doesn't open the pane — the box itself
-// grows. A paper clone lifts off the box's own rect and expands to the plate frame's rect
-// (the one box the masthead and plate would make combined), then the route changes and the
-// chart fades in to fill it (RevealFx on the chart page). One box only, to test the motion.
+// Box 1's test flight, now every chart box's (Brendan, 2026-11-04): a press doesn't open the pane —
+// the box itself grows. A paper clone lifts off the box's own rect and expands to the plate frame's
+// rect (the one box the masthead and plate would make combined), then the route changes and the
+// chart fades in to fill it (VizShell framed's RevealFx). A press with a modifier key keeps the
+// link's own behaviour (new tab, new window), and shift+right-click still reaches the pane: this
+// stays a real link.
 
 import { useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -18,6 +20,7 @@ export function ExpandBox({ href, className, style, children }: { href: string; 
   const [grown, setGrown] = useState(false)
 
   const onClick = (e: React.MouseEvent) => {
+    if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
     e.preventDefault()
     const el = ref.current
     if (!el || box) return

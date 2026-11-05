@@ -103,7 +103,7 @@ export function LevelSpansChart() {
   )
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex min-h-0 w-full flex-1 flex-col">
       <label className="flex items-center gap-2 self-start text-[12px] text-[var(--paper-muted)]" style={SANS}>
         Isotope chain
         <select
@@ -118,7 +118,7 @@ export function LevelSpansChart() {
           ))}
         </select>
       </label>
-      <div ref={ref} className="h-[74vh] w-full" />
+      <div ref={ref} className="min-h-0 w-full flex-1" />
     </div>
   )
 }

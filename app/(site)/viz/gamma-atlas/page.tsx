@@ -5,7 +5,7 @@ export const metadata = { title: "Capture γ atlas — Viz" }
 
 export default function Page() {
   return (
-    <VizShell>
+    <VizShell framed>
       <GammaAtlasChart />
     </VizShell>
   )

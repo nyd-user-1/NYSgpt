@@ -5,7 +5,7 @@ export const metadata = { title: "Level energies per nuclide — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Nuclides | Candlestick">
+    <VizShell framed title="Nuclides | Candlestick">
       <LevelCandlesChart />
     </VizShell>
   )

@@ -40,5 +40,5 @@ export function SimplexChart() {
       ],
     }
   }, false, firstSeriesRow)
-  return <div ref={ref} className="h-[78vh] w-full" />
+  return <div ref={ref} className="min-h-0 w-full flex-1" />
 }

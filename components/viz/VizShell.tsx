@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { X } from 'lucide-react'
 import { PAPER_BRIDGE } from '@/components/editorial/PaperBridge'
+import { RevealFx } from '@/components/RevealFx'
 
 // The /viz chart pages' frame: the chart alone, centered in the app's shell (Brendan, 2026-11-04: no wordmark,
 // no title, no note — each page keeps its metadata title for the tab). AppLayout itself is the (site) layout's
@@ -29,7 +30,10 @@ export function VizShell({ children, framed }: { children: React.ReactNode; fram
               </Link>
               {/* The + cursor belongs to the chart's own ground alone — not the frame, not the close. */}
               <div data-viz-chart className="flex min-h-0 min-w-0 flex-1 flex-col">
-                {children}
+                {/* The chart arrives INSIDE the box the /viz press just grew, filling it (2026-11-04: every box). */}
+                <RevealFx className="flex min-h-0 min-w-0 flex-1 flex-col" delay={0.1} translateY={4}>
+                  {children}
+                </RevealFx>
               </div>
             </div>
           </div>

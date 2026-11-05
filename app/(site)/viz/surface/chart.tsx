@@ -27,5 +27,5 @@ export function SurfaceChart() {
       series: [{ type: 'surface', data, shading: 'color', wireframe: { show: false } }],
     }
   }, true)
-  return <div ref={ref} className="h-[78vh] w-full" />
+  return <div ref={ref} className="min-h-0 w-full flex-1" />
 }

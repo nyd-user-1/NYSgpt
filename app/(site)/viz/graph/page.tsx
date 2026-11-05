@@ -5,7 +5,7 @@ export const metadata = { title: "Force graph — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Authors | Force Graph">
+    <VizShell framed title="Authors | Force Graph">
       <GraphChart />
     </VizShell>
   )

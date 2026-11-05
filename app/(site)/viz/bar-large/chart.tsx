@@ -19,5 +19,5 @@ export function BarLargeChart() {
     yAxis: { type: 'log', min: 1, name: 'papers', nameTextStyle: { color: '#64748b' }, axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: 'rgba(100,116,139,0.12)' } } },
     series: [{ type: 'bar', data: bars.map((b) => b.c), large: true, itemStyle: { color: '#1e3a8a' } }],
   }), false, firstSeriesRow)
-  return <div ref={ref} className="h-[78vh] w-full" />
+  return <div ref={ref} className="min-h-0 w-full flex-1" />
 }

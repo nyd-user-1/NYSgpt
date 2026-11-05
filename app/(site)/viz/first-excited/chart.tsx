@@ -82,7 +82,7 @@ export function FirstExcitedChart() {
   const btn = (on: boolean) =>
     `rounded-md px-2.5 py-1 text-[12px] transition-colors ${on ? 'bg-[var(--paper-quiet)] text-[var(--paper-strong)]' : 'text-[var(--paper-muted)] hover:text-[var(--paper-text)]'}`
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex min-h-0 w-full flex-1 flex-col">
       <div className="flex gap-1 self-start" style={SANS} role="group" aria-label="View">
         {VIEWS.map((label, i) => (
           <button key={label} type="button" aria-pressed={view === i} className={btn(view === i)} onClick={() => setView(i)}>
@@ -90,7 +90,7 @@ export function FirstExcitedChart() {
           </button>
         ))}
       </div>
-      <div ref={ref} className="h-[74vh] w-full" />
+      <div ref={ref} className="min-h-0 w-full flex-1" />
     </div>
   )
 }

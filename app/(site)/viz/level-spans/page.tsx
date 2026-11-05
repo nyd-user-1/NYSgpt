@@ -5,7 +5,7 @@ export const metadata = { title: "Level spans per isotope chain — Viz" }
 
 export default function Page() {
   return (
-    <VizShell title="Nuclides | OHLC Bars">
+    <VizShell framed title="Nuclides | OHLC Bars">
       <LevelSpansChart />
     </VizShell>
   )
