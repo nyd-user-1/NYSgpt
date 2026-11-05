@@ -34,6 +34,12 @@ const TRAIL_S = 1.4
 const FLASH_S = 0.8
 const MAX_MOVERS = 8192
 const MAX_TRAILS = 8192
+const N_MAX = 180
+const Z_MAX = 120
+const N_TICKS = [0, 20, 40, 60, 80, 100, 120, 140, 160, 180]
+const Z_TICKS = [0, 20, 40, 60, 80, 100, 120]
+const TICK = { ...MONO, fontSize: 10, color: 'var(--paper-muted)', pointerEvents: 'none' } as const
+const AXIS_NAME = { ...MONO, fontSize: 12, color: 'var(--paper-text)', pointerEvents: 'none' } as const
 
 function elevation(t: number | null) {
   if (t === null) return PLATEAU
@@ -104,7 +110,18 @@ const freshSim = (count: number): Sim => ({
   fissions: 0,
 })
 
-type Palette = { bg: THREE.Color; ink: THREE.Color; fam: Record<Family, THREE.Color>; tile: Record<Family, THREE.Color>; grid: THREE.Color }
+type Palette = {
+  bg: THREE.Color
+  ink: THREE.Color
+  fam: Record<Family, THREE.Color>
+  tile: Record<Family, THREE.Color>
+  /** A family's colours when the legend isolates another one. */
+  famDim: Record<Family, THREE.Color>
+  tileDim: Record<Family, THREE.Color>
+  grid: THREE.Color
+  floor: THREE.Color
+  cross: THREE.Color
+}
 
 function palette(dark: boolean, paper: string, ink: string): Palette {
   const bg = new THREE.Color(dark ? '#15120d' : '#ffffff')
@@ -113,11 +130,20 @@ function palette(dark: boolean, paper: string, ink: string): Palette {
   try { inkC.set(ink) } catch { /* keep the theme default */ }
   const fam = {} as Record<Family, THREE.Color>
   const tile = {} as Record<Family, THREE.Color>
+  const famDim = {} as Record<Family, THREE.Color>
+  const tileDim = {} as Record<Family, THREE.Color>
   for (const f of FAMILIES) {
     fam[f] = new THREE.Color(dark ? FAMILY[f].dark : FAMILY[f].light)
     tile[f] = fam[f].clone().lerp(bg, dark ? 0.62 : 0.55)
+    famDim[f] = fam[f].clone().lerp(bg, 0.86)
+    tileDim[f] = fam[f].clone().lerp(bg, 0.93)
   }
-  return { bg, ink: inkC, fam, tile, grid: inkC.clone().lerp(bg, 0.88) }
+  return {
+    bg, ink: inkC, fam, tile, famDim, tileDim,
+    grid: inkC.clone().lerp(bg, dark ? 0.62 : 0.52),
+    floor: inkC.clone().lerp(bg, dark ? 0.955 : 0.95),
+    cross: inkC.clone().lerp(bg, 0.35),
+  }
 }
 
 /** The theme: html.dark, and the paper tokens as the canvas's element resolves them. */
@@ -145,7 +171,7 @@ function useTheme(el: React.RefObject<HTMLDivElement | null>) {
 type Stats = { simT: number; decays: number; fissions: number; moving: number }
 
 const Chart = React.memo(function Chart({
-  model, pal, sim, playing, rate, selected, onSelect, onHover, onStats,
+  model, pal, sim, playing, rate, selected, focus, inside, onSelect, onHover, onStats,
 }: {
   model: Model
   pal: Palette
@@ -153,6 +179,10 @@ const Chart = React.memo(function Chart({
   playing: { current: boolean }
   rate: { current: number }
   selected: number | null
+  /** The legend's isolated family: the others dim. */
+  focus: Family | null
+  /** Whether the pointer is over the canvas, for the crosshair. */
+  inside: { current: boolean }
   onSelect: (i: number | null) => void
   onHover: (i: number | null) => void
   onStats: (s: Stats) => void
@@ -165,7 +195,20 @@ const Chart = React.memo(function Chart({
   const tmp = React.useMemo(() => ({ m: new THREE.Matrix4(), p: new THREE.Vector3(), q: new THREE.Quaternion(), s: new THREE.Vector3(), c: new THREE.Color() }), [])
   const trailPos = React.useMemo(() => new Float32Array(MAX_TRAILS * 6), [])
   const trailCol = React.useMemo(() => new Float32Array(MAX_TRAILS * 6), [])
+  // The instance colour buffers are created once. Inline in the JSX they were new arrays on every render, so a
+  // re-render (a click selecting a nuclide) rebuilt them as zeros and the whole chart went black.
+  const tileCol = React.useMemo(() => new Float32Array(count * 3), [count])
+  const dotCol = React.useMemo(() => new Float32Array(count * 3), [count])
+  const moverCol = React.useMemo(() => new Float32Array(MAX_MOVERS * 3), [])
   const statsClock = React.useRef(0)
+  const focusRef = React.useRef(focus)
+  focusRef.current = focus
+  // The crosshair: the hovered tile, else where the pointer's ray meets the floor.
+  const hoverIdx = React.useRef<number | null>(null)
+  const cross = React.useRef<THREE.LineSegments>(null)
+  const crossPos = React.useMemo(() => new Float32Array(18), [])
+  const floorPlane = React.useMemo(() => new THREE.Plane(new THREE.Vector3(0, 1, 0), 0.4), [])
+  const hit = React.useMemo(() => new THREE.Vector3(), [])
 
   // Tiles: placed once; coloured per theme.
   React.useLayoutEffect(() => {
@@ -175,27 +218,31 @@ const Chart = React.memo(function Chart({
       tmp.p.set(model.pos[i * 3], model.pos[i * 3 + 1], model.pos[i * 3 + 2])
       tmp.s.set(0.88, 0.22, 0.88)
       mesh.setMatrixAt(i, tmp.m.compose(tmp.p, tmp.q, tmp.s))
-      mesh.setColorAt(i, pal.tile[model.fam[i]])
+      const f = model.fam[i]
+      mesh.setColorAt(i, focus && f !== focus ? pal.tileDim[f] : pal.tile[f])
     }
     mesh.instanceMatrix.needsUpdate = true
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
     mesh.computeBoundingSphere()
     const d = dots.current
     if (d) {
-      for (let i = 0; i < count; i++) d.setColorAt(i, pal.fam[model.fam[i]])
+      for (let i = 0; i < count; i++) {
+        const f = model.fam[i]
+        d.setColorAt(i, focus && f !== focus ? pal.famDim[f] : pal.fam[f])
+      }
       if (d.instanceColor) d.instanceColor.needsUpdate = true
     }
     sim.current.dirty = true
-  }, [model, pal, count, tmp, sim])
+  }, [model, pal, count, tmp, sim, focus])
 
   const grid = React.useMemo(() => {
     const pts: number[] = []
-    for (let n = 0; n <= 180; n += 10) pts.push(n - N0, -0.4, Z0, n - N0, -0.4, -(120 - Z0))
-    for (let z = 0; z <= 120; z += 10) pts.push(-N0, -0.4, -(z - Z0), 180 - N0, -0.4, -(z - Z0))
+    for (let n = 0; n <= N_MAX; n += 10) pts.push(n - N0, -0.4, Z0, n - N0, -0.4, -(Z_MAX - Z0))
+    for (let z = 0; z <= Z_MAX; z += 10) pts.push(-N0, -0.4, -(z - Z0), N_MAX - N0, -0.4, -(z - Z0))
     return new Float32Array(pts)
   }, [])
 
-  useFrame((_, delta) => {
+  useFrame((state, delta) => {
     if (sim.current.occ.length !== count) sim.current = freshSim(count)
     const s = sim.current
     const dt = Math.min(delta, 0.1)
@@ -277,13 +324,13 @@ const Chart = React.memo(function Chart({
           const e = u * u * (3 - 2 * u)
           tmp.p.set(m.a[0] + (m.b[0] - m.a[0]) * e, m.a[1] + (m.b[1] - m.a[1]) * e + Math.sin(Math.PI * u) * 2.2, m.a[2] + (m.b[2] - m.a[2]) * e)
           tmp.s.setScalar(0.42)
-          tmp.c.copy(pal.fam[m.fam])
+          tmp.c.copy(focusRef.current && m.fam !== focusRef.current ? pal.famDim[m.fam] : pal.fam[m.fam])
         } else {
           const u = Math.min(1, age / FLASH_S)
           const at = m.kind === 'fission' ? m.a : m.b
           tmp.p.set(at[0], at[1], at[2])
           tmp.s.setScalar(m.kind === 'fission' ? 0.4 + u * 2.4 : 0.42 * (1 - u))
-          tmp.c.copy(pal.fam[m.fam]).lerp(pal.bg, u)
+          tmp.c.copy(focusRef.current && m.fam !== focusRef.current ? pal.famDim[m.fam] : pal.fam[m.fam]).lerp(pal.bg, u)
         }
         mv.setMatrixAt(c, tmp.m.compose(tmp.p, tmp.q, tmp.s))
         mv.setColorAt(c, tmp.c)
@@ -300,7 +347,7 @@ const Chart = React.memo(function Chart({
       let c = 0
       for (const tr of s.trails) {
         const u = Math.min(1, (s.now - tr.t0) / TRAIL_S)
-        tmp.c.copy(pal.fam[tr.fam]).lerp(pal.bg, u)
+        tmp.c.copy(focusRef.current && tr.fam !== focusRef.current ? pal.famDim[tr.fam] : pal.fam[tr.fam]).lerp(pal.bg, u)
         trailPos.set(tr.a, c * 6)
         trailPos.set(tr.b, c * 6 + 3)
         for (let k = 0; k < 2; k++) {
@@ -313,6 +360,36 @@ const Chart = React.memo(function Chart({
       tl.geometry.setDrawRange(0, c * 2)
       tl.geometry.attributes.position.needsUpdate = true
       tl.geometry.attributes.color.needsUpdate = true
+    }
+
+    // The crosshair: a plus on the floor under the pointer — guide lines the full length of N and of Z through
+    // its cell, and a rise to the plateau — snapped to the hovered tile when there is one.
+    const cl = cross.current
+    if (cl) {
+      let n: number | null = null
+      let z: number | null = null
+      let top = -0.38
+      const h = hoverIdx.current
+      if (h !== null) {
+        n = model.data.nuclides[h].n
+        z = model.data.nuclides[h].z
+        top = model.pos[h * 3 + 1]
+      } else if (inside.current) {
+        state.raycaster.setFromCamera(state.pointer, state.camera)
+        if (state.raycaster.ray.intersectPlane(floorPlane, hit)) {
+          n = Math.round(hit.x + N0)
+          z = Math.round(-hit.z + Z0)
+          top = PLATEAU
+        }
+      }
+      const on = n !== null && z !== null && n >= 0 && n <= N_MAX && z >= 0 && z <= Z_MAX && inside.current
+      cl.visible = on
+      if (on) {
+        const x = (n as number) - N0
+        const zz = -((z as number) - Z0)
+        crossPos.set([-N0, -0.36, zz, N_MAX - N0, -0.36, zz, x, -0.36, Z0, x, -0.36, -(Z_MAX - Z0), x, -0.36, zz, x, top, zz])
+        cl.geometry.attributes.position.needsUpdate = true
+      }
     }
 
     // The readouts, four times a second whether playing or paused.
@@ -334,18 +411,38 @@ const Chart = React.memo(function Chart({
   return (
     <>
       <color attach="background" args={[pal.bg]} />
-      <lineSegments frustumCulled={false}>
+      <mesh position={[N_MAX / 2 - N0, -0.5, -(Z_MAX / 2 - Z0)]} rotation={[-Math.PI / 2, 0, 0]} raycast={() => null}>
+        <planeGeometry args={[N_MAX, Z_MAX]} />
+        <meshBasicMaterial color={pal.floor} toneMapped={false} />
+      </mesh>
+      <lineSegments frustumCulled={false} raycast={() => null}>
         <bufferGeometry>
           <bufferAttribute attach="attributes-position" args={[grid, 3]} />
         </bufferGeometry>
         <lineBasicMaterial color={pal.grid} toneMapped={false} />
       </lineSegments>
-      <Html position={[180 - N0 + 6, -0.4, Z0]} center style={{ ...MONO, fontSize: 11, color: 'var(--paper-faint)', pointerEvents: 'none' }}>
+      {N_TICKS.map((n) => (
+        <Html zIndexRange={[5, 0]} key={`n${n}`} position={[n - N0, -0.4, Z0 + 4]} center style={TICK}>
+          {n}
+        </Html>
+      ))}
+      {Z_TICKS.map((z) => (
+        <Html zIndexRange={[5, 0]} key={`z${z}`} position={[-N0 - 4, -0.4, -(z - Z0)]} center style={TICK}>
+          {z}
+        </Html>
+      ))}
+      <Html zIndexRange={[5, 0]} position={[N_MAX - N0 + 8, -0.4, Z0 + 4]} center style={AXIS_NAME}>
         N
       </Html>
-      <Html position={[-N0, -0.4, -(120 - Z0) - 6]} center style={{ ...MONO, fontSize: 11, color: 'var(--paper-faint)', pointerEvents: 'none' }}>
+      <Html zIndexRange={[5, 0]} position={[-N0 - 4, -0.4, -(Z_MAX - Z0) - 6]} center style={AXIS_NAME}>
         Z
       </Html>
+      <lineSegments ref={cross} frustumCulled={false} raycast={() => null} visible={false}>
+        <bufferGeometry>
+          <bufferAttribute attach="attributes-position" args={[crossPos, 3]} usage={THREE.DynamicDrawUsage} />
+        </bufferGeometry>
+        <lineBasicMaterial color={pal.cross} toneMapped={false} transparent opacity={0.75} />
+      </lineSegments>
 
       <instancedMesh
         ref={tiles}
@@ -358,25 +455,29 @@ const Chart = React.memo(function Chart({
         }}
         onPointerMove={(e) => {
           e.stopPropagation()
-          onHover(pick(e))
+          hoverIdx.current = pick(e)
+          onHover(hoverIdx.current)
         }}
-        onPointerOut={() => onHover(null)}
+        onPointerOut={() => {
+          hoverIdx.current = null
+          onHover(null)
+        }}
       >
         <boxGeometry args={[1, 1, 1]} />
         <meshBasicMaterial toneMapped={false} />
-        <instancedBufferAttribute attach="instanceColor" args={[new Float32Array(count * 3), 3]} />
+        <instancedBufferAttribute attach="instanceColor" args={[tileCol, 3]} />
       </instancedMesh>
 
       <instancedMesh ref={dots} args={[undefined, undefined, count]} frustumCulled={false} raycast={() => null}>
         <sphereGeometry args={[1, 10, 8]} />
         <meshBasicMaterial toneMapped={false} />
-        <instancedBufferAttribute attach="instanceColor" args={[new Float32Array(count * 3), 3]} />
+        <instancedBufferAttribute attach="instanceColor" args={[dotCol, 3]} />
       </instancedMesh>
 
       <instancedMesh ref={movers} args={[undefined, undefined, MAX_MOVERS]} frustumCulled={false} raycast={() => null}>
         <sphereGeometry args={[1, 10, 8]} />
         <meshBasicMaterial toneMapped={false} />
-        <instancedBufferAttribute attach="instanceColor" args={[new Float32Array(MAX_MOVERS * 3), 3]} />
+        <instancedBufferAttribute attach="instanceColor" args={[moverCol, 3]} />
       </instancedMesh>
 
       <lineSegments ref={trails} frustumCulled={false} raycast={() => null}>
@@ -422,6 +523,8 @@ export default function DecayScene() {
   const [stats, setStats] = React.useState<Stats>({ simT: 0, decays: 0, fissions: 0, moving: 0 })
   const [selected, setSelected] = React.useState<number | null>(null)
   const [hover, setHover] = React.useState<number | null>(null)
+  const [focus, setFocus] = React.useState<Family | null>(null)
+  const inside = React.useRef(false)
 
   const toggle = () => {
     playingRef.current = !playingRef.current
@@ -442,7 +545,13 @@ export default function DecayScene() {
   const chain = model && selected !== null ? primaryChain(model.data, model.index, selected) : null
 
   return (
-    <div ref={box} className="relative min-h-0 flex-1 overflow-hidden rounded-xl" style={{ ...SANS, cursor: hover !== null ? 'pointer' : undefined }}>
+    <div
+      ref={box}
+      className="relative min-h-0 flex-1 overflow-hidden rounded-xl"
+      style={{ ...SANS, cursor: 'crosshair' }}
+      onPointerEnter={() => (inside.current = true)}
+      onPointerLeave={() => (inside.current = false)}
+    >
       {model ? (
         <Canvas flat dpr={[1, 2]} camera={{ position: [0, 150, 170], fov: 42, near: 1, far: 3000 }}>
           <Chart
@@ -452,6 +561,8 @@ export default function DecayScene() {
             playing={playingRef}
             rate={rateRef}
             selected={selected}
+            focus={focus}
+            inside={inside}
             onSelect={setSelected}
             onHover={onHover}
             onStats={setStats}
@@ -469,21 +580,30 @@ export default function DecayScene() {
         </div>
       )}
 
-      {/* Legend */}
-      <div className="pointer-events-none absolute left-4 top-4 flex flex-col gap-1 rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/85 px-3 py-2.5 text-[11px] text-[var(--paper-text)] backdrop-blur-sm">
+      {/* Legend: a click isolates a mode (the others dim); a second click, or another mode, changes it. */}
+      <div
+        className="z-10 absolute left-4 top-4 flex flex-col gap-0.5 rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/85 px-2 py-2 text-[11px] text-[var(--paper-text)] backdrop-blur-sm"
+        style={{ cursor: 'default' }}
+      >
         {FAMILIES.map((f) => (
-          <span key={f} className="flex items-center gap-2">
+          <button
+            key={f}
+            type="button"
+            aria-pressed={focus === f}
+            onClick={() => setFocus((cur) => (cur === f ? null : f))}
+            className={`flex items-center gap-2 rounded-md px-1.5 py-0.5 text-left transition-opacity hover:bg-[var(--paper-quiet)] ${focus && focus !== f ? 'opacity-35' : ''} ${focus === f ? 'font-medium' : ''}`}
+          >
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: theme.dark ? FAMILY[f].dark : FAMILY[f].light }} />
             {FAMILY[f].label}
-          </span>
+          </button>
         ))}
-        <span className="mt-1 text-[10px] text-[var(--paper-faint)]" style={MONO}>
+        <span className="mt-1 px-1.5 text-[10px] text-[var(--paper-faint)]" style={MONO}>
           height: log₁₀ half-life
         </span>
       </div>
 
       {/* Controls */}
-      <div className="absolute bottom-4 left-4 flex flex-wrap items-center gap-4 rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/90 px-4 py-3 text-[var(--paper-text)] backdrop-blur-sm">
+      <div className="z-10 absolute bottom-4 left-4 flex flex-wrap items-center gap-4 rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/90 px-4 py-3 text-[var(--paper-text)] backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <button
             type="button"
@@ -528,7 +648,7 @@ export default function DecayScene() {
 
       {/* Hovered nuclide */}
       {hovered && selected === null && (
-        <div className="pointer-events-none absolute bottom-4 right-4 rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/90 px-3 py-2 text-[12px] text-[var(--paper-text)] backdrop-blur-sm">
+        <div className="z-10 pointer-events-none absolute bottom-4 right-4 rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/90 px-3 py-2 text-[12px] text-[var(--paper-text)] backdrop-blur-sm">
           <span className="font-medium">{nucName(hovered)}</span>
           <span className="ml-2 text-[var(--paper-muted)]" style={MONO}>
             {halfLifeText(hovered)}
@@ -539,7 +659,7 @@ export default function DecayScene() {
 
       {/* The selected nuclide's chain */}
       {model && chain && selected !== null && (
-        <div className="absolute bottom-4 right-4 top-16 flex w-[320px] flex-col overflow-hidden rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/95 text-[var(--paper-text)] backdrop-blur-sm">
+        <div className="z-10 absolute bottom-4 right-4 top-16 flex w-[320px] flex-col overflow-hidden rounded-xl border border-[var(--paper-rule)]/15 bg-[var(--paper)]/95 text-[var(--paper-text)] backdrop-blur-sm">
           <div className="flex items-start justify-between gap-3 px-4 pt-4">
             <div>
               <div className="text-[22px] leading-none" style={{ fontFamily: 'var(--font-display), Georgia, serif' }}>

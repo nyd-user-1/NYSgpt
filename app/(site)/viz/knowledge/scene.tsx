@@ -74,6 +74,10 @@ const Chart = React.memo(function Chart({
   const spheres = React.useRef<THREE.InstancedMesh>(null)
   const rings = React.useRef<THREE.InstancedMesh>(null)
   const ringGeom = React.useMemo(() => new THREE.RingGeometry(0.28, 0.42, 20).rotateX(-Math.PI / 2), [])
+  // Created once: inline in the JSX they were new arrays on every render, so selecting a nuclide rebuilt them as
+  // zeros and every marker went black.
+  const sphereCol = React.useMemo(() => new Float32Array(evaluated.length * 3), [evaluated])
+  const ringCol = React.useMemo(() => new Float32Array(never.length * 3), [never])
 
   React.useLayoutEffect(() => {
     const m = new THREE.Matrix4(), p = new THREE.Vector3(), q = new THREE.Quaternion(), s = new THREE.Vector3(), c = new THREE.Color()
@@ -145,13 +149,13 @@ const Chart = React.memo(function Chart({
 
       <instancedMesh ref={rings} args={[ringGeom, undefined, never.length]} frustumCulled={false} {...handlers(never)}>
         <meshBasicMaterial toneMapped={false} side={THREE.DoubleSide} />
-        <instancedBufferAttribute attach="instanceColor" args={[new Float32Array(never.length * 3), 3]} />
+        <instancedBufferAttribute attach="instanceColor" args={[ringCol, 3]} />
       </instancedMesh>
 
       <instancedMesh ref={spheres} args={[undefined, undefined, evaluated.length]} frustumCulled={false} {...handlers(evaluated)}>
         <sphereGeometry args={[1, 12, 10]} />
         <meshBasicMaterial toneMapped={false} />
-        <instancedBufferAttribute attach="instanceColor" args={[new Float32Array(evaluated.length * 3), 3]} />
+        <instancedBufferAttribute attach="instanceColor" args={[sphereCol, 3]} />
       </instancedMesh>
 
       {sel && (
