@@ -8,14 +8,11 @@ import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardP
 import { ShiftNotes } from "@/components/ShiftNotes";
 import { ShiftNav } from "@/components/ShiftNav";
 import { Shell } from "@/components/shell";
-import { HousekeepingTool } from "@/components/housekeeping/tool";
+import { HousekeepingTool, LiveEditMode } from "@/components/dev/devkit-lazy";
 import { DevInspector } from "@/components/dev/inspector-lazy";
-import { LiveEditMode } from "@/components/housekeeping/live-edit";
 import { EMBED_SCRIPT } from "@/lib/pane";
 import { THEME_KEY, THEME_SCRIPT } from "@/lib/theme";
 import { ThemeSync } from "@/components/theme/theme-sync";
-import { getDigest } from "@/lib/digest";
-import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
 import { metadataKeywords } from "./metadata";
 import "@/app/globals.css";
@@ -76,18 +73,14 @@ export const metadata: Metadata = {
   },
 };
 
-// The switchboard's Discord drill-down reads live figures from the corpus
-// database. ISR keeps every page statically servable while re-reading the
-// digest at most every five minutes — fresh enough for a nightly-harvest feed,
-// and the site never blocks on (or 500s from) the database.
-export const revalidate = 300;
-
-export default async function RootLayout({
+// Fully static (2026-11-04): the root layout no longer reads the corpus digest (its DATABASE_URL is set on no
+// deployment, so it always came back empty) or revalidates. Every prerendered page is served as a file —
+// on Cloudflare through open-next.config.ts's static-assets cache — instead of rendering per request.
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const digest = await getDigest();
   return (
     <html
       lang="en"
@@ -110,8 +103,8 @@ export default async function RootLayout({
         >
           {/* The provider mounts the panel itself (portaled to <body>), so the
               shell wrapper and the drawer stay in one system. */}
-          <ProductStatusProvider cards={CARDS}>
-            <SwitchboardProvider cards={SWITCHBOARD} digest={digest}>
+          <ProductStatusProvider>
+            <SwitchboardProvider>
               {/* The shell (components/shell.tsx): the second panel beside the page, and the contract the
                   chat, the notes and the Nav call — so all three sit inside it. */}
               <Shell>

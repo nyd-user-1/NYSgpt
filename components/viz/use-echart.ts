@@ -8,8 +8,9 @@ import { useShellPanel } from '@/components/shell'
 
 // The /viz pages' one shared mechanism: mount an ECharts canvas in a ref'd div, loading echarts
 // (and echarts-gl, when the chart needs WebGL) on the client only — the GL bundle touches window
-// at import time, so neither may load during SSR. The option builder runs once the libraries are
-// in; resize follows the div.
+// at import time, so neither may load during SSR. The chart's data (lib/viz-data.ts, a static file
+// under public/viz-data/) is fetched alongside the libraries, and the option builder runs on it once
+// both are in; resize follows the div.
 //
 // The theme (2026-11-04): the charts sit on the app's paper in light or dark, so the option is
 // recoloured for the active mode here, once for all twelve, and redrawn when <html>'s class flips.
@@ -69,7 +70,27 @@ function themed(v: unknown, dark: boolean, inRamp = false): unknown {
 
 const isDark = () => document.documentElement.classList.contains('dark')
 
-export function useEChart(build: () => unknown, gl = false, rowOf?: (p: ChartClick) => number | null): React.RefObject<HTMLDivElement | null> {
+type Option = { dataZoom?: { type?: string }[]; xAxis?: unknown; yAxis?: unknown; tooltip?: Record<string, unknown> }
+
+/** The crosshair's lines (Brendan, 2026-11-04): cartesian charts pair the + cursor with the inspector's
+ *  cross — two faint guide lines tracking the pointer. GL scenes have no axes to cross. Applied on every
+ *  draw: the theme flip's redraw replaces the whole option, so the lines must ride it too. */
+function withCross(o: unknown): Option {
+  const option = o as Option
+  if (option.xAxis && option.yAxis)
+    option.tooltip = {
+      ...(option.tooltip ?? {}),
+      axisPointer: { type: 'cross', crossStyle: { color: '#94a3b8', width: 1, opacity: 0.6 }, label: { show: false } },
+    }
+  return option
+}
+
+export function useEChart<D>(
+  load: () => Promise<D>,
+  build: (data: D) => unknown,
+  gl = false,
+  rowOf?: (p: ChartClick) => number | null,
+): React.RefObject<HTMLDivElement | null> {
   const ref = React.useRef<HTMLDivElement>(null)
   const path = usePathname()
   const { openPane } = useShellPanel()
@@ -84,19 +105,17 @@ export function useEChart(build: () => unknown, gl = false, rowOf?: (p: ChartCli
     let onMsg: ((e: MessageEvent) => void) | undefined
     let onEvt: EventListener | undefined
     ;(async () => {
-      const echarts = await import('echarts')
-      if (gl) await import('echarts-gl' as string)
+      const [echarts, data] = await Promise.all([
+        import('echarts').then(async (m) => {
+          if (gl) await import('echarts-gl' as string)
+          return m
+        }),
+        load(),
+      ])
       if (disposed || !ref.current) return
       chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
       let dark = isDark()
-      const option = build() as { dataZoom?: { type?: string }[]; xAxis?: unknown; yAxis?: unknown; tooltip?: Record<string, unknown> }
-      // The crosshair's lines (Brendan, 2026-11-04): cartesian charts pair the + cursor with the
-      // inspector's cross — two faint guide lines tracking the pointer. GL scenes have no axes to cross.
-      if (option.xAxis && option.yAxis)
-        option.tooltip = {
-          ...(option.tooltip ?? {}),
-          axisPointer: { type: 'cross', crossStyle: { color: '#94a3b8', width: 1, opacity: 0.6 }, label: { show: false } },
-        }
+      const option = withCross(build(data))
       const slider = Array.isArray(option.dataZoom) && option.dataZoom.some((d) => d.type === 'slider')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       chart.setOption(themed(option, dark) as any)
@@ -138,7 +157,7 @@ export function useEChart(build: () => unknown, gl = false, rowOf?: (p: ChartCli
         if (isDark() === dark) return
         dark = isDark()
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        chart?.setOption(themed(build(), dark) as any, true)
+        chart?.setOption(themed(withCross(build(data)), dark) as any, true)
       })
       mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
       // A table row pointing here (VIZ_POINT, 2026-11-04): the crosshair walks to that datum —

@@ -1,0 +1,46 @@
+# Type check and lint on GitHub's runners: both are banned on the 8 GB Mac, and `next build`
+# fails on either, which is what killed the Cloudflare builds on 2026-11-04.
+name: Typecheck
+
+on:
+  push:
+    branches: [main, netlify]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # No version: reads packageManager (pnpm@11.1.1) from package.json.
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # .source/ is generated and gitignored; the blog imports it. postinstall runs this too.
+      - name: Generate .source
+        run: pnpm exec fumadocs-mdx
+
+      # next-env.d.ts is gitignored. typegen writes it, plus .next/types: the route types and the
+      # page/layout export checks that `next build` runs.
+      - name: Generate Next types
+        run: pnpm exec next typegen
+
+      - name: Type check
+        id: tsc
+        run: pnpm exec tsc --noEmit
+
+      # Runs whenever the type check ran, pass or fail, so one push reports both.
+      - name: Lint
+        if: ${{ !cancelled() && steps.tsc.outcome != 'skipped' }}
+        run: pnpm lint

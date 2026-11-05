@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { gated, isProductUrl } from "@/lib/gate";
-import type { HomeCardData } from "@/lib/home-data";
+import { CARDS as cards, type HomeCardData } from "@/lib/home-data";
 import { ClassicSpinner } from "./ClassicSpinner";
 
 const SERIF = { fontFamily: "var(--font-display), Georgia, serif" } as const;
@@ -46,7 +46,8 @@ const hostOf = (url: string) => {
  * goes through the sign-in gate. A click on a product still waking shows a
  * notice instead of leaving.
  */
-export function ProductStatusProvider({ cards, children }: { cards: HomeCardData[]; children: React.ReactNode }) {
+/** The cards come from lib/home-data here rather than as props, so no page carries them in its HTML (2026-11-04). */
+export function ProductStatusProvider({ children }: { children: React.ReactNode }) {
   const [email, setEmail] = useState<string | null>(null);
   const signedIn = email !== null;
   const [status, setStatus] = useState<Record<string, Status>>({});
@@ -82,7 +83,7 @@ export function ProductStatusProvider({ cards, children }: { cards: HomeCardData
     return () => {
       live = false;
     };
-  }, [cards]);
+  }, []);
 
   const statusOf = useCallback((url: string): Status => (signedIn && isProductUrl(url) ? status[hostOf(url)] ?? "loading" : "idle"), [signedIn, status]);
 
@@ -101,7 +102,7 @@ export function ProductStatusProvider({ cards, children }: { cards: HomeCardData
         },
       };
     },
-    [signedIn, statusOf, cards]
+    [signedIn, statusOf]
   );
 
   return (

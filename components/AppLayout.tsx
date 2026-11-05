@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { PanelLeftOpen, PanelLeftClose, ChevronsUpDown } from "lucide-react";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
 import { useShellPanel } from "@/components/shell";
+import { HEADER_TITLES } from "@/lib/header-titles";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
@@ -26,6 +28,8 @@ export function AppLayout({
   headerTitle?: string;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const path = usePathname();
+  const title = headerTitle ?? HEADER_TITLES[path];
   const { headerMenu } = useShellPanel();
 
   return (
@@ -78,10 +82,10 @@ export function AppLayout({
             )}
           </button>
 
-          {headerTitle && (
+          {title && (
             <span className="ml-5 hidden items-center gap-1.5 sm:flex">
               <span className="text-[24px] leading-none text-[var(--paper-text,var(--fg))]" style={{ fontFamily: "var(--font-display), Georgia, serif" }}>
-                {headerTitle}
+                {title}
               </span>
               <ChevronsUpDown className="h-3.5 w-3.5 text-[var(--paper-faint,#94a3b8)]" />
             </span>

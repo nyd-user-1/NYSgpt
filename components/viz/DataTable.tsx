@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { VIZ_POINT, isEmbedded } from '@/lib/pane'
+import { loadBars, loadField, loadFlows, loadGraph, loadMatrix, loadPerYear, loadScatter, loadTriples } from '@/lib/viz-data'
 
 /** A pressed row points at its datum: framed, the shell relays it; same-page, the chart hears it directly. */
 function pointAt(slug: string, row: number) {
@@ -12,10 +13,10 @@ function pointAt(slug: string, row: number) {
 }
 
 // A chart's data as a table (2026-11-04: a click on any /viz chart opens it in the second panel). The
-// rows come from the same committed snapshot the chart draws (data/viz/*.json), imported here on demand —
-// its own static chunk, fetched once the page is up, so the page renders at once and the worker computes
-// nothing. A hundred rows to a page; ?row=<i> opens on that row's page with the row marked (the clicked
-// datum, when the chart can name it).
+// rows come from the same snapshot file the chart draws (public/viz-data/*.json, via lib/viz-data.ts),
+// fetched in the browser once the page is up — the page renders at once, the worker computes nothing,
+// and a file the chart already pulled comes from the browser's cache. A hundred rows to a page;
+// ?row=<i> opens on that row's page with the row marked (the clicked datum, when the chart can name it).
 
 const SANS = { fontFamily: 'var(--font-sans, "DM Sans"), sans-serif' } as const
 const MONO = { fontFamily: 'var(--font-mono), ui-monospace, monospace' } as const
@@ -25,9 +26,7 @@ const fmt = new Intl.NumberFormat('en')
 type Cell = string | number
 type Table = { columns: string[]; rows: Cell[][]; note?: string }
 
-type Field = { n: number; z: number; c: number }[]
-const field = () =>
-  import('@/data/viz/field.json').then(m => ({ columns: ['N', 'Z', 'Papers'], rows: (m.default as unknown as Field).map(p => [p.n, p.z, p.c]) }))
+const field = () => loadField().then(f => ({ columns: ['N', 'Z', 'Papers'], rows: f.map(p => [p.n, p.z, p.c]) }))
 const source = (nsr: boolean) => (nsr ? 'NSR' : 'arXiv/APS')
 
 const LOAD: Record<string, () => Promise<Table>> = {
@@ -36,35 +35,18 @@ const LOAD: Record<string, () => Promise<Table>> = {
   scatter3d: field,
   simplex: field,
   surface: field,
-  'bar-large': () =>
-    import('@/data/viz/bars.json').then(m => ({
-      columns: ['Nuclide', 'Papers'],
-      rows: (m.default as unknown as { a: number; sym: string; c: number }[]).map(b => [`${b.a}${b.sym}`, b.c]),
-    })),
+  'bar-large': () => loadBars().then(d => ({ columns: ['Nuclide', 'Papers'], rows: d.map(b => [`${b.a}${b.sym}`, b.c]) })),
   rainfall: () =>
-    import('@/data/viz/per-year.json').then(m => {
-      const d = m.default as unknown as { papers: { y: number; c: number }[]; exfor: { y: number; c: number }[] }
+    loadPerYear().then(d => {
       const ex = new Map(d.exfor.map(r => [r.y, r.c]))
       return { columns: ['Year', 'Papers', 'Into EXFOR'], rows: d.papers.map(r => [r.y, r.c, ex.get(r.y) ?? 0]) }
     }),
-  weight: () =>
-    import('@/data/viz/scatter.json').then(m => ({
-      columns: ['Year', 'Citations', 'Source'],
-      rows: (m.default as unknown as { y: number; c: number; nsr: boolean }[]).map(r => [r.y, r.c, source(r.nsr)]),
-    })),
+  weight: () => loadScatter().then(d => ({ columns: ['Year', 'Citations', 'Source'], rows: d.map(r => [r.y, r.c, source(r.nsr)]) })),
   'scatter3d-dataset': () =>
-    import('@/data/viz/triples.json').then(m => ({
-      columns: ['Year', 'References', 'Citations', 'Source'],
-      rows: (m.default as unknown as { y: number; refs: number; cites: number; nsr: boolean }[]).map(r => [r.y, r.refs, r.cites, source(r.nsr)]),
-    })),
-  reactions: () =>
-    import('@/data/viz/flows.json').then(m => ({
-      columns: ['N', 'Z', 'ΔN', 'ΔZ', 'Papers'],
-      rows: (m.default as unknown as { n: number; z: number; dn: number; dz: number; w: number }[]).map(f => [f.n, f.z, f.dn, f.dz, f.w]),
-    })),
+    loadTriples().then(d => ({ columns: ['Year', 'References', 'Citations', 'Source'], rows: d.map(r => [r.y, r.refs, r.cites, source(r.nsr)]) })),
+  reactions: () => loadFlows().then(d => ({ columns: ['N', 'Z', 'ΔN', 'ΔZ', 'Papers'], rows: d.map(f => [f.n, f.z, f.dn, f.dz, f.w]) })),
   graph: () =>
-    import('@/data/viz/graph.json').then(m => {
-      const g = m.default as unknown as { nodes: { id: string; name: string; c: number }[]; edges: { s: string; t: string; w: number }[] }
+    loadGraph().then(g => {
       const degree = new Map<string, number>()
       for (const e of g.edges) {
         degree.set(e.s, (degree.get(e.s) ?? 0) + 1)
@@ -76,11 +58,7 @@ const LOAD: Record<string, () => Promise<Table>> = {
         note: `${fmt.format(g.edges.length)} co-author links not listed`,
       }
     }),
-  matrix: () =>
-    import('@/data/viz/matrix.json').then(m => {
-      const d = m.default as unknown as { vars: string[]; cells: [number, number, number][] }
-      return { columns: ['Measure', 'Measure', 'Pearson r'], rows: d.cells.map(([i, j, r]) => [d.vars[i], d.vars[j], r]) }
-    }),
+  matrix: () => loadMatrix().then(d => ({ columns: ['Measure', 'Measure', 'Pearson r'], rows: d.cells.map(([i, j, r]) => [d.vars[i], d.vars[j], r]) })),
 }
 
 export function DataTable({ slug }: { slug: string }) {

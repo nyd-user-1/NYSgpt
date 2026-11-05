@@ -5,18 +5,26 @@ import { createContext, useCallback, useContext, useEffect, useState } from 'rea
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, LayoutGrid, Sparkles, ArrowUpRight, SquareDashedMousePointer, Wrench, Palette } from 'lucide-react'
-import { DevToolsPanel } from '@/components/housekeeping/devtools-panel'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
-import { PRODUCT_EXTRAS, type HomeCardData } from '@/lib/home-data'
+import { PRODUCT_EXTRAS, SWITCHBOARD, type HomeCardData } from '@/lib/home-data'
 import { BlocksShelf } from '@/components/BlocksShelf'
 import { SwitchboardApiList } from './SwitchboardApiList'
 import { CornerClose } from '@/components/pane'
-import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
+import type { AwsPlan, AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
 
 // Trinity's theme palette (components/theme/theme-palette.tsx), loaded as trinity's discussion panel loads it.
+// The Dev tools view and the AWS views load when the panel opens them, not with every page (2026-11-04).
+const DevToolsPanel = dynamic(() => import('@/components/housekeeping/devtools-panel').then((m) => m.DevToolsPanel), { ssr: false })
+const AwsConsole = dynamic(() => import('./MarketplaceViews').then((m) => m.AwsConsole), { ssr: false })
+const AwsRegister = dynamic(() => import('./MarketplaceViews').then((m) => m.AwsRegister), { ssr: false })
+
+/** The corpus digest's empty reading: the root layout stopped querying it (2026-11-04 — no deployment sets
+ *  DATABASE_URL), so the Discord view shows its "not available" line. */
+const NO_DIGEST: Digest = { documents24h: 0, totals: { documents: 0, patents: 0, models: 0, benchmarks: 0 }, topics: [], ok: false }
+
 const ThemeControls = dynamic(() => import('@/components/theme/theme-palette').then((m) => m.ThemeControls), { ssr: false })
 
 /**
@@ -123,7 +131,10 @@ export function useSwitchboard() {
   return ctx
 }
 
-export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCardData[]; digest: Digest; children: React.ReactNode }) {
+/** The cards come from lib/home-data here rather than as props, so no page carries them in its HTML (2026-11-04). */
+export function SwitchboardProvider({ children }: { children: React.ReactNode }) {
+  const cards = SWITCHBOARD
+  const digest = NO_DIGEST
   const [open, setOpen] = useState(false)
   const [expanded, setExpanded] = useState(false)
   const [view, setView] = useState<View>({ kind: 'menu' })

@@ -1,14 +1,15 @@
 // The /viz dataset snapshot (2026-11-04): the corpus is frozen (no harvest since 2026-08-21), so
-// every chart's query runs ONCE here and lands as JSON in data/viz/ — the pages import the files
-// and prerender; no database at request time. Rerun by hand when the corpus ever moves:
+// every chart's query runs ONCE here and lands as JSON in public/viz-data/ — the charts and their
+// tables fetch the files in the browser (lib/viz-data.ts); no database at request time. Rerun by
+// hand when the corpus ever moves:
 //   node --env-file=/Users/brendanstanton/Code/nsr/.env.local scripts/viz-snapshot.mjs
 import { writeFileSync, mkdirSync } from "node:fs";
 import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.NSR_DATABASE_URL ?? process.env.DATABASE_URL_UNPOOLED);
-mkdirSync("data/viz", { recursive: true });
+mkdirSync("public/viz-data", { recursive: true });
 const save = (name, rows) => {
-  writeFileSync(`data/viz/${name}.json`, JSON.stringify(rows));
+  writeFileSync(`public/viz-data/${name}.json`, JSON.stringify(rows));
   console.log(`${name}.json`, Array.isArray(rows) ? rows.length : Object.keys(rows).join("+"));
 };
 
