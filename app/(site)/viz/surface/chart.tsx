@@ -43,7 +43,7 @@ export function SurfaceChart() {
       zAxis3D: { type: 'value', name: 'B/A, MeV', min: FLOOR, max: 9, nameTextStyle: { color: '#64748b' }, axisLabel: { color: '#475569' }, axisLine: { lineStyle: { color: '#1e293b' } } },
       grid3D: {
         boxWidth: 178, boxDepth: 118, boxHeight: 50,
-        viewControl: { distance: 230, alpha: 40, beta: -20 },
+        viewControl: { distance: 230, alpha: 40, beta: -20, autoRotate: true, autoRotateSpeed: 3 },
         light: { main: { intensity: 1.1, shadow: true }, ambient: { intensity: 0.35 } },
         environment: '#05070d',
       },
