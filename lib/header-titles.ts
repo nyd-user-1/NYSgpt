@@ -15,4 +15,5 @@ export const HEADER_TITLES: Record<string, string> = {
   "/viz/weight": "Papers | Two-Series Scatter",
   "/viz/decay": "Nuclides | Decay Simulation",
   "/viz/knowledge": "Nuclides | Knowledge Map",
+  "/viz/levels": "Nuclides | Level Energies",
 }

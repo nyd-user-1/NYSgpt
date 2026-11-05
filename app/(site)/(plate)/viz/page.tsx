@@ -36,6 +36,7 @@ const CHARTS = [
   { href: "/viz/matrix", title: "Correlation matrix", body: "9×9 Pearson r across per-paper measures of all 303,568 references. Navy moves together; red apart." },
   { href: "/viz/decay", title: "Decay simulation", body: "x N · depth Z · height log₁₀ half-life, 3,420 ENSDF ground states. Each decays at its measured rate, scaled, and steps to its daughter." },
   { href: "/viz/knowledge", title: "Knowledge map", body: "x N · depth Z, 7,986 nuclides. Size adopted levels, colour years since the ENSDF evaluation; grey rings are studied but never evaluated." },
+  { href: "/viz/levels", title: "Level energies", body: "x N · depth Z · height level energy, 0–10 MeV: 139,868 ENSDF adopted levels over 3,350 nuclides. The selected nuclide's gamma transitions fall level to level." },
 ];
 
 /** The / page, duplicated exactly (Brendan, 2026-11-04): masthead, the contents plate's first

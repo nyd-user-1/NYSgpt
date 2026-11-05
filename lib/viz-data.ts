@@ -27,6 +27,14 @@ export type Graph = { nodes: { id: string; name: string; c: number }[]; edges: {
 /** 36 Pearson correlations across nine per-paper measures, from the snapshot run. */
 export type Matrix = { vars: string[]; cells: [number, number, number][] }
 
+/** ENSDF adopted levels per nuclide (scripts/viz-levels-snapshot.mjs). L: flat [keV, Jπ, T½, …] ascending;
+ *  G: flat [from level index, to level index, relative intensity or null, …]; nl / ng: counts before the caps. */
+export type Levels = {
+  source: string
+  caps: { maxKeV: number; levels: number; gammas: number }
+  nuclides: { z: number; n: number; el: string; L: (number | string)[]; G: (number | null)[]; nl: number; ng: number }[]
+}
+
 // One request per file per page: field.json feeds five charts and a table, and client-side moves
 // between them reuse the first fetch. A failed fetch is dropped so the next mount retries.
 const cache = new Map<string, Promise<unknown>>()
@@ -53,3 +61,4 @@ export const loadTriples = get<Triples>('triples')
 export const loadFlows = get<Flows>('flows')
 export const loadGraph = get<Graph>('graph')
 export const loadMatrix = get<Matrix>('matrix')
+export const loadLevels = get<Levels>('levels')
