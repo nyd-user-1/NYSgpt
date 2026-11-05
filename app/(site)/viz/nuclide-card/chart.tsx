@@ -228,8 +228,8 @@ export function NuclideCardChart() {
       <div ref={ref} className="min-h-0 w-full flex-1" />
       <div className="shrink-0 border-t border-[var(--paper-rule)] px-4 py-3 text-[12px] leading-relaxed text-[var(--paper-muted)]">
         <p className="m-0">
-          Each spoke is one measured quantity on its own scale: a point at the rim is at or past the scale's end, a point at the
-          center means the value is absent. A larger polygon means larger energies overall.
+          Each spoke is one measured quantity on its own scale: a point at the rim is at or past the end of the scale, a point at
+          the center means the value is absent. A larger polygon means larger energies overall.
         </p>
         {takeaways.map((t) => (
           <p key={t.name} className="m-0 mt-1">
