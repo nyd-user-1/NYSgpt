@@ -24,9 +24,12 @@ import { useShellPanel } from '@/components/shell'
 // zoom) is not a click, nor is a press on a zoom slider along the foot. Nothing else rides the charts.
 
 /** What ECharts hands a click on a datum. */
-export type ChartClick = { seriesIndex?: number; dataIndex?: number; dataType?: string }
+export type ChartClick = { seriesIndex?: number; dataIndex?: number; dataType?: string; seriesType?: string; value?: unknown }
 /** The row a click names when the chart's first series draws the snapshot's rows in order. */
 export const firstSeriesRow = (p: ChartClick) => (p.seriesIndex === 0 && typeof p.dataIndex === 'number' ? p.dataIndex : null)
+/** The row a click names when each datum carries its snapshot row at position `i` of its value array. */
+export const valueRow = (i: number) => (p: ChartClick) =>
+  Array.isArray(p.value) && typeof p.value[i] === 'number' ? (p.value[i] as number) : null
 
 const DARK: Record<string, string> = {
   '#334155': '#cbd5e1',
@@ -85,17 +88,34 @@ function withCross(o: unknown): Option {
   return option
 }
 
+/** Optional extras (2026-11-04, chart batches A and B).
+ *  `view`: a state of the chart's own — points or bars, one isotope chain or another, a selected nuclide. When
+ *    it changes, build runs again with it: merged, so marks animate to their new places, or replaced whole when
+ *    `replace` is set, which universalTransition between series of different types needs.
+ *  `point`: the datum a table row points at, for charts whose first series isn't drawn in table order; it may
+ *    act on the row itself and return null.
+ *  `onPick`: a click on a datum goes here instead of opening the data table; a click on blank ground does nothing. */
+export type EChartExtras = {
+  view?: number
+  replace?: boolean
+  point?: (row: number) => { seriesIndex: number; dataIndex: number } | null
+  onPick?: (p: ChartClick) => void
+}
+
 export function useEChart<D>(
   load: () => Promise<D>,
-  build: (data: D) => unknown,
+  build: (data: D, view: number) => unknown,
   gl = false,
   rowOf?: (p: ChartClick) => number | null,
+  extras: EChartExtras = {},
 ): React.RefObject<HTMLDivElement | null> {
   const ref = React.useRef<HTMLDivElement>(null)
   const path = usePathname()
   const { openPane } = useShellPanel()
-  const latest = React.useRef({ path, openPane, rowOf })
-  latest.current = { path, openPane, rowOf }
+  const now = { path, openPane, rowOf, build, view: extras.view ?? 0, replace: !!extras.replace, point: extras.point, onPick: extras.onPick }
+  const latest = React.useRef(now)
+  latest.current = now
+  const redraw = React.useRef<(() => void) | null>(null)
   React.useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let chart: any
@@ -115,15 +135,17 @@ export function useEChart<D>(
       if (disposed || !ref.current) return
       chart = echarts.init(ref.current, undefined, { renderer: 'canvas' })
       let dark = isDark()
-      const option = withCross(build(data))
+      const option = withCross(build(data, latest.current.view))
       const slider = Array.isArray(option.dataZoom) && option.dataZoom.some((d) => d.type === 'slider')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       chart.setOption(themed(option, dark) as any)
       // The datum under a click, when there is one; the canvas's own click decides whether it was a click.
       let hit: number | null = null
+      let picked: ChartClick | null = null
       let down: [number, number] | null = null
       chart.on('click', (p: ChartClick) => {
         hit = latest.current.rowOf?.(p) ?? null
+        picked = p
       })
       const zr = chart.getZr()
       // The + cursor belongs to the chart's ground and its data ALONE (Brendan, 2026-11-04): the
@@ -141,12 +163,19 @@ export function useEChart<D>(
         down = null
         if (moved > 4 || (slider && e.offsetY > chart.getHeight() - 48)) {
           hit = null
+          picked = null
           return
         }
         // A beat, so a datum's click event (which a GL layer may send after the canvas's) lands first.
         window.setTimeout(() => {
           const row = hit
+          const p = picked
           hit = null
+          picked = null
+          if (latest.current.onPick) {
+            if (p) latest.current.onPick(p)
+            return
+          }
           const slug = latest.current.path?.split('/').filter(Boolean).pop()
           if (slug) latest.current.openPane(`/viz/data/${slug}${row !== null && row >= 0 ? `?row=${row}` : ''}`)
         }, 0)
@@ -157,8 +186,11 @@ export function useEChart<D>(
         if (isDark() === dark) return
         dark = isDark()
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        chart?.setOption(themed(withCross(build(data)), dark) as any, true)
+        chart?.setOption(themed(withCross(latest.current.build(data, latest.current.view)), dark) as any, true)
       })
+      redraw.current = () =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        chart?.setOption(themed(withCross(latest.current.build(data, latest.current.view)), dark) as any, latest.current.replace)
       mo.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
       // A table row pointing here (VIZ_POINT, 2026-11-04): the crosshair walks to that datum —
       // showTip lands the cross and the tooltip on series 0 at the row's index.
@@ -166,7 +198,8 @@ export function useEChart<D>(
         if (!d || d.type !== VIZ_POINT || typeof d.row !== 'number') return
         const slug = latest.current.path?.split('/').filter(Boolean).pop()
         if (d.slug && slug && d.slug !== slug) return
-        chart?.dispatchAction({ type: 'showTip', seriesIndex: 0, dataIndex: d.row })
+        const at = latest.current.point ? latest.current.point(d.row) : { seriesIndex: 0, dataIndex: d.row }
+        if (at) chart?.dispatchAction({ type: 'showTip', ...at })
       }
       onMsg = (e: MessageEvent) => { if (e.origin === window.location.origin) point(e.data as Parameters<typeof point>[0]) }
       onEvt = ((e: Event) => point((e as CustomEvent).detail)) as EventListener
@@ -175,6 +208,7 @@ export function useEChart<D>(
     })()
     return () => {
       disposed = true
+      redraw.current = null
       ro?.disconnect()
       mo?.disconnect()
       if (onMsg) window.removeEventListener('message', onMsg)
@@ -183,5 +217,8 @@ export function useEChart<D>(
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  React.useEffect(() => {
+    redraw.current?.()
+  }, [extras.view])
   return ref
 }
