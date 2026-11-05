@@ -10,9 +10,11 @@
 //
 // Output — { source, modes, nuclides }:
 //   modes:    code → { label, dz, dn }: the daughter is (Z + dz, N + dn); dz/dn null for fission (no single daughter).
-//   nuclides: { z, n, el, t, lim?, m }
+//   nuclides: { z, n, el, t, lim?, exp?, m }
 //     t   half-life in seconds; null = stable; -1 = not given in the deck.
 //     lim ">" / "<" / "~" when t is a limit or an approximation.
+//     exp 1 when the nuclide is expected but not observed: no half-life in the deck, and the deck marks its ground
+//         level uncertain ("?" in col 80) or lists every decay mode as "=?" (²⁴³U–²⁵⁵U, for one run). Absent otherwise.
 //     m   [[mode, branching %], …], largest first; branching null where the deck lists the mode without a value.
 import { execFileSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
@@ -139,9 +141,10 @@ function cluster(code) {
   return key;
 }
 
-/** The ground state's continuation text → [[mode, %], …]. */
+/** The ground state's continuation text → { modes: [[mode, %], …], allExpected: every mode given as "=?" }. */
 function modesOf(text) {
   const found = new Map(); // mode → { pct, combined }
+  let listed = 0, expected = 0;
   for (const raw of text.split("$")) {
     const item = raw.trim().toUpperCase();
     if (!item.startsWith("%")) continue;
@@ -151,6 +154,8 @@ function modesOf(text) {
     const code = ALIAS[spelled] ?? ALIAS[m[1]] ?? cluster(spelled);
     if (!code) { unknown.set(spelled, (unknown.get(spelled) ?? 0) + 1); continue; }
     const pct = m[3] !== undefined ? Number(m[3]) : null;
+    listed++;
+    if (m[2] === "?" || /=\s*\?/.test(item)) expected++;
     const combined = /\+/.test(spelled) && code === "EC";
     const prev = found.get(code);
     // %EC and %B+ given apart are summed; a combined %EC+%B+ wins over either.
@@ -158,7 +163,8 @@ function modesOf(text) {
     else if (combined && !prev.combined) found.set(code, { pct, combined });
     else if (!combined && !prev.combined && pct !== null) found.set(code, { pct: (prev.pct ?? 0) + pct, combined: false });
   }
-  return [...found].map(([code, { pct }]) => [code, pct === null ? null : sig(pct)]).sort((a, b) => (b[1] ?? -1) - (a[1] ?? -1));
+  const modes = [...found].map(([code, { pct }]) => [code, pct === null ? null : sig(pct)]).sort((a, b) => (b[1] ?? -1) - (a[1] ?? -1));
+  return { modes, allExpected: listed > 0 && expected === listed };
 }
 
 // ── decks → nuclides ────────────────────────────────────────────────────────────────────────────
@@ -177,8 +183,10 @@ for (const [nucid, cards] of rows) {
   }
   if (!ground) { skipped.noGround++; continue; }
   const { t, lim } = halfLife(ground.slice(39, 49));
-  const m = t === null ? [] : modesOf(cont.join("$"));
-  nuclides.push({ z, n: a - z, el: ELEMENTS[z], t, ...(lim ? { lim } : {}), m });
+  const { modes: m, allExpected } = t === null ? { modes: [], allExpected: false } : modesOf(cont.join("$"));
+  // A measured half-life means the nuclide was seen; only a deck with none can describe an expected one.
+  const exp = t === -1 && ((ground[79] ?? " ") === "?" || allExpected);
+  nuclides.push({ z, n: a - z, el: ELEMENTS[z], t, ...(lim ? { lim } : {}), ...(exp ? { exp: 1 } : {}), m });
 }
 nuclides.sort((p, q) => p.z - q.z || p.n - q.n);
 
@@ -189,5 +197,6 @@ writeFileSync("public/viz-data/decay.json", json);
 const stable = nuclides.filter((x) => x.t === null).length;
 const noT = nuclides.filter((x) => x.t === -1).length;
 const noMode = nuclides.filter((x) => x.t !== null && x.m.length === 0).length;
-console.log(`decay.json: ${nuclides.length} nuclides (${stable} stable, ${noT} without a half-life, ${noMode} unstable without a mode), ${(json.length / 1024).toFixed(0)} KB`);
+const expected = nuclides.filter((x) => x.exp).length;
+console.log(`decay.json: ${nuclides.length} nuclides (${stable} stable, ${noT} without a half-life, ${noMode} unstable without a mode, ${expected} expected but not observed), ${(json.length / 1024).toFixed(0)} KB`);
 console.log("skipped:", skipped, "unrecognized mode spellings:", Object.fromEntries([...unknown].sort((a, b) => b[1] - a[1])));
