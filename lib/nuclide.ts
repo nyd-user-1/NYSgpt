@@ -10,6 +10,8 @@ export type DecayNuclide = {
   /** Half-life in seconds; null = stable; -1 = the deck gives none. */
   t: number | null
   lim?: '>' | '<' | '~'
+  /** 1 when ENSDF expects the nuclide but nobody has observed it (no T½, ground level or every mode marked '?'). */
+  exp?: 1
   /** [mode, branching %], largest first; branching null where the deck lists the mode without a value. */
   m: [string, number | null][]
 }

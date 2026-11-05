@@ -42,7 +42,7 @@ export const PHYSICS_TABLES: Record<string, () => Promise<PhysicsTable>> = {
   heatmap: () =>
     loadDecay().then(d => ({
       columns: ['Nuclide', 'Z', 'N', 'Half-life', 'Decay modes'],
-      rows: d.nuclides.map(x => [nucName(x), x.z, x.n, halfLifeText(x), modesText(x, d.modes)]),
+      rows: d.nuclides.map(x => [nucName(x), x.z, x.n, x.exp ? 'Expected, not observed' : halfLifeText(x), modesText(x, d.modes)]),
     })),
   rainfall: () =>
     loadDecay().then(d => {
