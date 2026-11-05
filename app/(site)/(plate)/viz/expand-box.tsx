@@ -1,9 +1,9 @@
 'use client'
 
 // Box 1's test flight, now every chart box's (Brendan, 2026-11-04): a press doesn't open the pane —
-// the box itself grows. A paper clone lifts off the box's own rect and expands to the plate frame's
-// rect (the one box the masthead and plate would make combined), then the route changes and the
-// chart fades in to fill it (VizShell framed's RevealFx). A press with a modifier key keeps the
+// the box itself grows. A paper clone lifts off the masthead's wordmark and expands to the whole
+// content area below the header — the chart page's full-width frame — then the route changes and
+// the chart fades in to fill it (VizShell framed's RevealFx). A press with a modifier key keeps the
 // link's own behaviour (new tab, new window), and shift+right-click still reaches the pane: this
 // stays a real link.
 
@@ -12,6 +12,7 @@ import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 
 const MS = 420
+const EASE = 'cubic-bezier(0.25,0.4,0.25,1)'
 
 export function ExpandBox({ href, className, style, children }: { href: string; className?: string; style?: React.CSSProperties; children: React.ReactNode }) {
   const router = useRouter()
@@ -28,14 +29,12 @@ export function ExpandBox({ href, className, style, children }: { href: string; 
     // clicked box), and grows over the union of masthead + plate: the one combined box.
     const word = document.querySelector('[data-inspect="Wordmark"]')
     const from = (word ?? el).getBoundingClientRect()
-    // The clone's end rect IS the chart page's frame: the column's content box — same column,
-    // same paddings on both pages — so the swap underneath is invisible and the chart builds
-    // INSIDE the box the wipe leaves standing, never over it.
-    const col = (el.closest('[data-viz-column]') as HTMLElement) ?? el
-    const cr = col.getBoundingClientRect()
-    const cs = getComputedStyle(col)
-    const [pl, pr, pt, pb] = [cs.paddingLeft, cs.paddingRight, cs.paddingTop, cs.paddingBottom].map(parseFloat)
-    const to = new DOMRect(cr.left + pl, cr.top + pt, cr.width - pl - pr, cr.height - pt - pb)
+    // The clone's end rect IS the chart page's frame: the whole content area below the header, edge
+    // to edge (Brendan, 2026-11-04: full width is the standard) — on /viz, the area the column sits in
+    // (the column's parent, PlateFrame's root) — so the swap underneath is invisible and the chart
+    // builds INSIDE the box the wipe leaves standing, never over it.
+    const col = el.closest('[data-viz-column]') as HTMLElement | null
+    const to = (col?.parentElement ?? el).getBoundingClientRect()
     setBox({ from, to })
     requestAnimationFrame(() => requestAnimationFrame(() => setGrown(true)))
     window.setTimeout(() => router.push(href), MS)
@@ -50,14 +49,18 @@ export function ExpandBox({ href, className, style, children }: { href: string; 
         createPortal(
           <div
             aria-hidden
-            className="nysgpt-app fixed z-[90] overflow-hidden rounded-2xl border border-[var(--paper-rule)] bg-[var(--paper)]"
+            className="nysgpt-app fixed z-[90] overflow-hidden border bg-[var(--paper)]"
             style={{
               left: grown ? box.to.left : box.from.left,
               top: grown ? box.to.top : box.from.top,
               width: grown ? box.to.width : box.from.width,
               height: grown ? box.to.height : box.from.height,
               opacity: grown ? 1 : 0.98,
-              transition: `left ${MS}ms cubic-bezier(0.25,0.4,0.25,1), top ${MS}ms cubic-bezier(0.25,0.4,0.25,1), width ${MS}ms cubic-bezier(0.25,0.4,0.25,1), height ${MS}ms cubic-bezier(0.25,0.4,0.25,1)`,
+              // A rounded, ruled box on the way up; at the end, the borderless frame, its bottom corners on the
+              // app card's curve.
+              borderRadius: grown ? '0 0 15px 15px' : 16,
+              borderColor: grown ? 'transparent' : 'var(--paper-rule)',
+              transition: ['left', 'top', 'width', 'height', 'border-radius', 'border-color'].map((p) => `${p} ${MS}ms ${EASE}`).join(', '),
             }}
           />,
           document.body,

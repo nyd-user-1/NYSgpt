@@ -13,10 +13,9 @@ import { FramedBox } from '@/components/viz/FramedBox'
 export function VizShell({ children, framed }: { children: React.ReactNode; framed?: boolean; title?: string }) {
   if (framed)
     return (
-      // The one large box (Brendan, 2026-11-04): the exact /viz column — same paddings, so the
-      // frame's rect equals the expand clone's end rect — holding a single rounded frame the
-      // chart fills and animates inside, with its close and expand pair (FramedBox). No byline;
-      // the box is the page.
+      // The one large box (Brendan, 2026-11-04): the whole content area below the header, edge to
+      // edge — the rect the /viz press's clone grows to — holding the frame the chart fills and
+      // animates inside, with its prev, next and close (FramedBox). No byline; the box is the page.
       <div className="flex-1 overflow-hidden" style={{ backgroundColor: 'var(--paper)', ...PAPER_BRIDGE }}>
         <FramedBox>
           {/* The + cursor belongs to the chart's own ground alone — not the frame, not the buttons. */}
