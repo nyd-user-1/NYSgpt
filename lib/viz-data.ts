@@ -62,3 +62,28 @@ export const loadFlows = get<Flows>('flows')
 export const loadGraph = get<Graph>('graph')
 export const loadMatrix = get<Matrix>('matrix')
 export const loadLevels = get<Levels>('levels')
+
+// Chart batch B (2026-11-04): nuclear-structure snapshots.
+
+/** Even-even nuclides' first 2⁺ energy and B(E2)↑ (scripts/viz-e2-snapshot.mjs): rows [z, n, e2 keV, be2 e²b² or
+ *  null], by Z then N; els[Z] the element symbol. */
+export type E2 = { source: string; els: string[]; rows: [number, number, number, number | null][] }
+
+/** Per nuclide, from all its ENSDF adopted levels (scripts/viz-levels-snapshot.mjs): rows [z, n, el, first excited,
+ *  median, highest, count], keV, ordered by A then Z. */
+export type LevelStats = { source: string; cols: string[]; rows: [number, number, string, number, number, number, number][] }
+
+/** Pearson r across nine nuclide measures (scripts/viz-matrix-snapshot.mjs): cells [i, j, r] for i < j over n nuclides. */
+export type NuclideMatrix = { source: string; vars: string[]; labels: string[]; n: number; cells: [number, number, number][] }
+
+export const loadE2 = get<E2>('e2')
+export const loadLevelStats = get<LevelStats>('level-stats')
+export const loadNuclideMatrix = get<NuclideMatrix>('nuclide-matrix')
+
+export const MAGIC = [2, 8, 20, 28, 50, 82, 126]
+/** Z or N within 2 of a magic number. */
+export const nearMagic = (z: number, n: number) => MAGIC.some((m) => Math.abs(z - m) <= 2 || Math.abs(n - m) <= 2)
+
+const SUP = '⁰¹²³⁴⁵⁶⁷⁸⁹'
+/** ²⁰⁸Pb. */
+export const nuclideName = (z: number, n: number, el: string) => `${String(z + n).replace(/\d/g, (d) => SUP[Number(d)])}${el}`

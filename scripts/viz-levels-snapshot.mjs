@@ -19,6 +19,12 @@
 //   L: flat [energy keV (0.1), Jπ ("" if none), T½ ("" if none), …] — ascending energy.
 //   G: flat [from level index, to level index, relative intensity (null if none), …] into L.
 //   nl / ng: the nuclide's level and placed-gamma counts before the caps.
+//
+// It also writes public/viz-data/level-stats.json (chart batch B, for /viz/level-spans and /viz/level-candles),
+// from ALL of a nuclide's levels with an absolute energy, before the caps:
+//   { source, cols, rows }: rows [z, n, el, first, median, max, count], keV to 0.1, ordered by A then Z —
+//   first excited level, median level (ground included), highest known level, level count. Only nuclides with
+//   an excited level.
 
 import { execFileSync, spawn } from "node:child_process";
 import { writeFileSync } from "node:fs";
@@ -30,6 +36,7 @@ const MAX_LEVELS = 150;
 const MAX_GAMMAS = 40;
 const AMU_KEV = 931494.1;
 const OUT = "public/viz-data/levels.json";
+const STATS_OUT = "public/viz-data/level-stats.json";
 
 const SQL = `
 select e.nucid, d.z, d.n, t.line
@@ -98,6 +105,15 @@ const symbol = (nucid) => {
   return s === "NN" ? "n" : s[0] + s.slice(1).toLowerCase();
 };
 
+/** All of a nuclide's level energies (ascending) → [first excited, median, highest, count], or null with no excited level. */
+function summary(energies) {
+  const first = energies.find((e) => e > energies[0]);
+  if (first === undefined) return null;
+  const n = energies.length;
+  const median = n % 2 ? energies[(n - 1) / 2] : (energies[n / 2 - 1] + energies[n / 2]) / 2;
+  return [r1(first), r1(median), r1(energies[n - 1]), n];
+}
+
 /** One nuclide's cards → its capped levels and gammas. */
 function reduce(nuc) {
   const A = Number(nuc.nucid.match(/^\d+/)[0]);
@@ -160,6 +176,7 @@ function reduce(nuc) {
     nl: levels.length,
     ng: placed.length,
     unplaced,
+    stats: summary(energies),
   };
 }
 
@@ -207,7 +224,14 @@ if (cur) nuclides.push(reduce(cur));
 const dropped = nuclides.filter((x) => x.L.length === 0).length;
 const kept = nuclides.filter((x) => x.L.length > 0).sort((a, b) => a.z - b.z || a.n - b.n);
 const unplaced = kept.reduce((s, x) => s + x.unplaced, 0);
-for (const x of kept) delete x.unplaced;
+const statRows = kept
+  .filter((x) => x.stats)
+  .map((x) => [x.z, x.n, x.el, ...x.stats])
+  .sort((a, b) => a[0] + a[1] - (b[0] + b[1]) || a[0] - b[0]);
+for (const x of kept) {
+  delete x.unplaced;
+  delete x.stats;
+}
 
 const doc = {
   source: "ENSDF adopted levels and gammas (nysgpt_nsr.ensdf_datasets), snapshot 2026-11-04",
@@ -216,6 +240,8 @@ const doc = {
 };
 const json = JSON.stringify(doc);
 writeFileSync(OUT, json);
+const statsJson = JSON.stringify({ source: doc.source, cols: ["z", "n", "el", "first", "median", "max", "count"], rows: statRows });
+writeFileSync(STATS_OUT, statsJson);
 
 const keptL = kept.reduce((s, x) => s + x.L.length / 3, 0);
 const keptG = kept.reduce((s, x) => s + x.G.length / 3, 0);
@@ -223,3 +249,4 @@ console.log(`${stats.cards} cards → ${kept.length} nuclides (${dropped} with n
 console.log(`levels: ${stats.levels} parsed, ${stats.skippedLevels} without an absolute energy, ${keptL} kept`);
 console.log(`gammas: ${stats.gammas} parsed (${stats.fl} with FL=), ${stats.orphanGammas} orphaned, ${unplaced} unplaced, ${keptG} kept`);
 console.log(`${OUT}: ${(json.length / 1e6).toFixed(2)} MB`);
+console.log(`${STATS_OUT}: ${statRows.length} nuclides, ${(statsJson.length / 1024).toFixed(0)} KB`);

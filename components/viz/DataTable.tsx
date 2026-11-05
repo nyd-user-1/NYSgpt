@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { VIZ_POINT, isEmbedded } from '@/lib/pane'
-import { loadBars, loadField, loadFlows, loadGraph, loadMatrix, loadPerYear, loadScatter } from '@/lib/viz-data'
+import { loadBars, loadField, loadFlows, loadGraph, loadPerYear } from '@/lib/viz-data'
+import { STRUCTURE_TABLES } from '@/lib/viz-structure-tables'
 import { ATLAS_BIN_KEV, PUNCH_BIN_KEV, allLines, binned, loadCapgam, punchCells, setName } from '@/lib/viz-gamma'
 import { fromLog, loadExfor, targetName } from '@/lib/viz-exfor'
 
@@ -29,7 +30,6 @@ type Cell = string | number
 type Table = { columns: string[]; rows: Cell[][]; note?: string }
 
 const field = () => loadField().then(f => ({ columns: ['N', 'Z', 'Papers'], rows: f.map(p => [p.n, p.z, p.c]) }))
-const source = (nsr: boolean) => (nsr ? 'NSR' : 'arXiv/APS')
 const sig3 = (x: number) => Number(x.toPrecision(3))
 /** Every capture-γ line, in the strips' order (/viz/simplex, /viz/spectra). */
 const capgamLines = () =>
@@ -44,7 +44,6 @@ const capgamLines = () =>
 const LOAD: Record<string, () => Promise<Table>> = {
   nebula: field,
   heatmap: field,
-  scatter3d: field,
   simplex: capgamLines,
   spectra: capgamLines,
   surface: field,
@@ -54,7 +53,6 @@ const LOAD: Record<string, () => Promise<Table>> = {
       const ex = new Map(d.exfor.map(r => [r.y, r.c]))
       return { columns: ['Year', 'Papers', 'Into EXFOR'], rows: d.papers.map(r => [r.y, r.c, ex.get(r.y) ?? 0]) }
     }),
-  weight: () => loadScatter().then(d => ({ columns: ['Year', 'Citations', 'Source'], rows: d.map(r => [r.y, r.c, source(r.nsr)]) })),
   'scatter3d-dataset': () =>
     loadExfor().then(d => ({
       columns: ['Entry', 'Target', 'Projectile', 'Year', 'E', 'σ'],
@@ -91,7 +89,7 @@ const LOAD: Record<string, () => Promise<Table>> = {
         note: `${fmt.format(g.edges.length)} co-author links not listed`,
       }
     }),
-  matrix: () => loadMatrix().then(d => ({ columns: ['Measure', 'Measure', 'Pearson r'], rows: d.cells.map(([i, j, r]) => [d.vars[i], d.vars[j], r]) })),
+  ...STRUCTURE_TABLES,
 }
 
 export function DataTable({ slug }: { slug: string }) {
