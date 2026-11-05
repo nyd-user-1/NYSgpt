@@ -15,7 +15,9 @@ const verifier = POOL && CLIENT ? CognitoJwtVerifier.create({ userPoolId: POOL, 
 
 export const SESSION_COOKIE = "nysgpt_session";
 
-export type SessionUser = { email: string };
+/** admin / superAdmin / demo are what trinity's housekeeping routes read (ported 2026-11-04). nysgpt.com has no
+ *  roles yet, so every reader is none of them — the same falsy value those routes already saw at runtime. */
+export type SessionUser = { email: string; admin: boolean; superAdmin: boolean; demo: boolean };
 
 /** Demo accounts don't exist here; the housekeeping routes (ported from pax-trinity) call this guard. */
 export function forbidDemo(_user: unknown) {}
@@ -25,7 +27,7 @@ export async function currentUser(): Promise<SessionUser | null> {
   if (!token || !verifier) return null;
   try {
     const claims = await verifier.verify(token);
-    return { email: String(claims.email ?? "").toLowerCase() };
+    return { email: String(claims.email ?? "").toLowerCase(), admin: false, superAdmin: false, demo: false };
   } catch {
     return null;
   }

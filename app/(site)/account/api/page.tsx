@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
-import HomePage from "@/app/page";
+import HomePage from "@/app/(site)/(plate)/page";
+import { PlateFrame } from "@/app/PlateFrame";
 import { AccountShell, Section } from "@/components/AccountShell";
 import { OpenAwsPanel } from "@/components/OpenAwsPanel";
 import { currentUser } from "@/lib/auth";
@@ -24,7 +25,9 @@ export default async function ApiConsolePage() {
 
   return (
     <>
-      <HomePage />
+      <PlateFrame grid>
+        <HomePage />
+      </PlateFrame>
       <OpenAwsPanel view={{ kind: "aws-console", sub }} />
     </>
   );

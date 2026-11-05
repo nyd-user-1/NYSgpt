@@ -1,4 +1,5 @@
-import HomePage from "@/app/page";
+import HomePage from "@/app/(site)/(plate)/page";
+import { PlateFrame } from "@/app/PlateFrame";
 import { AccountShell, Section } from "@/components/AccountShell";
 import { OpenAwsPanel } from "@/components/OpenAwsPanel";
 import { currentUser } from "@/lib/auth";
@@ -31,7 +32,9 @@ export default async function AwsRegisterPage() {
   const user = await currentUser();
   return (
     <>
-      <HomePage />
+      <PlateFrame grid>
+        <HomePage />
+      </PlateFrame>
       <OpenAwsPanel view={{ kind: "aws-register", plan: planFor(p.product, tier), signedIn: user?.email ?? null }} />
     </>
   );

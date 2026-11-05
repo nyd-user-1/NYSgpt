@@ -14,5 +14,5 @@
   "LedgerCell": "app/HomeMasthead.tsx:60",
   "LedgerFigure": "app/HomeMasthead.tsx:64",
   "LedgerUnit": "app/HomeMasthead.tsx:71",
-  "Byline": "app/(site)/(plate)/layout.tsx:28"
+  "Byline": "app/PlateFrame.tsx:28"
 }
