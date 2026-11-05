@@ -33,7 +33,7 @@ export function Scatter3dDatasetChart() {
     xAxis3D: { type: 'value', name: 'log₁₀ E (eV)', min: -6, max: 11, ...AXIS },
     yAxis3D: { type: 'value', name: 'year', min: 1940, max: 2026, ...AXIS },
     zAxis3D: { type: 'value', name: 'log₁₀ σ (b)', min: -9, max: 7, ...AXIS },
-    grid3D: { boxWidth: 150, boxDepth: 90, boxHeight: 90, viewControl: { distance: 250, alpha: 16, beta: 30 }, environment: '#05070d' },
+    grid3D: { boxWidth: 150, boxDepth: 90, boxHeight: 90, viewControl: { distance: 250, alpha: 16, beta: 30, autoRotate: true, autoRotateSpeed: 3 }, environment: '#05070d' },
     series: [
       {
         type: 'scatter3D',
