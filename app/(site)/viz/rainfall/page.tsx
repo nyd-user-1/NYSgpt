@@ -5,7 +5,7 @@ export const metadata = { title: "Stacked area — Viz" }
 
 export default function Page() {
   return (
-    <VizShell framed title="Papers | Stacked Area">
+    <VizShell framed title="Nuclides | Stacked Area">
       <RainfallChart />
     </VizShell>
   )

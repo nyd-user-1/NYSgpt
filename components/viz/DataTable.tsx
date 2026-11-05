@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { VIZ_POINT, isEmbedded } from '@/lib/pane'
-import { loadBars, loadField, loadFlows, loadGraph, loadPerYear } from '@/lib/viz-data'
 import { STRUCTURE_TABLES } from '@/lib/viz-structure-tables'
+import { PHYSICS_TABLES } from '@/lib/viz-physics-tables'
 import { ATLAS_BIN_KEV, PUNCH_BIN_KEV, allLines, binned, loadCapgam, punchCells, setName } from '@/lib/viz-gamma'
 import { fromLog, loadExfor, targetName } from '@/lib/viz-exfor'
 
@@ -29,7 +29,6 @@ const fmt = new Intl.NumberFormat('en')
 type Cell = string | number
 type Table = { columns: string[]; rows: Cell[][]; note?: string }
 
-const field = () => loadField().then(f => ({ columns: ['N', 'Z', 'Papers'], rows: f.map(p => [p.n, p.z, p.c]) }))
 const sig3 = (x: number) => Number(x.toPrecision(3))
 /** Every capture-γ line, in the strips' order (/viz/simplex, /viz/spectra). */
 const capgamLines = () =>
@@ -42,17 +41,8 @@ const capgamLines = () =>
   })
 
 const LOAD: Record<string, () => Promise<Table>> = {
-  nebula: field,
-  heatmap: field,
   simplex: capgamLines,
   spectra: capgamLines,
-  surface: field,
-  'bar-large': () => loadBars().then(d => ({ columns: ['Nuclide', 'Papers'], rows: d.map(b => [`${b.a}${b.sym}`, b.c]) })),
-  rainfall: () =>
-    loadPerYear().then(d => {
-      const ex = new Map(d.exfor.map(r => [r.y, r.c]))
-      return { columns: ['Year', 'Papers', 'Into EXFOR'], rows: d.papers.map(r => [r.y, r.c, ex.get(r.y) ?? 0]) }
-    }),
   'scatter3d-dataset': () =>
     loadExfor().then(d => ({
       columns: ['Entry', 'Target', 'Projectile', 'Year', 'E', 'σ'],
@@ -75,20 +65,8 @@ const LOAD: Record<string, () => Promise<Table>> = {
         rows: cells.map(c => [els[c.row].el, (c.bin * PUNCH_BIN_KEV) / 1000, ((c.bin + 1) * PUNCH_BIN_KEV) / 1000, c.lines, els[c.row].nuclei, sig3(c.mean)]),
       }
     }),
-  reactions: () => loadFlows().then(d => ({ columns: ['N', 'Z', 'ΔN', 'ΔZ', 'Papers'], rows: d.map(f => [f.n, f.z, f.dn, f.dz, f.w]) })),
-  graph: () =>
-    loadGraph().then(g => {
-      const degree = new Map<string, number>()
-      for (const e of g.edges) {
-        degree.set(e.s, (degree.get(e.s) ?? 0) + 1)
-        degree.set(e.t, (degree.get(e.t) ?? 0) + 1)
-      }
-      return {
-        columns: ['Author', 'Papers', 'Co-authors'],
-        rows: g.nodes.map(n => [n.name, n.c, degree.get(n.id) ?? 0]),
-        note: `${fmt.format(g.edges.length)} co-author links not listed`,
-      }
-    }),
+  // Chart batch A's nine (lib/viz-physics-tables.ts).
+  ...PHYSICS_TABLES,
   ...STRUCTURE_TABLES,
 }
 

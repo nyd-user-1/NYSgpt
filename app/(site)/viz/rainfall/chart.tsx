@@ -1,40 +1,48 @@
 'use client'
 
 import { useEChart } from '@/components/viz/use-echart'
-import { loadPerYear } from '@/lib/viz-data'
+import { AXIS, FAMILIES, FAMILY, countsByA, familyColor, loadDecay } from '@/lib/viz-physics'
 
 const full = new Intl.NumberFormat('en')
 
+// Nuclides per mass number, stacked by primary decay mode (chart batch A, 2026-11-04): for each A, how many ENSDF
+// ground states there are, and how they decay — stable at the foot, then β−, β+/EC, α, fission, p and n emission.
 export function RainfallChart() {
-  const ref = useEChart(loadPerYear, ({ papers, exfor }) => {
-    const years = papers.map((r) => r.y)
-    const byYear = new Map(exfor.map((r) => [r.y, r.c]))
+  const ref = useEChart(loadDecay, (decay) => {
+    const { as, counts } = countsByA(decay)
     return {
       backgroundColor: 'transparent',
       animationDuration: 900,
-      tooltip: { trigger: 'axis', valueFormatter: (v: unknown) => full.format(Number(v)) },
-      axisPointer: { link: [{ xAxisIndex: 'all' }] },
-      legend: { top: 0, textStyle: { color: '#334155' } },
-      grid: [
-        { left: 64, right: 32, top: 40, height: '36%' },
-        { left: 64, right: 32, top: '58%', height: '28%' },
-      ],
+      tooltip: {
+        trigger: 'axis',
+        formatter: (ps: unknown) => {
+          const list = ps as { axisValue: string; seriesName: string; value: number; color: string }[]
+          if (!list.length) return ''
+          const total = list.reduce((s, p) => s + (p.value || 0), 0)
+          const lines = list.filter((p) => p.value).map((p) => `${p.seriesName} ${full.format(p.value)}`)
+          return `A ${list[0].axisValue} — ${full.format(total)} nuclides<br/>${lines.join(' · ')}`
+        },
+      },
+      legend: { top: 0, icon: 'roundRect', textStyle: { color: '#334155' }, itemWidth: 14, itemHeight: 8 },
+      grid: { left: 56, right: 24, top: 40, bottom: 64 },
       dataZoom: [
-        { type: 'slider', xAxisIndex: [0, 1], bottom: 8, start: 20, end: 100 },
-        { type: 'inside', xAxisIndex: [0, 1] },
+        { type: 'slider', bottom: 8, start: 0, end: 100 },
+        { type: 'inside' },
       ],
-      xAxis: [
-        { type: 'category', data: years, gridIndex: 0, axisLabel: { color: '#64748b' }, axisLine: { lineStyle: { color: '#94a3b8' } } },
-        { type: 'category', data: years, gridIndex: 1, position: 'top', axisLabel: { show: false }, axisLine: { lineStyle: { color: '#94a3b8' } } },
-      ],
-      yAxis: [
-        { type: 'value', gridIndex: 0, name: 'papers', nameTextStyle: { color: '#64748b' }, axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: 'rgba(100,116,139,0.12)' } } },
-        { type: 'value', gridIndex: 1, inverse: true, name: 'into EXFOR', nameLocation: 'start', nameTextStyle: { color: '#64748b' }, axisLabel: { color: '#64748b' }, splitLine: { lineStyle: { color: 'rgba(100,116,139,0.12)' } } },
-      ],
-      series: [
-        { name: 'Papers', type: 'line', xAxisIndex: 0, yAxisIndex: 0, data: papers.map((r) => r.c), showSymbol: false, smooth: 0.2, lineStyle: { color: '#1e3a8a', width: 2 }, areaStyle: { color: '#1e3a8a', opacity: 0.12 } },
-        { name: 'Into EXFOR', type: 'line', xAxisIndex: 1, yAxisIndex: 1, data: years.map((y) => byYear.get(y) ?? 0), showSymbol: false, smooth: 0.2, lineStyle: { color: '#00bfff', width: 2 }, areaStyle: { color: '#00bfff', opacity: 0.14 } },
-      ],
+      xAxis: { type: 'category', data: as, name: 'A', boundaryGap: false, ...AXIS },
+      yAxis: { type: 'value', name: 'nuclides', ...AXIS, splitLine: { lineStyle: { color: 'rgba(100,116,139,0.12)' } } },
+      series: FAMILIES.map((f) => ({
+        name: FAMILY[f].label,
+        type: 'line',
+        stack: 'all',
+        data: counts[f],
+        showSymbol: false,
+        step: 'middle',
+        lineStyle: { width: 0 },
+        areaStyle: { color: familyColor(f), opacity: 0.85 },
+        itemStyle: { color: familyColor(f) },
+        emphasis: { focus: 'series' },
+      })),
     }
   }, false, (p) => (typeof p.dataIndex === 'number' ? p.dataIndex : null))
   return <div ref={ref} className="min-h-0 w-full flex-1" />

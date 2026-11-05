@@ -5,7 +5,7 @@ export const metadata = { title: "Flow lines — Viz" }
 
 export default function Page() {
   return (
-    <VizShell framed title="Reactions | Flow Lines">
+    <VizShell framed title="Decays | Flow Lines">
       <ReactionsChart />
     </VizShell>
   )

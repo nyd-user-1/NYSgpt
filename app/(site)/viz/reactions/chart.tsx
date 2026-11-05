@@ -1,54 +1,96 @@
 'use client'
 
 import { useEChart } from '@/components/viz/use-echart'
-import { loadField, loadFlows, type Flows } from '@/lib/viz-data'
+import { AXIS, SERIES, decaySeries, halfLifeText, ink, isDark, loadDecay, modesText, nucName } from '@/lib/viz-physics'
 
-type Flow = Flows[number]
-const load = () => Promise.all([loadField(), loadFlows()])
+// The three natural decay series as routes over (N, Z) (chart batch A, 2026-11-04): uranium from ²³⁸U, thorium
+// from ²³²Th, actinium from ²³⁵U, every α and β branch of at least 0.001% down to stable lead. Each step carries
+// a light whose speed follows its parent's half-life — ²¹²Po's 0.3 µs flashes past, ²³⁸U's 4.5 Gy crawls. Series 0
+// holds every step in table order; the three legend entries are empty series that only carry the colours.
+const N0 = 120
+const N1 = 148
+const Z0 = 79
+const Z1 = 94
+
+/** Seconds a light takes to cross its step: 0.4 s for the shortest half-lives, 9 s for the longest. */
+const period = (t: number | null) => {
+  if (t === null || t <= 0) return 9
+  const k = (Math.log10(t) + 7) / 25
+  return 0.4 + 8.6 * Math.min(1, Math.max(0, k))
+}
 
 export function ReactionsChart() {
-  const ref = useEChart(load, ([field, flows]) => {
-    const line = (f: Flow) => ({ coords: [[f.n, f.z], [f.n + f.dn, f.z + f.dz]] })
-    const busiest = flows.slice(0, 1200)
-    const rest = flows.slice(1200)
+  const ref = useEChart(loadDecay, (decay) => {
+    const dark = isDark()
+    const steps = decaySeries(decay)
+    const colour = (s: number) => (dark ? SERIES[s].dark : SERIES[s].light)
+    const members = new Map<number, number>()
+    for (const s of steps) {
+      members.set(s.from, s.series)
+      members.set(s.to, s.series)
+    }
+    const at = (i: number) => [decay.nuclides[i].n, decay.nuclides[i].z]
     return {
       backgroundColor: 'transparent',
       animation: false,
-      grid: { left: 48, right: 24, top: 16, bottom: 44 },
-      xAxis: { type: 'value', name: 'N', max: 180, nameTextStyle: { color: '#64748b' }, axisLabel: { color: '#334155', fontSize: 10 }, axisLine: { lineStyle: { color: '#13203b' } }, splitLine: { show: false } },
-      yAxis: { type: 'value', name: 'Z', max: 118, nameTextStyle: { color: '#64748b' }, axisLabel: { color: '#334155', fontSize: 10 }, axisLine: { lineStyle: { color: '#13203b' } }, splitLine: { show: false } },
+      tooltip: {
+        formatter: (p: unknown) => {
+          const d = p as { seriesIndex: number; dataIndex: number }
+          if (d.seriesIndex === 0) {
+            const s = steps[d.dataIndex]
+            const x = decay.nuclides[s.from]
+            const label = decay.modes[s.mode]?.label ?? s.mode
+            return `${nucName(x)} → ${nucName(decay.nuclides[s.to])} · ${label}${s.pct === null ? '' : ` ${s.pct}%`} · T½ ${halfLifeText(x)}`
+          }
+          if (d.seriesIndex === 1) {
+            const x = decay.nuclides[[...members.keys()][d.dataIndex]]
+            const modes = modesText(x, decay.modes)
+            return `${nucName(x)} — ${halfLifeText(x)}${modes ? ` · ${modes}` : ''}`
+          }
+          return ''
+        },
+      },
+      legend: { top: 0, selectedMode: false, textStyle: { color: '#334155' }, data: SERIES.map((s) => s.name) },
+      grid: { left: 48, right: 24, top: 36, bottom: 44 },
+      xAxis: { type: 'value', name: 'N', min: N0, max: N1, interval: 2, ...AXIS, splitLine: { lineStyle: { color: 'rgba(100,116,139,0.08)' } } },
+      yAxis: { type: 'value', name: 'Z', min: Z0, max: Z1, interval: 1, ...AXIS, splitLine: { lineStyle: { color: 'rgba(100,116,139,0.08)' } } },
       series: [
-        // The city underneath: the nuclide field as faint streetlight.
+        {
+          type: 'lines',
+          coordinateSystem: 'cartesian2d',
+          zlevel: 1,
+          data: steps.map((s) => ({
+            coords: [at(s.from), at(s.to)],
+            lineStyle: { color: colour(s.series), opacity: s.pct !== null && s.pct < 1 ? 0.35 : 0.8, width: s.pct !== null && s.pct < 1 ? 1 : 2 },
+            effect: { period: period(decay.nuclides[s.from].t) },
+          })),
+          effect: { show: true, symbol: 'circle', symbolSize: 5, trailLength: 0.35, loop: true },
+        },
+        // The series' nuclides, named; stable lead in ink.
         {
           type: 'scatter',
-          data: field.map((p) => [p.n, p.z]),
-          symbolSize: 1.6,
-          silent: true,
-          itemStyle: { color: '#1d4ed8', opacity: 0.22 },
-          blendMode: 'lighter',
+          zlevel: 2,
+          data: [...members].map(([i, s]) => {
+            const x = decay.nuclides[i]
+            return {
+              value: at(i),
+              symbolSize: x.t === null ? 9 : 6,
+              itemStyle: { color: x.t === null ? ink(dark) : colour(s) },
+              label: { show: true, formatter: nucName(x), position: 'right', distance: 4, fontSize: 10, color: ink(dark) },
+            }
+          }),
         },
-        // Every route, as the bus map draws the grid: thin, additive, massed.
+        // Every other nuclide in the window, faint, for the ground.
         {
-          type: 'lines',
-          coordinateSystem: 'cartesian2d',
-          data: rest.map(line),
+          type: 'scatter',
           silent: true,
-          large: true,
-          blendMode: 'lighter',
-          lineStyle: { color: '#1d4ed8', opacity: 0.045, width: 0.6 },
+          data: decay.nuclides.filter((x) => x.n >= N0 && x.n <= N1 && x.z >= Z0 && x.z <= Z1).map((x) => [x.n, x.z]),
+          symbolSize: 4,
+          itemStyle: { color: '#94a3b8', opacity: 0.25 },
         },
-        // The busiest routes carry the lights.
-        {
-          type: 'lines',
-          coordinateSystem: 'cartesian2d',
-          data: busiest.map(line),
-          silent: true,
-          blendMode: 'lighter',
-          lineStyle: { color: '#00bfff', opacity: 0.14, width: 1 },
-          effect: { show: true, constantSpeed: 24, symbol: 'circle', symbolSize: 2.4, trailLength: 0.5, color: '#bfefff' },
-        },
+        ...SERIES.map((s, i) => ({ name: s.name, type: 'line', data: [], itemStyle: { color: colour(i) }, lineStyle: { color: colour(i) } })),
       ],
     }
-  })
+  }, false, (p) => (p.seriesIndex === 0 && typeof p.dataIndex === 'number' ? p.dataIndex : null))
   return <div ref={ref} className="min-h-0 w-full flex-1" />
 }
