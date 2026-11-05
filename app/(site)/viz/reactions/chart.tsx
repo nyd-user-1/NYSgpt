@@ -1,7 +1,7 @@
 'use client'
 
 import { useEChart } from '@/components/viz/use-echart'
-import { AXIS, SERIES, decaySeries, halfLifeText, ink, isDark, loadDecay, modesText, nucName } from '@/lib/viz-physics'
+import { AXIS, FAMILY, SERIES, decaySeries, familyOf, halfLifeText, ink, isDark, loadDecay, modesText, nucName } from '@/lib/viz-physics'
 
 // The three natural decay series as routes over (N, Z) (chart batch A, 2026-11-04): uranium from ²³⁸U, thorium
 // from ²³²Th, actinium from ²³⁵U, every α and β branch of at least 0.001% down to stable lead. Each step carries
@@ -80,13 +80,18 @@ export function ReactionsChart() {
             }
           }),
         },
-        // Every other nuclide in the window, faint, for the ground.
+        // Every other nuclide in the window, for the ground — wearing its decay family's colour
+        // from the start (Brendan, 2026-11-04: the grey didn't hold attention).
         {
           type: 'scatter',
           silent: true,
-          data: decay.nuclides.filter((x) => x.n >= N0 && x.n <= N1 && x.z >= Z0 && x.z <= Z1).map((x) => [x.n, x.z]),
+          data: decay.nuclides
+            .filter((x) => x.n >= N0 && x.n <= N1 && x.z >= Z0 && x.z <= Z1)
+            .map((x) => {
+              const f = FAMILY[familyOf(x)]
+              return { value: [x.n, x.z], itemStyle: { color: dark ? f.dark : f.light, opacity: 0.4 } }
+            }),
           symbolSize: 4,
-          itemStyle: { color: '#94a3b8', opacity: 0.25 },
         },
         ...SERIES.map((s, i) => ({ name: s.name, type: 'line', data: [], itemStyle: { color: colour(i) }, lineStyle: { color: colour(i) } })),
       ],

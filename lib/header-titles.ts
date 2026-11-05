@@ -25,4 +25,6 @@ export const HEADER_TITLES: Record<string, string> = {
   "/viz/first-excited": "Nuclides | Aggregate Bar",
   "/viz/level-spans": "Nuclides | OHLC Bars",
   "/viz/level-candles": "Nuclides | Candlestick",
+  "/viz/isotope-radar": "Nuclides | Isotope Radar",
+  "/viz/literature": "Nuclides | Literature Field",
 }

@@ -103,3 +103,6 @@ export const PHYSICS_TABLES: Record<string, () => Promise<PhysicsTable>> = {
       }
     }),
 }
+
+// The isotope radar shares the nuclide-card table (2026-11-04).
+PHYSICS_TABLES["isotope-radar"] = PHYSICS_TABLES["nuclide-card"]

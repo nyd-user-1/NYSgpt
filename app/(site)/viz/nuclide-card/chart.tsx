@@ -3,7 +3,8 @@
 import * as React from 'react'
 
 import { useEChart } from '@/components/viz/use-echart'
-import { decayIndex, halfLifeText, isDark, keyOf, loadMasses, loadMassesAndDecay, nucName, type DecayNuclide, type Mass } from '@/lib/viz-physics'
+import { decayIndex, halfLifeText, isDark, keyOf, loadMassesAndDecay, nucName, type DecayNuclide, type Mass } from '@/lib/viz-physics'
+import { type DecayData } from '@/lib/nuclide'
 
 // One nuclide's card as a radar (chart batch A, 2026-11-04): half-life, Qα, Qβ−, Sₙ, Sₚ and E(2⁺) on six spokes,
 // a second nuclide overlaid for comparison. Masses from AME2020, half-life from the ENSDF ground state, E(2⁺)
@@ -48,8 +49,12 @@ export function NuclideCardChart() {
   const [keys, setKeys] = React.useState<[number, number | null]>([PB208, U238])
   const [texts, setTexts] = React.useState<[string, string]>(['208Pb', '238U'])
   const [masses, setMasses] = React.useState<Mass[] | null>(null)
+  const [decayData, setDecayData] = React.useState<DecayData | null>(null)
   React.useEffect(() => {
-    void loadMasses().then(setMasses)
+    void loadMassesAndDecay().then(([ms, d]) => {
+      setMasses(ms)
+      setDecayData(d)
+    })
   }, [])
   const rowOfKey = React.useMemo(() => new Map((masses ?? []).map((m, i) => [keyOf(m.z, m.n), i])), [masses])
   const els = React.useMemo(() => new Map((masses ?? []).filter((m) => m.z > 0).map((m) => [m.el.toLowerCase(), m.z])), [masses])
@@ -125,6 +130,47 @@ export function NuclideCardChart() {
     },
   )
 
+  // Keyboard (Brendan, 2026-11-04): arrows step the first nuclide — left/right along the isotope
+  // chain, up/down across elements (nearest N) — and Shift+arrows move the overlay the same way.
+  React.useEffect(() => {
+    if (!masses) return
+    const byKey = new Map(masses.map((m, i) => [keyOf(m.z, m.n), i]))
+    const step = (from: number, dz: number, dn: number): number | null => {
+      const cur = masses[byKey.get(from) ?? -1]
+      if (!cur) return null
+      if (dn !== 0) {
+        // Next existing isotope of the same element in that direction.
+        const chain = masses.filter((m) => m.z === cur.z && (dn > 0 ? m.n > cur.n : m.n < cur.n))
+        if (!chain.length) return null
+        const next = chain.reduce((a, b) => (Math.abs(a.n - cur.n) <= Math.abs(b.n - cur.n) ? a : b))
+        return keyOf(next.z, next.n)
+      }
+      // Same direction in Z, the isotope with the nearest N.
+      const row = masses.filter((m) => m.z === cur.z + dz)
+      if (!row.length) return null
+      const next = row.reduce((a, b) => (Math.abs(a.n - cur.n) <= Math.abs(b.n - cur.n) ? a : b))
+      return keyOf(next.z, next.n)
+    }
+    const on = (e: KeyboardEvent) => {
+      const t = e.target as HTMLElement | null
+      if (t && (/^(input|textarea|select)$/i.test(t.tagName) || t.isContentEditable)) return
+      const dir = e.key === 'ArrowRight' ? [0, 1] : e.key === 'ArrowLeft' ? [0, -1] : e.key === 'ArrowUp' ? [1, 0] : e.key === 'ArrowDown' ? [-1, 0] : null
+      if (!dir) return
+      e.preventDefault()
+      const i: 0 | 1 = e.shiftKey ? 1 : 0
+      setKeys((ks) => {
+        const from = i === 1 ? ks[1] ?? ks[0] : ks[0]
+        const to = step(from, dir[0], dir[1])
+        if (to === null) return ks
+        const m = masses[byKey.get(to)!]
+        setTexts((tx) => (i === 0 ? [`${m.z + m.n}${m.el}`, tx[1]] : [tx[0], `${m.z + m.n}${m.el}`]))
+        return i === 0 ? [to, ks[1]] : [ks[0], to]
+      })
+    }
+    window.addEventListener('keydown', on)
+    return () => window.removeEventListener('keydown', on)
+  }, [masses])
+
   const enter = (i: 0 | 1, text: string) => {
     setTexts((t) => (i === 0 ? [text, t[1]] : [t[0], text]))
     const k = text.trim() === '' && i === 1 ? null : parse(text, els)
@@ -132,6 +178,29 @@ export function NuclideCardChart() {
     if (k === null && i === 0) return
     setKeys((ks) => (i === 0 ? [k as number, ks[1]] : [ks[0], k]))
   }
+
+  // What the polygons mean for THESE nuclides, computed from the displayed values (Brendan, 2026-11-04).
+  const takeaways = React.useMemo(() => {
+    if (!masses || !decayData) return []
+    const di = decayIndex(decayData)
+    const byKey = new Map(masses.map((m, i) => [keyOf(m.z, m.n), i]))
+    return [keys[0], keys[1]]
+      .filter((k): k is number => k !== null)
+      .map((k) => masses[byKey.get(k) ?? -1])
+      .filter((m): m is Mass => !!m)
+      .map((m) => {
+        const d = decayData.nuclides[di.get(keyOf(m.z, m.n)) ?? -1]
+        const parts: string[] = []
+        if (!d || d.t === -1) parts.push('half-life not measured')
+        else if (d.t === null) parts.push('stable')
+        else parts.push(`T½ ${halfLifeText(d)}${d.m[0] ? `, decays mainly by ${decayData.modes[d.m[0][0]]?.label ?? d.m[0][0]}` : ''}`)
+        if (m.qa !== null) parts.push(m.qa > 0 ? `α emission energetically allowed (Qα ${(m.qa / 1000).toFixed(2)} MeV)` : 'α emission closed')
+        if (m.qb !== null) parts.push(m.qb > 0 ? `β− allowed (Qβ− ${(m.qb / 1000).toFixed(2)} MeV)` : 'β− closed')
+        if (m.sn !== null && m.sn < 2000) parts.push(`weakly bound against neutron removal (Sₙ ${(m.sn / 1000).toFixed(2)} MeV)`)
+        if (m.e2 !== null) parts.push(m.e2 >= 2000 ? `high E(2⁺), ${(m.e2 / 1000).toFixed(2)} MeV — closed-shell stiffness` : m.e2 <= 200 ? `low E(2⁺), ${(m.e2 / 1000).toFixed(3)} MeV — strongly deformed` : `E(2⁺) ${(m.e2 / 1000).toFixed(3)} MeV`)
+        return { name: nucName(m), text: parts.join(' · ') }
+      })
+  }, [masses, decayData, keys])
 
   return (
     <div className="flex min-h-0 w-full flex-1 flex-col">
@@ -157,6 +226,20 @@ export function NuclideCardChart() {
         </datalist>
       </div>
       <div ref={ref} className="min-h-0 w-full flex-1" />
+      <div className="shrink-0 border-t border-[var(--paper-rule)] px-4 py-3 text-[12px] leading-relaxed text-[var(--paper-muted)]">
+        <p className="m-0">
+          Each spoke is one measured quantity on its own scale: a point at the rim is at or past the scale's end, a point at the
+          center means the value is absent. A larger polygon means larger energies overall.
+        </p>
+        {takeaways.map((t) => (
+          <p key={t.name} className="m-0 mt-1">
+            <span className="text-[var(--paper-text)]">{t.name}</span>: {t.text}
+          </p>
+        ))}
+        <p className="m-0 mt-2 text-[11px] text-[var(--paper-faint)]" style={MONO}>
+          ← → isotope · ↑ ↓ element · Shift + arrows move the overlay · or type any nuclide in the boxes
+        </p>
+      </div>
     </div>
   )
 }

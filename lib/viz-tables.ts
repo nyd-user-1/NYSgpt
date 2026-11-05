@@ -9,6 +9,8 @@ export const VIZ_TABLES: Record<string, { title: string }> = {
   matrix: { title: "Correlations across nine nuclide measures" },
   nebula: { title: "Binding energy per nucleon" },
   "nuclide-card": { title: "Nuclide properties" },
+  "isotope-radar": { title: "Nuclide properties" },
+  literature: { title: "Papers per nuclide" },
   rainfall: { title: "Nuclides per mass number, by decay mode" },
   reactions: { title: "Decay series steps" },
   separation: { title: "Neutron separation energies" },

@@ -8,6 +8,7 @@ import { PHYSICS_TABLES } from '@/lib/viz-physics-tables'
 import { ATLAS_BIN_KEV, PUNCH_BIN_KEV, allLines, binned, loadCapgam, punchCells, setName } from '@/lib/viz-gamma'
 import { fromLog, loadExfor, targetName } from '@/lib/viz-exfor'
 import { halfLifeText, loadDecay, nucName } from '@/lib/viz-decay'
+import { loadField } from '@/lib/viz-data'
 
 /** A pressed row points at its datum: framed, the shell relays it; same-page, the chart hears it directly. */
 function pointAt(slug: string, row: number) {
@@ -42,6 +43,11 @@ const capgamLines = () =>
   })
 
 const LOAD: Record<string, () => Promise<Table>> = {
+  literature: () =>
+    loadField().then(f => ({
+      columns: ['N', 'Z', 'Papers'],
+      rows: f.map(p => [p.n, p.z, p.c]),
+    })),
   decay2: () =>
     loadDecay().then(d => ({
       columns: ['Nuclide', 'Z', 'N', 'Half-life', 'Primary mode', 'Branch'],

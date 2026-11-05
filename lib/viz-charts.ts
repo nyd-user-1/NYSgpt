@@ -30,6 +30,8 @@ export const VIZ_CHARTS: VizChart[] = [
   { href: "/viz/level-candles", title: "Candlestick", body: "2,371 nuclides by A, one candle each: body from the first excited level to the median, wick from the ground state to the highest known level, MeV." },
   { href: "/viz/separation", title: "Candlestick", body: "Neutron separation energy along each isotope chain: a candle from Sₙ(N−1) to Sₙ(N), so pairing shows as alternation. Bars: ENSDF levels known." },
   { href: "/viz/nuclide-card", title: "Radar", body: "One nuclide's half-life, Qα, Qβ−, Sₙ, Sₚ and E(2⁺) as a polygon, with a second nuclide overlaid." },
+  { href: "/viz/isotope-radar", title: "Radar timeline", body: "One element at a time, every isotope as a translucent polygon on the same six spokes; the timeline walks Z with a play button. Neutron-poor runs cool, neutron-rich warm." },
+  { href: "/viz/literature", title: "Scatter field", body: "x neutrons N · y protons Z · size and glow log₁₀ papers. All 7,799 nuclides the literature touches." },
 ]
 
 /** The chart before and after `path` in box order, wrapping at the ends; null off the list. */
