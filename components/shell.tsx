@@ -155,7 +155,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
         return
       }
       sbClose()
-      setSize("half")
+      // Data tables open at the third — the minimum (Brendan, 2026-11-04); everything else at the half.
+      setSize(href.startsWith("/viz/data/") ? "third" : "half")
       setPane({ src: href, href, n: Date.now() })
     },
     [router, sbClose],
