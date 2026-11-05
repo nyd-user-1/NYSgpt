@@ -34,6 +34,7 @@ const CHARTS = [
   { href: "/viz/reactions", title: "Flow lines", body: "Ground x N · y Z; the uranium, thorium and actinium decay series as routes. Each light moves faster the shorter its parent's half-life." },
   { href: "/viz/matrix", title: "Correlation matrix", body: "9×9 Pearson r across log T½, Qα, Qβ−, Sₙ, Sₚ, log E(2⁺), log B(E2), mass excess and log level count, over the 475 nuclides with all nine. Navy moves together; red apart." },
   { href: "/viz/decay", title: "Decay simulation", body: "x N · depth Z · height log₁₀ half-life, 3,420 ENSDF ground states. Each decays at its measured rate, scaled, and steps to its daughter." },
+  { href: "/viz/decay2", title: "Decay simulation 2", body: "The decay simulation as a surface: x N · y Z · height √ population. It opens flat on every ground state and deforms as decays run." },
   { href: "/viz/knowledge", title: "Knowledge map", body: "x N · depth Z, 7,986 nuclides. Size adopted levels, colour years since the ENSDF evaluation; grey rings are studied but never evaluated." },
   { href: "/viz/spectra", title: "Spectra", body: "The line strips in 2D with a zoom slider to stretch a run of nuclei; a click opens that nucleus's full capture-γ spectrum beside them." },
   { href: "/viz/gamma-atlas", title: "Heatmap", body: "x γ energy in 25 keV bins · y product nucleus by A; heat the bin's summed capture-γ intensity per 100 captures." },

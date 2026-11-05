@@ -18,6 +18,7 @@ export const VIZ_TABLES: Record<string, { title: string }> = {
   spectra: { title: "Capture γ lines" },
   "gamma-atlas": { title: "Capture γ atlas" },
   "gamma-punchcard": { title: "Capture γ by element" },
+  decay2: { title: "Ground-state decays" },
   surface: { title: "Binding energy per nucleon" },
   weight: { title: "E(2⁺) and B(E2), even-even nuclides" },
   "first-excited": { title: "First 2⁺ energies, even-even nuclides" },

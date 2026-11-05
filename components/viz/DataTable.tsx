@@ -7,6 +7,7 @@ import { STRUCTURE_TABLES } from '@/lib/viz-structure-tables'
 import { PHYSICS_TABLES } from '@/lib/viz-physics-tables'
 import { ATLAS_BIN_KEV, PUNCH_BIN_KEV, allLines, binned, loadCapgam, punchCells, setName } from '@/lib/viz-gamma'
 import { fromLog, loadExfor, targetName } from '@/lib/viz-exfor'
+import { halfLifeText, loadDecay, nucName } from '@/lib/viz-decay'
 
 /** A pressed row points at its datum: framed, the shell relays it; same-page, the chart hears it directly. */
 function pointAt(slug: string, row: number) {
@@ -41,6 +42,14 @@ const capgamLines = () =>
   })
 
 const LOAD: Record<string, () => Promise<Table>> = {
+  decay2: () =>
+    loadDecay().then(d => ({
+      columns: ['Nuclide', 'Z', 'N', 'Half-life', 'Primary mode', 'Branch'],
+      rows: d.nuclides.map(x => {
+        const top = x.t === null ? undefined : x.m[0]
+        return [nucName(x), x.z, x.n, halfLifeText(x), top ? (d.modes[top[0]]?.label ?? top[0]) : '', top && top[1] !== null ? `${top[1]}%` : '']
+      }),
+    })),
   simplex: capgamLines,
   spectra: capgamLines,
   'scatter3d-dataset': () =>
