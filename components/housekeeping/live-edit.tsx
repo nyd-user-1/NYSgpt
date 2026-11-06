@@ -81,7 +81,11 @@ export function LiveEditMode() {
       '*:not([data-devinspector]):not([data-devinspector] *) { cursor: crosshair !important }',
     ].join('\n')
     document.head.appendChild(freeze)
-    const held = (document.getAnimations?.() ?? []).filter((a) => a.playState === 'running')
+    // The Dev tools rows are left running: the click that arms the mode has just started the
+    // switch's own transition, and pausing it would freeze the switch in its off look.
+    const held = (document.getAnimations?.() ?? []).filter(
+      (a) => a.playState === 'running' && !OURS((a.effect as KeyframeEffect | null)?.target ?? null),
+    )
     held.forEach((a) => { try { a.pause() } catch {} })
 
     const chip = document.createElement('div')
