@@ -40,6 +40,16 @@ import { CALLS, LICENSES } from "./api-pricing";
 /** Each listing, by the product code AWS sends with a buyer. */
 export const PRODUCTS: Record<string, { productId: string; dataset: string; name: string }> = {
   "8ol1aokeqoemqsr6hhjd3vph3": { productId: "prod-2sskaqhhle24w", dataset: "gov", name: "Legislative API" },
+  "95qoh2h85mkgw4fvols14w54e": { productId: "prod-m7qiajnuvs2ys", dataset: "law", name: "Law API" },
+  "dkr8oz1j2t3tcpz3sd6qa3m27": { productId: "prod-npk3edsnrnkc4", dataset: "fec", name: "FEC API" },
+  "30stcpqj24okepbdocc6hu2k2": { productId: "prod-uk6vxb7iwnl3s", dataset: "elections", name: "Elections API" },
+  "c1bcz8acrlh9dh40yudaauod8": { productId: "prod-r2yfug5a4i6pw", dataset: "polls", name: "Polling API" },
+  "bzgqwgoom8b6i816q0ln4xkl4": { productId: "prod-a6vwiyt2yowec", dataset: "ads", name: "Political Ads API" },
+  "doqcqnltxqio8977a0gqo5pil": { productId: "prod-ibgrkc5dbvfls", dataset: "ai", name: "AI API" },
+  "avoeow715d76v7xas3hg0omkz": { productId: "prod-vcbo3lpy4r334", dataset: "aipatents", name: "AI Patents API" },
+  "5s1jktxgfxi5sdexj1c8zrhnt": { productId: "prod-mzii2vcqm7wvm", dataset: "airesearch", name: "AI Research API" },
+  "aqwn5x2pxr6zvsus5v2p8e7vq": { productId: "prod-n6s2ztgnzexzo", dataset: "aimodels", name: "AI Models and Benchmarks API" },
+  "3mnp2shw6slzwjewrwv1xj8qw": { productId: "prod-ao3ytzayuddeq", dataset: "aicompute", name: "AI Compute API" },
 };
 
 /** A dimension's API name is `<dataset>_<calls>_<license>`, e.g. gov_100k_commercial. */
