@@ -40,7 +40,7 @@ body{background:var(--paper);color:var(--paper-text);font-family:var(--sans);-we
 .plate{margin-top:72px;display:flex;align-items:flex-start;gap:24px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.plate::-webkit-scrollbar{display:none}
 .pframe{position:relative;z-index:10;width:100%;flex-shrink:0;display:flex;flex-direction:column;overflow:hidden;border-radius:16px;border:1px solid var(--paper-rule);background:var(--paper);scroll-snap-align:start}
 .pin{margin:-1px;flex:1;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none}.pin::-webkit-scrollbar{display:none}
-.grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,minmax(210px,auto));grid-template-columns:repeat(14,minmax(0,1fr));width:calc(14 * var(--col));border-top:1px solid var(--paper-rule);border-left:1px solid var(--paper-rule)}
+.grid{display:grid;grid-auto-flow:column;grid-template-rows:repeat(2,minmax(210px,auto));grid-template-columns:repeat(13,minmax(0,1fr));width:calc(13 * var(--col));border-top:1px solid var(--paper-rule);border-left:1px solid var(--paper-rule)}
 .card{container-type:inline-size;position:relative;display:flex;flex-direction:column;min-height:210px;padding:20px;border-bottom:1px solid var(--paper-rule);border-right:1px solid var(--paper-rule);text-decoration:none;color:inherit;transition:background-color .15s;scroll-snap-align:start}
 .card.grey{background:var(--paper-quiet)}.card:hover{background:var(--accent-tint)}
 .fig{pointer-events:none;position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:0 12px;text-align:center;color:var(--accent);opacity:0;transition:opacity .2s}
@@ -141,49 +141,22 @@ body.sbopen .app{padding-right:calc(423px + 36px)}body.sbopen.sbwide .app{paddin
 .tg th{position:sticky;top:0;z-index:1;background:var(--paper);color:var(--paper-faint);font-weight:400}.tg tr:hover td{background:var(--paper-quiet)}
 </style>
 <style>
-/* Option 1: the catalog as a frame beside the products on the card rail */
-.catf .cath{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;border-bottom:1px solid var(--paper-rule);padding:16px 20px}
-.cath h2{margin:0;font-family:var(--serif);font-weight:400;font-size:26px;line-height:1}
-.cath input{flex:1;min-width:180px;max-width:420px;border:1px solid var(--paper-rule);border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;background:var(--paper);color:var(--paper-text)}
-.cath .cn{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--paper-faint)}
-.cath .back{margin-left:auto;border:1px solid var(--paper-rule);border-radius:999px;background:var(--paper);padding:6px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-text);cursor:pointer}.cath .back:hover{background:var(--paper-quiet)}
-.catb{display:grid;grid-template-columns:220px 300px 1fr;height:640px}
-.catb>div{min-height:0;overflow:auto;border-right:1px solid var(--paper-rule);scrollbar-width:none}.catb>div::-webkit-scrollbar{display:none}.catb>div:last-child{border-right:0;padding:16px 24px 24px}
-.ch{margin:16px 20px 6px;font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--paper-faint)}
-.ci{display:flex;width:100%;justify-content:space-between;gap:8px;border:0;background:none;padding:6px 20px;font:inherit;font-size:13px;text-align:left;cursor:pointer;color:var(--paper-text)}
-.ci span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ci small{font-family:var(--mono);font-size:10px;color:var(--paper-faint);white-space:nowrap}
-.ci:hover{background:var(--paper-quiet)}.ci:hover span{color:var(--paper-strong)}.ci.on{background:#033882;color:#fff}.ci.on span{color:#fff}.ci.on small{color:#dfe8f0}
-.ct{margin:0;font-family:var(--serif);font-weight:400;font-size:24px;line-height:1.15;word-break:break-word}
-.cm{margin:8px 0 0;font-family:var(--mono);font-size:10px;line-height:1.6;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-faint)}
-.ca{margin:12px 0 0;max-width:760px;font-size:13px;line-height:1.6;color:var(--paper-muted)}
-.cf{border-collapse:collapse;width:100%;margin-top:16px;font-size:12px}.cf th,.cf td{border-bottom:1px solid var(--paper-rule-soft);padding:6px 8px;text-align:left;vertical-align:top}
-.cf th{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-faint);font-weight:400}.cf .m{font-family:var(--mono);color:var(--paper-muted);word-break:break-word}
-.cg{overflow:auto;max-height:340px;border:1px solid var(--paper-rule-soft)}.cg table{border-collapse:collapse;font-family:var(--mono);font-size:11px}
-.cg th,.cg td{border-bottom:1px solid var(--paper-rule-soft);padding:4px 8px;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis;text-align:left}.cg th{position:sticky;top:0;background:var(--paper);color:var(--paper-faint);font-weight:400}
-.cnote{margin:12px 0;font-size:12px;color:var(--paper-faint)}.cfiles{columns:2;margin:12px 0 0;padding-left:18px;font-family:var(--mono);font-size:11px;color:var(--paper-muted)}
-@container page (max-width:899px){.catb{grid-template-columns:1fr;height:auto}.catb>div{max-height:340px;border-right:0;border-bottom:1px solid var(--paper-rule)}.catb>div:last-child{max-height:none}}
-</style>
-<style>
-/* catalog frame: fixed by the open sequence; the three columns fill it */
-.catf{transition:height .5s ease-in-out;overflow:hidden}.catb{flex:1;min-height:0;height:auto;position:relative;grid-template-columns:var(--w1,220px) var(--w2,300px) minmax(0,1fr)}
-/* masthead moves up and off while the catalog is open */
-.mastw{overflow:hidden;transition:max-height .6s ease-in-out,opacity .5s ease}.mastw .mast{transition:transform .6s ease-in-out}
-body.catup .mastw{opacity:0}body.catup .mastw .mast{transform:translateY(-100%)}
-.plate{transition:margin-top .6s ease-in-out}body.catup .plate{margin-top:0}
-/* column handles, from catalog.html */
-.chd{position:absolute;top:50%;z-index:40;display:flex;align-items:center;justify-content:center;width:18px;height:64px;transform:translate(-50%,-50%);cursor:col-resize;touch-action:none;outline:none}
-.chd span{width:4px;height:32px;border-radius:9999px;background:rgba(22,24,29,.5);transition:background-color .15s}
-.chd:hover span,.chd:focus-visible span,.chd.drag span{background:#033882}
-#ch1{left:var(--w1,220px)}#ch2{left:calc(var(--w1,220px) + var(--w2,300px))}
-@container page (max-width:899px){.chd{display:none}.catb{grid-template-columns:1fr;overflow:auto}}
-/* panel search bar */
+/* panel search bar (kept from option 1) */
 .sbs{flex-shrink:0;border-bottom:1px solid var(--paper-rule);padding:10px 20px}
 .sbs input{width:100%;border:1px solid var(--paper-rule);border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;background:var(--paper);color:var(--paper-text)}
 [data-s][hidden],.tg tr[hidden]{display:none!important}
-</style>
-<style>
-/* the handles are children of .catb too: keep the column border and scrolling off them */
-.catb>.chd{border-right:0;overflow:visible;min-height:0}
+.cnote{margin:12px 0;font-size:12px;color:var(--paper-faint)}
+/* Option 2: product -> database -> table, inside the switchboard */
+.row .cn2{flex-shrink:0;font-family:var(--mono);font-size:10px;color:var(--paper-faint);font-variant-numeric:tabular-nums}
+.frow{border-bottom:1px solid var(--paper-rule-soft);padding:8px 20px;font-size:12px}
+.frow .fn{font-family:var(--mono);color:var(--paper-text)}.frow .ft{margin-left:8px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--paper-faint)}
+.frow .fd{display:block;margin-top:2px;line-height:1.45;color:var(--paper-muted)}.frow .fs{display:block;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--mono);font-size:11px;color:var(--paper-faint)}
+.qbtn{display:flex;gap:8px;border-bottom:1px solid var(--paper-rule);padding:12px 20px}
+.qbtn button,.bar2 button{border:1px solid var(--paper-rule);border-radius:999px;background:var(--paper);padding:6px 12px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-text);cursor:pointer}
+.qbtn button:hover,.bar2 button:hover{background:var(--paper-quiet);color:var(--paper-strong)}
+.tg2{flex:none;max-height:50vh;margin:0 20px;border:1px solid var(--paper-rule-soft)}.tg2 table{margin-bottom:0}
+.qbox{padding:0 0 16px}.qbox textarea{display:block;width:calc(100% - 40px);min-height:80px;margin:0 20px;border:1px solid var(--paper-rule);border-radius:12px;padding:10px 12px;font:12px var(--mono);color:var(--paper-text);background:var(--paper)}
+.bar2{display:flex;align-items:center;gap:10px;padding:10px 20px}.bar2 small{font-family:var(--mono);font-size:11px;color:var(--paper-faint)}
 </style>
 
 </head><body>
@@ -209,133 +182,122 @@ body.catup .mastw{opacity:0}body.catup .mastw .mast{transform:translateY(-100%)}
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Artificial Intelligence</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Select patents, papers, and policies concerning AI, the research behind them, and related peer review records.</p></div>
 <div class="foot"><span class="tag hasfig">Platform</span><span class="idx">03</span></div></a>
-<a data-nav="plate" data-cat="1" class="card" href="#catalog" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
-<span class="fig" aria-hidden="true"><span class="num" data-v="3" data-d="0" data-s="K" data-p="" data-ms="900">3K</span><span class="unit">tables</span></span>
-<span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
-<div class="body hasfig"><div class="top"><h3>Catalog</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Every table and field held, across both accounts and the app databases, with rows, descriptions and search.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">04</span></div></a>
 <a data-nav="plate" class="card" href="https://amplify.d30k1ocuoke6r4.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="19.7" data-d="1" data-s="K" data-p="" data-ms="900">19.7K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Childcare</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">05</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">04</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="19.7" data-d="1" data-s="K" data-p="" data-ms="900">19.7K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Childcare API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>5 tables: every licensed childcare facility in New York with capacity, plus costs and demographics by county and ZIP.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">06</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">05</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#7c3aed;--accent-tint:color-mix(in oklab, #7c3aed 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="303.1" data-d="1" data-s="M" data-p="~" data-ms="900">~303.1M</span><span class="unit">parameters</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Classifier</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Sort a field's documents into its own categories, automatically.</p></div>
-<div class="foot"><span class="tag hasfig">Model</span><span class="idx">07</span></div></a>
+<div class="foot"><span class="tag hasfig">Model</span><span class="idx">06</span></div></a>
 <a data-nav="plate" class="card" href="https://policy.nysgpt.com/consensus" target="_blank" rel="noreferrer noopener" style="--accent:#ea580c;--accent-tint:color-mix(in oklab, #ea580c 5%, #fff)">
 
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body"><div class="top"><h3>Consensus</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Gather opinion at scale; groups emerge from the votes, not the loudest voice.</p></div>
-<div class="foot"><span class="tag">Tool</span><span class="idx">08</span></div></a>
+<div class="foot"><span class="tag">Tool</span><span class="idx">07</span></div></a>
 <a data-nav="plate" class="card grey" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body"><div class="top"><h3>Dev Tools</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>HQ and the Inspector: the instruments the platforms and tools are built with.</p></div>
-<div class="foot"><span class="tag"></span><span class="idx">09</span></div></a>
+<div class="foot"><span class="tag"></span><span class="idx">08</span></div></a>
 <a data-nav="plate" class="card" href="https://huggingface.co/NYSgpt" target="_blank" rel="noreferrer noopener" style="--accent:#7c3aed;--accent-tint:color-mix(in oklab, #7c3aed 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="1.2" data-d="1" data-s="B" data-p="~" data-ms="900">~1.2B</span><span class="unit">parameters</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Encoder</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>A custom embedding model trained on your own data, so search understands your data.</p></div>
-<div class="foot"><span class="tag hasfig">Model</span><span class="idx">10</span></div></a>
+<div class="foot"><span class="tag hasfig">Model</span><span class="idx">09</span></div></a>
 <a data-nav="plate" class="card" href="https://main.d2bart0mempmp5.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="4.9" data-d="1" data-s="B" data-p="" data-ms="900">4.9B</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Energy</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">11</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">10</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="27.9" data-d="1" data-s="M" data-p="" data-ms="900">27.9M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Energy API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>93 tables: every US power plant and generator, grid operations by the hour, prices, outages and emissions.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">12</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">11</span></div></a>
 <a data-nav="plate" class="card" href="https://policy.nysgpt.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="6.2" data-d="1" data-s="B" data-p="" data-ms="900">6.2B</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Gov</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">13</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">12</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="168.9" data-d="1" data-s="M" data-p="" data-ms="900">168.9M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Gov API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>133 tables: bills, texts, sponsors, roll calls and every member's vote, laws, lobbying and campaign finance, from all fifty states and Congress.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">14</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">13</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="36.9" data-d="1" data-s="M" data-p="" data-ms="900">36.9M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Health API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>50 tables: every NPI, the insurer networks it sits in, the rates insurers publish, plans, employers and Form 5500 filings.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">15</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">14</span></div></a>
 <a data-nav="plate" class="card" href="https://amplify.d3ekz2nd1zxars.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="592.4" data-d="1" data-s="M" data-p="" data-ms="900">592.4M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Healthcare</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">16</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">15</span></div></a>
 <a data-nav="plate" class="card" href="https://amplify.d1xhvbmv1jbfz9.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="21.4" data-d="1" data-s="K" data-p="" data-ms="900">21.4K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Insurance</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">17</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">16</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="17.3" data-d="1" data-s="K" data-p="" data-ms="900">17.3K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Insurance API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>NHTSA crash tests and star ratings for every rated make, model and year.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">18</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">17</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="168" data-d="0" data-s="M" data-p="~" data-ms="900">~168M</span><span class="unit">records kept fresh</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Pipeline</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Load, structure, store and refresh every source: the loaders, the compiler, the lake and the pipeline, on one switch.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">19</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">18</span></div></a>
 <a data-nav="plate" class="card" href="https://huggingface.co/NYSgpt" target="_blank" rel="noreferrer noopener" style="--accent:#7c3aed;--accent-tint:color-mix(in oklab, #7c3aed 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="323" data-d="0" data-s="M" data-p="~" data-ms="900">~323M</span><span class="unit">parameters</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Reranker</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Put the best answer first, trained on how your field judges relevance.</p></div>
-<div class="foot"><span class="tag hasfig">Model</span><span class="idx">20</span></div></a>
+<div class="foot"><span class="tag hasfig">Model</span><span class="idx">19</span></div></a>
 <a data-nav="plate" class="card" href="https://amplify.duruug4qfhs29.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="6.4" data-d="1" data-s="M" data-p="" data-ms="900">6.4M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Science</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">21</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">20</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="5.3" data-d="1" data-s="M" data-p="" data-ms="900">5.3M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Science API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>33 tables: Brookhaven's Nuclear Science References by nuclide, reaction and author, with ENSDF and EXFOR.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">22</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">21</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="1.4" data-d="1" data-s="M" data-p="" data-ms="900">1.4M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Solar API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>27 tables: rooftop solar potential by tract and ZIP, installs and installers, utility rates and hourly emissions.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">23</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">22</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="37.3" data-d="1" data-s="K" data-p="" data-ms="900">37.3K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Sports API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>11 tables: New York high-school football games, box scores, rosters, players and season stats.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">24</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">23</span></div></a>
 <a data-nav="plate" class="card" href="https://amplify.d2yna3j4fmb5io.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="977.5" data-d="1" data-s="K" data-p="" data-ms="900">977.5K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Tariffs</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">25</span></div></a>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">24</span></div></a>
 <a data-nav="plate" class="card" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#0e7490;--accent-tint:color-mix(in oklab, #0e7490 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="534.8" data-d="1" data-s="K" data-p="" data-ms="900">534.8K</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Tariffs API</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>11 tables: every CBP customs ruling, the full tariff schedule, import duties, trade flows and licensed brokers.</p></div>
-<div class="foot"><span class="tag hasfig">Data</span><span class="idx">26</span></div></a>
+<div class="foot"><span class="tag hasfig">Data</span><span class="idx">25</span></div></a>
 <a data-nav="plate" class="card" href="https://shell-nysgpt.daxlxk6y7cgzd.amplifyapp.com" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
 <span class="fig" aria-hidden="true"><span class="num" data-v="99.9" data-d="1" data-s="M" data-p="" data-ms="900">99.9M</span><span class="unit">records</span></span>
 <span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
 <div class="body hasfig"><div class="top"><h3>Video</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Make videos that change minds and move feet.</p></div>
-<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">27</span></div></a>
-<a data-nav="plate" class="card grey" href="https://www.nysgpt.com/" target="_blank" rel="noreferrer noopener" style="--accent:#033882;--accent-tint:color-mix(in oklab, #033882 5%, #fff)">
-
-<span class="arrow"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></span>
-<div class="body"><div class="top"><h3>Contact</h3><span class="dot"><span class="ping"></span><span class="core"></span></span></div><p>Questions about the data, a custom platform or a private deployment. Write and I will answer.</p></div>
-<div class="foot"><span class="tag"></span><span class="idx">28</span></div></a>
-</div></div></div>
-<div class="pframe catf" id="catf" hidden><div class="cath"><h2>Catalog</h2><input id="catq" placeholder="Search..."><span class="cn" id="catn"></span><button class="back" id="cattab">Table</button><button class="back" id="catback" style="margin-left:0">Products</button></div><div class="catb"><div id="catc1"></div><div id="catc2"></div><div class="chd" id="ch1" tabindex="0" role="separator" aria-orientation="vertical"><span></span></div><div class="chd" id="ch2" tabindex="0" role="separator" aria-orientation="vertical"><span></span></div><div id="catc3"><p class="cnote">Open the Catalog card to load the catalog.</p></div></div></div></div>
+<div class="foot"><span class="tag hasfig">Platform</span><span class="idx">26</span></div></a>
+</div></div></div></div>
 </div></div></main></div>
 <aside class="sb" id="sb" aria-label="Switchboard"><div class="pn"><div class="sbh"><span id="sbhl"></span><span class="tt" id="sbtt">Switchboard</span><button class="ib wide" id="sbw" aria-label="Widen the panel"></button><button class="ib" id="sbx" aria-label="Close the panel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button></div><div class="sbs"><input id="sbq" placeholder="Search..." aria-label="Search the panel"></div><div class="sbb" id="sbb"></div><div class="sbf"><a href="https://www.nysgpt.com/">Contact</a><span>© 2026 All Rights Reserved.</span></div></div></aside>
 <script>
@@ -395,40 +357,47 @@ const INTRO='AI built to spec. Deploy agentic teams or a full Agentic OS, on-pre
 /* Fixed samples where the site reads live data (the nightly digest; each API's table list and price). */
 const DIGEST={documents24h:128,totals:{documents:2410000,patents:1405557,models:532,benchmarks:531},topics:[{label:'Sample topic one',count:64,recent:['Sample document title one','Sample document title two']},{label:'Sample topic two',count:41,recent:['Sample document title three','Sample document title four']}]};
 const apiTables=p=>[['records',.55],['sources',.25],['entities',.15],['events',.05]].map(([n,f])=>({path:p.catalog+'/'+n,rows:Math.round((p.value||1e6)*f)}));
-let open=false,wide=true,view={k:'menu'},off=new Set();
+let open=false,wide=true,view={k:'menu',key:'menu'},off=new Set(),hist=[];
 $('sb').classList.add('wide');document.body.classList.add('sbwide');
 function setOpen(v){open=v;$('sb').classList.toggle('open',v);document.body.classList.toggle('sbopen',v);}
-function title(){if(view.k==='table')return 'Table';if(view.k==='product'){const p=SB[view.i];return p.domain||(p.href?p.href.replace(/^https?:\/\//,''):p.title)}return view.k==='channel'?CH[view.id].name:'Switchboard'}
+function title(){if(view.k==='table')return 'Table';if(view.k==='dbs')return 'All tables';if(view.k==='db')return view.db;if(view.k==='product'){const p=SB[view.i];return p.domain||(p.href?p.href.replace(/^https?:\/\//,''):p.title)}return view.k==='channel'?CH[view.id].name:'Switchboard'}
 function render(){const deep=view.k!=='menu';
  $('sbhl').innerHTML=deep?'<button class="ib" id="sbback" aria-label="Back to the switchboard">'+svg('back')+'</button>':'<span style="padding-left:4px"><span class="ld" style="width:6px;height:6px"><i></i><i></i></span></span>';
  $('sbtt').textContent=title();$('sbw').innerHTML=svg(wide?'c3':'c2');
  let h='';
  if(view.k==='menu'){h='<div class="intro"><h2>NYSgpt</h2><p>'+INTRO+'</p></div>'+Object.entries(CH).map(([id,c])=>'<div class="row" data-s="'+c.name.toLowerCase()+'" data-ch="'+id+'"><span class="ic">'+c.icon+'</span><span class="lb">'+c.name+'</span><span class="open">Open</span><a class="ext" href="'+c.href+'"'+(c.same?'':' target="_blank" rel="noreferrer noopener"')+' aria-label="Open externally">'+svg('ur')+'</a></div>').join('')+
-  '<p class="sec">Products</p>'+SB.map((c,i)=>'<button class="row" data-s="'+esc(c.title.toLowerCase())+'" data-p="'+i+'"><span class="lb">'+esc(c.title)+'</span>'+svg('r')+'</button>').join('');}
+  '<p class="sec">Products</p>'+SB.map((c,i)=>'<button class="row" data-s="'+esc(c.title.toLowerCase())+'" data-p="'+i+'"><span class="lb">'+esc(c.title)+'</span>'+svg('r')+'</button>').join('')+'<p class="sec">Data</p><button class="row" data-s="all tables" data-go="dbs"><span class="lb">All tables</span>'+svg('r')+'</button>';}
  else if(view.k==='channel'){const c=CH[view.id];h='<div class="intro"><h2>'+c.name+'</h2><p>'+c.blurb+'</p></div>';
   if(view.id==='discord'){const d=DIGEST,f=n=>n.toLocaleString('en-US');h+='<div class="intro"><p class="big2" style="color:var(--paper-strong)">'+d.documents24h+'</p><p class="u2">new documents · last 24 hours (sample)</p><p style="font-size:12px;line-height:1.7">'+f(d.totals.documents)+' documents · '+f(d.totals.patents)+' patents · '+f(d.totals.models)+' models · '+f(d.totals.benchmarks)+' benchmarks</p></div>'+
    d.topics.map(t=>'<div class="dg"><p class="mlabel" style="letter-spacing:.12em;line-height:1.5;margin:0">'+t.label+' — '+t.count+' new</p><ul>'+t.recent.map(x=>'<li data-s="'+x.toLowerCase()+'"><a href="'+SITE+'/library">'+x+'</a></li>').join('')+'</ul><p class="mlabel" style="margin:12px 0 0">five most recent</p></div>').join('');}
   h+='<div class="foot2"><a class="visit" href="'+c.href+'"'+(c.same?'':' target="_blank" rel="noreferrer noopener"')+'><span>Open '+c.name+'</span><span style="flex:0;display:flex;border-radius:999px;padding:8px;color:var(--paper-strong)">'+svg('ur')+'</span></a></div>';}
- else if(view.k==='table'){const t=CD[view.i];h='<div class="tv"><div class="intro"><h2 style="font-size:22px;line-height:1.15;word-break:break-word">'+esc(t.database+'.'+t.table)+'</h2>'+(t.about||t.row_is?'<p>'+esc(t.about||('One row is '+t.row_is+'.'))+'</p>':'')+'</div><div class="tg" id="tg"><p class="cnote" style="padding:0 20px">Loading rows…</p></div></div>';}
+ else if(view.k==='dbs'){h=dbsHTML();}
+ else if(view.k==='db'){h=dbHTML(view.db);}
+ else if(view.k==='table'){h=tableHTML(CD[view.i]);}
  else{const p=SB[view.i];
   if(!p.catalog)h+='<div class="intro"><p class="big2" style="color:'+p.accent+'">'+cmp(p.value||0)+'</p><p class="u2">'+esc(p.unit)+'</p><p>'+esc(p.body)+'</p></div>';
   if(p.catalog){const tb=apiTables(p),ch=tb.filter(t=>!off.has(t.path));h+='<ul class="apil">'+tb.map(t=>'<li data-s="'+t.path.toLowerCase()+'"><button class="'+(off.has(t.path)?'':'on')+'" data-t="'+t.path+'"><span class="bx">'+(off.has(t.path)?'':svg('chk','style="width:12px;height:12px" stroke-width="3"'))+'</span><span class="p">/'+t.path+'</span><span class="r">'+cmp(t.rows)+'</span></button></li>').join('')+'</ul>'+
    '<div class="foot2 chk"><span>'+ch.length+' of '+tb.length+' · sample tables</span><button onclick="window.open(\''+SITE+'/\',\'_blank\')"'+(ch.length?'':' disabled')+'>Subscribe</button></div>';}
   else if((p.stats||[]).length){const st=[...p.stats].sort((a,b)=>b.value-a.value);h+='<div class="stats" style="--stat-accent:'+p.accent+';--stat-tint:color-mix(in oklab, '+p.accent+' 5%, #fff)">'+st.map((s,i,a)=>'<a data-s="'+esc(String(s.unit).toLowerCase())+'" class="stat'+(i%2===0?' br':'')+(i===a.length-1&&a.length%2===1?' span':'')+'" href="'+(s.href?(s.href.startsWith('/')?SITE+s.href:s.href):'#')+'"'+(s.href?' target="_blank" rel="noreferrer noopener"':'')+'><span class="ar">'+svg('ur')+'</span><p class="sv">'+cmp(s.value)+'</p><p class="su">'+esc(s.unit)+'</p></a>').join('')+'</div>';}
+  h+=prodTables(p);
   if(p.href)h+='<div class="foot2"><a class="visit" href="'+(p.href.startsWith('/')?SITE+p.href:p.href)+'" target="_blank" rel="noreferrer noopener"><span>Visit '+esc(p.title)+'</span><span style="flex:0;display:flex;border-radius:999px;padding:8px;color:'+p.accent+'">'+svg('ur')+'</span></a></div>';}
- $('sbb').innerHTML='<div class="col">'+h+'</div>';$('sbb').scrollTop=0;$('sbb').classList.toggle('tvm',view.k==='table');if(view.key!==sbLast){$('sbq').value='';}sbLast=view.key;sbFilter();if(view.k==='table'&&window.tableRows)tableRows(CD[view.i]);}
+ $('sbb').innerHTML='<div class="col">'+h+'</div>';$('sbb').scrollTop=0;$('sbb').classList.remove('tvm');if(view.key!==sbLast){$('sbq').value='';}sbLast=view.key;sbFilter();if(window.opt2After)opt2After();}
 let sbLast=null;
 function sbFilter(){const q=$('sbq').value.trim().toLowerCase();$('sbb').querySelectorAll('[data-s]').forEach(el=>{el.hidden=!!q&&!el.dataset.s.includes(q)});$('sbb').querySelectorAll('.tg tr').forEach((tr,i)=>{if(i)tr.hidden=!!q&&!tr.textContent.toLowerCase().includes(q)});}
 $('sbq').oninput=sbFilter;
-function openTable(i){view={k:'table',i,key:'t'+i};render();setOpen(true);}
-function openMenu(){view={k:'menu',key:'menu'};render();setOpen(true)}
-function openProduct(i){view={k:'product',i,key:'p'+i};off=new Set();render();setOpen(true)}
+function go(v){hist.push(view);view=v;render();setOpen(true);}
+function goBack(){view=hist.pop()||{k:'menu',key:'menu'};render();}
+function openTable(i){go({k:'table',i,key:'t'+i});}
+function openMenu(){hist=[];view={k:'menu',key:'menu'};render();setOpen(true)}
+function openProduct(i){hist=[{k:'menu',key:'menu'}];view={k:'product',i,key:'p'+i};off=new Set();render();setOpen(true)}
 $('rbtn').onclick=e=>{e.preventDefault();if(open)setOpen(false);else openMenu()};
 $('sbx').onclick=()=>setOpen(false);$('sbw').onclick=()=>{wide=!wide;$('sb').classList.toggle('wide',wide);document.body.classList.toggle('sbwide',wide);render()};
-$('sb').addEventListener('click',e=>{const t=e.target;if(t.closest('#sbback')){openMenu();return}if(t.closest('.ext')||t.closest('a'))return;
+$('sb').addEventListener('click',e=>{const t=e.target;if(t.closest('#sbback')){goBack();return}if(t.closest('.ext')||t.closest('a'))return;
+ const g2=t.closest('[data-go]'),d2=t.closest('[data-db]'),b2=t.closest('[data-tb]'),q2=t.closest('[data-q2]');
+ if(g2){go({k:'dbs',key:'dbs'});return}if(d2){go({k:'db',db:d2.dataset.db,key:'d'+d2.dataset.db});return}if(b2){openTable(+b2.dataset.tb);return}if(q2){qQuick2(q2.dataset.q2);return}if(t.id==='run2'){run2();return}
  const p=t.closest('[data-p]'),c=t.closest('[data-ch]'),tb=t.closest('[data-t]');
- if(p){openProduct(+p.dataset.p);return}if(c){view={k:'channel',id:c.dataset.ch,key:'c'+c.dataset.ch};render();return}if(tb){const k=tb.dataset.t;off.has(k)?off.delete(k):off.add(k);render();}});
-document.addEventListener('keydown',e=>{if(e.key!=='Escape'||!open)return;if(view.k!=='menu')openMenu();else setOpen(false)});
+ if(p){openProduct(+p.dataset.p);return}if(c){go({k:'channel',id:c.dataset.ch,key:'c'+c.dataset.ch});return}if(tb){const k=tb.dataset.t;off.has(k)?off.delete(k):off.add(k);render();}});
+document.addEventListener('keydown',e=>{if(e.key!=='Escape'||!open)return;if(view.k!=='menu')goBack();else setOpen(false)});
 /* Cards open their product in the switchboard, as on the site; the corner arrow still goes to the product. The Data cell toggles the switchboard. */
 const SBI=new Map(SB.map((c,i)=>[c.title,i]));
 document.querySelectorAll('.card').forEach(a=>a.addEventListener('click',e=>{if(e.target.closest('.arrow'))return;const ti=a.querySelector('h3').textContent;if(!SBI.has(ti))return;e.preventDefault();logMine(ti);openProduct(SBI.get(ti));}));
@@ -436,62 +405,49 @@ const dc=document.querySelector('.cell');dc.style.cursor='pointer';dc.addEventLi
 </script>
 
 <script>
-/* Option 1: the Catalog card slides the rail to a catalog frame. Data and sample rows load from the catalog folder in Downloads. */
+/* Option 2: the catalog inside the switchboard. A product lists its databases, a database its tables, a table its fields,
+   sample rows and (for Old-account tables) the full-data query box. Data, rows and local-config.js load from the catalog folder. */
 const CATDIR='file:///Users/brendanstanton/Downloads/NYSgpt-catalog-2026-11-12/';window.SAMPLES=window.SAMPLES||{};
-let CD=null,cdb=null,cti=null,cq='';
+let CD=null,cdP=null;
 const loadJS=src=>new Promise(r=>{const s=document.createElement('script');s.src=src;s.onload=()=>r(true);s.onerror=()=>r(false);document.head.appendChild(s);});
+function ensureCD(){if(!cdP)cdP=Promise.all([loadJS(CATDIR+'catalog-data.js'),loadJS(CATDIR+'local-config.js')]).then(()=>{CD=window.CATALOG_DATA||null;});return cdP;}
+/* Which databases each product holds (my mapping, from each product's domain). */
+const GOV=['govblock_legislative','govblock_law','govblock_money','govblock_elections','govblock_fec','govblock_polls','govblock_ads','govblock_derived','govblock_text','govblock_reference','nysgpt_elections','nysgpt_fec','nysgpt_law','nysgpt_polls','nysgpt_ads'];
+const PDB={'AI API':['nysgpt_ai'],'Artificial Intelligence':['nysgpt_ai','neon_44b'],'Pipeline':['nysgpt_ai'],'Childcare':['neon_childcare'],'Childcare API':['neon_childcare'],
+ 'Energy':['nysgpt_solar','neon_solar'],'Energy API':['nysgpt_solar'],'Solar':['nysgpt_solar','neon_solar'],'Solar API':['nysgpt_solar'],'Gov':GOV,'Gov API':GOV,
+ 'Healthcare':['nysgpt_leuk','neon_leuk','neon_leuk_phi'],'Health API':['nysgpt_leuk'],'Insurance':['neon_insurance'],'Insurance API':['neon_insurance'],
+ 'Science':['nsr','nysgpt_nsr','neon_nsr','nysgpt_cshl'],'Science API':['nsr','nysgpt_nsr'],'Sports':['neon_sports'],'Sports API':['neon_sports'],'Tariffs':['nysgpt_tariffs','neon_tariffs'],'Tariffs API':['nysgpt_tariffs']};
 const isRaw=t=>t.kind==='raw'||t.kind==='bucket';
-let catHide=null,catT1=null,catT2=null,catIsOpen=false;
-const catFull=()=>Math.max(480,document.querySelector('.scroll').clientHeight-64);
-/* Slide in at the boxes size; after 1.5 s the masthead moves up and off, the catalog rises to the masthead top line, then it grows to full height. */
-async function catOpen(){const f=$('catf'),pf=document.querySelector('.pframe'),mw=$('mastw');[catHide,catT1,catT2].forEach(clearTimeout);catIsOpen=true;
- document.querySelector('.scroll').scrollTo({top:0,behavior:'smooth'});f.style.height=pf.offsetHeight+'px';f.hidden=false;if(window.catFit)catFit();
- requestAnimationFrame(()=>{const p=document.querySelector('.plate');p.scrollTo({left:f.offsetLeft-p.offsetLeft,behavior:'smooth'});});
- catT1=setTimeout(()=>{mw.style.maxHeight=mw.scrollHeight+'px';mw.offsetHeight;document.body.classList.add('catup');mw.style.maxHeight='0px';catT2=setTimeout(()=>{f.style.height=catFull()+'px';if(window.catFit)catFit();},650);},1500);
- if(!CD){$('catc3').innerHTML='<p class="cnote">Loading the catalog…</p>';const ok=await loadJS(CATDIR+'catalog-data.js');
-  if(!ok||!window.CATALOG_DATA){$('catc3').innerHTML='<p class="cnote">The catalog files are not on this machine.</p>';return}CD=window.CATALOG_DATA;}
- if(cdb===null){const t0=CD.find(t=>t.kind==='table'&&t.fields&&t.fields.length)||CD[0];cdb=t0.account+'|'+t0.database;cti=CD.indexOf(t0);}
- catDraw();}
-function catClose(){const p=document.querySelector('.plate'),f=$('catf'),pf=document.querySelector('.pframe'),mw=$('mastw');[catHide,catT1,catT2].forEach(clearTimeout);catIsOpen=false;
- f.style.height=pf.offsetHeight+'px';
- catT1=setTimeout(()=>{document.body.classList.remove('catup');mw.style.maxHeight=mw.scrollHeight+'px';
-  catT2=setTimeout(()=>{mw.style.maxHeight='';p.scrollTo({left:0,behavior:'smooth'});catHide=setTimeout(()=>{f.hidden=true;f.style.height='';},600);},650);},500);}
-addEventListener('resize',()=>{if(catIsOpen&&document.body.classList.contains('catup'))$('catf').style.height=catFull()+'px';});
-async function tableRows(t){const nm=t.database+'.'+t.table;if(!SAMPLES[nm])await loadJS(CATDIR+'samples/'+encodeURIComponent(nm)+'.js');const S=SAMPLES[nm],el=$('tg');if(!el)return;
- if(!S){el.innerHTML='<p class="cnote" style="padding:0 20px">No rows on disk for this table.</p>';return}
- el.innerHTML='<table><tr>'+S.c.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+S.r.slice(0,300).map(r=>'<tr>'+r.map(v=>'<td title="'+esc(v)+'">'+esc(v)+'</td>').join('')+'</tr>').join('')+'</table>';}
-function catHit(t,toks){if(!toks.length)return true;const s=(t.database+' '+t.table+' '+(t.fields||[]).map(f=>f.name).join(' ')+' '+(t.about||'')+' '+(t.row_is||'')).toLowerCase();return toks.every(k=>s.includes(k));}
-function catDraw(){if(!CD)return;const toks=cq.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean),hits=CD.filter(t=>catHit(t,toks)),by={};for(const t of hits)(by[t.account+'|'+t.database]??=[]).push(t);
- $('catc1').innerHTML=[...new Set(CD.map(t=>t.account))].map(a=>'<p class="ch">'+esc(a)+'</p>'+[...new Set(CD.filter(t=>t.account===a).map(t=>t.database))].map(d=>{const k=a+'|'+d,n=(by[k]||[]).length;if(toks.length&&!n)return '';return '<button class="ci'+(cdb===k?' on':'')+'" data-cdb="'+esc(k)+'"><span>'+esc(d)+'</span><small>'+n+'</small></button>';}).join('')).join('');
- const list=cdb?(by[cdb]||[]):(toks.length?hits:[]);
- $('catc2').innerHTML='<p class="ch">'+(cdb?esc(cdb.split('|')[1]):toks.length?'Matches':'Pick a database')+'</p>'+list.slice(0,400).map(t=>{const i=CD.indexOf(t);return '<button class="ci'+(cti===i?' on':'')+'" data-cti="'+i+'"><span>'+(cdb?'':esc(t.database)+'.')+esc(t.table)+'</span><small>'+(isRaw(t)?(t.gb!=null?t.gb+' GB':''):t.rows!=null?cmp(t.rows):'')+'</small></button>';}).join('');
- $('catn').textContent=hits.length.toLocaleString('en-US')+' of '+CD.length.toLocaleString('en-US');catDetail();}
-function catDetail(){const t=CD&&CD[cti];if(!t){$('catc3').innerHTML='<p class="cnote">Pick a database, then a table.</p>';return}
- const meta=[t.account,isRaw(t)?'raw: not yet a table':t.kind==='view'?'view':t.format,t.rows!=null?t.rows.toLocaleString('en-US')+' rows':'',t.gb!=null&&isRaw(t)?t.gb+' GB':'',t.years,t.newest&&('newest row '+t.newest),t.row_is&&('one row is '+t.row_is)].filter(Boolean).map(esc).join(' · ');
- let h='<h2 class="ct">'+esc(t.database)+'.'+esc(t.table)+'</h2><p class="cm">'+meta+'</p>'+(t.about?'<p class="ca">'+esc(t.about)+'</p>':'');
- if(isRaw(t)){const fl=(t.first_files||[]).concat(t.top_folders||[]);h+='<p class="cm">'+esc(t.location||'')+'</p>'+(fl.length?'<ul class="cfiles">'+fl.slice(0,50).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul>':'');}
- else{h+='<table class="cf"><tr><th>Field</th><th>Type</th><th>Description</th><th>Sample</th></tr>'+(t.fields||[]).map(f=>'<tr><td>'+esc(f.name)+'</td><td class="m">'+esc(f.type)+'</td><td>'+esc(f.desc||'')+'</td><td class="m">'+esc((f.samples||[])[0]||'')+'</td></tr>').join('')+'</table>'+(t.kind==='view'?'':'<p class="ch" style="margin-left:0;margin-top:20px">Rows</p><div id="catrows"><p class="cnote">Loading…</p></div>');}
- $('catc3').innerHTML=h;$('catc3').scrollTop=0;if(!isRaw(t)&&t.kind!=='view')catRows(t);}
-async function catRows(t){const nm=t.database+'.'+t.table;if(!SAMPLES[nm])await loadJS(CATDIR+'samples/'+encodeURIComponent(nm)+'.js');const S=SAMPLES[nm],el=$('catrows');if(!el||CD[cti]!==t)return;
- if(!S){el.innerHTML='<p class="cnote">No rows on disk for this table.</p>';return}
- el.innerHTML='<div class="cg"><table><tr>'+S.c.map(c=>'<th>'+esc(c)+'</th>').join('')+'</tr>'+S.r.slice(0,100).map(r=>'<tr>'+r.map(v=>'<td title="'+esc(v)+'">'+esc(v)+'</td>').join('')+'</tr>').join('')+'</table></div><p class="cnote">'+Math.min(100,S.r.length)+' of '+S.r.length.toLocaleString('en-US')+' sample rows</p>';}
-$('catf').addEventListener('click',e=>{const a=e.target.closest('[data-cdb]'),b=e.target.closest('[data-cti]');if(e.target.closest('#catback')){catClose();return}if(e.target.closest('#cattab')){if(cti!=null)openTable(cti);return}
- if(a){cdb=cdb===a.dataset.cdb?null:a.dataset.cdb;cti=null;catDraw();}if(b){cti=+b.dataset.cti;catDraw();}});
-$('catq').oninput=e=>{cq=e.target.value;cti=null;catDraw();};
-document.querySelector('[data-cat]').addEventListener('click',e=>{e.preventDefault();catOpen();});
-</script>
-<script>
-/* Draggable column handles, ported from catalog.html (build-page.mjs): pointer drag or arrow keys, minimum widths, saved in localStorage. */
-(function(){var m=document.querySelector('.catb'),K='root-catalog-cols',w=[220,300];try{var v=JSON.parse(localStorage.getItem(K));if(v&&v.length===2)w=v}catch(e){}
-function fit(){var W=m.clientWidth,MIN=140,REST=280;if(!W)return;w[0]=Math.max(MIN,Math.min(w[0],W-MIN-REST));w[1]=Math.max(MIN,Math.min(w[1],W-w[0]-REST));m.style.setProperty('--w1',w[0]+'px');m.style.setProperty('--w2',w[1]+'px')}
-function save(){try{localStorage.setItem(K,JSON.stringify(w))}catch(e){}}
-['ch1','ch2'].forEach(function(id,i){var h=document.getElementById(id);
-h.addEventListener('pointerdown',function(e){e.preventDefault();h.setPointerCapture(e.pointerId);h.classList.add('drag');var b=document.body.style;b.cursor='col-resize';b.userSelect='none';
-function mv(ev){var x=ev.clientX-m.getBoundingClientRect().left;w[i]=i?x-w[0]:x;fit()}
-function up(){h.classList.remove('drag');b.cursor='';b.userSelect='';h.removeEventListener('pointermove',mv);h.removeEventListener('pointerup',up);h.removeEventListener('pointercancel',up);save()}
-h.addEventListener('pointermove',mv);h.addEventListener('pointerup',up);h.addEventListener('pointercancel',up)});
-h.addEventListener('keydown',function(e){if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();e.stopPropagation();w[i]+=e.key==='ArrowRight'?24:-24;fit();save()})});
-addEventListener('resize',fit);window.catFit=fit;fit()})();
+const loading=k=>{ensureCD().then(()=>{if(view.k===k)render();});return '<p class="cnote" style="padding:16px 20px">Loading the catalog…</p>';};
+const dbRow=(d,n)=>'<button class="row" data-s="'+esc(d.toLowerCase())+'" data-db="'+esc(d)+'"><span class="lb">'+esc(d)+'</span><span class="cn2">'+n+'</span>'+svg('r')+'</button>';
+function prodTables(p){const want=PDB[p.title];if(!want)return '';if(!CD)return '<p class="sec">Tables</p>'+loading('product');
+ const have=want.map(d=>[d,CD.filter(t=>t.database===d&&!isRaw(t)).length]).filter(([,n])=>n);return have.length?'<p class="sec">Tables</p>'+have.map(([d,n])=>dbRow(d,n)).join(''):'';}
+function dbsHTML(){if(!CD)return loading('dbs');return [...new Set(CD.map(t=>t.account))].map(a=>'<p class="sec">'+esc(a)+'</p>'+[...new Set(CD.filter(t=>t.account===a).map(t=>t.database))].map(d=>dbRow(d,CD.filter(t=>t.account===a&&t.database===d).length)).join('')).join('');}
+function dbHTML(db){if(!CD)return loading('db');const l=CD.map((t,i)=>[t,i]).filter(([t])=>t.database===db),one=l[0]&&l[0][0];
+ return '<div class="intro"><h2 style="font-size:22px;word-break:break-word">'+esc(db)+'</h2><p class="u2">'+esc(one?one.account:'')+' · '+l.length+' entries</p></div>'+
+  l.map(([t,i])=>'<button class="row" data-s="'+esc((t.table+' '+(t.about||'')).toLowerCase())+'" data-tb="'+i+'"><span class="lb">'+esc(t.table)+'</span><span class="cn2">'+(isRaw(t)?(t.gb!=null?t.gb+' GB':''):t.rows!=null?cmp(t.rows):'')+'</span>'+svg('r')+'</button>').join('');}
+function tableHTML(t){if(!t)return '';const raw=isRaw(t),live=!!window.CATALOG_LIVE&&t.account.startsWith('Old')&&!raw;
+ const meta=[t.account,raw?'raw: not yet a table':t.kind==='view'?'view':t.format,t.rows!=null?t.rows.toLocaleString('en-US')+' rows':'',raw&&t.gb!=null?t.gb+' GB':'',t.years,t.newest&&('newest row '+t.newest)].filter(Boolean).map(esc).join(' · ');
+ let h='<div class="intro"><h2 style="font-size:22px;line-height:1.15;word-break:break-word">'+esc(t.database+'.'+t.table)+'</h2><p class="u2" style="line-height:1.6">'+meta+'</p>'+(t.row_is?'<p>One row is '+esc(t.row_is)+'.</p>':'')+(t.about?'<p>'+esc(t.about)+'</p>':'')+'</div>';
+ if(raw){const fl=(t.first_files||[]).concat(t.top_folders||[]);return h+'<p class="sec">Files</p>'+fl.slice(0,50).map(x=>'<div class="frow" data-s="'+esc(x.toLowerCase())+'"><span class="fn">'+esc(x)+'</span></div>').join('');}
+ if(live)h+='<div class="qbtn"><button data-q2="first">First 100 rows</button><button data-q2="count">Count rows</button></div>';
+ h+='<p class="sec">Fields</p>'+(t.fields||[]).map(f=>'<div class="frow" data-s="'+esc((f.name+' '+(f.desc||'')).toLowerCase())+'"><span class="fn">'+esc(f.name)+'</span><span class="ft">'+esc(f.type||'')+'</span>'+(f.desc?'<span class="fd">'+esc(f.desc)+'</span>':'')+((f.samples||[])[0]?'<span class="fs">'+esc(f.samples[0])+'</span>':'')+'</div>').join('');
+ if(t.kind!=='view')h+='<p class="sec">Sample rows</p><div class="tg tg2" id="tg2"><p class="cnote" style="padding:0 12px">Loading…</p></div>';
+ h+=live?'<p class="sec">Run on full data</p><div class="qbox"><textarea id="sql2">SELECT * FROM "'+esc(t.database)+'"."'+esc(t.table)+'" LIMIT 100</textarea><div class="bar2"><button id="run2">Run</button><small id="qs2"></small></div><div class="tg tg2" id="qr2" hidden></div></div>'
+  :'<p class="cnote" style="padding:0 20px">'+(t.account.startsWith('Old')?'Full-data queries need local-config.js in the catalog folder.':'Full-data queries cover Old-account tables; this one is in '+esc(t.account)+'.')+'</p>';
+ return h;}
+const gridHTML=(c,r)=>'<table><tr>'+c.map(x=>'<th>'+esc(x)+'</th>').join('')+'</tr>'+r.map(row=>'<tr>'+row.map(v=>'<td title="'+esc(v)+'">'+esc(v)+'</td>').join('')+'</tr>').join('')+'</table>';
+async function opt2After(){if(view.k!=='table')return;const t=CD&&CD[view.i];if(!t||t.kind==='view'||isRaw(t))return;const nm=t.database+'.'+t.table;
+ if(!SAMPLES[nm])await loadJS(CATDIR+'samples/'+encodeURIComponent(nm)+'.js');const el=$('tg2');if(!el||CD[view.i]!==t)return;const S=SAMPLES[nm];
+ el.innerHTML=S?gridHTML(S.c,S.r.slice(0,200)):'<p class="cnote" style="padding:0 12px">No rows on disk for this table.</p>';sbFilter();}
+const qref=t=>'"'+t.database.replace(/"/g,'""')+'"."'+t.table.replace(/"/g,'""')+'"';
+function qQuick2(k){const t=CD[view.i];$('sql2').value=k==='count'?'SELECT count(*) AS row_count FROM '+qref(t):'SELECT * FROM '+qref(t)+' LIMIT 100';run2();}
+async function run2(){const L=window.CATALOG_LIVE;if(!L)return;$('qs2').textContent='running…';const out=$('qr2');out.hidden=true;
+ try{const r=await fetch(L.url,{method:'POST',headers:{'content-type':'application/json','x-catalog-secret':L.secret},body:JSON.stringify({sql:$('sql2').value})});const j=await r.json();
+  const meta=j.bytes_scanned!=null?(j.bytes_scanned/1e9).toFixed(3)+' GB scanned · $'+j.cost_usd:'';if(j.error){$('qs2').textContent=j.error+(meta?' · '+meta:'');return}
+  $('qs2').textContent=j.rows.length.toLocaleString('en-US')+' rows · '+meta+(j.seconds?' · '+j.seconds+' s':'');out.innerHTML=gridHTML(j.columns,j.rows);out.hidden=false;}catch(e){$('qs2').textContent='failed: '+e.message}}
+/* start loading the catalog the first time the panel opens */
+$('rbtn').addEventListener('click',()=>ensureCD());
 </script>
 
 </body></html>
