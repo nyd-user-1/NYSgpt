@@ -1,0 +1,1331 @@
+{
+ "api": "https://data.nysgpt.com",
+ "mcp": "https://data.nysgpt.com/mcp",
+ "totals": {
+  "rows": 52781238707,
+  "tables": 6396,
+  "fields": 250578
+ },
+ "datasets": [
+  {
+   "subject": "Labor",
+   "dataset": "Jobs by census block (LEHD)",
+   "publisher": "Census Bureau, Longitudinal Employer-Household Dynamics",
+   "description": "Home-to-work flows and job counts by census block, 2002 to 2024.",
+   "records": 15634277419,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/labor-jobs-by-census-block-lehd",
+   "largest_table": "govblock_labor.lodes_od"
+  },
+  {
+   "subject": "Labor",
+   "dataset": "Monthly jobs reports",
+   "publisher": "Bureau of Labor Statistics",
+   "description": "Payrolls by industry, state and metro; unemployment by county; job openings and turnover.",
+   "records": 34745711,
+   "tables": 40,
+   "page": "https://nysgpt.com/data/labor-monthly-jobs-reports",
+   "largest_table": "govblock_labor.bls_la_data"
+  },
+  {
+   "subject": "Labor",
+   "dataset": "Quarterly Census of Employment and Wages",
+   "publisher": "Bureau of Labor Statistics",
+   "description": "Establishments, employment and wages by county, industry and ownership, quarterly and annual, 1990 to 2025.",
+   "records": 502334106,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/labor-quarterly-census-of-employment-and-wages",
+   "largest_table": "govblock_labor.qcew_quarterly"
+  },
+  {
+   "subject": "Labor",
+   "dataset": "Occupational Employment and Wage Statistics",
+   "publisher": "Bureau of Labor Statistics",
+   "description": "Employment and wages by occupation, area and industry.",
+   "records": 8204200,
+   "tables": 32,
+   "page": "https://nysgpt.com/data/labor-occupational-employment-and-wage-statistics",
+   "largest_table": "govblock_labor.oes_all_data_m_sheet_a"
+  },
+  {
+   "subject": "Labor",
+   "dataset": "Price indexes",
+   "publisher": "Bureau of Labor Statistics",
+   "description": "Consumer price indexes, average prices and producer price indexes: series, observations and lookups.",
+   "records": 5681081,
+   "tables": 49,
+   "page": "https://nysgpt.com/data/labor-price-indexes",
+   "largest_table": "govblock_labor.bls_wp_data"
+  },
+  {
+   "subject": "Census and Geography",
+   "dataset": "Geographic relationship files",
+   "publisher": "Census Bureau",
+   "description": "Overlap between pairs of geographies in 2020, with shared area and population.",
+   "records": 26249462,
+   "tables": 65,
+   "page": "https://nysgpt.com/data/census-and-geography-geographic-relationship-files",
+   "largest_table": "govblock_census.rel2020_tab_tab"
+  },
+  {
+   "subject": "Census and Geography",
+   "dataset": "Population estimates",
+   "publisher": "Census Bureau",
+   "description": "Annual population estimates 2020 to 2025 by geography, age, sex, race and origin.",
+   "records": 6277270,
+   "tables": 30,
+   "page": "https://nysgpt.com/data/census-and-geography-population-estimates",
+   "largest_table": "govblock_census.popest_cc_est_syasex"
+  },
+  {
+   "subject": "Census and Geography",
+   "dataset": "Gazetteer",
+   "publisher": "Census Bureau",
+   "description": "Names, codes, areas and coordinates for each kind of place, 2026.",
+   "records": 374351,
+   "tables": 17,
+   "page": "https://nysgpt.com/data/census-and-geography-gazetteer",
+   "largest_table": "govblock_census.gazetteer_gaz_tracts"
+  },
+  {
+   "subject": "Census and Geography",
+   "dataset": "American Community Survey",
+   "publisher": "Census Bureau",
+   "description": "The 2024 one-year and five-year estimates for every table and geography, in long form.",
+   "records": 12715986570,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/census-and-geography-american-community-survey",
+   "largest_table": "govblock_census.acs5_2024"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "New York (NYISO)",
+   "publisher": "New York Independent System Operator",
+   "description": "Locational prices, loads, interface flows, fuel mix, ancillary services, limiting constraints and behind-the-meter solar.",
+   "records": 1606831811,
+   "tables": 54,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-new-york-nyiso",
+   "largest_table": "govblock_solar.nyiso_lmp_real_time_5_min_realtime_gen"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Texas (ERCOT)",
+   "publisher": "Electric Reliability Council of Texas",
+   "description": "Settlement point prices, 60-day disclosure reports, ancillary services, current operating plans and system conditions.",
+   "records": 977815637,
+   "tables": 675,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-texas-ercot",
+   "largest_table": "govblock_solar.ercot_lmp_by_bus_price_corrections_cdr_pricecorrection_rtm_eblmp_to_np"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "California (CAISO)",
+   "publisher": "California Independent System Operator",
+   "description": "Locational prices, loads, intertie flows, fuel mix, renewables and interconnection requests.",
+   "records": 25344097,
+   "tables": 125,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-california-caiso",
+   "largest_table": "govblock_solar.caiso_ir_rc_prices_cap_prc_grp_n_v"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "EIA bulk series",
+   "publisher": "U.S. Energy Information Administration",
+   "description": "Every published series for electricity, natural gas, petroleum, coal, total and state energy, international data and the outlooks.",
+   "records": 260647051,
+   "tables": 41,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-eia-bulk-series",
+   "largest_table": "govblock_energy.eia_eba_data"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "FERC electricity sales reports",
+   "publisher": "Federal Energy Regulatory Commission, through the PUDL project",
+   "description": "Electric Quarterly Reports from 2013: contracts and sellers held; 5.4 billion sales transactions queried in the publisher's own storage.",
+   "records": 5444070478,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-ferc-electricity-sales-reports",
+   "largest_table": "govblock_energy.ferceqr_transactions"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "FERC financial forms",
+   "publisher": "Federal Energy Regulatory Commission, through the PUDL project",
+   "description": "Annual reports of electric utilities, gas and oil pipelines and service companies, and hourly planning-area demand.",
+   "records": 82202777,
+   "tables": 1139,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-ferc-financial-forms",
+   "largest_table": "govblock_energy.ferc714_core_hourly_planning_area_demand"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Wind measurements and turbines",
+   "publisher": "U.S. Geological Survey; published research datasets",
+   "description": "Every utility-scale turbine in the United States, and open wind farm and turbine time series.",
+   "records": 581255070,
+   "tables": 53,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-wind-measurements-and-turbines",
+   "largest_table": "govblock_energy.wind_monash_with_missing_wind_farms_minutely_dataset_with_missing_values_tsf"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Open Energy Data Initiative",
+   "publisher": "Department of Energy",
+   "description": "Solar installations, technology cost baselines and the Puerto Rico grid study.",
+   "records": 9154580,
+   "tables": 59,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-open-energy-data-initiative",
+   "largest_table": "govblock_energy.oedi_tracking_the_sun"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "EIA plant, utility and operations surveys",
+   "publisher": "U.S. Energy Information Administration",
+   "description": "Generators and plants (Form 860, 2001 to 2025), utilities and sales (Form 861, 2012 to 2025), plant operations and fuel (Form 923, 2001 to 2025).",
+   "records": 4147182,
+   "tables": 294,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-eia-plant-utility-and-operations-surveys",
+   "largest_table": "govblock_energy.eia923_eia_schedules_m_final_revision_sheet_page_fuel_receipts_and_costs"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Energy map layers, utility rates and water use",
+   "publisher": "OpenEI; U.S. Geological Survey",
+   "description": "Utility rate schedules and water use by county, 2015.",
+   "records": 352580,
+   "tables": 25,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-energy-map-layers-utility-rates-and-water-use",
+   "largest_table": "govblock_siting.hifld_electric_power_transmission_lines"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "EIA hourly grid monitor",
+   "publisher": "U.S. Energy Information Administration",
+   "description": "Hourly demand, generation and interchange by balancing authority (Form EIA-930), with generator and plant extracts.",
+   "records": 41899050,
+   "tables": 104,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-eia-hourly-grid-monitor",
+   "largest_table": "govblock_solar.eia930_interchange"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Other grid operators",
+   "publisher": "SPP, MISO, IESO, ISO New England and AESO",
+   "description": "Sample and reference tables from five further operators.",
+   "records": 6754,
+   "tables": 143,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-other-grid-operators",
+   "largest_table": "govblock_solar.spp_west_interchange_real_time"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Utility rates and geography",
+   "publisher": "Utility Rate Database; U.S. Census Bureau",
+   "description": "Utility rate schedules by ZIP code and the ZIP code tabulation area to county relationship.",
+   "records": 534336,
+   "tables": 5,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-utility-rates-and-geography",
+   "largest_table": "govblock_solar.urdb_zip_rates"
+  },
+  {
+   "subject": "Electricity Grid and Energy",
+   "dataset": "Other tables",
+   "publisher": "",
+   "description": "Tables that support the application and fall outside the datasets above.",
+   "records": 3110493,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/electricity-grid-and-energy-other-tables",
+   "largest_table": "govblock_solar.submissions"
+  },
+  {
+   "subject": "Health",
+   "dataset": "PubMed",
+   "publisher": "National Library of Medicine",
+   "description": "Articles, authors, subject headings, chemicals, grants, references and deletions.",
+   "records": 1434816411,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/health-pubmed",
+   "largest_table": "govblock_health.pubmed_references"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Hospital and facility cost reports",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "Annual cost reports of hospitals, nursing facilities, home health agencies, hospices and clinics.",
+   "records": 1197483919,
+   "tables": 45,
+   "page": "https://nysgpt.com/data/health-hospital-and-facility-cost-reports",
+   "largest_table": "govblock_health.hcris_hosp10_nmrc"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Care Compare quality and staffing",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "Quality ratings, staffing and inspections for hospitals, nursing homes, dialysis, home health, hospice and clinicians.",
+   "records": 671039613,
+   "tables": 1073,
+   "page": "https://nysgpt.com/data/health-care-compare-quality-and-staffing",
+   "largest_table": "govblock_health.cc_dac_nationaldownloadablefile"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Medicare payments by provider",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "Payments and services by provider for physicians, prescribers, hospitals and equipment suppliers.",
+   "records": 486648010,
+   "tables": 16,
+   "page": "https://nysgpt.com/data/health-medicare-payments-by-provider",
+   "largest_table": "govblock_health.medicare_part_d_prescribers_by_provider_and_drug"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Medicaid drug utilization and prices",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "State drug utilization, pharmacy acquisition costs and enrollment.",
+   "records": 140556218,
+   "tables": 12,
+   "page": "https://nysgpt.com/data/health-medicaid-drug-utilization-and-prices",
+   "largest_table": "govblock_health.medicaid_sdud"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Open Payments",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "Payments from drug and device companies to physicians and hospitals, 2019 to 2025.",
+   "records": 95856832,
+   "tables": 5,
+   "page": "https://nysgpt.com/data/health-open-payments",
+   "largest_table": "govblock_health.op_general"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Health plans",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "Marketplace rates, benefits and networks; Medicare Advantage and Part D plans, enrollment and star ratings.",
+   "records": 86317043,
+   "tables": 127,
+   "page": "https://nysgpt.com/data/health-health-plans",
+   "largest_table": "govblock_health.marketplace_rate_puf"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Drug and device safety",
+   "publisher": "Food and Drug Administration",
+   "description": "Adverse events, recalls, labels, approvals and the drug code directory.",
+   "records": 56954479,
+   "tables": 31,
+   "page": "https://nysgpt.com/data/health-drug-and-device-safety",
+   "largest_table": "govblock_health.fda_device_event"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Provider enrollment and facilities",
+   "publisher": "Centers for Medicare and Medicaid Services",
+   "description": "Provider enrollment, ownership and the Provider of Services files.",
+   "records": 16980039,
+   "tables": 23,
+   "page": "https://nysgpt.com/data/health-provider-enrollment-and-facilities",
+   "largest_table": "govblock_health.cms_revalidation_reassignment_list"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Clinical trials",
+   "publisher": "National Library of Medicine",
+   "description": "Registered studies with their sites, sponsors, conditions, interventions and outcomes.",
+   "records": 11122493,
+   "tables": 6,
+   "page": "https://nysgpt.com/data/health-clinical-trials",
+   "largest_table": "govblock_health.ct_outcomes"
+  },
+  {
+   "subject": "Health",
+   "dataset": "Local health, health resources and hospital discharges",
+   "publisher": "CDC; HRSA; New York State Department of Health",
+   "description": "Local health estimates, shortage areas and health centers, and New York inpatient discharges.",
+   "records": 49471331,
+   "tables": 280,
+   "page": "https://nysgpt.com/data/health-local-health-health-resources-and-hospital-discharges",
+   "largest_table": "govblock_health.ny_sparcs_inpatient_discharges"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "PatentsView, granted patents",
+   "publisher": "USPTO PatentsView",
+   "description": "Granted patents from 1976: patents, abstracts, inventors, assignees, attorneys, examiners, locations, classifications and citations.",
+   "records": 820843952,
+   "tables": 41,
+   "page": "https://nysgpt.com/data/patents-patentsview-granted-patents",
+   "largest_table": "govblock_patents.pv_g_us_patent_citation"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "PatentsView, pre-grant publications",
+   "publisher": "USPTO PatentsView",
+   "description": "Published applications from 2001: applications, abstracts, inventors, assignees, locations, classifications and the crosswalk to grants.",
+   "records": 393703733,
+   "tables": 30,
+   "page": "https://nysgpt.com/data/patents-patentsview-pre-grant-publications",
+   "largest_table": "govblock_patents.pv_pg_cpc_current"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Patent Examination Research Dataset",
+   "publisher": "USPTO Office of the Chief Economist",
+   "description": "Application data, every prosecution transaction, attorneys and agents, continuity, foreign priority and patent term adjustment.",
+   "records": 997674083,
+   "tables": 15,
+   "page": "https://nysgpt.com/data/patents-patent-examination-research-dataset",
+   "largest_table": "govblock_patents.patex_transactions_25"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Claims",
+   "publisher": "USPTO Office of the Chief Economist",
+   "description": "The text of every claim in grants and pre-grant publications, with per-claim and per-document statistics.",
+   "records": 324683830,
+   "tables": 6,
+   "page": "https://nysgpt.com/data/patents-claims",
+   "largest_table": "govblock_patents.claims_pgpub_fulltext"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Full text",
+   "publisher": "USPTO bulk data",
+   "description": "Full text of grants and of published applications, one row per document.",
+   "records": 19217434,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/patents-full-text",
+   "largest_table": "govblock_patents.fulltext_grants"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Classification master files",
+   "publisher": "USPTO bulk data",
+   "description": "Cooperative Patent Classification assignments for grants and pre-grant publications.",
+   "records": 142061542,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/patents-classification-master-files",
+   "largest_table": "govblock_patents.cpc_master_pgpub"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Office actions",
+   "publisher": "USPTO Office of the Chief Economist and USPTO bulk data",
+   "description": "Office actions, rejections by statutory basis, and the references examiners cited.",
+   "records": 86542008,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/patents-office-actions",
+   "largest_table": "govblock_patents.oa_research_citations"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Assignments",
+   "publisher": "USPTO assignment records",
+   "description": "Recorded transfers of ownership: assignments, conveyance types, assignors, assignees and the documents each covers.",
+   "records": 136028070,
+   "tables": 8,
+   "page": "https://nysgpt.com/data/patents-assignments",
+   "largest_table": "govblock_patents.assign_assignor"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "File wrapper",
+   "publisher": "USPTO Open Data Portal",
+   "description": "Application file wrapper records and their updates.",
+   "records": 14078396,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/patents-file-wrapper",
+   "largest_table": "govblock_patents.filewrapper"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Maintenance fees",
+   "publisher": "USPTO bulk data",
+   "description": "Maintenance fee events for granted patents, with the event code list.",
+   "records": 27600809,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/patents-maintenance-fees",
+   "largest_table": "govblock_patents.maint_fee_events"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Litigation",
+   "publisher": "USPTO Office of the Chief Economist",
+   "description": "District court patent cases: cases, documents, parties, attorneys and the patents asserted.",
+   "records": 12702003,
+   "tables": 6,
+   "page": "https://nysgpt.com/data/patents-litigation",
+   "largest_table": "govblock_patents.litig_documents"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Artificial intelligence patent dataset",
+   "publisher": "USPTO Office of the Chief Economist",
+   "description": "Model predictions of which patents contain artificial intelligence, by component technology, with the training seed groups.",
+   "records": 61811714,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/patents-artificial-intelligence-patent-dataset",
+   "largest_table": "govblock_patents.aipd_ai_model_predictions"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Historical masterfile",
+   "publisher": "USPTO Office of the Chief Economist",
+   "description": "Historical patent data back to the nineteenth century: master file, classes, subclasses and annual and monthly counts.",
+   "records": 18629586,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/patents-historical-masterfile",
+   "largest_table": "govblock_patents.hist_masterfile"
+  },
+  {
+   "subject": "Patents",
+   "dataset": "Cancer Moonshot patents",
+   "publisher": "USPTO",
+   "description": "Patents and applications identified as cancer research under the Cancer Moonshot.",
+   "records": 269353,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/patents-cancer-moonshot-patents",
+   "largest_table": "govblock_patents.moonshot_cancer"
+  },
+  {
+   "subject": "Federal Spending",
+   "dataset": "USAspending database",
+   "publisher": "U.S. Department of the Treasury, Bureau of the Fiscal Service",
+   "description": "The full database archive of 6 November 2026: transactions, awards, sub-awards, recipients, account balances and lookups.",
+   "records": 1230720361,
+   "tables": 79,
+   "page": "https://nysgpt.com/data/federal-spending-usaspending-database",
+   "largest_table": "govblock_awards.usaspending_db_public_financial_accounts_by_awards"
+  },
+  {
+   "subject": "Federal Spending",
+   "dataset": "USAspending database, publisher's subset",
+   "publisher": "U.S. Department of the Treasury, Bureau of the Fiscal Service",
+   "description": "The publisher's reduced copy of the same database, with the same tables.",
+   "records": 105555609,
+   "tables": 79,
+   "page": "https://nysgpt.com/data/federal-spending-usaspending-database-publisher-s-subset",
+   "largest_table": "govblock_awards.usaspending_db_subset_public_financial_accounts_by_awards"
+  },
+  {
+   "subject": "Federal Spending",
+   "dataset": "Award files by fiscal year",
+   "publisher": "U.S. Department of the Treasury, Bureau of the Fiscal Service",
+   "description": "Contract transactions and assistance transactions for all agencies, fiscal years 2007 to 2026.",
+   "records": 227856821,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/federal-spending-award-files-by-fiscal-year",
+   "largest_table": "govblock_awards.usaspending_assistance"
+  },
+  {
+   "subject": "Federal Spending",
+   "dataset": "Contract opportunities",
+   "publisher": "General Services Administration, SAM.gov",
+   "description": "Contract opportunity notices: the current file and every fiscal-year archive.",
+   "records": 8303778,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/federal-spending-contract-opportunities",
+   "largest_table": "govblock_awards.sam_opportunities"
+  },
+  {
+   "subject": "Federal Spending",
+   "dataset": "Grant opportunities",
+   "publisher": "Grants.gov",
+   "description": "Open and forecast federal funding opportunities.",
+   "records": 83704,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/federal-spending-grant-opportunities",
+   "largest_table": "govblock_awards.grantsgov_opportunity_synopsis"
+  },
+  {
+   "subject": "Federal Spending",
+   "dataset": "Budget justifications",
+   "publisher": "USAspending",
+   "description": "Index of agency congressional budget justification documents.",
+   "records": 283,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/federal-spending-budget-justifications",
+   "largest_table": "govblock_awards.budget_justifications"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Financial Statement and Notes data sets",
+   "publisher": "SEC Division of Economic and Risk Analysis",
+   "description": "Numeric values, text blocks, presentation, calculation and dimension data from XBRL financial statements and notes, from 2009.",
+   "records": 869131187,
+   "tables": 8,
+   "page": "https://nysgpt.com/data/company-filings-financial-statement-and-notes-data-sets",
+   "largest_table": "govblock_sec.sec_fsnds_num"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Financial Statement Data Sets",
+   "publisher": "SEC Division of Economic and Risk Analysis",
+   "description": "Numeric values, presentation lines, tags and submissions from XBRL financial statements, from 2009.",
+   "records": 240782169,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/company-filings-financial-statement-data-sets",
+   "largest_table": "govblock_sec.sec_fsds_num"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Company facts",
+   "publisher": "SEC EDGAR",
+   "description": "Every reported XBRL value by company, concept and period.",
+   "records": 126857664,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/company-filings-company-facts",
+   "largest_table": "govblock_sec.companyfacts"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Institutional holdings (Form 13F)",
+   "publisher": "SEC",
+   "description": "Holdings of institutional investment managers by security, with cover pages and other managers, from 2013.",
+   "records": 125937801,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/company-filings-institutional-holdings-form-13f",
+   "largest_table": "govblock_sec.sec_13f_infotable"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Insider transactions (Forms 3, 4, 5)",
+   "publisher": "SEC",
+   "description": "Holdings and transactions of officers, directors and large owners, with reporting owners and footnotes, from 2006.",
+   "records": 37937561,
+   "tables": 8,
+   "page": "https://nysgpt.com/data/company-filings-insider-transactions-forms-3-4-5",
+   "largest_table": "govblock_sec.sec_insider_footnotes"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Filing index and company histories",
+   "publisher": "SEC EDGAR",
+   "description": "The index of every filing from 1993 and each company's filing history.",
+   "records": 57058340,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/company-filings-filing-index-and-company-histories",
+   "largest_table": "govblock_sec.edgar_index_master"
+  },
+  {
+   "subject": "Company Filings",
+   "dataset": "Filing text",
+   "publisher": "SEC EDGAR daily feed",
+   "description": "The documents of each filing in the daily feed, one row per document.",
+   "records": 8357643,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/company-filings-filing-text",
+   "largest_table": "govblock_sec.filing_documents"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Power plant emissions",
+   "publisher": "Environmental Protection Agency, Clean Air Markets",
+   "description": "Hourly emissions, heat input and generation by unit, 1995 to 2025, with facility attributes.",
+   "records": 1001329273,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/environment-power-plant-emissions",
+   "largest_table": "govblock_environment.campd_emissions_hourly"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Drinking water",
+   "publisher": "Environmental Protection Agency",
+   "description": "Public water systems, violations, enforcement and site visits under the Safe Drinking Water Act.",
+   "records": 22834127,
+   "tables": 11,
+   "page": "https://nysgpt.com/data/environment-drinking-water",
+   "largest_table": "govblock_environment.echo_sdwa_violations_enforcement"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Water discharge permits",
+   "publisher": "Environmental Protection Agency",
+   "description": "Discharge permits, limits, inspections, violations and enforcement under the Clean Water Act.",
+   "records": 20695345,
+   "tables": 13,
+   "page": "https://nysgpt.com/data/environment-water-discharge-permits",
+   "largest_table": "govblock_environment.echo_npdes_qncr_history"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Facility registry",
+   "publisher": "Environmental Protection Agency",
+   "description": "Facilities and their identifiers across programmes.",
+   "records": 11211863,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/environment-facility-registry",
+   "largest_table": "govblock_environment.echo_frs_program_links"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Inspections and enforcement actions",
+   "publisher": "Environmental Protection Agency",
+   "description": "Federal inspections and enforcement actions across programmes.",
+   "records": 10851944,
+   "tables": 13,
+   "page": "https://nysgpt.com/data/environment-inspections-and-enforcement-actions",
+   "largest_table": "govblock_environment.echo_icis_air_titlev_certs"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Hazardous waste",
+   "publisher": "Environmental Protection Agency",
+   "description": "Hazardous waste facilities, evaluations, violations and enforcement.",
+   "records": 7031834,
+   "tables": 6,
+   "page": "https://nysgpt.com/data/environment-hazardous-waste",
+   "largest_table": "govblock_environment.echo_rcra_viosnc_history"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Enforcement cases",
+   "publisher": "Environmental Protection Agency",
+   "description": "Civil enforcement cases: defendants, facilities, penalties, milestones and laws cited.",
+   "records": 3058427,
+   "tables": 20,
+   "page": "https://nysgpt.com/data/environment-enforcement-cases",
+   "largest_table": "govblock_environment.echo_case_milestones"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Toxics Release Inventory",
+   "publisher": "Environmental Protection Agency",
+   "description": "Releases and transfers of listed chemicals by facility and year.",
+   "records": 3218093,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/environment-toxics-release-inventory",
+   "largest_table": "govblock_environment.tri_basic"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Greenhouse Gas Reporting Program",
+   "publisher": "Environmental Protection Agency",
+   "description": "Reported greenhouse gas emissions by facility.",
+   "records": 878725,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/environment-greenhouse-gas-reporting-program",
+   "largest_table": "govblock_environment.ghg_facts_subp_ghg_emission"
+  },
+  {
+   "subject": "Environment",
+   "dataset": "Facility summaries",
+   "publisher": "Environmental Protection Agency",
+   "description": "One row per facility with its compliance summary.",
+   "records": 3259109,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/environment-facility-summaries",
+   "largest_table": "govblock_environment.echo_echo_exporter"
+  },
+  {
+   "subject": "Federal Campaign Finance",
+   "dataset": "Bulk files",
+   "publisher": "Federal Election Commission",
+   "description": "Individual contributions, committee transactions, contributions to candidates, operating expenditures, candidates, committees and their links, 1980 to 2026.",
+   "records": 79547675,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/federal-campaign-finance-bulk-files",
+   "largest_table": "govblock_fec.committee_transactions"
+  },
+  {
+   "subject": "Federal Campaign Finance",
+   "dataset": "Presidential contribution files",
+   "publisher": "Federal Election Commission",
+   "description": "Contributions to presidential candidates by contributor, state, ZIP code and size.",
+   "records": 27119,
+   "tables": 5,
+   "page": "https://nysgpt.com/data/federal-campaign-finance-presidential-contribution-files",
+   "largest_table": "govblock_fec.presidential_map_contributions_by_zip"
+  },
+  {
+   "subject": "Federal Campaign Finance",
+   "dataset": "Candidate disbursements",
+   "publisher": "Federal Election Commission",
+   "description": "Itemised spending by candidate committees.",
+   "records": 43540007,
+   "tables": 9,
+   "page": "https://nysgpt.com/data/federal-campaign-finance-candidate-disbursements",
+   "largest_table": "govblock_fec.candidate_disbursement_2012"
+  },
+  {
+   "subject": "Federal Campaign Finance",
+   "dataset": "Other tables",
+   "publisher": "",
+   "description": "Tables that support the application and fall outside the datasets above.",
+   "records": 31835,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/federal-campaign-finance-other-tables",
+   "largest_table": "govblock_fec.data_fec_gov"
+  },
+  {
+   "subject": "Scholarly Works",
+   "dataset": "Department of Energy research records",
+   "publisher": "Office of Scientific and Technical Information (Department of Energy)",
+   "description": "Metadata for research reports, articles and datasets from Department of Energy funded work.",
+   "records": 5042592,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/scholarly-works-department-of-energy-research-records",
+   "largest_table": "govblock_research.osti_records"
+  },
+  {
+   "subject": "Scholarly Works",
+   "dataset": "OpenAlex",
+   "publisher": "OpenAlex",
+   "description": "Works, authors, awards, sources, institutions, funders, publishers, topics, concepts and reference lists.",
+   "records": 586176148,
+   "tables": 21,
+   "page": "https://nysgpt.com/data/scholarly-works-openalex",
+   "largest_table": "govblock_scholarly.openalex_works"
+  },
+  {
+   "subject": "Trade",
+   "dataset": "Monthly merchandise trade",
+   "publisher": "Census Bureau",
+   "description": "Imports and exports by commodity, country, district and port, 2013 to 2026.",
+   "records": 460350056,
+   "tables": 23,
+   "page": "https://nysgpt.com/data/trade-monthly-merchandise-trade",
+   "largest_table": "govblock_trade.census_imp_detl"
+  },
+  {
+   "subject": "Trademarks",
+   "dataset": "Applications, 2025 files",
+   "publisher": "USPTO bulk data",
+   "description": "One row per application record in the 2025 annual files.",
+   "records": 14427477,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/trademarks-applications-2025-files",
+   "largest_table": "govblock_trademarks.tm_applications"
+  },
+  {
+   "subject": "Trademarks",
+   "dataset": "Assignments",
+   "publisher": "USPTO bulk data",
+   "description": "Recorded transfers of trademark ownership.",
+   "records": 1559181,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/trademarks-assignments",
+   "largest_table": "govblock_trademarks.tm_assignments"
+  },
+  {
+   "subject": "Trademarks",
+   "dataset": "Trial and appeal board proceedings",
+   "publisher": "USPTO bulk data",
+   "description": "Opposition, cancellation and appeal proceedings.",
+   "records": 675015,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/trademarks-trial-and-appeal-board-proceedings",
+   "largest_table": "govblock_trademarks.tm_ttab_proceedings"
+  },
+  {
+   "subject": "Trademarks",
+   "dataset": "Trademark case files",
+   "publisher": "USPTO Office of the Chief Economist",
+   "description": "Cases, owners, classifications, statements, design codes, events, prior registrations, foreign and Madrid filings.",
+   "records": 384366863,
+   "tables": 17,
+   "page": "https://nysgpt.com/data/trademarks-trademark-case-files",
+   "largest_table": "govblock_trademarks.tm_event"
+  },
+  {
+   "subject": "Elections",
+   "dataset": "Precinct returns",
+   "publisher": "MIT Election Data and Science Lab; OpenElections; Voting and Election Science Team; local election offices",
+   "description": "Votes by precinct, office and candidate, 2016 to 2026.",
+   "records": 268960920,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/elections-precinct-returns",
+   "largest_table": "govblock_elections.medsl_precinct_returns"
+  },
+  {
+   "subject": "Elections",
+   "dataset": "Ranked-choice ballots",
+   "publisher": "Election offices that publish cast vote records",
+   "description": "Cast ballots with each voter's ranking, by contest.",
+   "records": 46517703,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/elections-ranked-choice-ballots",
+   "largest_table": "govblock_elections.rcv_ballots"
+  },
+  {
+   "subject": "Elections",
+   "dataset": "Historical returns",
+   "publisher": "MIT Election Data and Science Lab; Carl Klarner",
+   "description": "County presidential returns from 2000, House and Senate returns from 1976, and state legislative returns from 1967.",
+   "records": 555618,
+   "tables": 5,
+   "page": "https://nysgpt.com/data/elections-historical-returns",
+   "largest_table": "govblock_elections.klarner_state_legislative_returns"
+  },
+  {
+   "subject": "Elections",
+   "dataset": "Citizen voting-age population",
+   "publisher": "U.S. Census Bureau",
+   "description": "Citizen voting-age population by race and ethnicity at each geography from nation to block group.",
+   "records": 4973956,
+   "tables": 10,
+   "page": "https://nysgpt.com/data/elections-citizen-voting-age-population",
+   "largest_table": "govblock_elections.cvap_blockgr"
+  },
+  {
+   "subject": "Mortgage Lending and Banks",
+   "dataset": "Home Mortgage Disclosure Act",
+   "publisher": "Consumer Financial Protection Bureau; Federal Financial Institutions Examination Council",
+   "description": "Loan application records, transmittal sheets and the reporter panel, 2007 to 2024.",
+   "records": 311661430,
+   "tables": 6,
+   "page": "https://nysgpt.com/data/mortgage-lending-and-banks-home-mortgage-disclosure-act",
+   "largest_table": "govblock_finance.hmda_lar_2007_2017"
+  },
+  {
+   "subject": "Mortgage Lending and Banks",
+   "dataset": "Bank financial summaries",
+   "publisher": "Federal Deposit Insurance Corporation",
+   "description": "Quarterly financial summaries by bank from 1984 to 2026, and institutions.",
+   "records": 1710451,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/mortgage-lending-and-banks-bank-financial-summaries",
+   "largest_table": "govblock_finance.fdic_financials"
+  },
+  {
+   "subject": "Consumer Protection and Communications",
+   "dataset": "Licences and applications",
+   "publisher": "Federal Communications Commission",
+   "description": "The Universal Licensing System complete files.",
+   "records": 304221339,
+   "tables": 115,
+   "page": "https://nysgpt.com/data/consumer-protection-and-communications-licences-and-applications",
+   "largest_table": "govblock_consumer.fcc_uls_a_hs"
+  },
+  {
+   "subject": "Consumer Protection and Communications",
+   "dataset": "Complaints and recalls",
+   "publisher": "FCC; FTC; CPSC",
+   "description": "Consumer complaints, do-not-call complaints and product recalls.",
+   "records": 3802368,
+   "tables": 3,
+   "page": "https://nysgpt.com/data/consumer-protection-and-communications-complaints-and-recalls",
+   "largest_table": "govblock_consumer.fcc_consumer_complaints"
+  },
+  {
+   "subject": "Nonprofits and Benefit Plans",
+   "dataset": "Employee benefit plans (Form 5500)",
+   "publisher": "U.S. Department of Labor, Employee Benefits Security Administration",
+   "description": "Annual returns of employee benefit plans with all schedules and column layouts, plan years 1999 to 2025.",
+   "records": 196960029,
+   "tables": 94,
+   "page": "https://nysgpt.com/data/nonprofits-and-benefit-plans-employee-benefit-plans-form-5500",
+   "largest_table": "govblock_nonprofits.dol_f_sch_d_part2"
+  },
+  {
+   "subject": "Nonprofits and Benefit Plans",
+   "dataset": "Exempt organisations",
+   "publisher": "Internal Revenue Service",
+   "description": "Business Master File, Publication 78, revocations, Form 990-N, the Form 990 e-file index and returns, and Statistics of Income extracts.",
+   "records": 23466116,
+   "tables": 9,
+   "page": "https://nysgpt.com/data/nonprofits-and-benefit-plans-exempt-organisations",
+   "largest_table": "govblock_nonprofits.irs_990_index"
+  },
+  {
+   "subject": "Nonprofits and Benefit Plans",
+   "dataset": "Political organisations (Forms 8871 and 8872)",
+   "publisher": "Internal Revenue Service",
+   "description": "Section 527 organisations: notices, directors, related entities, and itemised contributions and expenditures.",
+   "records": 18876481,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/nonprofits-and-benefit-plans-political-organisations-forms-8871-and-8872",
+   "largest_table": "govblock_nonprofits.pol_org_8872_contributions"
+  },
+  {
+   "subject": "Courts",
+   "dataset": "Opinions and citations",
+   "publisher": "Free Law Project",
+   "description": "Opinion text, opinion clusters, the citation map between opinions, citations, and parentheticals.",
+   "records": 142846114,
+   "tables": 8,
+   "page": "https://nysgpt.com/data/courts-opinions-and-citations",
+   "largest_table": "govblock_courts.citation_map"
+  },
+  {
+   "subject": "Courts",
+   "dataset": "Dockets",
+   "publisher": "Free Law Project",
+   "description": "Federal dockets and originating court information.",
+   "records": 74059177,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/courts-dockets",
+   "largest_table": "govblock_courts.dockets"
+  },
+  {
+   "subject": "Courts",
+   "dataset": "Judges and financial disclosures",
+   "publisher": "Free Law Project",
+   "description": "Judges, positions, education, affiliations, and their annual financial disclosures.",
+   "records": 2172167,
+   "tables": 16,
+   "page": "https://nysgpt.com/data/courts-judges-and-financial-disclosures",
+   "largest_table": "govblock_courts.financial_disclosure_investments"
+  },
+  {
+   "subject": "Courts",
+   "dataset": "Courts and oral arguments",
+   "publisher": "Free Law Project",
+   "description": "Courts, courthouses, appeal routes and oral argument recordings.",
+   "records": 110440,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/courts-courts-and-oral-arguments",
+   "largest_table": "govblock_courts.oral_arguments"
+  },
+  {
+   "subject": "Courts",
+   "dataset": "Federal cases integrated database",
+   "publisher": "Federal Judicial Center",
+   "description": "One row per federal case from the Integrated Database.",
+   "records": 10323280,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/courts-federal-cases-integrated-database",
+   "largest_table": "govblock_courts.fjc_integrated_database"
+  },
+  {
+   "subject": "Legislation and Law",
+   "dataset": "Statute text",
+   "publisher": "State and federal codes",
+   "description": "Sections of statute with their citations and text.",
+   "records": 10163418,
+   "tables": 3,
+   "page": "https://nysgpt.com/data/legislation-and-law-statute-text",
+   "largest_table": "govblock_law.law_combined"
+  },
+  {
+   "subject": "Legislation and Law",
+   "dataset": "Districts, members and polls",
+   "publisher": "Census Bureau; legislatures; published polls",
+   "description": "Legislative districts and their members, published poll results and a forms reference list.",
+   "records": 42594,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/legislation-and-law-districts-members-and-polls",
+   "largest_table": "govblock_geo.legislative_districts"
+  },
+  {
+   "subject": "Education",
+   "dataset": "Common Core of Data",
+   "publisher": "National Center for Education Statistics",
+   "description": "Public schools and districts: directory, enrolment, staff, and district finances, by school year.",
+   "records": 109940020,
+   "tables": 200,
+   "page": "https://nysgpt.com/data/education-common-core-of-data",
+   "largest_table": "govblock_education.ccd_sch_052"
+  },
+  {
+   "subject": "Education",
+   "dataset": "Integrated Postsecondary Education Data System",
+   "publisher": "National Center for Education Statistics",
+   "description": "Colleges and universities: characteristics, enrolment, completions, finances, staff and student aid, every year.",
+   "records": 46028794,
+   "tables": 192,
+   "page": "https://nysgpt.com/data/education-integrated-postsecondary-education-data-system",
+   "largest_table": "govblock_education.ipeds_eap"
+  },
+  {
+   "subject": "Education",
+   "dataset": "College Scorecard",
+   "publisher": "Department of Education",
+   "description": "Outcomes, costs and debt by institution and by field of study.",
+   "records": 2501781,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/education-college-scorecard",
+   "largest_table": "govblock_education.scorecard_field_of_study_by_year"
+  },
+  {
+   "subject": "Reference and Linking Tables",
+   "dataset": "Organizations",
+   "publisher": "Linked by exact identifier",
+   "description": "Organization identifiers, the links between them, and one row per organization.",
+   "records": 30492513,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/reference-and-linking-tables-organizations",
+   "largest_table": "govblock_linked.organization_identifiers"
+  },
+  {
+   "subject": "Reference and Linking Tables",
+   "dataset": "Providers",
+   "publisher": "Linked by National Provider Identifier",
+   "description": "Provider identifiers and one row per provider.",
+   "records": 30363328,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/reference-and-linking-tables-providers",
+   "largest_table": "govblock_linked.provider_identifiers"
+  },
+  {
+   "subject": "Reference and Linking Tables",
+   "dataset": "Places",
+   "publisher": "Census Bureau relationship files",
+   "description": "ZIP areas to counties, tracts and districts; one row per county.",
+   "records": 9119872,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/reference-and-linking-tables-places",
+   "largest_table": "govblock_linked.place_zip"
+  },
+  {
+   "subject": "Reference and Linking Tables",
+   "dataset": "Catalog statistics, forms and schedules",
+   "publisher": "Computed from the tables held",
+   "description": "Field statistics, year coverage, government forms and their text, and the update registry.",
+   "records": 582005,
+   "tables": 11,
+   "page": "https://nysgpt.com/data/reference-and-linking-tables-catalog-statistics-forms-and-schedules",
+   "largest_table": "govblock_reference.forms"
+  },
+  {
+   "subject": "Vehicle Safety",
+   "dataset": "Fatal crashes (FARS)",
+   "publisher": "National Highway Traffic Safety Administration",
+   "description": "Crashes, vehicles, persons and events for every fatal crash, 1975 to 2024.",
+   "records": 32490059,
+   "tables": 35,
+   "page": "https://nysgpt.com/data/vehicle-safety-fatal-crashes-fars",
+   "largest_table": "govblock_vehicles.fars_person"
+  },
+  {
+   "subject": "Vehicle Safety",
+   "dataset": "Crash samples (CRSS and GES)",
+   "publisher": "National Highway Traffic Safety Administration",
+   "description": "Nationally representative samples of police-reported crashes, 2015 to 2024.",
+   "records": 17390316,
+   "tables": 52,
+   "page": "https://nysgpt.com/data/vehicle-safety-crash-samples-crss-and-ges",
+   "largest_table": "govblock_vehicles.crss_damage"
+  },
+  {
+   "subject": "Vehicle Safety",
+   "dataset": "Complaints, recalls and investigations",
+   "publisher": "National Highway Traffic Safety Administration",
+   "description": "Owner complaints, recalls, defect investigations and technical service bulletins.",
+   "records": 7815812,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/vehicle-safety-complaints-recalls-and-investigations",
+   "largest_table": "govblock_vehicles.nhtsa_service_bulletins"
+  },
+  {
+   "subject": "Housing",
+   "dataset": "Fair market rents and income limits",
+   "publisher": "Department of Housing and Urban Development",
+   "description": "Rents and income limits by area and year.",
+   "records": 11067212,
+   "tables": 76,
+   "page": "https://nysgpt.com/data/housing-fair-market-rents-and-income-limits",
+   "largest_table": "govblock_housing.hud_fmr_asq_zctadata_thru_sheet_asq_zcta_to"
+  },
+  {
+   "subject": "Housing",
+   "dataset": "Housing need and subsidized households",
+   "publisher": "Department of Housing and Urban Development",
+   "description": "Housing need by tract, and subsidized households by project, authority and place.",
+   "records": 17206504,
+   "tables": 30,
+   "page": "https://nysgpt.com/data/housing-housing-need-and-subsidized-households",
+   "largest_table": "govblock_housing.hud_chas_table"
+  },
+  {
+   "subject": "Tax Statistics",
+   "dataset": "Income by ZIP code",
+   "publisher": "Internal Revenue Service",
+   "description": "Returns and amounts by ZIP code and income class.",
+   "records": 7068346,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/tax-statistics-income-by-zip-code",
+   "largest_table": "govblock_tax.soi_zip_zipcode"
+  },
+  {
+   "subject": "Tax Statistics",
+   "dataset": "Income by county",
+   "publisher": "Internal Revenue Service",
+   "description": "Returns and amounts by county and income class.",
+   "records": 1031591,
+   "tables": 9,
+   "page": "https://nysgpt.com/data/tax-statistics-income-by-county",
+   "largest_table": "govblock_tax.soi_county_county"
+  },
+  {
+   "subject": "Tax Statistics",
+   "dataset": "Migration",
+   "publisher": "Internal Revenue Service",
+   "description": "County-to-county and state-to-state flows of returns, exemptions and income.",
+   "records": 8960983,
+   "tables": 9,
+   "page": "https://nysgpt.com/data/tax-statistics-migration",
+   "largest_table": "govblock_tax.soi_migration_spreadsheets"
+  },
+  {
+   "subject": "Executive Branch",
+   "dataset": "Regulatory and paperwork review",
+   "publisher": "Office of Information and Regulatory Affairs",
+   "description": "Reviews of rules since 1981, the Unified Agenda since 1995, and information collection inventories.",
+   "records": 303505,
+   "tables": 8,
+   "page": "https://nysgpt.com/data/executive-branch-regulatory-and-paperwork-review",
+   "largest_table": "govblock_executive.oira_unified_agenda"
+  },
+  {
+   "subject": "Executive Branch",
+   "dataset": "Single audits",
+   "publisher": "Federal Audit Clearinghouse",
+   "description": "Audits of organizations spending federal awards, 2016 to 2026, with findings and awards.",
+   "records": 14122323,
+   "tables": 10,
+   "page": "https://nysgpt.com/data/executive-branch-single-audits",
+   "largest_table": "govblock_executive.fac_federal_awards"
+  },
+  {
+   "subject": "Executive Branch",
+   "dataset": "Presidential and agency documents",
+   "publisher": "Government Publishing Office",
+   "description": "Public Papers of the Presidents, the Government Manual and Privacy Act issuances.",
+   "records": 149,
+   "tables": 3,
+   "page": "https://nysgpt.com/data/executive-branch-presidential-and-agency-documents",
+   "largest_table": "govblock_executive.govinfo_government_manual"
+  },
+  {
+   "subject": "Executive Branch",
+   "dataset": "Budget",
+   "publisher": "Office of Management and Budget",
+   "description": "Public Budget Database and Historical Tables, fiscal year 2027.",
+   "records": 15921,
+   "tables": 60,
+   "page": "https://nysgpt.com/data/executive-branch-budget",
+   "largest_table": "govblock_executive.omb_budget_db_2_sheet"
+  },
+  {
+   "subject": "Treasury Fiscal Data",
+   "dataset": "Fiscal Data",
+   "publisher": "U.S. Department of the Treasury, Bureau of the Fiscal Service",
+   "description": "Debt, daily and monthly Treasury statements, interest rates, auctions, savings bonds, trust funds and collections.",
+   "records": 13542218,
+   "tables": 181,
+   "page": "https://nysgpt.com/data/treasury-fiscal-data-fiscal-data",
+   "largest_table": "govblock_treasury.treasury_offset_program"
+  },
+  {
+   "subject": "Research Grants",
+   "dataset": "National Institutes of Health",
+   "publisher": "National Institutes of Health",
+   "description": "Projects, abstracts, publications and project funding, all fiscal years.",
+   "records": 9400470,
+   "tables": 4,
+   "page": "https://nysgpt.com/data/research-grants-national-institutes-of-health",
+   "largest_table": "govblock_grants.nih_publications"
+  },
+  {
+   "subject": "Research Grants",
+   "dataset": "National Science Foundation",
+   "publisher": "National Science Foundation",
+   "description": "Awards by year, 1959 to 2024.",
+   "records": 483431,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/research-grants-national-science-foundation",
+   "largest_table": "govblock_grants.nsf_awards"
+  },
+  {
+   "subject": "Federal Regulations",
+   "dataset": "Code of Federal Regulations, annual editions",
+   "publisher": "Government Publishing Office",
+   "description": "Every section of every annual edition, 1996 to 2026, with text.",
+   "records": 6174669,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/federal-regulations-code-of-federal-regulations-annual-editions",
+   "largest_table": "govblock_regulations.cfr_annual_sections"
+  },
+  {
+   "subject": "Federal Regulations",
+   "dataset": "Federal Register",
+   "publisher": "Office of the Federal Register",
+   "description": "Rules, proposed rules, notices and presidential documents, 2000 to 2026, with text.",
+   "records": 806995,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/federal-regulations-federal-register",
+   "largest_table": "govblock_regulations.federal_register_documents"
+  },
+  {
+   "subject": "Federal Regulations",
+   "dataset": "Rulemaking dockets and documents",
+   "publisher": "Regulations.gov",
+   "description": "Every rulemaking docket, and documents through August 2019.",
+   "records": 1328142,
+   "tables": 3,
+   "page": "https://nysgpt.com/data/federal-regulations-rulemaking-dockets-and-documents",
+   "largest_table": "govblock_regulations.regulations_gov_documents"
+  },
+  {
+   "subject": "Federal Regulations",
+   "dataset": "Electronic Code of Federal Regulations",
+   "publisher": "Office of the Federal Register",
+   "description": "The current text of every section.",
+   "records": 227269,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/federal-regulations-electronic-code-of-federal-regulations",
+   "largest_table": "govblock_regulations.ecfr_sections"
+  },
+  {
+   "subject": "Economic Accounts",
+   "dataset": "Regional and national accounts",
+   "publisher": "Bureau of Economic Analysis",
+   "description": "County, metropolitan and state output, income and employment; regional prices; national income and product accounts.",
+   "records": 6150912,
+   "tables": 80,
+   "page": "https://nysgpt.com/data/economic-accounts-regional-and-national-accounts",
+   "largest_table": "govblock_economy.bea_nipa_nipadataq"
+  },
+  {
+   "subject": "Reactors",
+   "dataset": "Reactor power status",
+   "publisher": "Nuclear Regulatory Commission",
+   "description": "Percentage of full power by unit and day, 1999 to 2026.",
+   "records": 1027437,
+   "tables": 2,
+   "page": "https://nysgpt.com/data/reactors-reactor-power-status",
+   "largest_table": "govblock_reactors.nrc_power_status"
+  },
+  {
+   "subject": "Reactors",
+   "dataset": "Event notifications",
+   "publisher": "Nuclear Regulatory Commission",
+   "description": "Events reported to the Commission, parsed from the daily reports.",
+   "records": 22928,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/reactors-event-notifications",
+   "largest_table": "govblock_reactors.nrc_event_notifications"
+  },
+  {
+   "subject": "Reactors",
+   "dataset": "Published datasets",
+   "publisher": "Nuclear Regulatory Commission",
+   "description": "Reference datasets the Commission publishes.",
+   "records": 978,
+   "tables": 18,
+   "page": "https://nysgpt.com/data/reactors-published-datasets",
+   "largest_table": "govblock_reactors.nrc_dataset_advanced_reactor_integrated_schedule_start_end_date"
+  },
+  {
+   "subject": "Texas Insurance Rate Filings and State Complaints",
+   "dataset": "State filings and complaints",
+   "publisher": "State insurance departments",
+   "description": "Texas rate filings and complaints, Connecticut complaints, New York automobile complaint rankings.",
+   "records": 818085,
+   "tables": 7,
+   "page": "https://nysgpt.com/data/texas-insurance-rate-filings-and-state-complaints-state-filings-and-complaints",
+   "largest_table": "govblock_insurance_filings.tx_insurance_complaint_parties"
+  },
+  {
+   "subject": "Oversight Reports",
+   "dataset": "Reports",
+   "publisher": "CRS; GAO",
+   "description": "Report metadata and full text.",
+   "records": 39942,
+   "tables": 1,
+   "page": "https://nysgpt.com/data/oversight-reports-reports",
+   "largest_table": "govblock_oversight.oversight_reports"
+  }
+ ]
+}
