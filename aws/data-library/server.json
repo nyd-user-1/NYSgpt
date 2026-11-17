@@ -1,0 +1,10 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.nysgpt/data-library",
+  "title": "NYSgpt Data Library",
+  "description": "SQL over 52.8B public records: USAspending, OpenAlex, patents, LEHD jobs, SEC, EPA, FERC, Medicare.",
+  "version": "2.0.0",
+  "websiteUrl": "https://nysgpt.com/data",
+  "repository": { "url": "https://github.com/nyd-user-1/nysgpt-data-library", "source": "github" },
+  "remotes": [ { "type": "streamable-http", "url": "https://data.nysgpt.com/mcp" } ]
+}

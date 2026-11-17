@@ -44,6 +44,8 @@ export default function HomePage() {
               style={MONO}
             >
               <FeedbackDialog />
+              {/* The Data Library pages are static files under public/data. */}
+              <a href="/data" className="text-[var(--paper-faint)] no-underline hover:text-[var(--paper-text)]">Data Library</a>
               {/* -mr cancels the tracking after the last letter, so the text ends on the inset. */}
               <span className="-mr-[0.28em]">© 2026 All Rights Reserved.</span>
             </div>

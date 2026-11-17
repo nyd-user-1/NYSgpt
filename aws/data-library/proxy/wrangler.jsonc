@@ -1,0 +1,2 @@
+{ "name": "nysgpt-data-api", "main": "src/index.js", "compatibility_date": "2026-10-01", "account_id": "9a33e732af1c257da3250fa65947011c",
+  "routes": [{ "pattern": "data.nysgpt.com", "custom_domain": true }], "vars": { "ORIGIN": "https://frwqabucxsnqu5ddg2mjidkhcy0sglsf.lambda-url.us-east-1.on.aws" } }
