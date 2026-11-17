@@ -54,30 +54,30 @@ const head = (title, desc, canon) => `<!doctype html><html lang="en"><head><meta
 <header class="bar"><a class="home" href="/">NYSgpt</a><span class="sp"></span><a href="/data">Data Library</a><a href="/data#connect">Connect</a><a class="pill" href="/data#pricing">Pricing</a></header>`;
 const foot = `<footer><span>NYSgpt Data Library. Public records from federal agencies, grid operators, courts and research publishers.</span><span><a href="/data">All datasets</a> · <a href="/data#pricing">Pricing</a> · <a href="/">NYSgpt.com</a></span></footer></div><script src="/data/app.js" defer></script></body></html>`;
 const pricing = `<section class="frame" id="pricing"><div class="lab">Pricing</div><div class="plans">
-<div class="plan"><h3>Free</h3><p class="price">$0</p><p>30 queries a day, 1 GB scanned per query. No key, no sign-up.</p><a class="btn ghost" href="/data#connect">Connect</a></div>
-<div class="plan"><h3>Day pass</h3><p class="price">$29</p><p>300 queries and 100 GB scanned in 24 hours. One payment.</p><a class="btn" href="${API}/checkout?plan=day">Buy a day pass</a></div>
-<div class="plan"><h3>Monthly</h3><p class="price">$149<small>/month</small></p><p>2,000 queries and 200 GB scanned a day. Cancel any time.</p><a class="btn" href="${API}/checkout?plan=month">Subscribe</a></div>
-<div class="plan"><h3>Institution</h3><p class="price">$1,500<small>/month</small></p><p>20,000 queries and 1 TB scanned a day, for a lab, department or team.</p><a class="btn" href="${API}/checkout?plan=inst">Subscribe</a></div>
+<div class="plan"><h3>Samples</h3><p class="price">$0</p><p>20,000-row samples of ten datasets, as Parquet files on Hugging Face.</p><a class="btn ghost" href="https://huggingface.co/NYSgpt">Open samples</a></div>
+<div class="plan"><h3>Day pass</h3><p class="price">$29</p><p>300 queries and 100 GB scanned in 24 hours. One payment.</p><a class="btn" rel="nofollow" href="${API}/checkout?plan=day">Buy a day pass</a></div>
+<div class="plan"><h3>Monthly</h3><p class="price">$149<small>/month</small></p><p>2,000 queries and 200 GB scanned a day. Cancel any time.</p><a class="btn" rel="nofollow" href="${API}/checkout?plan=month">Subscribe</a></div>
+<div class="plan"><h3>Institution</h3><p class="price">$1,500<small>/month</small></p><p>20,000 queries and 1 TB scanned a day, for a lab, department or team.</p><a class="btn" rel="nofollow" href="${API}/checkout?plan=inst">Subscribe</a></div>
 </div><p class="note">Payment is by card through Stripe. The key appears on screen as soon as payment completes.</p></section>`;
 const connect = `<section class="frame" id="connect"><div class="lab">Connect</div><div class="conn">
-<div><h3>Claude</h3><p>Settings, Connectors, Add custom connector. Paste this address:</p><pre>${API}/mcp</pre></div>
-<div><h3>Claude Code</h3><pre>claude mcp add --transport http nysgpt-data ${API}/mcp</pre></div>
-<div><h3>HTTP</h3><pre>curl -s ${API}/query -H "content-type: application/json" \\
+<div><h3>Claude</h3><p>Settings, Connectors, Add custom connector. Paste this address with your key:</p><pre>${API}/mcp?key=YOUR_KEY</pre></div>
+<div><h3>Claude Code</h3><pre>claude mcp add --transport http nysgpt-data ${API}/mcp --header "X-Api-Key: YOUR_KEY"</pre></div>
+<div><h3>HTTP</h3><pre>curl -s ${API}/query -H "X-Api-Key: YOUR_KEY" -H "content-type: application/json" \\
   -d '{"sql":"SELECT count(*) FROM govblock_awards.usaspending_contracts"}'</pre></div>
-</div><p class="note">Any MCP client works. The tools are list_databases, list_tables, describe_table and query (Athena SQL, read-only, up to 1,000 rows a query). With a paid key, add <code>?key=YOUR_KEY</code> to the address or send the header <code>X-Api-Key</code>.</p></section>`;
-const runner = (sql, label = 'Run') => `<div class="run"><textarea spellcheck="false">${esc(sql)}</textarea><div class="runbar"><button class="btn" data-run>${label}</button><span class="status"></span></div><div class="result"></div></div>`;
+</div><p class="note">Any MCP client works. The tools are list_databases, list_tables, describe_table and query (Athena SQL, read-only, up to 1,000 rows a query). Every call needs a key; plans are below.</p></section>`;
+const runner = (sql, label = 'Run') => `<div class="run"><textarea spellcheck="false">${esc(sql)}</textarea><div class="runbar"><input class="key" type="password" placeholder="Your key" autocomplete="off"><button class="btn" data-run>${label}</button><span class="status"></span></div><div class="result"></div></div>`;
 
 // ---- dataset pages
 for (const s of SETS) {
   const big = s.tabs[0]; const full = big.database + '.' + big.table; const ff = FIELDS[full] || [];
   const title = `${s.name}: ${short(s.rows)} records in SQL | NYSgpt Data Library`;
-  const desc = `${s.holds} ${n(s.rows)} records in ${n(s.tabs.length)} tables from ${s.publisher}, queryable with SQL or from Claude over MCP. Free to try.`;
+  const desc = `${s.holds} ${n(s.rows)} records in ${n(s.tabs.length)} tables from ${s.publisher}, queryable with SQL or from Claude over MCP.`;
   const sib = SETS.filter(x => x.subject === s.subject && x !== s);
   const html = head(title, desc, '/' + s.slug) + `
 <section class="mast"><div class="crumb"><a href="/data">Data Library</a> / <a href="/data#${slug(s.subject)}">${esc(s.subject)}</a></div><h1>${esc(s.name)}</h1><p class="lead">${esc(s.holds)}</p>
 <div class="cells"><div class="cell"><b>${short(s.rows)}</b><span>Records</span></div><div class="cell"><b>${n(s.tabs.length)}</b><span>Tables</span></div><div class="cell"><b>${n(s.fields)}</b><span>Fields</span></div><div class="cell"><b class="sm">${esc(s.years || 'Current')}</b><span>Years</span></div></div>
 <p class="pub">Publisher: ${esc(s.publisher)}</p></section>
-<section class="frame"><div class="lab">Try it</div><p class="note">This runs against the full table, free, with no key.</p>${runner(`SELECT * FROM ${full} LIMIT 5`)}</section>
+<section class="frame"><div class="lab">Try it</div><p class="note">Runs against the full table. Enter your key; plans are below.</p>${runner(`SELECT * FROM ${full} LIMIT 5`)}</section>
 <section class="frame"><div class="lab">Tables</div><div class="list">${s.tabs.slice(0, 400).map(t => `<a class="row" href="#" data-table="${esc(t.database)}.${esc(t.table)}"><span>${esc(t.table)}</span><i>${t.rows ? short(t.rows) : ''}</i></a>`).join('')}</div><div class="fields" id="fields"></div></section>
 ${ff.length ? `<section class="frame"><div class="lab">Fields in ${esc(big.table)}</div><table class="ft"><thead><tr><th>Field</th><th>Type</th><th>Example</th></tr></thead><tbody>${ff.slice(0, 80).map(f => `<tr><td>${esc(f.field)}</td><td>${esc(f.type)}</td><td>${esc((f.sample_1 || '').slice(0, 60))}</td></tr>`).join('')}</tbody></table>${ff.length > 80 ? `<p class="note">${n(ff.length - 80)} more fields; select the table above to list them all.</p>` : ''}</section>` : ''}
 ${connect}${pricing}
@@ -93,11 +93,11 @@ const OFFERS = [
   ['Jobs by census block', 'Home-to-work flows and job counts for every census block, 2002 to 2024.', 'labor-jobs-by-census-block-lehd', null],
 ];
 const offers = OFFERS.filter(o => SETS.some(s => s.slug === o[2]));
-const idx = head(`NYSgpt Data Library: ${short(TOTAL.rows)} public records in SQL and MCP`, `${short(TOTAL.rows)} public records in ${n(TOTAL.tables)} tables: federal spending, patents, company filings, scholarly works, labor, census, energy, health and courts. Query with SQL or from Claude. Free to try.`, '') + `
-<section class="mast"><h1>Data Library</h1><p class="lead">${short(TOTAL.rows)} public records from federal agencies, grid operators, courts and research publishers, already loaded as SQL tables. Query them from Claude or over HTTP. Free to try, no sign-up.</p>
+const idx = head(`NYSgpt Data Library: ${short(TOTAL.rows)} public records in SQL and MCP`, `${short(TOTAL.rows)} public records in ${n(TOTAL.tables)} tables: federal spending, patents, company filings, scholarly works, labor, census, energy, health and courts. Query with SQL or from Claude.`, '') + `
+<section class="mast"><h1>Data Library</h1><p class="lead">${short(TOTAL.rows)} public records from federal agencies, grid operators, courts and research publishers, already loaded as SQL tables. Query them from Claude or over HTTP.</p>
 <div class="cells"><div class="cell"><b>${short(TOTAL.rows)}</b><span>Records</span></div><div class="cell"><b>${short(TOTAL.tables)}</b><span>Tables</span></div><div class="cell"><b>${short(TOTAL.fields)}</b><span>Fields</span></div><div class="cell"><b>${SUBJECTS.length}</b><span>Subjects</span></div></div></section>
 <section class="offers">${offers.map(o => `<a class="offer" href="/data/${o[2]}"><h3>${esc(o[0])}</h3><p>${esc(o[1])}</p><span>${short(SETS.find(s => s.slug === o[2]).rows)} records</span></a>`).join('')}</section>
-<section class="frame"><div class="lab">Try it</div><p class="note">Edit the SQL and run it. Free, no key.</p>${runner(offers.find(o => o[3])?.[3] || 'SELECT 1')}</section>
+<section class="frame"><div class="lab">Try it</div><p class="note">Edit the SQL and run it. Enter your key; plans are below.</p>${runner(offers.find(o => o[3])?.[3] || 'SELECT 1')}</section>
 ${connect}${pricing}
 <section class="frame"><div class="lab">Datasets</div>${SUBJECTS.map(sub => `<div class="subj" id="${slug(sub.name)}"><h2>${esc(sub.name)}<i>${short(sub.rows)}</i></h2><p class="note">${esc(sub.lead)}</p><div class="list">${sub.sets.sort((a, b) => b.rows - a.rows).map(x => `<a class="row" href="/data/${x.slug}"><span>${esc(x.name)}</span><i>${short(x.rows)}</i></a>`).join('')}</div></div>`).join('')}</section>` + foot;
 fs.writeFileSync(path.join(OUT, 'index.html'), idx);

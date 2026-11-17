@@ -13,6 +13,7 @@ PLANS = {'free': dict(q=30, gb=5, wg='query-api-free'), 'day': dict(q=300, gb=10
 PRICES = {'day': ('price_1UcadnFZHX4S0kX26M9nSsQ1', 'payment'), 'month': ('price_1UcadnFZHX4S0kX23MaTK7H7', 'subscription'), 'inst': ('price_1UcadnFZHX4S0kX2o6Ohe6Al', 'subscription')}
 FREE_GB_ALL = 150  # all free use together, per day
 class Limit(Exception): pass
+NEEDKEY = 'A key is required. Keys start at $29: ' + SITE + '#pricing . Add ?key=YOUR_KEY to the MCP address or send the header X-Api-Key.'
 CTX = {'plan': 'admin', 'id': 'admin'}
 _sk = [None]
 def stripe(path, data=None):
@@ -131,6 +132,7 @@ def mcp(msg):
     if m == 'tools/list': return ok({'tools': TOOLS})
     if m == 'tools/call':
         n, a = p.get('name'), p.get('arguments') or {}
+        if CTX['plan'] == 'anon': return ok({'content': [{'type': 'text', 'text': 'Error: ' + NEEDKEY}], 'isError': True})
         try:
             r = dbs() if n == 'list_databases' else tables(a.get('database')) if n == 'list_tables' else table(a.get('database'), a.get('table')) if n == 'describe_table' else query(a.get('sql')) if n == 'query' else None
             if r is None: raise ValueError(f'unknown tool {n}')
@@ -172,7 +174,9 @@ def handler(event, context):
     body = event.get('body') or ''
     if event.get('isBase64Encoded') and body: body = base64.b64decode(body).decode()
     try:
-        if path == '/checkout': return checkout(q.get('plan'), base)
+        if path == '/checkout':
+            if method != 'POST': return page('Continue to payment', f'<p>Plan: <b>{q.get("plan") if q.get("plan") in PRICES else ""}</b>. Payment is by card through Stripe.</p><form method="post" action="/checkout?plan={q.get("plan") if q.get("plan") in PRICES else "day"}"><button style="font:500 14px sans-serif;padding:12px 22px;border-radius:999px;border:0;background:#033882;color:#fff;cursor:pointer">Continue to Stripe</button></form>')
+            return checkout(q.get('plan'), base)
         if path == '/claim': return claim(q.get('session_id'), base)
         if path == '/': return resp(302, '', extra={'location': SITE})
         if given and hmac.compare_digest(given, key()): CTX.update(plan='admin', id='admin')
@@ -180,7 +184,8 @@ def handler(event, context):
             plan = lookup(given)
             if not plan: return resp(401, {'error': f'unknown key. Free use needs no key; paid keys: {SITE}#pricing'})
             CTX.update(plan=plan, id=kh(given)[:26])
-        else: CTX.update(plan='free', id='ip-' + str(ip))
+        else: CTX.update(plan='anon', id='ip-' + str(ip))  # 2026-11-17: no use without a key (crawlers were running queries)
+        if CTX['plan'] == 'anon' and not path.startswith('/mcp'): return resp(401, {'error': NEEDKEY, 'plans': SITE + '#pricing'})
         if path.startswith('/mcp'):
             if method == 'GET': return resp(405, {'error': 'use POST'})
             msg = json.loads(body or '{}')
