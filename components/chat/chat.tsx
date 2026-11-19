@@ -99,7 +99,6 @@ const BrollBlock = dynamic(() => import('@/components/chat/footage-block').then(
 // (Graphics), library-broll (one generic b-roll shot, its id in a pax-broll block); plain library shows both cards.
 const footageShow = (model?: string): FootageShow | undefined => (model === 'library-shots' ? 'shots' : model === 'library-graphics' ? 'graphics' : undefined)
 const brollOf = (m: { model?: string; content: string }) => (m.model === 'library-broll' ? m.content.replace(/```(pax-broll)?/g, '').trim() : null)
-const TextType = dynamic(() => import('@/components/text-type'), { loading: () => <span className="block h-[65px]" /> })
 // Remotion's Player and the templates load the first time a reply carries a video.
 const VideoBlock = dynamic(() => import('@/components/chat/video-block').then((m) => m.VideoBlock), { ssr: false, loading: () => <div className="aspect-video w-full animate-pulse rounded-xl bg-pax2-surface/70" /> })
 // The record flow (camera, upload, the template chooser with Remotion's Player and zod) loads when Record is pressed.
@@ -108,28 +107,6 @@ const RecordFlow = dynamic(() => import('@/components/chat/record-flow').then((m
 const VOICE_INPUT: boolean = false
 
 // NYSgpt's lines (Brendan, 2026-11-19), in the source's pattern: one per masthead set, then the source's last line.
-/* The typed line above the box (Brendan, 2026-11-19): questions from the /search list (public/search-questions), a random
-   run of them on each visit, typed one after another without end. Only those short enough for one line at this size. */
-const READY_MAX = 52
-function ReadyLine() {
-  const [lines, setLines] = useState<string[] | null>(null)
-  useEffect(() => {
-    let live = true
-    ;(async () => {
-      try {
-        const man = await (await fetch('/search-questions/manifest.json')).json()
-        const n = Math.floor(Math.random() * (man.chunks ?? 1))
-        const rows: [string, ...unknown[]][] = await (await fetch(`/search-questions/q-${String(n).padStart(3, '0')}.json`)).json()
-        const short = rows.map(r => r[0]).filter(q => typeof q === 'string' && q.length <= READY_MAX)
-        for (let i = short.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [short[i], short[j]] = [short[j], short[i]] }
-        if (live && short.length) setLines(short)
-      } catch { /* the line stays empty */ }
-    })()
-    return () => { live = false }
-  }, [])
-  if (!lines) return <span className="block h-[65px]" />
-  return <TextType as="span" text={lines} loop typingSpeed={45} pauseDuration={2600} className="font-display text-2xl font-normal text-black md:text-3xl" />
-}
 
 const RECORD_OPENER = "I'm ready to make my first video — where do we start?"
 
@@ -1319,11 +1296,8 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
             <div className="flex w-full max-w-[773px] flex-col gap-6">
               {!compact && (
                 <div className="transition-transform duration-150" style={{ transform: `translateY(-${grow}px)` }}>
-                  {heading ?? (
-                    <div className="flex h-[65px] flex-col items-center justify-center">
-                      <ReadyLine />
-                    </div>
-                  )}
+                  {/* the typed line above the box is gone (Brendan, 2026-11-19) */}
+                  {heading}
                 </div>
               )}
               {/* The box grows upward: its added height is taken back above it, so its foot stays put. */}
