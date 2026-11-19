@@ -44,7 +44,9 @@ const rejects = []
 const seen = new Map()
 const first = []
 const rest = []
-const lines = fs.readFileSync(SRC, "utf8").split("\n")
+// scripts/search-questions.txt first, then any further source files (search-questions-<name>.txt), so writers in the
+// shared tree each keep their own file (nysgpt-1, 2026-11-19)
+const lines = [SRC, ...fs.readdirSync(path.dirname(SRC)).filter((f) => /^search-questions-.+\.txt$/.test(f)).sort().map((f) => path.join(path.dirname(SRC), f))].flatMap((f) => fs.readFileSync(f, "utf8").split("\n"))
 lines.forEach((line, n) => {
   const raw = line.trim()
   if (!raw || raw.startsWith("#")) return
