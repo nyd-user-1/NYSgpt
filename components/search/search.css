@@ -47,8 +47,12 @@
 .sr-sub { margin: 6px 0 14px; font-size: 13px; color: var(--paper-muted); }
 .sr-body-text { margin: 0 0 14px; font-size: 14px; line-height: 1.6; }
 
-.sr-tabs { display: flex; align-items: center; gap: 4px; margin-bottom: 14px; border-bottom: 1px solid var(--paper-rule); overflow-x: auto; }
+.sr-tabs { display: flex; align-items: center; gap: 4px; margin-bottom: 14px; border-bottom: 1px solid var(--paper-rule); }
 .sr-tab { flex: none; }
+@media (max-width: 760px) {
+  .sr-tabs { gap: 0; }
+  .sr-tab { padding: 8px 7px; letter-spacing: 0.06em; }
+}
 .sr-tools { margin: 0; display: grid; gap: 8px; }
 .sr-tools div { display: grid; grid-template-columns: 9.5em 1fr; gap: 12px; align-items: baseline; }
 .sr-tools dt { font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; color: var(--paper-text); }
@@ -113,12 +117,12 @@
 
 /* Every scrolling area on this page uses the site's thin scroll bar (Brendan, 2026-11-19): the same rules as
    .thin-scrollbar in app/globals.css, applied here by selector so no markup has to carry the class. */
-.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-tabs, .sr-try .hm-ovd, .sr-try [class*="hm-"][style*="overflow"] { --thumb: rgba(0, 0, 0, 0.22); }
-.dark .sr-list, .dark .sr-try, .dark .sr-win, .dark .sr-grid, .dark .sr-json, .dark .sr-qlist, .dark .sr-tabs { --thumb: rgba(255, 255, 255, 0.22); }
-:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-tabs)::-webkit-scrollbar { width: 10px; height: 10px; background: transparent; }
-:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-tabs)::-webkit-scrollbar-track,
-:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-tabs)::-webkit-scrollbar-corner { background: transparent; }
-:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-tabs)::-webkit-scrollbar-thumb { background: var(--thumb); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
+.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-try .hm-ovd, .sr-try [class*="hm-"][style*="overflow"] { --thumb: rgba(0, 0, 0, 0.22); }
+.dark .sr-list, .dark .sr-try, .dark .sr-win, .dark .sr-grid, .dark .sr-json, .dark .sr-qlist { --thumb: rgba(255, 255, 255, 0.22); }
+:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist)::-webkit-scrollbar { width: 10px; height: 10px; background: transparent; }
+:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist)::-webkit-scrollbar-track,
+:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist)::-webkit-scrollbar-corner { background: transparent; }
+:is(.sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist)::-webkit-scrollbar-thumb { background: var(--thumb); border-radius: 999px; border: 3px solid transparent; background-clip: padding-box; }
 @supports not selector(::-webkit-scrollbar) {
-  .sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist, .sr-tabs { scrollbar-width: thin; scrollbar-color: var(--thumb) transparent; }
+  .sr-list, .sr-try, .sr-win, .sr-grid, .sr-json, .sr-qlist { scrollbar-width: thin; scrollbar-color: var(--thumb) transparent; }
 }
