@@ -215,7 +215,9 @@ export function TableDetail({
       live = false
     }
   }, [t, stored])
-  const s = sample && sample !== 'loading' ? sample : null
+  const shipped = sample && sample !== 'loading' ? sample : null
+  // a table with a profile but no rows shipped with the page still gets its columns, kinds and charts (and no rows)
+  const s = useMemo<Sample | null>(() => shipped ?? (prof ? { c: prof.columns.map(c => c.name), r: [], n: 0 } : null), [shipped, prof])
   const profiles = useMemo(() => {
     if (!s) return []
     const from = prof ? new Map(prof.columns.map(c => [c.name, explorerColumn(c)])) : null
@@ -419,7 +421,7 @@ export function TableDetail({
         {s && (
           <p className="tx-note">
             {prof
-              ? `Charts and figures are drawn from ${fig(n)} sample rows, not the whole table.`
+              ? `Charts and figures are drawn from ${fig(n)} sample rows, not the whole table.${shipped ? '' : ' No rows are shipped with the page for this table.'}`
               : `Charts and figures are drawn from the ${n} rows shipped with the page; this table has no 1,000-row profile.`}{' '}
             Records and years are for the whole table.
           </p>
