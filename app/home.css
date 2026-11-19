@@ -174,6 +174,9 @@
 .hm-rows th, .hm-rows td { border-bottom: 1px solid var(--paper-rule-soft); padding: 7px 14px; white-space: nowrap; max-width: 320px; overflow: hidden; text-overflow: ellipsis; text-align: left; vertical-align: middle; }
 .hm-rows th { position: sticky; top: var(--ovh, 0px); background: var(--paper); color: var(--paper-faint); font-weight: 400; z-index: 2; }
 .hm-rows tr:hover td { background: var(--paper-quiet); }
+.hm-rows th[draggable] { cursor: grab; user-select: none; }
+.hm-rows th[draggable]:active { cursor: grabbing; }
+.hm-rows th.hm-drop { box-shadow: inset 2px 0 0 var(--paper-text); color: var(--paper-text); }
 @media (max-width: 760px) {
   .hm-ovp { border-radius: 0; }
   .hm-ovb { grid-template-columns: 1fr; grid-template-rows: 40% 60%; }

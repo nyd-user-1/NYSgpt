@@ -237,12 +237,14 @@ export function CatalogOverlay() {
   return createPortal(
     <div ref={box} className={`nysgpt-app hm-ovp ${grown ? 'hm-open' : ''}`} role="dialog" aria-label="Catalog">
       <div className="hm-ovh">
-        <h2>Catalog</h2>
+        <button type="button" className="hm-ovr" aria-label="Close the catalog" onClick={() => home.closeOverlay()}>
+          <Icon name="x" />
+        </button>
         <span className="hm-ovqw">
           <input
             ref={input}
             value={q}
-            placeholder="Search..."
+            placeholder="Search catalog..."
             aria-label="Search the catalog"
             onChange={e => {
               setQ(e.target.value)
@@ -264,9 +266,6 @@ export function CatalogOverlay() {
             </button>
           )}
         </span>
-        <button type="button" className="hm-ovr" aria-label="Close the catalog" onClick={() => home.closeOverlay()}>
-          <Icon name="x" />
-        </button>
         <button
           type="button"
           className="hm-ovr"

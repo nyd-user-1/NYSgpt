@@ -9,6 +9,11 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
   const head = useRef<HTMLDivElement>(null)
   const wrap = useRef<HTMLDivElement>(null)
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
+  /* the sample rows' columns can be dragged into another order; the order holds until another table is shown */
+  const [order, setOrder] = useState<number[] | null>(null)
+  const drag = useRef<number | null>(null)
+  const [over, setOver] = useState<number | null>(null)
+  useEffect(() => setOrder(null), [t])
   const meta = [`${t.fields.length} fields`, t.rows != null ? `${compactNum(t.rows)} rows` : '', t.years].filter(Boolean).join(' · ')
 
   /* the table's header row sticks under the title block, whose height changes as the overlay grows */
@@ -56,17 +61,48 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
             <table className="hm-rows">
               <thead>
                 <tr>
-                  {sample.c.map(c => (
-                    <th key={c}>{c}</th>
+                  {(order ?? sample.c.map((_, i) => i)).map((ci, pos) => (
+                    <th
+                      key={sample.c[ci]}
+                      draggable
+                      className={over === pos ? 'hm-drop' : undefined}
+                      title="Drag to move this column"
+                      onDragStart={e => {
+                        drag.current = pos
+                        e.dataTransfer.effectAllowed = 'move'
+                      }}
+                      onDragOver={e => {
+                        if (drag.current === null) return
+                        e.preventDefault()
+                        if (over !== pos) setOver(pos)
+                      }}
+                      onDragEnd={() => {
+                        drag.current = null
+                        setOver(null)
+                      }}
+                      onDrop={e => {
+                        e.preventDefault()
+                        const from = drag.current
+                        drag.current = null
+                        setOver(null)
+                        if (from === null || from === pos) return
+                        const next = [...(order ?? sample.c.map((_, i) => i))]
+                        const [m] = next.splice(from, 1)
+                        next.splice(pos, 0, m)
+                        setOrder(next)
+                      }}
+                    >
+                      {sample.c[ci]}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {sample.r.map((r, i) => (
                   <tr key={i}>
-                    {r.map((v, j) => (
-                      <td key={j} title={v}>
-                        {v}
+                    {(order ?? r.map((_, j) => j)).map(j => (
+                      <td key={j} title={r[j]}>
+                        {r[j]}
                       </td>
                     ))}
                   </tr>
