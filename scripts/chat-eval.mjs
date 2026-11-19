@@ -26,9 +26,13 @@ const NOTE = arg('note', '')
 // The night's caps for the three lanes together (brief 49); the judge stops before passing them.
 const LIMIT_MODEL = Number(arg('limit-model', '1.00'))
 const LIMIT_ATHENA = Number(arg('limit-athena', '0.50'))
-// Claude Haiku 4.5 on Bedrock: $1 a million input tokens, $5 a million output. Athena: $5 a terabyte scanned.
-const PRICE_IN = 1 / 1e6
-const PRICE_OUT = 5 / 1e6
+// Claude Haiku 4.5 on Bedrock through the US cross-region profile (the rates in nysgpt-3's meter, 2b8176b):
+// $1.10 a million input tokens, $5.50 output, $1.375 to write the prompt cache, $0.11 to read it. Athena: $5 a
+// terabyte scanned. Until 2026-11-19 06:50 the judge priced every input token at $1, cached reads included.
+const PRICE_IN = 1.1 / 1e6
+const PRICE_OUT = 5.5 / 1e6
+const PRICE_CACHE_WRITE = 1.375 / 1e6
+const PRICE_CACHE_READ = 0.11 / 1e6
 const PRICE_BYTE = 5 / 1e12
 const TIMEOUT_MS = 240_000
 
@@ -145,7 +149,8 @@ for (const q of questions) {
   process.stdout.write(`${q.id} ${q.question.slice(0, 70)} … `)
   const r = await ask(q.question)
   const s = score(q, r)
-  const cm = r.tokens ? (r.tokens.input ?? 0) * PRICE_IN + (r.tokens.output ?? 0) * PRICE_OUT : 0
+  // tokens.input is plain input when the reply splits out cacheRead and cacheWrite (the server's meter since 2b8176b)
+  const cm = r.tokens ? (r.tokens.input ?? 0) * PRICE_IN + (r.tokens.output ?? 0) * PRICE_OUT + (r.tokens.cacheWrite ?? 0) * PRICE_CACHE_WRITE + (r.tokens.cacheRead ?? 0) * PRICE_CACHE_READ : 0
   const ca = r.bytes ? r.bytes * PRICE_BYTE : 0
   costModel += cm
   costAthena += ca
@@ -196,7 +201,7 @@ writeFileSync(
 
 /* the README table */
 const readme = join(OUT, 'README.md')
-const head = `# /chat over the library: evaluation runs (brief 49)\n\nEach run asks the test set (docs/briefs/49-test-set.json) of the dev box's /api/chat and scores the replies by comparison: numbers within 1 percent, names exactly, refusals where due. A run's folder holds every reply (results.json) and the ones to read by hand (unmatched.md). Cost is model tokens at Claude Haiku 4.5's Bedrock price plus Athena bytes at $5 a terabyte.\n\n| Run | Asked | Answered | Right (with a query) | Wrong | Refused correctly | Table found | Cost | Per message | Note |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---|\n`
+const head = `# /chat over the library: evaluation runs (brief 49)\n\nEach run asks the test set (docs/briefs/49-test-set.json) of the dev box's /api/chat and scores the replies by comparison: numbers within 1 percent, names exactly, refusals where due. A run's folder holds every reply (results.json) and the ones to read by hand (unmatched.md). Cost is model tokens at Claude Haiku 4.5's US cross-region Bedrock prices ($1.10 input, $5.50 output, $1.375 cache write, $0.11 cache read a million tokens) plus Athena bytes at $5 a terabyte.\n\n| Run | Asked | Answered | Right (with a query) | Wrong | Refused correctly | Table found | Cost | Per message | Note |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---|\n`
 const fmt$ = v => `$${v.toFixed(v < 0.1 ? 4 : 2)}`
 const row = `| ${runName} | ${summary.asked} of ${summary.of} | ${summary.answered} | ${summary.right} (${summary.rightWithQuery}) | ${summary.wrong} | ${summary.refusedCorrectly} | ${summary.tableFound} of ${summary.tableExpected} | ${fmt$(summary.cost)} | ${fmt$(summary.perMessage)} | ${[NOTE, stopped].filter(Boolean).join('; ')} |\n`
 writeFileSync(readme, (existsSync(readme) ? readFileSync(readme, 'utf8') : head) + row)
