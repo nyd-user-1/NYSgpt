@@ -100,7 +100,16 @@ export function CatalogOverlay() {
     const f = frameEl()
     const el = box.current
     if (!f || !el) return
+    // A ResizeObserver reports once as soon as it starts watching. That first report arrived while the
+    // overlay was still growing out of its box and snapped it to full size, so the opening never showed.
+    // Until the opening has run (450 ms), a report only moves the target and leaves the transition alone.
+    let opened = false
+    const settle = window.setTimeout(() => { opened = true }, 500)
     const snap = () => {
+      if (!opened) {
+        place(el, f.getBoundingClientRect())
+        return
+      }
       el.classList.add('hm-noanim')
       place(el, f.getBoundingClientRect())
       void el.offsetHeight
@@ -110,6 +119,7 @@ export function CatalogOverlay() {
     ro.observe(f)
     window.addEventListener('resize', snap)
     return () => {
+      window.clearTimeout(settle)
       ro.disconnect()
       window.removeEventListener('resize', snap)
     }
