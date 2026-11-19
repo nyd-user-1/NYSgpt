@@ -4,7 +4,8 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { compactNum, loadSample, type Sample, type Table } from '@/lib/home-catalog'
 import { Icon, TableIcon } from './HomeIcons'
 import { ColumnsView, KindMark, MiniChart } from './TableChart'
-import { KIND_LABEL, profileSample, type Kind } from './table-profile'
+import { fig, KIND_LABEL, profileColumn, type Kind } from './table-profile'
+import { explorerColumn, loadProfile, storedName, type TableProfile } from '@/lib/column-profiles'
 import './table-explorer.css'
 
 /**
@@ -199,8 +200,27 @@ export function TableDetail({
     }
   }, [t])
 
+  /* the figures: the catalog's 1,000-row profile of the table (brief 55), found by its stored name; a column the
+     profile lacks, or a table with none, is profiled from the shipped sample rows instead */
+  const [prof, setProf] = useState<TableProfile | null>(null)
+  useEffect(() => {
+    let live = true
+    setProf(null)
+    void (async () => {
+      const name = stored ?? (await storedName(t.database, t.table))
+      const p = name ? await loadProfile(name) : null
+      if (live) setProf(p)
+    })()
+    return () => {
+      live = false
+    }
+  }, [t, stored])
   const s = sample && sample !== 'loading' ? sample : null
-  const profiles = useMemo(() => (s ? profileSample(s) : []), [s])
+  const profiles = useMemo(() => {
+    if (!s) return []
+    const from = prof ? new Map(prof.columns.map(c => [c.name, explorerColumn(c)])) : null
+    return s.c.map((c, j) => from?.get(c) ?? profileColumn(c, s.r.map(r => r[j])))
+  }, [s, prof])
   const byName = useMemo(() => new Map(profiles.map(p => [p.name, p])), [profiles])
   const desc = useMemo(() => Object.fromEntries(t.fields.map(f => [f.name, f.desc])), [t])
   const kinds = useMemo(() => {
@@ -225,7 +245,8 @@ export function TableDetail({
       return (x < y ? -1 : x > y ? 1 : 0) * sort.dir
     })
   }, [s, sort, idx, byName])
-  const n = s?.r.length ?? 0
+  // the rows the figures describe: the profile's sample (1,000, or fewer for a short table), else the shipped rows
+  const n = prof ? prof.sampleRows : (s?.r.length ?? 0)
   const pad = panel ? { padding: '0 20px' } : undefined
   const copy = (text: string, what: 'name' | 'stored') =>
     void navigator.clipboard?.writeText(text).then(() => {
@@ -395,7 +416,14 @@ export function TableDetail({
             <Chooser all={all} shown={chosen} onShown={setShown} />
           </div>
         )}
-        {s && <p className="tx-note">Charts and figures are drawn from {n} sample rows, not the whole table. Records and years are for the whole table.</p>}
+        {s && (
+          <p className="tx-note">
+            {prof
+              ? `Charts and figures are drawn from ${fig(n)} sample rows, not the whole table.`
+              : `Charts and figures are drawn from the ${n} rows shipped with the page; this table has no 1,000-row profile.`}{' '}
+            Records and years are for the whole table.
+          </p>
+        )}
       </div>
 
       {view !== 'fields' ? (
