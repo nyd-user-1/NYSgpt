@@ -103,6 +103,30 @@ function rank(list: string[], q: string, limit: number, size: (i: number) => num
   return { total, hits, all }
 }
 
+const STOP = new Set("about after also and any are been before between can could did does each every from have how into last many more most much over per since than that the their them then there these they this those very was were what when where which while who whom why will with would year years".split(" "))
+
+/** A question or a phrase that matches nothing whole: tables and databases ranked by how many of its words they hold. */
+function byWords(q: string, limit: number) {
+  const words = [...new Set(q.split(/[^a-z0-9]+/).filter((w) => w.length >= 4 && !STOP.has(w)).map((w) => (w.length > 5 && w.endsWith("s") ? w.slice(0, -1) : w)))]
+  if (words.length < 2) return null
+  const tables: { i: number; s: number }[] = []
+  J!.tables.forEach((t, i) => {
+    const hay = `${tableLow[i]} ${topicLow[t.t]} ${t.r.toLowerCase()}`
+    let s = 0
+    for (const w of words) if (hay.includes(w)) s++
+    if (s) tables.push({ i, s })
+  })
+  tables.sort((a, b) => b.s - a.s || (J!.tables[b.i].n ?? 0) - (J!.tables[a.i].n ?? 0))
+  const dbs: { i: number; s: number }[] = []
+  topicLow.forEach((t, i) => {
+    let s = 0
+    for (const w of words) if (t.includes(w)) s++
+    if (s) dbs.push({ i, s })
+  })
+  dbs.sort((a, b) => b.s - a.s || topicRows[b.i] - topicRows[a.i])
+  return { tables, dbs, limit }
+}
+
 const tableHit = (i: number, at: number, q: string): TableHit => {
   const t = J!.tables[i]
   return { i, label: t.p, stored: t.s, topic: J!.topics[t.t] ?? "", rowIs: t.r, rows: t.n, years: t.y, m: [at, q.length] }
@@ -117,7 +141,15 @@ function query(id: number, raw: string, limit: { dbs: number; tables: number; fi
   const d = rank(topicLow, q, limit.dbs, (i) => topicRows[i], narrow?.topics)
   const dbs = { total: d.total, items: d.hits.map(({ i, at }) => ({ label: J!.topics[i], tables: topicTables[i].length, rows: topicRows[i], m: [at, q.length] as Match })) }
   const t = rank(tableLow, q, limit.tables, (i) => J!.tables[i].n ?? 0, narrow?.tables)
-  const tables = { total: t.total, items: t.hits.map(({ i, at }) => tableHit(i, at, q)) }
+  let tables = { total: t.total, items: t.hits.map(({ i, at }) => tableHit(i, at, q)) }
+  if (!d.total && !t.total) {
+    const w = byWords(q, limit.tables)
+    if (w) {
+      tables = { total: w.tables.length, items: w.tables.slice(0, limit.tables).map(({ i }) => ({ ...tableHit(i, -1, q), m: [-1, 0] as Match })) }
+      dbs.total = w.dbs.length
+      dbs.items = w.dbs.slice(0, limit.dbs).map(({ i }) => ({ label: J!.topics[i], tables: topicTables[i].length, rows: topicRows[i], m: [-1, 0] as Match }))
+    }
+  }
   // Fields: rank the distinct names, then list each name's tables, larger tables first, until the limit.
   const n = rank(nameLow, q, Math.max(limit.fields, 5), () => 0, narrow?.names)
   last = { q, topics: d.all, tables: t.all, names: n.all }

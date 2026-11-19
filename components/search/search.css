@@ -83,3 +83,25 @@
   .sr-row, .sr-gh { padding-left: 16px; padding-right: 16px; }
   .sr-try { padding: 16px; }
 }
+
+/* Brief 57. The x at the end of the field: the catalog overlay's clear button (home.css .hm-sx), shown while the
+   field holds text. */
+.sr-x { display: flex; flex-shrink: 0; padding: 4px; border: 0; border-radius: 6px; background: none; color: var(--paper-faint); cursor: pointer; }
+.sr-x:hover { background: var(--paper-quiet); color: var(--paper-strong); }
+.sr-x svg { width: 18px; height: 18px; }
+
+/* The question list: fixed rows, drawn windowed; the question on two lines at most, its subject under it. */
+.sr-qlist { position: relative; flex: 1; min-height: 0; overflow-y: auto; margin: -8px 0 -24px; }
+.sr-qrow { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; justify-content: center; gap: 4px; height: 72px; padding: 0 28px; border: 0; border-bottom: 1px solid var(--paper-rule-soft); background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.sr-qrow.sr-on, .sr-qrow:hover { background: var(--paper-quiet); }
+.sr-qrow.sr-on { box-shadow: inset 2px 0 0 var(--paper-strong); }
+.sr-qt { display: -webkit-box; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 15px; line-height: 1.35; }
+.sr-qs { display: flex; align-items: center; gap: 7px; font-family: var(--font-mono), ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper-faint); }
+.sr-qs i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; }
+
+/* A name's tile: its kind's colour with the name's first letter. */
+.sr-tile.sr-name { font-size: 13px; font-weight: 600; font-family: var(--font-sans), system-ui, sans-serif; }
+
+@media (max-width: 760px) {
+  .sr-qrow { padding: 0 16px; }
+}

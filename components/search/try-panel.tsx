@@ -16,7 +16,7 @@ import type { FullTable, Out, TableHit } from './search-worker'
 // their own keys, so their stored facts stand as the sample. The site holds no key here and calls no model.
 
 export type TryView = TableView | 'api'
-export type Picked = { kind: 'db'; topic: string } | { kind: 'table'; stored: string; field?: string } | { kind: 'box'; box: Box } | { kind: 'resolve'; box: Box }
+export type Picked = { kind: 'db'; topic: string } | { kind: 'table'; stored: string; field?: string; /** a question's or a name's SQL for the API view (brief 57) */ sql?: string } | { kind: 'box'; box: Box } | { kind: 'resolve'; box: Box }
 
 const API = 'https://data.nysgpt.com'
 const MCP = `${API}/mcp`
@@ -95,17 +95,17 @@ const bytesText = (b: number) => (b >= 1024 ** 3 ? `${(b / 1024 ** 3).toFixed(1)
 
 type Ran = { columns: string[]; rows: (string | null)[][]; truncated: boolean; bytes: number; id: string; ms: number } | { error: string; ms: number }
 
-function ApiView({ table, home }: { table: FullTable; home: Table | null }) {
+function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | null; initialSql?: string }) {
   const [key, setKey] = useState('')
-  const [sql, setSql] = useState(`SELECT * FROM ${table.stored} LIMIT 5`)
+  const [sql, setSql] = useState(initialSql || `SELECT * FROM ${table.stored} LIMIT 5`)
   const [ran, setRan] = useState<Ran | null>(null)
   const [busy, setBusy] = useState(false)
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
   useEffect(() => setKey(localStorage.getItem(KEY) ?? ''), [])
   useEffect(() => {
-    setSql(`SELECT * FROM ${table.stored} LIMIT 5`)
+    setSql(initialSql || `SELECT * FROM ${table.stored} LIMIT 5`)
     setRan(null)
-  }, [table.stored])
+  }, [table.stored, initialSql])
   useEffect(() => {
     let live = true
     setSample('loading')
@@ -192,7 +192,7 @@ function ApiView({ table, home }: { table: FullTable; home: Table | null }) {
   )
 }
 
-function TableTry({ stored, view, onView, worker }: { stored: string; view: TryView; onView: (v: TryView) => void; worker: Worker }) {
+function TableTry({ stored, sql, view, onView, worker }: { stored: string; sql?: string; view: TryView; onView: (v: TryView) => void; worker: Worker }) {
   const [t, setT] = useState<FullTable | null | 'loading'>('loading')
   const [home, setHome] = useState<Table | null>(null)
   useEffect(() => {
@@ -231,7 +231,7 @@ function TableTry({ stored, view, onView, worker }: { stored: string; view: TryV
         ))}
         <span className="sr-stored">{t.stored}</span>
       </div>
-      {view === 'api' ? <ApiView table={t} home={home} /> : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} />}
+      {view === 'api' ? <ApiView table={t} home={home} initialSql={sql} /> : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} />}
     </div>
   )
 }
@@ -350,5 +350,5 @@ export function TryPanel({ picked, view, onView, worker, ready, onPick }: { pick
   if (!worker || !ready) return <p className="sr-note">Loading the table index…</p>
   if (picked.kind === 'resolve') return <Resolve box={picked.box} worker={worker} onPick={onPick} />
   if (picked.kind === 'db') return <DbTry topic={picked.topic} worker={worker} onPick={onPick} />
-  return <TableTry stored={picked.stored} view={view} onView={onView} worker={worker} />
+  return <TableTry stored={picked.stored} sql={picked.sql} view={view} onView={onView} worker={worker} />
 }

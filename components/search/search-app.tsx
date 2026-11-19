@@ -6,15 +6,21 @@ import { TypeIcon } from '@/app/HomeIcons'
 import { BOXES, KIND_NOUN, TYPE_COLOR, type Box, type BoxKind } from '@/lib/home-boxes'
 import { boxKey } from '@/lib/home-store'
 import { compactNum } from '@/lib/home-catalog'
+import { findNames, type NameEntry } from '@/lib/find-names'
 
 import type { DbHit, FieldHit, Match, Out, Results, TableHit } from './search-worker'
 import { TryPanel, type Picked, type TryView } from './try-panel'
+import { QuestionList, useQuestions, type Question } from './question-list'
 
 // /search (brief 53): one page to find anything the site holds and try it. The search runs in a worker over the
 // table finder's index (the databases, tables and fields) and on this thread over the boxes that are not tables
 // (models, platforms, the outside sources), from the first keystroke. Results come grouped, capped at five a group
 // with "Show all"; the try panel beside them shows what is picked. Keys: up and down through the results, right into
 // the try panel and left back, Enter to try, Escape to clear. Built as parts the chat page can host later.
+// Brief 57: while the field is empty the left side is an endless list of questions the library can answer
+// (question-list.tsx); a click puts the question in the field, its answering tables first in the results and the
+// first of them in the try panel, with its SQL where it has one. An x clears the field and the list comes back where
+// it was left. Names of people, organisations and places (nysgpt-1's findNames) lead the results.
 
 const CAP = 5
 const ALL = 400
@@ -26,14 +32,19 @@ const OTHER_BOXES = BOXES.filter((b) => OTHER_KINDS.has(b.kind))
 const OTHER_LOW = OTHER_BOXES.map((b) => b.title.toLowerCase())
 
 type BoxHit = { box: Box; m: Match }
-type GroupId = 'dbs' | 'tables' | 'fields' | 'boxes'
+type AnswerHit = { stored: string; label: string; topic: string; rows: number | null }
+type GroupId = 'answers' | 'names' | 'dbs' | 'tables' | 'fields' | 'boxes'
 type Row =
+  | { group: 'answers'; hit: AnswerHit }
+  | { group: 'names'; hit: NameEntry }
   | { group: 'dbs'; hit: DbHit }
   | { group: 'tables'; hit: TableHit }
   | { group: 'fields'; hit: FieldHit }
   | { group: 'boxes'; hit: BoxHit }
 
 const GROUPS: { id: GroupId; label: string }[] = [
+  { id: 'answers', label: 'Tables that answer it' },
+  { id: 'names', label: 'People, organisations and places' },
   { id: 'dbs', label: 'Databases' },
   { id: 'tables', label: 'Tables' },
   { id: 'fields', label: 'Fields' },
@@ -99,7 +110,21 @@ function RowView({ row, on, onPick, onHover }: { row: Row; on: boolean; onPick: 
   let title: React.ReactNode
   let sub = ''
   let meta = ''
-  if (row.group === 'dbs') {
+  if (row.group === 'answers') {
+    tile = <Tile kind="tables" icon="table" />
+    title = <>{row.hit.label}</>
+    sub = [row.hit.topic, row.hit.stored].filter(Boolean).join(' · ')
+    meta = row.hit.rows != null ? `${compactNum(row.hit.rows)} records` : ''
+  } else if (row.group === 'names') {
+    tile = (
+      <span className="sr-tile sr-name" style={{ background: row.hit.color }} aria-hidden>
+        {row.hit.label.replace(/[^A-Za-z]/g, '').charAt(0)}
+      </span>
+    )
+    title = <>{row.hit.label}</>
+    sub = row.hit.qualifier
+    meta = row.hit.kindLabel
+  } else if (row.group === 'dbs') {
     tile = <Tile kind="data" icon="db" />
     title = <Marked text={row.hit.label} m={row.hit.m} />
     sub = `${compactNum(row.hit.tables)} ${row.hit.tables === 1 ? 'table' : 'tables'}`
@@ -190,6 +215,12 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
   const [at, setAt] = useState(0)
   const [picked, setPicked] = useState<Picked | null>(null)
   const [tryView, setTryView] = useState<TryView>(view ?? 'fields')
+  const questions = useQuestions()
+  const [qAt, setQAt] = useState(0)
+  /** The question the reader picked from the list, while the field still holds it. */
+  const [asked, setAsked] = useState<Question | null>(null)
+  const [names, setNames] = useState<NameEntry[]>([])
+  const nameSeq = useRef(0)
   const seq = useRef(0)
   const typedAt = useRef<Map<number, number>>(new Map())
   const pending = useRef<number | null>(null)
@@ -238,6 +269,16 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
 
   const boxes = useMemo(() => searchBoxes(q, expanded === 'boxes' ? ALL : expanded ? 0 : CAP), [q, expanded])
 
+  // Names (nysgpt-1's findNames, brief 55): people in public roles, organisations and places, each linked to a table.
+  useEffect(() => {
+    const id = ++nameSeq.current
+    const text = q.trim()
+    if (text.length < 2 || (asked && q === asked.q)) return void setNames([])
+    void findNames(text, expanded === 'names' ? 50 : CAP)
+      .then((list) => id === nameSeq.current && setNames(list))
+      .catch(() => id === nameSeq.current && setNames([]))
+  }, [q, expanded, asked])
+
   // Keystroke to painted results, for the speed check (window.__searchPerf, the last 200).
   useLayoutEffect(() => {
     const id = pending.current
@@ -254,23 +295,55 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
   }, [res])
 
   const groups = useMemo(() => {
+    const answers = asked && q === asked.q ? asked.tables.map((t) => ({ group: 'answers', hit: { stored: t.stored, label: t.plain, topic: asked.topic, rows: t.rows } }) as Row) : []
     const g: Record<GroupId, { total: number; rows: Row[] }> = {
+      answers: { total: answers.length, rows: answers },
+      names: { total: names.length, rows: names.map((hit) => ({ group: 'names', hit }) as Row) },
       dbs: { total: res?.dbs.total ?? 0, rows: (res?.dbs.items ?? []).map((hit) => ({ group: 'dbs', hit }) as Row) },
       tables: { total: res?.tables.total ?? 0, rows: (res?.tables.items ?? []).map((hit) => ({ group: 'tables', hit }) as Row) },
       fields: { total: res?.fields.total ?? 0, rows: (res?.fields.items ?? []).map((hit) => ({ group: 'fields', hit }) as Row) },
       boxes: { total: boxes.total, rows: boxes.items.map((hit) => ({ group: 'boxes', hit }) as Row) },
     }
     return g
-  }, [res, boxes])
+  }, [res, boxes, names, asked, q])
 
   const flat = useMemo(() => (expanded ? groups[expanded].rows : GROUPS.flatMap((g) => groups[g.id].rows)), [groups, expanded])
 
   const pickRow = useCallback((r: Row) => {
-    if (r.group === 'dbs') setPicked({ kind: 'db', topic: r.hit.label })
+    if (r.group === 'answers') {
+      const sql = asked && asked.tables[0]?.stored === r.hit.stored ? asked.sql : ''
+      setPicked({ kind: 'table', stored: r.hit.stored, ...(sql ? { sql } : {}) })
+      if (sql) setTryView('api')
+    } else if (r.group === 'names') {
+      const link = r.hit.links.find((l) => l.open !== false) ?? r.hit.links[0]
+      if (link) {
+        setPicked({ kind: 'table', stored: link.stored, sql: `SELECT * FROM ${link.stored} WHERE ${link.field} = '${link.value.replace(/'/g, "''")}' LIMIT 50` })
+        setTryView('api')
+      }
+    } else if (r.group === 'dbs') setPicked({ kind: 'db', topic: r.hit.label })
     else if (r.group === 'tables') setPicked({ kind: 'table', stored: r.hit.stored })
     else if (r.group === 'fields') setPicked({ kind: 'table', stored: r.hit.stored, field: r.hit.name })
     else setPicked({ kind: 'box', box: r.hit.box })
+  }, [asked])
+
+  /** A question from the list: into the field, its tables first in the results, the first in the try panel. */
+  const askQuestion = useCallback((question: Question) => {
+    setAsked(question)
+    setQ(question.q)
+    setExpanded(null)
+    const t = question.tables[0]
+    if (t) {
+      setPicked({ kind: 'table', stored: t.stored, ...(question.sql ? { sql: question.sql } : {}) })
+      setTryView(question.sql ? 'api' : 'fields')
+    }
+    input.current?.focus()
   }, [])
+  const clear = () => {
+    setQ('')
+    setAsked(null)
+    setExpanded(null)
+    input.current?.focus()
+  }
 
   // ?pick=<box key, table:<stored>, db:<topic>>&view=api: open on that thing (the home page's Try API, shared links).
   const picking = useRef(pick)
@@ -289,6 +362,14 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
   }, [ready])
 
   const onKey = (e: React.KeyboardEvent) => {
+    // An empty field: the keys walk the question list, and Enter asks the one picked.
+    if (!q && (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter')) {
+      e.preventDefault()
+      if (e.key === 'ArrowDown') setQAt((v) => Math.min(questions.items.length - 1, v + 1))
+      else if (e.key === 'ArrowUp') setQAt((v) => Math.max(0, v - 1))
+      else if (questions.items[qAt]) askQuestion(questions.items[qAt])
+      return
+    }
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       setAt((v) => Math.min(flat.length - 1, v + 1))
@@ -302,7 +383,7 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
     } else if (e.key === 'Escape') {
       e.preventDefault()
       if (expanded) setExpanded(null)
-      else setQ('')
+      else clear()
     } else if (e.key === 'ArrowRight' && (e.target as HTMLInputElement).selectionStart === q.length && picked) {
       e.preventDefault()
       panel.current?.focus()
@@ -323,7 +404,10 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
           <input
             ref={input}
             value={q}
-            onChange={(e) => setQ(e.target.value)}
+            onChange={(e) => {
+              setQ(e.target.value)
+              if (asked && e.target.value !== asked.q) setAsked(null)
+            }}
             onKeyDown={onKey}
             placeholder="Search every table, field, database and API"
             aria-label="Search"
@@ -331,13 +415,20 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
             spellCheck={false}
             autoComplete="off"
           />
+          {q ? (
+            <button type="button" className="sr-x" aria-label="Clear the search" title="Clear the search" onMouseDown={(e) => e.preventDefault()} onClick={clear}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            </button>
+          ) : null}
           <span className="sr-count">{count}</span>
         </label>
       </div>
       <div className="sr-body">
         <div className="sr-list" id="sr-list" role="listbox" aria-label="Results">
           {failed && <p className="sr-note">The table index did not load: {failed}</p>}
-          {!q.trim() && <p className="sr-note">Type a few letters: a subject, a table, a field, an agency, a model.</p>}
+          <QuestionList items={questions.items} at={qAt} onAt={setQAt} onPick={askQuestion} onNearEnd={questions.more} hidden={!!q} />
           {nothing && <p className="sr-note">Nothing matches “{q.trim()}”.</p>}
           {expanded ? (
             <>
