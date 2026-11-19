@@ -88,9 +88,24 @@ export function HomePlate() {
     const sel = (el: HTMLElement | null) => {
       const prev = cur
       cur?.removeAttribute(ON)
+      cur?.removeAttribute('data-corner')
       cur = el
       if (!el) return
       el.setAttribute(ON, '')
+      // A box in the first or last column of its page sits in a corner of the frame: mark it so its ring takes the frame curve.
+      if (el.dataset.nav === 'plate' && el.parentElement) {
+        const kids = [...el.parentElement.children]
+        const y = top(el)
+        const row = kids.filter(c => top(c) === y).sort((p, q) => left(p) - left(q))
+        const tops = [...new Set(kids.map(top))].sort((p, q) => p - q)
+        const frame = el.closest<HTMLElement>('.hm-pframe')
+        const cols = frame ? Math.max(1, Math.round(frame.clientWidth / el.getBoundingClientRect().width)) : PAGE
+        const i = row.indexOf(el)
+        const v = y === tops[0] ? 't' : y === tops[tops.length - 1] ? 'b' : ''
+        const h = i % cols === 0 ? 'l' : i % cols === cols - 1 ? 'r' : ''
+        const corner = [v && h ? v + h : '', tops.length === 1 && h ? 'b' + h : ''].filter(Boolean).join(' ')
+        if (corner) el.setAttribute('data-corner', corner)
+      }
       const a = pageOf(el)
       const p = pageOf(prev)
       if (a?.start && (!p || p.n !== a.n || prev?.parentElement !== el.parentElement))
