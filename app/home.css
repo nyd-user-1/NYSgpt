@@ -46,6 +46,7 @@
 .hm-cell[data-nav-on] { box-shadow: inset 0 -3px 0 color-mix(in oklab, var(--kind) 40%, var(--paper)); }
 /* the keyboard is on a cell that is not the set on show: its word in its colour and a faint enter mark */
 .hm-cell[data-nav-on] .hm-word { color: var(--kind); }
+.hm-cell[data-nav-on]:not(.hm-on) .hm-word { color: color-mix(in oklab, var(--kind) 40%, var(--paper)); }
 .hm-cell[data-nav-on]:not(.hm-on) .hm-enter { display: flex; opacity: .4; }
 .hm-cell.hm-on[data-nav-on] { box-shadow: inset 0 -3px 0 var(--kind); }
 .hm-name[data-nav-on] { box-shadow: inset 0 0 0 2px var(--paper-text); }

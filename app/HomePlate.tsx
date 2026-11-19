@@ -156,9 +156,14 @@ export function HomePlate() {
       const b = t.closest<HTMLElement>('[data-nav]')
       if (b && b !== cur) {
         cur?.removeAttribute(ON)
+        cur?.removeAttribute('data-corner')
         cur = b
         b.setAttribute(ON, '')
-      } else if (cur && !b && !t.closest('.hm-kmenu,.hm-ovp,aside')) sel(null)
+      } else if (!b && !t.closest('.hm-kmenu,.hm-ovp,aside,button,a,input,textarea')) {
+        // a click on empty ground lets go of everything: the keyboard selection and the set on show
+        if (cur) sel(null)
+        if (setRef.current !== null) home.showSet(null)
+      }
     }
     window.addEventListener('keydown', onKey)
     document.addEventListener('click', onClick, true)
