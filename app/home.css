@@ -93,6 +93,7 @@
 .hm-foot { position: relative; margin-top: 16px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
 .hm-ti { display: flex; color: var(--paper-text); }
 .hm-ti svg { width: 16px; height: 16px; }
+.hm-ti img { width: 18px; height: 18px; border-radius: 4px; object-fit: contain; }
 .hm-card:hover .hm-ti, .hm-card[data-nav-on] .hm-ti { color: var(--type); }
 .hm-pnl { display: block; width: 28px; height: 28px; margin: 0 -6px -6px 0; padding: 6px; border: 0; border-radius: 8px; background: none; color: var(--paper-text); cursor: pointer; }
 .hm-pnl:hover { background: var(--paper); }

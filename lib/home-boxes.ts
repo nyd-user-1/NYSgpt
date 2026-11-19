@@ -7,15 +7,40 @@
  * and the catalog overlay (models: task, size, visibility, updated, link).
  */
 
-export type BoxKind = 'data' | 'models' | 'platforms' | 'tools'
-export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package'
+import { SOURCE_BOXES, SOURCE_INFO } from './home-sources'
+
+/** The five outside sources, A to Z (2026-11-19): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
+export type SourceKind = 'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats'
+export const SOURCE_KINDS: SourceKind[] = ['aa', 'github', 'hf', 'kaggle', 'llmstats']
+export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
+  aa: { word: 'Artificial Analysis', unit: 'Models' },
+  github: { word: 'GitHub', unit: 'Repositories' },
+  hf: { word: 'Hugging Face', unit: 'Models' },
+  kaggle: { word: 'Kaggle', unit: 'Datasets' },
+  llmstats: { word: 'LLM Stats', unit: 'Benchmarks' },
+}
+export const isSource = (k: BoxKind): k is SourceKind => (SOURCE_KINDS as BoxKind[]).includes(k)
+
+export type BoxKind = 'data' | 'models' | 'platforms' | 'tools' | SourceKind
+export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats'
 export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon }
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
-export const TYPE_COLOR: Record<BoxKind, string> = { data: '#0e7490', models: '#7c3aed', platforms: '#033882', tools: '#ea580c' }
+/* The five sources take colours that sit beside the first four without repeating one: rose, slate, gold, green, fuchsia. */
+export const TYPE_COLOR: Record<BoxKind, string> = {
+  data: '#0e7490',
+  models: '#7c3aed',
+  platforms: '#033882',
+  tools: '#ea580c',
+  aa: '#be123c',
+  github: '#475569',
+  hf: '#a16207',
+  kaggle: '#15803d',
+  llmstats: '#c026d3',
+}
 
-export const BOXES: Box[] = [
+const OWN_BOXES: Box[] = [
  {
   "kind": "data",
   "title": "AI Chips and Data Centers",
@@ -1197,7 +1222,10 @@ export const BOXES: Box[] = [
  }
 ]
 
-export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = {
+/** Every box: the four sets, then the five sources. The all view leaves the sources out (HomePlate). */
+export const BOXES: Box[] = [...OWN_BOXES, ...SOURCE_BOXES]
+
+const OWN_INFO: Record<'models' | 'platforms' | 'tools', SetEntry[]> = {
  "models": [
   {
    "database": "NSR",
@@ -2697,3 +2725,5 @@ export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = {
   }
  ]
 }
+
+export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = { ...OWN_INFO, ...SOURCE_INFO }

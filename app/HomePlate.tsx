@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import dynamic from 'next/dynamic'
-import { BOXES, TYPE_COLOR, type Box } from '@/lib/home-boxes'
+import { BOXES, isSource, TYPE_COLOR, type Box } from '@/lib/home-boxes'
 import { boxKey, home, sortBoxes, useHome } from '@/lib/home-store'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 import { Icon, TypeIcon } from './HomeIcons'
@@ -39,7 +39,7 @@ const PAGE = 5
 export function HomePlate() {
   const { set, pins, favs, shelf, overlay } = useHome()
   const { open: panelOpen, openBox, openData } = useSwitchboard()
-  const boxes = useMemo(() => sortBoxes(set ? BOXES.filter(b => b.kind === set) : BOXES, pins), [set, pins])
+  const boxes = useMemo(() => sortBoxes(BOXES.filter(b => (set ? b.kind === set : !isSource(b.kind))), pins), [set, pins])
   const columns = Math.ceil(boxes.length / 2)
   const pin = useRef<HTMLDivElement>(null)
   const [menu, setMenu] = useState<{ box: Box; at: DOMRect } | null>(null)

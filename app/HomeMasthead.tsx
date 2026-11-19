@@ -3,7 +3,7 @@
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { home, useHome } from '@/lib/home-store'
-import type { BoxKind } from '@/lib/home-boxes'
+import { BOXES, SOURCE_KINDS, SOURCES, TYPE_COLOR, type BoxKind } from '@/lib/home-boxes'
 
 /**
  * The nysgpt.com masthead (2026-11-19, brief 43, from the option 3 sketch):
@@ -26,17 +26,23 @@ export type LedgerEntry = { word: string; value: number; unit: string; exact?: b
 const SETS: BoxKind[] = ['data', 'models', 'platforms', 'tools']
 
 /**
- * The second page of the ledger (Brendan, 2026-11-19), as nsrgpt's masthead pages its cells (app/HomeMasthead.tsx
- * there): pages of four cells, two by two, side by side; the first shows and the rest wait off to the right until a
- * sideways scroll or the arrow keys bring them in. What these two cells hold and open is still to come.
+ * The ledger's later pages (Brendan, 2026-11-19), as nsrgpt's masthead pages its cells (app/HomeMasthead.tsx there):
+ * pages of four cells, two by two, side by side; the first shows and the rest wait off to the right until a sideways
+ * scroll or the arrow keys bring them in. These are the five outside sources, A to Z, left to right and top to bottom.
+ * Each is a set like the first four: a click shows its boxes on the plate. Its figure is the number of boxes it holds.
  */
-const MORE: { word: string; color: string }[] = [
-  { word: 'Hugging Face', color: '#b45309' },
-  { word: 'GitHub', color: 'var(--paper-text)' },
-]
+const MORE: (LedgerEntry & { set: BoxKind })[] = SOURCE_KINDS.map(k => ({
+  set: k,
+  word: SOURCES[k].word,
+  unit: SOURCES[k].unit,
+  value: BOXES.filter(b => b.kind === k).length,
+  color: TYPE_COLOR[k],
+}))
 
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
+  const all = [...ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
+  const pages = Array.from({ length: Math.ceil(all.length / 4) }, (_, p) => all.slice(p * 4, p * 4 + 4))
 
   return (
     <div className="hm-mast" data-inspect="HomeMasthead">
@@ -55,9 +61,10 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
         </button>
 
         <div className="hm-cells" data-inspect="LedgerScroll">
-          <div className="hm-cpage">
-          {ledger.map((l, i) => {
-            const s = SETS[i]
+          {pages.map((cells, p) => (
+          <div className="hm-cpage" key={p}>
+          {cells.map((l, i) => {
+            const s = l.set
             const fig = compact(l.value)
             const on = set === s
             return (
@@ -96,23 +103,11 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
               </button>
             )
           })}
+          {Array.from({ length: 4 - cells.length }, (_, k) => (
+            <span key={k} className="hm-cell hm-fill" aria-hidden />
+          ))}
           </div>
-          <div className="hm-cpage">
-            {MORE.map(x => (
-              <button
-                type="button"
-                key={x.word}
-                data-nav="masthead"
-                data-inspect="LedgerCell"
-                className="hm-cell hm-bb"
-                style={{ '--kind': x.color, '--kind-tint': `color-mix(in oklab, ${x.color} 5%, var(--paper))` } as React.CSSProperties}
-              >
-                <span className="hm-word">{x.word}</span>
-              </button>
-            ))}
-            <span className="hm-cell hm-fill" aria-hidden />
-            <span className="hm-cell hm-fill" aria-hidden />
-          </div>
+          ))}
         </div>
       </div>
     </div>
