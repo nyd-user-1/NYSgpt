@@ -14,7 +14,16 @@ import type { Box, BoxKind } from './home-boxes'
  * Ported from pax2 lib/home-blocks.ts (the shelf store) by way of the sketch.
  */
 
-export type ShelfItem = { key: string; title: string; set: BoxKind; group: string; added: string }
+export type ShelfItem = {
+  key: string
+  title: string
+  set: BoxKind
+  group: string
+  added: string
+  /** Brief 52: what a payload block carries (lib/blocks.ts); a plain Block has neither. */
+  type?: 'design' | 'table' | 'api' | 'page' | 'brief'
+  payload?: unknown
+}
 export type Overlay = { open: boolean; set: BoxKind; product: string; from: DOMRect | null; /** a table to open on, by name, within product */ table?: string }
 
 type State = {
@@ -134,6 +143,22 @@ export const home = {
     write(K.shelf, shelf)
     write(K.order, order)
     set({ shelf, order })
+    // Brief 52: a Tables box added to Blocks carries its table payload (lib/blocks.ts), filled in once it has loaded.
+    if (!on && b.kind === 'tables')
+      void import('./blocks').then(m => m.tablePayload(b)).then(payload => { if (state.shelf.some(s => s.key === key)) home.setPayload(key, payload) }).catch(() => {})
+  },
+  /** Brief 52: a block with a payload (lib/blocks.ts). One already on the shelf takes the new payload and keeps its place. */
+  addBlock(b: Omit<ShelfItem, 'added'>) {
+    const had = state.shelf.find(s => s.key === b.key)
+    const shelf = had ? state.shelf.map(s => (s.key === b.key ? { ...s, ...b } : s)) : [{ ...b, added: new Date().toISOString() }, ...state.shelf]
+    write(K.shelf, shelf)
+    set({ shelf })
+  },
+  /** Brief 52: replace a block's payload (the brief block's edited fields, a table payload once loaded). */
+  setPayload(key: string, payload: unknown) {
+    const shelf = state.shelf.map(s => (s.key === key ? { ...s, payload } : s))
+    write(K.shelf, shelf)
+    set({ shelf })
   },
   removeShelf(key: string) {
     const shelf = state.shelf.filter(s => s.key !== key)

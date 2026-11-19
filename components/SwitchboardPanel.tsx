@@ -13,10 +13,12 @@ import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './M
 import type { Digest } from '@/lib/digest'
 import { FeedbackDialog } from '@/components/FeedbackDialog'
 import { BOXES, KIND_NOUN, SET_INFO, TYPE_COLOR } from '@/lib/home-boxes'
-import { boxKey, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
+import { boxKey, getHome, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
 import { TableDetail } from '@/app/TableDetail'
+import { BlockView } from '@/components/blocks/BlockView'
+import { hasPayload } from '@/lib/blocks'
 import { setShelfDrag } from '@/lib/shelf-drag'
 import '@/app/home.css'
 import { DEV_TOOLS, DEV_TOOLS_TITLE, DevToolsEntry, DevToolsSubView, type DevToolsSub } from '@/components/dev/devtools-slots'
@@ -92,6 +94,8 @@ type View =
      and the data: the databases, one database's tables, one table. */
   | { kind: 'blocks' }
   | { kind: 'box'; key: string }
+  /* Brief 52: a payload block (lib/blocks.ts), opened from its Blocks tile. */
+  | { kind: 'block'; key: string }
   | { kind: 'data'; db?: string; table?: number; rows?: boolean }
   /* Brief 51: rows a Command K command fetched or loaded (Call API, Get sample API results). */
   | ({ kind: 'result' } & PanelResult)
@@ -299,6 +303,7 @@ function SwitchboardPanel() {
     if (view.kind === 'product' && view.sub) setView({ kind: 'product', index: view.index })
     else if (view.kind === 'data' && view.table != null) setView({ kind: 'data', db: view.db })
     else if (view.kind === 'data' && view.db) setView({ kind: 'data' })
+    else if (view.kind === 'block') setView({ kind: 'blocks' })
     else openMenu()
   }, [view, setView, openMenu])
 
@@ -331,9 +336,9 @@ function SwitchboardPanel() {
   // back to the menu: a Marketplace buyer did not come from the switchboard.
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
   const box = view.kind === 'box' ? BOXES.find(b => boxKey(b) === view.key) ?? null : null
-  const newTitle = view.kind === 'result' ? view.title : view.kind === 'blocks' ? 'Blocks' : box ? box.title : view.kind === 'data' ? (view.db ?? 'Data') : null
+  const newTitle = view.kind === 'block' ? (getHome().shelf.find(s => s.key === view.key)?.title ?? 'Block') : view.kind === 'result' ? view.title : view.kind === 'blocks' ? 'Blocks' : box ? box.title : view.kind === 'data' ? (view.db ?? 'Data') : null
   const title = (devSub && DEV_TOOLS_TITLE ? DEV_TOOLS_TITLE[devSub] : null) ?? awsTitle ?? newTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
-  const deeper = deep || view.kind === 'result' || view.kind === 'blocks' || view.kind === 'box' || view.kind === 'data'
+  const deeper = deep || view.kind === 'block' || view.kind === 'result' || view.kind === 'blocks' || view.kind === 'box' || view.kind === 'data'
   const half = width === '50vw'
 
   return createPortal(
@@ -418,6 +423,8 @@ function SwitchboardPanel() {
             <div className="flex min-h-full flex-col">
             {view.kind === 'result' ? (
               <ResultView r={view} />
+            ) : view.kind === 'block' ? (
+              <BlockView blockKey={view.key} />
             ) : view.kind === 'blocks' ? (
               <BlocksView q={q} />
             ) : view.kind === 'box' ? (
@@ -778,7 +785,7 @@ function BlocksView({ q }: { q: string }) {
   const [size, setSize] = useState({ w: 0, h: 0 })
   const [dragKey, setDragKey] = useState<string | null>(null)
   const [over, setOver] = useState<number | null>(null)
-  const { close } = useSwitchboard()
+  const { close, setView } = useSwitchboard()
 
   useEffect(() => {
     const el = ref.current?.closest('.overflow-y-auto') as HTMLElement | null
@@ -805,6 +812,8 @@ function BlocksView({ q }: { q: string }) {
     : Array.from({ length: rows * cols }, (_, i) => (bySlot.has(i) ? byKey.get(bySlot.get(i)!)! : i))
 
   const openTile = (s: ShelfItem) => {
+    // Brief 52: a block that carries a payload opens it here; a plain Block (a Tables box added before payloads, too) goes to its box as before.
+    if (hasPayload(s)) return setView({ kind: 'block', key: s.key })
     home.showSet(s.set)
     if (innerWidth < 640) close()
     window.setTimeout(() => {
@@ -886,7 +895,7 @@ function BlocksView({ q }: { q: string }) {
                 // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
                 <img src={box.logo} alt="" />
               ) : (
-                <TypeIcon icon={box?.icon ?? 'db'} />
+                <TypeIcon icon={box?.icon ?? (s.set === 'api' ? 'plug' : 'db')} />
               )}
             </span>
             <span className="hm-sl">{s.title}</span>

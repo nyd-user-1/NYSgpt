@@ -39,7 +39,9 @@ export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
 export const isSource = (k: BoxKind): k is SourceKind => (SOURCE_KINDS as BoxKind[]).includes(k)
 
 /* 'tables' took Tools' place on the masthead (Brendan, 2026-11-19). The tools boxes stay in this file but no set shows them. */
-export type BoxKind = 'data' | 'models' | 'platforms' | 'tables' | 'tools' | SourceKind
+export type BoxKind = 'data' | 'models' | 'platforms' | 'tables' | 'tools' | SourceKind | BlockKind
+/** Brief 52: the payload blocks' own kinds (lib/blocks.ts). Off the plate and the masthead; the palette and Blocks find them. */
+export type BlockKind = 'design' | 'page' | 'brief' | 'api'
 /** The sets the all view shows: the first masthead page. */
 export const OWN_KINDS: BoxKind[] = ['data', 'models', 'platforms', 'tables']
 export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file' | 'table'
@@ -64,6 +66,10 @@ export const KIND_NOUN: Record<BoxKind, string> = {
   'hf-datasets': 'Dataset',
   'hf-spaces': 'Space',
   'hf-papers': 'Paper',
+  design: 'Design',
+  page: 'Page',
+  brief: 'Brief',
+  api: 'API',
 }
 
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
@@ -86,6 +92,11 @@ export const TYPE_COLOR: Record<BoxKind, string> = {
   'hf-datasets': '#7c3aed',
   'hf-spaces': '#033882',
   'hf-papers': '#ea580c',
+  // brief 52: the payload blocks, in colours no set uses
+  design: '#c026d3',
+  page: '#ca8a04',
+  brief: '#2563eb',
+  api: '#65a30d',
 }
 
 const OWN_BOXES: Box[] = [
@@ -1290,7 +1301,14 @@ const OWN_BOXES: Box[] = [
 ]
 
 /** Every box: the four sets, then the five sources. The all view leaves the sources out (HomePlate). */
-export const BOXES: Box[] = [...OWN_BOXES, ...TABLE_BOXES, ...SOURCE_BOXES]
+/** Brief 52: the demo payload blocks (lib/blocks.ts DEMO). The plate shows only OWN_KINDS or a masthead set, so never these. */
+const BLOCK_BOXES: Box[] = [
+  { kind: 'design', title: 'Material Design 3', group: 'Blocks', body: 'Google’s Material Design 3 baseline tokens: colour roles for light and dark, the type scale, shape, elevation, state layers and motion.', foot: '', accent: '', icon: 'palette' },
+  { kind: 'page', title: 'Landing page', group: 'Blocks', body: 'A landing page as an ordered list of sections, each bound to a brief, table or API block.', foot: '', accent: '', icon: 'layers' },
+  { kind: 'brief', title: 'Site brief', group: 'Blocks', body: 'What the site is for: name, purpose, audience, pages and tone, as fields to fill in.', foot: '', accent: '', icon: 'file' },
+]
+
+export const BOXES: Box[] = [...OWN_BOXES, ...TABLE_BOXES, ...SOURCE_BOXES, ...BLOCK_BOXES]
 
 const OWN_INFO: Record<'models' | 'platforms' | 'tools', SetEntry[]> = {
  "models": [
@@ -2793,4 +2811,4 @@ const OWN_INFO: Record<'models' | 'platforms' | 'tools', SetEntry[]> = {
  ]
 }
 
-export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = { ...OWN_INFO, tables: [], ...SOURCE_INFO }
+export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = { ...OWN_INFO, tables: [], ...SOURCE_INFO, design: [], page: [], brief: [], api: [] }

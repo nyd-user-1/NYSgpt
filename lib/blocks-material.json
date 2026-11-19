@@ -1,0 +1,268 @@
+{
+ "name": "Material Design 3",
+ "publisher": "Google",
+ "licence": {
+  "name": "Apache License 2.0",
+  "heading": "Apache License Version 2.0, January 2004",
+  "url": "https://github.com/material-foundation/material-tokens/blob/5d3f2f297f1547bb202833cdea50b5b51b400c4c/LICENSE"
+ },
+ "source": {
+  "repository": "https://github.com/material-foundation/material-tokens",
+  "branch": "json",
+  "commit": "5d3f2f297f1547bb202833cdea50b5b51b400c4c",
+  "files": [
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/palette.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/themes/light.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/themes/dark.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/typescale.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/typeface.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/shape.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/elevation.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/state.css",
+   "https://raw.githubusercontent.com/material-foundation/material-tokens/5d3f2f297f1547bb202833cdea50b5b51b400c4c/css/motion.css"
+  ],
+  "read": "2026-11-19"
+ },
+ "units": {
+  "motionDuration": "ms"
+ },
+ "color": {
+  "light": {
+   "scrim": "#000000",
+   "outline-variant": "rgb( 202 196 208 )",
+   "surface-tint": "#6750a4",
+   "surface-tint-color": "#6750a4",
+   "on-error-container": "#410e0b",
+   "on-error": "#ffffff",
+   "error-container": "#f9dedc",
+   "on-tertiary-container": "#31111d",
+   "on-tertiary": "#ffffff",
+   "tertiary-container": "#ffd8e4",
+   "tertiary": "#7d5260",
+   "shadow": "#000000",
+   "error": "#b3261e",
+   "outline": "rgb( 121 116 126 )",
+   "on-background": "#1c1b1f",
+   "background": "#fffbfe",
+   "inverse-on-surface": "#f4eff4",
+   "inverse-surface": "#313033",
+   "on-surface-variant": "rgb( 73 69 79 )",
+   "on-surface": "#1c1b1f",
+   "surface-variant": "rgb( 231 224 236 )",
+   "surface": "#fffbfe",
+   "on-secondary-container": "#1d192b",
+   "on-secondary": "#ffffff",
+   "secondary-container": "#e8def8",
+   "secondary": "#625b71",
+   "inverse-primary": "#d0bcff",
+   "on-primary-container": "#21005d",
+   "on-primary": "#ffffff",
+   "primary-container": "#eaddff",
+   "primary": "#6750a4"
+  },
+  "dark": {
+   "scrim": "#000000",
+   "outline-variant": "rgb( 73 69 79 )",
+   "surface-tint": "#d0bcff",
+   "surface-tint-color": "#d0bcff",
+   "on-error-container": "#f9dedc",
+   "on-error": "#601410",
+   "error-container": "#8c1d18",
+   "on-tertiary-container": "#ffd8e4",
+   "on-tertiary": "#492532",
+   "tertiary-container": "#633b48",
+   "tertiary": "#efb8c8",
+   "shadow": "#000000",
+   "error": "#f2b8b5",
+   "outline": "rgb( 147 143 153 )",
+   "on-background": "#e6e1e5",
+   "background": "#1c1b1f",
+   "inverse-on-surface": "#313033",
+   "inverse-surface": "#e6e1e5",
+   "on-surface-variant": "rgb( 202 196 208 )",
+   "on-surface": "#e6e1e5",
+   "surface-variant": "rgb( 73 69 79 )",
+   "surface": "#1c1b1f",
+   "on-secondary-container": "#e8def8",
+   "on-secondary": "#332d41",
+   "secondary-container": "#4a4458",
+   "secondary": "#ccc2dc",
+   "inverse-primary": "#6750a4",
+   "on-primary-container": "#eaddff",
+   "on-primary": "#381e72",
+   "primary-container": "#4f378b",
+   "primary": "#d0bcff"
+  }
+ },
+ "typeface": {
+  "plain": "Roboto",
+  "brand": "Roboto",
+  "weight-bold": "700",
+  "weight-medium": "500",
+  "weight-regular": "400"
+ },
+ "typescale": {
+  "label-small": {
+   "lineHeight": "16px",
+   "tracking": "0.5px",
+   "size": "11px",
+   "weight": "500",
+   "font": "Roboto"
+  },
+  "label-medium": {
+   "lineHeight": "16px",
+   "tracking": "0.5px",
+   "size": "12px",
+   "weight": "500",
+   "font": "Roboto"
+  },
+  "label-large": {
+   "lineHeight": "20px",
+   "tracking": "0.10000000149011612px",
+   "size": "14px",
+   "weight": "500",
+   "font": "Roboto"
+  },
+  "body-small": {
+   "lineHeight": "16px",
+   "tracking": "0.4000000059604645px",
+   "size": "12px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "body-medium": {
+   "lineHeight": "20px",
+   "tracking": "0.25px",
+   "size": "14px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "body-large": {
+   "lineHeight": "24px",
+   "tracking": "0.5px",
+   "size": "16px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "title-small": {
+   "lineHeight": "20px",
+   "tracking": "0.10000000149011612px",
+   "size": "14px",
+   "weight": "500",
+   "font": "Roboto"
+  },
+  "title-medium": {
+   "lineHeight": "24px",
+   "tracking": "0.15000000596046448px",
+   "size": "16px",
+   "weight": "500",
+   "font": "Roboto"
+  },
+  "title-large": {
+   "lineHeight": "28px",
+   "tracking": "0px",
+   "size": "22px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "headline-small": {
+   "lineHeight": "32px",
+   "tracking": "0px",
+   "size": "24px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "headline-medium": {
+   "lineHeight": "36px",
+   "tracking": "0px",
+   "size": "28px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "headline-large": {
+   "lineHeight": "40px",
+   "tracking": "0px",
+   "size": "32px",
+   "font": "Roboto",
+   "weight": "400"
+  },
+  "display-small": {
+   "lineHeight": "44px",
+   "tracking": "0px",
+   "size": "36px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "display-medium": {
+   "lineHeight": "52px",
+   "tracking": "0px",
+   "size": "45px",
+   "weight": "400",
+   "font": "Roboto"
+  },
+  "display-large": {
+   "lineHeight": "64px",
+   "tracking": "-0.25px",
+   "size": "57px",
+   "weight": "400",
+   "font": "Roboto"
+  }
+ },
+ "shape": {
+  "corner-extra-small-top": "4px 4px 0px 0px",
+  "corner-extra-small": "4px 4px 4px 4px",
+  "corner-large": "16px 16px 16px 16px",
+  "corner-none": "0px 0px 0px 0px",
+  "corner-large-start": "16px 0px 0px 16px",
+  "corner-medium": "12px 12px 12px 12px",
+  "corner-small": "8px 8px 8px 8px",
+  "corner-large-end": "0px 16px 16px 0px",
+  "corner-large-top": "16px 16px 0px 0px",
+  "corner-extra-large": "28px 28px 28px 28px",
+  "corner-extra-large-top": "28px 28px 0px 0px",
+  "corner-full": "50%"
+ },
+ "elevation": {
+  "level0": "0px",
+  "level1": "1px",
+  "level2": "3px",
+  "level3": "6px",
+  "level4": "8px",
+  "level5": "12px"
+ },
+ "state": {
+  "hover-state-layer-opacity": "0.07999999821186066",
+  "focus-state-layer-opacity": "0.11999999731779099",
+  "pressed-state-layer-opacity": "0.11999999731779099",
+  "dragged-state-layer-opacity": "0.1599999964237213"
+ },
+ "motion": {
+  "easing-linear": "cubic-bezier(0, 0, 1, 1)",
+  "easing-standard": "cubic-bezier(0.20000000298023224, 0, 0, 1)",
+  "duration-short1": "50",
+  "duration-short2": "100",
+  "duration-short3": "150",
+  "duration-short4": "200",
+  "duration-medium1": "250",
+  "duration-medium2": "300",
+  "duration-medium3": "350",
+  "duration-medium4": "400",
+  "duration-long1": "450",
+  "duration-long2": "500",
+  "duration-long3": "550",
+  "duration-long4": "600",
+  "duration-extra-long1": "700",
+  "duration-extra-long2": "800",
+  "duration-extra-long3": "900",
+  "duration-extra-long4": "1000",
+  "easing-standard-accelerate": "cubic-bezier( 0.30000001192092896, 0, 1, 1 )",
+  "easing-standard-decelerate": "cubic-bezier(0, 0, 0, 1)",
+  "easing-emphasized-accelerate": "cubic-bezier( 0.30000001192092896, 0, 0.800000011920929, 0.15000000596046448 )",
+  "easing-emphasized-decelerate": "cubic-bezier( 0.05000000074505806, 0.699999988079071, 0.10000000149011612, 1 )",
+  "easing-legacy": "cubic-bezier( 0.4000000059604645, 0, 0.20000000298023224, 1 )",
+  "easing-legacy-accelerate": "cubic-bezier( 0.4000000059604645, 0, 1, 1 )",
+  "easing-legacy-decelerate": "cubic-bezier( 0, 0, 0.20000000298023224, 1 )"
+ },
+ "spacing": null,
+ "notes": "Spacing is not part of the published Material 3 token files, so the payload carries none."
+}

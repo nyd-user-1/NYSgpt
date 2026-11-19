@@ -1,8 +1,8 @@
-import { ChevronsLeftRight, Columns2, Cpu, Database, Github, Layers, LibraryBig, MessageSquarePlus, MessagesSquare, PanelLeft, Radar, ScanSearch, SquareDashedMousePointer, Table2, type LucideIcon } from "lucide-react"
+import { ChevronsLeftRight, Columns2, Cpu, Database, FileText, Github, Layers, LayoutTemplate, LibraryBig, Palette, Plug, MessageSquarePlus, MessagesSquare, PanelLeft, Radar, ScanSearch, SquareDashedMousePointer, Table2, type LucideIcon } from "lucide-react"
 import * as React from "react"
 
 import { Icon, TypeIcon } from "@/app/HomeIcons"
-import { BOXES, SOURCES, TYPE_COLOR, type Box, type BoxKind, type SourceKind } from "@/lib/home-boxes"
+import { BOXES, KIND_NOUN, SOURCES, TYPE_COLOR, type Box, type BoxKind, type SourceKind } from "@/lib/home-boxes"
 import { LEDGER } from "@/lib/home-data"
 import { compact } from "@/lib/compact"
 import { getHome, home } from "@/lib/home-store"
@@ -104,8 +104,9 @@ export const KINDS: Record<Kind, KindInfo> = {
       // A kind that is neither one of the four sets nor a source (the block kinds, brief 52) lists under Blocks.
       const src = (SOURCES as Record<string, { word: string; unit: string } | undefined>)[k]
       const section = own ? own.section : src ? SECTION_OF(k as SourceKind) : "Blocks"
-      const label = own ? own.label : src ? singular(src.unit) : k.charAt(0).toUpperCase() + k.slice(1)
-      return [k, { section, label, icon: own?.icon ?? Database, tint: TYPE_COLOR[k], action: `Open ${label}` }]
+      const label = own ? own.label : src ? singular(src.unit) : KIND_NOUN[k]
+      const blockIcon = ({ design: Palette, page: LayoutTemplate, brief: FileText, api: Plug } as Record<string, LucideIcon | undefined>)[k]
+      return [k, { section, label, icon: own?.icon ?? blockIcon ?? Database, tint: TYPE_COLOR[k], action: `Open ${label}` }]
     }),
   ) as Record<BoxKind, KindInfo>),
 }
