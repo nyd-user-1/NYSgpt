@@ -311,7 +311,7 @@ export function CatalogOverlay() {
           ) : data === null ? (
             <p className="hm-cnote" style={{ padding: '16px 20px' }}>The catalog did not load.</p>
           ) : (
-            <div className="hm-odb">
+            <div className="hm-odb thin-scrollbar">
               <p className="hm-og">Database</p>
               {dbs
                 .filter(d => dbCount.has(d))
@@ -332,7 +332,7 @@ export function CatalogOverlay() {
             </div>
           )}
           {Array.isArray(data) && (hits.length ? (
-            <div className="hm-otb">
+            <div className="hm-otb thin-scrollbar">
               <p className="hm-og">Table</p>
               {[...groups.values()].map(l =>
                 l.slice(0, 300).map(([t, i]) => (
@@ -365,7 +365,7 @@ export function CatalogOverlay() {
             <p className="hm-cnote" style={{ padding: '16px 20px' }}>No tables match.</p>
           ))}
         </div>
-        <div className="hm-pane hm-ovd">{table && <TableDetail key={cur} t={table} rows={rows} onRows={() => setRows(v => !v)} />}</div>
+        <div className="hm-pane hm-ovd thin-scrollbar">{table && <TableDetail key={cur} t={table} rows={rows} onRows={() => setRows(v => !v)} />}</div>
       </Columns>
     </div>,
     document.body,
