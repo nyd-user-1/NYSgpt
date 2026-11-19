@@ -42,7 +42,13 @@ const link = (a, b) => { if (!NICK.has(a)) NICK.set(a, new Set()); NICK.get(a).a
 for (const [a, rel, b] of nickRows) if (a && b && rel === 'has_nickname') { link(a, b); link(b, a); }
 const nicksOf = (first) => [...(NICK.get(norm(first)) || [])].slice(0, 12);
 
-const KINDS = { congress: ['Member of Congress', '#1d4ed8'], candidate: ['Federal candidate', '#b42318'] };
+// kinds: [label, colour, people (the nickname list applies)]
+const KINDS = {
+  congress: ['Member of Congress', '#1d4ed8', 1], legislator: ['State legislator', '#0e7490', 1], candidate: ['Federal candidate', '#b42318', 1], judge: ['Judge', '#6d28d9', 1],
+  agency: ['Federal agency or office', '#033882', 0], committee: ['Political committee', '#be123c', 0], contractor: ['Federal award recipient', '#047857', 0], company: ['Public company or fund', '#15803d', 0],
+  court: ['Court', '#7c3aed', 0], place: ['Place', '#0891b2', 0], plant: ['Power plant', '#b45309', 0], utility: ['Utility', '#ca8a04', 0], college: ['College or university', '#2563eb', 0],
+  district: ['School district', '#0284c7', 0], hospital: ['Hospital', '#be185d', 0], nonprofit: ['Nonprofit', '#65a30d', 0], assignee: ['Patent owner', '#ea580c', 0], reactor: ['Nuclear reactor', '#475569', 0],
+};
 const entries = [];
 const add = (e) => entries.push(e);
 
@@ -72,7 +78,7 @@ for (const m of leg) {
   if (m.id?.bioguide) links.push(['govblock_legislative.congress_bill_status', 'sponsor_bioguide_id', m.id.bioguide, 0]);
   const words = [norm(label), norm(n.last), ...firsts.map(norm), norm(n.middle), norm(n.suffix)].join(' ');
   const quals = [last.type === 'sen' ? 'senator sen senate' : 'representative rep congressman congresswoman house', 'congress member', norm(STATES[last.state] || ''), norm(last.state), norm(last.party)].join(' ');
-  add({ id: `congress:${m.id?.bioguide || label}`, label, kind: 'congress', qualifier, forms, links, words, quals, rank: m.current ? 100 : 40 + Number(to === 'present' ? 2026 : to) / 100 });
+  add({ id: `congress:${m.id?.bioguide || label}`, label, kind: 'congress', qualifier, forms, links, words, quals, rank: m.current ? 100 : 15 + ((Number(to) || 1789) - 1789) / 24 });
 }
 
 // federal candidates (FEC) not already a member of Congress above
@@ -90,22 +96,91 @@ for (const [id, c] of FEC) {
   add({ id: `candidate:${id}`, label, kind: 'candidate', qualifier, forms: [title(c.cand_name)], links: [['govblock_fec.candidates', 'cand_id', id]], words, quals, rank: 10 + Number(c.last_cycle || 0) / 1000 });
 }
 
-// shards: an entry goes into the shard of the two-letter start of each of its name words; a shard over BIG is split
-// by three letters. Nicknames from the list are not indexed: lib/find-names.ts expands the query with them.
-// Members in office also go into _current.json, for a query made only of office, state or party words.
+// every other kind, one extract each (scripts/names-extracts.sh)
+const read = (f) => { const p = path.join(SRC, `${f}.csv`); if (!fs.existsSync(p)) return []; const rows = csv(fs.readFileSync(p, 'utf8')); const h = rows.shift(); return rows.filter((r) => r.length >= h.length).map((r) => Object.fromEntries(h.map((k, i) => [k, r[i]]))); };
+const lg = (v) => Math.log10(Math.max(1, Number(v) || 1));
+const money = (v) => { const n = Number(v) || 0; return n >= 1e9 ? `$${(n / 1e9).toFixed(1)}B` : n >= 1e6 ? `$${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `$${(n / 1e3).toFixed(0)}K` : `$${n.toFixed(0)}`; };
+const ST = (s) => STATES[String(s || '').toUpperCase()] || s || '';
+const PARTY1 = { D: 'Democrat', R: 'Republican', I: 'Independent', L: 'Libertarian', G: 'Green' };
+
+// state legislators (public role: elected members), linked by name in the members table
+for (const r of read('state_legislators')) {
+  const st = r.state_file.slice(0, 2).toUpperCase();
+  const dist = String(r.district || '').replace(/^0+/, '');
+  add({ label: r.name, kind: 'legislator', qualifier: `State ${String(r.chamber || '').toLowerCase() === 'senate' ? 'senator' : 'representative'}, ${ST(st)}${dist ? ` district ${dist}` : ''}${r.party ? `, ${PARTY1[r.party] || r.party}` : ''}`, links: [['govblock_geo.legislature_members', 'name', r.name]], rank: 22 });
+}
+// judges (CourtListener's people database), with the court of their latest position where it names one
+const COURT = new Map(read('courts').map((c) => [c.id, c.full_name]));
+for (const j of read('judges')) {
+  const label = [j.name_first, j.name_middle, j.name_last, j.name_suffix].filter(Boolean).join(' ');
+  if (!label.trim()) continue;
+  const court = COURT.get(j.court);
+  const yrs = j.y0 ? `, ${j.y0}${j.y1 && j.y1 !== j.y0 ? ` to ${j.y1}` : ''}` : '';
+  add({ label, kind: 'judge', qualifier: `Judge${court ? `, ${court}` : ''}${yrs}`, links: [['govblock_courts.people_db_people', 'id', j.id], ['govblock_courts.people_db_positions', 'person_id', j.id]], rank: 25 });
+}
+for (const c of read('courts')) add({ label: c.full_name, kind: 'court', qualifier: `Court${c.end_date ? `, closed ${String(c.end_date).slice(0, 4)}` : ''}`, forms: c.short_name && c.short_name !== c.full_name ? [c.short_name] : [], links: [['govblock_courts.courts', 'id', c.id]], rank: 30 });
+// political committees (FEC), active in or after the 2010 cycle
+const CMTE = { H: 'House campaign committee', S: 'Senate campaign committee', P: 'Presidential campaign committee', Q: 'PAC', N: 'PAC', O: 'Super PAC', U: 'Single-candidate independent expenditure committee', V: 'Hybrid PAC', W: 'Hybrid PAC', X: 'Party committee', Y: 'Party committee', Z: 'National party nonfederal account', I: 'Independent expenditure filer', E: 'Electioneering communication filer', C: 'Communication cost filer', D: 'Delegate committee' };
+for (const c of read('fec_committees')) {
+  if (Number(c.last_cycle) < 2010) continue;
+  add({ label: title(c.name), kind: 'committee', qualifier: `${CMTE[c.tp] || 'Political committee'}${c.st ? `, ${ST(c.st)}` : ''}${c.org && !/^none$/i.test(c.org.trim()) ? `, connected to ${title(c.org)}` : ''}, ${c.first_cycle === c.last_cycle ? c.last_cycle : `${c.first_cycle} to ${c.last_cycle}`}`, links: [['govblock_fec.committees', 'cmte_id', c.cmte_id]], rank: 12 + Number(c.last_cycle) / 1000 });
+}
+// federal agencies, sub-agencies and offices
+for (const a of read('agencies')) add({ label: title(a.name), kind: 'agency', qualifier: a.path ? title(a.path.split(' > ').slice(0, -1).join(' > ')) || 'Federal department' : 'Federal organisation', forms: a.short_name ? [a.short_name] : [], links: [['govblock_awards.sam_federal_hierarchy', 'organization_id', a.organization_id]], rank: 35 + (Number(a.level) === 1 ? 10 : 0) });
+// federal award recipients: the 50,000 largest by the last 12 months' obligations, and every New York one
+for (const r of read('recipients')) add({ label: title(r.name), kind: 'contractor', qualifier: `Federal award recipient${r.city || r.state ? `, ${[title(r.city), r.state].filter(Boolean).join(', ')}` : ''}${Number(r.amt) > 0 ? `, ${money(r.amt)} in the last 12 months` : ''}`, links: [['govblock_awards.usaspending_contracts', 'recipient_uei', r.uei], ['govblock_awards.usaspending_db_rpt_recipient_profile', 'uei', r.uei]], rank: 18 + lg(r.amt) });
+// public companies and funds with a ticker
+for (const c of read('sec_companies')) {
+  const tick = (() => { try { return JSON.parse(c.tickers); } catch { return []; } })();
+  add({ label: c.name, kind: 'company', qualifier: `SEC filer${tick.length ? ` (${tick.slice(0, 3).join(', ')})` : ''}${c.sicdescription ? `, ${c.sicdescription}` : ''}`, forms: tick, links: [['govblock_sec.submissions_companies', 'cik', c.cik]], rank: 32 });
+}
+// places: states, counties, cities over 10,000, ZIP code areas
+for (const [code, name] of Object.entries(STATES).filter(([c]) => c.length === 2 && !['DK', 'OL', 'PI'].includes(c))) add({ label: name, kind: 'place', qualifier: 'State', forms: [code], links: [['govblock_census.gazetteer_gaz_counties', 'usps', code]], rank: 90 });
+for (const c of read('counties')) add({ label: `${c.name}, ${ST(c.usps)}`, kind: 'place', qualifier: 'County', links: [['govblock_census.gazetteer_gaz_counties', 'geoid', c.geoid]], rank: 45 });
+for (const c of read('cities')) add({ label: `${c.name.replace(/ (city|town|village|borough|municipality|CDP)$/i, '')}, ${c.stname}`, kind: 'place', qualifier: `City, population ${Number(c.pop).toLocaleString('en-US')} (2025 estimate)`, links: [['govblock_census.popest_sub_est', 'name', c.name]], rank: 40 + lg(c.pop) });
+for (const z of read('zctas')) add({ label: `ZIP ${z.geoid}`, kind: 'place', qualifier: 'ZIP code area', forms: [z.geoid], links: [['govblock_census.gazetteer_gaz_zcta', 'geoid', z.geoid]], rank: 20 });
+// power plants and utilities
+for (const p of read('plants')) add({ label: p.name, kind: 'plant', qualifier: `Power plant, ${[p.county && `${p.county} County`, ST(p.state)].filter(Boolean).join(', ')}${p.utility ? `, ${p.utility}` : ''}`, links: [['govblock_energy.eia860_plant_y_sheet_plant', 'plant_code', p.plant_code]], rank: 15 });
+for (const u of read('utilities')) add({ label: u.name, kind: 'utility', qualifier: `Utility, ${ST(u.state)}`, links: [['govblock_energy.eia860_utility_y_sheet_utility', 'utility_id', u.utility_id]], rank: 18 });
+// colleges and school districts
+for (const c of read('colleges')) add({ label: c.name, kind: 'college', qualifier: `College or university, ${[c.city, ST(c.st)].filter(Boolean).join(', ')}`, links: [['govblock_education.ipeds_hd', 'unitid', c.unitid]], rank: 25 });
+for (const d of read('districts')) add({ label: title(d.name), kind: 'district', qualifier: `School district, ${[title(d.city), ST(d.st)].filter(Boolean).join(', ')}`, links: [['govblock_education.ccd_lea_029', 'leaid', d.leaid]], rank: 15 });
+// hospitals (organisations only)
+for (const h of read('hospitals')) add({ label: title(h.name), kind: 'hospital', qualifier: `${h.type || 'Hospital'}, ${[title(h.city), h.state].filter(Boolean).join(', ')}`, links: [['govblock_health.cc_hospital_general_information', 'facility_id', h.facility_id]], rank: 22 });
+// nonprofits: the 50,000 largest by revenue, and every New York one
+for (const n of read('nonprofits')) add({ label: title(n.name), kind: 'nonprofit', qualifier: `Nonprofit, ${[title(n.city), n.state].filter(Boolean).join(', ')}${Number(n.rev) > 0 ? `, revenue ${money(n.rev)}` : ''}`, links: [['govblock_nonprofits.irs_eo_bmf', 'ein', n.ein]], rank: 12 + lg(n.rev) / 2 });
+// patent owners: the 20,000 with most patents (organisations only)
+for (const a of read('assignees')) add({ label: a.org, kind: 'assignee', qualifier: `Patent owner, ${Number(a.n).toLocaleString('en-US')} patents`, links: [['govblock_patents.pv_g_assignee_disambiguated', 'assignee_id', a.assignee_id]], rank: 15 + lg(a.n) });
+// nuclear power reactors
+const seenUnit = new Set();
+for (const r of read('reactors')) if (!seenUnit.has(r.unit.trim()) && seenUnit.add(r.unit.trim())) add({ label: r.unit.trim(), kind: 'reactor', qualifier: 'Nuclear power reactor', links: [['govblock_reactors.nrc_power_status', 'unit', r.unit]], rank: 30 });
+
+// rows: [label, kind, qualifier, forms, links as [template, value], rank]; the page derives the words it matches from
+// the label, forms and qualifier, so no word list is stored. Templates (table, field, served by the query API) are in meta.
 const kinds = Object.keys(KINDS);
+const TPL = [], TI = new Map();
+const tpl = (stored, field, open) => { const k = `${stored}|${field}|${open}`; if (!TI.has(k)) { TI.set(k, TPL.length); TPL.push([stored, field, open]); } return TI.get(k); };
+const rowOf = (e) => { const r = [e.label, kinds.indexOf(e.kind), e.qualifier, e.forms?.length ? e.forms : 0, e.links.map(([s, f, v, open]) => [tpl(s, f, open === 0 ? 0 : 1), v]), Math.round(e.rank * 10) / 10]; return r; };
+// words that would put an entry in a very large shard and narrow nothing are not shard keys (the entry is still
+// found by its other words; a name made only of such words keeps them)
+const COMMON = new Set('the of and for inc llc corp co company corporation ltd lp na assn association foundation fund trust services service group holdings international national american united states state county city school district college university hospital center centre committee pac to in on at by de la del los las new north south east west first us usa amp dba zip'.split(' '));
+// people keep every name word as a key; an organisation or place keeps its first two distinctive words and its forms
+const wordsOf = (e) => {
+  const people = KINDS[e.kind][2] === 1;
+  const fromLabel = [...new Set(norm(`${e.label} ${people ? e.words || '' : ''}`).split(' ').filter((w) => w.length >= 2))];
+  const keep = fromLabel.filter((w) => !COMMON.has(w));
+  const label = (keep.length ? keep : fromLabel).slice(0, people ? 99 : 2);
+  const forms = norm((e.forms || []).join(' ')).split(' ').filter((w) => w.length >= 2 && !COMMON.has(w)).slice(0, 4);
+  return [...new Set([...label, ...forms])];
+};
 const BIG = 400e3;
-const rowOf = (e) => [e.id, e.label, kinds.indexOf(e.kind), e.qualifier, e.forms, e.links, `${e.words}|${e.quals}`, Math.round(e.rank * 100) / 100];
-const wordsOf = (e) => [...new Set(e.words.split(' ').filter((w) => w.length >= 2))];
 const shards = new Map(), split = [];
-// a prefix key holds every entry with a name word starting with it; over BIG, it is split one letter further (to 5)
 function place(key, list) {
   const rows = list.map(rowOf);
   if (key.length >= 5 || JSON.stringify(rows).length <= BIG) return void shards.set(key, rows);
   split.push(key);
   const by = new Map();
   for (const e of list) for (const w of wordsOf(e)) if (w.startsWith(key) && w.length > key.length) { const k = w.slice(0, key.length + 1); if (!by.has(k)) by.set(k, new Set()); by.get(k).add(e); }
-  // a word that is exactly the key ("jo") stays in the key's own shard
   const exact = list.filter((e) => wordsOf(e).includes(key));
   if (exact.length) shards.set(key, exact.map(rowOf));
   for (const [k, set] of by) place(k, [...set]);
@@ -126,5 +201,5 @@ for (const [k, rows] of shards) {
 }
 const counts = Object.fromEntries(kinds.map((k) => [k, entries.filter((e) => e.kind === k).length]));
 fs.writeFileSync(path.join(OUT, '_nicknames.json'), JSON.stringify(nickJson));
-fs.writeFileSync(path.join(OUT, 'meta.json'), JSON.stringify({ built: new Date().toISOString(), split: split.sort(), kinds: kinds.map((k) => ({ kind: k, label: KINDS[k][0], color: KINDS[k][1], count: counts[k] })), shards: [...shards.keys()].sort(), sources: [{ name: 'congress-legislators', url: 'https://github.com/unitedstates/congress-legislators', licence: 'CC0 1.0' }, { name: 'nicknames', url: `https://github.com/carltonnorthern/nicknames/tree/${NICK_SHA}`, licence: 'Apache License 2.0' }, { name: 'govblock_fec.candidates', url: 'the Data Library' }] }));
+fs.writeFileSync(path.join(OUT, 'meta.json'), JSON.stringify({ built: new Date().toISOString(), note: 'Names drawn from the Data Library tables (and the congress-legislators file for members of Congress); each links to the tables it appears in.', split: split.sort(), kinds: kinds.map((k) => ({ kind: k, label: KINDS[k][0], color: KINDS[k][1], people: KINDS[k][2], count: counts[k] })), links: TPL, shards: [...shards.keys()].sort(), sources: [{ name: 'congress-legislators', url: 'https://github.com/unitedstates/congress-legislators', licence: 'CC0 1.0' }, { name: 'nicknames', url: `https://github.com/carltonnorthern/nicknames/tree/${NICK_SHA}`, licence: 'Apache License 2.0' }] }));
 console.log(`entries ${entries.length} ${JSON.stringify(counts)}; shards ${shards.size}, total ${(total / 1e6).toFixed(1)} MB, largest ${largest[0]} ${(largest[1] / 1e6).toFixed(2)} MB`);

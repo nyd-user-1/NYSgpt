@@ -1,0 +1,24 @@
+#!/bin/bash
+# scripts/names-extracts.sh (brief 55, nysgpt-1): every names extract, one Athena query each, name columns only.
+# An extract already saved is kept (scripts/names-extract.mjs). Run from the repo root.
+set -u
+X="node scripts/names-extract.mjs"
+$X fec_candidates "SELECT cand_id, max(cand_name) AS cand_name, max_by(cand_office, cycle) AS office, max_by(cand_office_st, cycle) AS st, max_by(cand_pty_affiliation, cycle) AS party, max_by(cand_office_district, cycle) AS district, min(cycle) AS first_cycle, max(cycle) AS last_cycle FROM govblock_fec.candidates GROUP BY cand_id"
+$X state_legislators "SELECT DISTINCT state_file, chamber, district, name, party FROM govblock_geo.legislature_members WHERE coalesce(name, '') <> ''"
+$X fec_committees "SELECT cmte_id, max_by(cmte_nm, cycle) AS name, max_by(cmte_tp, cycle) AS tp, max_by(cmte_st, cycle) AS st, max_by(cmte_pty_affiliation, cycle) AS party, max_by(connected_org_nm, cycle) AS org, min(cycle) AS first_cycle, max(cycle) AS last_cycle FROM govblock_fec.committees WHERE coalesce(cmte_nm, '') <> '' GROUP BY cmte_id"
+$X agencies "SELECT organization_id, name, short_name, type, level, path FROM govblock_awards.sam_federal_hierarchy"
+$X recipients "WITH p AS (SELECT uei, max(recipient_name) AS name, max(try_cast(last_12_months AS double)) AS amt FROM govblock_awards.usaspending_db_rpt_recipient_profile WHERE recipient_level = 'R' AND coalesce(uei, '') <> '' GROUP BY uei), s AS (SELECT uei, max(state) AS state, max(city) AS city FROM govblock_awards.usaspending_db_rpt_recipient_lookup WHERE coalesce(uei, '') <> '' GROUP BY uei), j AS (SELECT p.uei, p.name, p.amt, s.state, s.city, row_number() OVER (ORDER BY p.amt DESC NULLS LAST) AS rk FROM p LEFT JOIN s ON s.uei = p.uei) SELECT uei, name, amt, state, city FROM j WHERE rk <= 50000 OR state = 'NY'"
+$X sec_companies "SELECT cik, name, tickers, exchanges, sicdescription, stateofincorporation FROM govblock_sec.submissions_companies WHERE coalesce(tickers, '') NOT IN ('', '[]')"
+$X courts "SELECT id, full_name, short_name, jurisdiction, end_date FROM govblock_courts.courts"
+$X judges "SELECT p.id, p.name_first, p.name_middle, p.name_last, p.name_suffix, max_by(pos.job_title, pos.date_start) AS job, max_by(pos.organization_name, pos.date_start) AS org, max_by(pos.court_id, pos.date_start) AS court, min(year(try_cast(pos.date_start AS date))) AS y0, max(year(try_cast(pos.date_termination AS date))) AS y1 FROM govblock_courts.people_db_people p LEFT JOIN govblock_courts.people_db_positions pos ON pos.person_id = p.id GROUP BY 1, 2, 3, 4, 5"
+$X counties "SELECT DISTINCT usps, geoid, name FROM govblock_census.gazetteer_gaz_counties"
+$X cities "SELECT state, place, max(name) AS name, max(stname) AS stname, max(try_cast(popestimate2025 AS bigint)) AS pop FROM govblock_census.popest_sub_est WHERE sumlev = '162' GROUP BY 1, 2 HAVING max(try_cast(popestimate2025 AS bigint)) >= 10000"
+$X zctas "SELECT DISTINCT geoid FROM govblock_census.gazetteer_gaz_zcta"
+$X plants "SELECT plant_code, max_by(plant_name, utility_id) AS name, max(state) AS state, max(county) AS county, max(utility_name) AS utility FROM govblock_energy.eia860_plant_y_sheet_plant WHERE coalesce(plant_name, '') <> '' GROUP BY plant_code"
+$X utilities "SELECT utility_id, max(utility_name) AS name, max(state) AS state, max(entity_type) AS entity FROM govblock_energy.eia860_utility_y_sheet_utility WHERE coalesce(utility_name, '') <> '' GROUP BY utility_id"
+$X colleges "SELECT unitid, max(instnm) AS name, max(city) AS city, max(stabbr) AS st FROM govblock_education.ipeds_hd WHERE coalesce(instnm, '') <> '' GROUP BY unitid"
+$X districts "SELECT leaid, max_by(lea_name, school_year) AS name, max(st) AS st, max(lcity) AS city FROM govblock_education.ccd_lea_029 WHERE coalesce(lea_name, '') <> '' GROUP BY leaid"
+$X hospitals "SELECT facility_id, max(facility_name) AS name, max(city) AS city, max(state) AS state, max(hospital_type) AS type FROM govblock_health.cc_hospital_general_information WHERE coalesce(facility_name, '') <> '' GROUP BY facility_id"
+$X nonprofits "WITH b AS (SELECT ein, max(name) AS name, max(city) AS city, max(state) AS state, max(ntee_cd) AS ntee, max(try_cast(revenue_amt AS double)) AS rev FROM govblock_nonprofits.irs_eo_bmf GROUP BY ein), r AS (SELECT *, row_number() OVER (ORDER BY rev DESC NULLS LAST) AS rk FROM b) SELECT ein, name, city, state, ntee, rev FROM r WHERE rk <= 50000 OR state = 'NY'"
+$X assignees "SELECT assignee_id, max(disambig_assignee_organization) AS org, count(DISTINCT patent_id) AS n FROM govblock_patents.pv_g_assignee_disambiguated WHERE coalesce(disambig_assignee_organization, '') <> '' GROUP BY assignee_id ORDER BY n DESC LIMIT 20000"
+$X reactors "SELECT unit, max(reportdt) AS last_report FROM govblock_reactors.nrc_power_status GROUP BY unit"
