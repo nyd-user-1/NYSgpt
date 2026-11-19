@@ -40,7 +40,19 @@ const SAME: Record<string, string[]> = {
   school: ["school", "district"], college: ["institution", "college"], university: ["institution"], rent: ["rent", "fmr"],
   mortgage: ["loan", "hmda"], bank: ["bank", "institution"], electricity: ["electric", "power"], power: ["electric", "generation"],
   price: ["price", "lmp"], trade: ["import", "export"], import: ["import"], export: ["export"], trademark: ["trademark"],
+  weekly: ["wkly"], average: ["avg"], carbon: ["co2"], dioxide: ["co2"], emitted: ["emission", "co2"], emit: ["emission"],
+  megawatt: ["mwh"], star: ["rating"], population: ["popestimate"], estimated: ["estimate"], wholesale: ["eqr"],
 }
+// place words (state names, and a name just before "County" or "City") narrow a question; they say little about which table
+const STATES = new Set("alabama alaska arizona arkansas california colorado connecticut delaware florida georgia hawaii idaho illinois indiana iowa kansas kentucky louisiana maine maryland massachusetts michigan minnesota mississippi missouri montana nebraska nevada new york jersey hampshire mexico north south carolina dakota ohio oklahoma oregon pennsylvania rhode island tennessee texas utah vermont virginia washington west wisconsin wyoming county counties city".split(" "))
+function placeWords(q: string): Set<string> {
+  const out = new Set<string>()
+  for (const m of q.matchAll(/\b([A-Z][a-z]+)\s+(?:County|City)\b/g)) out.add(stem(m[1].toLowerCase()))
+  for (const w of words(q)) if (STATES.has(w)) out.add(stem(w))
+  return out
+}
+// dated snapshot copies, the publisher's reduced copy and raw database dumps sit below the main table
+const COPY = /_20\d\d_\d\d_\d\d_|_subset_|\.usaspending_db_/
 
 function stem(w: string): string {
   if (w.length > 4 && w.endsWith("ies")) return w.slice(0, -3) + "y"
@@ -48,7 +60,8 @@ function stem(w: string): string {
   if (w.length > 3 && w.endsWith("s") && !w.endsWith("ss") && !w.endsWith("us")) return w.slice(0, -1)
   return w
 }
-const words = (s: string) => (s.toLowerCase().match(/[a-z0-9]+/g) || []).filter((w) => !STOP.has(w))
+const words = (s: string) =>
+  (s.toLowerCase().replace(/([a-z]{3,})((?:19|20)\d\d)\b/g, "$1 $2").match(/[a-z0-9]+/g) || []).filter((w) => !STOP.has(w))
 const terms = (s: string) => words(s).map(stem)
 
 function yearsOf(y: string): [number | null, number | null] {
@@ -121,28 +134,32 @@ export function findTables(question: string, limit = 8, scope?: Scope): FoundTab
   const years = (question.match(/\b(1[89]\d\d|20\d\d)\b/g) || []).map(Number)
   const q = [...new Set(qw.filter((w) => !/^(1[89]\d\d|20\d\d)$/.test(w)).map(stem))]
   if (!q.length) return pool.slice(0, limit).map(toFound)
+  const places = placeWords(question)
   const alts = q.map((t) => [t, ...(SAME[t] || []).map(stem).filter((x) => x !== t)])
-  const pairs = qw.slice(1).map((w, i) => ` ${qw[i]} ${w} `)
+  const pairs = qw.slice(1).map((w, i) => [qw[i], w]).filter(([a, b]) => !places.has(stem(a)) && !places.has(stem(b))).map(([a, b]) => ` ${a} ${b} `)
+  const subjectTerms = q.filter((t) => !places.has(t)).length || 1
   const scored = pool.map((e) => {
     let s = 0
     let hit = 0
-    alts.forEach((group) => {
+    alts.forEach((group, gi) => {
+      const place = places.has(q[gi])
       let best = 0
       group.forEach((t, k) => {
         const w = e.w.get(t)
         if (w) best = Math.max(best, w * (ix.idf.get(t) ?? 0) * (k === 0 ? 1 : 0.6))
       })
-      if (best > 0) hit++
-      s += best
+      if (best > 0 && !place) hit++
+      s += place ? best * 0.15 : best
     })
     if (!s) return { e, s: 0 }
     for (const p of pairs) {
       if (e.nameText.includes(p)) s += 6
       else if (e.aboutText.includes(p)) s += 3
     }
-    s *= 0.4 + 0.6 * (hit / q.length) ** 2
+    s *= 0.4 + 0.6 * Math.min(1, hit / subjectTerms) ** 2
+    if (COPY.test(e.raw.s)) s *= 0.6
     if (years.length && e.y0 !== null && e.y1 !== null) s += years.every((y) => y >= e.y0! && y <= e.y1!) ? 2 : -2
-    if (e.raw.n) s += 0.25 * Math.log10(e.raw.n + 1)
+    if (e.raw.n) s += 0.4 * Math.log10(e.raw.n + 1)
     if (e.raw.v) s -= 0.5
     return { e, s }
   })
