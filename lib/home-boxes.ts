@@ -8,6 +8,7 @@
  */
 
 import { SOURCE_BOXES, SOURCE_INFO } from './home-sources'
+import { TABLE_BOXES } from './home-tables'
 
 /** The five outside sources, A to Z (2026-11-19): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
 export type SourceKind = 'aa' | 'kaggle' | 'llmstats' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp' | 'hf-models' | 'hf-datasets' | 'hf-spaces' | 'hf-papers'
@@ -37,8 +38,11 @@ export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
 }
 export const isSource = (k: BoxKind): k is SourceKind => (SOURCE_KINDS as BoxKind[]).includes(k)
 
-export type BoxKind = 'data' | 'models' | 'platforms' | 'tools' | SourceKind
-export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file'
+/* 'tables' took Tools' place on the masthead (Brendan, 2026-11-19). The tools boxes stay in this file but no set shows them. */
+export type BoxKind = 'data' | 'models' | 'platforms' | 'tables' | 'tools' | SourceKind
+/** The sets the all view shows: the first masthead page. */
+export const OWN_KINDS: BoxKind[] = ['data', 'models', 'platforms', 'tables']
+export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file' | 'table'
 export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon }
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
@@ -48,6 +52,7 @@ export const TYPE_COLOR: Record<BoxKind, string> = {
   data: '#0e7490',
   models: '#7c3aed',
   platforms: '#033882',
+  tables: '#ea580c',
   tools: '#ea580c',
   aa: '#be123c',
   kaggle: '#15803d',
@@ -1246,7 +1251,7 @@ const OWN_BOXES: Box[] = [
 ]
 
 /** Every box: the four sets, then the five sources. The all view leaves the sources out (HomePlate). */
-export const BOXES: Box[] = [...OWN_BOXES, ...SOURCE_BOXES]
+export const BOXES: Box[] = [...OWN_BOXES, ...TABLE_BOXES, ...SOURCE_BOXES]
 
 const OWN_INFO: Record<'models' | 'platforms' | 'tools', SetEntry[]> = {
  "models": [
@@ -2749,4 +2754,4 @@ const OWN_INFO: Record<'models' | 'platforms' | 'tools', SetEntry[]> = {
  ]
 }
 
-export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = { ...OWN_INFO, ...SOURCE_INFO }
+export const SET_INFO: Record<Exclude<BoxKind, 'data'>, SetEntry[]> = { ...OWN_INFO, tables: [], ...SOURCE_INFO }

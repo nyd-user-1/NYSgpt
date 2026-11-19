@@ -15,7 +15,7 @@ import type { Box, BoxKind } from './home-boxes'
  */
 
 export type ShelfItem = { key: string; title: string; set: BoxKind; group: string; added: string }
-export type Overlay = { open: boolean; set: BoxKind; product: string; from: DOMRect | null }
+export type Overlay = { open: boolean; set: BoxKind; product: string; from: DOMRect | null; /** a table to open on, by name, within product */ table?: string }
 
 type State = {
   set: BoxKind | null

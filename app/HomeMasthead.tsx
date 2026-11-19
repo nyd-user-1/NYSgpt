@@ -24,7 +24,7 @@ import { TypeIcon } from './HomeIcons'
 
 export type LedgerEntry = { word: string; value: number; unit: string; exact?: boolean; color: string }
 
-const SETS: BoxKind[] = ['data', 'models', 'platforms', 'tools']
+const SETS: BoxKind[] = ['data', 'models', 'platforms', 'tables']
 
 /**
  * The ledger's later pages (Brendan, 2026-11-19), as nsrgpt's masthead pages its cells (app/HomeMasthead.tsx there):

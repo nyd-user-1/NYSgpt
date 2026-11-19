@@ -276,7 +276,7 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 .hm-card { height: 210px; overflow: hidden; }
 .hm-card .hm-body { min-height: 0; }
 .hm-card .hm-body p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; flex: 0 1 auto; }
-.hm-card[data-kind="aa"] h3, .hm-card[data-kind^="gh-"] h3, .hm-card[data-kind^="hf-"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3 { -webkit-line-clamp: 2; }
+.hm-card[data-kind="aa"] h3, .hm-card[data-kind^="gh-"] h3, .hm-card[data-kind^="hf-"] h3, .hm-card[data-kind="tables"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3 { -webkit-line-clamp: 2; }
 .hm-card[data-kind="aa"] .hm-body p, .hm-card[data-kind^="gh-"] .hm-body p, .hm-card[data-kind^="hf-"] .hm-body p, .hm-card[data-kind="kaggle"] .hm-body p, .hm-card[data-kind="llmstats"] .hm-body p { -webkit-line-clamp: 3; }
 
 /* A box shows its name alone; its line appears on mouse hover or keyboard selection (Brendan, 2026-11-19).
@@ -300,8 +300,10 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 .hm-ti > svg, .hm-ti > img { transition: opacity .15s; }
 .hm-fav { position: absolute; left: -6px; bottom: -6px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--type); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .15s; }
 .hm-fav svg { width: 16px; height: 16px; }
-.hm-card:hover .hm-fav, .hm-card[data-nav-on] .hm-fav, .hm-fav:focus-visible { opacity: 1; pointer-events: auto; }
-.hm-card:hover .hm-ti > svg, .hm-card[data-nav-on] .hm-ti > svg, .hm-card:hover .hm-ti > img, .hm-card[data-nav-on] .hm-ti > img { opacity: 0; }
+/* the star shows only while the mouse is on the lower-left icon itself, not anywhere else on the box */
+.hm-fav { pointer-events: auto; }
+.hm-ti:hover .hm-fav, .hm-fav:focus-visible { opacity: 1; }
+.hm-ti:hover > svg, .hm-ti:hover > img { opacity: 0; }
 .hm-fav:hover { background: var(--paper); }
 .hm-fav.hm-on { color: #eab308; }
 .hm-fav.hm-on svg { fill: #facc15; animation: hm-fav-pop .38s cubic-bezier(.2, .9, .3, 1.4); }

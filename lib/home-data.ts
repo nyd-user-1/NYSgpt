@@ -769,7 +769,8 @@ export const LEDGER: { word: string; value: number; unit: string; exact?: boolea
   { word: "Data", value: 77_327_245_197, unit: "Records", exact: true, color: KINDS.Data },
   { word: "Models", value: 1_910_089_220, unit: "Parameters", exact: true, color: KINDS.Model },
   { word: "Platforms", value: 3_125_952, unit: "Requests", exact: true, color: KINDS.Platform },
-  { word: "Tools", value: TOOLS.filter((t) => t.tag === "Tool").length + IN_HOUSE.length, unit: "AI tools", color: KINDS.Tool },
+  // Tables took Tools' place (Brendan, 2026-11-19): the catalog's table count on that day (brief 42).
+  { word: "Tables", value: 8_150, unit: "Tables", color: KINDS.Tool },
 ];
 
 /**

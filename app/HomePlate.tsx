@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import dynamic from 'next/dynamic'
-import { BOXES, isSource, TYPE_COLOR, type Box } from '@/lib/home-boxes'
+import { BOXES, OWN_KINDS, TYPE_COLOR, type Box } from '@/lib/home-boxes'
 import { boxKey, home, sortBoxes, useHome } from '@/lib/home-store'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 import { Icon, TypeIcon } from './HomeIcons'
@@ -44,7 +44,7 @@ export function HomePlate() {
   const boxes = useMemo(() => {
     const seen = new Set<string>()
     return sortBoxes(
-      BOXES.filter(b => (set ? b.kind === set : !isSource(b.kind)) && !seen.has(boxKey(b)) && !!seen.add(boxKey(b))),
+      BOXES.filter(b => (set ? b.kind === set : OWN_KINDS.includes(b.kind)) && !seen.has(boxKey(b)) && !!seen.add(boxKey(b))),
       pins,
     )
   }, [set, pins])
@@ -59,8 +59,11 @@ export function HomePlate() {
   }, [set])
 
   const openCatalog = (b: Box, el: HTMLElement) =>
-    home.openOverlay({ set: b.kind, product: b.kind === 'data' ? b.title : b.group, from: el.getBoundingClientRect() })
-  const openPanel = (b: Box) => (b.kind === 'data' ? openData(b.title) : openBox(boxKey(b)))
+    // a table box opens the catalog on its database, at that table
+    b.kind === 'tables'
+      ? home.openOverlay({ set: 'data', product: b.group, table: b.title, from: el.getBoundingClientRect() })
+      : home.openOverlay({ set: b.kind, product: b.kind === 'data' ? b.title : b.group, from: el.getBoundingClientRect() })
+  const openPanel = (b: Box) => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))
 
   /* ── the arrow keys ── */
   const panelRef = useRef(panelOpen)

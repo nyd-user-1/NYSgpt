@@ -154,6 +154,12 @@ export function CatalogOverlay() {
   }, [overlay.open, overlay.set])
 
   const tables = useMemo(() => (Array.isArray(data) ? data : []), [data])
+  /* a table box opens the overlay at its table, once the catalog has loaded */
+  useEffect(() => {
+    if (!overlay.open || !overlay.table || !tables.length) return
+    const i = tables.findIndex(t => t.table === overlay.table && t.database === overlay.product)
+    if (i >= 0) setSel(i)
+  }, [overlay.open, overlay.table, overlay.product, tables])
   const dbs = useMemo(() => [...new Set(tables.map(t => t.database))], [tables])
   /* every table the search matches, in any database; the database column counts these */
   const matched = useMemo(() => {
