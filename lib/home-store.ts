@@ -23,10 +23,12 @@ type State = {
   favs: string[]
   shelf: ShelfItem[]
   order: string[]
+  /** The slot each Blocks tile sits in, by box key. Slots are numbered left to right, top to bottom; gaps are allowed. */
+  slots: Record<string, number>
   overlay: Overlay
 }
 
-const K = { pins: 'home-pinned', favs: 'home-favorites', shelf: 'home-shelf', order: 'home-shelf-order' } as const
+const K = { pins: 'home-pinned', favs: 'home-favorites', shelf: 'home-shelf', order: 'home-shelf-order', slots: 'home-shelf-slots' } as const
 
 function read<T>(k: string, d: T): T {
   try {
@@ -48,6 +50,7 @@ const INITIAL: State = {
   favs: [],
   shelf: [],
   order: [],
+  slots: {},
   overlay: { open: false, set: 'data', product: 'Artificial Intelligence', from: null },
 }
 let state: State = INITIAL
@@ -66,7 +69,7 @@ function set(patch: Partial<State>) {
 function load() {
   if (loaded || typeof window === 'undefined') return
   loaded = true
-  state = { ...state, pins: read(K.pins, []), favs: read(K.favs, []), shelf: read(K.shelf, []), order: read(K.order, []) }
+  state = { ...state, pins: read(K.pins, []), favs: read(K.favs, []), shelf: read(K.shelf, []), order: read(K.order, []), slots: read(K.slots, {}) }
 }
 
 function subscribe(f: () => void) {
@@ -139,6 +142,19 @@ export const home = {
     write(K.order, order)
     set({ shelf, order })
   },
+  /** Put a tile in a slot and leave it there (Brendan, 2026-11-19: the reader arranges Blocks as they see fit, gaps
+   *  included). A tile already in that slot changes places with it. */
+  placeShelf(key: string, slot: number) {
+    const at = shelfSlots(state)
+    const from = at.get(key)
+    if (from === slot) return
+    const other = [...at.entries()].find(([k, v]) => v === slot && k !== key)?.[0]
+    at.set(key, slot)
+    if (other != null && from != null) at.set(other, from)
+    const slots = Object.fromEntries(at)
+    write(K.slots, slots)
+    set({ slots })
+  },
   /** Drop `from` onto `to` (or at the end when `to` is null). */
   moveShelf(from: string, to: string | null) {
     if (from === to) return
@@ -154,6 +170,29 @@ export const home = {
   closeOverlay() {
     set({ overlay: { ...state.overlay, open: false } })
   },
+}
+
+/** Each tile's slot. A tile keeps the slot it was given; a tile without one (newly added) takes the first free slot,
+ *  in the shelf's shown order. */
+export function shelfSlots(s: Pick<State, 'shelf' | 'order' | 'slots'>): Map<string, number> {
+  const items = shelfItems(s)
+  const out = new Map<string, number>()
+  const used = new Set<number>()
+  for (const it of items) {
+    const v = s.slots[it.key]
+    if (Number.isInteger(v) && v >= 0 && !used.has(v)) {
+      out.set(it.key, v)
+      used.add(v)
+    }
+  }
+  let next = 0
+  for (const it of items) {
+    if (out.has(it.key)) continue
+    while (used.has(next)) next++
+    out.set(it.key, next)
+    used.add(next)
+  }
+  return out
 }
 
 /** The shelf in its shown order: newly added tiles first, then the arranged ones. */

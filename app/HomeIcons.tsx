@@ -179,6 +179,7 @@ const PATHS = {
     </>
   ),
   check: <path d="M20 6 9 17l-5-5" />,
+  plus: <path d="M5 12h14M12 5v14" />,
   x: (
     <>
       <path d="M18 6 6 18" />

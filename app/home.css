@@ -238,7 +238,12 @@
 .hm-sbf > :last-child { margin-right: -.28em; }
 .hm-shelf { display: grid; gap: 10px; padding: 20px; }
 .hm-stile { position: relative; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; padding: 10px; border: 1px solid var(--paper-rule-soft); border-radius: 12px; background: var(--paper); cursor: grab; overflow: hidden; text-align: left; color: var(--paper-text); }
-.hm-stile:hover, .hm-stile:focus-visible { border-color: var(--paper-text); outline: none; }
+/* a tile wears its box's colour, as the box does on the plate: the icon always, the ground, edge and words under the mouse */
+.hm-stile { transition: border-color .15s, background-color .15s; }
+.hm-stile:hover, .hm-stile:focus-visible { border-color: var(--type); background: color-mix(in oklab, var(--type) 10%, var(--paper)); outline: none; }
+.hm-stile .hm-sic { color: var(--type); }
+.hm-stile .hm-sic img { width: 18px; height: 18px; border-radius: 4px; object-fit: contain; }
+.hm-stile:hover .hm-sl, .hm-stile:focus-visible .hm-sl, .hm-stile:hover .hm-sm, .hm-stile:focus-visible .hm-sm { color: var(--type); }
 .hm-stile.hm-drag { opacity: .4; }
 .hm-stile .hm-sic { display: flex; }
 .hm-stile .hm-sic svg { width: 16px; height: 16px; }
@@ -248,7 +253,13 @@
 .hm-stile:hover .hm-sx, .hm-stile .hm-sx:focus-visible { opacity: 1; }
 .hm-stile .hm-sx:hover { background: var(--paper-quiet); color: var(--paper-text); }
 .hm-stile .hm-sx svg { width: 14px; height: 14px; }
-.hm-sempty { aspect-ratio: 1; border: 1px dashed var(--paper-rule); border-radius: 12px; }
+.hm-sempty { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; padding: 0; border: 1px dashed var(--paper-rule); border-radius: 12px; background: none; color: #033882; cursor: pointer; transition: border-color .15s, background-color .15s; }
+.hm-sempty svg { width: 22px; height: 22px; opacity: 0; transition: opacity .15s; }
+/* an empty slot under the mouse, or under a tile being dragged: blue, with a blue plus in the middle */
+.hm-sempty:hover, .hm-sempty:focus-visible, .hm-sempty.hm-over { border-color: #033882; border-style: solid; background: color-mix(in oklab, #033882 6%, var(--paper)); outline: none; }
+.hm-sempty:hover svg, .hm-sempty:focus-visible svg, .hm-sempty.hm-over svg { opacity: 1; }
+.dark .hm-sempty { color: #8fb2ee; }
+.dark .hm-sempty:hover, .dark .hm-sempty:focus-visible, .dark .hm-sempty.hm-over { border-color: #8fb2ee; background: color-mix(in oklab, #8fb2ee 10%, var(--paper)); }
 .hm-panel .hm-dh { padding: 20px 20px 4px; }
 .hm-panel .hm-dt h3 { font-size: 22px; }
 .hm-panel .hm-of { margin: 0 20px; width: calc(100% - 40px); }

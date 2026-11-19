@@ -13,7 +13,7 @@ import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './M
 import type { Digest } from '@/lib/digest'
 import { FeedbackDialog } from '@/components/FeedbackDialog'
 import { BOXES, SET_INFO, TYPE_COLOR } from '@/lib/home-boxes'
-import { boxKey, home, shelfItems, useHome, type ShelfItem } from '@/lib/home-store'
+import { boxKey, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
 import { TableDetail } from '@/app/TableDetail'
@@ -757,15 +757,20 @@ function SplitHandle({ open, width, setWidth }: { open: boolean; width: string; 
  * BlocksShelf by way of the option 3 sketch): the boxes added with the
  * three-dot menu, as square tiles. The columns come from the panel's width (at
  * least 120px a tile, 3 to 6 across); empty dashed slots fill the rest of the
- * panel's height; drag a tile onto another to put it there. A tile opens its
- * box; its × takes it off the shelf.
+ * panel's height. A tile stays in the slot it is dropped in, gaps included
+ * (2026-11-19); dropped on another tile, the two change places. A tile wears
+ * its box's colour and logo. An empty slot turns blue with a plus under the
+ * mouse, and a click asks for the command palette. A tile opens its box; its
+ * × takes it off the shelf.
  */
 function BlocksView({ q }: { q: string }) {
   const st = useHome()
-  const items = shelfItems(st).filter(s => match(q, s.title))
+  const all = shelfItems(st)
+  const slots = shelfSlots(st)
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ w: 0, h: 0 })
   const [dragKey, setDragKey] = useState<string | null>(null)
+  const [over, setOver] = useState<number | null>(null)
   const { close } = useSwitchboard()
 
   useEffect(() => {
@@ -782,8 +787,15 @@ function BlocksView({ q }: { q: string }) {
   const w = Math.max(0, size.w - 40)
   const cols = Math.min(6, Math.max(3, Math.floor((w + GAPX) / (120 + GAPX))))
   const side = (w - GAPX * (cols - 1)) / cols
-  const rows = Math.max(Math.ceil(items.length / cols), side > 0 ? Math.ceil((size.h - 40 + GAPX) / (side + GAPX)) : 0)
-  const empties = Math.max(0, rows * cols - items.length)
+  // Enough rows to fill the panel and to hold the lowest tile, and one spare row to arrange into.
+  const last = Math.max(-1, ...slots.values())
+  const rows = Math.max(Math.ceil((last + 1) / cols) + 1, side > 0 ? Math.ceil((size.h - 40 + GAPX) / (side + GAPX)) : 0)
+  const bySlot = new Map([...slots.entries()].map(([k, v]) => [v, k]))
+  const byKey = new Map(all.map(x => [x.key, x]))
+  // A search shows its matches side by side; without one, every tile sits in its own slot.
+  const cells: (ShelfItem | number)[] = q
+    ? all.filter(x => match(q, x.title))
+    : Array.from({ length: rows * cols }, (_, i) => (bySlot.has(i) ? byKey.get(bySlot.get(i)!)! : i))
 
   const openTile = (s: ShelfItem) => {
     home.showSet(s.set)
@@ -795,74 +807,95 @@ function BlocksView({ q }: { q: string }) {
       el.click()
     }, 60)
   }
+  const drop = (slot: number) => (e: React.DragEvent) => {
+    if (!dragKey) return
+    e.preventDefault()
+    e.stopPropagation()
+    home.placeShelf(dragKey, slot)
+    setDragKey(null)
+    setOver(null)
+  }
 
   return (
     <div ref={ref} className="hm-shelf" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
-      {items.map(s => (
-        <div
-          key={s.key}
-          className={`hm-stile ${dragKey === s.key ? 'hm-drag' : ''}`}
-          draggable
-          role="button"
-          tabIndex={0}
-          aria-label={`Open ${s.title}`}
-          onClick={() => openTile(s)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') openTile(s)
-          }}
-          onDragStart={e => {
-            setDragKey(s.key)
-            e.dataTransfer.effectAllowed = 'move'
-            try {
-              e.dataTransfer.setData('text/plain', s.key)
-            } catch {}
-          }}
-          onDragOver={e => {
-            if (dragKey) e.preventDefault()
-          }}
-          onDrop={e => {
-            if (!dragKey) return
-            e.preventDefault()
-            e.stopPropagation()
-            home.moveShelf(dragKey, s.key)
-            setDragKey(null)
-          }}
-          onDragEnd={() => setDragKey(null)}
-          style={{ '--type': TYPE_COLOR[s.set] } as React.CSSProperties}
-        >
-          <span className="hm-sic">
-            <TypeIcon icon={BOXES.find(b => boxKey(b) === s.key)?.icon ?? 'db'} />
-          </span>
-          <span className="hm-sl">{s.title}</span>
-          <span className="hm-sm">{s.group || s.set}</span>
-          <button
-            type="button"
-            className="hm-sx"
-            aria-label={`Take ${s.title} off the shelf`}
-            onClick={e => {
-              e.stopPropagation()
-              home.removeShelf(s.key)
+      {cells.map(c => {
+        if (typeof c === 'number')
+          return (
+            <button
+              type="button"
+              key={`e${c}`}
+              className={`hm-sempty ${over === c ? 'hm-over' : ''}`}
+              aria-label="Add a block here"
+              title="Add a block"
+              // The command palette (brief 47) listens for this and puts what the reader picks in this slot.
+              onClick={() => window.dispatchEvent(new CustomEvent('nysgpt:cmdk', { detail: { slot: c, source: 'blocks' } }))}
+              onDragOver={e => {
+                if (!dragKey) return
+                e.preventDefault()
+                if (over !== c) setOver(c)
+              }}
+              onDragLeave={() => setOver(o => (o === c ? null : o))}
+              onDrop={drop(c)}
+            >
+              <Icon name="plus" />
+            </button>
+          )
+        const s = c
+        const box = BOXES.find(b => boxKey(b) === s.key)
+        const slot = slots.get(s.key) ?? 0
+        return (
+          <div
+            key={s.key}
+            className={`hm-stile ${dragKey === s.key ? 'hm-drag' : ''}`}
+            draggable
+            role="button"
+            tabIndex={0}
+            aria-label={`Open ${s.title}`}
+            onClick={() => openTile(s)}
+            onKeyDown={e => {
+              if (e.key === 'Enter') openTile(s)
             }}
+            onDragStart={e => {
+              setDragKey(s.key)
+              e.dataTransfer.effectAllowed = 'move'
+              try {
+                e.dataTransfer.setData('text/plain', s.key)
+              } catch {}
+            }}
+            onDragOver={e => {
+              if (dragKey) e.preventDefault()
+            }}
+            onDrop={drop(slot)}
+            onDragEnd={() => {
+              setDragKey(null)
+              setOver(null)
+            }}
+            style={{ '--type': TYPE_COLOR[s.set] } as React.CSSProperties}
           >
-            <Icon name="x" />
-          </button>
-        </div>
-      ))}
-      {Array.from({ length: empties }, (_, i) => (
-        <div
-          key={`e${i}`}
-          className="hm-sempty"
-          onDragOver={e => {
-            if (dragKey) e.preventDefault()
-          }}
-          onDrop={e => {
-            if (!dragKey) return
-            e.preventDefault()
-            home.moveShelf(dragKey, null)
-            setDragKey(null)
-          }}
-        />
-      ))}
+            <span className="hm-sic">
+              {box?.logo ? (
+                // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
+                <img src={box.logo} alt="" />
+              ) : (
+                <TypeIcon icon={box?.icon ?? 'db'} />
+              )}
+            </span>
+            <span className="hm-sl">{s.title}</span>
+            <span className="hm-sm">{s.group || s.set}</span>
+            <button
+              type="button"
+              className="hm-sx"
+              aria-label={`Take ${s.title} off the shelf`}
+              onClick={e => {
+                e.stopPropagation()
+                home.removeShelf(s.key)
+              }}
+            >
+              <Icon name="x" />
+            </button>
+          </div>
+        )
+      })}
     </div>
   )
 }
