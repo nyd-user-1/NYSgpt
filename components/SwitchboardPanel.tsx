@@ -279,7 +279,7 @@ function ListingMark({ b }: { b: Box }) {
 }
 function ListingRow({ b, onClick }: { b: Box; onClick: () => void }) {
   return (
-    <button onClick={onClick} className={`${ROW} pl-9`} style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 53px' }}>
+    <button onClick={onClick} className={ROW} style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 53px' }}>
       <ListingMark b={b} />
       <span className={LABEL} style={SERIF}>{b.title}</span>
       <Arrow />
@@ -303,8 +303,8 @@ function SwitchboardPanel() {
   const { linkProps } = useProductStatus()
   /** The panel search: it filters the rows of the view on show, and clears when the view changes. */
   const [q, setQ] = useState('')
-  /* the set whose listings are open in the menu; one at a time */
-  const [openSet, setOpenSet] = useState<string | null>(null)
+  /* where the menu is: the sources, then one source's sets, then one set's listings */
+  const [at, setAt] = useState<{ source?: string; set?: string }>({})
   const viewKey = JSON.stringify(view.kind === 'data' ? { k: 'data', db: view.db, t: view.table } : view.kind === 'box' ? view : { k: view.kind })
   useEffect(() => setQ(''), [viewKey])
 
@@ -609,28 +609,51 @@ function SwitchboardPanel() {
                   <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{INTRO}</p>
                 </div>
 
-                {/* 2026-11-19: the menu is one row per set (NYSgpt's Databases, Models, Platforms, Tables, Blocks, then each
-                    source's sets), each with its source's mark; a click opens its listings under it, A to Z. A search
-                    opens every set that has a match. */}
-                {LISTING_GROUPS.map(g => {
-                  const id = `${g.source}/${g.set}`
-                  const hits = q ? g.items.filter(b => match(q, b.title)) : g.items
-                  if (!hits.length) return null
-                  const isOpen = q ? true : openSet === id
-                  return (
-                    <section key={id}>
-                      <button onClick={() => setOpenSet(isOpen ? null : id)} aria-expanded={isOpen} className={`${ROW} sticky top-0 z-[1] bg-[var(--paper)]`}>
-                        <ListingMark b={g.items[0]} />
-                        <span className={LABEL} style={SERIF}>{g.set}</span>
-                        <span className="hm-count">{hits.length.toLocaleString('en-US')}</span>
-                        <ArrowRight className={`${GLYPH} transition-[rotate,color] duration-300 ease-out ${isOpen ? 'rotate-90' : 'group-hover/row:-rotate-45'}`} />
-                      </button>
-                      {isOpen && hits.map(b => (
-                        <ListingRow key={boxKey(b)} b={b} onClick={() => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))} />
-                      ))}
-                    </section>
+                {/* 2026-11-19: the menu drills down. The sources (NYSgpt, then A to Z); a source opens its sets; a set opens
+                    its listings, A to Z. A search lists every matching listing at once. */}
+                {(() => {
+                  const open = (b: Box) => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))
+                  const backRow = (label: string, to: { source?: string; set?: string }) => (
+                    <button onClick={() => setAt(to)} className={`${ROW} sticky top-0 z-[1] bg-[var(--paper)]`}>
+                      <ArrowLeft className={GLYPH} />
+                      <span className={LABEL} style={SERIF}>{label}</span>
+                    </button>
                   )
-                })}
+                  if (q) return LISTINGS.filter(b => match(q, b.title)).map(b => <ListingRow key={boxKey(b)} b={b} onClick={() => open(b)} />)
+                  const sets = LISTING_GROUPS.filter(g => g.source === at.source)
+                  const set = sets.find(g => g.set === at.set)
+                  if (set) return (
+                    <>
+                      {backRow(`${set.source}: ${set.set}`, { source: set.source })}
+                      {set.items.map(b => <ListingRow key={boxKey(b)} b={b} onClick={() => open(b)} />)}
+                    </>
+                  )
+                  if (sets.length) return (
+                    <>
+                      {backRow(sets[0].source, {})}
+                      {sets.map(g => (
+                        <button key={g.set} onClick={() => setAt({ source: g.source, set: g.set })} className={ROW}>
+                          <ListingMark b={g.items[0]} />
+                          <span className={LABEL} style={SERIF}>{g.set}</span>
+                          <span className="hm-count">{g.items.length.toLocaleString('en-US')}</span>
+                          <Arrow />
+                        </button>
+                      ))}
+                    </>
+                  )
+                  const sources = [...new Set(LISTING_GROUPS.map(g => g.source))]
+                  return sources.map(name => {
+                    const mine = LISTING_GROUPS.filter(g => g.source === name)
+                    return (
+                      <button key={name} onClick={() => setAt({ source: name })} className={ROW}>
+                        <ListingMark b={mine[0].items[0]} />
+                        <span className={LABEL} style={SERIF}>{name}</span>
+                        <span className="hm-count">{mine.reduce((n, g) => n + g.items.length, 0).toLocaleString('en-US')}</span>
+                        <Arrow />
+                      </button>
+                    )
+                  })
+                })()}
               </>
             )}
 
