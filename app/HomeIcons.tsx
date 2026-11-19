@@ -3,19 +3,21 @@
  * sketch draws them (lucide shapes, and GitHub's mark for GitHub tools).
  */
 import type { BoxIcon } from '@/lib/home-boxes'
+import { Database } from '@/components/animate-ui/icons/database'
+import { Layers } from '@/components/animate-ui/icons/layers'
+import { Braces } from '@/components/animate-ui/icons/braces'
+import { MessagesSquare } from '@/components/animate-ui/icons/messages-square'
+
+/* Brief 50 (2026-11-19): the icons govblock animates (database, layers, braces, messages-square) are govblock's
+   own (components/animate-ui/icons/, as written); they play when an AnimateOnHover control around them is under
+   the mouse. The rest stay as drawn here, with the two-tone fill on hover from the CSS. */
 
 const P = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true } as const
 
 export function TypeIcon({ icon }: { icon: BoxIcon }) {
   switch (icon) {
     case 'db':
-      return (
-        <svg {...P}>
-          <ellipse cx="12" cy="5" rx="9" ry="3" />
-          <path d="M3 5V19A9 3 0 0 0 21 19V5" />
-          <path d="M3 12A9 3 0 0 0 21 12" />
-        </svg>
-      )
+      return <Database aria-hidden />
     case 'cpu':
       return (
         <svg {...P}>
@@ -25,13 +27,7 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
         </svg>
       )
     case 'layers':
-      return (
-        <svg {...P}>
-          <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
-          <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
-          <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
-        </svg>
-      )
+      return <Layers aria-hidden />
     case 'wrench':
       return (
         <svg {...P}>
@@ -83,12 +79,7 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
         </svg>
       )
     case 'braces':
-      return (
-        <svg {...P}>
-          <path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1" />
-          <path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1" />
-        </svg>
-      )
+      return <Braces aria-hidden />
     case 'plug':
       return (
         <svg {...P}>
@@ -205,6 +196,7 @@ const PATHS = {
 export type IconName = keyof typeof PATHS
 
 export function Icon({ name, fill, style }: { name: IconName; fill?: string; style?: React.CSSProperties }) {
+  if (name === 'chat') return <MessagesSquare aria-hidden fill={fill ?? 'none'} style={style} />
   return (
     <svg {...P} fill={fill ?? 'none'} style={style}>
       {PATHS[name]}

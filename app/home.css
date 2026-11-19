@@ -332,3 +332,15 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 .hm-pnl.hm-on svg rect { fill: currentColor; }
 /* the panel footer holds two links now, Contact at the left edge and Data Library at the right */
 .hm-sbf > :last-child { margin-right: 0; }
+
+/* Brief 50 (2026-11-19): every icon under the mouse or the keyboard takes the chat + menu's two-tone look,
+   its outline in the colour and its shapes filled with that colour's tint (the + menu does it with
+   group-hover:fill-* and text-*; here the same two properties). A box's icons use the box's type colour;
+   the controls with no type colour use the site blue (--paper-strong). The motion comes from govblock's
+   icons (AnimateOnHover); no icon scales. */
+.hm-card .hm-ti > svg, .hm-kbtn svg, .hm-pnl svg, .hm-fav svg, .hm-krow svg, .hm-ovr svg, .hm-oarr svg, .hm-stile .hm-sic svg, .hm-sx svg, .hm-ovqx svg { transition: fill .15s, color .15s; }
+.hm-card:hover .hm-ti > svg, .hm-card[data-nav-on] .hm-ti > svg { fill: color-mix(in oklab, var(--type) 16%, var(--paper)); }
+.hm-kbtn:hover svg, .hm-kbtn[aria-expanded="true"] svg, .hm-pnl:not(.hm-on):hover svg, .hm-fav:not(.hm-on):hover svg { fill: color-mix(in oklab, currentColor 16%, var(--paper)); }
+.hm-krow:hover svg { color: var(--paper-strong); fill: color-mix(in oklab, var(--paper-strong) 16%, var(--paper)); }
+.hm-ovr:hover svg, .hm-ovqx:hover svg, .hm-sx:hover svg { color: var(--paper-strong); fill: color-mix(in oklab, var(--paper-strong) 16%, var(--paper)); }
+.hm-stile:hover .hm-sic svg, .hm-stile:focus-visible .hm-sic svg { fill: color-mix(in oklab, currentColor 16%, var(--paper)); }

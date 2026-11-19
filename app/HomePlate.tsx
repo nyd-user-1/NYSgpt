@@ -7,6 +7,7 @@ import { BOXES, OWN_KINDS, TYPE_COLOR, type Box } from '@/lib/home-boxes'
 import { boxKey, home, sortBoxes, useHome } from '@/lib/home-store'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 import { Icon, TypeIcon } from './HomeIcons'
+import { AnimateOnHover } from '@/components/animate-on-hover'
 
 // The Inspector's overlay loads when a reader turns it on, not with the page.
 const InspectorMode = dynamic(() => import('./InspectorMode').then(m => m.InspectorMode), { ssr: false })
@@ -102,10 +103,13 @@ export function HomePlate() {
     const sel = (el: HTMLElement | null) => {
       const prev = cur
       cur?.removeAttribute(ON)
+      // brief 50: a box left by the keyboard stops its icons' motion; the one reached plays it, as under the mouse
+      cur?.dispatchEvent(new MouseEvent('mouseout', { bubbles: true, relatedTarget: null }))
       cur?.removeAttribute('data-corner')
       cur = el
       if (!el) return
       el.setAttribute(ON, '')
+      el.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, relatedTarget: null }))
       // A box in the first or last column of its page sits in a corner of the frame: mark it so its ring takes the frame curve.
       if (el.dataset.nav === 'plate' && el.parentElement) {
         const kids = [...el.parentElement.children]
@@ -226,8 +230,9 @@ export function HomePlate() {
               {boxes.map(b => {
                 const key = boxKey(b)
                 return (
+                  // the box is the hover trigger for its icons' govblock animations (brief 50)
+                  <AnimateOnHover key={key}>
                   <div
-                    key={key}
                     role="button"
                     tabIndex={-1}
                     data-nav="plate"
@@ -313,6 +318,7 @@ export function HomePlate() {
                       </button>
                     </div>
                   </div>
+                  </AnimateOnHover>
                 )
               })}
             </div>
