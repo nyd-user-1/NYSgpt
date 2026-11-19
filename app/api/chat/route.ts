@@ -76,7 +76,8 @@ function schemaOf(stored: string): Promise<FoundTable["fields"] | null> {
 /** The table with every field: the schema's list, each with the index's samples where it has them. */
 async function withAllFields(t: FoundTable): Promise<FoundTable> {
   const all = await schemaOf(t.stored)
-  if (!all || all.length <= t.fields.length) return t
+  if (!all) return t
+  // The schema gives every field its type; the index gives the first fields their samples and descriptions.
   const known = new Map(t.fields.map((f) => [f.name, f]))
   return { ...t, fields: all.map((f) => ({ ...f, ...(known.get(f.name)?.samples ? { samples: known.get(f.name)!.samples } : {}), ...(known.get(f.name)?.description && !f.description ? { description: known.get(f.name)!.description } : {}) })) }
 }
