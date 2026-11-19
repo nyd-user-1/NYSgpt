@@ -14,6 +14,9 @@ import { useSwitchboard } from "@/components/SwitchboardPanel"
 import { useShellPanel } from "@/components/shell"
 import { NysgptMark as PaxMark } from "./nysgpt-mark"
 import "./command-k.css"
+// brief 50: a picked row plays its icon's govblock or animate-ui motion (the keys pick a row as the mouse does)
+import { AnimateIcon } from "@/components/animate-ui/icons/icon"
+import { useReducedMotion } from "motion/react"
 
 // From pax-trinity's src/components/command/command-k.tsx (2026-11-19, brief 47), as written: only the
 // imports, the catalog (command-data.ts) and what choosing a row does are NYSgpt's. Opened from an empty
@@ -68,6 +71,7 @@ function Tile({ icon: Icon, tint, size = 28, logo, mark, fg }: { icon: React.Com
 
 export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number }) {
   const router = useRouter()
+  const reduce = useReducedMotion()
   React.useEffect(() => setNavigate((href) => router.push(href)), [router])
   // Run commands (brief 51): what they can reach, and the sentence a failed one leaves in the foot.
   const switchboard = useSwitchboard()
@@ -302,8 +306,8 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
                   const picked = i === at
                   const k = row.item ? KINDS[row.item.kind] : null
                   return (
+                    <AnimateIcon key={row.key} asChild animate={picked && !reduce}>
                     <button
-                      key={row.key}
                       type="button"
                       data-picked={picked}
                       onMouseMove={() => at !== i && setAt(i)}
@@ -317,6 +321,7 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
                       </span>
                       <span className="cmdk-row-kind ml-3 shrink-0">{k?.label ?? (row.at ? "Page" : "Ask")}</span>
                     </button>
+                    </AnimateIcon>
                   )
                 })}
               </section>

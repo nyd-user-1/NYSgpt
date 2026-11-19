@@ -49,3 +49,5 @@
 [data-cmdk] .cmdk-logo { color-scheme: light; }
 [data-cmdk] .cmdk-logo img { color-scheme: light; }
 [data-cmdk] .cmdk-note { color: #b42318; }
+/* brief 50: the picked row's icon takes the two-tone look, its shapes filled with a tint of its white outline */
+[data-cmdk] .cmdk-row.cmdk-on .cmdk-tile:not(.cmdk-logo) svg { fill: rgba(255, 255, 255, .28); }
