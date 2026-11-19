@@ -487,7 +487,7 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
           {picked ? (
             <TryPanel picked={picked} view={tryView} onView={setTryView} worker={worker.current} ready={!!ready} onPick={setPicked} />
           ) : (
-            <p className="sr-note">Pick a result to see it here: its fields, sample rows, its columns charted, and the API call to run it.</p>
+            <p className="sr-note">Pick a result to see it here: its fields, sample rows, a chart of each column, and the API call to run it.</p>
           )}
         </div>
       </div>
