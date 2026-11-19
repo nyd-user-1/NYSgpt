@@ -52,6 +52,8 @@ export function CatalogOverlay() {
   const [q, setQ] = useState('')
   const [sel, setSel] = useState<number | null>(null)
   const [rows, setRows] = useState(false)
+  /* which list the up and down keys move through: left goes to the databases, right back to the tables */
+  const [col, setCol] = useState<'db' | 'table'>('table')
 
   useEffect(() => setMounted(true), [])
 
@@ -195,6 +197,19 @@ export function CatalogOverlay() {
     [order, cur],
   )
 
+  /* up and down in the database list: the next database that has a match, without wrapping */
+  const stepDbList = useCallback(
+    (d: number) => {
+      const list = dbs.filter(x => dbCount.has(x))
+      if (!list.length) return
+      const from = product !== 'All' ? product : table?.database
+      const i = list.indexOf(from ?? '')
+      setProduct(list[i < 0 ? 0 : Math.max(0, Math.min(list.length - 1, i + d))])
+      setSel(null)
+    },
+    [dbs, dbCount, product, table],
+  )
+
   /* the keys while the overlay is open; capture, so the plate's keys stay out */
   useEffect(() => {
     if (!overlay.open) return
@@ -213,7 +228,8 @@ export function CatalogOverlay() {
         if (inp && inp !== input.current) return
         e.preventDefault()
         e.stopImmediatePropagation()
-        stepTable(k === 'ArrowUp' ? -1 : 1)
+        if (col === 'db') stepDbList(k === 'ArrowUp' ? -1 : 1)
+        else stepTable(k === 'ArrowUp' ? -1 : 1)
       } else if (k === 'Enter') {
         if ((inp && inp !== input.current) || (t.closest?.('button') && !t.closest('.hm-oi'))) return
         e.preventDefault()
@@ -223,17 +239,18 @@ export function CatalogOverlay() {
         if (inp && inp.value) return
         e.preventDefault()
         e.stopImmediatePropagation()
-        stepDb(k === 'ArrowLeft' ? -1 : 1)
+        setCol(k === 'ArrowLeft' ? 'db' : 'table')
       }
     }
     window.addEventListener('keydown', onKey, true)
     return () => window.removeEventListener('keydown', onKey, true)
-  }, [overlay.open, stepDb, stepTable])
+  }, [overlay.open, stepDbList, stepTable, col])
 
   /* the selected table stays in view in the list */
   useEffect(() => {
-    document.querySelector('.hm-otb .hm-oi.hm-on')?.scrollIntoView({ block: 'nearest' })
-  }, [cur])
+    document.querySelector('.hm-otb .hm-oi.hm-on, .hm-otb .hm-oi.hm-at')?.scrollIntoView({ block: 'nearest' })
+    document.querySelector('.hm-odb .hm-oi.hm-on')?.scrollIntoView({ block: 'nearest' })
+  }, [cur, product])
 
   if (!mounted || !shown) return null
 
@@ -323,6 +340,7 @@ export function CatalogOverlay() {
                     onClick={() => {
                       setProduct(d)
                       setSel(null)
+                      setCol('db')
                     }}
                   >
                     <span>{d}</span>
@@ -339,8 +357,11 @@ export function CatalogOverlay() {
                   <button
                     type="button"
                     key={i}
-                    className={`hm-oi ${i === cur ? 'hm-on' : ''}`}
-                    onClick={() => setSel(i)}
+                    className={`hm-oi ${i === cur ? (col === 'db' ? 'hm-at' : 'hm-on') : ''}`}
+                    onClick={() => {
+                      setSel(i)
+                      setCol('table')
+                    }}
                   >
                     <span>{t.table}</span>
                     <small>

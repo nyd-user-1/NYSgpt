@@ -162,6 +162,12 @@
 .hm-dh { position: sticky; top: 0; z-index: 3; background: var(--paper); padding-top: 20px; padding-bottom: 4px; }
 .hm-dt { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .hm-dt h3 { margin: 0; font-family: var(--font-display), Georgia, serif; font-weight: 400; font-size: 24px; line-height: 1.15; word-break: break-word; }
+/* the name copies on a click: a quiet ground on hover and the copy mark at its end */
+.hm-copy { display: inline-flex; align-items: center; gap: 10px; margin: -4px -10px; padding: 4px 10px; border: 0; border-radius: 8px; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; transition: background-color .15s; }
+.hm-copy:hover, .hm-copy:focus-visible, .hm-copy.hm-copied { background: var(--paper-quiet); outline: none; }
+.hm-copy-ic { display: inline-flex; opacity: 0; color: var(--paper-muted); transition: opacity .15s; }
+.hm-copy-ic svg { width: 16px; height: 16px; }
+.hm-copy:hover .hm-copy-ic, .hm-copy:focus-visible .hm-copy-ic, .hm-copy.hm-copied .hm-copy-ic { opacity: 1; }
 .hm-om { margin: 8px 0 0; font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; line-height: 1.6; letter-spacing: .12em; text-transform: uppercase; color: var(--paper-faint); }
 .hm-oa { margin: 12px 0 0; max-width: 760px; font-size: 13px; line-height: 1.6; color: var(--paper-muted); }
 .hm-tb { width: 32px; height: 32px; padding: 6px; flex-shrink: 0; box-shadow: none; }

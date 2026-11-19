@@ -2,7 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { compactNum, loadSample, type Sample, type Table } from '@/lib/home-catalog'
-import { TableIcon } from './HomeIcons'
+import { Icon, TableIcon } from './HomeIcons'
 
 /** One table: its name, counts and description, then its fields or its sample rows. Shared with the side panel. */
 export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolean; onRows: () => void; panel?: boolean }) {
@@ -11,6 +11,7 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
   /* the sample rows' columns can be dragged into another order; the order holds until another table is shown */
   const [order, setOrder] = useState<number[] | null>(null)
+  const [copied, setCopied] = useState(false)
   const drag = useRef<number | null>(null)
   const [over, setOver] = useState<number | null>(null)
   useEffect(() => setOrder(null), [t])
@@ -43,7 +44,25 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
     <div ref={wrap} className={panel ? 'hm-panel' : undefined}>
       <div ref={head} className="hm-dh">
         <div className="hm-dt">
-          <h3>{t.table}</h3>
+          <h3>
+            <button
+              type="button"
+              className={`hm-copy ${copied ? 'hm-copied' : ''}`}
+              title="Copy the name"
+              aria-label={`Copy the name ${t.table}`}
+              onClick={() => {
+                void navigator.clipboard?.writeText(t.table).then(() => {
+                  setCopied(true)
+                  window.setTimeout(() => setCopied(false), 1200)
+                })
+              }}
+            >
+              <span>{t.table}</span>
+              <span className="hm-copy-ic" aria-hidden>
+                <Icon name={copied ? 'check' : 'copy'} />
+              </span>
+            </button>
+          </h3>
           {t.rows != null && (
             <button type="button" className="hm-ovr hm-tb" aria-label="Show the sample rows" title="Show the sample rows" onClick={onRows}>
               <TableIcon />
