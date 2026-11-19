@@ -1,0 +1,20 @@
+/*
+ * The pax2 tokens the palette's classes name, with pax-trinity's light values (src/app/pax2.css),
+ * set inside the palette only ([data-cmdk]). Both forms: the variables, for any @theme mapping the
+ * site already has, and the classes themselves, so the palette looks the same whether or not one does.
+ */
+[data-cmdk] {
+  --pax2-blue: #1e3a8a;
+  --pax2-red: #dc2626;
+  --pax2-surface: #ffffff;
+  --pax2-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
+  --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
+}
+[data-cmdk].bg-night-900\/15 { background-color: rgb(15 23 42 / 0.15); }
+[data-cmdk] .bg-pax2-surface { background-color: var(--pax2-surface); }
+[data-cmdk] .bg-pax2-surface\/70 { background-color: rgb(255 255 255 / 0.7); }
+[data-cmdk] .hover\:bg-pax2-surface\/60:hover { background-color: rgb(255 255 255 / 0.6); }
+[data-cmdk] .shadow-e1 { box-shadow: var(--pax2-shadow-1); }
+[data-cmdk] .shadow-e3 { box-shadow: var(--pax2-shadow-3); }
+[data-cmdk] .text-pax2-blue { color: var(--pax2-blue); }
+[data-cmdk] .text-pax2-red { color: var(--pax2-red); }

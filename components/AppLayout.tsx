@@ -5,6 +5,7 @@ import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
+import { CommandKHost } from "@/components/command/command-k-host";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
@@ -81,6 +82,9 @@ export function AppLayout({
       </div>
 
       <div id="app-panel-root" className="flex shrink-0 h-full" />
+
+      {/* ⌘K from any page, and from an empty Blocks slot (brief 47, from pax-trinity). */}
+      <CommandKHost />
 
       {/* Mobile sidebar toggle. */}
       <button
