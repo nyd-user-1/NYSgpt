@@ -194,11 +194,9 @@ const PAGE_COMMANDS: CommandItem[] = [
 
 type Topic = { topic: string; tables: { stored: string; plain: string }[] }
 let topicsP: Promise<Topic[] | null> | null = null
-let topics: Topic[] | null = null
 const loadTopics = () =>
   (topicsP ??= fetch("/library-topics.json")
     .then((r) => (r.ok ? (r.json() as Promise<Topic[]>) : null))
-    .then((t) => (topics = t))
     .catch(() => null))
 type Dataset = { page: string; largest_table?: string }
 let datasetsP: Promise<Dataset[] | null> | null = null
@@ -207,30 +205,32 @@ const loadDatasets = () =>
     .then((r) => (r.ok ? (r.json() as Promise<{ datasets: Dataset[] }>) : null))
     .then((j) => j?.datasets ?? null)
     .catch(() => null))
-/** Fetch the indexes the box commands read, so the actions list only what can work. */
-export const preloadForCommands = () => void loadTopics()
-
 const isTable = (b: Box) => b.kind === "tables" || b.kind === "data"
-/** A Tables box's own table, or a Data box's first table, in the library index the query API can reach. */
-function tableOf(b: Box, list: Topic[] | null): { topic: string; stored: string; plain: string } | null {
-  if (!list) return null
-  if (b.kind === "tables") {
-    for (const t of list) {
-      if (t.topic !== b.group) continue
-      const x = t.tables.find((y) => y.plain === b.title)
-      if (x) return { topic: t.topic, ...x }
+type Reach = { topic: string; stored: string; plain: string }
+/** Each Tables and Data box's table in the library index the query API can reach (null: none), by box key. */
+const reach = new Map<string, Reach | null>()
+let reachP: Promise<void> | null = null
+/** Resolve every Tables and Data box once, so the actions list only what can work. */
+export const preloadForCommands = () =>
+  void (reachP ??= Promise.all([loadTopics(), loadCatalog()]).then(([list, cat]) => {
+    const byPlain = new Map<string, Reach[]>()
+    for (const t of list ?? []) for (const x of t.tables) byPlain.set(x.plain, [...(byPlain.get(x.plain) ?? []), { topic: t.topic, ...x }])
+    const pick = (plain: string, prefer: string) => {
+      const hits = byPlain.get(plain)
+      return hits ? (hits.find((h) => h.topic === prefer) ?? hits[0]) : null
     }
-    for (const t of list) {
-      const x = t.tables.find((y) => y.plain === b.title)
-      if (x) return { topic: t.topic, ...x }
+    for (const box of BOXES) {
+      if (!isTable(box)) continue
+      let hit: Reach | null = null
+      if (box.kind === "tables") hit = pick(box.title, box.group)
+      else for (const t of cat?.tables ?? []) if (t.database === box.title && (hit = pick(t.table, box.title))) break
+      reach.set(`${box.kind}:${box.title}`, hit)
     }
-    return null
-  }
-  if (b.kind === "data") {
-    const t = list.find((y) => y.topic === b.title)
-    return t && t.tables[0] ? { topic: t.topic, ...t.tables[0] } : null
-  }
-  return null
+  }))
+async function tableOf(b: Box): Promise<Reach | null> {
+  preloadForCommands()
+  await reachP
+  return reach.get(`${b.kind}:${b.title}`) ?? null
 }
 /** The box's table in the site's catalog copy, whose samples ship with the site. */
 async function catalogTableOf(b: Box) {
@@ -242,19 +242,21 @@ async function catalogTableOf(b: Box) {
 /** The commands for a picked box: only those that can work for it. */
 export function boxActions(b: Box): BoxAction[] {
   const out: BoxAction[] = []
-  const reach = topics ? tableOf(b, topics) : isTable(b) ? ({} as { topic: string; stored: string; plain: string }) : null
+  // listed while the boxes are still resolving; once resolved, only where the API can reach the table
+  const known = reach.has(`${b.kind}:${b.title}`)
+  const reachable = isTable(b) && (!known || reach.get(`${b.kind}:${b.title}`) != null)
   out.push({
     label: "Post to GitHub",
     keys: ["⌘", "G"],
     act: () =>
       openTab(issue(`${b.title} (${KINDS[b.kind].section})`, [`**${b.title}**`, `Set: ${KINDS[b.kind].section}${b.group ? ` · ${b.group}` : ""}`, b.foot ? `Figure: ${b.foot}` : "", "", b.body].filter((x) => x !== "").join("\n"))),
   })
-  if (isTable(b) && reach)
+  if (reachable)
     out.push({
       label: "Call API",
       keys: ["⌘", "R"],
       act: async (ctx) => {
-        const t = tableOf(b, await loadTopics())
+        const t = await tableOf(b)
         if (!t) return "This table is not open to the API."
         const key = localStorage.getItem(KEY) ?? ""
         if (!key) return "Calling the API needs your Data Library key: add it on the Data Library page (/data#pricing)."
@@ -284,7 +286,7 @@ export function boxActions(b: Box): BoxAction[] {
     keys: ["⌘", "T"],
     act: async (ctx) => {
       // The chat's scope picker reads its choice from this browser (components/chat/scope-picker.tsx).
-      const t = isTable(b) ? tableOf(b, await loadTopics()) : null
+      const t = isTable(b) ? await tableOf(b) : null
       try {
         localStorage.setItem("nysgpt-chat-scope", JSON.stringify(t ? { db: t.topic, table: b.kind === "tables" ? t.plain : null } : { db: null, table: null }))
       } catch {}
@@ -304,7 +306,7 @@ export function boxActions(b: Box): BoxAction[] {
       label: "Open Beside",
       keys: ["⌘", "O"],
       act: async (ctx) => {
-        const t = tableOf(b, await loadTopics())
+        const t = await tableOf(b)
         const ds = await loadDatasets()
         const db = t?.stored.split(".")[0]
         const hit = db && ds ? ds.find((d) => d.largest_table?.split(".")[0] === db) : null
