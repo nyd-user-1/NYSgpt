@@ -38,7 +38,7 @@ const PAGE = 5
 
 export function HomePlate() {
   const { set, pins, favs, shelf, overlay } = useHome()
-  const { open: panelOpen, openBox, openData } = useSwitchboard()
+  const { open: panelOpen, openBox, openData, openBlocks } = useSwitchboard()
   // Two rows, always (Brendan, 2026-11-19). A box is keyed by its set and name; two boxes with one key leave stray
   // boxes behind when the set changes, which once pushed the plate to a third row, so a repeat is dropped here too.
   const boxes = useMemo(() => {
@@ -51,6 +51,9 @@ export function HomePlate() {
   const columns = Math.ceil(boxes.length / 2)
   const pin = useRef<HTMLDivElement>(null)
   const [menu, setMenu] = useState<{ box: Box; at: DOMRect } | null>(null)
+  /* the menu opened by hover closes a moment after the mouse leaves the button and the menu */
+  const leave = useRef<number | undefined>(undefined)
+
   const [inspecting, setInspecting] = useState(false)
 
   // A new set starts at its first page.
@@ -248,6 +251,15 @@ export function HomePlate() {
                         const at = e.currentTarget.getBoundingClientRect()
                         setMenu(m => (m?.box === b ? null : { box: b, at }))
                       }}
+                      onMouseEnter={e => {
+                        window.clearTimeout(leave.current)
+                        const at = e.currentTarget.getBoundingClientRect()
+                        setMenu(m => (m?.box === b ? m : { box: b, at }))
+                      }}
+                      onMouseLeave={() => {
+                        window.clearTimeout(leave.current)
+                        leave.current = window.setTimeout(() => setMenu(null), 220)
+                      }}
                     >
                       <Icon name="kebab" />
                     </button>
@@ -283,18 +295,21 @@ export function HomePlate() {
                           <Icon name="star" />
                         </button>
                       </span>
+                      {/* Blocks (Brendan, 2026-11-19): adds the box to Blocks when it is not there yet, and opens the Blocks panel */}
                       <button
                         type="button"
-                        className="hm-pnl"
-                        aria-label="Open in the side panel"
-                        title="Open in the side panel"
+                        className={`hm-pnl ${shelf.some(x => x.key === key) ? 'hm-on' : ''}`}
+                        aria-label={`Add ${b.title} to Blocks and open Blocks`}
+                        title="Add to Blocks"
                         onClick={e => {
                           e.stopPropagation()
+                          window.clearTimeout(leave.current)
                           setMenu(null)
-                          openPanel(b)
+                          if (!shelf.some(x => x.key === key)) home.toggleShelf(b)
+                          openBlocks()
                         }}
                       >
-                        <Icon name="panel" />
+                        <Icon name="grid" />
                       </button>
                     </div>
                   </div>
@@ -313,6 +328,12 @@ export function HomePlate() {
           fav={favs.includes(boxKey(menu.box))}
           onShelf={shelf.some(s => s.key === boxKey(menu.box))}
           onClose={() => setMenu(null)}
+          onPanel={() => openPanel(menu.box)}
+          onStay={() => window.clearTimeout(leave.current)}
+          onLeave={() => {
+            window.clearTimeout(leave.current)
+            leave.current = window.setTimeout(() => setMenu(null), 220)
+          }}
           onOpen={() => {
             const el = document.querySelector<HTMLElement>(`[data-nav="plate"][aria-label="${CSS.escape(menu.box.title)}: open in the catalog"]`)
             if (el) openCatalog(menu.box, el)
@@ -326,8 +347,13 @@ export function HomePlate() {
 
 /** The three-dot menu (ported from pax2 components/dash/card-tools.tsx by way of the sketch). */
 function BoxMenu({
-  box, at, pinned, first, fav, onShelf, onClose, onOpen,
+  box, at, pinned, first, fav, onShelf, onClose, onOpen, onPanel, onStay, onLeave,
 }: {
+  /** Open the box in the right side panel. */
+  onPanel: () => void
+  /** The mouse is on the menu, or has left it: a menu opened by hover closes a moment after the mouse leaves. */
+  onStay: () => void
+  onLeave: () => void
   box: Box
   at: DOMRect
   pinned: boolean
@@ -374,7 +400,7 @@ function BoxMenu({
   }
 
   return createPortal(
-    <div ref={ref} className="nysgpt-app hm-kmenu" role="menu" style={{ top: pos.top, right: pos.right }}>
+    <div ref={ref} className="nysgpt-app hm-kmenu" role="menu" style={{ top: pos.top, right: pos.right }} onMouseEnter={onStay} onMouseLeave={onLeave}>
       <div className="hm-kfoot">
         <b>{box.title}</b>
         <span>{box.group}</span>
@@ -407,6 +433,10 @@ function BoxMenu({
       <button type="button" role="menuitem" className="hm-krow" onClick={act(onOpen)}>
         <Icon name="open" />
         <span>Open in catalog</span>
+      </button>
+      <button type="button" role="menuitem" className="hm-krow" onClick={act(onPanel)}>
+        <Icon name="panel" />
+        <span>Open in panel</span>
       </button>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(() => navigator.clipboard?.writeText(box.title))}>
         <Icon name="copy" />
