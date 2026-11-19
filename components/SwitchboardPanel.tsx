@@ -20,7 +20,7 @@ import { BOXES, KIND_NOUN, SET_INFO, SOURCES, TYPE_COLOR, brandOf, isSource, typ
 import { boxKey, getHome, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
-import { TableDetail } from '@/app/TableDetail'
+import { FieldsTable, TableDetail } from '@/app/TableDetail'
 import { BlockView } from '@/components/blocks/BlockView'
 import { hasPayload } from '@/lib/blocks'
 import { setShelfDrag } from '@/lib/shelf-drag'
@@ -955,22 +955,7 @@ function BoxView({ boxKey: key }: { boxKey: string }) {
         </div>
       )}
       {ent && ent.fields.length > 0 && (
-        <table className="hm-kv" style={{ marginTop: 16 }}>
-          <thead>
-            <tr>
-              <th>Field</th>
-              <th>Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ent.fields.map(f => (
-              <tr key={f.name}>
-                <td>{f.name}</td>
-                <td>{/^https?:\/\//.test(f.desc) ? <a href={f.desc} target="_blank" rel="noreferrer noopener" className="underline">{f.desc}</a> : f.desc}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <FieldsTable fields={ent.fields.map(f => ({ name: f.name, type: '', desc: f.desc, sample: '' }))} style={{ margin: '16px 20px 0', width: 'calc(100% - 40px)' }} />
       )}
       <p className="p-5">
         <button

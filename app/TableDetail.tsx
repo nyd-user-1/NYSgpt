@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { compactNum, loadSample, type Sample, type Table } from '@/lib/home-catalog'
+import { Check, Copy } from 'lucide-react'
+import { compactNum, loadSample, type Field, type Sample, type Table } from '@/lib/home-catalog'
 import { Icon, TableIcon } from './HomeIcons'
 import { ColumnsView, KindMark, MiniChart } from './TableChart'
 import { fig, KIND_LABEL, profileColumn, type Kind } from './table-profile'
@@ -116,6 +117,74 @@ function Chooser({ all, shown, onShown }: { all: { name: string; kind: Kind }[];
         </div>
       )}
     </div>
+  )
+}
+
+/** The fields table (field, type, description, sample), here and in the switchboard's facts for a model, platform or tool.
+ *  Pointing at the table shows a copy button in its header (Brendan, 2026-11-19): it copies the table as tab-separated
+ *  lines, header first, which paste as a table. */
+export function FieldsTable({ fields, byName, style }: { fields: Field[]; byName?: Map<string, { kind: Kind }>; style?: import('react').CSSProperties }) {
+  const [copied, setCopied] = useState(false)
+  const copy = async () => {
+    const lines = [['field', 'type', 'description', 'sample'], ...fields.map(f => [f.name, f.type, f.desc, f.sample])]
+    try {
+      await navigator.clipboard.writeText(lines.map(l => l.map(v => (v ?? '').replace(/[\t\n]+/g, ' ')).join('\t')).join('\n'))
+      setCopied(true)
+      window.setTimeout(() => setCopied(false), 1500)
+    } catch {}
+  }
+  return (
+    <table className="hm-of group/copy" style={style}>
+      <colgroup>
+        <col style={{ width: '26%' }} />
+        <col style={{ width: '12%' }} />
+        <col style={{ width: '34%' }} />
+        <col style={{ width: '28%' }} />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>field</th>
+          <th>type</th>
+          <th>description</th>
+          <th>
+            sample
+            <button
+              type="button"
+              onClick={copy}
+              aria-label={copied ? 'Copied the table' : 'Copy the table'}
+              title={copied ? 'Copied' : 'Copy the table'}
+              className="absolute right-1.5 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md text-[var(--paper-faint)] opacity-0 transition-opacity hover:bg-[color-mix(in_oklab,var(--paper-text)_14%,var(--paper))] hover:text-[var(--paper-text)] focus-visible:opacity-100 group-hover/copy:opacity-100"
+            >
+              {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {fields.map(f => {
+          const p = byName?.get(f.name)
+          return (
+            <tr key={f.name}>
+              <td>
+                <div className="hm-cl tx-fname" title={p ? `${f.name} · ${KIND_LABEL[p.kind]} in the sample rows` : f.name}>
+                  {p && <KindMark kind={p.kind} />}
+                  <span>{f.name}</span>
+                </div>
+              </td>
+              <td className="hm-m hm-ty" title={f.type}>
+                {f.type}
+              </td>
+              <td>
+                <div className="hm-cl" title={f.desc}>{f.desc}</div>
+              </td>
+              <td className="hm-m">
+                <div className="hm-cl" title={f.sample}>{f.sample}</div>
+              </td>
+            </tr>
+          )
+        })}
+      </tbody>
+    </table>
   )
 }
 
@@ -455,46 +524,7 @@ export function TableDetail({
           </div>
         )
       ) : (
-        <table className="hm-of">
-          <colgroup>
-            <col style={{ width: '26%' }} />
-            <col style={{ width: '12%' }} />
-            <col style={{ width: '34%' }} />
-            <col style={{ width: '28%' }} />
-          </colgroup>
-          <thead>
-            <tr>
-              <th>field</th>
-              <th>type</th>
-              <th>description</th>
-              <th>sample</th>
-            </tr>
-          </thead>
-          <tbody>
-            {t.fields.map(f => {
-              const p = byName.get(f.name)
-              return (
-                <tr key={f.name}>
-                  <td>
-                    <div className="hm-cl tx-fname" title={p ? `${f.name} · ${KIND_LABEL[p.kind]} in the sample rows` : f.name}>
-                      {p && <KindMark kind={p.kind} />}
-                      <span>{f.name}</span>
-                    </div>
-                  </td>
-                  <td className="hm-m hm-ty" title={f.type}>
-                    {f.type}
-                  </td>
-                  <td>
-                    <div className="hm-cl" title={f.desc}>{f.desc}</div>
-                  </td>
-                  <td className="hm-m">
-                    <div className="hm-cl" title={f.sample}>{f.sample}</div>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        <FieldsTable fields={t.fields} byName={byName} />
       )}
     </div>
   )
