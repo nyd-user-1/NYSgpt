@@ -294,3 +294,16 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 
 /* on a box under the mouse or the keyboard, the three-dot button and the side panel button take the box's colour */
 .hm-card:hover .hm-kbtn, .hm-card[data-nav-on] .hm-kbtn, .hm-card:hover .hm-pnl, .hm-card[data-nav-on] .hm-pnl { color: var(--type); }
+
+/* the favourite star: it takes the type icon's place under the mouse or the keyboard; yellow once chosen, with a small pop */
+.hm-ti { position: relative; }
+.hm-ti > svg, .hm-ti > img { transition: opacity .15s; }
+.hm-fav { position: absolute; left: -6px; bottom: -6px; display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--type); cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .15s; }
+.hm-fav svg { width: 16px; height: 16px; }
+.hm-card:hover .hm-fav, .hm-card[data-nav-on] .hm-fav, .hm-fav:focus-visible { opacity: 1; pointer-events: auto; }
+.hm-card:hover .hm-ti > svg, .hm-card[data-nav-on] .hm-ti > svg, .hm-card:hover .hm-ti > img, .hm-card[data-nav-on] .hm-ti > img { opacity: 0; }
+.hm-fav:hover { background: var(--paper); }
+.hm-fav.hm-on { color: #eab308; }
+.hm-fav.hm-on svg { fill: #facc15; animation: hm-fav-pop .38s cubic-bezier(.2, .9, .3, 1.4); }
+@keyframes hm-fav-pop { 0% { transform: scale(.4) rotate(-24deg); } 60% { transform: scale(1.35) rotate(8deg); } 100% { transform: scale(1) rotate(0); } }
+@media (prefers-reduced-motion: reduce) { .hm-fav.hm-on svg { animation: none; } }

@@ -258,8 +258,22 @@ export function HomePlate() {
                       <p>{b.body}</p>
                     </div>
                     <div className="hm-foot">
+                      {/* the type icon at rest; under the mouse or the keyboard it gives way to the favourite star */}
                       <span className="hm-ti">
                         <TypeIcon icon={b.icon} />
+                        <button
+                          type="button"
+                          className={`hm-fav ${favs.includes(key) ? 'hm-on' : ''}`}
+                          aria-pressed={favs.includes(key)}
+                          aria-label={`${favs.includes(key) ? 'Remove' : 'Add'} ${b.title} ${favs.includes(key) ? 'from' : 'to'} favorites`}
+                          title={favs.includes(key) ? 'Remove from favorites' : 'Favorite'}
+                          onClick={e => {
+                            e.stopPropagation()
+                            home.toggleFav(key)
+                          }}
+                        >
+                          <Icon name="star" />
+                        </button>
                       </span>
                       <button
                         type="button"
