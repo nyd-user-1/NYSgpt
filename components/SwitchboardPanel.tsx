@@ -76,10 +76,6 @@ export const CHANNELS: Record<ChannelId, { name: string; href: string; sameTab?:
   },
 }
 
-const INTRO =
-  'AI built to spec. Deploy agentic teams or a full Agentic OS, on-prem or in the cloud. ' +
-  'Add a custom AI platform with RAG, or subscribe via MCP or API. Purpose-trained agents ' +
-  'and fine-tuned models on request.'
 
 /** An AWS Marketplace buyer's view: registration after subscribing, or their console. */
 export type AwsView =
@@ -604,11 +600,6 @@ function SwitchboardPanel() {
             ) : (
               /* ── MENU VIEW ───────────────────────────────────────────── */
               <>
-                <div className="border-b border-[var(--paper-rule)] px-5 py-6">
-                  <h2 className="text-[26px] leading-none text-[var(--paper-text)]" style={SERIF}>NYSgpt</h2>
-                  <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{INTRO}</p>
-                </div>
-
                 {/* 2026-11-19: the menu drills down. The sources (NYSgpt, then A to Z); a source opens its sets; a set opens
                     its listings, A to Z. A search lists every matching listing at once. */}
                 {(() => {
