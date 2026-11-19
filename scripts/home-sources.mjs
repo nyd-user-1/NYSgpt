@@ -275,7 +275,8 @@ import type { Box, SetEntry, SourceKind } from './home-boxes'
 
 export const SOURCE_MARKS: Record<string, string> = ${JSON.stringify(marks, null, 1)}
 
-export const SOURCE_BOXES: Box[] = ${JSON.stringify(out.boxes, null, 1)}
+/* as text: 1,200 boxes written as a literal are more than the type checker will take */
+export const SOURCE_BOXES: Box[] = JSON.parse(${JSON.stringify(JSON.stringify(out.boxes))})
 
 export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], kaggle: [], llmstats: [], openrouter: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], 'hf-models': [], 'hf-datasets': [], 'hf-spaces': [], 'hf-papers': [], ...out.info }, null, 1)}
 `
