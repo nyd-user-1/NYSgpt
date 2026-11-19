@@ -20,7 +20,12 @@
   --pax2-shadow-2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
   --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
 }
-.dark {
+/* In Dark the tokens, and the slate steps the ported files use, turn with the theme, as pax-trinity's themes turn
+   them (slate by role: 50–300 the grounds and rules, 400–950 the type), on the note's surfaces, the Nav and the menus
+   portaled to <body> only: the dev tools set their own light values at the root (components/dev/devtools.css). */
+.dark .nysgpt-note,
+.dark body > [role="menu"],
+.dark body > [role="dialog"][aria-label="Go to"] {
   --pax2-blue: #b6d0f4;
   --pax2-light-blue: #8fb4ec;
   --pax2-lavender: rgba(182, 208, 244, 0.16);
@@ -33,12 +38,6 @@
   --pax2-shadow-1: 0 1px 2px rgb(0 0 0 / 0.3);
   --pax2-shadow-2: 0 4px 14px -4px rgb(0 0 0 / 0.5);
   --pax2-shadow-3: 0 18px 40px -12px rgb(0 0 0 / 0.7), 0 6px 12px -6px rgb(0 0 0 / 0.4);
-}
-/* In Dark the slate steps the ported files use turn with the theme, as pax-trinity's themes turn them (by role:
-   50–300 the grounds and rules, 400–950 the type), on the note's surfaces and the menus portaled to <body> only. */
-.dark .nysgpt-note,
-.dark body > [role="menu"],
-.dark body > [data-note-popup] {
   --color-slate-50: #1d1912;
   --color-slate-100: #262016;
   --color-slate-200: rgba(240, 233, 216, 0.14);

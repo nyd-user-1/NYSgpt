@@ -16,6 +16,9 @@ const ID = /^[\w-]{8,64}$/
 const titleOf = (md: string) =>
   (md.split("\n").map((l) => l.replace(/<[^>]+>/g, "").replace(/^[#>\-*+\s]+|\d+\.\s+/g, "").replace(/[*_`]/g, "").trim()).find(Boolean) ?? "Untitled note").slice(0, 120)
 
+/** crypto.randomUUID is there only on https and localhost; the dev box serves plain http. */
+const newId = () => globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`
+
 const read = (): Note[] => {
   try {
     const all = JSON.parse(localStorage.getItem(KEY) ?? "[]") as Note[]
@@ -53,7 +56,7 @@ export async function createMyNote(bodyMd: string, chatMd = ""): Promise<Note | 
   const body = String(bodyMd)
   const chat = String(chatMd)
   if (!(body.trim() || chat.trim())) return null
-  return put(crypto.randomUUID(), { title: titleOf(body.trim() ? body : chat), bodyMd: body, chatMd: chat })
+  return put(newId(), { title: titleOf(body.trim() ? body : chat), bodyMd: body, chatMd: chat })
 }
 
 export async function openNote(id: string): Promise<Note | null> {
