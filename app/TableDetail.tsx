@@ -102,8 +102,8 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
                 <td>
                   <div className="hm-cl" title={f.name}>{f.name}</div>
                 </td>
-                <td className="hm-m">
-                  <div className="hm-cl" title={f.type}>{f.type}</div>
+                <td className="hm-m hm-ty" title={f.type}>
+                  {f.type}
                 </td>
                 <td>
                   <div className="hm-cl" title={f.desc}>{f.desc}</div>
