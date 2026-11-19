@@ -104,6 +104,9 @@ const TextType = dynamic(() => import('@/components/text-type'), { loading: () =
 const VideoBlock = dynamic(() => import('@/components/chat/video-block').then((m) => m.VideoBlock), { ssr: false, loading: () => <div className="aspect-video w-full animate-pulse rounded-xl bg-pax2-surface/70" /> })
 // The record flow (camera, upload, the template chooser with Remotion's Player and zod) loads when Record is pressed.
 const RecordFlow = dynamic(() => import('@/components/chat/record-flow').then((m) => m.RecordFlow), { ssr: false })
+/** The composer's microphone button. Off (Brendan, 2026-11-19): he asked for it to be removed. The voice code is kept. */
+const VOICE_INPUT: boolean = false
+
 // NYSgpt's lines (Brendan, 2026-11-19), in the source's pattern: one per masthead set, then the source's last line.
 const READY = ['Ready to find a database?', 'Ready to find a table?', 'Ready to find a model?', 'Ready to find a platform?', 'Ready to find an answer?', 'Ready. Set. Go.']
 
@@ -1149,25 +1152,27 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
             title={searchMode ? 'Leave search (Esc)' : 'Search this chat'}>
             <Search className="h-4 w-4" />
           </button>
-          <button
-            onClick={toggleMic}
-            disabled={recordingState === 'transcribing'}
-            className={`ml-2 shrink-0 flex h-8 w-8 items-center justify-center rounded-full transition-colors disabled:opacity-40 ${
-              recordingState === 'recording' ? 'text-red-500 bg-red-50 animate-pulse'
-              : recordingState === 'transcribing' ? 'text-blue-500 bg-blue-50'
-              : 'text-[var(--muted)] hover:bg-[rgba(0,0,0,0.07)] hover:text-[var(--txt)]'
-            }`}
-            title={recordingState === 'recording' ? 'Cancel recording' : recordingState === 'transcribing' ? 'Transcribing…' : 'Voice input'}
-          >
-            {recordingState === 'transcribing' ? (
-              <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
-              </svg>
-            ) : (
-              <Mic className="h-4 w-4" />
-            )}
-          </button>
+          {VOICE_INPUT && (
+            <button
+              onClick={toggleMic}
+              disabled={recordingState === 'transcribing'}
+              className={`ml-2 shrink-0 flex h-8 w-8 items-center justify-center rounded-full transition-colors disabled:opacity-40 ${
+                recordingState === 'recording' ? 'text-red-500 bg-red-50 animate-pulse'
+                : recordingState === 'transcribing' ? 'text-blue-500 bg-blue-50'
+                : 'text-[var(--muted)] hover:bg-[rgba(0,0,0,0.07)] hover:text-[var(--txt)]'
+              }`}
+              title={recordingState === 'recording' ? 'Cancel recording' : recordingState === 'transcribing' ? 'Transcribing…' : 'Voice input'}
+            >
+              {recordingState === 'transcribing' ? (
+                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2.5" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+                </svg>
+              ) : (
+                <Mic className="h-4 w-4" />
+              )}
+            </button>
+          )}
           {recordingState === 'recording' && (
             <button
               onClick={stopAndTranscribe}
