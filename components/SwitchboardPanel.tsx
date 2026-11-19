@@ -93,6 +93,8 @@ type View =
   | { kind: 'blocks' }
   | { kind: 'box'; key: string }
   | { kind: 'data'; db?: string; table?: number; rows?: boolean }
+  /* Brief 51: rows a Command K command fetched or loaded (Call API, Get sample API results). */
+  | ({ kind: 'result' } & PanelResult)
 
 export type ChannelId = 'slack' | 'discord' | 'ask'
 
@@ -118,6 +120,8 @@ type Ctx = {
   /** A database at its first table, or the list of databases. */
   openData: (db: string | null) => void
   openBlocks: () => void
+  /** Rows to show in the panel (brief 51, the palette's Call API and Get sample API results). */
+  openResult: (r: PanelResult) => void
 }
 
 const PanelCtx = createContext<Ctx | null>(null)
@@ -159,12 +163,13 @@ export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCa
   const openBox = useCallback((key: string) => { setView({ kind: 'box', key }); setOpen(true) }, [])
   const openData = useCallback((db: string | null) => { setView(db ? { kind: 'data', db, table: 0 } : { kind: 'data' }); setOpen(true) }, [])
   const openBlocks = useCallback(() => { setView({ kind: 'blocks' }); setOpen(true) }, [])
+  const openResult = useCallback((r: PanelResult) => { setView({ kind: 'result', ...r }); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
   // way to resume wherever you happened to leave off.
   const toggle = useCallback(() => setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v }), [])
 
   return (
-    <PanelCtx.Provider value={{ open, width, setWidth, view, setView, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBox, openData, openBlocks }}>
+    <PanelCtx.Provider value={{ open, width, setWidth, view, setView, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBox, openData, openBlocks, openResult }}>
       {children}
       <SwitchboardPanel />
     </PanelCtx.Provider>
@@ -326,9 +331,9 @@ function SwitchboardPanel() {
   // back to the menu: a Marketplace buyer did not come from the switchboard.
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
   const box = view.kind === 'box' ? BOXES.find(b => boxKey(b) === view.key) ?? null : null
-  const newTitle = view.kind === 'blocks' ? 'Blocks' : box ? box.title : view.kind === 'data' ? (view.db ?? 'Data') : null
+  const newTitle = view.kind === 'result' ? view.title : view.kind === 'blocks' ? 'Blocks' : box ? box.title : view.kind === 'data' ? (view.db ?? 'Data') : null
   const title = (devSub && DEV_TOOLS_TITLE ? DEV_TOOLS_TITLE[devSub] : null) ?? awsTitle ?? newTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
-  const deeper = deep || view.kind === 'blocks' || view.kind === 'box' || view.kind === 'data'
+  const deeper = deep || view.kind === 'result' || view.kind === 'blocks' || view.kind === 'box' || view.kind === 'data'
   const half = width === '50vw'
 
   return createPortal(
@@ -411,7 +416,9 @@ function SwitchboardPanel() {
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
             <div className="flex min-h-full flex-col">
-            {view.kind === 'blocks' ? (
+            {view.kind === 'result' ? (
+              <ResultView r={view} />
+            ) : view.kind === 'blocks' ? (
               <BlocksView q={q} />
             ) : view.kind === 'box' ? (
               box ? <BoxView boxKey={view.key} /> : null
@@ -1001,5 +1008,56 @@ function DataView({ view, q, onGo }: { view: { db?: string; table?: number; rows
       </div>
       {[...by.entries()].map(([db, l]) => match(q, db) && row(db, String(l.length), () => onGo({ kind: 'data', db }), db))}
     </>
+  )
+}
+
+/** Rows for the panel's result view (brief 51). */
+export type PanelResult = { title: string; subtitle?: string; columns: string[]; rows: unknown[][]; json?: string; note?: string }
+
+/** The result view: the title and note, the rows in the panel's row table, and the JSON with a Copy button. */
+function ResultView({ r }: { r: PanelResult }) {
+  const [copied, setCopied] = useState(false)
+  const cell = (v: unknown) => (v == null ? '' : typeof v === 'object' ? JSON.stringify(v) : String(v))
+  return (
+    <div className="hm-panel">
+      <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+        <h2 className="text-[22px] leading-[1.15] text-[var(--paper-text)] [overflow-wrap:anywhere]" style={SERIF}>{r.title}</h2>
+        {r.subtitle && <p className="hm-om">{r.subtitle}</p>}
+        {r.note && <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{r.note}</p>}
+      </div>
+      {r.columns.length > 0 && (
+        <div className="overflow-x-auto">
+          <table className="hm-rows">
+            <thead>
+              <tr>{r.columns.map(c => <th key={c}>{c}</th>)}</tr>
+            </thead>
+            <tbody>
+              {r.rows.map((row, i) => (
+                <tr key={i}>{row.map((v, j) => <td key={j} title={cell(v)}>{cell(v)}</td>)}</tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+      {r.json && (
+        <div className="px-5 pb-6">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="hm-om m-0">JSON</span>
+            <button
+              type="button"
+              className="hm-boxopen"
+              onClick={() => {
+                void navigator.clipboard?.writeText(r.json!)
+                setCopied(true)
+                window.setTimeout(() => setCopied(false), 1500)
+              }}
+            >
+              {copied ? 'Copied' : 'Copy'}
+            </button>
+          </div>
+          <pre className="max-h-[50vh] overflow-auto rounded-lg border border-[var(--paper-rule-soft)] p-3 text-[11px] leading-[1.5] text-[var(--paper-text)]" style={MONO}>{r.json}</pre>
+        </div>
+      )}
+    </div>
   )
 }
