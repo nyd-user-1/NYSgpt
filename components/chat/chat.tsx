@@ -108,7 +108,28 @@ const RecordFlow = dynamic(() => import('@/components/chat/record-flow').then((m
 const VOICE_INPUT: boolean = false
 
 // NYSgpt's lines (Brendan, 2026-11-19), in the source's pattern: one per masthead set, then the source's last line.
-const READY = ['Ready to find a database?', 'Ready to find a table?', 'Ready to find a model?', 'Ready to find a platform?', 'Ready to find an answer?', 'Ready. Set. Go.']
+/* The typed line above the box (Brendan, 2026-11-19): questions from the /search list (public/search-questions), a random
+   run of them on each visit, typed one after another without end. Only those short enough for one line at this size. */
+const READY_MAX = 52
+function ReadyLine() {
+  const [lines, setLines] = useState<string[] | null>(null)
+  useEffect(() => {
+    let live = true
+    ;(async () => {
+      try {
+        const man = await (await fetch('/search-questions/manifest.json')).json()
+        const n = Math.floor(Math.random() * (man.chunks ?? 1))
+        const rows: [string, ...unknown[]][] = await (await fetch(`/search-questions/q-${String(n).padStart(3, '0')}.json`)).json()
+        const short = rows.map(r => r[0]).filter(q => typeof q === 'string' && q.length <= READY_MAX)
+        for (let i = short.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [short[i], short[j]] = [short[j], short[i]] }
+        if (live && short.length) setLines(short)
+      } catch { /* the line stays empty */ }
+    })()
+    return () => { live = false }
+  }, [])
+  if (!lines) return <span className="block h-[65px]" />
+  return <TextType as="span" text={lines} loop typingSpeed={45} pauseDuration={2600} className="font-display text-2xl font-normal text-black md:text-3xl" />
+}
 
 const RECORD_OPENER = "I'm ready to make my first video — where do we start?"
 
@@ -1300,7 +1321,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
                 <div className="transition-transform duration-150" style={{ transform: `translateY(-${grow}px)` }}>
                   {heading ?? (
                     <div className="flex h-[65px] flex-col items-center justify-center">
-                      <TextType as="span" text={READY} loop={false} typingSpeed={70} className="font-display text-2xl font-normal text-black md:text-3xl" />
+                      <ReadyLine />
                     </div>
                   )}
                 </div>
