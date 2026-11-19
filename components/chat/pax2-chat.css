@@ -1,0 +1,493 @@
+/* NYSgpt's /chat in pax-trinity's look (brief 46), built by script from pax-trinity's src/app/pax2.css and
+   src/lib/theme.ts. Everything is scoped to .pax-chat, the chat route's wrapper, so no other NYSgpt page
+   changes: first the PAX Light theme's values (pax-trinity sets them on <html> as --t-*; its default theme),
+   then pax2.css's token blocks and rules as written, each selector under .pax-chat. Left out: the rules for
+   <body>, the second panel's frame (html[data-embed]), the theme-change transition, and the editor's and
+   Inbox's styles, which belong to pages that did not come across. */
+
+.pax-chat {
+  --t-frame: #e3e9f1;
+  --t-sidebar: #f5f7fb;
+  --t-surface: #f5f7fb;
+  --t-raised: #ffffff;
+  --t-tint: #eef2f8;
+  --t-lift: #ffffff;
+  --t-rule: #dce3ec;
+  --t-rule-strong: #c3cddb;
+  --t-ink: #0f172a;
+  --t-ink-2: #475569;
+  --t-ink-3: #64748b;
+  --t-ink-4: #94a3b8;
+  --t-accent: #1e3a8a;
+  --t-accent-2: #2563eb;
+  --t-wash: #dbeafe;
+  --t-positive: #16a34a;
+  --t-negative: #dc2626;
+  --t-shadow: 1.2;
+  --t-grid-opacity: 0.18;
+  --t-grid-fill: 0.08;
+  --t-grid-spotlight: 0.8;
+  --t-shadow-rgb: 15 23 42;
+  --t-grid: #1e3a8a;
+  --t-pulse: #dc2626;
+}
+
+
+/* PAX2 design tokens. One sans family; hierarchy from size, weight and space. Blue and red are
+   GovBlock's forecast colors and they carry meaning: green = above the reference, red = below,
+   navy = actions and type. */
+.pax-chat {
+  /* The clips surfaces size their feed as calc(100svh - var(--header-height) - …);
+     govblock defined this in its globals, trinity defines it here: the shell's
+     18px frame + the header row above the content card. */
+  --header-height: 7rem;
+  --pax2-blue: #1e3a8a;
+  --pax2-light-blue: #2563eb;
+  --pax2-lavender: #dbeafe;
+  --pax2-mist: #f5f7fb;
+  /* The surface cards and panels stand on: white here, a step above the ground in Dark. */
+  --pax2-surface: #ffffff;
+  --pax2-frame: #e9eef5;
+  --pax2-sidebar: #f5f7fb;
+  --pax2-lift: #ffffff;
+  --pax2-raised: #ffffff;
+  --pax2-red: #dc2626;
+  --pax2-red-deep: #991b1b;
+  --pax2-red-soft: #fee2e2;
+  --pax2-above: #16a34a;
+  --pax2-above-soft: #f0fdf4;
+  --pax2-below: #dc2626;
+  --pax2-below-soft: #fef2f2;
+  --pax2-observed: #1e3a8a;
+  --pax2-interpretation: #4b5563;
+  --pax2-hypothesis: #dc2626;
+  --primary: #1e3a8a;
+  --primary-foreground: #fff;
+  --ring: #2563eb;
+  --chart-1: #2563eb;
+  --chart-2: #60a5fa;
+  --chart-3: #1e3a8a;
+  --chart-4: #f87171;
+  --chart-5: #dc2626;
+  --pax2-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
+  --pax2-shadow-2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
+}
+
+
+
+/* Themes (Brendan, 2026-10-30): Light, Dark, PAX Light, PAX Dark, Vercel and VS Code, each sixteen base colours (lib/theme.ts,
+   the one source of the values), set on <html> as --t-* with data-theme. This block maps them onto
+   every colour system the app has, so no class or component changes with the theme: PAX's tokens,
+   shadcn's, Tailwind's slate and gray scales (set by role, not flipped: 50–300 the tints and rules, 400–950
+   the type), the design system's surface, Home's paper (below) and the shadows. The sidebar and the right
+   panel stand on the sidebar colour; the mist, which also filled inputs, rails and hovers, is the tint. Before the theme script has
+   run (it runs in <head>, before paint) the light values above stand. :root:root[data-theme] outranks the
+   :root:root above. */
+.pax-chat {
+  --pax2-blue: var(--t-accent);
+  --pax2-light-blue: var(--t-accent-2);
+  --pax2-lavender: var(--t-wash);
+  --pax2-mist: var(--t-tint);
+  --pax2-sidebar: var(--t-sidebar);
+  --pax2-lift: var(--t-lift);
+  --pax2-surface: var(--t-surface);
+  --pax2-frame: var(--t-frame);
+  --pax2-raised: var(--t-raised);
+  --pax2-red: var(--t-negative);
+  --pax2-red-deep: color-mix(in oklab, var(--t-negative) 72%, var(--t-ink));
+  --pax2-red-soft: color-mix(in oklab, var(--t-negative) 14%, var(--t-surface));
+  --pax2-above: var(--t-positive);
+  --pax2-above-soft: color-mix(in oklab, var(--t-positive) 12%, var(--t-surface));
+  --pax2-below: var(--t-negative);
+  --pax2-below-soft: color-mix(in oklab, var(--t-negative) 10%, var(--t-surface));
+  --pax2-observed: var(--t-accent);
+  --pax2-interpretation: var(--t-ink-3);
+  --pax2-hypothesis: var(--t-negative);
+  --primary: var(--t-accent);
+  --primary-foreground: #ffffff;
+  --ring: var(--t-accent-2);
+  --chart-1: var(--t-accent-2);
+  --chart-3: var(--t-accent);
+  --chart-5: var(--t-negative);
+  --pax2-shadow-1: 0 1px 2px rgb(var(--t-shadow-rgb) / calc(0.04 * var(--t-shadow))), 0 1px 1px rgb(var(--t-shadow-rgb) / calc(0.03 * var(--t-shadow)));
+  --pax2-shadow-2: 0 4px 14px -4px rgb(var(--t-shadow-rgb) / calc(0.1 * var(--t-shadow))), 0 2px 4px -2px rgb(var(--t-shadow-rgb) / calc(0.06 * var(--t-shadow)));
+  --pax2-shadow-3: 0 18px 40px -12px rgb(var(--t-shadow-rgb) / calc(0.22 * var(--t-shadow))), 0 6px 12px -6px rgb(var(--t-shadow-rgb) / calc(0.1 * var(--t-shadow)));
+  /* The header rows' one divider (Brendan, 2026-10-31): scaled by the theme's shadow like the cards', so it reads
+     on the darks too; 0.21 x 1.2 is PAX Light's 0.25, and the darks' 5 and 6 reach full black. */
+  --pax2-shadow-header: 0 4px 12px -8px rgb(var(--t-shadow-rgb) / calc(0.21 * var(--t-shadow)));
+
+  --background: var(--t-surface);
+  --foreground: var(--t-ink);
+  --card: var(--t-surface);
+  --card-foreground: var(--t-ink);
+  --popover: var(--t-raised);
+  --popover-foreground: var(--t-ink);
+  --secondary: var(--t-tint);
+  --secondary-foreground: var(--t-ink);
+  --muted: var(--t-tint);
+  --muted-foreground: var(--t-ink-3);
+  --accent: var(--t-tint);
+  --accent-foreground: var(--t-ink);
+  --border: var(--t-rule);
+  --input: var(--t-rule);
+  --sidebar: var(--t-sidebar);
+  --sidebar-foreground: var(--t-ink);
+  --sidebar-border: var(--t-rule);
+  --surface: var(--t-tint);
+  --surface-foreground: var(--t-ink);
+
+  --color-slate-50: var(--t-tint);
+  --color-slate-100: color-mix(in oklab, var(--t-tint), var(--t-rule));
+  --color-slate-200: var(--t-rule);
+  --color-slate-300: var(--t-rule-strong);
+  --color-slate-400: var(--t-ink-4);
+  --color-slate-500: var(--t-ink-3);
+  --color-slate-600: var(--t-ink-2);
+  --color-slate-700: color-mix(in oklab, var(--t-ink-2) 60%, var(--t-ink));
+  --color-slate-800: color-mix(in oklab, var(--t-ink-2) 25%, var(--t-ink));
+  --color-slate-900: var(--t-ink);
+  --color-slate-950: var(--t-ink);
+  --color-gray-50: var(--t-tint);
+  --color-gray-100: color-mix(in oklab, var(--t-tint), var(--t-rule));
+  --color-gray-200: var(--t-rule);
+  --color-gray-300: var(--t-rule-strong);
+  --color-gray-400: var(--t-ink-4);
+  --color-gray-500: var(--t-ink-3);
+  --color-gray-600: var(--t-ink-2);
+  --color-gray-700: color-mix(in oklab, var(--t-ink-2) 60%, var(--t-ink));
+  --color-gray-800: color-mix(in oklab, var(--t-ink-2) 25%, var(--t-ink));
+  --color-gray-900: var(--t-ink);
+  --color-gray-950: var(--t-ink);
+}
+
+
+
+/* Home's paper (paper.css, NYSgpt's boxes) reads the theme too: its black rules are the ink. */
+.pax-chat .nysgpt-app {
+  --bg: var(--t-frame);
+  --surface: var(--t-surface);
+  --border: var(--t-rule);
+  --inp-bg: var(--t-tint);
+  --txt: var(--t-ink);
+  --muted: var(--t-ink-3);
+  --paper: var(--t-surface);
+  --paper-text: var(--t-ink);
+  --paper-muted: var(--t-ink-3);
+  --paper-faint: var(--t-ink-4);
+  --paper-rule: var(--t-ink);
+  --paper-rule-soft: var(--t-rule);
+  --paper-quiet: var(--t-tint);
+  --paper-strong: var(--t-accent);
+}
+
+
+
+/* Headings: the body family at heavier weight and tighter tracking. */
+.pax-chat .font-display {
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+
+
+.pax-chat .tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+
+
+.pax-chat [data-slot="button"] {
+  border-radius: 9999px;
+}
+
+
+
+/* A raised surface, and the lift it gives when it can be opened. */
+.pax-chat .surface {
+  background: var(--pax2-surface);
+  border-radius: 1.25rem;
+  box-shadow: var(--pax2-shadow-1);
+  outline: 1px solid rgb(15 23 42 / 0.06);
+}
+
+
+.pax-chat .lift {
+  transition:
+    transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 200ms ease;
+}
+
+
+.pax-chat .lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--pax2-shadow-3);
+}
+
+
+.pax-chat .press:active {
+  transform: scale(0.97);
+}
+
+
+
+/* Entrance: content rises in, staggered by --i. */
+@keyframes pax2-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+
+.pax-chat .rise {
+  animation: pax2-rise 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+
+
+@keyframes pax2-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+
+.pax-chat .grow {
+  transform-origin: left;
+  animation: pax2-grow 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 150ms);
+}
+
+
+
+@keyframes pax2-dot-in {
+  from {
+    left: 50%;
+    opacity: 0;
+  }
+}
+
+
+.pax-chat .dot-in {
+  animation: pax2-dot-in 800ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 60ms + 200ms);
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pax-chat .rise,
+.pax-chat .grow,
+.pax-chat .dot-in,
+.pax-chat .lift {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+
+/* SVG marks grow from their own left edge. */
+.pax-chat .grow-svg {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: pax2-grow 800ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 35ms + 100ms);
+}
+
+
+
+/* Scrollbars: a slim rounded thumb and no track, everywhere. */
+.pax-chat ::-webkit-scrollbar, .pax-chat::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+
+.pax-chat ::-webkit-scrollbar-track, .pax-chat::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.pax-chat ::-webkit-scrollbar-thumb, .pax-chat::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  background: rgb(100 116 139 / 0.4);
+  background-clip: padding-box;
+}
+
+
+.pax-chat ::-webkit-scrollbar-thumb:hover, .pax-chat::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139 / 0.6);
+  background-clip: padding-box;
+}
+
+
+.pax-chat ::-webkit-scrollbar-corner, .pax-chat::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+
+@supports not selector(::-webkit-scrollbar) {
+
+  .pax-chat * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(100 116 139 / 0.45) transparent;
+  }
+}
+
+
+
+/* A light float for the scroll cue: a slow 6px drift, not a bounce. */
+@keyframes pax2-float {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -6px);
+  }
+}
+
+
+.pax-chat .float-cue {
+  animation: pax2-float 3s ease-in-out infinite;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pax-chat .float-cue {
+    animation: none !important;
+  }
+}
+
+
+
+/* The sidebar icons' hover: govblock's animate-ui default (scale 1 → 1.2 → 1, 0.5s ease-in-out), in CSS. */
+@keyframes icon-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+
+.pax-chat .group:hover > .icon-pop { animation: icon-pop 0.5s ease-in-out; }
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pax-chat .group:hover > .icon-pop { animation: none; }
+}
+
+
+
+/* Touch screens have no hover: the curve stays, the thumbnail yields. */
+@media (hover: none) {
+
+  .pax-chat .curve-media img { opacity: 0 }
+
+  .pax-chat .curve-media .curve-chart { opacity: 1 }
+}
+
+
+
+/* The scan screen's sweep: a soft band passing down the video while the Lab's checks run. */
+@keyframes pax2-scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+
+
+.pax-chat .scan-sweep {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 0%, rgb(219 231 250 / 0.45) 50%, transparent 100%);
+  animation: pax2-scan 1.8s linear infinite;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pax-chat .scan-sweep {
+    animation: none;
+    background: rgb(219 231 250 / 0.2);
+  }
+}
+
+
+
+/* The angle that turns BorderLight's band (src/components/border-light.tsx) round its border. */
+@property --pax2-spin {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+
+@keyframes pax2-spin {
+  to {
+    --pax2-spin: 360deg;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pax-chat [data-pax2-spin] {
+    animation: none !important;
+  }
+}
+
+
+
+/* The ERD's highlight (src/components/factory-canvas.tsx): a lit box glows, a lit line carries a light. */
+@keyframes pax2-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgb(96 165 250 / 0.35), 0 0 16px rgb(37 99 235 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgb(96 165 250 / 0.5), 0 0 28px rgb(37 99 235 / 0.5);
+  }
+}
+
+
+.pax-chat .erd-lit {
+  animation: pax2-glow 1.6s ease-in-out infinite;
+}
+
+
+@keyframes pax2-travel {
+  to {
+    stroke-dashoffset: -420;
+  }
+}
+
+
+.pax-chat .erd-travel {
+  stroke-dasharray: 3 417;
+  stroke-linecap: round;
+  animation: pax2-travel 2.4s linear infinite;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pax-chat .erd-lit,
+.pax-chat .erd-travel {
+    animation: none;
+  }
+}

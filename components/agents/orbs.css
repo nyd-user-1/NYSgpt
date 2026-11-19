@@ -1,0 +1,161 @@
+/* The orb family (Brendan, 2026-11-03): the pax orb is the WebGL strands (agent-orb.tsx); these are its
+   CSS kin — the 44B blue orb brought over hex for hex, and five siblings in other colors, each the same
+   sphere: a light struck at 32% 30%, four stops to a deep rim, a soft glow. Swap which orb the chat wears
+   in orbs.tsx (CHAT_ORB). */
+
+.orb-css {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 32% 30%, var(--orb-1) 0%, var(--orb-2) 38%, var(--orb-3) 68%, var(--orb-4) 100%);
+  box-shadow: 0 0 14px var(--orb-glow), inset 0 0 8px rgba(255, 255, 255, 0.18);
+}
+.orb-blue   { --orb-1: #7d9fd6; --orb-2: #2f5da8; --orb-3: #033882; --orb-4: #02244f; --orb-glow: rgba(3, 56, 130, 0.35); }
+.orb-red    { --orb-1: #e8a09b; --orb-2: #d95b56; --orb-3: #a32e2a; --orb-4: #5c1513; --orb-glow: rgba(163, 46, 42, 0.35); }
+.orb-purple { --orb-1: #c3a9e8; --orb-2: #8b5cf6; --orb-3: #5b21b6; --orb-4: #2e1065; --orb-glow: rgba(91, 33, 182, 0.35); }
+.orb-green  { --orb-1: #a9d9b8; --orb-2: #34a853; --orb-3: #166534; --orb-4: #052e16; --orb-glow: rgba(22, 101, 52, 0.35); }
+.orb-yellow { --orb-1: #f7e7a0; --orb-2: #eab308; --orb-3: #a16207; --orb-4: #543c0a; --orb-glow: rgba(161, 98, 7, 0.35); }
+.orb-orange { --orb-1: #f8c89a; --orb-2: #f97316; --orb-3: #c2410c; --orb-4: #6b2208; --orb-glow: rgba(194, 65, 12, 0.35); }
+
+/* Breathing — the 44B pattern while generating: slow scale and opacity, no rotation; still at rest. */
+@keyframes orb-breathe {
+  from { transform: scale(0.92); opacity: 0.7; }
+  to   { transform: scale(1.08); opacity: 1; }
+}
+.orb-breathe { animation: orb-breathe 1.2s ease-in-out infinite alternate; }
+
+/* The thinking stage: one move at a time while inference runs, the component cycling the class.
+   Transforms play on the stage so the WebGL canvas inside moves with it; the color wipes are a veil
+   on ::after, clipped to the sphere. */
+.orb-stage {
+  position: relative;
+  display: inline-block;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.orb-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+@keyframes orb-spin      { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes orb-osc       { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+@keyframes orb-bounce    { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+@keyframes orb-pulse     { 0%, 100% { transform: scale(0.94); opacity: 0.85; } 50% { transform: scale(1.1); opacity: 1; } }
+@keyframes orb-stretch-x { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.25, 0.88); } }
+@keyframes orb-stretch-y { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(0.88, 1.25); } }
+@keyframes orb-vibrate {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-1px, 1px); }
+  40% { transform: translate(1px, -1px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(1px, 1px); }
+}
+@keyframes orb-wipe-y-up    { from { transform: translateY(100%); } to { transform: translateY(-100%); } }
+@keyframes orb-wipe-y-down  { from { transform: translateY(-100%); } to { transform: translateY(100%); } }
+@keyframes orb-wipe-x-left  { from { transform: translateX(100%); } to { transform: translateX(-100%); } }
+@keyframes orb-wipe-x-right { from { transform: translateX(-100%); } to { transform: translateX(100%); } }
+
+.orb-move-spin      { animation: orb-spin 1.4s ease-in-out; }
+.orb-move-osc       { animation: orb-osc 0.7s ease-in-out 2; }
+.orb-move-bounce    { animation: orb-bounce 0.7s ease-in-out 2; }
+.orb-move-pulse     { animation: orb-pulse 0.7s ease-in-out 2; }
+.orb-move-stretch-x { animation: orb-stretch-x 1.4s ease-in-out; }
+.orb-move-stretch-y { animation: orb-stretch-y 1.4s ease-in-out; }
+.orb-move-vibrate   { animation: orb-vibrate 0.35s linear 4; }
+.orb-move-wipe-up::after    { background: linear-gradient(to top, transparent, rgba(255, 255, 255, 0.55), transparent); animation: orb-wipe-y-up 1.4s ease-in-out; }
+.orb-move-wipe-down::after  { background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.55), transparent); animation: orb-wipe-y-down 1.4s ease-in-out; }
+.orb-move-wipe-left::after  { background: linear-gradient(to left, transparent, rgba(255, 255, 255, 0.55), transparent); animation: orb-wipe-x-left 1.4s ease-in-out; }
+.orb-move-wipe-right::after { background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent); animation: orb-wipe-x-right 1.4s ease-in-out; }
+
+/* The perch: on hover the orb lifts a hair and a soft ground shadow appears beneath it, so it floats. */
+.orb-perch {
+  position: relative;
+  display: inline-block;
+}
+.orb-perch .orb-stage { transition: transform 0.35s ease; }
+.orb-perch:hover .orb-stage { transform: translateY(-3px); }
+.orb-perch::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -7px;
+  width: 72%;
+  height: 7px;
+  transform: translateX(-50%) scale(0.6);
+  border-radius: 9999px;
+  background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.35), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+.orb-perch:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+/* Settled, the shadow stays on: the orb floats at rest; hovering still lifts it higher off its shadow. */
+.orb-set::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+/* The sphere's turn at rest is the shader's own (strands.tsx drift): the strands travel one way around
+   the glass like a globe on its axis, while the glass and its light hold still. No CSS part in it. */
+
+/* The thinking ellipsis beside the orb: three dots typed in one at a time, held, cleared, around again —
+   the ink cycling the house reds and blues, each dot blurring in with a glow of its own color. */
+.orb-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 14px;
+  animation: orb-dots-hue 5.6s linear infinite;
+}
+@keyframes orb-dots-hue {
+  0%, 100% { color: #dc2626; }
+  25% { color: #2563eb; }
+  50% { color: #60a5fa; }
+  75% { color: #991b1b; }
+}
+.orb-dots i {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: currentColor;
+  box-shadow: 0 0 10px currentColor;
+  opacity: 0;
+  animation: orb-dot-type 1.8s ease-in-out infinite;
+}
+.orb-dots i:nth-child(2) { animation-delay: 0.22s; }
+.orb-dots i:nth-child(3) { animation-delay: 0.44s; }
+@keyframes orb-dot-type {
+  0% { opacity: 0; transform: translateY(4px) scale(0.6); filter: blur(2px); }
+  18% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+  70% { opacity: 1; }
+  88%, 100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb-dots { animation: none !important; color: #94a3b8; }
+  .orb-dots i { animation: none !important; opacity: 0.7; }
+}
+
+/* The follow-up chips spring from the orb, staggered by their animation delays. */
+@keyframes orb-chip-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.88); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.orb-chip { animation: orb-chip-pop 0.3s ease backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-chip { animation: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-breathe,
+  .orb-stage,
+  .orb-stage::after,
+  [class*='orb-move-'] { animation: none !important; }
+}

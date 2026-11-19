@@ -1,0 +1,23 @@
+/* The orb's still twin (agent-orb.tsx): the live orb's frosted body with its strands across it, warm over cool,
+   a little below the middle, as radial gradients in the agent's palette. The palette comes in as custom
+   properties from the component. */
+.agent-twin {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 34% 22%, rgb(255 255 255 / 0.95) 0, rgb(255 255 255 / 0) 32%),
+    radial-gradient(ellipse 52% 9% at 44% 52%, var(--orb-white) 0, var(--orb-amber) 45%, var(--orb-red) 80%, transparent 100%),
+    radial-gradient(ellipse 60% 10% at 56% 58%, var(--orb-white) 0, var(--orb-cyan) 30%, var(--orb-blue) 70%, transparent 100%),
+    radial-gradient(circle at 42% 30%, #fbfcfd 0, #eceef2 60%, #d8dbe2 100%);
+  box-shadow: inset 0 0 0 1px rgb(15 23 42 / 0.1);
+}
+
+.dark .agent-twin {
+  background:
+    radial-gradient(circle at 34% 22%, rgb(255 255 255 / 0.14) 0, rgb(255 255 255 / 0) 30%),
+    radial-gradient(ellipse 52% 9% at 44% 52%, var(--orb-white) 0, var(--orb-amber) 45%, var(--orb-red) 80%, transparent 100%),
+    radial-gradient(ellipse 60% 10% at 56% 58%, var(--orb-white) 0, var(--orb-cyan) 30%, var(--orb-blue) 70%, transparent 100%),
+    radial-gradient(circle at 42% 30%, #171b24 0, #0a0c11 70%);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.12);
+}

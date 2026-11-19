@@ -1,0 +1,41 @@
+/* pax-trinity's @theme blocks (src/app/pax2.css), as written, so the chat's ported files keep their class names
+   (bg-pax2-surface, shadow-e1, bg-night-900 …). app/globals.css imports this file. Each entry points at a variable
+   set only inside the chat's wrapper (components/chat/pax2-chat.css); no other page uses these classes. */
+
+
+
+/* The night scale: slate's darks, fixed, for chips, tooltips and scrims that are dark in both themes. */
+@theme {
+  --color-night-700: #334155;
+  --color-night-800: #1e293b;
+  --color-night-900: #0f172a;
+  --color-night-950: #020617;
+}
+
+
+
+@theme inline {
+  --color-pax2-surface: var(--pax2-surface);
+  --color-pax2-frame: var(--pax2-frame);
+  --color-pax2-sidebar: var(--pax2-sidebar);
+  --color-pax2-lift: var(--pax2-lift);
+  --color-pax2-raised: var(--pax2-raised);
+  --color-pax2-blue: var(--pax2-blue);
+  --color-pax2-light-blue: var(--pax2-light-blue);
+  --color-pax2-lavender: var(--pax2-lavender);
+  --color-pax2-mist: var(--pax2-mist);
+  --color-pax2-red: var(--pax2-red);
+  --color-pax2-red-deep: var(--pax2-red-deep);
+  --color-pax2-red-soft: var(--pax2-red-soft);
+  --color-above: var(--pax2-above);
+  --color-above-soft: var(--pax2-above-soft);
+  --color-below: var(--pax2-below);
+  --color-below-soft: var(--pax2-below-soft);
+  --color-observed: var(--pax2-observed);
+  --color-interpretation: var(--pax2-interpretation);
+  --color-hypothesis: var(--pax2-hypothesis);
+  --shadow-e1: var(--pax2-shadow-1);
+  --shadow-e2: var(--pax2-shadow-2);
+  --shadow-e3: var(--pax2-shadow-3);
+  --shadow-header: var(--pax2-shadow-header);
+}

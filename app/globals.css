@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+/* /chat's class names from pax-trinity (brief 46); their values are set only inside the chat's wrapper. */
+@import "../components/chat/pax2-theme.css";
 
 @custom-variant dark (&:is(.dark *));
 
