@@ -254,3 +254,139 @@ share | govblock_awards.usaspending_contracts | What share of federal contract a
 rank | govblock_health.ny_sparcs_inpatient_discharges | Which diagnoses kept New York patients in the hospital longest on average? |
 count | govblock_environment.tri_basic | How many toxic-release reporting facilities are in Harris County, Texas? | SELECT count(DISTINCT _2_trifd) AS facilities FROM govblock_environment.tri_basic WHERE _7_county = 'HARRIS' AND _8_st = 'TX'
 rank | govblock_reactors.nrc_power_status | Which reactors were shut down for the longest stretch in 2022? | SELECT unit, count(*) AS days_at_zero FROM govblock_reactors.nrc_power_status WHERE reportdt LIKE '%/2022 %' AND try_cast(power AS double) = 0 GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+
+# ── Jobs by census block (LODES) — nysgpt-2, brief 57 batch 1 ─────────────────────────────────────────────────
+total | govblock_labor.lodes_od | How many people lived in Brooklyn and worked in Manhattan in 2019? | SELECT sum(s000) AS workers FROM govblock_labor.lodes_od WHERE state = 'ny' AND part = 'main' AND job_type = 'JT00' AND year = 2019 AND substr(h_geocode, 1, 5) = '36047' AND substr(w_geocode, 1, 5) = '36061'
+rank | govblock_labor.lodes_od | Which counties outside Washington, D.C. send the most workers into the District? | SELECT substr(h_geocode, 1, 5) AS home_county, sum(s000) AS workers FROM govblock_labor.lodes_od WHERE state = 'dc' AND part = 'aux' AND job_type = 'JT00' AND year = 2019 GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+total | govblock_labor.lodes_wac | How many jobs were located in Manhattan in 2015? | SELECT sum(c000) AS jobs FROM govblock_labor.lodes_wac WHERE state = 'ny' AND segment = 'S000' AND job_type = 'JT00' AND year = 2015 AND substr(w_geocode, 1, 5) = '36061'
+total | govblock_labor.lodes_rac | How many working residents did Puerto Rico have in 2007? | SELECT sum(c000) AS workers FROM govblock_labor.lodes_rac WHERE state = 'pr' AND segment = 'S000' AND job_type = 'JT00' AND year = 2007
+change | govblock_labor.lodes_wac | How did the number of jobs in Rhode Island change from 2007 to 2019? | SELECT year, sum(c000) AS jobs FROM govblock_labor.lodes_wac WHERE state = 'ri' AND segment = 'S000' AND job_type = 'JT00' AND year IN (2007, 2019) GROUP BY 1 ORDER BY 1
+total | govblock_labor.lodes_od | How many people commuted from Nassau County to Queens for work in 2019? | SELECT sum(s000) AS workers FROM govblock_labor.lodes_od WHERE state = 'ny' AND part = 'main' AND job_type = 'JT00' AND year = 2019 AND substr(h_geocode, 1, 5) = '36059' AND substr(w_geocode, 1, 5) = '36081'
+rank | govblock_labor.lodes_wac | Which census blocks in Alaska held the most jobs in 2015? | SELECT w_geocode, c000 AS jobs FROM govblock_labor.lodes_wac WHERE state = 'ak' AND segment = 'S000' AND job_type = 'JT00' AND year = 2015 ORDER BY c000 DESC LIMIT 10
+total | govblock_labor.lodes_wac | How many retail jobs were there in Cook County, Illinois in 2019? | SELECT sum(cns07) AS retail_jobs FROM govblock_labor.lodes_wac WHERE state = 'il' AND segment = 'S000' AND job_type = 'JT00' AND year = 2019 AND substr(w_geocode, 1, 5) = '17031'
+share | govblock_labor.lodes_rac | What share of working residents of the Bronx earned $1,250 a month or less in 2019? | SELECT sum(ce01) AS low_wage, sum(c000) AS all_workers FROM govblock_labor.lodes_rac WHERE state = 'ny' AND segment = 'S000' AND job_type = 'JT00' AND year = 2019 AND substr(h_geocode, 1, 5) = '36005'
+compare | govblock_labor.lodes_wac | Did Travis County or Harris County in Texas add more jobs between 2010 and 2019? |
+total | govblock_labor.lodes_wac | How many jobs in accommodation and food service were located in Clark County, Nevada in 2019? | SELECT sum(cns18) AS jobs FROM govblock_labor.lodes_wac WHERE state = 'nv' AND segment = 'S000' AND job_type = 'JT00' AND year = 2019 AND substr(w_geocode, 1, 5) = '32003'
+rank | govblock_labor.lodes_od | Which New Jersey counties send the most workers into Manhattan? |
+
+# ── Population, income and housing (American Community Survey) ──────────────────────────────────────────────
+lookup | govblock_census.acs5_2024 | What is the median household income in Kings County, New York, in the 2020 to 2024 American Community Survey? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0500000US36047' AND variable = 'B19013_E001'
+lookup | govblock_census.acs5_2024 | What is the median home value in Westchester County, New York? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0500000US36119' AND variable = 'B25077_E001'
+lookup | govblock_census.acs5_2024 | What is the median gross rent in San Francisco? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0500000US06075' AND variable = 'B25064_E001'
+lookup | govblock_census.acs1_2024 | How many people lived in Texas according to the 2024 one-year survey? | SELECT value FROM govblock_census.acs1_2024 WHERE geo_id = '0400000US48' AND variable = 'B01003_E001'
+rank | govblock_census.acs5_2024 | Which counties in New York have the highest median household income? | SELECT geo_id, try_cast(value AS double) AS median_income FROM govblock_census.acs5_2024 WHERE geo_id LIKE '0500000US36%' AND variable = 'B19013_E001' ORDER BY 2 DESC LIMIT 10
+lookup | govblock_census.acs5_2024 | What is the median age of people living in Maine? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0400000US23' AND variable = 'B01002_E001'
+lookup | govblock_census.acs5_2024 | How many veterans live in Ohio? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0400000US39' AND variable = 'B21001_E002'
+lookup | govblock_census.acs5_2024 | How many people in the Bronx live below the poverty line? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0500000US36005' AND variable = 'B17001_E002'
+lookup | govblock_census.acs5_2024 | How many households in Manhattan rent their home? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0500000US36061' AND variable = 'B25003_E003'
+compare | govblock_census.acs5_2024 | Is the median household income higher in Nassau County or Suffolk County? | SELECT geo_id, value FROM govblock_census.acs5_2024 WHERE geo_id IN ('0500000US36059', '0500000US36103') AND variable = 'B19013_E001'
+lookup | govblock_census.acs5_2024 | How many people living in Queens were born outside the United States? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '0500000US36081' AND variable = 'B05002_E013'
+lookup | govblock_census.acs5_2024 | How many homes in Detroit stand vacant? | SELECT value FROM govblock_census.acs5_2024 WHERE geo_id = '1600000US2622000' AND variable = 'B25002_E003'
+rank | govblock_census.acs5_2024 | Which states have the highest median gross rent? | SELECT geo_id, try_cast(value AS double) AS median_rent FROM govblock_census.acs5_2024 WHERE geo_id LIKE '0400000US%' AND variable = 'B25064_E001' ORDER BY 2 DESC LIMIT 10
+lookup | govblock_census.acs5_2024 | How many people in Miami-Dade County speak Spanish at home? |
+share | govblock_census.acs5_2024 | What share of adults in Massachusetts hold a bachelor's degree or higher? |
+lookup | govblock_census.acs5_2024 | How long is the average commute to work in Los Angeles County? |
+rank | govblock_census.acs5_2024 | Which counties in California have the highest median home values? | SELECT geo_id, try_cast(value AS double) AS median_value FROM govblock_census.acs5_2024 WHERE geo_id LIKE '0500000US06%' AND variable = 'B25077_E001' ORDER BY 2 DESC LIMIT 10
+lookup | govblock_census.acs5_2024 | How many households in Mississippi have no internet subscription? |
+lookup | govblock_census.acs1_2024 | How many people lived in New York City in 2024? | SELECT value FROM govblock_census.acs1_2024 WHERE geo_id = '1600000US3651000' AND variable = 'B01003_E001'
+lookup | govblock_census.acs5_2024 | How many children under 18 live in Cook County, Illinois? |
+share | govblock_census.acs5_2024 | What share of homes in Vermont are heated with wood? |
+rank | govblock_census.acs5_2024 | Which counties in Florida have the oldest median age? | SELECT geo_id, try_cast(value AS double) AS median_age FROM govblock_census.acs5_2024 WHERE geo_id LIKE '0500000US12%' AND variable = 'B01002_E001' ORDER BY 2 DESC LIMIT 10
+lookup | govblock_census.acs5_2024 | How many people in Erie County, New York work from home? |
+lookup | govblock_census.acs_2024_geos_5yr | Which places and county subdivisions does the survey list for St. Clair County, Illinois? |
+
+# ── Wholesale power sales (FERC Electric Quarterly Reports) ─────────────────────────────────────────────────
+rank | govblock_energy.ferceqr_transactions | Which companies sold the most electricity into the New York ISO in 2024? | SELECT seller_company_name, sum(try_cast(standardized_quantity AS double)) AS mwh FROM govblock_energy.ferceqr_transactions WHERE year_quarter LIKE '2024%' AND point_of_delivery_balancing_authority = 'NYIS' GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+count | govblock_energy.ferceqr_contracts | How many wholesale power contracts did Lakeside Syracuse LLC report? | SELECT count(DISTINCT contract_unique_id) AS contracts FROM govblock_energy.ferceqr_contracts WHERE seller_company_name = 'Lakeside Syracuse LLC'
+rank | govblock_energy.ferceqr_quarterly_identity | Which states are home to the most companies filing electric quarterly reports? | SELECT contact_state, count(DISTINCT company_id_ferc) AS companies FROM govblock_energy.ferceqr_quarterly_identity GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+rank | govblock_energy.ferceqr_transactions | Who bought the most power from Pacific Gas and Electric in wholesale markets in 2013? |
+count | govblock_energy.ferceqr_quarterly_identity | How many companies filed an electric quarterly report for the second quarter of 2016? | SELECT count(DISTINCT company_id_ferc) AS companies FROM govblock_energy.ferceqr_quarterly_identity WHERE year_quarter = '2016q2'
+change | govblock_energy.ferceqr_transactions | How did wholesale power sales into PJM change from 2015 to 2024? |
+rank | govblock_energy.ferceqr_contracts | Which customers signed the most wholesale power contracts with the New York Independent System Operator listed as buyer? |
+count | govblock_energy.ferceqr_transactions | How many wholesale electricity transactions were reported for July 21, 2013? |
+rank | govblock_energy.ferceqr_contracts | Which wholesale contracts run the longest, from start date to termination? |
+compare | govblock_energy.ferceqr_transactions | Did more power sell at market-based or cost-based rates in ERCOT-area contracts in 2020? |
+lookup | govblock_energy.ferceqr_quarterly_index_pub | Which companies report their power trades to index price publishers? |
+
+# ── Hospital cost reports (Medicare HCRIS) ──────────────────────────────────────────────────────────────────
+count | govblock_health.hcris_hosp10_nmrc | How many hospitals filed Medicare cost reports for fiscal year 2024? | SELECT count(DISTINCT rpt_rec_num) AS reports FROM govblock_health.hcris_hosp10_nmrc WHERE hcris_fy = '2024'
+count | govblock_health.hcris_snf10_nmrc | How many skilled nursing facility cost reports were filed for fiscal year 2025? | SELECT count(DISTINCT rpt_rec_num) AS reports FROM govblock_health.hcris_snf10_nmrc WHERE hcris_fy = '2025'
+change | govblock_health.hcris_hosp10_nmrc | How has the number of hospital cost reports filed each year changed since 2012? |
+count | govblock_health.hcris_hha_nmrc | How many home health agencies filed Medicare cost reports in the older reporting format? |
+count | govblock_health.hcris_hosp_nmrc | How many hospital cost reports from 1995 are in the library? | SELECT count(DISTINCT rpt_rec_num) AS reports FROM govblock_health.hcris_hosp_nmrc WHERE hcris_fy = '1995'
+lookup | govblock_health.hcris_hosp10_alpha | What names and addresses did hospitals give on their 2023 cost reports? |
+count | govblock_health.hcris_rnl11_nmrc | How many renal dialysis facilities filed cost reports for fiscal year 2022? |
+count | govblock_health.hcris_hospc14_nmrc | How many hospices filed Medicare cost reports for fiscal year 2021? |
+
+# ── SEC financial statements (financial statement data sets) ────────────────────────────────────────────────
+count | govblock_sec.sec_fsds_sub | How many 10-K annual reports were filed with the SEC in 2023? | SELECT count(*) AS filings FROM govblock_sec.sec_fsds_sub WHERE form = '10-K' AND substr(cast(filed AS varchar), 1, 4) = '2023'
+rank | govblock_sec.sec_fsds_sub | Which states are home to the most companies filing financial statements with the SEC? | SELECT stprba, count(DISTINCT cik) AS companies FROM govblock_sec.sec_fsds_sub WHERE countryba = 'US' GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+rank | govblock_sec.sec_fsds_sub | Which cities are home to the most SEC filers? | SELECT cityba, stprba, count(DISTINCT cik) AS companies FROM govblock_sec.sec_fsds_sub GROUP BY 1, 2 ORDER BY 3 DESC LIMIT 10
+total | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | What revenue did Microsoft report for fiscal year 2023? |
+change | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | How did Tesla's net income change from 2019 to 2024? |
+compare | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | Did Coca-Cola or PepsiCo report more revenue in 2022? |
+count | govblock_sec.sec_fsds_sub | How many companies based outside the United States file financial statements with the SEC? | SELECT count(DISTINCT cik) AS companies FROM govblock_sec.sec_fsds_sub WHERE countryba <> 'US'
+rank | govblock_sec.sec_fsds_sub | Which industry codes have the most companies filing quarterly reports in 2024? | SELECT sic, count(DISTINCT cik) AS companies FROM govblock_sec.sec_fsds_sub WHERE form = '10-Q' AND fy = 2024 GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+lookup | govblock_sec.sec_fsnds_sub, govblock_sec.sec_fsnds_txt | What does Pfizer's 10-K say in its notes about legal proceedings? |
+rank | govblock_sec.sec_fsds_tag | Which custom financial tags do companies create most often? |
+total | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | How much cash did Apple hold at the end of fiscal year 2024? |
+lookup | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | What were Amazon's total assets at the end of 2023? |
+rank | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | Which banks reported the most total deposits in their 2023 annual reports? |
+count | govblock_sec.sec_fsnds_sub | How many filings in the notes data set came from companies in New York State? | SELECT count(*) AS filings FROM govblock_sec.sec_fsnds_sub WHERE stprba = 'NY'
+first | govblock_sec.sec_fsds_sub | When did Netflix file its first financial statements in the SEC data sets? | SELECT min(filed) AS first_filed FROM govblock_sec.sec_fsds_sub WHERE name LIKE 'NETFLIX%'
+lookup | govblock_sec.sec_fsds_sub, govblock_sec.sec_fsds_num | How much did Johnson & Johnson spend on research and development in 2022? |
+rank | govblock_sec.sec_fsnds_dim | Which business segments appear most often in companies' segment notes? |
+count | govblock_sec.sec_fsds_sub | How many 8-K reports with financial statements were filed in 2020? |
+
+# ── Chemical compounds (PubChem) ────────────────────────────────────────────────────────────────────────────
+count | govblock_chemistry.pubchem_compound_cid_patent | How many patents mention caffeine? |
+lookup | govblock_chemistry.pubchem_compound_cid_title, govblock_chemistry.pubchem_compound_cid_mass | What is the molecular weight of ibuprofen? |
+lookup | govblock_chemistry.pubchem_compound_cid_title, govblock_chemistry.pubchem_compound_cid_smiles | What is the chemical structure, as a SMILES string, of aspirin? |
+lookup | govblock_chemistry.pubchem_compound_cid_synonym_filtered | What other names is acetaminophen known by? |
+count | govblock_chemistry.pubchem_compound_cid_date | How many new chemical compounds were added to PubChem in 2025? |
+count | govblock_chemistry.pubchem_bioassay_bioactivities | How many lab assay results are recorded for metformin? |
+lookup | govblock_chemistry.pubchem_compound_cid_inchi_key | What is the InChIKey for glucose? |
+count | govblock_chemistry.pubchem_compound_cid_sid | How many different suppliers' substance records point to the same compound as penicillin? |
+rank | govblock_chemistry.pubchem_compound_cid_patent | Which compounds are named in the most patents? |
+lookup | govblock_chemistry.unichem_reference | Which chemistry databases list a record for nicotine? |
+count | govblock_chemistry.pubchem_substance_sid_date | How many substance records were deposited in PubChem in April 2026? |
+compare | govblock_chemistry.pubchem_compound_cid_mass | Which is heavier, a molecule of caffeine or a molecule of nicotine? |
+
+# ── Chemistry in patents (SureChEMBL) ───────────────────────────────────────────────────────────────────────
+count | govblock_chemistry.surechembl_patents | How many chemistry patents were published in the United States in 2020? | SELECT count(*) AS patents FROM govblock_chemistry.surechembl_patents WHERE country = 'US' AND publication_date LIKE '2020%'
+rank | govblock_chemistry.surechembl_patents | Which countries publish the most patents that name chemical compounds? | SELECT country, count(*) AS patents FROM govblock_chemistry.surechembl_patents GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+count | govblock_chemistry.surechembl_patents | How many chemistry patents list Glaxo Group as an assignee? |
+change | govblock_chemistry.surechembl_patents | How has the number of chemistry patents published each year changed since 1990? |
+count | govblock_chemistry.surechembl_patent_compound_map | How many compounds are named in a single patent on average? |
+rank | govblock_chemistry.surechembl_biomedical_locations | Which diseases and genes are mentioned most often in chemistry patents? |
+lookup | govblock_chemistry.surechembl_patents | What is the title of patent US-5153197-A? | SELECT patent_number, title, publication_date FROM govblock_chemistry.surechembl_patents WHERE patent_number = 'US-5153197-A'
+count | govblock_chemistry.surechembl_compounds | How many distinct chemical compounds appear in patents in SureChEMBL? |
+
+# ── Medical research papers (PubMed) ────────────────────────────────────────────────────────────────────────
+count | govblock_health.pubmed_mesh | How many PubMed papers are indexed under hemoglobins? | SELECT count(DISTINCT pmid) AS papers FROM govblock_health.pubmed_mesh WHERE descriptor_name = 'Hemoglobins'
+rank | govblock_health.pubmed_mesh | Which medical subject headings are used most often as a paper's major topic? | SELECT descriptor_name, count(*) AS papers FROM govblock_health.pubmed_mesh WHERE major_topic = 'Y' GROUP BY 1 ORDER BY 2 DESC LIMIT 15
+count | govblock_health.pubmed_mesh | How many papers in PubMed are about COVID-19? | SELECT count(DISTINCT pmid) AS papers FROM govblock_health.pubmed_mesh WHERE descriptor_name = 'COVID-19'
+rank | govblock_health.pubmed_chemicals | Which chemicals and drugs are listed on the most PubMed papers? |
+rank | govblock_health.pubmed_grants | Which funding agencies are credited on the most PubMed papers? |
+count | govblock_health.pubmed_authors | How many PubMed author records list an ORCID? |
+rank | govblock_health.pubmed_references | Which papers are cited most often by other papers in PubMed? | SELECT ref_pmid, count(*) AS citations FROM govblock_health.pubmed_references WHERE ref_pmid <> '' GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+count | govblock_health.pubmed_articles | How many papers does PubMed hold? |
+count | govblock_health.pubmed_mesh | How many papers are indexed under Alzheimer Disease? | SELECT count(DISTINCT pmid) AS papers FROM govblock_health.pubmed_mesh WHERE descriptor_name = 'Alzheimer Disease'
+count | govblock_health.pubmed_grants | How many papers credit a National Cancer Institute grant? |
+rank | govblock_health.pubmed_authors | Which research institutions in Shanghai appear most often in author affiliations? |
+count | govblock_health.pubmed_deletions | How many papers have been withdrawn from PubMed's records? | SELECT count(*) AS deletions FROM govblock_health.pubmed_deletions
+
+# ── Air emissions (EPA power plant emissions and greenhouse gas reporting) ──────────────────────────────────
+rank | govblock_environment.campd_emissions_hourly | Which power plants in Pennsylvania emitted the most sulfur dioxide in 2010? | SELECT facility_name, sum(so2_mass_lbs) AS so2_lbs FROM govblock_environment.campd_emissions_hourly WHERE state = 'PA' AND year(date) = 2010 GROUP BY 1 ORDER BY 2 DESC LIMIT 10
+total | govblock_environment.campd_emissions_hourly | How much sulfur dioxide did the Benning Generation Station emit in 2008? | SELECT sum(so2_mass_lbs) AS so2_lbs FROM govblock_environment.campd_emissions_hourly WHERE facility_name = 'Benning Generation Station' AND year(date) = 2008
+lookup | govblock_environment.campd_emissions_hourly | What was the highest hourly output of any power plant in Texas on August 1, 2023? | SELECT facility_name, unit_id, hour, gross_load_mw FROM govblock_environment.campd_emissions_hourly WHERE state = 'TX' AND date = DATE '2023-08-01' ORDER BY gross_load_mw DESC LIMIT 10
+change | govblock_environment.campd_emissions_hourly | How did sulfur dioxide from power plants in Ohio change between 2008 and 2023? |
+rank | govblock_environment.ghg_facts_subp_ghg_emission, govblock_environment.ghg_dim_facility | Which facilities reported the most greenhouse gas emissions in 2023? |
+total | govblock_environment.ghg_facts_subp_ghg_emission | What were total reported greenhouse gas emissions, in tons of carbon dioxide equivalent, in 2022? | SELECT sum(try_cast(co2e_emission AS double)) AS co2e FROM govblock_environment.ghg_facts_subp_ghg_emission WHERE year = '2022'
+rank | govblock_environment.ghg_facts_sector_ghg_emission, govblock_environment.ghg_dim_sector | Which industrial sectors emitted the most greenhouse gases in 2018? |
+count | govblock_environment.ghg_dim_facility | How many facilities report greenhouse gas emissions to EPA from Louisiana? |
+lookup | govblock_environment.campd_facility_attributes | Which power plants in New York are subject to the Acid Rain Program? |
+change | govblock_environment.ghg_facts_subp_ghg_emission | How have reported greenhouse gas emissions changed from 2015 to 2023? | SELECT year, sum(try_cast(co2e_emission AS double)) AS co2e FROM govblock_environment.ghg_facts_subp_ghg_emission WHERE year BETWEEN '2015' AND '2023' GROUP BY 1 ORDER BY 1
+rank | govblock_environment.campd_emissions_hourly | Which hour of the day do coal plants in Kentucky run hardest? |
+compare | govblock_environment.ghg_facts_sector_ghg_emission, govblock_environment.ghg_dim_sector | Did power plants or refineries report more greenhouse gas emissions in 2020? |
+lookup | govblock_environment.ghg_dim_ghg | Which gases does EPA's greenhouse gas reporting program track? | SELECT * FROM govblock_environment.ghg_dim_ghg
