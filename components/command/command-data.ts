@@ -105,7 +105,7 @@ export const KINDS: Record<Kind, KindInfo> = {
       const src = (SOURCES as Record<string, { word: string; unit: string } | undefined>)[k]
       const section = own ? own.section : src ? SECTION_OF(k as SourceKind) : "Blocks"
       const label = own ? own.label : src ? singular(src.unit) : KIND_NOUN[k]
-      const blockIcon = ({ design: Palette, page: LayoutTemplate, brief: FileText, api: Plug } as Record<string, LucideIcon | undefined>)[k]
+      const blockIcon = ({ design: Palette, 'site-page': LayoutTemplate, brief: FileText, api: Plug } as Record<string, LucideIcon | undefined>)[k]
       return [k, { section, label, icon: own?.icon ?? blockIcon ?? Database, tint: TYPE_COLOR[k], action: `Open ${label}` }]
     }),
   ) as Record<BoxKind, KindInfo>),

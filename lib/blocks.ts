@@ -52,7 +52,7 @@ export const MCP = 'https://data.nysgpt.com/mcp'
 /** The three demo blocks with fixed payloads, by their box keys (lib/home-boxes.ts BLOCK_BOXES). */
 export const DEMO: Record<string, { type: BlockType; payload: () => Payload }> = {
   'design:Material Design 3': { type: 'design', payload: () => MATERIAL },
-  'page:Landing page': {
+  'site-page:Landing page': {
     type: 'page',
     payload: (): PagePayload => ({
       name: 'Landing page',
