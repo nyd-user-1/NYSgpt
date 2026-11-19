@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 
 import { TableDetail, type TableView } from '@/app/TableDetail'
 import { KIND_NOUN, SET_INFO, type Box } from '@/lib/home-boxes'
@@ -11,11 +11,12 @@ import type { FullTable, Out, TableHit } from './search-worker'
 // /search's try panel (brief 53): what is picked, tried for real. A table shows the catalog overlay's three views
 // (TableDetail: Fields, Data, Columns) and an API view: the request as editable SQL, run on the reader's own Data
 // Library key (the one the data pages keep in this browser), the rows in the site's grid table with the time, bytes
-// scanned and query id, and the same call as curl and as the MCP address. Without a key, the table's shipped sample
+// scanned and query id. After it, cURL (the same call as curl, JavaScript and Python, following the SQL box) and MCP
+// (the server, the Claude and Claude Code forms, the tools), brief 58. Without a key, the table's shipped sample
 // rows, marked as such. A Hugging Face or GitHub box runs its public API from the browser; the other sources need
 // their own keys, so their stored facts stand as the sample. The site holds no key here and calls no model.
 
-export type TryView = TableView | 'api'
+export type TryView = TableView | 'api' | 'curl' | 'mcp'
 export type Picked = { kind: 'db'; topic: string } | { kind: 'table'; stored: string; field?: string; /** a question's or a name's SQL for the API view (brief 57) */ sql?: string } | { kind: 'box'; box: Box } | { kind: 'resolve'; box: Box }
 
 const API = 'https://data.nysgpt.com'
@@ -34,7 +35,11 @@ const VIEWS: { id: TryView; label: string }[] = [
   { id: 'data', label: 'Data' },
   { id: 'chart', label: 'Columns' },
   { id: 'api', label: 'API' },
+  { id: 'curl', label: 'cURL' },
+  { id: 'mcp', label: 'MCP' },
 ]
+/** The tab after this one, round the six (the right arrow in the try panel). */
+export const nextTryView = (v: TryView): TryView => VIEWS[(VIEWS.findIndex((x) => x.id === v) + 1) % VIEWS.length].id
 
 /** Ids far from the search's own (search-app.tsx counts from 1), so the two never answer each other. */
 let nextId = 1_000_000_000
@@ -103,9 +108,8 @@ const bytesText = (b: number) => (b >= 1024 ** 3 ? `${(b / 1024 ** 3).toFixed(1)
 
 type Ran = { columns: string[]; rows: (string | null)[][]; truncated: boolean; bytes: number; id: string; ms: number } | { error: string; ms: number }
 
-function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | null; initialSql?: string }) {
+function ApiView({ table, home, sql, onSql, fresh }: { table: FullTable; home: Table | null; sql: string; onSql: (s: string) => void; /** the SQL as picked; a new one clears the last run */ fresh: string }) {
   const [key, setKey] = useState('')
-  const [sql, setSql] = useState(initialSql || `SELECT * FROM ${table.stored} LIMIT 5`)
   const [ran, setRan] = useState<Ran | null>(null)
   const [busy, setBusy] = useState(false)
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
@@ -119,10 +123,7 @@ function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | 
       live = false
     }
   }, [])
-  useEffect(() => {
-    setSql(initialSql || `SELECT * FROM ${table.stored} LIMIT 5`)
-    setRan(null)
-  }, [table.stored, initialSql])
+  useEffect(() => setRan(null), [table.stored, fresh])
   useEffect(() => {
     let live = true
     setSample('loading')
@@ -153,12 +154,11 @@ function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | 
       setBusy(false)
     }
   }
-  const curl = `curl -s ${API}/query -H "X-Api-Key: YOUR_KEY" -H "content-type: application/json" -d '${JSON.stringify({ sql }).replace(/'/g, "'\\''")}'`
   const fieldSample = table.fields.filter((f) => f.sample).slice(0, 20)
   return (
     <div className="sr-api">
       <div className="sr-lbl">Request</div>
-      <textarea className="sr-sql" value={sql} onChange={(e) => setSql(e.target.value)} spellCheck={false} rows={4} aria-label="SQL" />
+      <textarea className="sr-sql" value={sql} onChange={(e) => onSql(e.target.value)} spellCheck={false} rows={4} aria-label="SQL" />
       <div className="sr-runrow">
         <input className="sr-key" type="password" value={key} onChange={(e) => saveKey(e.target.value)} placeholder="Your Data Library key" aria-label="Your Data Library key" autoComplete="off" />
         <button type="button" className="sr-run" onClick={run} disabled={!key.trim() || busy}>
@@ -196,15 +196,64 @@ function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | 
           )}
         </>
       )}
-      <div className="sr-lbl">The same call</div>
+    </div>
+  )
+}
+
+/** One line to copy, under its label. */
+function Call({ label, text, copy, children }: { label: string; text: string; copy: string; children?: ReactNode }) {
+  return (
+    <>
+      <div className="sr-lbl">{label}</div>
+      {children}
       <div className="sr-call">
-        <code>{curl}</code>
-        <Copy text={curl} label="Copy curl" />
+        <code>{text}</code>
+        <Copy text={text} label={copy} />
       </div>
-      <div className="sr-call">
-        <code>MCP: {MCP}</code>
-        <Copy text={MCP} label="Copy address" />
-      </div>
+    </>
+  )
+}
+
+/** The API view's call in the three forms a developer reaches for; each follows the SQL box. */
+function CurlView({ sql }: { sql: string }) {
+  const body = JSON.stringify({ sql })
+  const curl = `curl -s ${API}/query -H "X-Api-Key: YOUR_KEY" -H "content-type: application/json" -d '${body.replace(/'/g, "'\\''")}'`
+  const js = `await fetch("${API}/query", { method: "POST", headers: { "X-Api-Key": "YOUR_KEY", "content-type": "application/json" }, body: JSON.stringify({ sql: ${JSON.stringify(sql)} }) }).then((r) => r.json())`
+  const py = `import requests; requests.post("${API}/query", headers={"X-Api-Key": "YOUR_KEY"}, json={"sql": ${JSON.stringify(sql)}}).json()`
+  return (
+    <div className="sr-api">
+      <Call label="curl" text={curl} copy="Copy curl" />
+      <Call label="JavaScript" text={js} copy="Copy" />
+      <Call label="Python" text={py} copy="Copy" />
+    </div>
+  )
+}
+
+const MCP_TOOLS: [string, string][] = [
+  ['list_databases', 'The databases, with their tables and record counts.'],
+  ['list_tables', "A database's tables."],
+  ['describe_table', "A table's columns and their types."],
+  ['query', 'Athena SQL, read-only, up to 1,000 rows a query.'],
+]
+
+/** The MCP server: its address and the forms Claude and Claude Code take, as on the data pages' Connect box. */
+function McpView() {
+  return (
+    <div className="sr-api">
+      <Call label="Address" text={MCP} copy="Copy address" />
+      <Call label="Claude" text={`${MCP}?key=YOUR_KEY`} copy="Copy">
+        <p className="sr-note">Settings, Connectors, Add custom connector. Paste this address with your key.</p>
+      </Call>
+      <Call label="Claude Code" text={`claude mcp add --transport http nysgpt-data ${MCP} --header "X-Api-Key: YOUR_KEY"`} copy="Copy" />
+      <div className="sr-lbl">Tools</div>
+      <dl className="sr-tools">
+        {MCP_TOOLS.map(([name, what]) => (
+          <div key={name}>
+            <dt>{name}</dt>
+            <dd>{what}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   )
 }
@@ -212,6 +261,10 @@ function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | 
 function TableTry({ stored, sql, view, onView, worker }: { stored: string; sql?: string; view: TryView; onView: (v: TryView) => void; worker: Worker }) {
   const [t, setT] = useState<FullTable | null | 'loading'>('loading')
   const [home, setHome] = useState<Table | null>(null)
+  // The SQL lives here so the cURL tab follows edits made in the API view.
+  const fresh = sql || `SELECT * FROM ${stored} LIMIT 5`
+  const [query, setQuery] = useState(fresh)
+  useEffect(() => setQuery(fresh), [fresh])
   useEffect(() => {
     let live = true
     setT('loading')
@@ -247,7 +300,15 @@ function TableTry({ stored, sql, view, onView, worker }: { stored: string; sql?:
           </button>
         ))}
       </div>
-      {view === 'api' ? <ApiView table={t} home={home} initialSql={sql} /> : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} stored={t.stored} />}
+      {view === 'api' || view === 'curl' || view === 'mcp' ? (
+        <>
+          <div hidden={view !== 'api'}>
+            <ApiView table={t} home={home} sql={query} onSql={setQuery} fresh={fresh} />
+          </div>
+          {view === 'curl' && <CurlView sql={query} />}
+          {view === 'mcp' && <McpView />}
+        </>
+      ) : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} stored={t.stored} />}
     </div>
   )
 }

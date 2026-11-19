@@ -16,7 +16,7 @@ const NAME_ICON: Record<NameKind, LucideIcon> = {
 }
 
 import type { DbHit, FieldHit, Match, Out, Results, TableHit } from './search-worker'
-import { TryPanel, type Picked, type TryView } from './try-panel'
+import { nextTryView, TryPanel, type Picked, type TryView } from './try-panel'
 import { QuestionList, useQuestions, type Question } from './question-list'
 
 // /search (brief 53): one page to find anything the site holds and try it. The search runs in a worker over the
@@ -482,6 +482,10 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
             if (e.key === 'ArrowLeft' && !(e.target as HTMLElement).closest('textarea, input')) {
               e.preventDefault()
               input.current?.focus()
+            } else if (e.key === 'ArrowRight' && picked?.kind === 'table' && !(e.target as HTMLElement).closest('textarea, input')) {
+              // The right arrow steps through the six tabs: Fields, Data, Columns, API, cURL, MCP (brief 58).
+              e.preventDefault()
+              setTryView(nextTryView)
             }
           }}
         >

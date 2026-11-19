@@ -11,7 +11,7 @@ export const metadata = { title: "Search" }
 
 export default async function SearchPage({ searchParams }: { searchParams: Promise<{ pick?: string; view?: string }> }) {
   const { pick, view } = await searchParams
-  const v = view === "api" || view === "fields" || view === "data" || view === "chart" ? view : null
+  const v = view === "api" || view === "curl" || view === "mcp" || view === "fields" || view === "data" || view === "chart" ? view : null
   return (
     <AppLayout paperMode>
       <SearchApp pick={pick ?? null} view={v} />
