@@ -214,7 +214,8 @@ export function HomePlate() {
                       aria-expanded={menu?.box === b}
                       onClick={e => {
                         e.stopPropagation()
-                        setMenu(m => (m?.box === b ? null : { box: b, at: e.currentTarget.getBoundingClientRect() }))
+                        const at = e.currentTarget.getBoundingClientRect()
+                        setMenu(m => (m?.box === b ? null : { box: b, at }))
                       }}
                     >
                       <Icon name="kebab" />

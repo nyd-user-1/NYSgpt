@@ -141,7 +141,7 @@ export function CatalogOverlay() {
     }
   }, [overlay.open, overlay.set])
 
-  const tables = Array.isArray(data) ? data : []
+  const tables = useMemo(() => (Array.isArray(data) ? data : []), [data])
   const dbs = useMemo(() => [...new Set(tables.map(t => t.database))], [tables])
   const hits = useMemo(() => {
     const toks = q.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)
