@@ -33,6 +33,50 @@
 }
 
 
+/* Dark (brief 62, Brendan 2026-11-19: "dark mode light mode all the way through"). NYSgpt's dark is the `dark` class
+   on <html> (next-themes) and the paper colours AppLayout sets under it (app/globals.css, .dark .nysgpt-app); the chat's
+   sixteen theme colours take those here, so every token below them (PAX's, shadcn's, the slate and gray scales, the
+   input box's skin) turns with them. The light set above stays as it was. The ground is the paper the frame stands on;
+   raised steps, tints and rules are the paper mixed toward its ink; ink steps are the ink mixed toward the paper; the
+   blue that fills buttons under white type is the app's dark blue, and the lighter blue is the paper's own. */
+.dark .pax-chat {
+  --t-frame: var(--bg);
+  --t-sidebar: var(--paper);
+  --t-surface: var(--paper);
+  --t-raised: color-mix(in oklab, var(--paper) 90%, var(--paper-text));
+  --t-tint: color-mix(in oklab, var(--paper) 94%, var(--paper-text));
+  --t-lift: color-mix(in oklab, var(--paper) 90%, var(--paper-text));
+  --t-rule: color-mix(in oklab, var(--paper) 84%, var(--paper-text));
+  --t-rule-strong: color-mix(in oklab, var(--paper) 74%, var(--paper-text));
+  --t-ink: var(--paper-text);
+  --t-ink-2: color-mix(in oklab, var(--paper-text) 82%, var(--paper));
+  --t-ink-3: color-mix(in oklab, var(--paper-text) 62%, var(--paper));
+  --t-ink-4: color-mix(in oklab, var(--paper-text) 44%, var(--paper));
+  --t-accent: #3b82f6;
+  --t-accent-2: var(--paper-strong);
+  --t-wash: color-mix(in oklab, #3b82f6 18%, var(--paper));
+  --t-positive: #4ade80;
+  --t-negative: #f87171;
+  --t-shadow: 5;
+  --t-shadow-rgb: 0 0 0;
+  --t-grid: #3b82f6;
+  --t-pulse: #f87171;
+  /* the two pale washes the record and search states use */
+  --color-red-50: color-mix(in oklab, #f87171 14%, var(--paper));
+  --color-blue-50: color-mix(in oklab, #3b82f6 16%, var(--paper));
+}
+/* the tools row's and menus' hover, a black wash in light, is a white wash on the dark paper */
+.dark .pax-chat [class~="hover:bg-[rgba(0,0,0,0.07)]"]:hover,
+.dark .pax-chat [class~="bg-[rgba(0,0,0,0.07)]"] { background-color: rgb(255 255 255 / 0.08); }
+/* the find-in-chat marks: the light pink would sit under light type */
+.dark ::highlight(pax-chat-hit) { background-color: rgb(248 113 113 / 0.28); }
+/* the scroll bars' thumb, a little lighter on the dark paper */
+.dark .pax-chat ::-webkit-scrollbar-thumb, .dark .pax-chat::-webkit-scrollbar-thumb { background: rgb(240 233 216 / 0.22); background-clip: padding-box; }
+.dark .pax-chat ::-webkit-scrollbar-thumb:hover, .dark .pax-chat::-webkit-scrollbar-thumb:hover { background: rgb(240 233 216 / 0.36); background-clip: padding-box; }
+.dark .pax-chat .surface { outline-color: rgb(255 255 255 / 0.06); }
+
+
+
 /* PAX2 design tokens. One sans family; hierarchy from size, weight and space. Blue and red are
    GovBlock's forecast colors and they carry meaning: green = above the reference, red = below,
    navy = actions and type. */
