@@ -1,15 +1,17 @@
 {
- "count": 838,
+ "count": 896,
  "chunks": 4,
  "chunk": 250,
  "first": 14,
- "built": "2026-11-19T12:50:55.399Z",
- "withSql": 838,
+ "built": "2026-11-19T12:52:45.379Z",
+ "withSql": 896,
  "topics": {
   "Chemical Compounds": 50,
+  "Power Plants and Utilities": 36,
   "Drug Targets and Bioactivity": 33,
+  "Patent Applications": 31,
   "Chemistry Machine Learning Datasets": 28,
-  "Patent Applications": 28,
+  "Power Generation and Fuel Mix": 28,
   "Federal Contracts": 26,
   "Drinking Water": 25,
   "Federal Debt and Interest Rates": 22,
@@ -49,7 +51,6 @@
   "Subsidized Housing": 7,
   "SEC Financial Statements": 7,
   "Patent Owners and Inventors": 7,
-  "Power Plants and Utilities": 6,
   "Consumer Complaints and Recalls": 6,
   "Wages by Occupation": 6,
   "Medical Research Papers": 6,
@@ -86,7 +87,6 @@
   "Colleges and Universities": 3,
   "Wage Determinations": 3,
   "Hospital Cost Reports": 3,
-  "Power Generation and Fuel Mix": 3,
   "Health Care Providers": 3,
   "Places and Geographic Lookups": 3,
   "Chemistry in Patents": 3,
@@ -108,15 +108,15 @@
   "Patent Examination": 1
  },
  "kinds": {
-  "rank": 373,
-  "count": 198,
-  "lookup": 87,
-  "change": 50,
-  "total": 40,
-  "share": 39,
-  "compare": 37,
-  "first": 8,
+  "rank": 404,
+  "count": 202,
+  "lookup": 96,
+  "change": 52,
+  "total": 43,
+  "share": 43,
+  "compare": 40,
+  "first": 9,
   "list": 4,
-  "last": 2
+  "last": 3
  }
 }
