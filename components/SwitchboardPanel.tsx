@@ -3,7 +3,13 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, Sparkles, ArrowUpRight } from 'lucide-react'
+import { Columns2, Columns3, Sparkles, ArrowUpRight } from 'lucide-react'
+// brief 50: the published animated icons (animate-ui's registry, as written), played by their button or row.
+import { X } from '@/components/animate-ui/icons/x'
+import { ChevronRight } from '@/components/animate-ui/icons/chevron-right'
+import { ArrowLeft } from '@/components/animate-ui/icons/arrow-left'
+import { ArrowRight } from '@/components/animate-ui/icons/arrow-right'
+import { AnimateOnHover } from '@/components/animate-on-hover'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { useProductStatus } from '@/components/ProductStatus'
@@ -226,10 +232,12 @@ const LABEL =
 /** A plain row: the whole thing drills down. Used by the ten products. */
 function Row({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
   return (
+    <AnimateOnHover>
     <button onClick={onClick} className={ROW}>
       <span className={LABEL} style={SERIF}>{children}</span>
       <ChevronRight className={GLYPH} />
     </button>
+    </AnimateOnHover>
   )
 }
 
@@ -374,6 +382,7 @@ function SwitchboardPanel() {
               becomes the product name. That IS the navigation affordance. */}
           <div className="flex shrink-0 items-center gap-2 border-b border-[var(--paper-rule)] px-5 py-4">
             {deeper ? (
+              <AnimateOnHover>
               <button
                 onClick={back}
                 aria-label="Back"
@@ -381,6 +390,7 @@ function SwitchboardPanel() {
               >
                 <ArrowLeft className="h-4 w-4" />
               </button>
+              </AnimateOnHover>
             ) : (
               <span className="shrink-0 pl-1"><LiveDot /></span>
             )}
@@ -395,6 +405,7 @@ function SwitchboardPanel() {
             >
               {half ? <Columns3 className="h-4 w-4" /> : <Columns2 className="h-4 w-4" />}
             </button>
+            <AnimateOnHover>
             <button
               onClick={close}
               aria-label="Close the panel"
@@ -402,6 +413,7 @@ function SwitchboardPanel() {
             >
               <X className="h-4 w-4" />
             </button>
+            </AnimateOnHover>
           </div>
 
           {/* The panel search (2026-11-19, from the option 3 sketch). */}
@@ -989,11 +1001,13 @@ function DataView({ view, q, onGo }: { view: { db?: string; table?: number; rows
     return <TableDetail key={`${view.db}/${view.table}`} t={t} rows={!!view.rows} panel onRows={() => onGo({ kind: 'data', db: view.db, table: view.table, rows: !view.rows })} />
   }
   const row = (label: string, count: string, go: () => void, key: string) => (
-    <button key={key} onClick={go} className={ROW}>
+    <AnimateOnHover key={key}>
+    <button onClick={go} className={ROW}>
       <span className={LABEL} style={SERIF}>{label}</span>
       <span className="hm-count">{count}</span>
       <ChevronRight className={GLYPH} />
     </button>
+    </AnimateOnHover>
   )
   if (view.db) {
     const l = by.get(view.db) ?? []

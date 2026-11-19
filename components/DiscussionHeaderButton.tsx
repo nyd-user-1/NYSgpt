@@ -1,6 +1,8 @@
 'use client'
 
-import { MessagesSquare } from 'lucide-react'
+// brief 50: govblock's messages-square (as written), played by the button through AnimateOnHover.
+import { MessagesSquare } from '@/components/animate-ui/icons/messages-square'
+import { AnimateOnHover } from '@/components/animate-on-hover'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 
 /**
@@ -22,6 +24,7 @@ export function DiscussionHeaderButton({ paperMode, bare }: { paperMode?: boolea
         : `border bg-[var(--surface)] ${open ? 'border-[var(--paper-strong)] text-[var(--paper-strong)]' : 'border-[var(--border)] text-[var(--muted)] hover:bg-[var(--inp-bg)] hover:text-[var(--txt)]'}`}`
 
   return (
+    <AnimateOnHover>
     <button
       onClick={toggle}
       aria-label="Open the switchboard"
@@ -38,5 +41,6 @@ export function DiscussionHeaderButton({ paperMode, bare }: { paperMode?: boolea
       )}
       */}
     </button>
+    </AnimateOnHover>
   )
 }

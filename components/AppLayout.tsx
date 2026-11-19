@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { PanelLeftOpen, PanelLeftClose } from "lucide-react";
+// brief 50: animate-ui's panel-left icons (registry, as written), played by their button through AnimateOnHover.
+import { PanelLeftOpen } from "@/components/animate-ui/icons/panel-left-open";
+import { PanelLeftClose } from "@/components/animate-ui/icons/panel-left-close";
+import { AnimateOnHover } from "@/components/animate-on-hover";
 import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
@@ -60,6 +63,7 @@ export function AppLayout({
         }`}
       >
         <div data-chrome className="flex items-center px-5 pt-5 pb-5">
+          <AnimateOnHover>
           <button
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label="Toggle sidebar"
@@ -75,6 +79,7 @@ export function AppLayout({
               <PanelLeftOpen className="h-4 w-4" style={{ color: "#033882", fill: "#dbe7fa" }} />
             )}
           </button>
+          </AnimateOnHover>
 
           <div className="flex-1" />
 
@@ -91,6 +96,7 @@ export function AppLayout({
       <CommandKHost />
 
       {/* Mobile sidebar toggle. */}
+      <AnimateOnHover>
       <button
         data-chrome
         onClick={() => setSidebarOpen((v) => !v)}
@@ -103,6 +109,7 @@ export function AppLayout({
           <PanelLeftOpen className="h-5 w-5" style={{ color: "#033882", fill: "#dbe7fa" }} />
         )}
       </button>
+      </AnimateOnHover>
     </div>
   );
 }
