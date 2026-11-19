@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { home, useHome } from '@/lib/home-store'
-import { BOXES, isGitHub, SOURCE_KINDS, SOURCES, TYPE_COLOR, type BoxKind } from '@/lib/home-boxes'
+import { BOXES, brandOf, SOURCE_PAGES, SOURCES, TYPE_COLOR, type BoxKind } from '@/lib/home-boxes'
 import { TypeIcon } from './HomeIcons'
 
 /**
@@ -33,21 +33,26 @@ const SETS: BoxKind[] = ['data', 'models', 'platforms', 'tools']
  * scroll or the arrow keys bring them in. These are the five outside sources, A to Z, left to right and top to bottom.
  * Each is a set like the first four: a click shows its boxes on the plate. Its figure is the number of boxes it holds.
  */
-const MORE: (LedgerEntry & { set: BoxKind })[] = SOURCE_KINDS.map(k => ({
-  set: k,
-  word: SOURCES[k].word,
-  unit: SOURCES[k].unit,
-  value: BOXES.filter(b => b.kind === k).length,
-  color: TYPE_COLOR[k],
-}))
+const MORE: (LedgerEntry & { set: BoxKind })[][] = SOURCE_PAGES.map(page =>
+  page.map(k => ({
+    set: k,
+    word: SOURCES[k].word,
+    unit: SOURCES[k].unit,
+    value: BOXES.filter(b => b.kind === k).length,
+    color: TYPE_COLOR[k],
+  })),
+)
+
+/** The library's size, shown on the nameplate under the mouse (Brendan, 2026-11-19). The working figure: 8.98 TB measured
+ *  on 16 Nov 2026 plus what was added since; not remeasured. */
+const LIBRARY_SIZE = '9.2 TB'
 
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
-  const all = [...ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
-  const pages = Array.from({ length: Math.ceil(all.length / 4) }, (_, p) => all.slice(p * 4, p * 4 + 4))
+  const pages = [ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
   // The page of cells in view. On GitHub's page, or with one of its sets on show, the nameplate wears GitHub's mark.
   const [page, setPage] = useState(0)
-  const gh = isGitHub(pages[page]?.[0]?.set) || isGitHub(set)
+  const brand = brandOf(pages[page]?.[0]?.set) ?? brandOf(set)
 
   return (
     <div className="hm-mast" data-inspect="HomeMasthead">
@@ -56,16 +61,16 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           type="button"
           data-nav="masthead"
           data-inspect="Wordmark"
-          className={`hm-name ${set === null ? 'hm-on' : ''} ${gh ? 'hm-gh' : ''}`}
-          aria-label="All boxes"
+          className={`hm-name ${set === null ? 'hm-on' : ''} ${brand ? 'hm-gh' : ''}`}
+          aria-label={`All boxes. The library holds ${LIBRARY_SIZE}.`}
           aria-pressed={set === null}
           onClick={() => home.showSet(null)}
         >
           <span className="hm-wm">NYSgpt</span>
           <span className="hm-ghm" aria-hidden>
-            <TypeIcon icon="github" />
+            {brand && <TypeIcon icon={brand} />}
           </span>
-          <span className="hm-all" aria-hidden>All</span>
+          <span className="hm-all" aria-hidden>{LIBRARY_SIZE}</span>
         </button>
 
         <div

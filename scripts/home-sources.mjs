@@ -67,18 +67,47 @@ const run = async (name, fn) => {
 }
 
 await run('Hugging Face', async () => {
-  const models = await getJson('https://huggingface.co/api/models?sort=downloads&direction=-1&limit=100')
-  for (const m of models) {
-    const task = m.pipeline_tag ? m.pipeline_tag.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase()) : 'Model'
-    add('hf', 'hf', {
+  const hf = 'https://huggingface.co'
+  const task = t => (t ? t.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase()) : '')
+  let n = 0
+  // Models: top 100 by downloads in the last month
+  for (const m of await getJson(`${hf}/api/models?sort=downloads&direction=-1&limit=100`))
+    n += add('hf-models', 'cpu', {
       title: m.id,
-      group: task,
-      body: `${task}, ${compact(m.downloads)} downloads in the last month, ${compact(m.likes)} likes`,
+      group: task(m.pipeline_tag) || 'Model',
+      body: `${task(m.pipeline_tag) || 'Model'}, ${compact(m.downloads)} downloads in the last month, ${compact(m.likes)} likes`,
       foot: compact(m.downloads),
-      facts: { Task: task, Downloads: m.downloads?.toLocaleString('en-US'), Likes: m.likes?.toLocaleString('en-US'), Library: m.library_name, Link: `https://huggingface.co/${m.id}` },
+      facts: { Task: task(m.pipeline_tag), Downloads: m.downloads?.toLocaleString('en-US'), Likes: m.likes?.toLocaleString('en-US'), Library: m.library_name, Link: `${hf}/${m.id}` },
     })
-  }
-  return models.length
+  // Datasets: top 100 by downloads in the last month
+  for (const d of await getJson(`${hf}/api/datasets?sort=downloads&direction=-1&limit=100`))
+    n += add('hf-datasets', 'db', {
+      title: d.id,
+      group: 'Dataset',
+      body: `${compact(d.downloads)} downloads in the last month, ${compact(d.likes)} likes`,
+      foot: compact(d.downloads),
+      facts: { Downloads: d.downloads?.toLocaleString('en-US'), Likes: d.likes?.toLocaleString('en-US'), Updated: (d.lastModified ?? '').slice(0, 10), Link: `${hf}/datasets/${d.id}` },
+    })
+  // Spaces: top 100 by likes
+  for (const sp of await getJson(`${hf}/api/spaces?sort=likes&direction=-1&limit=100`))
+    n += add('hf-spaces', 'layers', {
+      title: sp.id,
+      group: sp.sdk ? sp.sdk.replace(/^\w/, c => c.toUpperCase()) : 'Space',
+      body: `${compact(sp.likes)} likes${sp.sdk ? `, built with ${sp.sdk}` : ''}`,
+      foot: compact(sp.likes),
+      facts: { Likes: sp.likes?.toLocaleString('en-US'), Built: sp.sdk, Updated: (sp.lastModified ?? '').slice(0, 10), Link: `${hf}/spaces/${sp.id}` },
+    })
+  // Papers: the 100 most upvoted of the recent daily papers
+  const papers = (await getJson(`${hf}/api/daily_papers?limit=100`)).map(x => ({ ...x.paper, when: x.publishedAt })).filter(p => p.id && p.title)
+  for (const p of papers.sort((x, y) => (y.upvotes ?? 0) - (x.upvotes ?? 0)).slice(0, 100))
+    n += add('hf-papers', 'file', {
+      title: p.title,
+      group: 'Paper',
+      body: p.ai_summary || p.summary || `${p.upvotes ?? 0} upvotes`,
+      foot: String(p.upvotes ?? ''),
+      facts: { Upvotes: p.upvotes, Published: (p.publishedAt ?? p.when ?? '').slice(0, 10), arXiv: p.id, Link: `${hf}/papers/${p.id}` },
+    })
+  return n
 })
 
 await run('Kaggle', async () => {
@@ -126,7 +155,7 @@ await run('GitHub', async () => {
     for (const r of ranked) {
       if (n >= 100) break
       if (ghTaken.has(r.full_name)) continue
-      if (add(`gh-${group.toLowerCase()}`, 'github', {
+      if (add(`gh-${group.toLowerCase()}`, { Skills: 'sparkles', Design: 'palette', API: 'braces', MCP: 'plug' }[group], {
         title: r.full_name,
         group,
         body: r.description || `${compact(r.stargazers_count)} stars`,
@@ -211,6 +240,10 @@ for (const slug of ['huggingface']) {
 
 marks.kaggle =
   'M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.336'
+for (const k of [...new Set(out.boxes.map(b => b.kind))]) {
+  const mine = out.boxes.filter(b => b.kind === k)
+  if (mine.length % 2) out.boxes.splice(out.boxes.lastIndexOf(mine[mine.length - 1]), 1)
+}
 const dupes = out.boxes.length - new Set(out.boxes.map(b => `${b.kind}:${b.title}`)).size
 if (dupes) throw new Error(`${dupes} boxes share a source and name`)
 const banner = `/**
@@ -224,7 +257,7 @@ export const SOURCE_MARKS: Record<string, string> = ${JSON.stringify(marks, null
 
 export const SOURCE_BOXES: Box[] = ${JSON.stringify(out.boxes, null, 1)}
 
-export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], hf: [], kaggle: [], llmstats: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], ...out.info }, null, 1)}
+export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], kaggle: [], llmstats: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], 'hf-models': [], 'hf-datasets': [], 'hf-spaces': [], 'hf-papers': [], ...out.info }, null, 1)}
 `
 fs.writeFileSync('lib/home-sources.ts', banner)
 const by = {}

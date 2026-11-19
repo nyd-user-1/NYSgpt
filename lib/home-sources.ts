@@ -12,904 +12,3604 @@ export const SOURCE_MARKS: Record<string, string> = {
 
 export const SOURCE_BOXES: Box[] = [
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "sentence-transformers/all-MiniLM-L6-v2",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 168M downloads in the last month, 6.1K likes.",
   "foot": "168M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "argmaxinc/whisperkit-coreml",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 84.3M downloads in the last month, 275 likes.",
   "foot": "84.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "cross-encoder/ms-marco-MiniLM-L6-v2",
   "group": "Text ranking",
   "body": "Text ranking, 56.3M downloads in the last month, 451 likes.",
   "foot": "56.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "BAAI/bge-small-en-v1.5",
   "group": "Feature extraction",
   "body": "Feature extraction, 43.6M downloads in the last month, 679 likes.",
   "foot": "43.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai-community/gpt2",
   "group": "Text generation",
   "body": "Text generation, 34.3M downloads in the last month, 4K likes.",
   "foot": "34.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "autogluon/chronos-2",
   "group": "Time series forecasting",
   "body": "Time series forecasting, 34.1M downloads in the last month, 97 likes.",
   "foot": "34.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "google-bert/bert-base-uncased",
   "group": "Fill mask",
   "body": "Fill mask, 33.9M downloads in the last month, 3.1K likes.",
   "foot": "33.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/MiniMax-H3",
   "group": "Model",
   "body": "Model, 33M downloads in the last month, 2.8K likes.",
   "foot": "33M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "BAAI/bge-m3",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 32.3M downloads in the last month, 4K likes.",
   "foot": "32.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 25M downloads in the last month, 1.5K likes.",
   "foot": "25M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "sentence-transformers/all-mpnet-base-v2",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 19.8M downloads in the last month, 1.4K likes.",
   "foot": "19.8M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "microsoft/Florence-2-base",
   "group": "Image text to text",
   "body": "Image text to text, 19.7M downloads in the last month, 443 likes.",
   "foot": "19.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "google-t5/t5-small",
   "group": "Translation",
   "body": "Translation, 18.1M downloads in the last month, 702 likes.",
   "foot": "18.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai/clip-vit-base-patch32",
   "group": "Zero shot image classification",
   "body": "Zero shot image classification, 17.5M downloads in the last month, 1.3K likes.",
   "foot": "17.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3-0.6B",
   "group": "Text generation",
   "body": "Text generation, 15.7M downloads in the last month, 1.9K likes.",
   "foot": "15.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 15.5M downloads in the last month, 122 likes.",
   "foot": "15.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "google/vit-base-patch16-224",
   "group": "Image classification",
   "body": "Image classification, 15.4M downloads in the last month, 1.1K likes.",
   "foot": "15.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "BAAI/bge-reranker-v2-m3",
   "group": "Text classification",
   "body": "Text classification, 14.8M downloads in the last month, 1.3K likes.",
   "foot": "14.8M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3-14B",
   "group": "Text generation",
   "body": "Text generation, 13.2M downloads in the last month, 549 likes.",
   "foot": "13.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "hexgrad/Kokoro-82M",
   "group": "Text to speech",
   "body": "Text to speech, 13.1M downloads in the last month, 7.5K likes.",
   "foot": "13.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "nomic-ai/nomic-embed-text-v1.5",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 11.5M downloads in the last month, 996 likes.",
   "foot": "11.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "deepseek-ai/DeepSeek-V3.2",
   "group": "Text generation",
   "body": "Text generation, 9.9M downloads in the last month, 1.6K likes.",
   "foot": "9.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/Wan-2.2",
   "group": "Image to video",
   "body": "Image to video, 9.8M downloads in the last month, 1K likes.",
   "foot": "9.8M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/Z-Image-Turbo",
   "group": "Model",
   "body": "Model, 9.7M downloads in the last month, 1K likes.",
   "foot": "9.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "audio-cpp/audio.cpp-gguf",
   "group": "Text to speech",
   "body": "Text to speech, 9.6M downloads in the last month, 333 likes.",
   "foot": "9.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/Qwen-Image-2.1",
   "group": "Text to image",
   "body": "Text to image, 9.6M downloads in the last month, 1.3K likes.",
   "foot": "9.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "intfloat/multilingual-e5-small",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 9.4M downloads in the last month, 502 likes.",
   "foot": "9.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 9.4M downloads in the last month, 557 likes.",
   "foot": "9.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "laion/clap-htsat-fused",
   "group": "Audio classification",
   "body": "Audio classification, 9M downloads in the last month, 180 likes.",
   "foot": "9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "BAAI/bge-base-en-v1.5",
   "group": "Feature extraction",
   "body": "Feature extraction, 8.6M downloads in the last month, 544 likes.",
   "foot": "8.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai/clip-vit-large-patch14",
   "group": "Zero shot image classification",
   "body": "Zero shot image classification, 8.5M downloads in the last month, 2.1K likes.",
   "foot": "8.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "FacebookAI/xlm-roberta-base",
   "group": "Fill mask",
   "body": "Fill mask, 8.5M downloads in the last month, 977 likes.",
   "foot": "8.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "facebook/contriever",
   "group": "Model",
   "body": "Model, 8.3M downloads in the last month, 135 likes.",
   "foot": "8.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "amazon/chronos-2",
   "group": "Time series forecasting",
   "body": "Time series forecasting, 8.2M downloads in the last month, 577 likes.",
   "foot": "8.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Bingsu/adetailer",
   "group": "Model",
   "body": "Model, 8.1M downloads in the last month, 828 likes.",
   "foot": "8.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "timm/mobilenetv3_small_100.lamb_in1k",
   "group": "Image classification",
   "body": "Image classification, 7.7M downloads in the last month, 160 likes.",
   "foot": "7.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3-Embedding-0.6B",
   "group": "Feature extraction",
   "body": "Feature extraction, 7.7M downloads in the last month, 1.4K likes.",
   "foot": "7.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "intfloat/multilingual-e5-large",
   "group": "Feature extraction",
   "body": "Feature extraction, 7.3M downloads in the last month, 1.3K likes.",
   "foot": "7.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
   "group": "Image text to text",
   "body": "Image text to text, 7.3M downloads in the last month, 1.3K likes.",
   "foot": "7.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Serveurperso/YuE2-GGUF",
   "group": "Model",
   "body": "Model, 7.1M downloads in the last month, 32 likes.",
   "foot": "7.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "unsloth/Qwen3.8-27B-GGUF",
   "group": "Model",
   "body": "Model, 7M downloads in the last month, 6.2K likes.",
   "foot": "7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "BAAI/bge-large-en-v1.5",
   "group": "Feature extraction",
   "body": "Feature extraction, 6.9M downloads in the last month, 787 likes.",
   "foot": "6.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.8-27B",
   "group": "Image text to text",
   "body": "Image text to text, 6.9M downloads in the last month, 20.6K likes.",
   "foot": "6.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "ibm-granite/granite-embedding-small-english-r2",
   "group": "Feature extraction",
   "body": "Feature extraction, 6.6M downloads in the last month, 118 likes.",
   "foot": "6.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.5-9B",
   "group": "Image text to text",
   "body": "Image text to text, 6.5M downloads in the last month, 2.4K likes.",
   "foot": "6.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Systran/faster-whisper-small",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 6.5M downloads in the last month, 108 likes.",
   "foot": "6.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen2.5-7B-Instruct",
   "group": "Text generation",
   "body": "Text generation, 6.4M downloads in the last month, 2.5K likes.",
   "foot": "6.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "zai-org/GLM-5.3-Flash",
   "group": "Image text to text",
   "body": "Image text to text, 6.4M downloads in the last month, 3.3K likes.",
   "foot": "6.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3-VL-8B-Instruct",
   "group": "Image text to text",
   "body": "Image text to text, 6.4M downloads in the last month, 1.3K likes.",
   "foot": "6.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/MOSS-Image",
   "group": "Model",
   "body": "Model, 6.4M downloads in the last month, 730 likes.",
   "foot": "6.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.8-27B-FP8",
   "group": "Image text to text",
   "body": "Image text to text, 6.3M downloads in the last month, 1K likes.",
   "foot": "6.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "google/gemma-4-31B-it",
   "group": "Image text to text",
   "body": "Image text to text, 6.3M downloads in the last month, 4.4K likes.",
   "foot": "6.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "pyannote/speaker-diarization-3.1",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 6.2M downloads in the last month, 5.3K likes.",
   "foot": "6.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3-8B",
   "group": "Text generation",
   "body": "Text generation, 6.1M downloads in the last month, 2.2K likes.",
   "foot": "6.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "FacebookAI/roberta-base",
   "group": "Fill mask",
   "body": "Fill mask, 6M downloads in the last month, 706 likes.",
   "foot": "6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai/whisper-base",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 5.9M downloads in the last month, 320 likes.",
   "foot": "5.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "MiniMaxAI/MiniMax-H3",
   "group": "Image text to video",
   "body": "Image text to video, 5.7M downloads in the last month, 7.1K likes.",
   "foot": "5.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "ornith-ai/Ornith-1.5-9B-GGUF",
   "group": "Text generation",
   "body": "Text generation, 5.7M downloads in the last month, 736 likes.",
   "foot": "5.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "baidu/Unlimited-OCR",
   "group": "Image text to text",
   "body": "Image text to text, 5.7M downloads in the last month, 5K likes.",
   "foot": "5.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai/gpt-oss-20b",
   "group": "Text generation",
   "body": "Text generation, 5.6M downloads in the last month, 5.3K likes.",
   "foot": "5.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.5-2B",
   "group": "Image text to text",
   "body": "Image text to text, 5.5M downloads in the last month, 492 likes.",
   "foot": "5.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "pyannote/wespeaker-voxceleb-resnet34-LM",
   "group": "Model",
   "body": "Model, 5.5M downloads in the last month, 229 likes.",
   "foot": "5.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "distilbert/distilbert-base-uncased",
   "group": "Fill mask",
   "body": "Fill mask, 5.4M downloads in the last month, 1.1K likes.",
   "foot": "5.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "microsoft/mdeberta-v3-base",
   "group": "Fill mask",
   "body": "Fill mask, 5.3M downloads in the last month, 265 likes.",
   "foot": "5.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen2.5-VL-7B-Instruct",
   "group": "Image text to text",
   "body": "Image text to text, 5.3M downloads in the last month, 1.8K likes.",
   "foot": "5.3M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "autogluon/chronos-bolt-small",
   "group": "Time series forecasting",
   "body": "Time series forecasting, 5.2M downloads in the last month, 86 likes.",
   "foot": "5.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "prithivMLmods/Gender-Classifier-Mini",
   "group": "Image classification",
   "body": "Image classification, 5.1M downloads in the last month, 23 likes.",
   "foot": "5.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
   "group": "Image text to text",
   "body": "Image text to text, 5.1M downloads in the last month, 121 likes.",
   "foot": "5.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "laion/CLIP-ViT-B-32-laion2B-s34B-b79K",
   "group": "Zero shot image classification",
   "body": "Zero shot image classification, 5.1M downloads in the last month, 157 likes.",
   "foot": "5.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "coqui/XTTS-v2",
   "group": "Text to speech",
   "body": "Text to speech, 5M downloads in the last month, 4K likes.",
   "foot": "5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/Wan-2.1",
   "group": "Model",
   "body": "Model, 5M downloads in the last month, 1K likes.",
   "foot": "5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "google/gemma-4-26B-A4B-it",
   "group": "Image text to text",
   "body": "Image text to text, 5M downloads in the last month, 1.8K likes.",
   "foot": "5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen2.5-1.5B-Instruct",
   "group": "Text generation",
   "body": "Text generation, 4.9M downloads in the last month, 947 likes.",
   "foot": "4.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "pyannote/speaker-diarization-community-1",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
   "foot": "4.9M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "dphn/dolphin-2.9.1-yi-1.5-34b",
   "group": "Text generation",
   "body": "Text generation, 4.8M downloads in the last month, 92 likes.",
   "foot": "4.8M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "FacebookAI/roberta-large",
   "group": "Fill mask",
   "body": "Fill mask, 4.8M downloads in the last month, 347 likes.",
   "foot": "4.8M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "stabilityai/stable-diffusion-xl-base-1.0",
   "group": "Text to image",
   "body": "Text to image, 4.8M downloads in the last month, 8.5K likes.",
   "foot": "4.8M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai/whisper-large-v3-turbo",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 4.7M downloads in the last month, 3.6K likes.",
   "foot": "4.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.5-4B",
   "group": "Image text to text",
   "body": "Image text to text, 4.7M downloads in the last month, 1.3K likes.",
   "foot": "4.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "intfloat/multilingual-e5-base",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 4.7M downloads in the last month, 422 likes.",
   "foot": "4.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Xenova/all-MiniLM-L6-v2",
   "group": "Feature extraction",
   "body": "Feature extraction, 4.7M downloads in the last month, 181 likes.",
   "foot": "4.7M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Snowflake/snowflake-arctic-embed-l-v2.0",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 4.6M downloads in the last month, 268 likes.",
   "foot": "4.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "facebook/opt-125m",
   "group": "Text generation",
   "body": "Text generation, 4.6M downloads in the last month, 334 likes.",
   "foot": "4.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "pyannote/segmentation-3.0",
   "group": "Voice activity detection",
   "body": "Voice activity detection, 4.6M downloads in the last month, 2.8K likes.",
   "foot": "4.6M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Comfy-Org/Krea-2",
   "group": "Text to image",
   "body": "Text to image, 4.5M downloads in the last month, 848 likes.",
   "foot": "4.5M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
   "group": "Text generation",
   "body": "Text generation, 4.4M downloads in the last month, 683 likes.",
   "foot": "4.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "NeoQuasar/Kronos-Tokenizer-base",
   "group": "Time series forecasting",
   "body": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
   "foot": "4.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "openai/whisper-small",
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 4.4M downloads in the last month, 658 likes.",
   "foot": "4.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "google/gemma-4-E4B-it",
   "group": "Any to any",
   "body": "Any to any, 4.4M downloads in the last month, 1.9K likes.",
   "foot": "4.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
   "group": "Image text to text",
   "body": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
   "foot": "4.4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "thenlper/gte-small",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 4.2M downloads in the last month, 203 likes.",
   "foot": "4.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
   "group": "Image text to text",
   "body": "Image text to text, 4.2M downloads in the last month, 1.2K likes.",
   "foot": "4.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "k2-fsa/OmniVoice",
   "group": "Text to speech",
   "body": "Text to speech, 4.2M downloads in the last month, 1.7K likes.",
   "foot": "4.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit",
   "group": "Text generation",
   "body": "Text generation, 4.2M downloads in the last month, 9 likes.",
   "foot": "4.2M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "nvidia/Qwen3.6-35B-A3B-NVFP4",
   "group": "Text generation",
   "body": "Text generation, 4.1M downloads in the last month, 686 likes.",
   "foot": "4.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "meta-llama/Llama-3.1-8B-Instruct",
   "group": "Text generation",
   "body": "Text generation, 4.1M downloads in the last month, 9K likes.",
   "foot": "4.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
   "group": "Text generation",
   "body": "Text generation, 4.1M downloads in the last month, 628 likes.",
   "foot": "4.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen2.5-0.5B-Instruct",
   "group": "Text generation",
   "body": "Text generation, 4.1M downloads in the last month, 753 likes.",
   "foot": "4.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
   "group": "Model",
   "body": "Model, 4.1M downloads in the last month, 608 likes.",
   "foot": "4.1M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
  },
  {
-  "kind": "hf",
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.6-35B-A3B-FP8",
   "group": "Image text to text",
   "body": "Image text to text, 4M downloads in the last month, 454 likes.",
   "foot": "4M",
   "accent": "",
-  "icon": "hf"
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "huggingface/documentation-images",
+  "group": "Dataset",
+  "body": "4.2M downloads in the last month, 259 likes.",
+  "foot": "4.2M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "neashton/windsorml",
+  "group": "Dataset",
+  "body": "3M downloads in the last month, 7 likes.",
+  "foot": "3M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "tropos-labs/eigen-face-dataset-256",
+  "group": "Dataset",
+  "body": "2.9M downloads in the last month, 5 likes.",
+  "foot": "2.9M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "allenai/objaverse",
+  "group": "Dataset",
+  "body": "2.3M downloads in the last month, 495 likes.",
+  "foot": "2.3M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Salesforce/wikitext",
+  "group": "Dataset",
+  "body": "2.2M downloads in the last month, 869 likes.",
+  "foot": "2.2M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "agibot-world/AgiBotWorld2026",
+  "group": "Dataset",
+  "body": "2.1M downloads in the last month, 115 likes.",
+  "foot": "2.1M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "IaLoverSpaghetti/LocaIAinHTML",
+  "group": "Dataset",
+  "body": "1.8M downloads in the last month, 1 likes.",
+  "foot": "1.8M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "nicoboou/IDRCell100k",
+  "group": "Dataset",
+  "body": "1.8M downloads in the last month, 18 likes.",
+  "foot": "1.8M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "nvidia/simready-assets",
+  "group": "Dataset",
+  "body": "1.7M downloads in the last month, 1.6K likes.",
+  "foot": "1.7M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "3dcodeverse/3dcodeverse-2m",
+  "group": "Dataset",
+  "body": "1.6M downloads in the last month, 68 likes.",
+  "foot": "1.6M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "DAGroup-PKU/Open-HumanWAM-50K",
+  "group": "Dataset",
+  "body": "1.5M downloads in the last month, 34 likes.",
+  "foot": "1.5M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "OPR-Project/OxfordRobotCar_OpenPlaceRecognition",
+  "group": "Dataset",
+  "body": "1.4M downloads in the last month, 10 likes.",
+  "foot": "1.4M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "xlangai/ubuntu_osworld_file_cache",
+  "group": "Dataset",
+  "body": "1.4M downloads in the last month, 74 likes.",
+  "foot": "1.4M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "ayuo/hd_tmp",
+  "group": "Dataset",
+  "body": "1.3M downloads in the last month, 47 likes.",
+  "foot": "1.3M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "sjkhfuk1/foffo",
+  "group": "Dataset",
+  "body": "1.3M downloads in the last month, 3 likes.",
+  "foot": "1.3M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "openai/gsm8k",
+  "group": "Dataset",
+  "body": "1.2M downloads in the last month, 2.1K likes.",
+  "foot": "1.2M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "lerobot/FineART",
+  "group": "Dataset",
+  "body": "1.2M downloads in the last month, 46 likes.",
+  "foot": "1.2M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "ryanmarten/OpenThoughts-1k-sample",
+  "group": "Dataset",
+  "body": "1.1M downloads in the last month, 76 likes.",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "tasl-lab/uniocc",
+  "group": "Dataset",
+  "body": "1.1M downloads in the last month, 46 likes.",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "filapro/cad-recode-v1.5",
+  "group": "Dataset",
+  "body": "1M downloads in the last month, 13 likes.",
+  "foot": "1M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "wei82/precancer-omics-data",
+  "group": "Dataset",
+  "body": "1M downloads in the last month, 34 likes.",
+  "foot": "1M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim",
+  "group": "Dataset",
+  "body": "978K downloads in the last month, 293 likes.",
+  "foot": "978K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "xlangai/osworld_v2_assets",
+  "group": "Dataset",
+  "body": "846K downloads in the last month, 25 likes.",
+  "foot": "846K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Osamap3/PSP_ph",
+  "group": "Dataset",
+  "body": "814K downloads in the last month, 4 likes.",
+  "foot": "814K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "XDOF/ABC-130k",
+  "group": "Dataset",
+  "body": "809K downloads in the last month, 147 likes.",
+  "foot": "809K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Drakesuper/rodridre",
+  "group": "Dataset",
+  "body": "808K downloads in the last month, 20 likes.",
+  "foot": "808K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Dagonulca/figofigofigofigo",
+  "group": "Dataset",
+  "body": "789K downloads in the last month, 36 likes.",
+  "foot": "789K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "allenai/c4",
+  "group": "Dataset",
+  "body": "764K downloads in the last month, 705 likes.",
+  "foot": "764K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "roisincrtai/ptb-xl-1.0.3",
+  "group": "Dataset",
+  "body": "744K downloads in the last month, 4 likes.",
+  "foot": "744K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "challenge-2026/challenge_data",
+  "group": "Dataset",
+  "body": "712K downloads in the last month, 18 likes.",
+  "foot": "712K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "HennyPr/ps2_hf2",
+  "group": "Dataset",
+  "body": "681K downloads in the last month, 48 likes.",
+  "foot": "681K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "evaleval/EEE_datastore",
+  "group": "Dataset",
+  "body": "651K downloads in the last month, 62 likes.",
+  "foot": "651K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "epfml/FineWeb-HQ",
+  "group": "Dataset",
+  "body": "607K downloads in the last month, 36 likes.",
+  "foot": "607K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "huggingface/DEH-image-scan-data",
+  "group": "Dataset",
+  "body": "600K downloads in the last month, 27 likes.",
+  "foot": "600K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "world-igr-plum/regions",
+  "group": "Dataset",
+  "body": "598K downloads in the last month, 41 likes.",
+  "foot": "598K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "banned-historical-archives/banned-historical-archives",
+  "group": "Dataset",
+  "body": "591K downloads in the last month, 122 likes.",
+  "foot": "591K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "carlotabronze/sm-stuff",
+  "group": "Dataset",
+  "body": "590K downloads in the last month, 2 likes.",
+  "foot": "590K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "pulmo/ncbi-genbank-complete",
+  "group": "Dataset",
+  "body": "588K downloads in the last month, 28 likes.",
+  "foot": "588K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M",
+  "group": "Dataset",
+  "body": "579K downloads in the last month, 112 likes.",
+  "foot": "579K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "cais/mmlu",
+  "group": "Dataset",
+  "body": "576K downloads in the last month, 890 likes.",
+  "foot": "576K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "visionhdstream/data-vision-01",
+  "group": "Dataset",
+  "body": "576K downloads in the last month, 3 likes.",
+  "foot": "576K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "omegalabsinc/omega-voice",
+  "group": "Dataset",
+  "body": "547K downloads in the last month, 6 likes.",
+  "foot": "547K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "allenai/ai2_arc",
+  "group": "Dataset",
+  "body": "535K downloads in the last month, 433 likes.",
+  "foot": "535K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "ieasybooks-org/prophet-mosque-library",
+  "group": "Dataset",
+  "body": "508K downloads in the last month, 27 likes.",
+  "foot": "508K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "ksolovev/fine-news",
+  "group": "Dataset",
+  "body": "494K downloads in the last month, 53 likes.",
+  "foot": "494K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "k9cli/video-vec2wav2-tokenizer",
+  "group": "Dataset",
+  "body": "491K downloads in the last month, 41 likes.",
+  "foot": "491K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "sunblaze-ucb/cybergym",
+  "group": "Dataset",
+  "body": "488K downloads in the last month, 73 likes.",
+  "foot": "488K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Maximilians/ps2_hf1",
+  "group": "Dataset",
+  "body": "483K downloads in the last month, 54 likes.",
+  "foot": "483K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "hf-doc-build/doc-build-dev",
+  "group": "Dataset",
+  "body": "480K downloads in the last month, 81 likes.",
+  "foot": "480K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "adscli/copycheck-videos",
+  "group": "Dataset",
+  "body": "480K downloads in the last month, 1 likes.",
+  "foot": "480K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Salesforce/GiftEvalPretrain",
+  "group": "Dataset",
+  "body": "474K downloads in the last month, 56 likes.",
+  "foot": "474K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "nyu-mll/glue",
+  "group": "Dataset",
+  "body": "473K downloads in the last month, 787 likes.",
+  "foot": "473K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "helenqu/GenPairs",
+  "group": "Dataset",
+  "body": "463K downloads in the last month, 3 likes.",
+  "foot": "463K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "miniiohinkimsavol/copyright-detection-videos",
+  "group": "Dataset",
+  "body": "463K downloads in the last month, 1 likes.",
+  "foot": "463K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Sharpa-Robotics/SharpaDex-v1.0",
+  "group": "Dataset",
+  "body": "461K downloads in the last month, 63 likes.",
+  "foot": "461K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "m-a-p/FineFineWeb",
+  "group": "Dataset",
+  "body": "459K downloads in the last month, 244 likes.",
+  "foot": "459K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Tuxifan/UbuntuIRC",
+  "group": "Dataset",
+  "body": "456K downloads in the last month, 5 likes.",
+  "foot": "456K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "k9cli/video-vec2wav2-tokenizer-2",
+  "group": "Dataset",
+  "body": "449K downloads in the last month, 31 likes.",
+  "foot": "449K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "gradio/frontend",
+  "group": "Dataset",
+  "body": "443K downloads in the last month, 6 likes.",
+  "foot": "443K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "liwu/MNBVC",
+  "group": "Dataset",
+  "body": "437K downloads in the last month, 680 likes.",
+  "foot": "437K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "k9cli/video-vec2wav2-tokenizer-3",
+  "group": "Dataset",
+  "body": "431K downloads in the last month, 14 likes.",
+  "foot": "431K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Kthera/pesoz",
+  "group": "Dataset",
+  "body": "418K downloads in the last month, 52 likes.",
+  "foot": "418K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "TIGER-Lab/MMLU-Pro",
+  "group": "Dataset",
+  "body": "418K downloads in the last month, 607 likes.",
+  "foot": "418K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "HuggingFaceFW/fineweb-edu",
+  "group": "Dataset",
+  "body": "414K downloads in the last month, 1.4K likes.",
+  "foot": "414K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "hf-doc-build/doc-build",
+  "group": "Dataset",
+  "body": "410K downloads in the last month, 48 likes.",
+  "foot": "410K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "numix/balises-openwindmap-pyrenees",
+  "group": "Dataset",
+  "body": "406K downloads in the last month, 5 likes.",
+  "foot": "406K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Chelsea707/arxiv-cs-2020-2025-pdfs",
+  "group": "Dataset",
+  "body": "394K downloads in the last month, 27 likes.",
+  "foot": "394K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "assassinlike/everything132",
+  "group": "Dataset",
+  "body": "389K downloads in the last month, 2 likes.",
+  "foot": "389K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "lioooox/T2I-CoReBench-Images",
+  "group": "Dataset",
+  "body": "382K downloads in the last month, 6 likes.",
+  "foot": "382K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "meloqiao/us-stock-data",
+  "group": "Dataset",
+  "body": "370K downloads in the last month, 1 likes.",
+  "foot": "370K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "siril-spcc/gaia",
+  "group": "Dataset",
+  "body": "370K downloads in the last month, 38 likes.",
+  "foot": "370K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "ccoffee20/flatpak",
+  "group": "Dataset",
+  "body": "364K downloads in the last month, 3 likes.",
+  "foot": "364K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "agents-course/course-images",
+  "group": "Dataset",
+  "body": "362K downloads in the last month, 23 likes.",
+  "foot": "362K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "YiboZhang2001/TexVerse",
+  "group": "Dataset",
+  "body": "357K downloads in the last month, 64 likes.",
+  "foot": "357K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "HuggingFaceFW/fineweb",
+  "group": "Dataset",
+  "body": "357K downloads in the last month, 3.8K likes.",
+  "foot": "357K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "TGMR/one_pass_ingestion",
+  "group": "Dataset",
+  "body": "356K downloads in the last month, 1 likes.",
+  "foot": "356K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "RoboDojo-Benchmark/RoboDojo",
+  "group": "Dataset",
+  "body": "354K downloads in the last month, 28 likes.",
+  "foot": "354K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "inclusionAI/OpenAoE-2000h",
+  "group": "Dataset",
+  "body": "347K downloads in the last month, 57 likes.",
+  "foot": "347K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "shash42/forecast-news",
+  "group": "Dataset",
+  "body": "345K downloads in the last month, 9 likes.",
+  "foot": "345K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "huggingface/badges",
+  "group": "Dataset",
+  "body": "343K downloads in the last month, 62 likes.",
+  "foot": "343K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "57xj5SHr/Tui9DGhp",
+  "group": "Dataset",
+  "body": "343K downloads in the last month, 21 likes.",
+  "foot": "343K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "anon8231489123/ShareGPT_Vicuna_unfiltered",
+  "group": "Dataset",
+  "body": "339K downloads in the last month, 951 likes.",
+  "foot": "339K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Emmyc2/psp",
+  "group": "Dataset",
+  "body": "338K downloads in the last month, 49 likes.",
+  "foot": "338K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "lmarena-ai/leaderboard-dataset",
+  "group": "Dataset",
+  "body": "335K downloads in the last month, 50 likes.",
+  "foot": "335K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "mickeykang/Event6DBlender",
+  "group": "Dataset",
+  "body": "330K downloads in the last month, 10 likes.",
+  "foot": "330K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "allenai/MADLAD-400",
+  "group": "Dataset",
+  "body": "328K downloads in the last month, 185 likes.",
+  "foot": "328K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "nyarlathotep12/MXStuff",
+  "group": "Dataset",
+  "body": "327K downloads in the last month, 1 likes.",
+  "foot": "327K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "MINT-SJTU/RW-RL-Dataset",
+  "group": "Dataset",
+  "body": "319K downloads in the last month, 19 likes.",
+  "foot": "319K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "McGill-NLP/WebLINX-full",
+  "group": "Dataset",
+  "body": "319K downloads in the last month, 8 likes.",
+  "foot": "319K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "VoiceOfML/VOMEBOOK",
+  "group": "Dataset",
+  "body": "319K downloads in the last month, 18 likes.",
+  "foot": "319K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "wikimedia/wikipedia",
+  "group": "Dataset",
+  "body": "317K downloads in the last month, 1.7K likes.",
+  "foot": "317K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "harborframework/terminal-bench-science-lfs",
+  "group": "Dataset",
+  "body": "304K downloads in the last month, 11 likes.",
+  "foot": "304K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "jat-project/jat-dataset-tokenized",
+  "group": "Dataset",
+  "body": "302K downloads in the last month, 43 likes.",
+  "foot": "302K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "huggingface-course/documentation-images",
+  "group": "Dataset",
+  "body": "296K downloads in the last month, 6 likes.",
+  "foot": "296K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "OpenFinMind/stock_dataset",
+  "group": "Dataset",
+  "body": "296K downloads in the last month, 3 likes.",
+  "foot": "296K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "zdbfv/M3_VOS",
+  "group": "Dataset",
+  "body": "291K downloads in the last month, 2 likes.",
+  "foot": "291K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "google-research-datasets/mbpp",
+  "group": "Dataset",
+  "body": "291K downloads in the last month, 279 likes.",
+  "foot": "291K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "XiaomiMiMo/MiMo-V2.6-RL-oss",
+  "group": "Dataset",
+  "body": "288K downloads in the last month, 1.1K likes.",
+  "foot": "288K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Forceless/Zenodo10K",
+  "group": "Dataset",
+  "body": "287K downloads in the last month, 33 likes.",
+  "foot": "287K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "openai/gdpval",
+  "group": "Dataset",
+  "body": "286K downloads in the last month, 578 likes.",
+  "foot": "286K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "enzostvs/deepsite",
+  "group": "Docker",
+  "body": "16.6K likes, built with docker.",
+  "foot": "16.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "open-llm-leaderboard/open_llm_leaderboard",
+  "group": "Docker",
+  "body": "14.2K likes, built with docker.",
+  "foot": "14.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "jbilcke-hf/ai-comic-factory",
+  "group": "Docker",
+  "body": "11.3K likes, built with docker.",
+  "foot": "11.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Kwai-Kolors/Kolors-Virtual-Try-On",
+  "group": "Gradio",
+  "body": "10.2K likes, built with gradio.",
+  "foot": "10.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "black-forest-labs/FLUX.1-dev",
+  "group": "Gradio",
+  "body": "9.6K likes, built with gradio.",
+  "foot": "9.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "mteb/leaderboard",
+  "group": "Docker",
+  "body": "7.8K likes, built with docker.",
+  "foot": "7.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "dalle-mini/dalle-mini",
+  "group": "Static",
+  "body": "5.8K likes, built with static.",
+  "foot": "5.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "AP123/IllusionDiffusion",
+  "group": "Gradio",
+  "body": "5.5K likes, built with gradio.",
+  "foot": "5.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "black-forest-labs/FLUX.1-schnell",
+  "group": "Gradio",
+  "body": "5.2K likes, built with gradio.",
+  "foot": "5.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "facebook/MusicGen",
+  "group": "Gradio",
+  "body": "5.1K likes, built with gradio.",
+  "foot": "5.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "lmarena-ai/arena-leaderboard",
+  "group": "Static",
+  "body": "5K likes, built with static.",
+  "foot": "5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "microsoft/TRELLIS",
+  "group": "Gradio",
+  "body": "4.8K likes, built with gradio.",
+  "foot": "4.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "KingNish/OpenGPT-4o",
+  "group": "Gradio",
+  "body": "4.3K likes, built with gradio.",
+  "foot": "4.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "nanotron/ultrascale-playbook",
+  "group": "Static",
+  "body": "4.1K likes, built with static.",
+  "foot": "4.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "mrfakename/Z-Image-Turbo",
+  "group": "Gradio",
+  "body": "4K likes, built with gradio.",
+  "foot": "4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "zerogpu-aoti/wan2-2-fp8da-aoti-faster",
+  "group": "Gradio",
+  "body": "3.9K likes, built with gradio.",
+  "foot": "3.9K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "KlingTeam/LivePortrait",
+  "group": "Gradio",
+  "body": "3.8K likes, built with gradio.",
+  "foot": "3.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "InstantX/InstantID",
+  "group": "Gradio",
+  "body": "3.7K likes, built with gradio.",
+  "foot": "3.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "hexgrad/Kokoro-TTS",
+  "group": "Gradio",
+  "body": "3.6K likes, built with gradio.",
+  "foot": "3.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "tencent/Hunyuan3D-2",
+  "group": "Gradio",
+  "body": "3.4K likes, built with gradio.",
+  "foot": "3.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "HuggingFaceTB/smol-training-playbook",
+  "group": "Docker",
+  "body": "3.4K likes, built with docker.",
+  "foot": "3.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "akhaliq/anycoder",
+  "group": "Docker",
+  "body": "3.3K likes, built with docker.",
+  "foot": "3.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "r3gm/wan2-2-fp8da-aoti-preview",
+  "group": "Gradio",
+  "body": "3.3K likes, built with gradio.",
+  "foot": "3.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "YuyaoTechnology/MatterSeek",
+  "group": "Static",
+  "body": "3.2K likes, built with static.",
+  "foot": "3.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "mukaist/Midjourney",
+  "group": "Gradio",
+  "body": "3K likes, built with gradio.",
+  "foot": "3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "not-lain/background-removal",
+  "group": "Gradio",
+  "body": "3K likes, built with gradio.",
+  "foot": "3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "pharmapsychotic/CLIP-Interrogator",
+  "group": "Gradio",
+  "body": "3K likes, built with gradio.",
+  "foot": "3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "selfit-camera/Omni-Image-Editor",
+  "group": "Gradio",
+  "body": "3K likes, built with gradio.",
+  "foot": "3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "mrfakename/E2-F5-TTS",
+  "group": "Gradio",
+  "body": "2.9K likes, built with gradio.",
+  "foot": "2.9K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "openai/whisper",
+  "group": "Gradio",
+  "body": "2.9K likes, built with gradio.",
+  "foot": "2.9K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "sanchit-gandhi/whisper-jax",
+  "group": "Docker",
+  "body": "2.8K likes, built with docker.",
+  "foot": "2.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "HumanAIGC/OutfitAnyone",
+  "group": "Gradio",
+  "body": "2.8K likes, built with gradio.",
+  "foot": "2.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "prithivMLmods/Qwen-Image-Edit-2511-LoRAs-Fast",
+  "group": "Gradio",
+  "body": "2.8K likes, built with gradio.",
+  "foot": "2.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "coqui/xtts",
+  "group": "Gradio",
+  "body": "2.8K likes, built with gradio.",
+  "foot": "2.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "multimodalart/qwen-image-multiple-angles-3d-camera",
+  "group": "Gradio",
+  "body": "2.7K likes, built with gradio.",
+  "foot": "2.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "tonyassi/voice-clone",
+  "group": "Gradio",
+  "body": "2.7K likes, built with gradio.",
+  "foot": "2.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "fffiloni/diffusers-image-outpaint",
+  "group": "Gradio",
+  "body": "2.6K likes, built with gradio.",
+  "foot": "2.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "sczhou/CodeFormer",
+  "group": "Gradio",
+  "body": "2.4K likes, built with gradio.",
+  "foot": "2.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "microsoft/TRELLIS.2",
+  "group": "Gradio",
+  "body": "2.4K likes, built with gradio.",
+  "foot": "2.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Qwen/Qwen3-TTS",
+  "group": "Gradio",
+  "body": "2.4K likes, built with gradio.",
+  "foot": "2.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "suno/bark",
+  "group": "Gradio",
+  "body": "2.4K likes, built with gradio.",
+  "foot": "2.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "tencent/Hunyuan3D-2.1",
+  "group": "Gradio",
+  "body": "2.4K likes, built with gradio.",
+  "foot": "2.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "AI4Editing/MagicQuill",
+  "group": "Gradio",
+  "body": "2.3K likes, built with gradio.",
+  "foot": "2.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "linoyts/Qwen-Image-Edit-Angles",
+  "group": "Gradio",
+  "body": "2.3K likes, built with gradio.",
+  "foot": "2.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "microsoft/HuggingGPT",
+  "group": "Gradio",
+  "body": "2.3K likes, built with gradio.",
+  "foot": "2.3K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "DontPlanToEnd/UGI-Leaderboard",
+  "group": "Docker",
+  "body": "2.2K likes, built with docker.",
+  "foot": "2.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "jbilcke-hf/FacePoke_CLONE-THIS-REPO-TO-USE-IT",
+  "group": "Docker",
+  "body": "2.2K likes, built with docker.",
+  "foot": "2.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "finegrain/finegrain-image-enhancer",
+  "group": "Gradio",
+  "body": "2.2K likes, built with gradio.",
+  "foot": "2.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "r3gm/wan2-2-fp8da-aoti-preview2",
+  "group": "Gradio",
+  "body": "2.2K likes, built with gradio.",
+  "foot": "2.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Wan-AI/Wan2.1",
+  "group": "Gradio",
+  "body": "2.2K likes, built with gradio.",
+  "foot": "2.2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "yisol/IDM-VTON",
+  "group": "Gradio",
+  "body": "2.1K likes, built with gradio.",
+  "foot": "2.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "ggml-org/gguf-my-repo",
+  "group": "Docker",
+  "body": "2.1K likes, built with docker.",
+  "foot": "2.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "yanze/PuLID-FLUX",
+  "group": "Gradio",
+  "body": "2.1K likes, built with gradio.",
+  "foot": "2.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Gustavosta/MagicPrompt-Stable-Diffusion",
+  "group": "Gradio",
+  "body": "2.1K likes, built with gradio.",
+  "foot": "2.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "mediasynthesismuseum/stable-video-diffusion",
+  "group": "Gradio",
+  "body": "2.1K likes, built with gradio.",
+  "foot": "2.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "stabilityai/stable-diffusion-3.5-large",
+  "group": "Gradio",
+  "body": "2.1K likes, built with gradio.",
+  "foot": "2.1K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "deepseek-ai/Janus-Pro-7B",
+  "group": "Gradio",
+  "body": "2K likes, built with gradio.",
+  "foot": "2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "huggingface-projects/QR-code-AI-art-generator",
+  "group": "Gradio",
+  "body": "2K likes, built with gradio.",
+  "foot": "2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "TencentARC/PhotoMaker",
+  "group": "Gradio",
+  "body": "2K likes, built with gradio.",
+  "foot": "2K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Tongyi-MAI/Z-Image-Turbo",
+  "group": "Gradio",
+  "body": "1.9K likes, built with gradio.",
+  "foot": "1.9K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "fancyfeast/joy-caption-alpha-two",
+  "group": "Gradio",
+  "body": "1.8K likes, built with gradio.",
+  "foot": "1.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "nari-labs/Dia-1.6B",
+  "group": "Gradio",
+  "body": "1.8K likes, built with gradio.",
+  "foot": "1.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "ehristoforu/dalle-3-xl-lora-v2",
+  "group": "Gradio",
+  "body": "1.8K likes, built with gradio.",
+  "foot": "1.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "NihalGazi/Text-To-Speech-Unlimited",
+  "group": "Gradio",
+  "body": "1.8K likes, built with gradio.",
+  "foot": "1.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "ResembleAI/Chatterbox",
+  "group": "Gradio",
+  "body": "1.8K likes, built with gradio.",
+  "foot": "1.8K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Qwen/Qwen2.5-Coder-Artifacts",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "jasperai/Flux.1-dev-Controlnet-Upscaler",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "ilcve21/Sparc3D",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "kulkas2pintu/wan777",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "multimodalart/stable-cascade",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "fffiloni/expression-editor",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "black-forest-labs/FLUX.1-Kontext-Dev",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "FrameAI4687/Omni-Video-Factory",
+  "group": "Gradio",
+  "body": "1.7K likes, built with gradio.",
+  "foot": "1.7K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "prithivMLmods/FireRed-Image-Edit-1.0-Fast",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "stabilityai/stable-diffusion-3-medium",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Lightricks/ltx-video-distilled",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "multimodalart/wan2-1-fast",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "TencentARC/InstantMesh",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "multimodalart/flux-lora-the-explorer",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "tonyassi/video-face-swap",
+  "group": "Gradio",
+  "body": "1.6K likes, built with gradio.",
+  "foot": "1.6K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "hf-audio/open_asr_leaderboard",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "AimeeBingmouQu/ProtectBirds",
+  "group": "Docker",
+  "body": "1.5K likes, built with docker.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "timbrooks/instruct-pix2pix",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "CohereLabs/c4ai-command",
+  "group": "Docker",
+  "body": "1.5K likes, built with docker.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "bigcode/bigcode-models-leaderboard",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "ysharma/ChatGPT4",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "DeepFloyd/IF",
+  "group": "Docker",
+  "body": "1.5K likes, built with docker.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "fancyfeast/joy-caption-pre-alpha",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "HuggingFaceFW/blogpost-fineweb-v1",
+  "group": "Static",
+  "body": "1.5K likes, built with static.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "k2-fsa/OmniVoice",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "ali-vilab/modelscope-text-to-video-synthesis",
+  "group": "Gradio",
+  "body": "1.5K likes, built with gradio.",
+  "foot": "1.5K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "jamesliu1217/EasyControl_Ghibli",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "CompVis/stable-diffusion-license",
+  "group": "Static",
+  "body": "1.4K likes, built with static.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "vinthony/SadTalker",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "zcxu-eric/magicanimate",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "Asahina2K/animagine-xl-3.1",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "NihalGazi/FLUX-Unlimited",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "gokaygokay/FLUX-Prompt-Generator",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "dream2589632147/Dream-wan2-2-faster-Pro",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-spaces",
+  "title": "fffiloni/CLIP-Interrogator-2",
+  "group": "Gradio",
+  "body": "1.4K likes, built with gradio.",
+  "foot": "1.4K",
+  "accent": "",
+  "icon": "layers"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "TeleChat to Xing4: Advancing Frontier Agentic Models on Domestic Chips and Frameworks",
+  "group": "Paper",
+  "body": "We present Xing 4, a series of large language models that extends the TeleChat lineage through coordinated advances in model architecture and…",
+  "foot": "156",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Sage S2.1 Flash Technical Report",
+  "group": "Paper",
+  "body": "We introduce Sage S1.5 Flash, a 320-billion-parameter general-purpose mixture-of-experts model designed to reason over scientific evidence and act…",
+  "foot": "96",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
+  "group": "Paper",
+  "body": "AscendGYM provides a benchmark for assessing kernel optimization capabilities on Ascend NPUs using real-workload test cases, two evaluation modes…",
+  "foot": "92",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
+  "group": "Paper",
+  "body": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a…",
+  "foot": "60",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Weight-Space Programming Doesn't Need Transformers",
+  "group": "Paper",
+  "body": "When large language models write neural network weights without gradient-based training, they tend to design sparse table or associative-memory…",
+  "foot": "52",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Multi-Branch Transformer",
+  "group": "Paper",
+  "body": "Branching Transformer blocks into parallel parameterized branches, combined with shared KV caching, improves language model quality and inference…",
+  "foot": "45",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "ForceHarness: Turning Force into Action and Physics for Frozen Frontier Models",
+  "group": "Paper",
+  "body": "Frontier multimodal models can now control robots zero-shot from images, yet many manipulation tasks depend on contact forces that images cannot…",
+  "foot": "41",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Jeveration: System One Models Now Generate",
+  "group": "Paper",
+  "body": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single…",
+  "foot": "35",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Beyond Answering: Learning to Speak First and Act in Streaming Video",
+  "group": "Paper",
+  "body": "AURA 2.0 is a streaming video large language model that can initiate conversations, call tools, and perform interactive visual grounding, with…",
+  "foot": "35",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Breath-Dx: A Time Series Classification Benchmark for Disease Screening with eNose",
+  "group": "Paper",
+  "body": "A comprehensive benchmark evaluates time-series classification methods on a large clinical breath dataset under realistic temporal splits, showing…",
+  "foot": "33",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Self-Improvement Memory Enables Continual Recursive Self-Improvement",
+  "group": "Paper",
+  "body": "Continual recursive self-improvement lets harness optimizers reuse and revise prior edits across changing benchmarks or policy models by storing…",
+  "foot": "31",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "PROLA: Principal-Orthogonal Low-rank Adaptation for Predictive Spatiotemporal Weather Downscaling",
+  "group": "Paper",
+  "body": "High-resolution weather prediction is important for resolving local atmospheric patterns missed by coarse global forecasts. Large pretrained weather…",
+  "foot": "26",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "FastFrames: Video Generation at Interactive Latency",
+  "group": "Paper",
+  "body": "Autoregressive video diffusion models generate frames based on new observations and inputs, making them a promising medium for interactive visual…",
+  "foot": "25",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "TCP4D: A Unified Tool-Center-Point Tracking and Generation Model for Robot Manipulation",
+  "group": "Paper",
+  "body": "Robot manipulation videos provide a rich visual experience, yet recovering robot action and gripper-state annotations from RGB observations still…",
+  "foot": "24",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Game2Player: Scaling Gameplay Experience for Visual Agents through Environment-Player Co-Development",
+  "group": "Paper",
+  "body": "Games are a rich testbed for visual agents, demanding perception, long-horizon planning, and precise control. However, collecting human gameplay is…",
+  "foot": "22",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "LynnReal-Hand: Unlocking World Interaction with Hand Control",
+  "group": "Paper",
+  "body": "Interactive video world models enable exploration through text and camera controls, yet direct object interaction requires finer control. Hands…",
+  "foot": "22",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Heave-Ho: Decentralized Long-Horizon Multi-Humanoid Collaboration",
+  "group": "Paper",
+  "body": "A decentralized framework enables teams of humanoids to coordinate whole-body loco-manipulation over long horizons using low-level multi-agent…",
+  "foot": "21",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "VideoNexus: Video Perception Beyond the Reasoning Context",
+  "group": "Paper",
+  "body": "VideoNexus separates detailed video perception from evidence-driven planning and reasoning, using perception sub-agents to return compact temporally…",
+  "foot": "20",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "ALIVE: Making Streaming Video Models Interactive",
+  "group": "Paper",
+  "body": "Streaming video LLMs can continuously observe the world, yet often handle user requests in isolation. We introduce ALIVE, an interactive streaming…",
+  "foot": "19",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
+  "group": "Paper",
+  "body": "Agent evolution is often bottlenecked by noisy evaluations that cannot reliably identify better candidate artifacts or rank methods, so progress…",
+  "foot": "17",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "WorldRuler: Interactive World Modeling under Configurable Rules",
+  "group": "Paper",
+  "body": "A rule-graph-based generative world model preserves user-defined rules and world states across saving and loading while accurately realizing…",
+  "foot": "15",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "SALA: Semantically Aligned Latent Actions Enable Dual-Axis Scaling of Embodied Foundation Models",
+  "group": "Paper",
+  "body": "SALA aligns latent actions across human and robot videos by using language-based semantic similarities to form a shared latent action space that…",
+  "foot": "15",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Regularized Score Centering",
+  "group": "Paper",
+  "body": "Asynchronous reinforcement learning increases training throughput, but data from stale policies and numerical mismatch between training and…",
+  "foot": "14",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "π^4: A Foundation Model for 4D Scene Geometry and Motion",
+  "group": "Paper",
+  "body": "This unified foundation model enables the recovery of dense geometry, camera poses, and object tracking from diverse, uncalibrated observations in…",
+  "foot": "13",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+  "group": "Paper",
+  "body": "CurvDelta and CurvLoRA constrain LLM updates to a low-curvature preservation space, improving retention while maintaining target adaptation across…",
+  "foot": "12",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "From Repositories to Training Environments: Scaling Long-Horizon Coding Agents with Environment Evolution Loop",
+  "group": "Paper",
+  "body": "RepoFactory converts real repositories into verifiable coding environments and optimizes them via an Environment Evolution Loop using proxy…",
+  "foot": "12",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
+  "group": "Paper",
+  "body": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip…",
+  "foot": "11",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Decoding Without a Decoder: Direct Pixel Prediction from Diffusion Transformers",
+  "group": "Paper",
+  "body": "A method that removes the decoder from latent diffusion models by adding a final-step prediction head to a finetuned diffusion transformer, reducing…",
+  "foot": "10",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "FMT: Lossless Image Compression in a Fixed Number of Parallel Steps",
+  "group": "Paper",
+  "body": "The Fixed-step Multiscale Tree (FMT) format achieves highly efficient, fixed-time decoding of images by utilizing a coarse-to-fine tree structure…",
+  "foot": "10",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "MedJev: A System One Vision-Language Decision Model for Fast and Effective Medical Image Understanding",
+  "group": "Paper",
+  "body": "Medical image understanding with vision-language models (VLMs) typically relies on autoregressively generating reasoning and answer tokens. These…",
+  "foot": "10",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "QDA: Closed-Loop LLM Quantization Design with Agents",
+  "group": "Paper",
+  "body": "Post-training quantization is the standard way to serve large language models at low cost. However, the best quantization recipe differs across…",
+  "foot": "9",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "CADMAGEDDON: High-Fidelity CAD Reconstruction with Local Inference",
+  "group": "Paper",
+  "body": "CADMAGEDDON is an open-source agent that reconstructs editable CAD from meshes locally on single-GPU systems and laptops, using a mid-sized Qwen…",
+  "foot": "9",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "MPEG-Diffusion: Mixed-Resolution Video Generation",
+  "group": "Paper",
+  "body": "MPEG-Diffusion reduces the computational cost of video diffusion transformers by generating only a self-selected high-resolution region with…",
+  "foot": "9",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Energy-Based Reasoners: Your Recurrent Reasoner Should Be an Energy-Based Model",
+  "group": "Paper",
+  "body": "Energy-Based Reasoners guide looped latent reasoning by learning an energy function whose gradient refines states and signals when to stop, with…",
+  "foot": "9",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "HINT-WAM: Hindsight-Informed Training for World Action Models",
+  "group": "Paper",
+  "body": "World action models (WAMs) have shown promising generalization and data efficiency in robot manipulation by coupling action generation with…",
+  "foot": "8",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Agentic On-Policy Distillation Implicitly Reshapes LLMs' ReAct Patterns",
+  "group": "Paper",
+  "body": "On-policy distillation can improve or degrade language-model agent interaction across domains, and selectively retaining teacher-preferred positions…",
+  "foot": "7",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Termination Lag: Coding Agents Solve Early but Stop Late",
+  "group": "Paper",
+  "body": "Coding agents often find correct patches early but continue working, sometimes undoing correct solutions, with termination lag varying by model and…",
+  "foot": "7",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Correcting Persistent Failures in Point-Cloud Grasping Policies using Human Demonstrations in Virtual Reality",
+  "group": "Paper",
+  "body": "A human-in-the-loop failure-mining pipeline turns persistently unsolved grasps of a reinforcement-learning point-cloud policy into virtual-reality…",
+  "foot": "7",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "OutfitterBench: Evaluating LLM Agents on Long-Horizon Resource Allocation and Commitment Coordination",
+  "group": "Paper",
+  "body": "OutfitterBench evaluates LLM agents managing a 200-day outdoor-equipment rental business under fixed capital and uncertain demand, revealing…",
+  "foot": "7",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "RoughCut-Bench: A Benchmark for Automatic Video Rough-Cut with Large Vision-Language Models",
+  "group": "Paper",
+  "body": "A new benchmark and agentic workflows assess vision-language models for automatic video rough-cut, revealing current models struggle to match expert…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Mechanistic Critics for Sample-Efficient NPU Design-Space Exploration",
+  "group": "Paper",
+  "body": "NPU design-space exploration for LLM inference mainly relies on an expensive simulator that often returns only scalar feedback such as latency and…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "VisualArtifactSpec 1.0: Evaluating Visual Artifacts under Task Specifications",
+  "group": "Paper",
+  "body": "Visual artifact tasks test agents' ability to translate task specifications and source materials into outputs that meet practical needs. Evaluation…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Glyph: An Interpretability Engine for AI-Driven Scientific Discovery in Clinical Data",
+  "group": "Paper",
+  "body": "Glyph uses foundation models and sparse autoencoders to extract interpretable clinical concepts from multimodal records and CT data, revealing…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Marimba: A System One Model for Speech",
+  "group": "Paper",
+  "body": "Marimba uses frozen Qwen3-ASR features and lightweight readouts to make lexical, turn-end, language, speaker-change, and personal-information…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "JEPA4R: Embodied JEPA World Models with 4D Point Planning",
+  "group": "Paper",
+  "body": "Joint-embedding predictive architecture (JEPA) world models predict future embeddings instead of pixels and plan in latent space. Two challenges…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "PReMind: When Personal Memory Meets Visual Hazards",
+  "group": "Paper",
+  "body": "A diagnostic benchmark and two-phase reinforcement learning framework enable personalized vision-language assistants to jointly connect visual…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Learning Anisotropic Prediction Targets for Flow Models",
+  "group": "Paper",
+  "body": "AnisoFlow learns an anisotropic, learnable prediction target for flow-based generative models, improving FID and image quality without altering the…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Do LLM Agents Still Need to Be Told How to Self-Improve?",
+  "group": "Paper",
+  "body": "Capable frozen LLM agents can autonomously construct context-based self-learning algorithms from basic resources and a general goal, yielding text…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Abstention Direction in Large Language Models: Mechanistic Interpretability of Abstention Across Query Ambiguity, Knowledge Limits, and Safety Alignment",
+  "group": "Paper",
+  "body": "Abstention in large language models arises from query ambiguity, model knowledge limits, and value misalignment, and steering internal activations…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Correct Labels Are Not Enough: Reliable Metadata Can Silently Control Model Behavior",
+  "group": "Paper",
+  "body": "Fine-tuning data can include metadata that predicts the correct answer, such as a reward-model score or a quality label. We ask whether a model…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "More Agents, More Samples, or More Thinking? Untangling Coordination, Ensembling, and Test-Time Compute in Multi-Agent LLMs",
+  "group": "Paper",
+  "body": "Evaluations of multi-agent language models often compare communicating architectures against a single greedy pass. This practice confounds…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Continuation-Guided LLM Evolution of Program Policies and Goal Compilers in Craftax",
+  "group": "Paper",
+  "body": "A framework uses coding agents and a feedback cascade to synthesize code-based policies that achieve long-horizon success and can be factored into a…",
+  "foot": "5",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
+  "group": "Paper",
+  "body": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "DNeo: Your Parallel Draft Model Needs Better Target Feature Encoding",
+  "group": "Paper",
+  "body": "A lightweight feature-encoding method with rejection memory and architectural enhancements enables faster large language model inference by…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "HubEgo-100K: In-the-Wild Egocentric Video of Skilled Work for Robot Learning",
+  "group": "Paper",
+  "body": "Robot policies trained by imitation generalize poorly outside the environments and objects seen in training. Published data-scaling studies find…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "The Noise Floor of a Quantization Comparison: Engine, restart, batch and kernel drift, measured against 8-bit and 4-bit effects in two decision models",
+  "group": "Paper",
+  "body": "A quantized model is usually judged by comparing it with its BF16 original, but that comparison changes more than the weights. It often changes the…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "ResWAM: Learning What Changes, Not What Stays, for World-Action Models",
+  "group": "Paper",
+  "body": "ResWAM combines visual residual learning in frozen DINOv3 features with a lightweight dual-branch DiT trained via conditional flow matching to…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Invariant-Aware Harness Enforcement to Protect LLM Agents from Silent API Failures",
+  "group": "Paper",
+  "body": "LLM agents answer questions by calling APIs and trusting the results. An API can fail silently. It ignores part of a request, such as a misnamed…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "When Expert Disagreement Hurts: Prestige and Selectivity in LLM Decision Revision",
+  "group": "Paper",
+  "body": "A controlled two-pass audit varying only the revision context reveals that language models often fail to selectively correct errors under…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
+  "group": "Paper",
+  "body": "Visual agents answer questions about ultra-high-resolution photos by zooming into the relevant regions. However, existing agents often answer from…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "BitDecoding-FP4: Native FP4 KV Cache Decoding via Algorithm-System Co-Design",
+  "group": "Paper",
+  "body": "BitDecoding-FP4 co-designs FP4 quantization and system optimizations to enable accurate, high-throughput long-context KV decoding for LLMs.",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Movie2Game-Bench: Holistic Evaluation of Film-to-Game Adaptation Beyond Playability",
+  "group": "Paper",
+  "body": "Adapting a film into a game requires selecting source elements and translating them into player actions, rules, and feedback. We introduce…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Late Entry in Looped Language Models",
+  "group": "Paper",
+  "body": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Let Samples Sing in Chorus: Mitigating Spurious Correlations via Cross-view Consensus",
+  "group": "Paper",
+  "body": "A multi-view debiasing method aggregates within-class partitions across diverse representation spaces to reduce reliance on spurious correlations…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Attention at Absolute Zero",
+  "group": "Paper",
+  "body": "Attention scores candidate supports of an answer, which we call witnesses, and reads the scores at a temperature. We build a higher-order attention…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "MillBill: A Machining Agent with Geometric Feedback",
+  "group": "Paper",
+  "body": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "AuXSpec: Learning to Autoformalize Program Specifications via Executable Postconditions",
+  "group": "Paper",
+  "body": "Formal specifications define intended program behavior and underpin verification, but writing them in theorem provers such as Lean is slow and…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Inside the Trading Loop: Markets, Models, and Moves with LLM Agents",
+  "group": "Paper",
+  "body": "A hybrid multi-agent trading system combining large language model analysts with momentum-based portfolio construction and rule-based execution…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Dataset Distillation via Drifting",
+  "group": "Paper",
+  "body": "A dataset distillation method learns synthetic samples that approximate per-class data distributions in a feature extractor's latent space…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "BiCAT: Bimanual Coordination Action Tokenization",
+  "group": "Paper",
+  "body": "BiCAT shares a motion representation across arms and conditions each arm's tokens on its partner via symmetric cross-arm attention and a joint…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "FVScore: Specification-Driven Neuro-Symbolic Video Evaluation",
+  "group": "Paper",
+  "body": "FVSCORE is a neuro-symbolic evaluation framework that compiles videos into prompt and implicit constraint propositions, verifies them with…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
+  "group": "Paper",
+  "body": "UltraTex employs a cascaded multi-view framework that integrates physical knowledge and vision-language model features to accurately generate…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "PIPETTE: Prompt Injection Purple-Teaming for Robust LLM Agents",
+  "group": "Paper",
+  "body": "A novel framework addresses the limitations of current reinforcement learning-based red-teaming methods by employing dictionary learning and…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Out of Sight, Still in Mind: Token Compression for Omni-LLMs",
+  "group": "Paper",
+  "body": "ReMo, a training-free method, reduces inference input token cost for omni-modal large language models by compressing redundant visual tokens through…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "DrawScore: Evaluating Generated CAD Models against Engineering Drawings",
+  "group": "Paper",
+  "body": "A new metric for automatic CAD generation evaluates models through engineering-drawing projections with a saturating penalty along curves, exposing…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Evidence-Based Credit Assignment for Search-Augmented Language Models",
+  "group": "Paper",
+  "body": "Reinforcement learning from terminal answer rewards enables search-augmented language models to interleave reasoning and retrieval without…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "VAE Rhythm: Temporal Decoding Traces for AI-Generated Video Detection",
+  "group": "Paper",
+  "body": "Visible artifacts are an unreliable cue for detecting generated videos, because newer generators learn to remove them. We instead detect a trace…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "LogT: Logically Think with Images for Visual Search",
+  "group": "Paper",
+  "body": "Thinking with images empowers vision-language models (VLMs) to use an external Zoom-in tool for fine-grained visual search. Recent works employ…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Recurrent Domain Incremental Adaptation of Time-Series Foundation Models",
+  "group": "Paper",
+  "body": "PACT adapts a pretrained time-series foundation model to new operating conditions by partitioning its frozen embedding space into local charts and…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "IDEA: Intent-Dominance Evidence Audit for Inference-Time Backdoor Detection in GUI Agents",
+  "group": "Paper",
+  "body": "A step-level inference-time audit detects visual-trigger backdoors in open-weight GUI agents by comparing instruction- and region-induced shifts in…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "The novelty exposed: ablation, reproducibility and transparency in 40 technical reports of open-weight large language models (LLMs)",
+  "group": "Paper",
+  "body": "In 2025 alone, 48 new large language model (LLM) architectures were added to the Hugging Face transformers library, and many of them arrive with a…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "WeightBench: Evaluating Language Models as Weight-Space Programmers",
+  "group": "Paper",
+  "body": "The WEIGHTBENCH benchmark evaluates the capacity of large language models to perform Weight-Space Programming tasks, which involve reading…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "GameRealm: Grounding Visual Learning in Interactive Games",
+  "group": "Paper",
+  "body": "GameRealm is a large-scale multimodal gameplay dataset with synchronized depth, camera, audio, control, and 3D trajectory annotations that improves…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "PanDWM: Panoramic 4D Driving World Models",
+  "group": "Paper",
+  "body": "PanDWM stitches six camera views into a 360° panoramic band and uses a distilled causal student with a feed-forward 3D Gaussian decoder to generate…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "M3OPD-Reasoner: An Open Recipe for Post-Training Multimodal Reasoning with Multi-Teacher On-Policy Distillation",
+  "group": "Paper",
+  "body": "Multi-Teacher On-Policy Distillation (MOPD) enables a single student to absorb the skills of several domain teachers by learning from its own…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "TPHC: Improving Hyper-Connections with Tensor-Parallel Grouped Updates",
+  "group": "Paper",
+  "body": "TPHC combines tensor-parallel shards with hyper-connection residual streams to enable more independent stream updates, improving language model loss…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Flexible Multi-Stack Super-Resolution of Clinical Brain MRI Using Hetero-Orientation Variational Encoding: Expert Reader Evaluation in a Nigerian Cohort",
+  "group": "Paper",
+  "body": "MS-HVED enables flexible super-resolution of partially overlapping brain MRI stacks by fusing independently encoded multi-scale Gaussian posteriors…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
+  "group": "Paper",
+  "body": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "NexSight: Verifiable Tasks for Fine-Grained Agentic Long-Video Understanding",
+  "group": "Paper",
+  "body": "Fine-grained questions about long videos ask how many times an action occurs, in what order events unfold, or exactly when a state changes…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "A Foundation Model to Measure and Predict Human Behaviour",
+  "group": "Paper",
+  "body": "A foundation model fine-tuned from a large language model measures and predicts human behaviour and aligns simulated population responses with human…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Thinking Harder Doesn't Lead to Better Choices: Reasoning Effort Increases the Confidence but Not the Correctness of LLM Shopping Agents",
+  "group": "Paper",
+  "body": "Across three shopping benchmarks, increasing large language model shopping agents' thinking effort did not statistically improve product-choice…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "MInfoVisQA: A Multilingual Benchmark for Information-Rich Visual Question Answering",
+  "group": "Paper",
+  "body": "MInfoVisQA, a 24-language parallel benchmark, reveals substantial cross-language robustness gaps in multimodal large language models for…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "CONGA: Compiling Gaussian Fiber Geometry for Structured Bayesian Inference",
+  "group": "Paper",
+  "body": "In structured Bayesian models, a large latent block is often Gaussian conditional on a smaller set of parameters, yet generic inference methods…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Unreasonable Confidence from Simulator Misspecification: Directional Robustness on the SPEED+ Sim-to-Real Benchmark",
+  "group": "Paper",
+  "body": "A simple monocular pose estimator trained on synthetic spacecraft images shows poor real-world transfer, with overconfident pose errors and uneven…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "GPBam: A Retrieval-Aware German Public Law Exam Benchmark",
+  "group": "Paper",
+  "body": "A new benchmark of German public-law exam cases and statutory provisions jointly scores legal retrieval and long-form opinion generation across many…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Zuse: A Decision Model for European Languages",
+  "group": "Paper",
+  "body": "Decision models read a document and return a probability for each of a fixed set of options instead of generating text. Several appeared in 2026…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "A Reinforcement Learning Method to Navigate SMEFT Operator Space",
+  "group": "Paper",
+  "body": "A reinforcement learning agent with a lightweight actor-critic architecture explores the Standard Model Effective Field Theory operator space to…",
+  "foot": "1",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "PGPO: Prototype-Guided Progressive Obfuscation for Privacy-Preserving LLM-Enhanced Recommendation",
+  "group": "Paper",
+  "body": "A prototype-guided progressive obfuscation method preserves relative item relations while perturbing high-influence semantic embeddings to defend…",
+  "foot": "0",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Thinking Fast, Anywhere: One System-1 for the Decision Points of Any Agent Workflow",
+  "group": "Paper",
+  "body": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to…",
+  "foot": "0",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Chorus: Shared N-gram Embeddings with Layer-wise Adaptation",
+  "group": "Paper",
+  "body": "Chorus shares one set of n-gram embedding tables across all layers, letting each layer project and rescale the embedding using its hidden state…",
+  "foot": "0",
+  "accent": "",
+  "icon": "file"
  },
  {
   "kind": "kaggle",
@@ -1818,7 +4518,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Reverse engineer anything with agents, from app behavior down to native binaries.",
   "foot": "469K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1827,7 +4527,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An agentic skills framework & software development methodology that works.",
   "foot": "322K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1836,7 +4536,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Public repository for Agent Skills.",
   "foot": "197K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1845,7 +4545,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
   "foot": "194K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1854,7 +4554,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so…",
   "foot": "161K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1863,7 +4563,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发.",
   "foot": "160K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1872,7 +4572,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io.",
   "foot": "156K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1881,7 +4581,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor…",
   "foot": "150K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1890,7 +4590,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Production-grade engineering skills for AI coding agents.",
   "foot": "119K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1899,7 +4599,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages.",
   "foot": "119K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1908,7 +4608,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects…",
   "foot": "118K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1917,7 +4617,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The open-source app everyone uses to manage agents at work.",
   "foot": "115K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1926,7 +4626,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
   "foot": "113K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1935,7 +4635,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create motion, prototypes, websites, apps, dashboards, presentations…",
   "foot": "108K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1944,7 +4644,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Turn any idea, plan, or codebase into a beautiful interactive diagram. An agent skill for Claude Code, Codex, and more.",
   "foot": "97.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1953,7 +4653,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works…",
   "foot": "93.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1962,7 +4662,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every…",
   "foot": "85.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1971,7 +4671,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume…",
   "foot": "83.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1980,7 +4680,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows.",
   "foot": "79.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1989,7 +4689,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
   "foot": "71K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -1998,7 +4698,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Agent skill that removes signs of AI-generated writing from text.",
   "foot": "71K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2007,7 +4707,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "from vibe coding to agentic engineering - practice makes claude perfect.",
   "foot": "69.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2016,7 +4716,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG…",
   "foot": "68.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2025,7 +4725,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
   "foot": "61.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2034,7 +4734,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
   "foot": "61.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2043,7 +4743,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from…",
   "foot": "58.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2052,7 +4752,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Skills for Designers and Engineers.",
   "foot": "58.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2061,7 +4761,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated…",
   "foot": "57.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2070,7 +4770,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise…",
   "foot": "54.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2079,7 +4779,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The awesome collection of OpenClaw skills. 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry.🦞.",
   "foot": "53.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2088,7 +4788,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Your AI workspace for models, agents, and productivity.",
   "foot": "53.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2097,7 +4797,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
   "foot": "53.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2106,7 +4806,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "3,000+ reusable AI agent skills for Claude Code, Codex, Cursor and Gemini CLI. AAS Core adds local catalog discovery, agent-owned selection and plan…",
   "foot": "50K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2115,7 +4815,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "一款免费开源的 AI 低代码平台，也是 AI 时代构建复杂业务系统的开源基座！权限、多租户、工作流、报表、大屏、AI 知识库等通用能力开箱即用，AI 只需生成业务差异部分。AI Skills 一句话生成完整系统——建表、前后端代码、菜单权限、BPM 流程、表单、报表、大屏全自动。内置 AI…",
   "foot": "48.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2124,7 +4824,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent…",
   "foot": "48K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2133,7 +4833,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
   "foot": "47.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2142,7 +4842,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out…",
   "foot": "45.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2151,7 +4851,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Plugins, agents, skills, and commands for Claude Code, Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi, written once in…",
   "foot": "42.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2160,7 +4860,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
   "foot": "41.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2169,7 +4869,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Clone any website with one command using AI coding agents.",
   "foot": "39.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2178,7 +4878,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "你想蒸馏的下一个员工，何必是同事。蒸馏任何人的思维方式——心智模型、决策启发式、表达DNA。Distill how anyone thinks.",
   "foot": "38.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2187,7 +4887,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
   "foot": "38.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2196,7 +4896,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible…",
   "foot": "38K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2205,7 +4905,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and…",
   "foot": "37.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2214,7 +4914,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Prompt as Code | GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。.",
   "foot": "36K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2223,7 +4923,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source 24/7 Cowork app for OpenClaw, Hermes, Claude Code, Codex, OpenCode and 20+ more CLI Agent | Customize your assistants | Team them…",
   "foot": "34.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2232,7 +4932,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Free, local plugin that keeps tool output out of your coding agent's context window. Sandbox and SQLite FTS5 search, 99% fewer bytes in context…",
   "foot": "34.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2241,7 +4941,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods.",
   "foot": "34K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2250,7 +4950,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "an easy-to-use dynamic service discovery, configuration and service management platform for building AI cloud native applications.",
   "foot": "33.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2259,7 +4959,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "OfficeCLI is the first and best Office suite purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free…",
   "foot": "33.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2268,7 +4968,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free.",
   "foot": "33.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2277,7 +4977,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google…",
   "foot": "32.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2286,7 +4986,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Your own always-on AI assistant: self-hosted, open source, lightweight. Each agent runs in its own container on your machine, on the harness you…",
   "foot": "31.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2295,7 +4995,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power…",
   "foot": "30.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2304,7 +5004,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex…",
   "foot": "30.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2313,7 +5013,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill…",
   "foot": "29.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2322,7 +5022,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Full reference of LinkedIn answers 2024 for skill assessments (aws-lambda, rest-api, javascript, react, git, html, jquery, mongodb, java, Go…",
   "foot": "28.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2331,7 +5031,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Let's use AI to Earn!",
   "foot": "28.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2340,7 +5040,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "PM Skills Marketplace: 100+ agentic skills, commands, and plugins — from discovery to strategy, execution, launch, and growth.",
   "foot": "28.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2349,7 +5049,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, session recovery after /clear and…",
   "foot": "28.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2358,7 +5058,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "27.7K stars.",
   "foot": "27.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2367,7 +5067,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Specification and documentation for Agent Skills.",
   "foot": "27.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2376,7 +5076,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and…",
   "foot": "26.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2385,7 +5085,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Distilly — Distill how they think into reusable Skills for any Agent or Bot. Formerly Colleague Skill（原同事 Skill）.",
   "foot": "26.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2394,7 +5094,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source 3D architecture software for AECO, scan-to-BIM. Agent-friendly, browser-first, MCP, CLI.",
   "foot": "25.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2403,7 +5103,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀Vite+Vue3+Gin拥有AI辅助的基础开发平台，企业级业务AI+开发解决方案，内置mcp辅助服务，内置skills管理，支持TS和JS混用。它集成了JWT鉴权、权限管理、动态路由、显隐可控组件、分页封装、多点登录拦截、资源权限、上传下载、代码生成器、表单生成器和可配置的导入导出等开发必备…",
   "foot": "25.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2412,7 +5112,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "NocoBase is the open-source platform for building, running, and evolving business systems with AI. Agents write the code and do the work, NocoBase…",
   "foot": "25K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2421,7 +5121,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Agent Skills for Google products and technologies.",
   "foot": "24.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2430,7 +5130,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The fastest browser for AI agents to run browser automation, built for sharing your logged-in browser state with your AI agents, like Codex or…",
   "foot": "23.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2439,7 +5139,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "数字生命卡兹克开源的 AI Skills 合集 | Agent Skills: leader（帮你定义目标）, neat-freak 洁癖, hv-analysis, khazix-writer & more — Claude Code, Codex & 40+ agents.",
   "foot": "22.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2448,7 +5148,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "You built it. Now brag. Turn the project you just created into a short, shareable launch video with one command.",
   "foot": "22K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2457,7 +5157,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Eclipse Theia is an open-source platform for building custom IDEs and tools for browser and desktop. It includes Theia AI, the vendor-neutral AI…",
   "foot": "21.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2466,7 +5166,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync…",
   "foot": "21.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2475,7 +5175,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source plugin for designing and reviewing software with agents.",
   "foot": "21.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2484,7 +5184,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Unofficial Python API and agentic skill for Google Gemini Notebook. Full programmatic access to Gemini Notebook's features—including capabilities…",
   "foot": "20.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2493,7 +5193,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "ARIS ⚔️ (Auto-Research-In-Sleep) — Lightweight Markdown-only skills for autonomous ML research: cross-model review loops, idea discovery, and…",
   "foot": "19.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2502,7 +5202,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits…",
   "foot": "19.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2511,7 +5211,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in…",
   "foot": "18.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2520,7 +5220,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A curated list of practical Codex skills for automating workflows across the Codex CLI and API.",
   "foot": "17.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2529,7 +5229,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The container platform tailored for Kubernetes multi-cloud, datacenter, and edge management ⎈ 🖥 ☁️.",
   "foot": "17.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2538,7 +5238,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "自动化上传视频到社交媒体：抖音、小红书、视频号、tiktok、youtube、bilibili.",
   "foot": "16.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2547,7 +5247,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Self-organizing AI second brain for Obsidian + Claude Code. Drop any source and Claude reads, links, and files it into one connected knowledge graph…",
   "foot": "16.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2556,7 +5256,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A lightweight, lightning-fast, in-process vector database.",
   "foot": "16.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2565,7 +5265,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A Claude skill that writes the accurate prompts for any AI tool. Zero tokens or credits wasted. Full context and memory retention.",
   "foot": "16.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2574,7 +5274,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code.",
   "foot": "15.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2583,7 +5283,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Eigent: The Open Source Cowork Desktop - Local and Free Alternative to Claude Cowork and Codex.",
   "foot": "15.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2592,7 +5292,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "ConardLi's open-source Skills collection, featuring web design, knowledge retrieval, image generation, and more.",
   "foot": "15.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2601,7 +5301,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Convert documentation websites, GitHub repositories, and PDFs into Claude AI skills with automatic conflict detection.",
   "foot": "15.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2610,7 +5310,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Plan, run and supervise fleets of agents from task to merged PR. Desktop (macOS, Windows, Linux) + iPhone & Android apps. Supports Claude Code…",
   "foot": "14.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2619,7 +5319,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent…",
   "foot": "14.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2628,7 +5328,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Personal memory across agents.",
   "foot": "14.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2637,7 +5337,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Formerly KrillinAI, VideoTranslation and Dubbing Tool for 120+ Languages. Open-source AI workspace for creators, powered by Codex. Video downloader…",
   "foot": "14.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2646,7 +5346,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "One portable memory layer for every AI agent: local-first, Markdown-native, user-owned, and self-evolving across apps, tools, and workflows.",
   "foot": "13.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2655,7 +5355,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The workspace to stay in the loop and on top of agents - shape, decide, plan, annotate, review code, share with team, and send all feedback to…",
   "foot": "13.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2664,7 +5364,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "将博导十年科研经验炼化为可直接调用的 AI 技能。从 Idea 构思到论文投稿，你的 AI 科研副导师。.",
   "foot": "13K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2673,7 +5373,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent, plus a `genoffice` CLI and agent…",
   "foot": "12.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2682,7 +5382,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "👩‍🚒 Good content deserves good paper. Layout rules and templates that let AI agents export PDF, PNG and editable PowerPoint.",
   "foot": "12.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2691,7 +5391,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "67 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
   "foot": "12.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2700,7 +5400,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Self-evolving memory OS for LLM & AI Agents: ultra-persistent memory, hybrid-retrieval, and cross-task skill reuse, with 35.24% token savings and…",
   "foot": "12.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
@@ -2709,7 +5409,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "My Python scripts to make high-quality figures for publications in top AI conferences and journals.",
   "foot": "12.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "sparkles"
  },
  {
   "kind": "gh-design",
@@ -2718,7 +5418,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Learn how to design large-scale systems. Prep for the system design interview. Includes Anki flashcards.",
   "foot": "378K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2727,7 +5427,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
   "foot": "152K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2736,7 +5436,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
   "foot": "128K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2745,7 +5445,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
   "foot": "99.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2754,7 +5454,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Penpot: The open-source design platform for Product teams that need scalable collaboration.",
   "foot": "62.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2763,7 +5463,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Build infinite canvas apps in React with the tldraw SDK. World's best, top-most agent recommended #1 five star SDK.",
   "foot": "51.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2772,7 +5472,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Modern CSS framework based on Flexbox.",
   "foot": "50K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2781,7 +5481,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🌼 🌼 🌼 🌼 🌼 The most popular, free and open-source Tailwind CSS component library.",
   "foot": "42.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2790,7 +5490,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The best design tools and plugins for everything 👉.",
   "foot": "42K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2799,7 +5499,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🐉 Vue Component Framework.",
   "foot": "41K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2808,7 +5508,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Chakra UI is a component system for building SaaS products with speed ⚡️.",
   "foot": "40.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2817,7 +5517,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬.",
   "foot": "40.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2826,7 +5526,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Materialize, a CSS Framework based on Material Design.",
   "foot": "38.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2835,7 +5535,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "☁️ Nextcloud server, a safe home for all your data.",
   "foot": "37.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2844,7 +5544,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Community-built comprehensive 2D content creation appplication for graphic design, digital art, and interactive real-time motion graphics powered by…",
   "foot": "28K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2853,7 +5553,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Developer Tool for Designers • An Open-Source AI-First Design tool • Visually build, style, and edit your code with AI • World's best, top-most…",
   "foot": "27.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2862,7 +5562,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "SVG icons for popular brands.",
   "foot": "26.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2871,7 +5571,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Beautiful & consistent icon toolkit made by the community. Lucide is an open-source icon library that provides 2000+ vector (svg) files for…",
   "foot": "25.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2880,7 +5580,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "p5.js is a client-side JS platform that empowers artists, designers, students, and anyone to learn to code and express themselves creatively on the…",
   "foot": "24.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2889,7 +5589,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A high quality UI Toolkit built on Vue.js 2.0.",
   "foot": "23.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2898,7 +5598,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "✍ It has never been so easy to document your things!",
   "foot": "23.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2907,7 +5607,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A React-based UI toolkit for the web.",
   "foot": "22.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2916,7 +5616,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🌈 An enterprise-class UI components based on Ant Design and Vue. 🐜.",
   "foot": "21.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2925,7 +5625,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Inter font family.",
   "foot": "20.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2934,7 +5634,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The free and privacy-friendly screen recorder with no limits 🎥.",
   "foot": "19K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2943,7 +5643,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The motion graphics toolbelt for the web.",
   "foot": "18.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2952,7 +5652,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":video_game: :pencil: A list of Game Development resources to make magic happen.",
   "foot": "17.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2961,7 +5661,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🌟 Curated design resources from all over the world.",
   "foot": "17.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2970,7 +5670,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🎨 ML Visuals contains figures and templates which you can reuse and customize to improve your scientific writing.",
   "foot": "17.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2979,7 +5679,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Google's Material Design in XAML & WPF, for C# & VB.Net.",
   "foot": "16.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2988,7 +5688,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Creative Coding: Generative Art, Data visualization, Interaction Design, Resources.",
   "foot": "15.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -2997,7 +5697,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Transform your favorite cities into beautiful, minimalist designs. MapToPoster lets you create and export visually striking map posters with code.",
   "foot": "14.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3006,7 +5706,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A modern and customizable python UI-library based on Tkinter.",
   "foot": "13.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3015,7 +5715,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A toolchain for building scalable, enterprise-ready component systems on top of TypeScript and Web Component standards. Stencil components can be…",
   "foot": "13.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3024,7 +5724,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Primer is GitHub's design system. This is the CSS implementation.",
   "foot": "13.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3033,7 +5733,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Free Tailwind CSS v4 components for your next project, designed to enhance your web development with the latest features and styles 🚀.",
   "foot": "12.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3042,7 +5742,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A UI/UX framework for creating beautiful applications.",
   "foot": "12K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3051,7 +5751,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The package of IBM’s typeface, IBM Plex.",
   "foot": "11.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3060,7 +5760,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Functional css for humans.",
   "foot": "11.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3069,7 +5769,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A design system for building faithful recreations of old UIs.",
   "foot": "11.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3078,7 +5778,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Material Design Web Components.",
   "foot": "11.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3087,7 +5787,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Unstyled UI components for building accessible web apps and design systems. From the creators of Radix, Floating UI, and Material UI.",
   "foot": "11.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3096,7 +5796,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Fluent System Icons are a collection of familiar, friendly and modern icons from Microsoft.",
   "foot": "11K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3105,7 +5805,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "React Native UI library built on the Eva Design System: 30+ themeable, accessible components for iOS, Android and web. TypeScript, React 19 / RN…",
   "foot": "10.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3114,7 +5814,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀A modern, comprehensive, flexible design system and React UI library, AI-friendly built-in.🎨Provide 3000+ Design Tokens, easy to build your…",
   "foot": "10.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3123,7 +5823,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A minimalist CSS framework.",
   "foot": "10.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3132,7 +5832,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Pencil Project's unique mission is to build a free and opensource tool for making diagrams and GUI prototyping that everyone can use.",
   "foot": "9.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3141,7 +5841,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Archived — Spark Joy now lives on Forge.",
   "foot": "9.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3150,7 +5850,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A design system built by IBM.",
   "foot": "9.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3159,7 +5859,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
   "foot": "9.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3168,7 +5868,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source UI component library and front-end development framework based on Tailwind CSS.",
   "foot": "9.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3177,7 +5877,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Important! A new UI Kit version for Bootstrap 5 is available. Access the latest free version via the link below.",
   "foot": "9.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3186,7 +5886,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open source website builder and Webflow alternative. Webstudio is an advanced visual builder that connects to any headless CMS, supports all CSS…",
   "foot": "9.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3195,7 +5895,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A web interface to create custom vector-based visualizations on top of RAWGraphs core.",
   "foot": "9.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3204,7 +5904,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Fastest way to build modern websites.",
   "foot": "8.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3213,7 +5913,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "a react-based framework that provides accessibility, modularity, responsiveness, and theming in a tidy package.",
   "foot": "8.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3222,7 +5922,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "快图设计-基于fabric.js和Vue的开源图片编辑器，可自定义字体、素材、设计模板。fabric.js and Vue based image editor, can customize fonts, materials, design templates.",
   "foot": "8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3231,7 +5931,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "end to end app store screenshot creation using AI.",
   "foot": "8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3240,7 +5940,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Dedicated Resources for the Low-Level System Design. Learn how to design and implement large-scale systems. Prep for the system design interview.",
   "foot": "8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3249,7 +5949,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":atom_symbol: React primitive UI components built with styled-system.",
   "foot": "7.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3258,7 +5958,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A visual overview of useful skills to learn as a web developer.",
   "foot": "7.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3267,7 +5967,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🥷 Engineering habits you already know, turned into skills AI assistants like Claude Code, Codex and Cursor can run.",
   "foot": "7.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3276,7 +5976,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Lyricify (/lɪ'rɪsəfaɪ/), a fantastic app to provide scroll lyrics for Spotify, Apple Music and other apps. 一款为 Spotify、Apple Music 等各种应用提供滚动歌词的软件。.",
   "foot": "7.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3285,7 +5985,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🌈🕹 Windows 95 style UI component library for React.",
   "foot": "7.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3294,7 +5994,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The U.S. Web Design System helps the federal government build fast, accessible, mobile-friendly websites.",
   "foot": "7.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3303,7 +6003,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Visual builder for React. Build apps, websites, and content. Integrate with your codebase.",
   "foot": "7.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3312,7 +6012,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code, Codex) and Figma, allowing Agentic AI to communicate with Figma for reading…",
   "foot": "7.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3321,7 +6021,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An open-source UI component library for building high-quality, accessible design systems and web apps for Vue. Previously Radix Vue.",
   "foot": "7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3330,7 +6030,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An arctic, north-bluish color palette.",
   "foot": "6.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3339,7 +6039,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🐼 Chinese translations for classic software development resources.",
   "foot": "6.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3348,7 +6048,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A CSS course to turn you into a magician.",
   "foot": "6.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3357,7 +6057,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "ai-generated apps , full stack + generative UI.",
   "foot": "6.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3366,7 +6066,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "一套高质量的微信小程序 UI 组件库.",
   "foot": "6.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3375,7 +6075,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":mountain_bicyclist: Landing Pages of Ant Design System.",
   "foot": "6.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3384,7 +6084,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "UI motion agent, a library of 43+ crafted transitions, a skill that fits your workflow.",
   "foot": "6.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3393,7 +6093,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Elastic UI Framework 🙌.",
   "foot": "6.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3402,7 +6102,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Clarity is a scalable, accessible, customizable, open source design system built with web components. Works with any JavaScript framework, built for…",
   "foot": "6.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3411,7 +6111,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Create HTML presentations in seconds —.",
   "foot": "6.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3420,7 +6120,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":electron: An unofficial https://bgm.tv ui first app client for Android and iOS, built with React Native. 一个无广告、以爱好为驱动、不以盈利为目的、专门做 ACG…",
   "foot": "6.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3429,7 +6129,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🐼 Universal, Type-Safe, CSS-in-JS Framework for Design Systems ⚡️.",
   "foot": "6.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3438,7 +6138,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Shopify's Polaris Design System - React implementation (Deprecated).",
   "foot": "6.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3447,7 +6147,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "✨ Beautifully simple click-to-copy CSS effects.",
   "foot": "6.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3456,7 +6156,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Skeleton is an adaptive design system powered by Tailwind CSS.",
   "foot": "6.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3465,7 +6165,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🔴 Beautiful colour gradients for design and code.",
   "foot": "6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3474,7 +6174,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Design Patterns implemented in Kotlin.",
   "foot": "6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3483,7 +6183,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A+ animation module for the modern web.",
   "foot": "5.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3492,7 +6192,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Low-level CSS Toolkit – the original Functional/Utility/Atomic CSS library.",
   "foot": "5.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3501,7 +6201,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A comprehensive React UI components library based on Arco Design.",
   "foot": "5.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3510,7 +6210,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Archive of the Coding Train website (first version).",
   "foot": "5.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3519,7 +6219,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Ultra-lightweight, zero dependency, semantic HTML, CSS, JS UI library. ~10KB min+gz.",
   "foot": "5.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3528,7 +6228,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Unstyled, accessible UI components for your design System. Works in React, Vue, Solid, and Svelte.",
   "foot": "5.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3537,7 +6237,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The visual feedback tool for agents.",
   "foot": "5.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3546,7 +6246,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Build consistent, themeable React apps based on constraint-based design principles.",
   "foot": "5.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3555,7 +6255,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A library for visualization and creative-coding.",
   "foot": "5.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3564,7 +6264,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "React & React Native Components & Patterns (copy-paste components & patterns crafted with Tailwind CSS (NativeWind)).",
   "foot": "5.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3573,7 +6273,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Native Linux App for UI and UX Design built in Vala and GTK.",
   "foot": "5.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3582,7 +6282,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A simple and easy-to-use immediate-mode gui library.",
   "foot": "5.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3591,7 +6291,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a…",
   "foot": "5.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3600,7 +6300,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Swift Language Weather is an iOS weather app developed in Swift 4.",
   "foot": "5.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-design",
@@ -3609,7 +6309,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
   "foot": "5.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "palette"
  },
  {
   "kind": "gh-api",
@@ -3618,7 +6318,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A collective list of free APIs.",
   "foot": "500K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3627,7 +6327,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "FastAPI framework, high performance, easy to learn, fast to code, ready for production.",
   "foot": "105K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3636,7 +6336,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Vim-fork focused on extensibility and usability.",
   "foot": "104K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3645,7 +6345,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-Source API Development Ecosystem • https://hoppscotch.io • Offline, On-Prem & Cloud • Web, Desktop & CLI • Open-Source Alternative to Postman…",
   "foot": "80.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3654,7 +6354,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies.",
   "foot": "77.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3663,7 +6363,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Get a full fake REST API with zero coding in less than 30 seconds (seriously).",
   "foot": "75.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3672,7 +6372,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀 Strapi is the leading open-source headless CMS. It’s 100% JavaScript/TypeScript, fully customizable, and developer-first.",
   "foot": "73.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3681,7 +6381,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🔥 🔥 🔥 A Free & Self-hostable Airtable Alternative.",
   "foot": "65.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3690,7 +6390,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
   "foot": "59.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3699,7 +6399,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
   "foot": "50.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3708,16 +6408,16 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Opensource IDE For Exploring and Testing API's (lightweight alternative to Postman/Insomnia).",
   "foot": "48.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
   "title": "chatanywhere/GPT_API_free",
   "group": "API",
   "body": "免费大模型API，支持免费调用GPT、DeepSeek等主流模型，免费额度10000点，每日刷新！另付费价格最低官方1-2折！.",
-  "foot": "46.3K",
+  "foot": "46.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3726,7 +6426,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A unified trading API with more than 100 crypto exchanges and prediction markets in JavaScript / TypeScript / Python / C# / PHP / Go / Java / Rust.",
   "foot": "44.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3735,7 +6435,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🧙‍♀️ Move Fast and Break Nothing. End-to-end typesafe APIs made easy.",
   "foot": "40.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3744,7 +6444,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "⚡️ Express inspired web framework written in Go.",
   "foot": "40.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3753,7 +6453,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The open-source, cross-platform API client for GraphQL, REST, WebSockets, SSE and gRPC. With Cloud, Local and Git storage.",
   "foot": "40.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3762,7 +6462,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An open-source engine that turns continuous content streams into search and monitoring. Durable ingestion, hybrid search, alerts, and plugins for…",
   "foot": "39.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3771,7 +6471,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The flexible backend for all your projects 🐰 Turn your DB into a headless CMS, admin panels, or apps with a custom UI, instant APIs, auth & more.",
   "foot": "38.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3780,7 +6480,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🥧 HTTPie CLI — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, plugins & more.",
   "foot": "38.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3789,7 +6489,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "LLM API 管理 & 分发系统，支持 OpenAI、Azure、Anthropic Claude、Google Gemini、DeepSeek、字节豆包、ChatGLM、文心一言、讯飞星火、通义千问、360 智脑、腾讯混元等主流模型，统一 API 适配，可用于 key…",
   "foot": "37.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3798,7 +6498,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Beautiful static documentation for your API.",
   "foot": "36K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3807,7 +6507,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Send push notifications to your phone or desktop using PUT/POST.",
   "foot": "35.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3816,7 +6516,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A cloud-native Go microservices framework with cli tool for productivity.",
   "foot": "33.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3825,7 +6525,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Blazing fast, instant realtime GraphQL APIs on all your data with fine grained access control, also trigger webhooks on database events.",
   "foot": "32.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3834,7 +6534,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Web APIs for Django. 🎸.",
   "foot": "30.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3843,7 +6543,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "网易云音乐 Node.js API service.",
   "foot": "30.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3852,7 +6552,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
   "foot": "29.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3861,7 +6561,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "短信转发器——监控Android手机短信、来电、APP通知，并根据指定规则转发到其他手机：钉钉群自定义机器人、钉钉企业内机器人、企业微信群机器人、飞书机器人、企业微信应用消息、邮箱、bark、webhook、Telegram机器人、Server酱、PushPlus、手机短信等。包括主动控制服务端与…",
   "foot": "28.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3870,7 +6570,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "REST API for any Postgres database.",
   "foot": "27.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3879,7 +6579,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台.",
   "foot": "27.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3888,7 +6588,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an…",
   "foot": "26.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3897,7 +6597,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A complete and graceful API for Wechat. 微信个人号接口、微信机器人及命令行微信，三十行即可自定义个人号机器人。.",
   "foot": "26.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3906,7 +6606,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Automate browser based workflows with AI.",
   "foot": "23.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3915,7 +6615,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Checklist of the most important security countermeasures when designing, testing, and releasing your API.",
   "foot": "23.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3924,7 +6624,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Microsoft REST API Guidelines.",
   "foot": "23.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3933,7 +6633,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "lightweight, idiomatic and composable router for building Go HTTP services.",
   "foot": "23.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3942,7 +6642,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A WhatsApp client library for NodeJS that connects through the WhatsApp Web browser app.",
   "foot": "22.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3951,7 +6651,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark…",
   "foot": "21.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3960,7 +6660,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Parse Server for Node.js / Express.",
   "foot": "21.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3969,7 +6669,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Security Guide for Developers.",
   "foot": "21.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3978,7 +6678,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An opinionated GoLang framework for accelerated microservice development. Built in support for databases and observability.",
   "foot": "20.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3987,7 +6687,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Normalizes nested JSON according to a schema.",
   "foot": "20.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -3996,7 +6696,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Bitwarden infrastructure/backend (API, database, Docker, etc).",
   "foot": "20.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4005,7 +6705,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "gRPC to JSON proxy generator following the gRPC HTTP spec.",
   "foot": "20K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4014,7 +6714,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Collection of comprehensive TypeScript libraries for Interaction with the Ethereum JSON RPC API and utility functions.",
   "foot": "19.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4023,7 +6723,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Effortlessly compose, extend, observe, discover, and react to every service in real-time for the first time ever.",
   "foot": "18.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4032,7 +6732,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Turn any website into a structured API. Extract, automate, search and monitor the web.",
   "foot": "18.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4041,7 +6741,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The industry standard for API mocking in JavaScript.",
   "foot": "18.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4050,7 +6750,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "swagger-codegen contains a template-driven engine to generate documentation, API clients and server stubs in different languages by parsing your…",
   "foot": "17.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4059,7 +6759,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Free and Open Source Machine Translation API. Self-hosted, offline capable and easy to setup.",
   "foot": "17.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4068,7 +6768,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "抖音 / TikTok 平台作品下载/数据采集工具.",
   "foot": "17.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4077,7 +6777,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "GPT-Image-2 API and Prompts.",
   "foot": "17.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4086,7 +6786,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Cloud-Native API Gateway and AI Gateway.",
   "foot": "17.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4095,7 +6795,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Free, Open Source, Self-Hosted WhatsApp API Gateway.",
   "foot": "17K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4104,7 +6804,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Scalar is an open-source API platform: 🌐 Modern REST API Client 📖 Beautiful API References ✨ 1st-Class OpenAPI/Swagger Support.",
   "foot": "16.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4113,7 +6813,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A curated list of free public APIs — searchable, community-maintained, with a free JSON API.",
   "foot": "16.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4122,7 +6822,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "API Support for your favorite torrent trackers.",
   "foot": "16.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4131,7 +6831,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "收集免费的接口服务,做一个api的搬运工.",
   "foot": "16.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4140,7 +6840,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Proxy server to bypass Cloudflare protection.",
   "foot": "16.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4149,7 +6849,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A simple server for sending and receiving messages in real-time per WebSocket. (Includes a sleek web-ui).",
   "foot": "16.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4158,7 +6858,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Amplication brings order to the chaos of large-scale software development by creating Golden Paths for developers - streamlined workflows that drive…",
   "foot": "16K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4167,7 +6867,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀🎉📚 APITable, an API-oriented low-code platform for building collaborative apps and better than all other Airtable open-source alternatives.",
   "foot": "15.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4176,7 +6876,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An API documentation generator for JavaScript.",
   "foot": "15.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4185,7 +6885,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🤖 GPU accelerated Neural networks in JavaScript for Browsers and Node.js.",
   "foot": "14.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4194,7 +6894,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "微信机器人 / 可能是最优雅的微信个人号 API ✨✨.",
   "foot": "14.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4203,7 +6903,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Full Modular Monolith application with Domain-Driven Design approach.",
   "foot": "14.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4212,7 +6912,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "List of Permanent Free LLM API (API Keys).",
   "foot": "13.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4221,7 +6921,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "fay是一个帮助数字人（2.5d、3d、移动、pc、网页）或大语言模型（openai兼容、deepseek）连通业务系统的agent框架。.",
   "foot": "13.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4230,7 +6930,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "HTTP Request & Response Service, written in Python + Flask.",
   "foot": "13.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4239,7 +6939,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A developer-friendly API for converting many document formats into PDF files, and more!",
   "foot": "13.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4248,7 +6948,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "小红书（XiaoHongShu、RedNote）链接提取/作品采集工具.",
   "foot": "13.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4257,7 +6957,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Connect your agents & product to 1,000 APIs.",
   "foot": "13.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4266,7 +6966,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":octocat: A collection of APIs.",
   "foot": "13.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4275,7 +6975,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Gorilla: Training and Evaluating LLMs for Function Calls (Tool Calls).",
   "foot": "13.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4284,7 +6984,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🔮 Graphile's Crystal Monorepo; home to Grafast, PostGraphile, pg-introspection, pg-sql2 and much more!",
   "foot": "12.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4293,7 +6993,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Offline documentation browser. Your personal reference library, searchable in an instant.",
   "foot": "12.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4302,7 +7002,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具.",
   "foot": "12.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4311,7 +7011,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A standard API for single-agent reinforcement learning environments, with popular reference environments and related utilities (formerly Gym).",
   "foot": "12.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4320,7 +7020,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The modern API client that lives in your terminal.",
   "foot": "12.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4329,7 +7029,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source search database for full-text, vector, and hybrid search with real-time indexing and SQL.",
   "foot": "12.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4338,7 +7038,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-Source AI Presentation Generator and API (Gamma, Canva, Beautiful AI, Decktopus, Presentations AI Alternative).",
   "foot": "12K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4347,7 +7047,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Low code web framework for real world applications, in Python and Javascript.",
   "foot": "11.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4356,7 +7056,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":rocket: Open Source REST API for SpaceX launch, rocket, core, capsule, starlink, launchpad, and landing pad data.",
   "foot": "10.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4365,7 +7065,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open Source API and AI Gateway supporting REST, GraphQL, TCP, gRPC and MCP (Model Context Protocol).",
   "foot": "10.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4374,7 +7074,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The future of Node.js REST development.",
   "foot": "10.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4383,7 +7083,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Sample ASP.NET Core 8.0 reference application, now community supported: https://github.com/NimblePros/eShopOnWeb.",
   "foot": "10.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4392,7 +7092,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "DiceBear is an avatar library for designers and developers. 🌍.",
   "foot": "10.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4401,7 +7101,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "700+ Pure CSS, SVG & Figma UI Icons, 6000+ glyphs, patterns, colors and layouts.",
   "foot": "10.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4410,7 +7110,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Swagger 2.0 implementation for go.",
   "foot": "10K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4419,7 +7119,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An opinionated framework for creating REST-like APIs in Ruby.",
   "foot": "10K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4428,7 +7128,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Your own API Hub to learn and master API interaction. Ideal for frontend, mobile dev and backend developers.",
   "foot": "9.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4437,7 +7137,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The no-magic web API and microservices framework for Python developers, with a focus on reliability and performance at scale.",
   "foot": "9.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4446,7 +7146,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": ":seedling::rocket:一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目~.",
   "foot": "9.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4455,7 +7155,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚂 🦀 The one-person framework for Rust for side-projects and startups.",
   "foot": "9.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4464,7 +7164,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Swagger Editor.",
   "foot": "9.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4473,7 +7173,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀 Next Gen Multi-tenant AI One-Stop Solution. Builtin Admin & Billing System. Enterprise-Grade Unified LLM Gateway Support for 200+ Models And 35+…",
   "foot": "9.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4482,7 +7182,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "💨 Fast, Async-ready, Openapi, type hints based framework for building APIs.",
   "foot": "9.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4491,7 +7191,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Telegram Bot API for NodeJS.",
   "foot": "9.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4500,7 +7200,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🕸️ Create REST and GraphQL APIs, scaffold Jamstack webapps, stream changes in real-time.",
   "foot": "9.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-api",
@@ -4509,7 +7209,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The complete load testing platform. Everything you need for production-grade load tests. Serverless & distributed. Load test with Playwright. Load…",
   "foot": "9.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "braces"
  },
  {
   "kind": "gh-mcp",
@@ -4518,7 +7218,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex…",
   "foot": "307K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4527,7 +7227,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
   "foot": "211K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4536,7 +7236,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...).",
   "foot": "159K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4545,7 +7245,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
   "foot": "121K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4554,7 +7254,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
   "foot": "113K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4563,7 +7263,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
   "foot": "109K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4572,7 +7272,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single…",
   "foot": "105K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4581,7 +7281,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🕷️ The BEST Web Scraping framework that handles everything from a single request to a full-scale crawl! Don't be shy, join here…",
   "foot": "104K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4590,7 +7290,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A collection of MCP servers.",
   "foot": "98.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4599,7 +7299,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational…",
   "foot": "90.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4608,7 +7308,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax…",
   "foot": "88.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4617,7 +7317,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open…",
   "foot": "87.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4626,7 +7326,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to…",
   "foot": "86.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4635,7 +7335,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems…",
   "foot": "82.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4644,7 +7344,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI ·…",
   "foot": "81.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4653,7 +7353,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same…",
   "foot": "80.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4662,7 +7362,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
   "foot": "79.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4671,7 +7371,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Context7 Platform -- Up-to-date docs for AI agents.",
   "foot": "65.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4680,7 +7380,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "⭐AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, and smart alerts.🎯 告别信息过载，你的 AI 舆情监控助手与热点筛选工具！聚合多平台热点 + RSS…",
   "foot": "63.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4689,7 +7389,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The best-benchmarked open-source AI memory system. And it's free.",
   "foot": "60.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4698,7 +7398,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码.",
   "foot": "58.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4707,7 +7407,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Chrome DevTools for coding agents.",
   "foot": "58.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4716,7 +7416,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM.",
   "foot": "56.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4725,7 +7425,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Your lightweight open-source personal agent.",
   "foot": "50.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4734,7 +7434,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent…",
   "foot": "48.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4743,7 +7443,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter…",
   "foot": "47.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4752,7 +7452,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An open-source, privacy-first, self-hosted knowledge workspace where humans and AI agents work together 开源、隐私优先、自托管的知识工作空间，让人与智能体在此协作.",
   "foot": "47.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4761,7 +7461,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨.",
   "foot": "47.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4770,7 +7470,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🦍 The API and AI Gateway.",
   "foot": "44.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4779,7 +7479,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
   "foot": "42.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4788,7 +7488,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "In-depth tutorials on LLMs, RAGs and real-world AI agent applications.",
   "foot": "42K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4797,7 +7497,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An open-source coding agent for your terminal, written in Rust. It works with any model, can split one task across several agents, and every line of…",
   "foot": "41.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4806,7 +7506,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Free, simple, and intuitive online database diagram editor and SQL generator.",
   "foot": "40.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4815,7 +7515,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Playwright MCP server.",
   "foot": "39.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4824,7 +7524,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The unified workspace where open-source models get things done for you.",
   "foot": "39.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4833,7 +7533,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra.",
   "foot": "39.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4842,7 +7542,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
   "foot": "39.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4851,7 +7551,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供…",
   "foot": "38.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4860,7 +7560,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "\"Vibe-Trading: Your Personal Trading Agent\".",
   "foot": "38.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4869,7 +7569,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Draw and edit draw.io diagrams by chatting with an AI. Web app, desktop app, and an MCP server for Claude Code, Cursor, Codex and VS Code.",
   "foot": "37.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4878,7 +7578,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3…",
   "foot": "36.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4887,7 +7587,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Build and run agents you can see, understand and trust.",
   "foot": "36.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4896,7 +7596,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Community plugin to control Blender 3D with any LLM of your choice. Not affiliated with the official Blender Foundation.",
   "foot": "35K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4905,7 +7605,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "GitHub's official MCP Server.",
   "foot": "34.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4914,7 +7614,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An MCP-based chatbot | 一个基于MCP的聊天机器人.",
   "foot": "33.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4923,7 +7623,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with…",
   "foot": "32.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4932,7 +7632,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent.",
   "foot": "31.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4941,7 +7641,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Composio powers 1000+ toolkits, tool search, context management, authentication, and a sandboxed workbench to help you build AI agents that turn…",
   "foot": "31.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4950,7 +7650,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and…",
   "foot": "30.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4959,7 +7659,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An autonomous agent that conducts deep research on any data using any LLM providers.",
   "foot": "30.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4968,7 +7668,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "An open-source AI coding agent that lives in your terminal.",
   "foot": "30.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4977,7 +7677,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "FastGPT is a knowledge-based platform built on the LLMs, offers a comprehensive suite of out-of-the-box capabilities such as data processing, RAG…",
   "foot": "30.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4986,7 +7686,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "JavaScript in-page GUI agent. Control web interfaces with natural language.",
   "foot": "29.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -4995,7 +7695,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Mastra is the modern TypeScript framework for AI-powered applications and agents.",
   "foot": "29.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5004,7 +7704,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "📦 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to…",
   "foot": "29.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5013,7 +7713,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀 The fast, Pythonic way to build MCP servers and clients.",
   "foot": "28.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5022,7 +7722,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Chat2DB is a free, cross-platform, local-first database client and SQL workspace for developers, DBAs, analysts, and data teams. Connect to 40+…",
   "foot": "28.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5031,7 +7731,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open source alternative to Semrush and Ahrefs.",
   "foot": "28.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5040,7 +7740,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent…",
   "foot": "27.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5049,7 +7749,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Your ultimate Go microservices framework for the cloud-native era.",
   "foot": "26K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5058,7 +7758,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI Agents & MCPs & AI Workflow Automation • (~400 MCP servers for AI agents) • AI Automation / AI Agent with MCPs • AI Workflows & AI Agents • MCPs…",
   "foot": "25.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5067,7 +7767,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Computer use CLI for AI agents.",
   "foot": "25.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5076,7 +7776,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "50+ tutorials and implementations for Generative AI Agent techniques, from basic conversational bots to complex multi-agent systems.",
   "foot": "25.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5085,7 +7785,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The official Python SDK for Model Context Protocol servers and clients.",
   "foot": "24.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5094,7 +7794,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AKShare is an elegant and simple financial data interface library for Python, built for human beings! 开源财经数据接口库.",
   "foot": "23.4K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5103,7 +7803,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "MCP server that lets Claude, ChatGPT, Cursor and other AI assistants operate n8n: debug, edit, validate, test and build workflows on any n8n instance.",
   "foot": "23.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5112,7 +7812,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🔥 MaxKB is an open-source platform for building enterprise-grade agents. 强大易用的开源企业级智能体平台。.",
   "foot": "23.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5121,7 +7821,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which…",
   "foot": "22.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5130,7 +7830,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "🚀 A curated collection of AI engineering resources, roadmaps, tools, and projects covering LLMs, RAG, AI Agents, MCP, fine-tuning, evaluations, and…",
   "foot": "22.6K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5139,7 +7839,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "YC (S26) | Screenpipe finds the work worth automating | Continuously record computer work locally, discover recurring workflows, and hand the result…",
   "foot": "22.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5148,7 +7848,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "程序员鱼皮的 AI 资源大全 + Vibe Coding 零基础教程，分享 OpenClaw 保姆级教程、大模型玩法（DeepSeek / GPT / Gemini / Claude / GLM）、最新 AI 资讯、Prompt 提示词大全、AI 知识百科（Agent Skills / RAG…",
   "foot": "22.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5157,7 +7857,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "End-to-end, code-first tutorials for building production-grade GenAI agents. From prototype to enterprise deployment.",
   "foot": "21.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5166,7 +7866,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "High performance coding agent harness written in Rust, built for heavy multi-agent dev workflows.",
   "foot": "21.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5175,7 +7875,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Go language library for reading and writing Microsoft Excel™ (XLAM / XLSM / XLSX / XLTM / XLTX) spreadsheets.",
   "foot": "21.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5184,7 +7884,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and…",
   "foot": "21.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5193,7 +7893,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "💻 Vibe Coding 101｜Your First Course For AI Product Builders.",
   "foot": "20.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5202,7 +7902,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers…",
   "foot": "20K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5211,7 +7911,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and…",
   "foot": "19.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5220,7 +7920,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
   "foot": "19.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5229,7 +7929,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Streaming music player that finds free music for you.",
   "foot": "19K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5238,7 +7938,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
   "foot": "18.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5247,7 +7947,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java…",
   "foot": "17.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5256,7 +7956,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "MCP for xiaohongshu.com.",
   "foot": "17.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5265,7 +7965,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using…",
   "foot": "17K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5274,7 +7974,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Trigger.dev – build and deploy durable AI agents and workflows.",
   "foot": "16.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5283,7 +7983,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Android in docker solution with noVNC supported, video recording, mcp server and AI-agent.",
   "foot": "16.2K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5292,7 +7992,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Unity MCP acts as a bridge between AI assistants and your Unity Editor. Give your LLM tools to manage assets, control scenes, edit scripts, and…",
   "foot": "16.1K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5301,7 +8001,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The Open Context Layer for Data and AI , OpenMetadata is the open platform for building trusted data context and business semantics for humans, AI…",
   "foot": "15.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5310,7 +8010,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The most complete open-source travel planner: real-time collaboration, bookings, budgets, packing lists, journals, offline PWA, SSO and an AI-ready…",
   "foot": "15.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5319,7 +8019,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media…",
   "foot": "14.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5328,7 +8028,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization…",
   "foot": "13.9K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5337,7 +8037,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "The official TypeScript SDK for Model Context Protocol servers and clients.",
   "foot": "13.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5346,7 +8046,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for…",
   "foot": "13.7K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5355,7 +8055,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
   "foot": "13.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5364,7 +8064,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
   "foot": "13.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5373,7 +8073,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Expose your FastAPI endpoints as Model Context Protocol (MCP) tools, with Auth!",
   "foot": "12K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5382,7 +8082,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Yet another WebUI for Nginx.",
   "foot": "11.8K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5391,7 +8091,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps…",
   "foot": "11.5K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5400,7 +8100,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they…",
   "foot": "11.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "gh-mcp",
@@ -5409,7 +8109,7 @@ export const SOURCE_BOXES: Box[] = [
   "body": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
   "foot": "11.3K",
   "accent": "",
-  "icon": "github"
+  "icon": "plug"
  },
  {
   "kind": "aa",
@@ -8054,2684 +10754,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   }
  ],
- "hf": [
-  {
-   "database": "Sentence similarity",
-   "table": "sentence-transformers/all-MiniLM-L6-v2",
-   "about": "Sentence similarity, 168M downloads in the last month, 6.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "167,728,168"
-    },
-    {
-     "name": "Likes",
-     "desc": "6,147"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "argmaxinc/whisperkit-coreml",
-   "about": "Automatic speech recognition, 84.3M downloads in the last month, 275 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "84,267,005"
-    },
-    {
-     "name": "Likes",
-     "desc": "275"
-    },
-    {
-     "name": "Library",
-     "desc": "whisperkit"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/argmaxinc/whisperkit-coreml"
-    }
-   ]
-  },
-  {
-   "database": "Text ranking",
-   "table": "cross-encoder/ms-marco-MiniLM-L6-v2",
-   "about": "Text ranking, 56.3M downloads in the last month, 451 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text ranking"
-    },
-    {
-     "name": "Downloads",
-     "desc": "56,284,496"
-    },
-    {
-     "name": "Likes",
-     "desc": "451"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "BAAI/bge-small-en-v1.5",
-   "about": "Feature extraction, 43.6M downloads in the last month, 679 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "43,610,697"
-    },
-    {
-     "name": "Likes",
-     "desc": "679"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/BAAI/bge-small-en-v1.5"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "openai-community/gpt2",
-   "about": "Text generation, 34.3M downloads in the last month, 4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "34,336,215"
-    },
-    {
-     "name": "Likes",
-     "desc": "3,952"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai-community/gpt2"
-    }
-   ]
-  },
-  {
-   "database": "Time series forecasting",
-   "table": "autogluon/chronos-2",
-   "about": "Time series forecasting, 34.1M downloads in the last month, 97 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Time series forecasting"
-    },
-    {
-     "name": "Downloads",
-     "desc": "34,066,524"
-    },
-    {
-     "name": "Likes",
-     "desc": "97"
-    },
-    {
-     "name": "Library",
-     "desc": "chronos-forecasting"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/autogluon/chronos-2"
-    }
-   ]
-  },
-  {
-   "database": "Fill mask",
-   "table": "google-bert/bert-base-uncased",
-   "about": "Fill mask, 33.9M downloads in the last month, 3.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Fill mask"
-    },
-    {
-     "name": "Downloads",
-     "desc": "33,919,087"
-    },
-    {
-     "name": "Likes",
-     "desc": "3,083"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google-bert/bert-base-uncased"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Comfy-Org/MiniMax-H3",
-   "about": "Model, 33M downloads in the last month, 2.8K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "33,040,522"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,771"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/MiniMax-H3"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "BAAI/bge-m3",
-   "about": "Sentence similarity, 32.3M downloads in the last month, 4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "32,282,912"
-    },
-    {
-     "name": "Likes",
-     "desc": "4,021"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/BAAI/bge-m3"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
-   "about": "Sentence similarity, 25M downloads in the last month, 1.5K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "25,028,607"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,513"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "sentence-transformers/all-mpnet-base-v2",
-   "about": "Sentence similarity, 19.8M downloads in the last month, 1.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "19,778,181"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,409"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/sentence-transformers/all-mpnet-base-v2"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "microsoft/Florence-2-base",
-   "about": "Image text to text, 19.7M downloads in the last month, 443 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "19,665,944"
-    },
-    {
-     "name": "Likes",
-     "desc": "443"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/microsoft/Florence-2-base"
-    }
-   ]
-  },
-  {
-   "database": "Translation",
-   "table": "google-t5/t5-small",
-   "about": "Translation, 18.1M downloads in the last month, 702 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Translation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "18,097,631"
-    },
-    {
-     "name": "Likes",
-     "desc": "702"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google-t5/t5-small"
-    }
-   ]
-  },
-  {
-   "database": "Zero shot image classification",
-   "table": "openai/clip-vit-base-patch32",
-   "about": "Zero shot image classification, 17.5M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Zero shot image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "17,503,227"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,289"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai/clip-vit-base-patch32"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen3-0.6B",
-   "about": "Text generation, 15.7M downloads in the last month, 1.9K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "15,683,001"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,919"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-0.6B"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese",
-   "about": "Automatic speech recognition, 15.5M downloads in the last month, 122 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "15,506,013"
-    },
-    {
-     "name": "Likes",
-     "desc": "122"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese"
-    }
-   ]
-  },
-  {
-   "database": "Image classification",
-   "table": "google/vit-base-patch16-224",
-   "about": "Image classification, 15.4M downloads in the last month, 1.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "15,432,643"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,057"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google/vit-base-patch16-224"
-    }
-   ]
-  },
-  {
-   "database": "Text classification",
-   "table": "BAAI/bge-reranker-v2-m3",
-   "about": "Text classification, 14.8M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "14,774,556"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,312"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/BAAI/bge-reranker-v2-m3"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen3-14B",
-   "about": "Text generation, 13.2M downloads in the last month, 549 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "13,167,887"
-    },
-    {
-     "name": "Likes",
-     "desc": "549"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-14B"
-    }
-   ]
-  },
-  {
-   "database": "Text to speech",
-   "table": "hexgrad/Kokoro-82M",
-   "about": "Text to speech, 13.1M downloads in the last month, 7.5K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to speech"
-    },
-    {
-     "name": "Downloads",
-     "desc": "13,134,554"
-    },
-    {
-     "name": "Likes",
-     "desc": "7,476"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/hexgrad/Kokoro-82M"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "nomic-ai/nomic-embed-text-v1.5",
-   "about": "Sentence similarity, 11.5M downloads in the last month, 996 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "11,458,310"
-    },
-    {
-     "name": "Likes",
-     "desc": "996"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/nomic-ai/nomic-embed-text-v1.5"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "deepseek-ai/DeepSeek-V3.2",
-   "about": "Text generation, 9.9M downloads in the last month, 1.6K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,854,997"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,605"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2"
-    }
-   ]
-  },
-  {
-   "database": "Image to video",
-   "table": "Comfy-Org/Wan-2.2",
-   "about": "Image to video, 9.8M downloads in the last month, 1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image to video"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,835,214"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,044"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/Wan-2.2"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Comfy-Org/Z-Image-Turbo",
-   "about": "Model, 9.7M downloads in the last month, 1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,726,303"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,047"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/Z-Image-Turbo"
-    }
-   ]
-  },
-  {
-   "database": "Text to speech",
-   "table": "audio-cpp/audio.cpp-gguf",
-   "about": "Text to speech, 9.6M downloads in the last month, 333 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to speech"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,595,071"
-    },
-    {
-     "name": "Likes",
-     "desc": "333"
-    },
-    {
-     "name": "Library",
-     "desc": "audio.cpp"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/audio-cpp/audio.cpp-gguf"
-    }
-   ]
-  },
-  {
-   "database": "Text to image",
-   "table": "Comfy-Org/Qwen-Image-2.1",
-   "about": "Text to image, 9.6M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to image"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,550,345"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,346"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "intfloat/multilingual-e5-small",
-   "about": "Sentence similarity, 9.4M downloads in the last month, 502 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,397,825"
-    },
-    {
-     "name": "Likes",
-     "desc": "502"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/intfloat/multilingual-e5-small"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
-   "about": "Sentence similarity, 9.4M downloads in the last month, 557 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,389,013"
-    },
-    {
-     "name": "Likes",
-     "desc": "557"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
-    }
-   ]
-  },
-  {
-   "database": "Audio classification",
-   "table": "laion/clap-htsat-fused",
-   "about": "Audio classification, 9M downloads in the last month, 180 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Audio classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "9,037,264"
-    },
-    {
-     "name": "Likes",
-     "desc": "180"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/laion/clap-htsat-fused"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "BAAI/bge-base-en-v1.5",
-   "about": "Feature extraction, 8.6M downloads in the last month, 544 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "8,583,812"
-    },
-    {
-     "name": "Likes",
-     "desc": "544"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/BAAI/bge-base-en-v1.5"
-    }
-   ]
-  },
-  {
-   "database": "Zero shot image classification",
-   "table": "openai/clip-vit-large-patch14",
-   "about": "Zero shot image classification, 8.5M downloads in the last month, 2.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Zero shot image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "8,465,492"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,147"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai/clip-vit-large-patch14"
-    }
-   ]
-  },
-  {
-   "database": "Fill mask",
-   "table": "FacebookAI/xlm-roberta-base",
-   "about": "Fill mask, 8.5M downloads in the last month, 977 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Fill mask"
-    },
-    {
-     "name": "Downloads",
-     "desc": "8,450,727"
-    },
-    {
-     "name": "Likes",
-     "desc": "977"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/FacebookAI/xlm-roberta-base"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "facebook/contriever",
-   "about": "Model, 8.3M downloads in the last month, 135 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "8,258,391"
-    },
-    {
-     "name": "Likes",
-     "desc": "135"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/facebook/contriever"
-    }
-   ]
-  },
-  {
-   "database": "Time series forecasting",
-   "table": "amazon/chronos-2",
-   "about": "Time series forecasting, 8.2M downloads in the last month, 577 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Time series forecasting"
-    },
-    {
-     "name": "Downloads",
-     "desc": "8,165,291"
-    },
-    {
-     "name": "Likes",
-     "desc": "577"
-    },
-    {
-     "name": "Library",
-     "desc": "chronos-forecasting"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/amazon/chronos-2"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Bingsu/adetailer",
-   "about": "Model, 8.1M downloads in the last month, 828 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "8,099,188"
-    },
-    {
-     "name": "Likes",
-     "desc": "828"
-    },
-    {
-     "name": "Library",
-     "desc": "ultralytics"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Bingsu/adetailer"
-    }
-   ]
-  },
-  {
-   "database": "Image classification",
-   "table": "timm/mobilenetv3_small_100.lamb_in1k",
-   "about": "Image classification, 7.7M downloads in the last month, 160 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,730,663"
-    },
-    {
-     "name": "Likes",
-     "desc": "160"
-    },
-    {
-     "name": "Library",
-     "desc": "timm"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/timm/mobilenetv3_small_100.lamb_in1k"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "Qwen/Qwen3-Embedding-0.6B",
-   "about": "Feature extraction, 7.7M downloads in the last month, 1.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,703,469"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,357"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "intfloat/multilingual-e5-large",
-   "about": "Feature extraction, 7.3M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,312,761"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,290"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/intfloat/multilingual-e5-large"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
-   "about": "Image text to text, 7.3M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,298,936"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,307"
-    },
-    {
-     "name": "Library",
-     "desc": "gguf"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Serveurperso/YuE2-GGUF",
-   "about": "Model, 7.1M downloads in the last month, 32 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,132,572"
-    },
-    {
-     "name": "Likes",
-     "desc": "32"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Serveurperso/YuE2-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "unsloth/Qwen3.8-27B-GGUF",
-   "about": "Model, 7M downloads in the last month, 6.2K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,998,076"
-    },
-    {
-     "name": "Likes",
-     "desc": "6,206"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "BAAI/bge-large-en-v1.5",
-   "about": "Feature extraction, 6.9M downloads in the last month, 787 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,898,225"
-    },
-    {
-     "name": "Likes",
-     "desc": "787"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/BAAI/bge-large-en-v1.5"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.8-27B",
-   "about": "Image text to text, 6.9M downloads in the last month, 20.6K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,888,351"
-    },
-    {
-     "name": "Likes",
-     "desc": "20,594"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.8-27B"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "ibm-granite/granite-embedding-small-english-r2",
-   "about": "Feature extraction, 6.6M downloads in the last month, 118 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,632,222"
-    },
-    {
-     "name": "Likes",
-     "desc": "118"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ibm-granite/granite-embedding-small-english-r2"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.5-9B",
-   "about": "Image text to text, 6.5M downloads in the last month, 2.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,514,100"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,406"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.5-9B"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "Systran/faster-whisper-small",
-   "about": "Automatic speech recognition, 6.5M downloads in the last month, 108 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,466,047"
-    },
-    {
-     "name": "Likes",
-     "desc": "108"
-    },
-    {
-     "name": "Library",
-     "desc": "ctranslate2"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Systran/faster-whisper-small"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen2.5-7B-Instruct",
-   "about": "Text generation, 6.4M downloads in the last month, 2.5K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,391,089"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,504"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "zai-org/GLM-5.3-Flash",
-   "about": "Image text to text, 6.4M downloads in the last month, 3.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,378,401"
-    },
-    {
-     "name": "Likes",
-     "desc": "3,268"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/zai-org/GLM-5.3-Flash"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3-VL-8B-Instruct",
-   "about": "Image text to text, 6.4M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,361,206"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,270"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Comfy-Org/MOSS-Image",
-   "about": "Model, 6.4M downloads in the last month, 730 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,356,810"
-    },
-    {
-     "name": "Likes",
-     "desc": "730"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/MOSS-Image"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.8-27B-FP8",
-   "about": "Image text to text, 6.3M downloads in the last month, 1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,285,486"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,010"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "google/gemma-4-31B-it",
-   "about": "Image text to text, 6.3M downloads in the last month, 4.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,264,804"
-    },
-    {
-     "name": "Likes",
-     "desc": "4,407"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google/gemma-4-31B-it"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "pyannote/speaker-diarization-3.1",
-   "about": "Automatic speech recognition, 6.2M downloads in the last month, 5.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,214,292"
-    },
-    {
-     "name": "Likes",
-     "desc": "5,339"
-    },
-    {
-     "name": "Library",
-     "desc": "pyannote-audio"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/pyannote/speaker-diarization-3.1"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen3-8B",
-   "about": "Text generation, 6.1M downloads in the last month, 2.2K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,056,898"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,201"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-8B"
-    }
-   ]
-  },
-  {
-   "database": "Fill mask",
-   "table": "FacebookAI/roberta-base",
-   "about": "Fill mask, 6M downloads in the last month, 706 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Fill mask"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,973,625"
-    },
-    {
-     "name": "Likes",
-     "desc": "706"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/FacebookAI/roberta-base"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "openai/whisper-base",
-   "about": "Automatic speech recognition, 5.9M downloads in the last month, 320 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,947,775"
-    },
-    {
-     "name": "Likes",
-     "desc": "320"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai/whisper-base"
-    }
-   ]
-  },
-  {
-   "database": "Image text to video",
-   "table": "MiniMaxAI/MiniMax-H3",
-   "about": "Image text to video, 5.7M downloads in the last month, 7.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to video"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,713,769"
-    },
-    {
-     "name": "Likes",
-     "desc": "7,093"
-    },
-    {
-     "name": "Library",
-     "desc": "minimax-h3"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "ornith-ai/Ornith-1.5-9B-GGUF",
-   "about": "Text generation, 5.7M downloads in the last month, 736 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,679,963"
-    },
-    {
-     "name": "Likes",
-     "desc": "736"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "baidu/Unlimited-OCR",
-   "about": "Image text to text, 5.7M downloads in the last month, 5K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,651,604"
-    },
-    {
-     "name": "Likes",
-     "desc": "5,022"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/baidu/Unlimited-OCR"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "openai/gpt-oss-20b",
-   "about": "Text generation, 5.6M downloads in the last month, 5.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,576,861"
-    },
-    {
-     "name": "Likes",
-     "desc": "5,329"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai/gpt-oss-20b"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.5-2B",
-   "about": "Image text to text, 5.5M downloads in the last month, 492 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,503,788"
-    },
-    {
-     "name": "Likes",
-     "desc": "492"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.5-2B"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "pyannote/wespeaker-voxceleb-resnet34-LM",
-   "about": "Model, 5.5M downloads in the last month, 229 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,489,719"
-    },
-    {
-     "name": "Likes",
-     "desc": "229"
-    },
-    {
-     "name": "Library",
-     "desc": "pyannote-audio"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/pyannote/wespeaker-voxceleb-resnet34-LM"
-    }
-   ]
-  },
-  {
-   "database": "Fill mask",
-   "table": "distilbert/distilbert-base-uncased",
-   "about": "Fill mask, 5.4M downloads in the last month, 1.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Fill mask"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,413,014"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,150"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/distilbert/distilbert-base-uncased"
-    }
-   ]
-  },
-  {
-   "database": "Fill mask",
-   "table": "microsoft/mdeberta-v3-base",
-   "about": "Fill mask, 5.3M downloads in the last month, 265 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Fill mask"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,317,816"
-    },
-    {
-     "name": "Likes",
-     "desc": "265"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/microsoft/mdeberta-v3-base"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen2.5-VL-7B-Instruct",
-   "about": "Image text to text, 5.3M downloads in the last month, 1.8K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,315,839"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,778"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Time series forecasting",
-   "table": "autogluon/chronos-bolt-small",
-   "about": "Time series forecasting, 5.2M downloads in the last month, 86 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Time series forecasting"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,202,149"
-    },
-    {
-     "name": "Likes",
-     "desc": "86"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/autogluon/chronos-bolt-small"
-    }
-   ]
-  },
-  {
-   "database": "Image classification",
-   "table": "prithivMLmods/Gender-Classifier-Mini",
-   "about": "Image classification, 5.1M downloads in the last month, 23 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,146,899"
-    },
-    {
-     "name": "Likes",
-     "desc": "23"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/prithivMLmods/Gender-Classifier-Mini"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
-   "about": "Image text to text, 5.1M downloads in the last month, 121 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,119,599"
-    },
-    {
-     "name": "Likes",
-     "desc": "121"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Zero shot image classification",
-   "table": "laion/CLIP-ViT-B-32-laion2B-s34B-b79K",
-   "about": "Zero shot image classification, 5.1M downloads in the last month, 157 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Zero shot image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,118,359"
-    },
-    {
-     "name": "Likes",
-     "desc": "157"
-    },
-    {
-     "name": "Library",
-     "desc": "open_clip"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/laion/CLIP-ViT-B-32-laion2B-s34B-b79K"
-    }
-   ]
-  },
-  {
-   "database": "Text to speech",
-   "table": "coqui/XTTS-v2",
-   "about": "Text to speech, 5M downloads in the last month, 4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to speech"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,025,717"
-    },
-    {
-     "name": "Likes",
-     "desc": "3,975"
-    },
-    {
-     "name": "Library",
-     "desc": "coqui"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/coqui/XTTS-v2"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Comfy-Org/Wan-2.1",
-   "about": "Model, 5M downloads in the last month, 1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,025,171"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,049"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/Wan-2.1"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "google/gemma-4-26B-A4B-it",
-   "about": "Image text to text, 5M downloads in the last month, 1.8K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,022,424"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,788"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google/gemma-4-26B-A4B-it"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen2.5-1.5B-Instruct",
-   "about": "Text generation, 4.9M downloads in the last month, 947 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,904,832"
-    },
-    {
-     "name": "Likes",
-     "desc": "947"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "pyannote/speaker-diarization-community-1",
-   "about": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,903,235"
-    },
-    {
-     "name": "Likes",
-     "desc": "4,712"
-    },
-    {
-     "name": "Library",
-     "desc": "pyannote-audio"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/pyannote/speaker-diarization-community-1"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "dphn/dolphin-2.9.1-yi-1.5-34b",
-   "about": "Text generation, 4.8M downloads in the last month, 92 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,823,922"
-    },
-    {
-     "name": "Likes",
-     "desc": "92"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/dphn/dolphin-2.9.1-yi-1.5-34b"
-    }
-   ]
-  },
-  {
-   "database": "Fill mask",
-   "table": "FacebookAI/roberta-large",
-   "about": "Fill mask, 4.8M downloads in the last month, 347 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Fill mask"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,818,499"
-    },
-    {
-     "name": "Likes",
-     "desc": "347"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/FacebookAI/roberta-large"
-    }
-   ]
-  },
-  {
-   "database": "Text to image",
-   "table": "stabilityai/stable-diffusion-xl-base-1.0",
-   "about": "Text to image, 4.8M downloads in the last month, 8.5K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to image"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,767,348"
-    },
-    {
-     "name": "Likes",
-     "desc": "8,487"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "openai/whisper-large-v3-turbo",
-   "about": "Automatic speech recognition, 4.7M downloads in the last month, 3.6K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,731,457"
-    },
-    {
-     "name": "Likes",
-     "desc": "3,560"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai/whisper-large-v3-turbo"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.5-4B",
-   "about": "Image text to text, 4.7M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,674,064"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,253"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.5-4B"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "intfloat/multilingual-e5-base",
-   "about": "Sentence similarity, 4.7M downloads in the last month, 422 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,659,244"
-    },
-    {
-     "name": "Likes",
-     "desc": "422"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/intfloat/multilingual-e5-base"
-    }
-   ]
-  },
-  {
-   "database": "Feature extraction",
-   "table": "Xenova/all-MiniLM-L6-v2",
-   "about": "Feature extraction, 4.7M downloads in the last month, 181 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,650,101"
-    },
-    {
-     "name": "Likes",
-     "desc": "181"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers.js"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Xenova/all-MiniLM-L6-v2"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "Snowflake/snowflake-arctic-embed-l-v2.0",
-   "about": "Sentence similarity, 4.6M downloads in the last month, 268 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,623,231"
-    },
-    {
-     "name": "Likes",
-     "desc": "268"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Snowflake/snowflake-arctic-embed-l-v2.0"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "facebook/opt-125m",
-   "about": "Text generation, 4.6M downloads in the last month, 334 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,615,524"
-    },
-    {
-     "name": "Likes",
-     "desc": "334"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/facebook/opt-125m"
-    }
-   ]
-  },
-  {
-   "database": "Voice activity detection",
-   "table": "pyannote/segmentation-3.0",
-   "about": "Voice activity detection, 4.6M downloads in the last month, 2.8K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Voice activity detection"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,565,236"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,788"
-    },
-    {
-     "name": "Library",
-     "desc": "pyannote-audio"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/pyannote/segmentation-3.0"
-    }
-   ]
-  },
-  {
-   "database": "Text to image",
-   "table": "Comfy-Org/Krea-2",
-   "about": "Text to image, 4.5M downloads in the last month, 848 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to image"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,510,397"
-    },
-    {
-     "name": "Likes",
-     "desc": "848"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/Krea-2"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
-   "about": "Text generation, 4.4M downloads in the last month, 683 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,388,749"
-    },
-    {
-     "name": "Likes",
-     "desc": "683"
-    },
-    {
-     "name": "Library",
-     "desc": "gguf"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Time series forecasting",
-   "table": "NeoQuasar/Kronos-Tokenizer-base",
-   "about": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Time series forecasting"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,378,014"
-    },
-    {
-     "name": "Likes",
-     "desc": "122"
-    },
-    {
-     "name": "Library",
-     "desc": "pytorch"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-base"
-    }
-   ]
-  },
-  {
-   "database": "Automatic speech recognition",
-   "table": "openai/whisper-small",
-   "about": "Automatic speech recognition, 4.4M downloads in the last month, 658 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,374,855"
-    },
-    {
-     "name": "Likes",
-     "desc": "658"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/openai/whisper-small"
-    }
-   ]
-  },
-  {
-   "database": "Any to any",
-   "table": "google/gemma-4-E4B-it",
-   "about": "Any to any, 4.4M downloads in the last month, 1.9K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Any to any"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,354,817"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,875"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google/gemma-4-E4B-it"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
-   "about": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,351,329"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,367"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Sentence similarity",
-   "table": "thenlper/gte-small",
-   "about": "Sentence similarity, 4.2M downloads in the last month, 203 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Sentence similarity"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,222,250"
-    },
-    {
-     "name": "Likes",
-     "desc": "203"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/thenlper/gte-small"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
-   "about": "Image text to text, 4.2M downloads in the last month, 1.2K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,217,023"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,155"
-    },
-    {
-     "name": "Library",
-     "desc": "gguf"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Text to speech",
-   "table": "k2-fsa/OmniVoice",
-   "about": "Text to speech, 4.2M downloads in the last month, 1.7K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to speech"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,210,382"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,717"
-    },
-    {
-     "name": "Library",
-     "desc": "omnivoice"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/k2-fsa/OmniVoice"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit",
-   "about": "Text generation, 4.2M downloads in the last month, 9 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,194,624"
-    },
-    {
-     "name": "Likes",
-     "desc": "9"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "nvidia/Qwen3.6-35B-A3B-NVFP4",
-   "about": "Text generation, 4.1M downloads in the last month, 686 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,147,961"
-    },
-    {
-     "name": "Likes",
-     "desc": "686"
-    },
-    {
-     "name": "Library",
-     "desc": "Model Optimizer"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/nvidia/Qwen3.6-35B-A3B-NVFP4"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "meta-llama/Llama-3.1-8B-Instruct",
-   "about": "Text generation, 4.1M downloads in the last month, 9K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,113,897"
-    },
-    {
-     "name": "Likes",
-     "desc": "9,035"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
-   "about": "Text generation, 4.1M downloads in the last month, 628 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,083,220"
-    },
-    {
-     "name": "Likes",
-     "desc": "628"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen2.5-0.5B-Instruct",
-   "about": "Text generation, 4.1M downloads in the last month, 753 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,071,520"
-    },
-    {
-     "name": "Likes",
-     "desc": "753"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
-   "about": "Model, 4.1M downloads in the last month, 608 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Model"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,061,594"
-    },
-    {
-     "name": "Likes",
-     "desc": "608"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.6-35B-A3B-FP8",
-   "about": "Image text to text, 4M downloads in the last month, 454 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,042,773"
-    },
-    {
-     "name": "Likes",
-     "desc": "454"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B-FP8"
-    }
-   ]
-  }
- ],
  "kaggle": [
   {
    "database": "Dataset",
@@ -10783,7 +10805,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "1,224,678"
+     "desc": "1,224,683"
     },
     {
      "name": "Size",
@@ -10853,7 +10875,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "825,466"
+     "desc": "825,468"
     },
     {
      "name": "Size",
@@ -10888,7 +10910,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "722,320"
+     "desc": "722,327"
     },
     {
      "name": "Size",
@@ -10958,7 +10980,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "485,168"
+     "desc": "485,169"
     },
     {
      "name": "Size",
@@ -11098,7 +11120,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "532,880"
+     "desc": "532,883"
     },
     {
      "name": "Size",
@@ -11168,7 +11190,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "966,391"
+     "desc": "966,392"
     },
     {
      "name": "Size",
@@ -11238,7 +11260,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "706,453"
+     "desc": "706,460"
     },
     {
      "name": "Size",
@@ -11308,7 +11330,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "412,758"
+     "desc": "412,760"
     },
     {
      "name": "Size",
@@ -11343,7 +11365,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "556,025"
+     "desc": "556,031"
     },
     {
      "name": "Size",
@@ -11413,7 +11435,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "575,195"
+     "desc": "575,197"
     },
     {
      "name": "Size",
@@ -11483,7 +11505,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "639,570"
+     "desc": "639,572"
     },
     {
      "name": "Size",
@@ -11658,7 +11680,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "444,357"
+     "desc": "444,359"
     },
     {
      "name": "Size",
@@ -11693,7 +11715,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "361,658"
+     "desc": "361,659"
     },
     {
      "name": "Size",
@@ -11763,7 +11785,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "308,285"
+     "desc": "308,287"
     },
     {
      "name": "Size",
@@ -11798,7 +11820,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "380,198"
+     "desc": "380,199"
     },
     {
      "name": "Size",
@@ -12043,7 +12065,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "196,845"
+     "desc": "196,847"
     },
     {
      "name": "Size",
@@ -12078,7 +12100,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "195,696"
+     "desc": "195,697"
     },
     {
      "name": "Size",
@@ -12253,7 +12275,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "239,963"
+     "desc": "239,964"
     },
     {
      "name": "Size",
@@ -12393,7 +12415,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "269,952"
+     "desc": "269,953"
     },
     {
      "name": "Size",
@@ -12463,7 +12485,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "255,959"
+     "desc": "255,966"
     },
     {
      "name": "Size",
@@ -12533,7 +12555,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "174,031"
+     "desc": "174,032"
     },
     {
      "name": "Size",
@@ -12568,7 +12590,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "296,970"
+     "desc": "296,971"
     },
     {
      "name": "Size",
@@ -12673,7 +12695,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "173,428"
+     "desc": "173,429"
     },
     {
      "name": "Size",
@@ -12813,7 +12835,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "168,122"
+     "desc": "168,124"
     },
     {
      "name": "Size",
@@ -12918,7 +12940,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "398,893"
+     "desc": "398,894"
     },
     {
      "name": "Size",
@@ -12953,7 +12975,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "260,889"
+     "desc": "260,892"
     },
     {
      "name": "Size",
@@ -13023,7 +13045,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "49,525"
+     "desc": "49,526"
     },
     {
      "name": "Size",
@@ -13093,7 +13115,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "385,626"
+     "desc": "385,629"
     },
     {
      "name": "Size",
@@ -13338,7 +13360,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "225,414"
+     "desc": "225,416"
     },
     {
      "name": "Size",
@@ -13373,7 +13395,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "444,759"
+     "desc": "444,764"
     },
     {
      "name": "Size",
@@ -13408,7 +13430,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "212,150"
+     "desc": "212,151"
     },
     {
      "name": "Size",
@@ -13513,7 +13535,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "137,966"
+     "desc": "137,967"
     },
     {
      "name": "Size",
@@ -13583,7 +13605,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "160,259"
+     "desc": "160,261"
     },
     {
      "name": "Size",
@@ -13653,7 +13675,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "74,275"
+     "desc": "74,276"
     },
     {
      "name": "Size",
@@ -13723,7 +13745,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "123,602"
+     "desc": "123,603"
     },
     {
      "name": "Size",
@@ -13758,7 +13780,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "694,409"
+     "desc": "694,410"
     },
     {
      "name": "Size",
@@ -13828,7 +13850,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "166,014"
+     "desc": "166,015"
     },
     {
      "name": "Size",
@@ -13933,7 +13955,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "102,012"
+     "desc": "102,013"
     },
     {
      "name": "Size",
@@ -13968,7 +13990,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "169,446"
+     "desc": "169,447"
     },
     {
      "name": "Size",
@@ -14108,7 +14130,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "31,695"
+     "desc": "31,696"
     },
     {
      "name": "Size",
@@ -15594,11 +15616,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "468,958"
+     "desc": "468,965"
     },
     {
      "name": "Forks",
-     "desc": "114,615"
+     "desc": "114,617"
     },
     {
      "name": "Language",
@@ -15625,7 +15647,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "321,578"
+     "desc": "321,582"
     },
     {
      "name": "Forks",
@@ -15656,7 +15678,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "197,427"
+     "desc": "197,430"
     },
     {
      "name": "Forks",
@@ -15683,7 +15705,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "194,446"
+     "desc": "194,449"
     },
     {
      "name": "Forks",
@@ -15714,7 +15736,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "161,474"
+     "desc": "161,475"
     },
     {
      "name": "Forks",
@@ -15772,7 +15794,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "155,697"
+     "desc": "155,699"
     },
     {
      "name": "Forks",
@@ -15834,7 +15856,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "119,041"
+     "desc": "119,043"
     },
     {
      "name": "Forks",
@@ -15865,7 +15887,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "118,641"
+     "desc": "118,642"
     },
     {
      "name": "Forks",
@@ -15896,11 +15918,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "118,303"
+     "desc": "118,305"
     },
     {
      "name": "Forks",
-     "desc": "10,289"
+     "desc": "10,290"
     },
     {
      "name": "Language",
@@ -15927,7 +15949,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "114,903"
+     "desc": "114,904"
     },
     {
      "name": "Forks",
@@ -15958,11 +15980,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "113,126"
+     "desc": "113,130"
     },
     {
      "name": "Forks",
-     "desc": "6,738"
+     "desc": "6,739"
     },
     {
      "name": "Language",
@@ -15989,7 +16011,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "108,416"
+     "desc": "108,418"
     },
     {
      "name": "Forks",
@@ -16051,7 +16073,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "93,232"
+     "desc": "93,231"
     },
     {
      "name": "Forks",
@@ -16113,7 +16135,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "15,332"
+     "desc": "15,333"
     },
     {
      "name": "Language",
@@ -16194,11 +16216,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "70,975"
+     "desc": "70,978"
     },
     {
      "name": "Forks",
-     "desc": "5,564"
+     "desc": "5,563"
     },
     {
      "name": "Language",
@@ -16256,7 +16278,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "68,324"
+     "desc": "68,325"
     },
     {
      "name": "Forks",
@@ -16318,7 +16340,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "61,344"
+     "desc": "61,346"
     },
     {
      "name": "Forks",
@@ -16376,7 +16398,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,067"
+     "desc": "58,069"
     },
     {
      "name": "Forks",
@@ -16411,7 +16433,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "5,074"
+     "desc": "5,075"
     },
     {
      "name": "Language",
@@ -16438,11 +16460,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "54,268"
+     "desc": "54,269"
     },
     {
      "name": "Forks",
-     "desc": "4,490"
+     "desc": "4,489"
     },
     {
      "name": "Language",
@@ -16496,7 +16518,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,652"
+     "desc": "53,651"
     },
     {
      "name": "Forks",
@@ -16527,7 +16549,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,194"
+     "desc": "53,196"
     },
     {
      "name": "Forks",
@@ -16988,7 +17010,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,290"
+     "desc": "34,291"
     },
     {
      "name": "Forks",
@@ -17325,7 +17347,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,386"
+     "desc": "28,387"
     },
     {
      "name": "Forks",
@@ -17414,7 +17436,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "27,697"
+     "desc": "27,698"
     },
     {
      "name": "Forks",
@@ -17507,7 +17529,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,673"
+     "desc": "26,672"
     },
     {
      "name": "Forks",
@@ -17600,7 +17622,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "24,968"
+     "desc": "24,969"
     },
     {
      "name": "Forks",
@@ -17658,7 +17680,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,671"
+     "desc": "23,672"
     },
     {
      "name": "Forks",
@@ -17782,7 +17804,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,505"
+     "desc": "21,507"
     },
     {
      "name": "Forks",
@@ -17813,7 +17835,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,254"
+     "desc": "21,255"
     },
     {
      "name": "Forks",
@@ -17937,11 +17959,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,507"
+     "desc": "18,512"
     },
     {
      "name": "Forks",
-     "desc": "2,322"
+     "desc": "2,323"
     },
     {
      "name": "Language",
@@ -17964,7 +17986,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,360"
+     "desc": "17,361"
     },
     {
      "name": "Forks",
@@ -18192,7 +18214,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,473"
+     "desc": "15,474"
     },
     {
      "name": "Forks",
@@ -18254,7 +18276,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,912"
+     "desc": "14,913"
     },
     {
      "name": "Forks",
@@ -18343,7 +18365,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,427"
+     "desc": "14,428"
     },
     {
      "name": "Forks",
@@ -18405,7 +18427,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,552"
+     "desc": "13,553"
     },
     {
      "name": "Forks",
@@ -18436,7 +18458,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,967"
+     "desc": "12,968"
     },
     {
      "name": "Forks",
@@ -18587,7 +18609,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,279"
+     "desc": "12,278"
     },
     {
      "name": "Forks",
@@ -18643,7 +18665,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "151,531"
+     "desc": "151,530"
     },
     {
      "name": "Forks",
@@ -18674,7 +18696,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "128,203"
+     "desc": "128,206"
     },
     {
      "name": "Forks",
@@ -19390,7 +19412,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,825"
+     "desc": "17,826"
     },
     {
      "name": "Forks",
@@ -20048,7 +20070,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "2,305"
+     "desc": "2,306"
     },
     {
      "name": "Language",
@@ -20075,7 +20097,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,530"
+     "desc": "9,531"
     },
     {
      "name": "Forks",
@@ -21598,7 +21620,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "500,166"
+     "desc": "500,167"
     },
     {
      "name": "Forks",
@@ -21629,7 +21651,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "104,889"
+     "desc": "104,890"
     },
     {
      "name": "Forks",
@@ -21660,7 +21682,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "103,840"
+     "desc": "103,842"
     },
     {
      "name": "Forks",
@@ -21923,7 +21945,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "46,349"
+     "desc": "46,350"
     },
     {
      "name": "Forks",
@@ -22283,7 +22305,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "2,966"
+     "desc": "2,965"
     },
     {
      "name": "Language",
@@ -22546,7 +22568,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,464"
+     "desc": "23,465"
     },
     {
      "name": "Forks",
@@ -23517,7 +23539,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,147"
+     "desc": "14,148"
     },
     {
      "name": "Forks",
@@ -24572,11 +24594,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "306,842"
+     "desc": "306,846"
     },
     {
      "name": "Forks",
-     "desc": "45,170"
+     "desc": "45,171"
     },
     {
      "name": "Language",
@@ -24603,7 +24625,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "211,314"
+     "desc": "211,319"
     },
     {
      "name": "Forks",
@@ -24688,7 +24710,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "113,157"
+     "desc": "113,160"
     },
     {
      "name": "Forks",
@@ -24781,7 +24803,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "104,291"
+     "desc": "104,292"
     },
     {
      "name": "Forks",
@@ -24812,7 +24834,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "98,180"
+     "desc": "98,183"
     },
     {
      "name": "Forks",
@@ -24839,7 +24861,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "90,924"
+     "desc": "90,925"
     },
     {
      "name": "Forks",
@@ -24870,7 +24892,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "88,774"
+     "desc": "88,775"
     },
     {
      "name": "Forks",
@@ -24932,7 +24954,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "86,717"
+     "desc": "86,719"
     },
     {
      "name": "Forks",
@@ -25165,7 +25187,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -25180,11 +25202,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,786"
+     "desc": "58,787"
     },
     {
      "name": "Forks",
-     "desc": "6,886"
+     "desc": "6,888"
     },
     {
      "name": "Language",
@@ -25645,7 +25667,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,603"
+     "desc": "39,602"
     },
     {
      "name": "Forks",
@@ -25707,7 +25729,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,531"
+     "desc": "38,532"
     },
     {
      "name": "Forks",
@@ -25738,7 +25760,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,514"
+     "desc": "38,515"
     },
     {
      "name": "Forks",
@@ -25862,7 +25884,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,986"
+     "desc": "34,988"
     },
     {
      "name": "Forks",
@@ -25924,7 +25946,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,448"
+     "desc": "33,449"
     },
     {
      "name": "Forks",
@@ -25998,7 +26020,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -26013,7 +26035,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "31,175"
+     "desc": "31,176"
     },
     {
      "name": "Forks",
@@ -26315,7 +26337,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "4,004"
+     "desc": "4,005"
     },
     {
      "name": "Language",
@@ -26435,7 +26457,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "1,899"
+     "desc": "1,900"
     },
     {
      "name": "Language",
@@ -26814,7 +26836,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,071"
+     "desc": "21,072"
     },
     {
      "name": "Forks",
@@ -26996,7 +27018,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,833"
+     "desc": "18,835"
     },
     {
      "name": "Forks",
@@ -27318,7 +27340,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-16"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -27333,7 +27355,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,785"
+     "desc": "13,786"
     },
     {
      "name": "Forks",
@@ -27594,6 +27616,9150 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://github.com/xinnan-tech/xiaozhi-esp32-server"
+    }
+   ]
+  }
+ ],
+ "hf-models": [
+  {
+   "database": "Sentence similarity",
+   "table": "sentence-transformers/all-MiniLM-L6-v2",
+   "about": "Sentence similarity, 168M downloads in the last month, 6.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "167,728,168"
+    },
+    {
+     "name": "Likes",
+     "desc": "6,147"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "argmaxinc/whisperkit-coreml",
+   "about": "Automatic speech recognition, 84.3M downloads in the last month, 275 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "84,267,005"
+    },
+    {
+     "name": "Likes",
+     "desc": "275"
+    },
+    {
+     "name": "Library",
+     "desc": "whisperkit"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/argmaxinc/whisperkit-coreml"
+    }
+   ]
+  },
+  {
+   "database": "Text ranking",
+   "table": "cross-encoder/ms-marco-MiniLM-L6-v2",
+   "about": "Text ranking, 56.3M downloads in the last month, 451 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text ranking"
+    },
+    {
+     "name": "Downloads",
+     "desc": "56,284,496"
+    },
+    {
+     "name": "Likes",
+     "desc": "451"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "BAAI/bge-small-en-v1.5",
+   "about": "Feature extraction, 43.6M downloads in the last month, 679 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "43,610,697"
+    },
+    {
+     "name": "Likes",
+     "desc": "679"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/BAAI/bge-small-en-v1.5"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "openai-community/gpt2",
+   "about": "Text generation, 34.3M downloads in the last month, 4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "34,336,215"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,952"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai-community/gpt2"
+    }
+   ]
+  },
+  {
+   "database": "Time series forecasting",
+   "table": "autogluon/chronos-2",
+   "about": "Time series forecasting, 34.1M downloads in the last month, 97 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Time series forecasting"
+    },
+    {
+     "name": "Downloads",
+     "desc": "34,066,524"
+    },
+    {
+     "name": "Likes",
+     "desc": "97"
+    },
+    {
+     "name": "Library",
+     "desc": "chronos-forecasting"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/autogluon/chronos-2"
+    }
+   ]
+  },
+  {
+   "database": "Fill mask",
+   "table": "google-bert/bert-base-uncased",
+   "about": "Fill mask, 33.9M downloads in the last month, 3.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Fill mask"
+    },
+    {
+     "name": "Downloads",
+     "desc": "33,919,087"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,083"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google-bert/bert-base-uncased"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Comfy-Org/MiniMax-H3",
+   "about": "Model, 33M downloads in the last month, 2.8K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "33,040,522"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,772"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/MiniMax-H3"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "BAAI/bge-m3",
+   "about": "Sentence similarity, 32.3M downloads in the last month, 4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "32,282,912"
+    },
+    {
+     "name": "Likes",
+     "desc": "4,021"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/BAAI/bge-m3"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+   "about": "Sentence similarity, 25M downloads in the last month, 1.5K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "25,028,607"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,513"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "sentence-transformers/all-mpnet-base-v2",
+   "about": "Sentence similarity, 19.8M downloads in the last month, 1.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "19,778,181"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,409"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/sentence-transformers/all-mpnet-base-v2"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "microsoft/Florence-2-base",
+   "about": "Image text to text, 19.7M downloads in the last month, 443 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "19,665,944"
+    },
+    {
+     "name": "Likes",
+     "desc": "443"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/microsoft/Florence-2-base"
+    }
+   ]
+  },
+  {
+   "database": "Translation",
+   "table": "google-t5/t5-small",
+   "about": "Translation, 18.1M downloads in the last month, 702 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Translation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "18,097,631"
+    },
+    {
+     "name": "Likes",
+     "desc": "702"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google-t5/t5-small"
+    }
+   ]
+  },
+  {
+   "database": "Zero shot image classification",
+   "table": "openai/clip-vit-base-patch32",
+   "about": "Zero shot image classification, 17.5M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Zero shot image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "17,503,227"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,289"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai/clip-vit-base-patch32"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen3-0.6B",
+   "about": "Text generation, 15.7M downloads in the last month, 1.9K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "15,683,001"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,919"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-0.6B"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "jonatasgrosman/wav2vec2-large-xlsr-53-japanese",
+   "about": "Automatic speech recognition, 15.5M downloads in the last month, 122 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "15,506,013"
+    },
+    {
+     "name": "Likes",
+     "desc": "122"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/jonatasgrosman/wav2vec2-large-xlsr-53-japanese"
+    }
+   ]
+  },
+  {
+   "database": "Image classification",
+   "table": "google/vit-base-patch16-224",
+   "about": "Image classification, 15.4M downloads in the last month, 1.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "15,432,643"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,057"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google/vit-base-patch16-224"
+    }
+   ]
+  },
+  {
+   "database": "Text classification",
+   "table": "BAAI/bge-reranker-v2-m3",
+   "about": "Text classification, 14.8M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "14,774,556"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,312"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/BAAI/bge-reranker-v2-m3"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen3-14B",
+   "about": "Text generation, 13.2M downloads in the last month, 549 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "13,167,887"
+    },
+    {
+     "name": "Likes",
+     "desc": "549"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-14B"
+    }
+   ]
+  },
+  {
+   "database": "Text to speech",
+   "table": "hexgrad/Kokoro-82M",
+   "about": "Text to speech, 13.1M downloads in the last month, 7.5K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to speech"
+    },
+    {
+     "name": "Downloads",
+     "desc": "13,134,554"
+    },
+    {
+     "name": "Likes",
+     "desc": "7,476"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/hexgrad/Kokoro-82M"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "nomic-ai/nomic-embed-text-v1.5",
+   "about": "Sentence similarity, 11.5M downloads in the last month, 996 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "11,458,310"
+    },
+    {
+     "name": "Likes",
+     "desc": "996"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/nomic-ai/nomic-embed-text-v1.5"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "deepseek-ai/DeepSeek-V3.2",
+   "about": "Text generation, 9.9M downloads in the last month, 1.6K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,854,997"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,605"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2"
+    }
+   ]
+  },
+  {
+   "database": "Image to video",
+   "table": "Comfy-Org/Wan-2.2",
+   "about": "Image to video, 9.8M downloads in the last month, 1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image to video"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,835,214"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,044"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/Wan-2.2"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Comfy-Org/Z-Image-Turbo",
+   "about": "Model, 9.7M downloads in the last month, 1K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "9,726,303"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,047"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/Z-Image-Turbo"
+    }
+   ]
+  },
+  {
+   "database": "Text to speech",
+   "table": "audio-cpp/audio.cpp-gguf",
+   "about": "Text to speech, 9.6M downloads in the last month, 333 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to speech"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,595,071"
+    },
+    {
+     "name": "Likes",
+     "desc": "333"
+    },
+    {
+     "name": "Library",
+     "desc": "audio.cpp"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/audio-cpp/audio.cpp-gguf"
+    }
+   ]
+  },
+  {
+   "database": "Text to image",
+   "table": "Comfy-Org/Qwen-Image-2.1",
+   "about": "Text to image, 9.6M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to image"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,550,345"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,346"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "intfloat/multilingual-e5-small",
+   "about": "Sentence similarity, 9.4M downloads in the last month, 502 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,397,825"
+    },
+    {
+     "name": "Likes",
+     "desc": "502"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/intfloat/multilingual-e5-small"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+   "about": "Sentence similarity, 9.4M downloads in the last month, 557 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,389,013"
+    },
+    {
+     "name": "Likes",
+     "desc": "557"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+    }
+   ]
+  },
+  {
+   "database": "Audio classification",
+   "table": "laion/clap-htsat-fused",
+   "about": "Audio classification, 9M downloads in the last month, 180 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Audio classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "9,037,264"
+    },
+    {
+     "name": "Likes",
+     "desc": "180"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/laion/clap-htsat-fused"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "BAAI/bge-base-en-v1.5",
+   "about": "Feature extraction, 8.6M downloads in the last month, 544 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "8,583,812"
+    },
+    {
+     "name": "Likes",
+     "desc": "544"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/BAAI/bge-base-en-v1.5"
+    }
+   ]
+  },
+  {
+   "database": "Zero shot image classification",
+   "table": "openai/clip-vit-large-patch14",
+   "about": "Zero shot image classification, 8.5M downloads in the last month, 2.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Zero shot image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "8,465,492"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,147"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai/clip-vit-large-patch14"
+    }
+   ]
+  },
+  {
+   "database": "Fill mask",
+   "table": "FacebookAI/xlm-roberta-base",
+   "about": "Fill mask, 8.5M downloads in the last month, 977 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Fill mask"
+    },
+    {
+     "name": "Downloads",
+     "desc": "8,450,727"
+    },
+    {
+     "name": "Likes",
+     "desc": "977"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/FacebookAI/xlm-roberta-base"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "facebook/contriever",
+   "about": "Model, 8.3M downloads in the last month, 135 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "8,258,391"
+    },
+    {
+     "name": "Likes",
+     "desc": "135"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/facebook/contriever"
+    }
+   ]
+  },
+  {
+   "database": "Time series forecasting",
+   "table": "amazon/chronos-2",
+   "about": "Time series forecasting, 8.2M downloads in the last month, 577 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Time series forecasting"
+    },
+    {
+     "name": "Downloads",
+     "desc": "8,165,291"
+    },
+    {
+     "name": "Likes",
+     "desc": "577"
+    },
+    {
+     "name": "Library",
+     "desc": "chronos-forecasting"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/amazon/chronos-2"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Bingsu/adetailer",
+   "about": "Model, 8.1M downloads in the last month, 828 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "8,099,188"
+    },
+    {
+     "name": "Likes",
+     "desc": "828"
+    },
+    {
+     "name": "Library",
+     "desc": "ultralytics"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Bingsu/adetailer"
+    }
+   ]
+  },
+  {
+   "database": "Image classification",
+   "table": "timm/mobilenetv3_small_100.lamb_in1k",
+   "about": "Image classification, 7.7M downloads in the last month, 160 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "7,730,663"
+    },
+    {
+     "name": "Likes",
+     "desc": "160"
+    },
+    {
+     "name": "Library",
+     "desc": "timm"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/timm/mobilenetv3_small_100.lamb_in1k"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "Qwen/Qwen3-Embedding-0.6B",
+   "about": "Feature extraction, 7.7M downloads in the last month, 1.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "7,703,469"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,357"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "intfloat/multilingual-e5-large",
+   "about": "Feature extraction, 7.3M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "7,312,761"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,290"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/intfloat/multilingual-e5-large"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+   "about": "Image text to text, 7.3M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "7,298,936"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,307"
+    },
+    {
+     "name": "Library",
+     "desc": "gguf"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Serveurperso/YuE2-GGUF",
+   "about": "Model, 7.1M downloads in the last month, 32 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "7,132,572"
+    },
+    {
+     "name": "Likes",
+     "desc": "32"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Serveurperso/YuE2-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "unsloth/Qwen3.8-27B-GGUF",
+   "about": "Model, 7M downloads in the last month, 6.2K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "6,998,076"
+    },
+    {
+     "name": "Likes",
+     "desc": "6,206"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "BAAI/bge-large-en-v1.5",
+   "about": "Feature extraction, 6.9M downloads in the last month, 787 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,898,225"
+    },
+    {
+     "name": "Likes",
+     "desc": "787"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/BAAI/bge-large-en-v1.5"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.8-27B",
+   "about": "Image text to text, 6.9M downloads in the last month, 20.6K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,888,351"
+    },
+    {
+     "name": "Likes",
+     "desc": "20,596"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.8-27B"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "ibm-granite/granite-embedding-small-english-r2",
+   "about": "Feature extraction, 6.6M downloads in the last month, 118 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,632,222"
+    },
+    {
+     "name": "Likes",
+     "desc": "118"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/ibm-granite/granite-embedding-small-english-r2"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.5-9B",
+   "about": "Image text to text, 6.5M downloads in the last month, 2.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,514,100"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,406"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.5-9B"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "Systran/faster-whisper-small",
+   "about": "Automatic speech recognition, 6.5M downloads in the last month, 108 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,466,047"
+    },
+    {
+     "name": "Likes",
+     "desc": "108"
+    },
+    {
+     "name": "Library",
+     "desc": "ctranslate2"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Systran/faster-whisper-small"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen2.5-7B-Instruct",
+   "about": "Text generation, 6.4M downloads in the last month, 2.5K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,391,089"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,504"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "zai-org/GLM-5.3-Flash",
+   "about": "Image text to text, 6.4M downloads in the last month, 3.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,378,401"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,268"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/zai-org/GLM-5.3-Flash"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3-VL-8B-Instruct",
+   "about": "Image text to text, 6.4M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,361,206"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,270"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Comfy-Org/MOSS-Image",
+   "about": "Model, 6.4M downloads in the last month, 730 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "6,356,810"
+    },
+    {
+     "name": "Likes",
+     "desc": "730"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/MOSS-Image"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.8-27B-FP8",
+   "about": "Image text to text, 6.3M downloads in the last month, 1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,285,486"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,010"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "google/gemma-4-31B-it",
+   "about": "Image text to text, 6.3M downloads in the last month, 4.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,264,804"
+    },
+    {
+     "name": "Likes",
+     "desc": "4,409"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google/gemma-4-31B-it"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "pyannote/speaker-diarization-3.1",
+   "about": "Automatic speech recognition, 6.2M downloads in the last month, 5.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,214,292"
+    },
+    {
+     "name": "Likes",
+     "desc": "5,339"
+    },
+    {
+     "name": "Library",
+     "desc": "pyannote-audio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/pyannote/speaker-diarization-3.1"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen3-8B",
+   "about": "Text generation, 6.1M downloads in the last month, 2.2K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,056,898"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,201"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-8B"
+    }
+   ]
+  },
+  {
+   "database": "Fill mask",
+   "table": "FacebookAI/roberta-base",
+   "about": "Fill mask, 6M downloads in the last month, 706 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Fill mask"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,973,625"
+    },
+    {
+     "name": "Likes",
+     "desc": "706"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/FacebookAI/roberta-base"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "openai/whisper-base",
+   "about": "Automatic speech recognition, 5.9M downloads in the last month, 320 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,947,775"
+    },
+    {
+     "name": "Likes",
+     "desc": "320"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai/whisper-base"
+    }
+   ]
+  },
+  {
+   "database": "Image text to video",
+   "table": "MiniMaxAI/MiniMax-H3",
+   "about": "Image text to video, 5.7M downloads in the last month, 7.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to video"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,713,769"
+    },
+    {
+     "name": "Likes",
+     "desc": "7,094"
+    },
+    {
+     "name": "Library",
+     "desc": "minimax-h3"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "ornith-ai/Ornith-1.5-9B-GGUF",
+   "about": "Text generation, 5.7M downloads in the last month, 736 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,679,963"
+    },
+    {
+     "name": "Likes",
+     "desc": "736"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/ornith-ai/Ornith-1.5-9B-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "baidu/Unlimited-OCR",
+   "about": "Image text to text, 5.7M downloads in the last month, 5K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,651,604"
+    },
+    {
+     "name": "Likes",
+     "desc": "5,022"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/baidu/Unlimited-OCR"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "openai/gpt-oss-20b",
+   "about": "Text generation, 5.6M downloads in the last month, 5.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,554,022"
+    },
+    {
+     "name": "Likes",
+     "desc": "5,329"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai/gpt-oss-20b"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.5-2B",
+   "about": "Image text to text, 5.5M downloads in the last month, 492 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,503,788"
+    },
+    {
+     "name": "Likes",
+     "desc": "492"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.5-2B"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "pyannote/wespeaker-voxceleb-resnet34-LM",
+   "about": "Model, 5.5M downloads in the last month, 229 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "5,489,719"
+    },
+    {
+     "name": "Likes",
+     "desc": "229"
+    },
+    {
+     "name": "Library",
+     "desc": "pyannote-audio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/pyannote/wespeaker-voxceleb-resnet34-LM"
+    }
+   ]
+  },
+  {
+   "database": "Fill mask",
+   "table": "distilbert/distilbert-base-uncased",
+   "about": "Fill mask, 5.4M downloads in the last month, 1.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Fill mask"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,413,014"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,150"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/distilbert/distilbert-base-uncased"
+    }
+   ]
+  },
+  {
+   "database": "Fill mask",
+   "table": "microsoft/mdeberta-v3-base",
+   "about": "Fill mask, 5.3M downloads in the last month, 265 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Fill mask"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,317,816"
+    },
+    {
+     "name": "Likes",
+     "desc": "265"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/microsoft/mdeberta-v3-base"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen2.5-VL-7B-Instruct",
+   "about": "Image text to text, 5.3M downloads in the last month, 1.8K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,315,839"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,778"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen2.5-VL-7B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Time series forecasting",
+   "table": "autogluon/chronos-bolt-small",
+   "about": "Time series forecasting, 5.2M downloads in the last month, 86 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Time series forecasting"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,202,149"
+    },
+    {
+     "name": "Likes",
+     "desc": "86"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/autogluon/chronos-bolt-small"
+    }
+   ]
+  },
+  {
+   "database": "Image classification",
+   "table": "prithivMLmods/Gender-Classifier-Mini",
+   "about": "Image classification, 5.1M downloads in the last month, 23 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,146,899"
+    },
+    {
+     "name": "Likes",
+     "desc": "23"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/prithivMLmods/Gender-Classifier-Mini"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
+   "about": "Image text to text, 5.1M downloads in the last month, 121 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,119,599"
+    },
+    {
+     "name": "Likes",
+     "desc": "121"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Zero shot image classification",
+   "table": "laion/CLIP-ViT-B-32-laion2B-s34B-b79K",
+   "about": "Zero shot image classification, 5.1M downloads in the last month, 157 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Zero shot image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,118,359"
+    },
+    {
+     "name": "Likes",
+     "desc": "157"
+    },
+    {
+     "name": "Library",
+     "desc": "open_clip"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/laion/CLIP-ViT-B-32-laion2B-s34B-b79K"
+    }
+   ]
+  },
+  {
+   "database": "Text to speech",
+   "table": "coqui/XTTS-v2",
+   "about": "Text to speech, 5M downloads in the last month, 4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to speech"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,025,717"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,975"
+    },
+    {
+     "name": "Library",
+     "desc": "coqui"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/coqui/XTTS-v2"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Comfy-Org/Wan-2.1",
+   "about": "Model, 5M downloads in the last month, 1K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "5,025,171"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,049"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/Wan-2.1"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "google/gemma-4-26B-A4B-it",
+   "about": "Image text to text, 5M downloads in the last month, 1.8K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,022,424"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,788"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google/gemma-4-26B-A4B-it"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen2.5-1.5B-Instruct",
+   "about": "Text generation, 4.9M downloads in the last month, 947 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,904,832"
+    },
+    {
+     "name": "Likes",
+     "desc": "947"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "pyannote/speaker-diarization-community-1",
+   "about": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,903,235"
+    },
+    {
+     "name": "Likes",
+     "desc": "4,714"
+    },
+    {
+     "name": "Library",
+     "desc": "pyannote-audio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/pyannote/speaker-diarization-community-1"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "dphn/dolphin-2.9.1-yi-1.5-34b",
+   "about": "Text generation, 4.8M downloads in the last month, 92 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,823,922"
+    },
+    {
+     "name": "Likes",
+     "desc": "92"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/dphn/dolphin-2.9.1-yi-1.5-34b"
+    }
+   ]
+  },
+  {
+   "database": "Fill mask",
+   "table": "FacebookAI/roberta-large",
+   "about": "Fill mask, 4.8M downloads in the last month, 347 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Fill mask"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,818,499"
+    },
+    {
+     "name": "Likes",
+     "desc": "347"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/FacebookAI/roberta-large"
+    }
+   ]
+  },
+  {
+   "database": "Text to image",
+   "table": "stabilityai/stable-diffusion-xl-base-1.0",
+   "about": "Text to image, 4.8M downloads in the last month, 8.5K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to image"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,767,348"
+    },
+    {
+     "name": "Likes",
+     "desc": "8,487"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "openai/whisper-large-v3-turbo",
+   "about": "Automatic speech recognition, 4.7M downloads in the last month, 3.6K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,731,457"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,560"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai/whisper-large-v3-turbo"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.5-4B",
+   "about": "Image text to text, 4.7M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,674,064"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,253"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.5-4B"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "intfloat/multilingual-e5-base",
+   "about": "Sentence similarity, 4.7M downloads in the last month, 422 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,659,244"
+    },
+    {
+     "name": "Likes",
+     "desc": "422"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/intfloat/multilingual-e5-base"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "Xenova/all-MiniLM-L6-v2",
+   "about": "Feature extraction, 4.7M downloads in the last month, 181 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,650,101"
+    },
+    {
+     "name": "Likes",
+     "desc": "181"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers.js"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Xenova/all-MiniLM-L6-v2"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "Snowflake/snowflake-arctic-embed-l-v2.0",
+   "about": "Sentence similarity, 4.6M downloads in the last month, 268 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,623,231"
+    },
+    {
+     "name": "Likes",
+     "desc": "268"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Snowflake/snowflake-arctic-embed-l-v2.0"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "facebook/opt-125m",
+   "about": "Text generation, 4.6M downloads in the last month, 334 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,615,524"
+    },
+    {
+     "name": "Likes",
+     "desc": "334"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/facebook/opt-125m"
+    }
+   ]
+  },
+  {
+   "database": "Voice activity detection",
+   "table": "pyannote/segmentation-3.0",
+   "about": "Voice activity detection, 4.6M downloads in the last month, 2.8K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Voice activity detection"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,565,236"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,788"
+    },
+    {
+     "name": "Library",
+     "desc": "pyannote-audio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/pyannote/segmentation-3.0"
+    }
+   ]
+  },
+  {
+   "database": "Text to image",
+   "table": "Comfy-Org/Krea-2",
+   "about": "Text to image, 4.5M downloads in the last month, 848 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to image"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,510,397"
+    },
+    {
+     "name": "Likes",
+     "desc": "848"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/Krea-2"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
+   "about": "Text generation, 4.4M downloads in the last month, 683 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,388,749"
+    },
+    {
+     "name": "Likes",
+     "desc": "683"
+    },
+    {
+     "name": "Library",
+     "desc": "gguf"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Time series forecasting",
+   "table": "NeoQuasar/Kronos-Tokenizer-base",
+   "about": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Time series forecasting"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,378,014"
+    },
+    {
+     "name": "Likes",
+     "desc": "122"
+    },
+    {
+     "name": "Library",
+     "desc": "pytorch"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-base"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "openai/whisper-small",
+   "about": "Automatic speech recognition, 4.4M downloads in the last month, 658 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,374,855"
+    },
+    {
+     "name": "Likes",
+     "desc": "658"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/openai/whisper-small"
+    }
+   ]
+  },
+  {
+   "database": "Any to any",
+   "table": "google/gemma-4-E4B-it",
+   "about": "Any to any, 4.4M downloads in the last month, 1.9K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Any to any"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,354,817"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,875"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google/gemma-4-E4B-it"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+   "about": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,351,329"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,368"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Sentence similarity",
+   "table": "thenlper/gte-small",
+   "about": "Sentence similarity, 4.2M downloads in the last month, 203 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Sentence similarity"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,222,250"
+    },
+    {
+     "name": "Likes",
+     "desc": "203"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/thenlper/gte-small"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
+   "about": "Image text to text, 4.2M downloads in the last month, 1.2K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,217,023"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,155"
+    },
+    {
+     "name": "Library",
+     "desc": "gguf"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Text to speech",
+   "table": "k2-fsa/OmniVoice",
+   "about": "Text to speech, 4.2M downloads in the last month, 1.7K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to speech"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,210,382"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,717"
+    },
+    {
+     "name": "Library",
+     "desc": "omnivoice"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/k2-fsa/OmniVoice"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit",
+   "about": "Text generation, 4.2M downloads in the last month, 9 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,194,624"
+    },
+    {
+     "name": "Likes",
+     "desc": "9"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "about": "Text generation, 4.1M downloads in the last month, 686 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,147,961"
+    },
+    {
+     "name": "Likes",
+     "desc": "686"
+    },
+    {
+     "name": "Library",
+     "desc": "Model Optimizer"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/nvidia/Qwen3.6-35B-A3B-NVFP4"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "meta-llama/Llama-3.1-8B-Instruct",
+   "about": "Text generation, 4.1M downloads in the last month, 9K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,113,897"
+    },
+    {
+     "name": "Likes",
+     "desc": "9,035"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
+   "about": "Text generation, 4.1M downloads in the last month, 628 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,083,220"
+    },
+    {
+     "name": "Likes",
+     "desc": "628"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen2.5-0.5B-Instruct",
+   "about": "Text generation, 4.1M downloads in the last month, 753 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,071,520"
+    },
+    {
+     "name": "Likes",
+     "desc": "753"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
+   "about": "Model, 4.1M downloads in the last month, 608 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "4,061,594"
+    },
+    {
+     "name": "Likes",
+     "desc": "608"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-TTS-12Hz-1.7B-Base"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.6-35B-A3B-FP8",
+   "about": "Image text to text, 4M downloads in the last month, 454 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,042,773"
+    },
+    {
+     "name": "Likes",
+     "desc": "454"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B-FP8"
+    }
+   ]
+  }
+ ],
+ "hf-datasets": [
+  {
+   "database": "Dataset",
+   "table": "huggingface/documentation-images",
+   "about": "4.2M downloads in the last month, 259 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "4,156,877"
+    },
+    {
+     "name": "Likes",
+     "desc": "259"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/huggingface/documentation-images"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "neashton/windsorml",
+   "about": "3M downloads in the last month, 7 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "2,981,520"
+    },
+    {
+     "name": "Likes",
+     "desc": "7"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/neashton/windsorml"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "tropos-labs/eigen-face-dataset-256",
+   "about": "2.9M downloads in the last month, 5 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "2,923,684"
+    },
+    {
+     "name": "Likes",
+     "desc": "5"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-02-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/tropos-labs/eigen-face-dataset-256"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "allenai/objaverse",
+   "about": "2.3M downloads in the last month, 495 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "2,326,800"
+    },
+    {
+     "name": "Likes",
+     "desc": "495"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/allenai/objaverse"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Salesforce/wikitext",
+   "about": "2.2M downloads in the last month, 869 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "2,245,883"
+    },
+    {
+     "name": "Likes",
+     "desc": "869"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Salesforce/wikitext"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "agibot-world/AgiBotWorld2026",
+   "about": "2.1M downloads in the last month, 115 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "2,062,447"
+    },
+    {
+     "name": "Likes",
+     "desc": "115"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/agibot-world/AgiBotWorld2026"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "IaLoverSpaghetti/LocaIAinHTML",
+   "about": "1.8M downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,828,864"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/IaLoverSpaghetti/LocaIAinHTML"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "nicoboou/IDRCell100k",
+   "about": "1.8M downloads in the last month, 18 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,773,868"
+    },
+    {
+     "name": "Likes",
+     "desc": "18"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-04-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/nicoboou/IDRCell100k"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "nvidia/simready-assets",
+   "about": "1.7M downloads in the last month, 1.6K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,695,432"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,650"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/nvidia/simready-assets"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "3dcodeverse/3dcodeverse-2m",
+   "about": "1.6M downloads in the last month, 68 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,590,722"
+    },
+    {
+     "name": "Likes",
+     "desc": "68"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/3dcodeverse/3dcodeverse-2m"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "DAGroup-PKU/Open-HumanWAM-50K",
+   "about": "1.5M downloads in the last month, 34 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,522,241"
+    },
+    {
+     "name": "Likes",
+     "desc": "34"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/DAGroup-PKU/Open-HumanWAM-50K"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "OPR-Project/OxfordRobotCar_OpenPlaceRecognition",
+   "about": "1.4M downloads in the last month, 10 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,361,111"
+    },
+    {
+     "name": "Likes",
+     "desc": "10"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-05-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/OPR-Project/OxfordRobotCar_OpenPlaceRecognition"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "xlangai/ubuntu_osworld_file_cache",
+   "about": "1.4M downloads in the last month, 74 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,360,136"
+    },
+    {
+     "name": "Likes",
+     "desc": "74"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/xlangai/ubuntu_osworld_file_cache"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ayuo/hd_tmp",
+   "about": "1.3M downloads in the last month, 47 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,333,522"
+    },
+    {
+     "name": "Likes",
+     "desc": "47"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/ayuo/hd_tmp"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "sjkhfuk1/foffo",
+   "about": "1.3M downloads in the last month, 3 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,294,472"
+    },
+    {
+     "name": "Likes",
+     "desc": "3"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/sjkhfuk1/foffo"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "openai/gsm8k",
+   "about": "1.2M downloads in the last month, 2.1K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,190,689"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,061"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/openai/gsm8k"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "lerobot/FineART",
+   "about": "1.2M downloads in the last month, 46 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,158,879"
+    },
+    {
+     "name": "Likes",
+     "desc": "46"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/lerobot/FineART"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ryanmarten/OpenThoughts-1k-sample",
+   "about": "1.1M downloads in the last month, 76 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,122,973"
+    },
+    {
+     "name": "Likes",
+     "desc": "76"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-08-31"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/ryanmarten/OpenThoughts-1k-sample"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "tasl-lab/uniocc",
+   "about": "1.1M downloads in the last month, 46 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,089,479"
+    },
+    {
+     "name": "Likes",
+     "desc": "46"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-08-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/tasl-lab/uniocc"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "filapro/cad-recode-v1.5",
+   "about": "1M downloads in the last month, 13 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,036,258"
+    },
+    {
+     "name": "Likes",
+     "desc": "13"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-03-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/filapro/cad-recode-v1.5"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "wei82/precancer-omics-data",
+   "about": "1M downloads in the last month, 34 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,022,226"
+    },
+    {
+     "name": "Likes",
+     "desc": "34"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/wei82/precancer-omics-data"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim",
+   "about": "978K downloads in the last month, 293 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "977,538"
+    },
+    {
+     "name": "Likes",
+     "desc": "293"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "xlangai/osworld_v2_assets",
+   "about": "846K downloads in the last month, 25 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "846,129"
+    },
+    {
+     "name": "Likes",
+     "desc": "25"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/xlangai/osworld_v2_assets"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Osamap3/PSP_ph",
+   "about": "814K downloads in the last month, 4 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "814,306"
+    },
+    {
+     "name": "Likes",
+     "desc": "4"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Osamap3/PSP_ph"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "XDOF/ABC-130k",
+   "about": "809K downloads in the last month, 147 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "808,767"
+    },
+    {
+     "name": "Likes",
+     "desc": "147"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/XDOF/ABC-130k"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Drakesuper/rodridre",
+   "about": "808K downloads in the last month, 20 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "808,004"
+    },
+    {
+     "name": "Likes",
+     "desc": "20"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-05-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Drakesuper/rodridre"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Dagonulca/figofigofigofigo",
+   "about": "789K downloads in the last month, 36 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "789,079"
+    },
+    {
+     "name": "Likes",
+     "desc": "36"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-05-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Dagonulca/figofigofigofigo"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "allenai/c4",
+   "about": "764K downloads in the last month, 705 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "764,425"
+    },
+    {
+     "name": "Likes",
+     "desc": "705"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/allenai/c4"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "roisincrtai/ptb-xl-1.0.3",
+   "about": "744K downloads in the last month, 4 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "743,520"
+    },
+    {
+     "name": "Likes",
+     "desc": "4"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/roisincrtai/ptb-xl-1.0.3"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "challenge-2026/challenge_data",
+   "about": "712K downloads in the last month, 18 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "711,601"
+    },
+    {
+     "name": "Likes",
+     "desc": "18"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/challenge-2026/challenge_data"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "HennyPr/ps2_hf2",
+   "about": "681K downloads in the last month, 48 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "680,903"
+    },
+    {
+     "name": "Likes",
+     "desc": "48"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/HennyPr/ps2_hf2"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "evaleval/EEE_datastore",
+   "about": "651K downloads in the last month, 62 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "650,709"
+    },
+    {
+     "name": "Likes",
+     "desc": "62"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/evaleval/EEE_datastore"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "epfml/FineWeb-HQ",
+   "about": "607K downloads in the last month, 36 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "606,830"
+    },
+    {
+     "name": "Likes",
+     "desc": "36"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-09-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/epfml/FineWeb-HQ"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "huggingface/DEH-image-scan-data",
+   "about": "600K downloads in the last month, 27 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "600,166"
+    },
+    {
+     "name": "Likes",
+     "desc": "27"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-25"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/huggingface/DEH-image-scan-data"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "world-igr-plum/regions",
+   "about": "598K downloads in the last month, 41 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "597,849"
+    },
+    {
+     "name": "Likes",
+     "desc": "41"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-06-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/world-igr-plum/regions"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "banned-historical-archives/banned-historical-archives",
+   "about": "591K downloads in the last month, 122 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "590,633"
+    },
+    {
+     "name": "Likes",
+     "desc": "122"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-10-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/banned-historical-archives/banned-historical-archives"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "carlotabronze/sm-stuff",
+   "about": "590K downloads in the last month, 2 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "590,387"
+    },
+    {
+     "name": "Likes",
+     "desc": "2"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/carlotabronze/sm-stuff"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "pulmo/ncbi-genbank-complete",
+   "about": "588K downloads in the last month, 28 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "587,956"
+    },
+    {
+     "name": "Likes",
+     "desc": "28"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-05-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/pulmo/ncbi-genbank-complete"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M",
+   "about": "579K downloads in the last month, 112 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "579,202"
+    },
+    {
+     "name": "Likes",
+     "desc": "112"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "cais/mmlu",
+   "about": "576K downloads in the last month, 890 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "576,302"
+    },
+    {
+     "name": "Likes",
+     "desc": "890"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-03-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/cais/mmlu"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "visionhdstream/data-vision-01",
+   "about": "576K downloads in the last month, 3 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "576,160"
+    },
+    {
+     "name": "Likes",
+     "desc": "3"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/visionhdstream/data-vision-01"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "omegalabsinc/omega-voice",
+   "about": "547K downloads in the last month, 6 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "547,479"
+    },
+    {
+     "name": "Likes",
+     "desc": "6"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-04-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/omegalabsinc/omega-voice"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "allenai/ai2_arc",
+   "about": "535K downloads in the last month, 433 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "534,861"
+    },
+    {
+     "name": "Likes",
+     "desc": "433"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-12-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/allenai/ai2_arc"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ieasybooks-org/prophet-mosque-library",
+   "about": "508K downloads in the last month, 27 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "507,671"
+    },
+    {
+     "name": "Likes",
+     "desc": "27"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-05-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/ieasybooks-org/prophet-mosque-library"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ksolovev/fine-news",
+   "about": "494K downloads in the last month, 53 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "494,092"
+    },
+    {
+     "name": "Likes",
+     "desc": "53"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/ksolovev/fine-news"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "k9cli/video-vec2wav2-tokenizer",
+   "about": "491K downloads in the last month, 41 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "491,267"
+    },
+    {
+     "name": "Likes",
+     "desc": "41"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "sunblaze-ucb/cybergym",
+   "about": "488K downloads in the last month, 73 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "487,740"
+    },
+    {
+     "name": "Likes",
+     "desc": "73"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-05-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/sunblaze-ucb/cybergym"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Maximilians/ps2_hf1",
+   "about": "483K downloads in the last month, 54 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "483,379"
+    },
+    {
+     "name": "Likes",
+     "desc": "54"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Maximilians/ps2_hf1"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "hf-doc-build/doc-build-dev",
+   "about": "480K downloads in the last month, 81 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "480,460"
+    },
+    {
+     "name": "Likes",
+     "desc": "81"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-04-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/hf-doc-build/doc-build-dev"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "adscli/copycheck-videos",
+   "about": "480K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "479,528"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/adscli/copycheck-videos"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Salesforce/GiftEvalPretrain",
+   "about": "474K downloads in the last month, 56 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "474,129"
+    },
+    {
+     "name": "Likes",
+     "desc": "56"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-01-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Salesforce/GiftEvalPretrain"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "nyu-mll/glue",
+   "about": "473K downloads in the last month, 787 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "473,192"
+    },
+    {
+     "name": "Likes",
+     "desc": "787"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/nyu-mll/glue"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "helenqu/GenPairs",
+   "about": "463K downloads in the last month, 3 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "463,373"
+    },
+    {
+     "name": "Likes",
+     "desc": "3"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-07-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/helenqu/GenPairs"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "miniiohinkimsavol/copyright-detection-videos",
+   "about": "463K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "463,340"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/miniiohinkimsavol/copyright-detection-videos"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Sharpa-Robotics/SharpaDex-v1.0",
+   "about": "461K downloads in the last month, 63 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "461,020"
+    },
+    {
+     "name": "Likes",
+     "desc": "63"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Sharpa-Robotics/SharpaDex-v1.0"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "m-a-p/FineFineWeb",
+   "about": "459K downloads in the last month, 244 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "458,506"
+    },
+    {
+     "name": "Likes",
+     "desc": "244"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-12-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/m-a-p/FineFineWeb"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Tuxifan/UbuntuIRC",
+   "about": "456K downloads in the last month, 5 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "455,972"
+    },
+    {
+     "name": "Likes",
+     "desc": "5"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-06-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Tuxifan/UbuntuIRC"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "k9cli/video-vec2wav2-tokenizer-2",
+   "about": "449K downloads in the last month, 31 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "449,433"
+    },
+    {
+     "name": "Likes",
+     "desc": "31"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer-2"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "gradio/frontend",
+   "about": "443K downloads in the last month, 6 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "443,064"
+    },
+    {
+     "name": "Likes",
+     "desc": "6"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/gradio/frontend"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "liwu/MNBVC",
+   "about": "437K downloads in the last month, 680 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "437,168"
+    },
+    {
+     "name": "Likes",
+     "desc": "680"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/liwu/MNBVC"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "k9cli/video-vec2wav2-tokenizer-3",
+   "about": "431K downloads in the last month, 14 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "431,277"
+    },
+    {
+     "name": "Likes",
+     "desc": "14"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer-3"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Kthera/pesoz",
+   "about": "418K downloads in the last month, 52 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "418,303"
+    },
+    {
+     "name": "Likes",
+     "desc": "52"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Kthera/pesoz"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "TIGER-Lab/MMLU-Pro",
+   "about": "418K downloads in the last month, 607 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "417,913"
+    },
+    {
+     "name": "Likes",
+     "desc": "607"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-05-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "HuggingFaceFW/fineweb-edu",
+   "about": "414K downloads in the last month, 1.4K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "413,801"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,418"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-07-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "hf-doc-build/doc-build",
+   "about": "410K downloads in the last month, 48 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "409,665"
+    },
+    {
+     "name": "Likes",
+     "desc": "48"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/hf-doc-build/doc-build"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "numix/balises-openwindmap-pyrenees",
+   "about": "406K downloads in the last month, 5 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "406,227"
+    },
+    {
+     "name": "Likes",
+     "desc": "5"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/numix/balises-openwindmap-pyrenees"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Chelsea707/arxiv-cs-2020-2025-pdfs",
+   "about": "394K downloads in the last month, 27 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "393,508"
+    },
+    {
+     "name": "Likes",
+     "desc": "27"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-12-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Chelsea707/arxiv-cs-2020-2025-pdfs"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "assassinlike/everything132",
+   "about": "389K downloads in the last month, 2 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "389,249"
+    },
+    {
+     "name": "Likes",
+     "desc": "2"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/assassinlike/everything132"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "lioooox/T2I-CoReBench-Images",
+   "about": "382K downloads in the last month, 6 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "381,934"
+    },
+    {
+     "name": "Likes",
+     "desc": "6"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/lioooox/T2I-CoReBench-Images"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "meloqiao/us-stock-data",
+   "about": "370K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "370,465"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/meloqiao/us-stock-data"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "siril-spcc/gaia",
+   "about": "370K downloads in the last month, 38 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "369,838"
+    },
+    {
+     "name": "Likes",
+     "desc": "38"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/siril-spcc/gaia"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ccoffee20/flatpak",
+   "about": "364K downloads in the last month, 3 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "363,889"
+    },
+    {
+     "name": "Likes",
+     "desc": "3"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/ccoffee20/flatpak"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "agents-course/course-images",
+   "about": "362K downloads in the last month, 23 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "362,400"
+    },
+    {
+     "name": "Likes",
+     "desc": "23"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-06-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/agents-course/course-images"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "YiboZhang2001/TexVerse",
+   "about": "357K downloads in the last month, 64 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "356,820"
+    },
+    {
+     "name": "Likes",
+     "desc": "64"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/YiboZhang2001/TexVerse"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "HuggingFaceFW/fineweb",
+   "about": "357K downloads in the last month, 3.8K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "356,783"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,763"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-07-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/HuggingFaceFW/fineweb"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "TGMR/one_pass_ingestion",
+   "about": "356K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "356,025"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/TGMR/one_pass_ingestion"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "RoboDojo-Benchmark/RoboDojo",
+   "about": "354K downloads in the last month, 28 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "353,642"
+    },
+    {
+     "name": "Likes",
+     "desc": "28"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/RoboDojo-Benchmark/RoboDojo"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "inclusionAI/OpenAoE-2000h",
+   "about": "347K downloads in the last month, 57 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "347,159"
+    },
+    {
+     "name": "Likes",
+     "desc": "57"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-29"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/inclusionAI/OpenAoE-2000h"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "shash42/forecast-news",
+   "about": "345K downloads in the last month, 9 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "345,215"
+    },
+    {
+     "name": "Likes",
+     "desc": "9"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/shash42/forecast-news"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "huggingface/badges",
+   "about": "343K downloads in the last month, 62 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "342,978"
+    },
+    {
+     "name": "Likes",
+     "desc": "62"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/huggingface/badges"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "57xj5SHr/Tui9DGhp",
+   "about": "343K downloads in the last month, 21 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "342,655"
+    },
+    {
+     "name": "Likes",
+     "desc": "21"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/57xj5SHr/Tui9DGhp"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "anon8231489123/ShareGPT_Vicuna_unfiltered",
+   "about": "339K downloads in the last month, 951 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "338,999"
+    },
+    {
+     "name": "Likes",
+     "desc": "951"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-04-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Emmyc2/psp",
+   "about": "338K downloads in the last month, 49 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "338,200"
+    },
+    {
+     "name": "Likes",
+     "desc": "49"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Emmyc2/psp"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "lmarena-ai/leaderboard-dataset",
+   "about": "335K downloads in the last month, 50 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "335,161"
+    },
+    {
+     "name": "Likes",
+     "desc": "50"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "mickeykang/Event6DBlender",
+   "about": "330K downloads in the last month, 10 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "330,354"
+    },
+    {
+     "name": "Likes",
+     "desc": "10"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-05-31"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/mickeykang/Event6DBlender"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "allenai/MADLAD-400",
+   "about": "328K downloads in the last month, 185 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "328,018"
+    },
+    {
+     "name": "Likes",
+     "desc": "185"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-09-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/allenai/MADLAD-400"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "nyarlathotep12/MXStuff",
+   "about": "327K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "327,041"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/nyarlathotep12/MXStuff"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "MINT-SJTU/RW-RL-Dataset",
+   "about": "319K downloads in the last month, 19 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "319,442"
+    },
+    {
+     "name": "Likes",
+     "desc": "19"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/MINT-SJTU/RW-RL-Dataset"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "McGill-NLP/WebLINX-full",
+   "about": "319K downloads in the last month, 8 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "319,250"
+    },
+    {
+     "name": "Likes",
+     "desc": "8"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-09-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/McGill-NLP/WebLINX-full"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "VoiceOfML/VOMEBOOK",
+   "about": "319K downloads in the last month, 18 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "318,935"
+    },
+    {
+     "name": "Likes",
+     "desc": "18"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/VoiceOfML/VOMEBOOK"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "wikimedia/wikipedia",
+   "about": "317K downloads in the last month, 1.7K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "316,884"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,738"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/wikimedia/wikipedia"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "harborframework/terminal-bench-science-lfs",
+   "about": "304K downloads in the last month, 11 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "303,861"
+    },
+    {
+     "name": "Likes",
+     "desc": "11"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/harborframework/terminal-bench-science-lfs"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "jat-project/jat-dataset-tokenized",
+   "about": "302K downloads in the last month, 43 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "302,240"
+    },
+    {
+     "name": "Likes",
+     "desc": "43"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-12-22"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/jat-project/jat-dataset-tokenized"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "huggingface-course/documentation-images",
+   "about": "296K downloads in the last month, 6 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "296,429"
+    },
+    {
+     "name": "Likes",
+     "desc": "6"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-06-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/huggingface-course/documentation-images"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "OpenFinMind/stock_dataset",
+   "about": "296K downloads in the last month, 3 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "296,285"
+    },
+    {
+     "name": "Likes",
+     "desc": "3"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/OpenFinMind/stock_dataset"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "zdbfv/M3_VOS",
+   "about": "291K downloads in the last month, 2 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "290,739"
+    },
+    {
+     "name": "Likes",
+     "desc": "2"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/zdbfv/M3_VOS"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "google-research-datasets/mbpp",
+   "about": "291K downloads in the last month, 279 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "290,721"
+    },
+    {
+     "name": "Likes",
+     "desc": "279"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/google-research-datasets/mbpp"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "XiaomiMiMo/MiMo-V2.6-RL-oss",
+   "about": "288K downloads in the last month, 1.1K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "288,379"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,065"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/XiaomiMiMo/MiMo-V2.6-RL-oss"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Forceless/Zenodo10K",
+   "about": "287K downloads in the last month, 33 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "286,947"
+    },
+    {
+     "name": "Likes",
+     "desc": "33"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-10-31"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Forceless/Zenodo10K"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "openai/gdpval",
+   "about": "286K downloads in the last month, 578 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "285,907"
+    },
+    {
+     "name": "Likes",
+     "desc": "578"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-02-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/openai/gdpval"
+    }
+   ]
+  }
+ ],
+ "hf-spaces": [
+  {
+   "database": "Docker",
+   "table": "enzostvs/deepsite",
+   "about": "16.6K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "16,604"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/enzostvs/deepsite"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "open-llm-leaderboard/open_llm_leaderboard",
+   "about": "14.2K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "14,165"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "jbilcke-hf/ai-comic-factory",
+   "about": "11.3K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "11,328"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/jbilcke-hf/ai-comic-factory"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Kwai-Kolors/Kolors-Virtual-Try-On",
+   "about": "10.2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "10,227"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Kwai-Kolors/Kolors-Virtual-Try-On"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "black-forest-labs/FLUX.1-dev",
+   "about": "9.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "9,586"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/black-forest-labs/FLUX.1-dev"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "mteb/leaderboard",
+   "about": "7.8K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "7,779"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/mteb/leaderboard"
+    }
+   ]
+  },
+  {
+   "database": "Static",
+   "table": "dalle-mini/dalle-mini",
+   "about": "5.8K likes, built with static.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "5,754"
+    },
+    {
+     "name": "Built",
+     "desc": "static"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/dalle-mini/dalle-mini"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "AP123/IllusionDiffusion",
+   "about": "5.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "5,459"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/AP123/IllusionDiffusion"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "black-forest-labs/FLUX.1-schnell",
+   "about": "5.2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "5,163"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/black-forest-labs/FLUX.1-schnell"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "facebook/MusicGen",
+   "about": "5.1K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "5,117"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/facebook/MusicGen"
+    }
+   ]
+  },
+  {
+   "database": "Static",
+   "table": "lmarena-ai/arena-leaderboard",
+   "about": "5K likes, built with static.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "5,041"
+    },
+    {
+     "name": "Built",
+     "desc": "static"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/lmarena-ai/arena-leaderboard"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "microsoft/TRELLIS",
+   "about": "4.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "4,771"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/microsoft/TRELLIS"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "KingNish/OpenGPT-4o",
+   "about": "4.3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "4,301"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/KingNish/OpenGPT-4o"
+    }
+   ]
+  },
+  {
+   "database": "Static",
+   "table": "nanotron/ultrascale-playbook",
+   "about": "4.1K likes, built with static.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "4,142"
+    },
+    {
+     "name": "Built",
+     "desc": "static"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/nanotron/ultrascale-playbook"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "mrfakename/Z-Image-Turbo",
+   "about": "4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,955"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/mrfakename/Z-Image-Turbo"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "zerogpu-aoti/wan2-2-fp8da-aoti-faster",
+   "about": "3.9K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,894"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/zerogpu-aoti/wan2-2-fp8da-aoti-faster"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "KlingTeam/LivePortrait",
+   "about": "3.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,825"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/KlingTeam/LivePortrait"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "InstantX/InstantID",
+   "about": "3.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,659"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/InstantX/InstantID"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "hexgrad/Kokoro-TTS",
+   "about": "3.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,561"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/hexgrad/Kokoro-TTS"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "tencent/Hunyuan3D-2",
+   "about": "3.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,440"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/tencent/Hunyuan3D-2"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "HuggingFaceTB/smol-training-playbook",
+   "about": "3.4K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,401"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/HuggingFaceTB/smol-training-playbook"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "akhaliq/anycoder",
+   "about": "3.3K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,327"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/akhaliq/anycoder"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "r3gm/wan2-2-fp8da-aoti-preview",
+   "about": "3.3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,325"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/r3gm/wan2-2-fp8da-aoti-preview"
+    }
+   ]
+  },
+  {
+   "database": "Static",
+   "table": "YuyaoTechnology/MatterSeek",
+   "about": "3.2K likes, built with static.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,162"
+    },
+    {
+     "name": "Built",
+     "desc": "static"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/YuyaoTechnology/MatterSeek"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "mukaist/Midjourney",
+   "about": "3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "3,004"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/mukaist/Midjourney"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "not-lain/background-removal",
+   "about": "3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,993"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/not-lain/background-removal"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "pharmapsychotic/CLIP-Interrogator",
+   "about": "3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,989"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/pharmapsychotic/CLIP-Interrogator"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "selfit-camera/Omni-Image-Editor",
+   "about": "3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,960"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/selfit-camera/Omni-Image-Editor"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "mrfakename/E2-F5-TTS",
+   "about": "2.9K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,936"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/mrfakename/E2-F5-TTS"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "openai/whisper",
+   "about": "2.9K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,901"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/openai/whisper"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "sanchit-gandhi/whisper-jax",
+   "about": "2.8K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,843"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/sanchit-gandhi/whisper-jax"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "HumanAIGC/OutfitAnyone",
+   "about": "2.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,826"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/HumanAIGC/OutfitAnyone"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "prithivMLmods/Qwen-Image-Edit-2511-LoRAs-Fast",
+   "about": "2.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,799"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/prithivMLmods/Qwen-Image-Edit-2511-LoRAs-Fast"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "coqui/xtts",
+   "about": "2.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,764"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/coqui/xtts"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "multimodalart/qwen-image-multiple-angles-3d-camera",
+   "about": "2.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,727"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/multimodalart/qwen-image-multiple-angles-3d-camera"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "tonyassi/voice-clone",
+   "about": "2.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,708"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/tonyassi/voice-clone"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "fffiloni/diffusers-image-outpaint",
+   "about": "2.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,566"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/fffiloni/diffusers-image-outpaint"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "sczhou/CodeFormer",
+   "about": "2.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,441"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/sczhou/CodeFormer"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "microsoft/TRELLIS.2",
+   "about": "2.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,421"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/microsoft/TRELLIS.2"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Qwen/Qwen3-TTS",
+   "about": "2.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,419"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Qwen/Qwen3-TTS"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "suno/bark",
+   "about": "2.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,388"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/suno/bark"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "tencent/Hunyuan3D-2.1",
+   "about": "2.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,386"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/tencent/Hunyuan3D-2.1"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "AI4Editing/MagicQuill",
+   "about": "2.3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,328"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/AI4Editing/MagicQuill"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "linoyts/Qwen-Image-Edit-Angles",
+   "about": "2.3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,280"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/linoyts/Qwen-Image-Edit-Angles"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "microsoft/HuggingGPT",
+   "about": "2.3K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,272"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/microsoft/HuggingGPT"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "DontPlanToEnd/UGI-Leaderboard",
+   "about": "2.2K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,222"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/DontPlanToEnd/UGI-Leaderboard"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "jbilcke-hf/FacePoke_CLONE-THIS-REPO-TO-USE-IT",
+   "about": "2.2K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,215"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/jbilcke-hf/FacePoke_CLONE-THIS-REPO-TO-USE-IT"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "finegrain/finegrain-image-enhancer",
+   "about": "2.2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,202"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/finegrain/finegrain-image-enhancer"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "r3gm/wan2-2-fp8da-aoti-preview2",
+   "about": "2.2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,198"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/r3gm/wan2-2-fp8da-aoti-preview2"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Wan-AI/Wan2.1",
+   "about": "2.2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,194"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Wan-AI/Wan2.1"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "yisol/IDM-VTON",
+   "about": "2.1K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,145"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/yisol/IDM-VTON"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "ggml-org/gguf-my-repo",
+   "about": "2.1K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,129"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/ggml-org/gguf-my-repo"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "yanze/PuLID-FLUX",
+   "about": "2.1K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,123"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/yanze/PuLID-FLUX"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Gustavosta/MagicPrompt-Stable-Diffusion",
+   "about": "2.1K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,083"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Gustavosta/MagicPrompt-Stable-Diffusion"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "mediasynthesismuseum/stable-video-diffusion",
+   "about": "2.1K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,059"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/mediasynthesismuseum/stable-video-diffusion"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "stabilityai/stable-diffusion-3.5-large",
+   "about": "2.1K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,053"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/stabilityai/stable-diffusion-3.5-large"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "deepseek-ai/Janus-Pro-7B",
+   "about": "2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,036"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/deepseek-ai/Janus-Pro-7B"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "huggingface-projects/QR-code-AI-art-generator",
+   "about": "2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "2,006"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/huggingface-projects/QR-code-AI-art-generator"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "TencentARC/PhotoMaker",
+   "about": "2K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,960"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/TencentARC/PhotoMaker"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Tongyi-MAI/Z-Image-Turbo",
+   "about": "1.9K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,943"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Tongyi-MAI/Z-Image-Turbo"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "fancyfeast/joy-caption-alpha-two",
+   "about": "1.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,822"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/fancyfeast/joy-caption-alpha-two"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "nari-labs/Dia-1.6B",
+   "about": "1.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,791"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/nari-labs/Dia-1.6B"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "ehristoforu/dalle-3-xl-lora-v2",
+   "about": "1.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,786"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/ehristoforu/dalle-3-xl-lora-v2"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "NihalGazi/Text-To-Speech-Unlimited",
+   "about": "1.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,784"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/NihalGazi/Text-To-Speech-Unlimited"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "ResembleAI/Chatterbox",
+   "about": "1.8K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,770"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/ResembleAI/Chatterbox"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Qwen/Qwen2.5-Coder-Artifacts",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,731"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Qwen/Qwen2.5-Coder-Artifacts"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "jasperai/Flux.1-dev-Controlnet-Upscaler",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,710"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/jasperai/Flux.1-dev-Controlnet-Upscaler"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "ilcve21/Sparc3D",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,686"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/ilcve21/Sparc3D"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "kulkas2pintu/wan777",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,683"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/kulkas2pintu/wan777"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "multimodalart/stable-cascade",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,679"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/multimodalart/stable-cascade"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "fffiloni/expression-editor",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,676"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/fffiloni/expression-editor"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "black-forest-labs/FLUX.1-Kontext-Dev",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,670"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/black-forest-labs/FLUX.1-Kontext-Dev"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "FrameAI4687/Omni-Video-Factory",
+   "about": "1.7K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,651"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/FrameAI4687/Omni-Video-Factory"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "prithivMLmods/FireRed-Image-Edit-1.0-Fast",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,650"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/prithivMLmods/FireRed-Image-Edit-1.0-Fast"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "stabilityai/stable-diffusion-3-medium",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,648"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/stabilityai/stable-diffusion-3-medium"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Lightricks/ltx-video-distilled",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,632"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Lightricks/ltx-video-distilled"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "multimodalart/wan2-1-fast",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,630"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/multimodalart/wan2-1-fast"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "TencentARC/InstantMesh",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,611"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/TencentARC/InstantMesh"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "multimodalart/flux-lora-the-explorer",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,571"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/multimodalart/flux-lora-the-explorer"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "tonyassi/video-face-swap",
+   "about": "1.6K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,568"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/tonyassi/video-face-swap"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "hf-audio/open_asr_leaderboard",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,546"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/hf-audio/open_asr_leaderboard"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "AimeeBingmouQu/ProtectBirds",
+   "about": "1.5K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,545"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/AimeeBingmouQu/ProtectBirds"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "timbrooks/instruct-pix2pix",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,540"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/timbrooks/instruct-pix2pix"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "CohereLabs/c4ai-command",
+   "about": "1.5K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,532"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/CohereLabs/c4ai-command"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "bigcode/bigcode-models-leaderboard",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,528"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/bigcode/bigcode-models-leaderboard"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "ysharma/ChatGPT4",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,491"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/ysharma/ChatGPT4"
+    }
+   ]
+  },
+  {
+   "database": "Docker",
+   "table": "DeepFloyd/IF",
+   "about": "1.5K likes, built with docker.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,482"
+    },
+    {
+     "name": "Built",
+     "desc": "docker"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/DeepFloyd/IF"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "fancyfeast/joy-caption-pre-alpha",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,481"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/fancyfeast/joy-caption-pre-alpha"
+    }
+   ]
+  },
+  {
+   "database": "Static",
+   "table": "HuggingFaceFW/blogpost-fineweb-v1",
+   "about": "1.5K likes, built with static.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,473"
+    },
+    {
+     "name": "Built",
+     "desc": "static"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/HuggingFaceFW/blogpost-fineweb-v1"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "k2-fsa/OmniVoice",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,470"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/k2-fsa/OmniVoice"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "ali-vilab/modelscope-text-to-video-synthesis",
+   "about": "1.5K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,460"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/ali-vilab/modelscope-text-to-video-synthesis"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "jamesliu1217/EasyControl_Ghibli",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,450"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/jamesliu1217/EasyControl_Ghibli"
+    }
+   ]
+  },
+  {
+   "database": "Static",
+   "table": "CompVis/stable-diffusion-license",
+   "about": "1.4K likes, built with static.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,437"
+    },
+    {
+     "name": "Built",
+     "desc": "static"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/CompVis/stable-diffusion-license"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "vinthony/SadTalker",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,435"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/vinthony/SadTalker"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "zcxu-eric/magicanimate",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,423"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/zcxu-eric/magicanimate"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "Asahina2K/animagine-xl-3.1",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,415"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/Asahina2K/animagine-xl-3.1"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "NihalGazi/FLUX-Unlimited",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,414"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/NihalGazi/FLUX-Unlimited"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "gokaygokay/FLUX-Prompt-Generator",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,404"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/gokaygokay/FLUX-Prompt-Generator"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "dream2589632147/Dream-wan2-2-faster-Pro",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,394"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/dream2589632147/Dream-wan2-2-faster-Pro"
+    }
+   ]
+  },
+  {
+   "database": "Gradio",
+   "table": "fffiloni/CLIP-Interrogator-2",
+   "about": "1.4K likes, built with gradio.",
+   "fields": [
+    {
+     "name": "Likes",
+     "desc": "1,369"
+    },
+    {
+     "name": "Built",
+     "desc": "gradio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/spaces/fffiloni/CLIP-Interrogator-2"
+    }
+   ]
+  }
+ ],
+ "hf-papers": [
+  {
+   "database": "Paper",
+   "table": "TeleChat to Xing4: Advancing Frontier Agentic Models on Domestic Chips and Frameworks",
+   "about": "We present Xing 4, a series of large language models that extends the TeleChat lineage through coordinated advances in model architecture and training infrastructure on Ascend. This report describes the design principles and systems engineering behind the series, spanning architecture selection…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "156"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22115"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22115"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Sage S2.1 Flash Technical Report",
+   "about": "We introduce Sage S1.5 Flash, a 320-billion-parameter general-purpose mixture-of-experts model designed to reason over scientific evidence and act in interactive environments. Sage Sci-Perception uses dedicated encoders for molecular graphs and biological sequences and represents spectra as…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "96"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21072"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21072"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "AscendGYM: A Cost-Aware Kernel Optimization Benchmark for Real-World Workloads on Ascend NPUs",
+   "about": "AscendGYM provides a benchmark for assessing kernel optimization capabilities on Ascend NPUs using real-workload test cases, two evaluation modes, and a Speedup-Token Score that balances speedup against token cost.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "92"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17621"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17621"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
+   "about": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a unified memory pool with phase-aware layouts and optimized CUDA Graph execution under expert paging.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "60"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.14848"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.14848"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Weight-Space Programming Doesn't Need Transformers",
+   "about": "When large language models write neural network weights without gradient-based training, they tend to design sparse table or associative-memory models that outperform same-sized Transformers with far fewer parameters and faster GPU inference, though pretrained LLMs remain more accurate.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "52"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22055"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22055"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Multi-Branch Transformer",
+   "about": "Branching Transformer blocks into parallel parameterized branches, combined with shared KV caching, improves language model quality and inference efficiency compared with standard sequential Transformers.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "45"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19800"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19800"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "ForceHarness: Turning Force into Action and Physics for Frozen Frontier Models",
+   "about": "Frontier multimodal models can now control robots zero-shot from images, yet many manipulation tasks depend on contact forces that images cannot show. Bringing force to an API-only frozen model raises two challenges. First, contact evolves much faster than an API model can decide, so the system…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "41"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21099"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21099"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Jeveration: System One Models Now Generate",
+   "about": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single forward pass with fast 512x512 generation.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "35"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24738"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24738"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Beyond Answering: Learning to Speak First and Act in Streaming Video",
+   "about": "AURA 2.0 is a streaming video large language model that can initiate conversations, call tools, and perform interactive visual grounding, with long-horizon memory and a three-stage training scheme for improved streaming interaction.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "35"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17048"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17048"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Breath-Dx: A Time Series Classification Benchmark for Disease Screening with eNose",
+   "about": "A comprehensive benchmark evaluates time-series classification methods on a large clinical breath dataset under realistic temporal splits, showing that sensor drift lowers performance and recurrent models are most consistent across diseases.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "33"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.15348"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.15348"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Self-Improvement Memory Enables Continual Recursive Self-Improvement",
+   "about": "Continual recursive self-improvement lets harness optimizers reuse and revise prior edits across changing benchmarks or policy models by storing rationales, predicted and observed outcomes, and evaluation contexts in a self-improvement memory, improving final scores over continuation baselines.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "31"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.18856"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.18856"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "PROLA: Principal-Orthogonal Low-rank Adaptation for Predictive Spatiotemporal Weather Downscaling",
+   "about": "High-resolution weather prediction is important for resolving local atmospheric patterns missed by coarse global forecasts. Large pretrained weather backbones have improved global forecasting, but adapting them to produce future high-resolution fields from recent coarse states remains challenging…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "26"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-08"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.11318"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.11318"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "FastFrames: Video Generation at Interactive Latency",
+   "about": "Autoregressive video diffusion models generate frames based on new observations and inputs, making them a promising medium for interactive visual experiences. However, existing models are orders of magnitude too slow for fluid interaction. This paper introduces FastFrames, a family of fast…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "25"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23226"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23226"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "TCP4D: A Unified Tool-Center-Point Tracking and Generation Model for Robot Manipulation",
+   "about": "Robot manipulation videos provide a rich visual experience, yet recovering robot action and gripper-state annotations from RGB observations still remains challenging. Using the embodiment-agnostic tool-center-point (TCP) pose as the action space, we present TCP4D, a unified model in which a shared…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "24"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23143"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23143"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Game2Player: Scaling Gameplay Experience for Visual Agents through Environment-Player Co-Development",
+   "about": "Games are a rich testbed for visual agents, demanding perception, long-horizon planning, and precise control. However, collecting human gameplay is costly, and learning from gameplay videos requires inferring missing actions. Existing datasets also cover a limited range of games, often without…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "22"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24154"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24154"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "LynnReal-Hand: Unlocking World Interaction with Hand Control",
+   "about": "Interactive video world models enable exploration through text and camera controls, yet direct object interaction requires finer control. Hands provide a natural interface, but translating continuous hand movements into coherent visual responses remains challenging because of complex hand-object…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "22"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21479"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21479"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Heave-Ho: Decentralized Long-Horizon Multi-Humanoid Collaboration",
+   "about": "A decentralized framework enables teams of humanoids to coordinate whole-body loco-manipulation over long horizons using low-level multi-agent post-training and a high-level vision-language planner with speech-based leader-follower synchronization.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "21"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22275"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22275"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "VideoNexus: Video Perception Beyond the Reasoning Context",
+   "about": "VideoNexus separates detailed video perception from evidence-driven planning and reasoning, using perception sub-agents to return compact temporally grounded evidence and achieving higher accuracy at lower cost on long-video benchmarks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "20"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21392"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21392"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "ALIVE: Making Streaming Video Models Interactive",
+   "about": "Streaming video LLMs can continuously observe the world, yet often handle user requests in isolation. We introduce ALIVE, an interactive streaming video model supporting proactive monitoring, streaming task coordination, and feedback-seeking interaction. We construct ALIVE-SFT-288K and ALIVE-RL-3K…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "19"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21366"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21366"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
+   "about": "Agent evolution is often bottlenecked by noisy evaluations that cannot reliably identify better candidate artifacts or rank methods, so progress requires making true improvements detectable and accumulable.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "17"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23068"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23068"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "WorldRuler: Interactive World Modeling under Configurable Rules",
+   "about": "A rule-graph-based generative world model preserves user-defined rules and world states across saving and loading while accurately realizing rule-induced visual changes on designated objects and attributes.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "15"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24869"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24869"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "SALA: Semantically Aligned Latent Actions Enable Dual-Axis Scaling of Embodied Foundation Models",
+   "about": "SALA aligns latent actions across human and robot videos by using language-based semantic similarities to form a shared latent action space that supervises embodied foundation model training and improves robot task performance.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "15"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17110"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17110"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Regularized Score Centering",
+   "about": "Asynchronous reinforcement learning increases training throughput, but data from stale policies and numerical mismatch between training and inference can destabilize learning. To stabilize off-policy learning, score centering (SC) removes the effect of reward baselines on the expected update. Our…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "14"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21791"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21791"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "π^4: A Foundation Model for 4D Scene Geometry and Motion",
+   "about": "This unified foundation model enables the recovery of dense geometry, camera poses, and object tracking from diverse, uncalibrated observations in 4D scenes using a shared geometry and motion branch architecture.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "13"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23144"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23144"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+   "about": "CurvDelta and CurvLoRA constrain LLM updates to a low-curvature preservation space, improving retention while maintaining target adaptation across reasoning, code, and unlearning tasks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "12"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24654"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24654"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "From Repositories to Training Environments: Scaling Long-Horizon Coding Agents with Environment Evolution Loop",
+   "about": "RepoFactory converts real repositories into verifiable coding environments and optimizes them via an Environment Evolution Loop using proxy feedback, enabling trained coding agents to achieve strong gains on long-horizon coding and agentic benchmarks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "12"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21152"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21152"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
+   "about": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip creation and real-time interactive streaming. Yet a practical renderer must address two challenges. Upstream proxies vary from coarse layouts to fine…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "11"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22925"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22925"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Decoding Without a Decoder: Direct Pixel Prediction from Diffusion Transformers",
+   "about": "A method that removes the decoder from latent diffusion models by adding a final-step prediction head to a finetuned diffusion transformer, reducing inference cost and improving pixel quality in image and video generation.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "10"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22287"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22287"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "FMT: Lossless Image Compression in a Fixed Number of Parallel Steps",
+   "about": "The Fixed-step Multiscale Tree (FMT) format achieves highly efficient, fixed-time decoding of images by utilizing a coarse-to-fine tree structure and parallel GPU prediction mechanisms.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "10"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23108"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23108"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "MedJev: A System One Vision-Language Decision Model for Fast and Effective Medical Image Understanding",
+   "about": "Medical image understanding with vision-language models (VLMs) typically relies on autoregressively generating reasoning and answer tokens. These unnecessary tokens make the inference cost scale with the response length and force the answer to be parsed from free-form text, incurring avoidable…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "10"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.20992"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.20992"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "QDA: Closed-Loop LLM Quantization Design with Agents",
+   "about": "Post-training quantization is the standard way to serve large language models at low cost. However, the best quantization recipe differs across models and precisions. As a result, experts must redesign it for every new model, which is time-consuming and often sub-optimal. Fortunately, an LLM agent…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "9"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23388"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23388"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "CADMAGEDDON: High-Fidelity CAD Reconstruction with Local Inference",
+   "about": "CADMAGEDDON is an open-source agent that reconstructs editable CAD from meshes locally on single-GPU systems and laptops, using a mid-sized Qwen model and geometric tools to outperform prior systems.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "9"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22563"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22563"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "MPEG-Diffusion: Mixed-Resolution Video Generation",
+   "about": "MPEG-Diffusion reduces the computational cost of video diffusion transformers by generating only a self-selected high-resolution region with dual-resolution attention and a mixed-resolution decoder, achieving faster denoising without quality loss.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "9"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-09"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.12069"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.12069"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Energy-Based Reasoners: Your Recurrent Reasoner Should Be an Energy-Based Model",
+   "about": "Energy-Based Reasoners guide looped latent reasoning by learning an energy function whose gradient refines states and signals when to stop, with exploration-based training improving performance and efficiency.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "9"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.08977"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.08977"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "HINT-WAM: Hindsight-Informed Training for World Action Models",
+   "about": "World action models (WAMs) have shown promising generalization and data efficiency in robot manipulation by coupling action generation with predictions of future visual dynamics. Translating these capabilities into reliable task execution, however, remains a challenge for existing post-training…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "8"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24789"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24789"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Agentic On-Policy Distillation Implicitly Reshapes LLMs' ReAct Patterns",
+   "about": "On-policy distillation can improve or degrade language-model agent interaction across domains, and selectively retaining teacher-preferred positions mitigates negative transfer at a cost to source-domain learning.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "7"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19244"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19244"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Termination Lag: Coding Agents Solve Early but Stop Late",
+   "about": "Coding agents often find correct patches early but continue working, sometimes undoing correct solutions, with termination lag varying by model and benchmark.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "7"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.14960"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.14960"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Correcting Persistent Failures in Point-Cloud Grasping Policies using Human Demonstrations in Virtual Reality",
+   "about": "A human-in-the-loop failure-mining pipeline turns persistently unsolved grasps of a reinforcement-learning point-cloud policy into virtual-reality human demonstrations, improving hard-case success without reducing generalization to unseen objects.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "7"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.18919"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.18919"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "OutfitterBench: Evaluating LLM Agents on Long-Horizon Resource Allocation and Commitment Coordination",
+   "about": "OutfitterBench evaluates LLM agents managing a 200-day outdoor-equipment rental business under fixed capital and uncertain demand, revealing limitations in sustaining feasible commitments and reallocating resources.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "7"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17933"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17933"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "RoughCut-Bench: A Benchmark for Automatic Video Rough-Cut with Large Vision-Language Models",
+   "about": "A new benchmark and agentic workflows assess vision-language models for automatic video rough-cut, revealing current models struggle to match expert cut plans.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24098"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24098"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Mechanistic Critics for Sample-Efficient NPU Design-Space Exploration",
+   "about": "NPU design-space exploration for LLM inference mainly relies on an expensive simulator that often returns only scalar feedback such as latency and power. Such feedback can rank evaluated configurations, but gives little information for deciding why a configuration is slow or which architecture…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24733"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24733"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "VisualArtifactSpec 1.0: Evaluating Visual Artifacts under Task Specifications",
+   "about": "Visual artifact tasks test agents' ability to translate task specifications and source materials into outputs that meet practical needs. Evaluation across artifact families helps distinguish broadly applicable authoring capabilities from strengths confined to a particular medium. We introduce…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21382"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21382"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Glyph: An Interpretability Engine for AI-Driven Scientific Discovery in Clinical Data",
+   "about": "Glyph uses foundation models and sparse autoencoders to extract interpretable clinical concepts from multimodal records and CT data, revealing reproducible predictive associations across patient cohorts.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.08922"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.08922"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Marimba: A System One Model for Speech",
+   "about": "Marimba uses frozen Qwen3-ASR features and lightweight readouts to make lexical, turn-end, language, speaker-change, and personal-information decisions from speech, achieving strong detection and calibration on conversational and read-speech benchmarks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.18330"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.18330"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "JEPA4R: Embodied JEPA World Models with 4D Point Planning",
+   "about": "Joint-embedding predictive architecture (JEPA) world models predict future embeddings instead of pixels and plan in latent space. Two challenges remain: 2D images leave the metric geometry that manipulation acts on implicit and entangled with appearance, and what these models imagine stays hidden…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19771"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19771"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "PReMind: When Personal Memory Meets Visual Hazards",
+   "about": "A diagnostic benchmark and two-phase reinforcement learning framework enable personalized vision-language assistants to jointly connect visual hazard evidence with personal memory for appropriate responses.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23808"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23808"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Learning Anisotropic Prediction Targets for Flow Models",
+   "about": "AnisoFlow learns an anisotropic, learnable prediction target for flow-based generative models, improving FID and image quality without altering the architecture or sampler.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17767"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17767"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Do LLM Agents Still Need to Be Told How to Self-Improve?",
+   "about": "Capable frozen LLM agents can autonomously construct context-based self-learning algorithms from basic resources and a general goal, yielding text artifacts that transfer to new game and 3D navigation tasks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23219"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23219"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Abstention Direction in Large Language Models: Mechanistic Interpretability of Abstention Across Query Ambiguity, Knowledge Limits, and Safety Alignment",
+   "about": "Abstention in large language models arises from query ambiguity, model knowledge limits, and value misalignment, and steering internal activations in middle layers can increase or decrease abstention across these causes.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.20441"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.20441"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Correct Labels Are Not Enough: Reliable Metadata Can Silently Control Model Behavior",
+   "about": "Fine-tuning data can include metadata that predicts the correct answer, such as a reward-model score or a quality label. We ask whether a model learns to rely on this metadata even when every training label is correct. We fine-tune 7-9B open-weight models from three families on multiple-choice…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-03"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.04395"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.04395"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "More Agents, More Samples, or More Thinking? Untangling Coordination, Ensembling, and Test-Time Compute in Multi-Agent LLMs",
+   "about": "Evaluations of multi-agent language models often compare communicating architectures against a single greedy pass. This practice confounds coordination with sample multiplicity and inference compute. We synthesize nine primary empirical evaluations comprising 516 unique multi-agent configurations…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17610"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17610"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Continuation-Guided LLM Evolution of Program Policies and Goal Compilers in Craftax",
+   "about": "A framework uses coding agents and a feedback cascade to synthesize code-based policies that achieve long-horizon success and can be factored into a reusable goal compiler for zero-shot transfer to new tasks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "5"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19537"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19537"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
+   "about": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data Engineering and recursive self-improvement (RSI). The models predict probabilities over candidate answers for general-purpose text and visual judgments…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24651"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24651"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "DNeo: Your Parallel Draft Model Needs Better Target Feature Encoding",
+   "about": "A lightweight feature-encoding method with rejection memory and architectural enhancements enables faster large language model inference by improving speculative-diffusion draft verification.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21925"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21925"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "HubEgo-100K: In-the-Wild Egocentric Video of Skilled Work for Robot Learning",
+   "about": "Robot policies trained by imitation generalize poorly outside the environments and objects seen in training. Published data-scaling studies find that generalization grows with the diversity of training environments and objects rather than with more demonstrations per environment. Robot data is…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21938"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21938"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "The Noise Floor of a Quantization Comparison: Engine, restart, batch and kernel drift, measured against 8-bit and 4-bit effects in two decision models",
+   "about": "A quantized model is usually judged by comparing it with its BF16 original, but that comparison changes more than the weights. It often changes the serving engine, it always runs on a different server instance, it may change how requests are batched, and on some stacks the library selects a…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.15671"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.15671"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "ResWAM: Learning What Changes, Not What Stays, for World-Action Models",
+   "about": "ResWAM combines visual residual learning in frozen DINOv3 features with a lightweight dual-branch DiT trained via conditional flow matching to improve vision-language-action policy success while lowering training and inference compute.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19559"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19559"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Invariant-Aware Harness Enforcement to Protect LLM Agents from Silent API Failures",
+   "about": "LLM agents answer questions by calling APIs and trusting the results. An API can fail silently. It ignores part of a request, such as a misnamed filter, yet returns HTTP 200 and a plausible but wrong result. Current fixes, such as checklists, reviewer models and LLM judges, ask the model to catch…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.20595"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.20595"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "When Expert Disagreement Hurts: Prestige and Selectivity in LLM Decision Revision",
+   "about": "A controlled two-pass audit varying only the revision context reveals that language models often fail to selectively correct errors under disagreement, with expert labels increasing reversals but not reliably improving accuracy, so revision should be assessed using paired conditional metrics per…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.16694"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.16694"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "ViRA: Toward Ultra-High-Resolution Visual Agents via Cross-Input Relative Policy Optimization",
+   "about": "Visual agents answer questions about ultra-high-resolution photos by zooming into the relevant regions. However, existing agents often answer from common sense instead of reading the evidence. Reinforcement learning (RL) on the final answer cannot correct this, because a guess earns the same…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21605"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21605"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "BitDecoding-FP4: Native FP4 KV Cache Decoding via Algorithm-System Co-Design",
+   "about": "BitDecoding-FP4 co-designs FP4 quantization and system optimizations to enable accurate, high-throughput long-context KV decoding for LLMs.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.09825"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.09825"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Movie2Game-Bench: Holistic Evaluation of Film-to-Game Adaptation Beyond Playability",
+   "about": "Adapting a film into a game requires selecting source elements and translating them into player actions, rules, and feedback. We introduce Movie2Game-Bench (M2G-bench), a benchmark for evaluating film-to-game adaptation beyond playability. M2G-bench combines general evaluation, movie-specific…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24669"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24669"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Late Entry in Looped Language Models",
+   "about": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth directly into sequential decoding latency. Conventional early-exit decoding halts after initial passes without cache completion, truncating cached…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24576"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24576"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Let Samples Sing in Chorus: Mitigating Spurious Correlations via Cross-view Consensus",
+   "about": "A multi-view debiasing method aggregates within-class partitions across diverse representation spaces to reduce reliance on spurious correlations and improve worst-group accuracy without bias supervision.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22668"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22668"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Attention at Absolute Zero",
+   "about": "Attention scores candidate supports of an answer, which we call witnesses, and reads the scores at a temperature. We build a higher-order attention layer whose state lives on pairs of items: for a pair (a, b), each third item k is a witness judged through its legs (a, k) and (k, b). It reads…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.11937"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.11937"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "MillBill: A Machining Agent with Geometric Feedback",
+   "about": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by writing geometry and toolpath code for each part, but this makes numerical execution part of the model's task. We introduce MillBill, an agent that…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22565"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22565"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "AuXSpec: Learning to Autoformalize Program Specifications via Executable Postconditions",
+   "about": "Formal specifications define intended program behavior and underpin verification, but writing them in theorem provers such as Lean is slow and expertise-intensive, making specification a major bottleneck to scaling formally correct code. Autoformalization from natural-language problems is…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21421"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21421"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Inside the Trading Loop: Markets, Models, and Moves with LLM Agents",
+   "about": "A hybrid multi-agent trading system combining large language model analysts with momentum-based portfolio construction and rule-based execution produced a 34.5% paper-account return from March 11 to August 28, 2026, exceeding SPY's 14.4% but with a larger maximum drawdown.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-08"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.11657"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.11657"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Dataset Distillation via Drifting",
+   "about": "A dataset distillation method learns synthetic samples that approximate per-class data distributions in a feature extractor's latent space, improving distribution coverage and classification training while supporting visualization and other modalities.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.16642"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.16642"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "BiCAT: Bimanual Coordination Action Tokenization",
+   "about": "BiCAT shares a motion representation across arms and conditions each arm's tokens on its partner via symmetric cross-arm attention and a joint decoder, enabling parallel arm token prediction and improving bimanual manipulation success.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23499"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23499"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "FVScore: Specification-Driven Neuro-Symbolic Video Evaluation",
+   "about": "FVSCORE is a neuro-symbolic evaluation framework that compiles videos into prompt and implicit constraint propositions, verifies them with perceptual tools and soft temporal logic, and calibrates significant violations to produce interpretable, human-aligned feedback for video generation.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22673"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22673"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
+   "about": "UltraTex employs a cascaded multi-view framework that integrates physical knowledge and vision-language model features to accurately generate physically plausible PBR texture maps.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24941"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24941"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "PIPETTE: Prompt Injection Purple-Teaming for Robust LLM Agents",
+   "about": "A novel framework addresses the limitations of current reinforcement learning-based red-teaming methods by employing dictionary learning and on-policy adversarial training to improve the robustness of LLM agents against indirect prompt injection attacks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24362"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24362"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Out of Sight, Still in Mind: Token Compression for Omni-LLMs",
+   "about": "ReMo, a training-free method, reduces inference input token cost for omni-modal large language models by compressing redundant visual tokens through cross-modal alignment and replacing object-level visual tokens with compact text descriptions, achieving comparable accuracy on audio-visual tasks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2607.21179"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2607.21179"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "DrawScore: Evaluating Generated CAD Models against Engineering Drawings",
+   "about": "A new metric for automatic CAD generation evaluates models through engineering-drawing projections with a saturating penalty along curves, exposing small local errors that volume- or surface-based metrics miss and enabling use as a reinforcement learning reward or test-time verifier.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24681"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24681"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Evidence-Based Credit Assignment for Search-Augmented Language Models",
+   "about": "Reinforcement learning from terminal answer rewards enables search-augmented language models to interleave reasoning and retrieval without step-level annotations, yet outcome supervision assigns identical credit to every search in a trajectory regardless of whether it retrieved useful information…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23824"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23824"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "VAE Rhythm: Temporal Decoding Traces for AI-Generated Video Detection",
+   "about": "Visible artifacts are an unreliable cue for detecting generated videos, because newer generators learn to remove them. We instead detect a trace left by the generation pipeline itself. Most video generators decode latents with a 3D causal VAE that groups consecutive frames in time, so the fidelity…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21114"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21114"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "LogT: Logically Think with Images for Visual Search",
+   "about": "Thinking with images empowers vision-language models (VLMs) to use an external Zoom-in tool for fine-grained visual search. Recent works employ supervised fine-tuning (SFT) and reinforcement learning (RL) with tool-specific designs to enable such capabilities. However, achieving logical reasoning…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19200"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19200"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Recurrent Domain Incremental Adaptation of Time-Series Foundation Models",
+   "about": "PACT adapts a pretrained time-series foundation model to new operating conditions by partitioning its frozen embedding space into local charts and learning gated residual transports that preserve previously learned conditions, achieving high macro-F1 with limited labeled calibration data and no…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24075"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24075"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "IDEA: Intent-Dominance Evidence Audit for Inference-Time Backdoor Detection in GUI Agents",
+   "about": "A step-level inference-time audit detects visual-trigger backdoors in open-weight GUI agents by comparing instruction- and region-induced shifts in decision state against clean-step conformal baselines, localizing triggers with controlled false positives.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24102"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24102"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "The novelty exposed: ablation, reproducibility and transparency in 40 technical reports of open-weight large language models (LLMs)",
+   "about": "In 2025 alone, 48 new large language model (LLM) architectures were added to the Hugging Face transformers library, and many of them arrive with a technical report that presents the model as new. What is actually new in these models, and is it tested? We put this question to LLM technical reports…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.20003"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.20003"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "WeightBench: Evaluating Language Models as Weight-Space Programmers",
+   "about": "The WEIGHTBENCH benchmark evaluates the capacity of large language models to perform Weight-Space Programming tasks, which involve reading, modifying, and generating the weights of various neural network architectures.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.18553"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.18553"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "GameRealm: Grounding Visual Learning in Interactive Games",
+   "about": "GameRealm is a large-scale multimodal gameplay dataset with synchronized depth, camera, audio, control, and 3D trajectory annotations that improves visual foundation models for generation and geometric learning.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23140"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23140"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "PanDWM: Panoramic 4D Driving World Models",
+   "about": "PanDWM stitches six camera views into a 360° panoramic band and uses a distilled causal student with a feed-forward 3D Gaussian decoder to generate consistent 4D driving scenes faster and with better FID/FVD than multi-camera baselines.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19857"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19857"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "M3OPD-Reasoner: An Open Recipe for Post-Training Multimodal Reasoning with Multi-Teacher On-Policy Distillation",
+   "about": "Multi-Teacher On-Policy Distillation (MOPD) enables a single student to absorb the skills of several domain teachers by learning from its own generated responses. We present Multimodal Model Multi-Teacher On-Policy Distillation Reasoner (M3OPD-Reasoner), a fully open recipe for post-training…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23034"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23034"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "TPHC: Improving Hyper-Connections with Tensor-Parallel Grouped Updates",
+   "about": "TPHC combines tensor-parallel shards with hyper-connection residual streams to enable more independent stream updates, improving language model loss and zero-shot reasoning with modest training overhead.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23026"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23026"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Flexible Multi-Stack Super-Resolution of Clinical Brain MRI Using Hetero-Orientation Variational Encoding: Expert Reader Evaluation in a Nigerian Cohort",
+   "about": "MS-HVED enables flexible super-resolution of partially overlapping brain MRI stacks by fusing independently encoded multi-scale Gaussian posteriors with a field-of-view-aware Product-of-Gaussians and physics-informed domain randomisation, improving reconstruction, tissue segmentation, and external…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21412"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21412"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
+   "about": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least squares, improving multimodal tabular model performance with minimal runtime overhead.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.17600"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.17600"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "NexSight: Verifiable Tasks for Fine-Grained Agentic Long-Video Understanding",
+   "about": "Fine-grained questions about long videos ask how many times an action occurs, in what order events unfold, or exactly when a state changes. Answering them can require finding brief moments scattered across hours of footage. Agentic models that decide when and where to look promise to find these…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22790"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22790"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "A Foundation Model to Measure and Predict Human Behaviour",
+   "about": "A foundation model fine-tuned from a large language model measures and predicts human behaviour and aligns simulated population responses with human statistics, improving accuracy over frontier LLMs.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24830"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24830"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Thinking Harder Doesn't Lead to Better Choices: Reasoning Effort Increases the Confidence but Not the Correctness of LLM Shopping Agents",
+   "about": "Across three shopping benchmarks, increasing large language model shopping agents' thinking effort did not statistically improve product-choice quality but significantly raised reported confidence, and most models were poorly calibrated with correlated errors.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22033"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22033"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "MInfoVisQA: A Multilingual Benchmark for Information-Rich Visual Question Answering",
+   "about": "MInfoVisQA, a 24-language parallel benchmark, reveals substantial cross-language robustness gaps in multimodal large language models for information-rich visual question answering.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-10-14"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21644"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21644"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "CONGA: Compiling Gaussian Fiber Geometry for Structured Bayesian Inference",
+   "about": "In structured Bayesian models, a large latent block is often Gaussian conditional on a smaller set of parameters, yet generic inference methods relearn this geometry during warmup. We study how this structure can be used to construct transports for posterior inference. The conditional mean and…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.20995"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.20995"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Unreasonable Confidence from Simulator Misspecification: Directional Robustness on the SPEED+ Sim-to-Real Benchmark",
+   "about": "A simple monocular pose estimator trained on synthetic spacecraft images shows poor real-world transfer, with overconfident pose errors and uneven gains from backbone adaptation and photometric augmentation under different lighting.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.20321"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.20321"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "GPBam: A Retrieval-Aware German Public Law Exam Benchmark",
+   "about": "A new benchmark of German public-law exam cases and statutory provisions jointly scores legal retrieval and long-form opinion generation across many models, finding that retrieval yields limited gains and essay quality strongly tracks prior statutory knowledge.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.18981"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.18981"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Zuse: A Decision Model for European Languages",
+   "about": "Decision models read a document and return a probability for each of a fixed set of options instead of generating text. Several appeared in 2026, but none has published results outside English. We describe Zuse, three decision models (4B, 9B and 27B) that train a low-rank adapter and a pointer…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.06238"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.06238"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "A Reinforcement Learning Method to Navigate SMEFT Operator Space",
+   "about": "A reinforcement learning agent with a lightweight actor-critic architecture explores the Standard Model Effective Field Theory operator space to discover diverse high-quality theory hypotheses and improve global fits.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "1"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21439"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21439"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "PGPO: Prototype-Guided Progressive Obfuscation for Privacy-Preserving LLM-Enhanced Recommendation",
+   "about": "A prototype-guided progressive obfuscation method preserves relative item relations while perturbing high-influence semantic embeddings to defend against inversion attacks in LLM-enhanced recommender systems.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "0"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-08-26"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23236"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23236"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Thinking Fast, Anywhere: One System-1 for the Decision Points of Any Agent Workflow",
+   "about": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to a large model when uncertain, reducing cost and latency while preserving reliability.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "0"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23751"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23751"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Chorus: Shared N-gram Embeddings with Layer-wise Adaptation",
+   "about": "Chorus shares one set of n-gram embedding tables across all layers, letting each layer project and rescale the embedding using its hidden state, achieving better quality with much smaller tables and lower optimizer memory.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "0"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23386"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23386"
     }
    ]
   }

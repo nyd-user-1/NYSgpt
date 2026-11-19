@@ -765,7 +765,8 @@ export type Kind = keyof typeof KINDS;
  * marks a figure measured to the unit, which a wide cell spells out.
  */
 export const LEDGER: { word: string; value: number; unit: string; exact?: boolean; color: string }[] = [
-  { word: "Data", value: 12_121_473_625, unit: "Records", exact: true, color: KINDS.Data },
+  // The catalog's total on 19 Nov 2026 (brief 42): 77,327,245,197 records in 8,150 tables.
+  { word: "Data", value: 77_327_245_197, unit: "Records", exact: true, color: KINDS.Data },
   { word: "Models", value: 1_910_089_220, unit: "Parameters", exact: true, color: KINDS.Model },
   { word: "Platforms", value: 3_125_952, unit: "Requests", exact: true, color: KINDS.Platform },
   { word: "Tools", value: TOOLS.filter((t) => t.tag === "Tool").length + IN_HOUSE.length, unit: "AI tools", color: KINDS.Tool },

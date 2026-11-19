@@ -276,8 +276,8 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 .hm-card { height: 210px; overflow: hidden; }
 .hm-card .hm-body { min-height: 0; }
 .hm-card .hm-body p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; flex: 0 1 auto; }
-.hm-card[data-kind="aa"] h3, .hm-card[data-kind^="gh-"] h3, .hm-card[data-kind="hf"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3 { -webkit-line-clamp: 2; }
-.hm-card[data-kind="aa"] .hm-body p, .hm-card[data-kind^="gh-"] .hm-body p, .hm-card[data-kind="hf"] .hm-body p, .hm-card[data-kind="kaggle"] .hm-body p, .hm-card[data-kind="llmstats"] .hm-body p { -webkit-line-clamp: 3; }
+.hm-card[data-kind="aa"] h3, .hm-card[data-kind^="gh-"] h3, .hm-card[data-kind^="hf-"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3 { -webkit-line-clamp: 2; }
+.hm-card[data-kind="aa"] .hm-body p, .hm-card[data-kind^="gh-"] .hm-body p, .hm-card[data-kind^="hf-"] .hm-body p, .hm-card[data-kind="kaggle"] .hm-body p, .hm-card[data-kind="llmstats"] .hm-body p { -webkit-line-clamp: 3; }
 
 /* A box shows its name alone; its line appears on mouse hover or keyboard selection (Brendan, 2026-11-19).
    The line keeps its space, so nothing moves when it shows. */
@@ -286,7 +286,7 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 
 /* GitHub's masthead page: the nameplate keeps its size and the wordmark's place; the mark lies over it */
 .hm-ghm { pointer-events: none; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .5s; color: var(--paper-text); }
-.hm-ghm svg { width: clamp(2.5rem, 8cqw, 4.5rem); height: auto; }
+.hm-ghm svg, .hm-ghm img { width: clamp(2.5rem, 8cqw, 4.5rem); height: auto; }
 .hm-name.hm-gh .hm-wm { opacity: 0; }
 .hm-name.hm-gh .hm-ghm { opacity: 1; }
 .hm-name.hm-gh:hover .hm-ghm { opacity: 0; }

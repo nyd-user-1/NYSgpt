@@ -10,43 +10,56 @@
 import { SOURCE_BOXES, SOURCE_INFO } from './home-sources'
 
 /** The five outside sources, A to Z (2026-11-19): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
-export type SourceKind = 'aa' | 'hf' | 'kaggle' | 'llmstats' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp'
-/* In masthead order, four to a page: the sources page A to Z, then GitHub's own page (its four groups). */
-export const SOURCE_KINDS: SourceKind[] = ['aa', 'hf', 'kaggle', 'llmstats', 'gh-skills', 'gh-design', 'gh-api', 'gh-mcp']
-export const isGitHub = (k: BoxKind | null | undefined) => !!k && k.startsWith('gh-')
+export type SourceKind = 'aa' | 'kaggle' | 'llmstats' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp' | 'hf-models' | 'hf-datasets' | 'hf-spaces' | 'hf-papers'
+/* The masthead's later pages, in order: the sources page A to Z, then a page each for GitHub and Hugging Face (A to Z),
+   whose four cells are that source's groups and whose nameplate wears its mark. */
+export const SOURCE_PAGES: SourceKind[][] = [
+  ['aa', 'kaggle', 'llmstats'],
+  ['gh-skills', 'gh-design', 'gh-api', 'gh-mcp'],
+  ['hf-models', 'hf-datasets', 'hf-spaces', 'hf-papers'],
+]
+export const SOURCE_KINDS: SourceKind[] = SOURCE_PAGES.flat()
+/** The source whose mark the nameplate wears for this set: GitHub's or Hugging Face's, or none. */
+export const brandOf = (k: BoxKind | null | undefined): 'github' | 'hf' | null => (!k ? null : k.startsWith('gh-') ? 'github' : k.startsWith('hf-') ? 'hf' : null)
 export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
   aa: { word: 'Artificial Analysis', unit: 'Models' },
-  hf: { word: 'Hugging Face', unit: 'Models' },
   kaggle: { word: 'Kaggle', unit: 'Datasets' },
   llmstats: { word: 'LLM Stats', unit: 'Benchmarks' },
   'gh-skills': { word: 'Skills', unit: 'Repositories' },
   'gh-design': { word: 'Design', unit: 'Repositories' },
   'gh-api': { word: 'API', unit: 'Repositories' },
   'gh-mcp': { word: 'MCP', unit: 'Repositories' },
+  'hf-models': { word: 'Models', unit: 'Models' },
+  'hf-datasets': { word: 'Datasets', unit: 'Datasets' },
+  'hf-spaces': { word: 'Spaces', unit: 'Spaces' },
+  'hf-papers': { word: 'Papers', unit: 'Papers' },
 }
 export const isSource = (k: BoxKind): k is SourceKind => (SOURCE_KINDS as BoxKind[]).includes(k)
 
 export type BoxKind = 'data' | 'models' | 'platforms' | 'tools' | SourceKind
-export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats'
+export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file'
 export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon }
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
-/* The five sources take colours that sit beside the first four without repeating one: rose, gold, green, slate. */
+/* The five sources take colours that sit beside the first four without repeating one: rose, green, slate. */
 export const TYPE_COLOR: Record<BoxKind, string> = {
   data: '#0e7490',
   models: '#7c3aed',
   platforms: '#033882',
   tools: '#ea580c',
   aa: '#be123c',
-  hf: '#a16207',
   kaggle: '#15803d',
   llmstats: '#475569',
-  // GitHub's page is laid out as the first page is, so its four cells take the first page's four colours in order
+  // GitHub's and Hugging Face's pages are laid out as the first page is, so their cells take its four colours in order
   'gh-skills': '#0e7490',
   'gh-design': '#7c3aed',
   'gh-api': '#033882',
   'gh-mcp': '#ea580c',
+  'hf-models': '#0e7490',
+  'hf-datasets': '#7c3aed',
+  'hf-spaces': '#033882',
+  'hf-papers': '#ea580c',
 }
 
 const OWN_BOXES: Box[] = [
