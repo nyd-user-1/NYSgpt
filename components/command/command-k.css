@@ -45,3 +45,6 @@
 [data-cmdk] .cmdk-act.cmdk-on .cmdk-kbd { border-color: rgba(255, 255, 255, .5); background: transparent; color: #fff; }
 [data-cmdk] .cmdk-row.cmdk-on .cmdk-tile { outline: 1.5px solid rgba(255, 255, 255, .85); outline-offset: 0; }
 [data-cmdk] .cmdk-logo { border-color: var(--paper-rule); }
+/* a logo tile is always white, so the logos inside keep their light-scheme ink (the NYSgpt mark flips its ink in dark mode) */
+[data-cmdk] .cmdk-logo { color-scheme: light; }
+[data-cmdk] .cmdk-logo img { color-scheme: light; }
