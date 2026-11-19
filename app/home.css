@@ -30,6 +30,7 @@
 .hm-word { display: block; margin: 0; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.4rem, 15cqw, 3rem); line-height: 1; letter-spacing: -.02em; color: var(--paper-text); }
 .hm-figw { display: block; opacity: 0; }
 .hm-cell:hover .hm-word { opacity: 0; }
+.hm-cell:not(:has(.hm-figw)):hover .hm-word { opacity: 1; }
 .hm-cell:hover .hm-figw { opacity: 1; }
 .hm-lf { display: block; margin: 0; font-family: var(--font-mono), ui-monospace, monospace; font-size: clamp(1.4rem, 15cqw, 3rem); line-height: 1; color: var(--kind); font-variant-numeric: tabular-nums; }
 .hm-lf.hm-full { display: none; font-size: clamp(1.4rem, 9cqw, 2.6rem); }
