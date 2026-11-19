@@ -129,7 +129,7 @@ function Design({ d }: { d: DesignPayload }) {
 function TableBlock({ t }: { t: TablePayload }) {
   const [rows, setRows] = React.useState(false)
   // TableDetail reads the shipped catalog's shape; the payload carries the same table.
-  const table: Table = { database: t.topic, table: t.plain, rows: t.rows, about: t.about || t.rowIs, years: t.years, fields: t.fields.map(f => ({ name: f.name, type: f.type, desc: f.description, sample: '' })) }
+  const table: Table = { database: t.topic, table: t.plain, rows: t.rows, about: t.about || t.rowIs, years: t.years, fields: t.fields.map(f => ({ name: f.name, type: f.type, desc: f.description, sample: t.sample?.rows[0]?.[t.sample.columns.indexOf(f.name)] ?? '' })) }
   return (
     <>
       {t.stored && <p className="px-5 pt-5 text-[11px] text-[var(--paper-faint)]" style={MONO}>{t.stored}</p>}

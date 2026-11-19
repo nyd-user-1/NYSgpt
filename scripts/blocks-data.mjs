@@ -24,7 +24,7 @@ for (const f of FILES) {
 const props = (css) => Object.fromEntries([...css.matchAll(/--(md-[a-z0-9-]+)\s*:\s*([^;]+);/g)].map((m) => [m[1], m[2].replace(/\s+/g, ' ').trim()]));
 // values that point at the reference palette or typeface (var(--md-ref-...)) are resolved to what they name
 const REF = { ...props(text['css/palette.css']), ...props(text['css/typeface.css']) };
-const resolve = (v) => { for (let i = 0; i < 5 && /var\(--/.test(v); i++) v = v.replace(/var\(\s*--(md-[a-z0-9-]+)\s*\)/g, (m, k) => REF[k] ?? m); return v.replace(/^rgb\((\d+)[,\s]+(\d+)[,\s]+(\d+)\)$/, (m, r, g, b) => '#' + [r, g, b].map((x) => (+x).toString(16).padStart(2, '0')).join('')); };
+const resolve = (v) => { for (let i = 0; i < 5 && /var\(--/.test(v); i++) v = v.replace(/var\(\s*--(md-[a-z0-9-]+)\s*\)/g, (m, k) => REF[k] ?? m); return v.replace(/^rgb\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)\s*\)$/, (m, r, g, b) => '#' + [r, g, b].map((x) => (+x).toString(16).padStart(2, '0')).join('')); };
 const pick = (o, prefix) => Object.fromEntries(Object.entries(o).filter(([k]) => k.startsWith(prefix) && !k.endsWith('-rgb')).map(([k, v]) => [k.slice(prefix.length), resolve(v)]));
 
 const light = pick(props(text['css/themes/light.css']), 'md-sys-color-');
