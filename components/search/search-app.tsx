@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { TypeIcon } from '@/app/HomeIcons'
-import { BOXES, KIND_NOUN, TYPE_COLOR, type Box, type BoxKind } from '@/lib/home-boxes'
+import { BOXES, KIND_NOUN, SOURCE_KINDS, TYPE_COLOR, type Box, type BoxKind } from '@/lib/home-boxes'
 import { boxKey } from '@/lib/home-store'
 import { compactNum } from '@/lib/home-catalog'
 import { findNames, type NameEntry, type NameKind } from '@/lib/find-names'
@@ -33,8 +33,8 @@ const CAP = 5
 const ALL = 400
 const ROW = 52
 
-/** Boxes that are not tables: the models, the platforms and the five outside sources. */
-const OTHER_KINDS = new Set<BoxKind>(['models', 'platforms', 'aa', 'kaggle', 'llmstats', 'gh-skills', 'gh-design', 'gh-api', 'gh-mcp', 'hf-models', 'hf-datasets', 'hf-spaces', 'hf-papers'])
+/** Boxes that are not tables: the models, the platforms and the six outside sources' sets (brief 59). */
+const OTHER_KINDS = new Set<BoxKind>(['models', 'platforms', ...SOURCE_KINDS])
 const OTHER_BOXES = BOXES.filter((b) => OTHER_KINDS.has(b.kind))
 const OTHER_LOW = OTHER_BOXES.map((b) => b.title.toLowerCase())
 

@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 
 import { TableDetail, type TableView } from '@/app/TableDetail'
-import { KIND_NOUN, SET_INFO, type Box } from '@/lib/home-boxes'
+import { brandOf, KIND_NOUN, SET_INFO, type Box } from '@/lib/home-boxes'
 import { compactNum, loadCatalog, loadSample, type Sample, type Table } from '@/lib/home-catalog'
 
 import type { Answer } from './question-list'
@@ -393,7 +393,9 @@ function publicApi(b: Box): string | null {
   return null
 }
 
-const KEYED: Partial<Record<Box['kind'], string>> = { aa: 'Artificial Analysis', kaggle: 'Kaggle', llmstats: 'LLM Stats' }
+/* the sources whose API needs a key, by source (brief 59 split each into four sets) */
+const KEYED_BY: Record<string, string> = { aa: 'Artificial Analysis', kaggle: 'Kaggle', llmstats: 'LLM Stats' }
+const keyedName = (b: Box) => KEYED_BY[brandOf(b.kind) ?? ''] ?? null
 
 function BoxTry({ box }: { box: Box }) {
   const url = publicApi(box)
@@ -432,8 +434,8 @@ function BoxTry({ box }: { box: Box }) {
           </button>
           {out && ('error' in out ? <p className="sr-err">{out.error}</p> : <pre className="sr-json">{out.text}</pre>)}
         </>
-      ) : KEYED[box.kind] ? (
-        <p className="sr-hint">A live call to {KEYED[box.kind]} needs that service’s own key, which this page does not hold. Its stored facts are below as the sample.</p>
+      ) : keyedName(box) ? (
+        <p className="sr-hint">A live call to {keyedName(box)} needs that service’s own key, which this page does not hold. Its stored facts are below as the sample.</p>
       ) : null}
       {facts?.fields?.length ? (
         <>
