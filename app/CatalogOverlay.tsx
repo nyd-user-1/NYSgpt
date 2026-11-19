@@ -26,7 +26,7 @@ import { TableDetail } from './TableDetail'
  * models, platforms and tools read their facts from SET_INFO.
  */
 
-const COL_KEY = 'catalog-ov-col3'
+const COL_KEY = 'catalog-ov-col4'
 
 const frameEl = () => document.querySelector<HTMLElement>('[data-app-frame]')
 
@@ -153,17 +153,23 @@ export function CatalogOverlay() {
 
   const tables = useMemo(() => (Array.isArray(data) ? data : []), [data])
   const dbs = useMemo(() => [...new Set(tables.map(t => t.database))], [tables])
-  const hits = useMemo(() => {
+  /* every table the search matches, in any database; the database column counts these */
+  const matched = useMemo(() => {
     const toks = q.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean)
     return tables
       .map((t, i) => [t, i] as const)
       .filter(
         ([t]) =>
-          (product === 'All' || t.database === product) &&
-          (!toks.length ||
-            toks.every(k => `${t.database} ${t.table} ${t.fields.map(f => f.name).join(' ')} ${t.about}`.toLowerCase().includes(k))),
+          !toks.length ||
+          toks.every(k => `${t.database} ${t.table} ${t.fields.map(f => f.name).join(' ')} ${t.about}`.toLowerCase().includes(k)),
       )
-  }, [tables, q, product])
+  }, [tables, q])
+  const dbCount = useMemo(() => {
+    const m = new Map<string, number>()
+    for (const [t] of matched) m.set(t.database, (m.get(t.database) ?? 0) + 1)
+    return m
+  }, [matched])
+  const hits = useMemo(() => matched.filter(([t]) => product === 'All' || t.database === product), [matched, product])
   const order = hits.map(([, i]) => i)
   const cur = sel !== null && order.includes(sel) ? sel : (order[0] ?? null)
   const table = cur !== null ? tables[cur] : null
@@ -226,7 +232,7 @@ export function CatalogOverlay() {
 
   /* the selected table stays in view in the list */
   useEffect(() => {
-    document.querySelector('.hm-oi.hm-on')?.scrollIntoView({ block: 'nearest' })
+    document.querySelector('.hm-otb .hm-oi.hm-on')?.scrollIntoView({ block: 'nearest' })
   }, [cur])
 
   if (!mounted || !shown) return null
@@ -304,9 +310,30 @@ export function CatalogOverlay() {
             <p className="hm-cnote" style={{ padding: '16px 20px' }}>Loading the catalog…</p>
           ) : data === null ? (
             <p className="hm-cnote" style={{ padding: '16px 20px' }}>The catalog did not load.</p>
-          ) : hits.length ? (
-            <>
-              <p className="hm-og">Tables</p>
+          ) : (
+            <div className="hm-odb">
+              <p className="hm-og">Database</p>
+              {dbs
+                .filter(d => dbCount.has(d))
+                .map(d => (
+                  <button
+                    type="button"
+                    key={d}
+                    className={`hm-oi hm-od ${d === (product !== 'All' ? product : table?.database) ? (product !== 'All' ? 'hm-on' : 'hm-at') : ''}`}
+                    onClick={() => {
+                      setProduct(d)
+                      setSel(null)
+                    }}
+                  >
+                    <span>{d}</span>
+                    <small>{dbCount.get(d)}</small>
+                  </button>
+                ))}
+            </div>
+          )}
+          {Array.isArray(data) && (hits.length ? (
+            <div className="hm-otb">
+              <p className="hm-og">Table</p>
               {[...groups.values()].map(l =>
                 l.slice(0, 300).map(([t, i]) => (
                   <button
@@ -333,10 +360,10 @@ export function CatalogOverlay() {
                   </button>
                 )),
               )}
-            </>
+            </div>
           ) : (
             <p className="hm-cnote" style={{ padding: '16px 20px' }}>No tables match.</p>
-          )}
+          ))}
         </div>
         <div className="hm-pane hm-ovd">{table && <TableDetail key={cur} t={table} rows={rows} onRows={() => setRows(v => !v)} />}</div>
       </Columns>
@@ -356,7 +383,7 @@ function Columns({ children }: { children: React.ReactNode }) {
     if (!b) return
     if (w.current != null) {
       const W = b.clientWidth || 1200
-      w.current = Math.max(200, Math.min(w.current, W - 320))
+      w.current = Math.max(380, Math.min(w.current, W - 320))
       b.style.setProperty('--ow1', `${w.current}px`)
     }
     const l = b.querySelector<HTMLElement>('.hm-ovl')?.offsetWidth

@@ -134,9 +134,14 @@
 .hm-chip:hover { background: var(--paper-quiet); color: var(--paper-strong); }
 .hm-chip.hm-on { background: #033882; border-color: #033882; color: #fff; }
 .hm-ovnav { margin-left: auto; display: flex; gap: 8px; }
-.hm-ovb { position: relative; display: grid; flex: 1; min-height: 0; grid-template-columns: var(--ow1, minmax(260px, 360px)) minmax(0, 1fr); }
+.hm-ovb { position: relative; display: grid; flex: 1; min-height: 0; grid-template-columns: var(--ow1, minmax(420px, 560px)) minmax(0, 1fr); }
 .hm-ovb > div.hm-pane { min-height: 0; overflow: auto; }
 .hm-ovl { border-right: 1px solid var(--paper-rule); }
+/* the left pane holds two lists side by side: the databases, then the chosen database's tables */
+.hm-ovb > div.hm-pane.hm-ovl { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); overflow: hidden; }
+.hm-odb, .hm-otb { min-height: 0; overflow: auto; }
+.hm-odb { border-right: 1px solid var(--paper-rule); }
+.hm-oi.hm-od.hm-at { background: var(--paper-quiet); }
 .hm-ovd { padding: 0 24px 32px; }
 .hm-chd { position: absolute; top: 50%; left: var(--owl, 360px); z-index: 40; display: flex; align-items: center; justify-content: center; width: 18px; height: 64px; transform: translate(-50%, -50%); cursor: col-resize; touch-action: none; outline: none; border: 0; background: none; padding: 0; }
 .hm-chd span { width: 4px; height: 32px; border-radius: 9999px; background: color-mix(in oklab, var(--paper-text) 50%, transparent); transition: background-color .15s; }
@@ -161,8 +166,8 @@
 .hm-oa { margin: 12px 0 0; max-width: 760px; font-size: 13px; line-height: 1.6; color: var(--paper-muted); }
 .hm-tb { width: 32px; height: 32px; padding: 6px; flex-shrink: 0; box-shadow: none; }
 .hm-tb svg { width: 20px; height: 20px; display: block; }
-.hm-of { border-collapse: collapse; width: 100%; margin-top: 16px; font-size: 12px; table-layout: fixed; border: 1px solid var(--paper-rule-soft); }
-.hm-of th, .hm-of td { border: 1px solid var(--paper-rule-soft); padding: 8px 10px; text-align: left; vertical-align: middle; }
+.hm-of { --hm-line: color-mix(in oklab, var(--paper-text) 16%, var(--paper)); border-collapse: collapse; width: 100%; margin-top: 16px; font-size: 12px; table-layout: fixed; border: 1px solid var(--hm-line); }
+.hm-of th, .hm-of td { border: 1px solid var(--hm-line); padding: 8px 10px; text-align: left; vertical-align: middle; }
 .hm-of th { position: sticky; top: var(--ovh, 0px); z-index: 2; background: var(--paper); font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--paper-faint); font-weight: 400; }
 .hm-of td { height: 52px; }
 .hm-of .hm-cl { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 18px; max-height: 36px; word-break: break-word; }
@@ -170,9 +175,9 @@
 .hm-of td.hm-m .hm-cl { word-break: break-all; }
 .hm-of td.hm-ty { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hm-of tr:hover td { background: var(--paper-quiet); }
-.hm-rows { border-collapse: collapse; font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; margin-top: 16px; }
-.hm-rows th, .hm-rows td { border-bottom: 1px solid var(--paper-rule-soft); padding: 7px 14px; white-space: nowrap; max-width: 320px; overflow: hidden; text-overflow: ellipsis; text-align: left; vertical-align: middle; }
-.hm-rows th { position: sticky; top: var(--ovh, 0px); background: var(--paper); color: var(--paper-faint); font-weight: 400; z-index: 2; }
+.hm-rows { --hm-line: color-mix(in oklab, var(--paper-text) 16%, var(--paper)); border-collapse: separate; border-spacing: 0; border-top: 1px solid var(--hm-line); border-left: 1px solid var(--hm-line); font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; margin-top: 16px; }
+.hm-rows th, .hm-rows td { border-bottom: 1px solid var(--hm-line); border-right: 1px solid var(--hm-line); padding: 7px 14px; white-space: nowrap; max-width: 320px; overflow: hidden; text-overflow: ellipsis; text-align: left; vertical-align: middle; }
+.hm-rows th { position: sticky; top: var(--ovh, 0px); background: color-mix(in oklab, var(--paper-text) 4%, var(--paper)); color: var(--paper-muted); font-weight: 500; z-index: 2; box-shadow: 0 -1px 0 var(--hm-line); }
 .hm-rows tr:hover td { background: var(--paper-quiet); }
 .hm-rows th[draggable] { cursor: grab; user-select: none; }
 .hm-rows th[draggable]:active { cursor: grabbing; }
