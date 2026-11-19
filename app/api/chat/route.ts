@@ -22,7 +22,8 @@ import { athenaCost, ROWS_TO_MODEL, runQuery, tablesIn } from "@/lib/chat-librar
 // reply. Every message is one line in ~/.nysgpt-chat/messages.jsonl on the box (lib/chat-library/log.ts).
 //
 // `Accept: application/json` (the judge, scripts/chat-eval.mjs) gets one JSON object in place of the stream:
-// { answer, tables, sql, bytes, tokens, queries, refused, error }.
+// { answer, tables, found, sql, bytes, tokens, queries, noQuery, refused, error }: `found` is every table the search showed
+// the model, `noQuery` an answer with no query behind it.
 
 export const runtime = "nodejs"
 export const maxDuration = 300
@@ -69,15 +70,16 @@ const forModel = (t: FoundTable) => ({
 
 function scopeOf(v: unknown): Scope | null {
   const s = v as { db?: unknown; table?: unknown } | null
-  if (!s || typeof s.db !== "string" || !s.db.trim()) return null
-  return { db: s.db.slice(0, 200), table: typeof s.table === "string" && s.table.trim() ? s.table.slice(0, 200) : null }
+  const db = typeof s?.db === "string" && s.db.trim() ? s.db.slice(0, 200) : null
+  const table = typeof s?.table === "string" && s.table.trim() ? s.table.slice(0, 200) : null
+  return db || table ? { db, table } : null
 }
 
 /** The page sends earlier answers with their footer blocks; the model reads the prose. */
 const prose = (s: string) => s.replace(/```pax-basis[\s\S]*?```/g, "").trim()
 
 export async function POST(req: Request) {
-  const body = (await req.json().catch(() => null)) as { messages?: { role: string; content: string }[]; scope?: unknown } | null
+  const body = (await req.json().catch(() => null)) as { messages?: { role: string; content: string }[]; scope?: unknown; systemContext?: unknown } | null
   const wantJson = (req.headers.get("accept") ?? "").includes("application/json")
   if (process.env.NODE_ENV !== "development") return streamText(NOT_CONNECTED)
 
@@ -103,7 +105,7 @@ export async function POST(req: Request) {
     return line
   }
   const json = (answer: string, line: LogLine) =>
-    Response.json({ answer, tables: line.tables, sql: line.queries.map((q) => q.sql), bytes: line.queries.reduce((s, q) => s + q.bytes, 0), tokens: { input: tokens.input + tokens.cacheRead + tokens.cacheWrite, output: tokens.output }, queries: line.queries.length, refused: line.refused, error: line.error })
+    Response.json({ answer, tables: line.tables, found: [...state.found.keys()], sql: line.queries.map((q) => q.sql), bytes: line.queries.reduce((s, q) => s + q.bytes, 0), tokens: { input: tokens.input + tokens.cacheRead + tokens.cacheWrite, output: tokens.output }, queries: line.queries.length, noQuery: !line.queries.some((q) => q.ok), refused: line.refused, error: line.error })
 
   if (!question) return wantJson ? Response.json({ answer: "", tables: [], sql: [], bytes: 0, tokens: { input: 0, output: 0 }, queries: 0, refused: null, error: "No question." }, { status: 400 }) : streamText("Ask me about the records.")
 
@@ -118,9 +120,14 @@ export async function POST(req: Request) {
 
   const run = async (name: string, input: Record<string, unknown>): Promise<{ ok: boolean; payload: unknown }> => {
     if (name === "find_tables") {
-      const found = await findTables(String(input.question ?? question).slice(0, 500), 8, scope ?? undefined)
+      const words = String(input.question ?? question).slice(0, 500)
+      let found = await findTables(words, 8, scope ?? undefined)
+      // Nothing within the reader's chosen database or table (a name the index does not use, or a database the
+      // query service cannot reach): the whole library, said so.
+      const widened = !!scope && !found.length
+      if (widened) found = await findTables(words, 8)
       for (const t of found) state.found.set(t.stored.toLowerCase(), t.plain)
-      return { ok: true, payload: found.length ? { tables: found.map(forModel) } : { tables: [], note: "No table in the catalog matched." } }
+      return { ok: true, payload: found.length ? { tables: found.map(forModel), ...(widened ? { note: "Nothing matched inside the reader's chosen database or table; these are from the whole library." } : {}) } : { tables: [], note: "No table in the catalog matched." } }
     }
     if (name === "run_query") {
       if (state.tooLarge) return { ok: false, payload: { error: "The last query hit the scan limit. Do not run another; call cannot_answer with too-large and suggest a narrower question." } }
@@ -153,7 +160,7 @@ export async function POST(req: Request) {
   const texts = streamWithTools({
     send: (command) => client().send(command),
     modelId: MODEL,
-    system: systemPrompt(scope),
+    system: systemPrompt(scope) + (typeof body?.systemContext === "string" && body.systemContext.trim() ? `\n\nContext from the page:\n${body.systemContext.slice(0, 4000)}` : ""),
     messages: turns,
     tools: TOOLS,
     run,

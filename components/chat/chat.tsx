@@ -304,7 +304,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
   // A Blocks-shelf tile dropped on the chat attaches as context, after livingston's drag-to-chat: a short
   // carries its own facts; a block is read from its page at drop time (/api/block-context), so the chat
   // gets what the block shows now. The ribbon over the input names it; the X lets it go.
-  const [attached, setAttached] = useState<{ kind: 'block' | 'video'; title: string; place: string; context: string | null; error?: string; key?: string } | null>(null)
+  const [attached, setAttached] = useState<{ kind: 'block' | 'video'; title: string; place: string; context: string | null; error?: string; key?: string; scope?: { db: string | null; table: string | null } } | null>(null)
   const blocksShelf = useShelf()
   const [dragOver, setDragOver] = useState(false)
   // The drop's page is still being read into context; the ribbon shimmers and Send holds until it lands.
@@ -344,6 +344,14 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
     setDragOver(false)
     if (!d) return
     e.preventDefault()
+    // NYSgpt (brief 49): a box from NYSgpt's Blocks panel. A database or a table narrows the table search to it.
+    if (d.kind === 'box') {
+      const scope = d.set === 'data' ? { db: d.title, table: null } : d.set === 'tables' ? { db: d.group, table: d.title } : undefined
+      if (!input.trim()) setInput(`What does the ${d.title} block tell us?`)
+      setTimeout(() => textareaRef.current?.focus(), 0)
+      setAttached({ kind: 'block', title: d.title, place: d.group, key: d.key, scope, context: `ACTIVE CONTEXT — the user attached the "${d.title}" block from NYSgpt's Blocks (${d.set === 'data' ? 'a database' : d.set === 'tables' ? `a table in ${d.group}` : d.group}).${scope ? ' The table search is limited to it.' : ''}` })
+      return
+    }
     const seed = d.kind === 'block' ? `What does the ${d.title} block tell us?` : `What explains how "${d.title}" performed?`
     if (!input.trim()) setInput(seed)
     setTimeout(() => textareaRef.current?.focus(), 0)
@@ -537,7 +545,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // The model reads its own video blocks back with the versions they were saved as (lib/studio.ts withVersions).
-        body: JSON.stringify({ messages: allMessages.map(m => ({ role: m.role, content: m.role === 'assistant' ? withVersions(m.content, (json) => blockKey(chatId, m.id, json)) : m.content })), ...(pdf ? { document: { name: pdf.name, data: pdf.data } } : {}), ...(selectedAddress ? { address: selectedAddress.description, place: placeInsight } : {}), ...((context || attached?.context || recordMode || analysisRef.current || skill || mention || onboard) ? { systemContext: [context?.(), attached?.context, recordMode ? RECORD_GUIDE : null, onboard ?? null, analysisRef.current, skill?.instructions, mention ? mentionContext(mention) : null].filter(Boolean).join('\n\n') } : {}), ...(recordMode ? { record: true } : {}), ...(scope.db ? { scope } : {}), model }),
+        body: JSON.stringify({ messages: allMessages.map(m => ({ role: m.role, content: m.role === 'assistant' ? withVersions(m.content, (json) => blockKey(chatId, m.id, json)) : m.content })), ...(pdf ? { document: { name: pdf.name, data: pdf.data } } : {}), ...(selectedAddress ? { address: selectedAddress.description, place: placeInsight } : {}), ...((context || attached?.context || recordMode || analysisRef.current || skill || mention || onboard) ? { systemContext: [context?.(), attached?.context, recordMode ? RECORD_GUIDE : null, onboard ?? null, analysisRef.current, skill?.instructions, mention ? mentionContext(mention) : null].filter(Boolean).join('\n\n') } : {}), ...(recordMode ? { record: true } : {}), ...(attached?.scope ? { scope: attached.scope } : scope.db ? { scope } : {}), model }),
         signal: controller.signal,
       })
       if (!res.ok || !res.body) {

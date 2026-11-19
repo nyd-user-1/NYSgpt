@@ -17,6 +17,7 @@ import { boxKey, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
 import { TableDetail } from '@/app/TableDetail'
+import { setShelfDrag } from '@/lib/shelf-drag'
 import '@/app/home.css'
 import { DEV_TOOLS, DEV_TOOLS_TITLE, DevToolsEntry, DevToolsSubView, type DevToolsSub } from '@/components/dev/devtools-slots'
 
@@ -856,9 +857,11 @@ function BlocksView({ q }: { q: string }) {
             }}
             onDragStart={e => {
               setDragKey(s.key)
-              e.dataTransfer.effectAllowed = 'move'
+              e.dataTransfer.effectAllowed = 'copyMove'
               try {
                 e.dataTransfer.setData('text/plain', s.key)
+                // Brief 49: the same tile dropped on /chat attaches there (lib/shelf-drag.ts, components/chat/chat.tsx).
+                setShelfDrag(e.dataTransfer, { kind: 'box', key: s.key, title: s.title, set: s.set, group: s.group })
               } catch {}
             }}
             onDragOver={e => {

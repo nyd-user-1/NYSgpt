@@ -7,6 +7,8 @@ export const SHELF_MIME = "application/x-pax-shelf"
 export type ShelfDrag =
   | { kind: "block"; title: string; path: string; anchor: string }
   | { kind: "video"; id: string; title: string; channel: string; ratio: number; duration: string }
+  /** NYSgpt (brief 49): a box from NYSgpt's Blocks panel (lib/home-store.ts), by its box key, kind and group. */
+  | { kind: "box"; key: string; title: string; set: string; group: string }
 
 export function setShelfDrag(dt: DataTransfer, d: ShelfDrag) {
   dt.setData(SHELF_MIME, JSON.stringify(d))
@@ -19,7 +21,7 @@ export function readShelfDrag(dt: DataTransfer | null): ShelfDrag | null {
     const raw = dt?.getData(SHELF_MIME)
     if (!raw) return null
     const d = JSON.parse(raw) as ShelfDrag
-    return d && (d.kind === "block" || d.kind === "video") ? d : null
+    return d && (d.kind === "block" || d.kind === "video" || d.kind === "box") ? d : null
   } catch {
     return null
   }

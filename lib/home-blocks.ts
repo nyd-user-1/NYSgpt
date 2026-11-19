@@ -2,6 +2,9 @@
 
 import * as React from "react"
 
+import { BOXES } from "@/lib/home-boxes"
+import { boxKey, getHome, home, shelfItems, useHome } from "@/lib/home-store"
+
 // The Blocks shelf in the discussion panel. It holds a handful of shorts, and any block on any page can
 // be added to it from the block's menu. Pressing a block opens its page; pressing a short opens its drawer.
 // Added blocks live in this browser (localStorage), and every open view hears the list change.
@@ -133,50 +136,29 @@ function arrange(blocks: ShelfBlock[], order: string[], extra: ShelfVideo[] = []
   return [...fresh.filter((i) => i.block).map((i) => i.key), ...placed, ...fresh.filter((i) => i.video).map((i) => i.key)].map((k) => byKey.get(k)!)
 }
 
-/** The shelf: its items in order, and the ways to add, remove and move them. */
+/** The shelf: its items in order, and the ways to add, remove and move them.
+ *  NYSgpt (brief 49): the chat's shelf is NYSgpt's Blocks (lib/home-store.ts: the boxes added from the home page),
+ *  behind pax-trinity's interface, so a box added on the home page can be attached in a chat. Each box reads as a
+ *  block whose key is its box key; adding or removing one adds it to or takes it off NYSgpt's Blocks. pax-trinity's
+ *  page blocks and shorts have no place in NYSgpt's store, so layout is empty and the order is the store's own. */
 export function useShelf() {
-  const [blocks, setBlocks] = React.useState<ShelfBlock[]>([])
-  const [order, setOrder] = React.useState<string[]>([])
-  const [extra, setExtra] = React.useState<ShelfVideo[]>([])
-  const [layout, setLayout] = React.useState<PageBlock[]>([])
-  React.useEffect(() => {
-    const on = () => {
-      setBlocks(read())
-      setOrder(readOrder())
-      setExtra(pageShorts)
-      setLayout([...pageBlocks.values()])
-    }
-    on()
-    window.addEventListener(EVENT, on)
-    window.addEventListener("storage", on)
-    return () => {
-      window.removeEventListener(EVENT, on)
-      window.removeEventListener("storage", on)
-    }
-  }, [])
+  const state = useHome()
+  const items = React.useMemo(() => shelfItems(state).map((s) => ({ key: s.key, block: { key: s.key, title: s.title, path: "/", anchor: s.key, added: s.added } })), [state])
+  const blocks = React.useMemo(() => items.map((i) => i.block), [items])
+  const boxOf = (key: string) => BOXES.find((b) => boxKey(b) === key)
+  const has = (key: string) => getHome().shelf.some((s) => s.key === key)
   const add = React.useCallback((b: Omit<ShelfBlock, "added">) => {
-    const now = read().filter((x) => x.key !== b.key)
-    write([{ ...b, added: new Date().toISOString() }, ...now])
+    const box = boxOf(b.key)
+    if (box && !has(b.key)) home.toggleShelf(box)
   }, [])
-  // Taking a block off the shelf also puts it back on its page, so a deleted block is never lost.
   const remove = React.useCallback((key: string) => {
-    writeHidden(readHidden().filter((k) => k !== key))
-    write(read().filter((x) => x.key !== key))
+    const box = boxOf(key)
+    if (box && has(key)) home.toggleShelf(box)
   }, [])
-  const items = React.useMemo(() => arrange(blocks, order, extra), [blocks, order, extra])
-  /** Moves an item to where another sits (null: to the end). */
-  const move = React.useCallback(
-    (from: string, to: string | null) => {
-      if (from === to) return
-      const keys = items.map((i) => i.key).filter((k) => k !== from)
-      const at = to == null ? keys.length : keys.indexOf(to)
-      keys.splice(at < 0 ? keys.length : at, 0, from)
-      try {
-        localStorage.setItem(ORDER, JSON.stringify(keys))
-      } catch {}
-      window.dispatchEvent(new Event(EVENT))
-    },
-    [items],
-  )
-  return { blocks, items, layout, add, remove, move, has: (key: string) => blocks.some((b) => b.key === key) }
+  /** The order is kept by NYSgpt's Blocks panel itself. */
+  const move = React.useCallback((from: string, to: string | null) => {
+    void from
+    void to
+  }, [])
+  return { blocks, items: items as ShelfItem[], layout: [] as PageBlock[], add, remove, move, has }
 }
