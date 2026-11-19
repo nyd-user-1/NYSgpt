@@ -1,175 +1,34 @@
 'use client'
 
-import { useEffect, useMemo, useRef } from 'react'
-import type { Sample } from '@/lib/home-catalog'
+import { useEffect, useRef } from 'react'
+import { Calendar, CircleSlash, Hash, KeyRound, ToggleLeft, Type } from 'lucide-react'
+import { fig, KIND_LABEL, mostlyEmpty, share, type Bin, type ColumnProfile, type Kind } from './table-profile'
 
 /**
- * The Chart view of a table (2026-11-19): one small bar chart per field, drawn
- * from the table's sample rows, so every table gets the same picture whatever
- * its fields hold.
- *
- *  - a field of numbers: how its values are spread, in ten bins. When the
- *    values are all above zero and span a thousandfold or more, the bins are
- *    on a logarithmic scale and the panel says so.
- *  - a field of dates: rows by year, or by month when the dates fall within
- *    three years.
- *  - a field with few different values: rows for each value, most common first.
- *  - any other text: how long the values are, in characters.
- *
- * A field that is empty in every sample row gets a note and no chart. The
- * charts describe the sample rows only, never the whole table; the panel
- * header states the count.
+ * The table explorer's charts (brief 56, 2026-11-19), drawn from the profiles in table-profile.ts:
+ *  - MiniChart, a column's small chart in the Detail header: a histogram with its ends for numbers and dates,
+ *    the top two values and the rest for text, the count of different values for keys, and the mostly-empty
+ *    warning in red, with its words;
+ *  - ColumnsView, one column at a time down the pane: its description, a large histogram or its values, filled
+ *    and empty with a bar, different values, and for numbers the mean, standard deviation and quartiles.
+ * One hue (the site blue; #5b8ff0 in the dark theme, checked with the dataviz palette validator), bars at most
+ * 24px with 3px rounded tops, a recessive axis, a tooltip on every bar. Everything describes the sample rows.
  */
 
-type Bar = { label: string; n: number }
-type Profile = { name: string; kind: string; filled: number; bars: Bar[]; ends: [string, string] | null }
+const ICONS: Record<Kind, typeof Hash> = { number: Hash, text: Type, date: Calendar, key: KeyRound, yesno: ToggleLeft, empty: CircleSlash }
 
-const BINS = 10
-const MONTHS: Record<string, string> = { JAN: '01', FEB: '02', MAR: '03', APR: '04', MAY: '05', JUN: '06', JUL: '07', AUG: '08', SEP: '09', OCT: '10', NOV: '11', DEC: '12' }
-
-const fmt = (v: number) => {
-  const a = Math.abs(v)
-  if (a >= 1e12) return `${+(v / 1e12).toFixed(1)}T`
-  if (a >= 1e9) return `${+(v / 1e9).toFixed(1)}B`
-  if (a >= 1e6) return `${+(v / 1e6).toFixed(1)}M`
-  if (a >= 1e4) return `${+(v / 1e3).toFixed(1)}K`
-  if (a >= 100 || Number.isInteger(v)) return String(Math.round(v))
-  if (a >= 1) return String(+v.toFixed(2))
-  return String(+v.toPrecision(2))
+/** The type mark: a lucide icon in ink, with the kind's name for readers who cannot see it. */
+export function KindMark({ kind, size = 13 }: { kind: Kind; size?: number }) {
+  const I = ICONS[kind]
+  return <I aria-label={KIND_LABEL[kind]} className="tx-mark" width={size} height={size} strokeWidth={2} />
 }
 
-const num = (s: string) => {
-  const t = s.replace(/[$,%\s]/g, '')
-  if (!/^[-+]?(\d+\.?\d*|\.\d+)(e[-+]?\d+)?$/i.test(t)) return NaN
-  return Number(t)
-}
-
-/** A date as "YYYY-MM", from 2025-06-10, 20250610, 06/10/2025 or 10-JUN-2025; null when the text is not a date. */
-const ym = (s: string): string | null => {
-  let m = /^(\d{4})-(\d{2})(-\d{2})?/.exec(s)
-  if (!m) {
-    const a = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(s)
-    if (a) m = [a[0], a[3], a[1].padStart(2, '0')] as unknown as RegExpExecArray
-  }
-  if (!m) {
-    const a = /^(\d{1,2})[- ]?([A-Za-z]{3})[- ]?(\d{4})/.exec(s)
-    if (a && MONTHS[a[2].toUpperCase()]) m = [a[0], a[3], MONTHS[a[2].toUpperCase()]] as unknown as RegExpExecArray
-  }
-  if (!m) {
-    const a = /^(\d{4})(\d{2})(\d{2})$/.exec(s)
-    if (a) m = [a[0], a[1], a[2]] as unknown as RegExpExecArray
-  }
-  if (!m) return null
-  const y = Number(m[1])
-  const mo = Number(m[2])
-  return y >= 1600 && y <= 2100 && mo >= 1 && mo <= 12 ? `${m[1]}-${m[2]}` : null
-}
-
-function bins(vals: number[], log: boolean): { bars: Bar[]; ends: [string, string] } {
-  const f = (v: number) => (log ? Math.log10(v) : v)
-  const lo = Math.min(...vals)
-  const hi = Math.max(...vals)
-  const a = f(lo)
-  const w = (f(hi) - a) / BINS || 1
-  const count = new Array<number>(BINS).fill(0)
-  for (const v of vals) count[Math.min(BINS - 1, Math.max(0, Math.floor((f(v) - a) / w)))]++
-  const edge = (i: number) => (log ? 10 ** (a + i * w) : a + i * w)
-  return { bars: count.map((n, i) => ({ label: `${fmt(edge(i))} to ${fmt(edge(i + 1))}`, n })), ends: [fmt(lo), fmt(hi)] }
-}
-
-function profile(name: string, col: string[]): Profile {
-  const vals = col.map(v => (v ?? '').trim()).filter(v => v !== '' && v.toLowerCase() !== 'null')
-  const filled = vals.length
-  if (!filled) return { name, kind: 'empty in the sample', filled, bars: [], ends: null }
-
-  const dates = vals.map(ym)
-  if (dates.filter(Boolean).length >= filled * 0.8) {
-    const d = dates.filter(Boolean) as string[]
-    const years = d.map(x => Number(x.slice(0, 4)))
-    const byMonth = Math.max(...years) - Math.min(...years) < 3
-    const key = (x: string) => (byMonth ? x : x.slice(0, 4))
-    const m = new Map<string, number>()
-    for (const x of d) m.set(key(x), (m.get(key(x)) ?? 0) + 1)
-    const keys = [...m.keys()].sort()
-    // every year or month between the first and the last, so a gap shows as a gap
-    const all: string[] = []
-    if (byMonth) {
-      let [y, mo] = keys[0].split('-').map(Number)
-      const end = keys[keys.length - 1]
-      for (let i = 0; i < 48; i++) {
-        const k = `${y}-${String(mo).padStart(2, '0')}`
-        all.push(k)
-        if (k === end) break
-        if (++mo > 12) {
-          mo = 1
-          y++
-        }
-      }
-    } else {
-      const a = Number(keys[0])
-      const b = Number(keys[keys.length - 1])
-      const step = Math.max(1, Math.ceil((b - a + 1) / 40))
-      for (let y = a; y <= b; y += step) all.push(String(y))
-      if (step > 1) {
-        // wide spans are grouped into equal runs of years
-        const g = new Map<string, number>()
-        for (const [k, n] of m) {
-          const s = String(a + Math.floor((Number(k) - a) / step) * step)
-          g.set(s, (g.get(s) ?? 0) + n)
-        }
-        return { name, kind: `dates · by ${step} years`, filled, bars: all.map(k => ({ label: `${k} to ${Number(k) + step - 1}`, n: g.get(k) ?? 0 })), ends: [keys[0], keys[keys.length - 1]] }
-      }
-    }
-    return { name, kind: byMonth ? 'dates · by month' : 'dates · by year', filled, bars: all.map(k => ({ label: k, n: m.get(k) ?? 0 })), ends: [all[0], all[all.length - 1]] }
-  }
-
-  const distinct = new Map<string, number>()
-  for (const v of vals) distinct.set(v, (distinct.get(v) ?? 0) + 1)
-
-  const nums = vals.map(num)
-  const isNum = nums.filter(n => Number.isFinite(n)).length >= filled * 0.8
-  if (isNum && distinct.size > 6) {
-    const n = nums.filter(x => Number.isFinite(x))
-    const lo = Math.min(...n)
-    const hi = Math.max(...n)
-    const log = lo > 0 && hi / lo >= 1000
-    return { name, kind: log ? 'numbers · log scale' : 'numbers', filled, ...bins(n, log) }
-  }
-
-  if (distinct.size <= Math.max(2, Math.min(10, Math.floor(filled * 0.6)))) {
-    const top = [...distinct.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    return { name, kind: distinct.size === 1 ? 'one value' : `${distinct.size} values`, filled, bars: top.map(([label, n]) => ({ label, n })), ends: null }
-  }
-
-  const len = vals.map(v => v.length)
-  if (Math.min(...len) === Math.max(...len))
-    return { name, kind: `text · every value ${len[0]} characters`, filled, bars: [{ label: `${len[0]} characters`, n: filled }], ends: null }
-  const b = bins(len, Math.min(...len) > 0 && Math.max(...len) / Math.min(...len) >= 1000)
-  return { name, kind: 'text · length in characters', filled, ...b }
-}
-
-export function TableChart({ sample, panel }: { sample: Sample; panel?: boolean }) {
-  const profiles = useMemo(() => sample.c.map((c, j) => profile(c, sample.r.map(r => r[j] ?? ''))), [sample])
-  const rows = sample.r.length
-  return (
-    <>
-      <div className="hm-charts" style={panel ? { padding: '0 20px' } : undefined}>
-        {profiles.map(p => (
-          <FieldChart key={p.name} p={p} rows={rows} />
-        ))}
-      </div>
-      <p className="hm-cnote" style={panel ? { padding: '0 20px' } : undefined}>
-        Drawn from {rows} sample rows, not the whole table.
-      </p>
-    </>
-  )
-}
-
-function FieldChart({ p, rows }: { p: Profile; rows: number }) {
+/** A histogram in ECharts: one series, thin bars, a tooltip with the bin and its count. */
+export function Histogram({ bins, rows, height, big }: { bins: Bin[]; rows: number; height: number; big?: boolean }) {
   const el = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const node = el.current
-    if (!node || !p.bars.length) return
+    if (!node) return
     let chart: { dispose(): void; resize(): void } | null = null
     let ro: ResizeObserver | null = null
     let live = true
@@ -179,36 +38,37 @@ function FieldChart({ p, rows }: { p: Profile; rows: number }) {
       const cs = getComputedStyle(node)
       const ink = cs.getPropertyValue('--paper-text').trim() || '#16181d'
       const paper = cs.getPropertyValue('--paper').trim() || '#fff'
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
       const c = echarts.init(node, undefined, { renderer: 'svg' })
       c.setOption({
+        animation: !reduce,
         animationDuration: 300,
-        grid: { left: 1, right: 1, top: 6, bottom: 2 },
-        xAxis: { type: 'category', data: p.bars.map(b => b.label), axisLabel: { show: false }, axisTick: { show: false }, axisLine: { lineStyle: { color: ink, opacity: 0.25 } } },
+        grid: { left: 1, right: 1, top: big ? 8 : 3, bottom: 1 },
+        xAxis: { type: 'category', data: bins.map(b => b.label), axisLabel: { show: false }, axisTick: { show: false }, axisLine: { lineStyle: { color: ink, opacity: 0.2 } } },
         yAxis: { type: 'value', show: false, min: 0 },
         tooltip: {
           trigger: 'axis',
-          axisPointer: { type: 'shadow', shadowStyle: { color: ink, opacity: 0.06 } },
+          axisPointer: { type: 'shadow', shadowStyle: { color: ink, opacity: 0.05 } },
           confine: true,
           backgroundColor: paper,
           borderColor: ink,
           borderWidth: 1,
           padding: [6, 10],
           textStyle: { color: ink, fontSize: 12 },
-          extraCssText: 'box-shadow:0 4px 12px rgba(0,0,0,.12);border-radius:8px;max-width:260px;white-space:normal;word-break:break-word;',
+          extraCssText: 'box-shadow:0 4px 12px rgba(0,0,0,.12);border-radius:8px;max-width:240px;white-space:normal;',
           formatter: (raw: unknown) => {
             const a = (raw as { name: string; value: number }[])[0]
-            const esc = (s: string) => s.replace(/[&<>]/g, ch => (ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : '&gt;'))
-            return `${esc(a.name.length > 80 ? `${a.name.slice(0, 80)}…` : a.name)}<br><b>${a.value}</b> of ${rows} rows`
+            return `${a.name.replace(/[&<>]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[ch] ?? ch)}<br><b>${a.value}</b> of ${rows} sample rows`
           },
         },
         series: [
           {
             type: 'bar',
-            data: p.bars.map(b => b.n),
-            barCategoryGap: '14%',
-            barMinHeight: 0,
-            itemStyle: { color: dark ? '#8fb2ee' : '#033882', borderRadius: [3, 3, 0, 0] },
-            emphasis: { itemStyle: { color: dark ? '#c3d6f7' : '#0b55c4' } },
+            data: bins.map(b => b.n),
+            barMaxWidth: 24,
+            barCategoryGap: 2,
+            itemStyle: { color: dark ? '#5b8ff0' : '#033882', borderRadius: [3, 3, 0, 0] },
+            emphasis: { itemStyle: { color: dark ? '#8fb2f6' : '#0b55c4' } },
           },
         ],
       })
@@ -221,33 +81,140 @@ function FieldChart({ p, rows }: { p: Profile; rows: number }) {
       ro?.disconnect()
       chart?.dispose()
     }
-  }, [p, rows])
+  }, [bins, rows, big])
+  return <div ref={el} className="tx-hist" style={{ height }} role="img" aria-label={`Histogram of ${bins.length} bins from ${rows} sample rows`} />
+}
 
-  const empty = rows - p.filled
+function TopRow({ label, n, rows, other }: { label: string; n: number; rows: number; other?: boolean }) {
   return (
-    <div className="hm-chart">
-      <p className="hm-chart-n" title={p.name}>{p.name}</p>
-      <p className="hm-chart-k">
-        {p.kind}
-        {p.bars.length > 0 && empty > 0 ? ` · ${empty} empty` : ''}
-      </p>
-      {p.bars.length > 0 ? (
-        <>
-          <div ref={el} className="hm-chart-c" role="img" aria-label={`${p.name}: ${p.kind}, ${p.filled} of ${rows} sample rows`} />
-          <p className="hm-chart-e">
-            {p.ends ? (
-              <>
-                <span>{p.ends[0]}</span>
-                <span>{p.ends[1]}</span>
-              </>
-            ) : (
-              <span title={p.bars[0].label}>most common: {p.bars[0].label}</span>
+    <p className={`tx-tv${other ? ' tx-other' : ''}`}>
+      <span className="tx-v" title={label}>{label}</span>
+      <span className="tx-s">{share(n, rows)}</span>
+      <i style={{ width: `${Math.max(2, (n / rows) * 100)}%` }} />
+    </p>
+  )
+}
+
+function Warn({ p, rows }: { p: ColumnProfile; rows: number }) {
+  if (p.kind === 'empty') return <p className="tx-warn"><b>Empty</b> in all {rows} sample rows</p>
+  return mostlyEmpty(p) ? <p className="tx-warn"><b>Mostly empty</b> · {share(p.empty, rows)}</p> : null
+}
+
+/** A column's small chart for the Detail header. */
+export function MiniChart({ p, rows }: { p: ColumnProfile; rows: number }) {
+  if (p.kind === 'empty') return <div className="tx-mini"><Warn p={p} rows={rows} /></div>
+  if (p.bins && p.different === 1)
+    return (
+      <div className="tx-mini">
+        <p className="tx-tv"><span className="tx-v" title={p.ends?.[0]}>Every value: {p.ends?.[0]}</span></p>
+        <Warn p={p} rows={rows} />
+      </div>
+    )
+  if (p.bins)
+    return (
+      <div className="tx-mini">
+        <Histogram bins={p.bins} rows={rows} height={34} />
+        <p className="tx-ends"><span>{p.ends?.[0]}</span>{p.log && <span>log</span>}<span>{p.ends?.[1]}</span></p>
+        <Warn p={p} rows={rows} />
+      </div>
+    )
+  if (p.kind === 'key')
+    return (
+      <div className="tx-mini">
+        <p className="tx-tv"><span className="tx-v">{fig(p.different)} different</span><span className="tx-s">{share(p.filled, rows)} filled</span><i style={{ width: `${(p.filled / rows) * 100}%` }} /></p>
+        <Warn p={p} rows={rows} />
+      </div>
+    )
+  const top = (p.top ?? []).slice(0, 2)
+  const rest = p.filled - top.reduce((s, [, n]) => s + n, 0)
+  return (
+    <div className="tx-mini">
+      {top.map(([v, n]) => <TopRow key={v} label={v} n={n} rows={rows} />)}
+      {rest > 0 && <TopRow label={`Other (${fig(p.different - top.length)})`} n={rest} rows={rows} other />}
+      <Warn p={p} rows={rows} />
+    </div>
+  )
+}
+
+/** The Columns view: one column at a time, down the pane. */
+export function ColumnsView({ profiles, desc, rows }: { profiles: ColumnProfile[]; desc: Record<string, string>; rows: number }) {
+  return (
+    <div className="tx-cols">
+      {profiles.map(p => {
+        const top = (p.top ?? []).slice(0, 8)
+        const rest = (p.top ?? []).slice(8)
+        return (
+          <section key={p.name} className="tx-col">
+            <header>
+              <p className="tx-nm"><KindMark kind={p.kind} size={14} /><span title={p.name}>{p.name}</span><em>{KIND_LABEL[p.kind]}</em></p>
+              {desc[p.name] && <p className="tx-ds">{desc[p.name]}</p>}
+            </header>
+            <div className="tx-colbody">
+              <div className="tx-chartbox">
+                {p.kind === 'empty' ? (
+                  <Warn p={p} rows={rows} />
+                ) : p.bins && p.different === 1 ? (
+                  <p className="tx-one">Every value is <b>{p.ends?.[0]}</b>.</p>
+                ) : p.bins ? (
+                  <>
+                    <Histogram bins={p.bins} rows={rows} height={140} big />
+                    <p className="tx-ends tx-big"><span>{p.ends?.[0]}</span>{p.log && <span>log scale</span>}<span>{p.ends?.[1]}</span></p>
+                  </>
+                ) : p.kind === 'key' ? (
+                  <p className="tx-one">{fig(p.different)} different values in {fig(p.filled)} filled rows.</p>
+                ) : (
+                  <table className="tx-topv">
+                    <tbody>
+                      {top.map(([v, n]) => (
+                        <tr key={v}>
+                          <td className="tx-v" title={v}>{v}</td>
+                          <td className="tx-b"><i style={{ width: `${(n / top[0][1]) * 100}%` }} /></td>
+                          <td className="tx-n">{n}</td>
+                        </tr>
+                      ))}
+                      {rest.length > 0 && (
+                        <tr className="tx-other">
+                          <td className="tx-v">Other ({fig(rest.length)} values)</td>
+                          <td className="tx-b" />
+                          <td className="tx-n">{rest.reduce((s, [, n]) => s + n, 0)}</td>
+                        </tr>
+                      )}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+              <div className="tx-fe">
+                <div className="tx-bar"><i style={{ width: `${(p.filled / rows) * 100}%` }} /></div>
+                <dl>
+                  <div><dt>Filled</dt><dd>{p.filled} <span>{share(p.filled, rows)}</span></dd></div>
+                  <div className={mostlyEmpty(p) || p.kind === 'empty' ? 'tx-warnrow' : undefined}>
+                    <dt>Empty</dt>
+                    <dd>{p.empty} <span>{share(p.empty, rows)}</span>{(mostlyEmpty(p) || p.kind === 'empty') && <b>{p.kind === 'empty' ? 'empty' : 'mostly empty'}</b>}</dd>
+                  </div>
+                  <div><dt>Different values</dt><dd>{p.different}</dd></div>
+                </dl>
+              </div>
+            </div>
+            {p.stats && (
+              <dl className="tx-st">
+                {(
+                  [
+                    ['Mean', p.stats.mean],
+                    ['Std. deviation', p.stats.sd],
+                    ['Minimum', p.stats.min],
+                    ['25%', p.stats.q1],
+                    ['Median', p.stats.median],
+                    ['75%', p.stats.q3],
+                    ['Maximum', p.stats.max],
+                  ] as [string, number][]
+                ).map(([k, v]) => (
+                  <div key={k}><dt>{k}</dt><dd>{fig(v)}</dd></div>
+                ))}
+              </dl>
             )}
-          </p>
-        </>
-      ) : (
-        <div className="hm-chart-c hm-chart-none" />
-      )}
+          </section>
+        )
+      })}
     </div>
   )
 }

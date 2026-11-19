@@ -1,18 +1,35 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { compactNum, loadSample, type Sample, type Table } from '@/lib/home-catalog'
 import { Icon, TableIcon } from './HomeIcons'
-import { TableChart } from './TableChart'
+import { ColumnsView, KindMark, MiniChart } from './TableChart'
+import { KIND_LABEL, profileSample, type Kind } from './table-profile'
+import './table-explorer.css'
 
-/** The three views of a table, in the order the switcher lists them. */
+/**
+ * One table, in the catalog overlay, the right panel and /search's try panel (brief 56, 2026-11-19, after
+ * Kaggle's Data Explorer, in NYSgpt's look):
+ *  - a summary: records, fields and years (for the whole table), the stored name when the caller has it, and
+ *    the columns counted by kind (from the sample rows);
+ *  - Fields: every field, its kind, type, description and a sample value;
+ *  - Data, in two densities: Detail (each column's header carries its kind, a sort control, its description
+ *    and a small chart) and Compact (the rows alone);
+ *  - Columns: one column at a time down the pane, with its chart and figures;
+ *  - a column chooser ("10 of 135 columns") for Data and Columns, held while the table is open.
+ * Every chart and figure describes the sample rows, and says so once.
+ */
+
+/** The three views of a table, in the order the switcher lists them. The id "chart" is the Columns view. */
 export type TableView = 'fields' | 'data' | 'chart'
 export const TABLE_VIEWS: { id: TableView; label: string }[] = [
   { id: 'fields', label: 'Fields' },
   { id: 'data', label: 'Data' },
-  { id: 'chart', label: 'Chart' },
+  { id: 'chart', label: 'Columns' },
 ]
 export const nextView = (v: TableView): TableView => TABLE_VIEWS[(TABLE_VIEWS.findIndex(x => x.id === v) + 1) % TABLE_VIEWS.length].id
+
+const FIRST = 10
 
 /** The chart button: three bars in the site's blue. */
 function ChartIcon() {
@@ -32,7 +49,64 @@ function FieldsIcon() {
   )
 }
 
-/** One table: its name, counts and description, then its fields or its sample rows. Shared with the side panel. */
+/** The column chooser: "10 of 135 columns", a filter and a checkbox a column. */
+function Chooser({ all, shown, onShown }: { all: { name: string; kind: Kind }[]; shown: string[]; onShown: (s: string[]) => void }) {
+  const [open, setOpen] = useState(false)
+  const [q, setQ] = useState('')
+  const box = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!open) return
+    const away = (e: MouseEvent) => {
+      if (!box.current?.contains(e.target as Node)) setOpen(false)
+    }
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.stopImmediatePropagation()
+      setOpen(false)
+    }
+    document.addEventListener('mousedown', away, true)
+    window.addEventListener('keydown', esc, true)
+    return () => {
+      document.removeEventListener('mousedown', away, true)
+      window.removeEventListener('keydown', esc, true)
+    }
+  }, [open])
+  const words = q.toLowerCase().split(/\s+/).filter(Boolean)
+  const hits = all.filter(c => words.every(w => c.name.toLowerCase().includes(w)))
+  const on = new Set(shown)
+  return (
+    <div ref={box} className="tx-chooser">
+      <button type="button" className="tx-cbtn" aria-expanded={open} onClick={() => setOpen(v => !v)}>
+        {shown.length} of {all.length} columns
+        <svg viewBox="0 0 24 24" aria-hidden><path d="m6 9 6 6 6-6" /></svg>
+      </button>
+      {open && (
+        <div className="tx-cpop" role="dialog" aria-label="Choose the columns">
+          <input autoFocus value={q} onChange={e => setQ(e.target.value)} placeholder="Filter the columns" aria-label="Filter the columns" />
+          <p className="tx-clab">{q ? `${hits.length} match` : 'Columns'}</p>
+          <div className="tx-clist">
+            {hits.map(c => (
+              <label key={c.name} title={c.name}>
+                <input
+                  type="checkbox"
+                  checked={on.has(c.name)}
+                  onChange={() => onShown(on.has(c.name) ? shown.filter(x => x !== c.name) : all.map(x => x.name).filter(x => on.has(x) || x === c.name))}
+                />
+                <KindMark kind={c.kind} />
+                <span>{c.name}</span>
+              </label>
+            ))}
+          </div>
+          <p className="tx-cfoot">
+            <button type="button" onClick={() => onShown(all.map(c => c.name))}>Show all</button>
+            <button type="button" onClick={() => onShown(all.slice(0, FIRST).map(c => c.name))}>First {FIRST}</button>
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function TableDetail({
   t,
   rows,
@@ -40,14 +114,17 @@ export function TableDetail({
   panel,
   view: viewProp,
   onView,
+  stored,
 }: {
   t: Table
   rows: boolean
   onRows: () => void
   panel?: boolean
-  /** The overlay passes the view and its setter; the side panel passes only rows, and the chart view is kept here. */
+  /** The overlay passes the view and its setter; the side panel passes only rows, and the Columns view is kept here. */
   view?: TableView
   onView?: (v: TableView) => void
+  /** The table's stored name (database.table), when the caller has it: shown in the summary, copied on a click. */
+  stored?: string
 }) {
   const [local, setLocal] = useState<TableView>(rows ? 'data' : 'fields')
   const view: TableView = viewProp ?? (local === 'chart' ? 'chart' : rows ? 'data' : 'fields')
@@ -78,13 +155,19 @@ export function TableDetail({
   const head = useRef<HTMLDivElement>(null)
   const wrap = useRef<HTMLDivElement>(null)
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
-  /* the sample rows' columns can be dragged into another order; the order holds until another table is shown */
-  const [order, setOrder] = useState<number[] | null>(null)
-  const [copied, setCopied] = useState(false)
-  const drag = useRef<number | null>(null)
-  const [over, setOver] = useState<number | null>(null)
-  useEffect(() => setOrder(null), [t])
-  const meta = [`${t.fields.length} fields`, t.rows != null ? `${compactNum(t.rows)} rows` : '', t.years].filter(Boolean).join(' · ')
+  /* the sample rows' columns can be dragged into another order; the order, the chosen columns, the sort and the density hold until another table is shown */
+  const [order, setOrder] = useState<string[] | null>(null)
+  const [shown, setShown] = useState<string[] | null>(null)
+  const [sort, setSort] = useState<{ col: string; dir: 1 | -1 } | null>(null)
+  const [dense, setDense] = useState(false)
+  const [copied, setCopied] = useState<'' | 'name' | 'stored'>('')
+  const drag = useRef<string | null>(null)
+  const [over, setOver] = useState<string | null>(null)
+  useEffect(() => {
+    setOrder(null)
+    setShown(null)
+    setSort(null)
+  }, [t])
 
   /* the table's header row sticks under the title block, whose height changes as the overlay grows */
   useLayoutEffect(() => {
@@ -97,8 +180,8 @@ export function TableDetail({
     ro.observe(h)
     return () => ro.disconnect()
   }, [])
+  /* the sample rows load with the table, for every view: the summary's kinds and the Fields view's marks read them too */
   useEffect(() => {
-    if (view === 'fields') return
     let live = true
     setSample('loading')
     loadSample(t).then(s => {
@@ -107,10 +190,106 @@ export function TableDetail({
     return () => {
       live = false
     }
-  }, [view, t])
+  }, [t])
+
+  const s = sample && sample !== 'loading' ? sample : null
+  const profiles = useMemo(() => (s ? profileSample(s) : []), [s])
+  const byName = useMemo(() => new Map(profiles.map(p => [p.name, p])), [profiles])
+  const desc = useMemo(() => Object.fromEntries(t.fields.map(f => [f.name, f.desc])), [t])
+  const kinds = useMemo(() => {
+    const n = new Map<Kind, number>()
+    for (const p of profiles) n.set(p.kind, (n.get(p.kind) ?? 0) + 1)
+    return (['number', 'text', 'date', 'key', 'yesno', 'empty'] as Kind[]).filter(k => n.get(k)).map(k => [k, n.get(k)!] as const)
+  }, [profiles])
+  const all = useMemo(() => (s ? s.c.map(c => ({ name: c, kind: byName.get(c)?.kind ?? ('text' as Kind) })) : []), [s, byName])
+  const chosen = shown ?? all.slice(0, FIRST).map(c => c.name)
+  const cols = (order ?? all.map(c => c.name)).filter(c => chosen.includes(c))
+  const idx = useMemo(() => new Map((s?.c ?? []).map((c, i) => [c, i])), [s])
+  const sorted = useMemo(() => {
+    if (!s || !sort) return s?.r ?? []
+    const j = idx.get(sort.col)
+    if (j == null) return s.r
+    const numeric = byName.get(sort.col)?.kind === 'number'
+    const key = (v: string | null) => (numeric ? Number(String(v ?? '').replace(/[$,%\s]/g, '')) : String(v ?? ''))
+    return [...s.r].sort((a, b) => {
+      const x = key(a[j]), y = key(b[j])
+      const ex = x === '' || (numeric && !Number.isFinite(x as number)), ey = y === '' || (numeric && !Number.isFinite(y as number))
+      if (ex !== ey) return ex ? 1 : -1
+      return (x < y ? -1 : x > y ? 1 : 0) * sort.dir
+    })
+  }, [s, sort, idx, byName])
+  const n = s?.r.length ?? 0
+  const pad = panel ? { padding: '0 20px' } : undefined
+  const copy = (text: string, what: 'name' | 'stored') =>
+    void navigator.clipboard?.writeText(text).then(() => {
+      setCopied(what)
+      window.setTimeout(() => setCopied(''), 1200)
+    })
+
+  const header = (c: string) => {
+    const p = byName.get(c)
+    const dragProps = {
+      draggable: true,
+      className: over === c ? 'hm-drop' : undefined,
+      onDragStart: (e: React.DragEvent) => {
+        drag.current = c
+        e.dataTransfer.effectAllowed = 'move'
+      },
+      onDragOver: (e: React.DragEvent) => {
+        if (drag.current === null) return
+        e.preventDefault()
+        if (over !== c) setOver(c)
+      },
+      onDragEnd: () => {
+        drag.current = null
+        setOver(null)
+      },
+      onDrop: (e: React.DragEvent) => {
+        e.preventDefault()
+        const from = drag.current
+        drag.current = null
+        setOver(null)
+        if (!from || from === c) return
+        const next = (order ?? all.map(x => x.name)).filter(x => x !== from)
+        next.splice(next.indexOf(c), 0, from)
+        setOrder(next)
+      },
+    }
+    if (dense)
+      return (
+        <th key={c} {...dragProps} title={`${c}: drag to move this column`}>
+          {p && <KindMark kind={p.kind} />}
+          <span>{c}</span>
+        </th>
+      )
+    const dir = sort?.col === c ? sort.dir : 0
+    return (
+      <th key={c} {...dragProps} aria-sort={dir === 1 ? 'ascending' : dir === -1 ? 'descending' : 'none'}>
+        <div className="tx-h">
+          <p className="tx-nm">
+            {p && <KindMark kind={p.kind} />}
+            <span title={`${c}: drag to move this column`}>{c}</span>
+            <button
+              type="button"
+              className={`tx-sort${dir ? ' tx-on' : ''}`}
+              aria-label={`Sort by ${c}`}
+              title={dir === 1 ? 'Sorted, lowest first' : dir === -1 ? 'Sorted, highest first' : 'Sort'}
+              onClick={() => setSort(dir === 0 ? { col: c, dir: 1 } : dir === 1 ? { col: c, dir: -1 } : null)}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden>
+                {dir === 1 ? <path d="m7 9 5-5 5 5M12 4v16" /> : dir === -1 ? <path d="m7 15 5 5 5-5M12 20V4" /> : <path d="m7 15 5 5 5-5M7 9l5-5 5 5" />}
+              </svg>
+            </button>
+          </p>
+          <p className="tx-ds" title={desc[c] || undefined}>{desc[c] || ''}</p>
+          {p && <MiniChart p={p} rows={n} />}
+        </div>
+      </th>
+    )
+  }
 
   return (
-    <div ref={wrap} className={panel ? 'hm-panel' : undefined}>
+    <div ref={wrap} className={`tx ${panel ? 'hm-panel' : ''}`}>
       <div ref={head} className="hm-dh">
         <div className="hm-dt">
           <h3>
@@ -154,18 +333,13 @@ export function TableDetail({
             </span>
             <button
               type="button"
-              className={`hm-copy hm-copy-b ${copied ? 'hm-copied' : ''}`}
+              className={`hm-copy hm-copy-b ${copied === 'name' ? 'hm-copied' : ''}`}
               title="Copy the name"
               aria-label={`Copy the name ${t.table}`}
-              onClick={() => {
-                void navigator.clipboard?.writeText(t.table).then(() => {
-                  setCopied(true)
-                  window.setTimeout(() => setCopied(false), 1200)
-                })
-              }}
+              onClick={() => copy(t.table, 'name')}
             >
               <span className="hm-copy-ic" aria-hidden>
-                <Icon name={copied ? 'check' : 'copy'} />
+                <Icon name={copied === 'name' ? 'check' : 'copy'} />
               </span>
             </button>
           </h3>
@@ -181,81 +355,75 @@ export function TableDetail({
             </button>
           )}
         </div>
-        <p className="hm-om">{meta}</p>
         {t.about && <p className="hm-oa">{t.about}</p>}
+        <dl className="tx-sum">
+          {t.rows != null && <div><dt>Records</dt><dd>{compactNum(t.rows)}</dd></div>}
+          <div><dt>Fields</dt><dd>{t.fields.length}</dd></div>
+          {t.years && <div><dt>Years</dt><dd>{t.years}</dd></div>}
+          {stored && (
+            <div className="tx-stored">
+              <dt>Stored as</dt>
+              <dd><button type="button" title="Copy the stored name" onClick={() => copy(stored, 'stored')}>{copied === 'stored' ? 'Copied' : stored}</button></dd>
+            </div>
+          )}
+          {kinds.length > 0 && (
+            <div className="tx-kinds">
+              <dt>Columns by kind</dt>
+              <dd>
+                {kinds.map(([k, c]) => (
+                  <span key={k}><KindMark kind={k} />{KIND_LABEL[k]} <b>{c}</b></span>
+                ))}
+              </dd>
+            </div>
+          )}
+        </dl>
+        {view !== 'fields' && s && (
+          <div className="tx-tools">
+            {view === 'data' && (
+              <span className="tx-dens" role="radiogroup" aria-label="Density">
+                <button type="button" role="radio" aria-checked={!dense} className={!dense ? 'tx-on' : undefined} onClick={() => setDense(false)}>Detail</button>
+                <button type="button" role="radio" aria-checked={dense} className={dense ? 'tx-on' : undefined} onClick={() => setDense(true)}>Compact</button>
+              </span>
+            )}
+            <Chooser all={all} shown={chosen} onShown={setShown} />
+          </div>
+        )}
+        {s && <p className="tx-note">Charts and figures are drawn from {n} sample rows, not the whole table. Records and years are for the whole table.</p>}
       </div>
+
       {view !== 'fields' ? (
         sample === 'loading' ? (
-          <p className="hm-cnote" style={panel ? { padding: '0 20px' } : undefined}>Loading the rows…</p>
-        ) : sample && view === 'chart' ? (
-          <TableChart sample={sample} panel={panel} />
-        ) : sample ? (
-          <>
-            <table className="hm-rows">
+          <p className="hm-cnote" style={pad}>Loading the rows…</p>
+        ) : !s ? (
+          <p className="hm-cnote" style={pad}>No sample rows for this table yet.</p>
+        ) : view === 'chart' ? (
+          <ColumnsView profiles={cols.map(c => byName.get(c)!).filter(Boolean)} desc={desc} rows={n} />
+        ) : (
+          <div className="tx-grid">
+            <table className={`tx-table ${dense ? 'tx-compact' : 'tx-detail'}`}>
               <thead>
-                <tr>
-                  {(order ?? sample.c.map((_, i) => i)).map((ci, pos) => (
-                    <th
-                      key={sample.c[ci]}
-                      draggable
-                      className={over === pos ? 'hm-drop' : undefined}
-                      title="Drag to move this column"
-                      onDragStart={e => {
-                        drag.current = pos
-                        e.dataTransfer.effectAllowed = 'move'
-                      }}
-                      onDragOver={e => {
-                        if (drag.current === null) return
-                        e.preventDefault()
-                        if (over !== pos) setOver(pos)
-                      }}
-                      onDragEnd={() => {
-                        drag.current = null
-                        setOver(null)
-                      }}
-                      onDrop={e => {
-                        e.preventDefault()
-                        const from = drag.current
-                        drag.current = null
-                        setOver(null)
-                        if (from === null || from === pos) return
-                        const next = [...(order ?? sample.c.map((_, i) => i))]
-                        const [m] = next.splice(from, 1)
-                        next.splice(pos, 0, m)
-                        setOrder(next)
-                      }}
-                    >
-                      {sample.c[ci]}
-                    </th>
-                  ))}
-                </tr>
+                <tr>{cols.map(c => header(c))}</tr>
               </thead>
               <tbody>
-                {sample.r.map((r, i) => (
+                {sorted.map((r, i) => (
                   <tr key={i}>
-                    {(order ?? r.map((_, j) => j)).map(j => (
-                      <td key={j} title={r[j]}>
-                        {r[j]}
-                      </td>
-                    ))}
+                    {cols.map(c => {
+                      const v = r[idx.get(c)!]
+                      return <td key={c} title={v ?? undefined}>{v}</td>
+                    })}
                   </tr>
                 ))}
               </tbody>
             </table>
-            <p className="hm-cnote" style={panel ? { padding: '0 20px' } : undefined}>
-              {sample.r.length} sample rows
-            </p>
-          </>
-        ) : (
-          <p className="hm-cnote" style={panel ? { padding: '0 20px' } : undefined}>No sample rows for this table yet.</p>
+          </div>
         )
       ) : (
         <table className="hm-of">
           <colgroup>
-            <col style={{ width: '24%' }} />
+            <col style={{ width: '26%' }} />
             <col style={{ width: '12%' }} />
             <col style={{ width: '34%' }} />
-            <col style={{ width: '30%' }} />
+            <col style={{ width: '28%' }} />
           </colgroup>
           <thead>
             <tr>
@@ -266,22 +434,28 @@ export function TableDetail({
             </tr>
           </thead>
           <tbody>
-            {t.fields.map(f => (
-              <tr key={f.name}>
-                <td>
-                  <div className="hm-cl" title={f.name}>{f.name}</div>
-                </td>
-                <td className="hm-m hm-ty" title={f.type}>
-                  {f.type}
-                </td>
-                <td>
-                  <div className="hm-cl" title={f.desc}>{f.desc}</div>
-                </td>
-                <td className="hm-m">
-                  <div className="hm-cl" title={f.sample}>{f.sample}</div>
-                </td>
-              </tr>
-            ))}
+            {t.fields.map(f => {
+              const p = byName.get(f.name)
+              return (
+                <tr key={f.name}>
+                  <td>
+                    <div className="hm-cl tx-fname" title={p ? `${f.name} · ${KIND_LABEL[p.kind]} in the sample rows` : f.name}>
+                      {p && <KindMark kind={p.kind} />}
+                      <span>{f.name}</span>
+                    </div>
+                  </td>
+                  <td className="hm-m hm-ty" title={f.type}>
+                    {f.type}
+                  </td>
+                  <td>
+                    <div className="hm-cl" title={f.desc}>{f.desc}</div>
+                  </td>
+                  <td className="hm-m">
+                    <div className="hm-cl" title={f.sample}>{f.sample}</div>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       )}
