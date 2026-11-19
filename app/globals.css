@@ -316,3 +316,9 @@
 html[data-embed] [data-chrome] { display: none !important; }
 html[data-embed] [data-app-shell] { padding: 0 !important; }
 html[data-embed] [data-app-card] { border-width: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+
+/* The atom that stands in for "loading" (components/AtomSpinner.tsx; Brendan, 2026-11-11): lucide's atom with electron
+   dots riding its two orbit paths (SVG animateMotion) while the orbits turn; the nucleus stays still. */
+@keyframes atom-spin-turn { to { transform: rotate(360deg); } }
+.atom-spin-orbits { transform-origin: 12px 12px; animation: atom-spin-turn 9s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .atom-spin-orbits { animation: none; } }
