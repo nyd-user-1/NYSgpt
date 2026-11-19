@@ -10,12 +10,16 @@ import path from "node:path"
 export const LOG_DIR = process.env.NYSGPT_CHAT_LOG_DIR || path.join(homedir(), ".nysgpt-chat")
 const FILE = path.join(LOG_DIR, "messages.jsonl")
 
-/** The night's caps (brief 49): model calls $1.00, raised by the lead after run 1 by a final $1.00 to $2.05 in all
- *  (the first $1.05 was spent); Athena through the query API $0.50. */
-export const CAPS = { model: 2.05, athena: 0.5 }
+/** The night's caps (brief 49). Model calls: $1.00, raised by the lead after run 1 to $2.05, then stopped by the lead
+ *  after run 2 (19 Nov, 08:00 ET): the cap is set to what is already counted, $1.89 at the rates below, so the chat
+ *  refuses until Brendan gives it more. Athena through the query API: $0.50. */
+export const CAPS = { model: 1.89, athena: 0.5 }
 
-/** Claude Haiku 4.5 on Bedrock, dollars per million tokens. */
-export const HAIKU_PRICE = { input: 1.0, output: 5.0, cacheRead: 0.1, cacheWrite: 1.25 }
+/** Claude Haiku 4.5 on Bedrock through the US cross-region profile (us.anthropic…), dollars per million tokens: the
+ *  global rates ($1.00 input, $5.00 output, $1.25 for a 5-minute cache write, $0.10 a cache read) plus the 10% the
+ *  geographic profiles cost on every line. AWS bills Haiku 4.5 through Marketplace, so it is not in the Price List
+ *  API; these are the rates the Bedrock pricing card and the price trackers agree on. */
+export const HAIKU_PRICE = { input: 1.1, output: 5.5, cacheRead: 0.11, cacheWrite: 1.375 }
 
 export type Tokens = { input: number; output: number; cacheRead: number; cacheWrite: number }
 
@@ -42,7 +46,7 @@ export async function writeLog(line: LogLine) {
   await appendFile(FILE, JSON.stringify(line) + "\n")
 }
 
-/** What the night has spent so far, from the log. */
+/** What the night has spent so far, from the log: model calls recomputed from each line's tokens. */
 export async function spent(): Promise<{ model: number; athena: number; messages: number }> {
   try {
     const lines = (await readFile(FILE, "utf8")).split("\n").filter(Boolean)
@@ -51,7 +55,8 @@ export async function spent(): Promise<{ model: number; athena: number; messages
     for (const l of lines) {
       try {
         const x = JSON.parse(l) as LogLine
-        model += x.modelCost || 0
+        // Each message priced again from its tokens at the current rates, not the cost written at the time.
+        model += x.tokens ? modelCost({ input: x.tokens.input || 0, output: x.tokens.output || 0, cacheRead: x.tokens.cacheRead || 0, cacheWrite: x.tokens.cacheWrite || 0 }) : x.modelCost || 0
         athena += x.athenaCost || 0
       } catch {}
     }

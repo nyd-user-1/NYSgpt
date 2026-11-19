@@ -252,6 +252,9 @@ export async function POST(req: Request) {
     run,
     inferenceConfig: { maxTokens: 1500, temperature: 0 },
     maxRounds: MAX_ROUNDS,
+    // The cap before every model call, not only before the message: what the night had spent when the message
+    // began, plus this message's calls so far.
+    beforeRound: () => night.model + modelCost(tokens) < CAPS.model,
     onUsage: (u) => {
       tokens.input += u.inputTokens ?? 0
       tokens.output += u.outputTokens ?? 0

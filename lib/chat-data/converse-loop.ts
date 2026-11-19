@@ -34,6 +34,8 @@ export type LoopArgs = {
   inferenceConfig?: ConverseStreamCommandInput["inferenceConfig"]
   /** Model calls in all, the answering one included. */
   maxRounds?: number
+  /** NYSgpt (brief 49): asked before every model call; false stops the loop there (the night's cap, checked per round). */
+  beforeRound?: () => boolean | Promise<boolean>
   /** NYSgpt (brief 49): each model call's token counts, from the stream's metadata, for the chat's log. */
   onUsage?: (usage: { inputTokens?: number; outputTokens?: number; cacheReadInputTokens?: number; cacheWriteInputTokens?: number }) => void
 }
@@ -71,6 +73,10 @@ export async function* streamWithTools(args: LoopArgs): AsyncGenerator<string, {
   const summaries = new Map<string, string>()
   let ended = ""
   for (let round = 1; ; round++) {
+    if (args.beforeRound && !(await args.beforeRound())) {
+      yield `${ended && !ended.endsWith("\n") ? "\n\n" : ""}I stopped before finishing: tonight's spending cap for the chat is reached.`
+      return { rounds: round - 1, tools: called }
+    }
     const final = round >= maxRounds && round > 1
     const r = await args.send(
       new ConverseStreamCommand({
