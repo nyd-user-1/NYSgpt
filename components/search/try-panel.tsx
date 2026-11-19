@@ -1,0 +1,354 @@
+'use client'
+
+import { useEffect, useMemo, useState } from 'react'
+
+import { TableDetail, type TableView } from '@/app/TableDetail'
+import { KIND_NOUN, SET_INFO, type Box } from '@/lib/home-boxes'
+import { compactNum, loadCatalog, loadSample, type Sample, type Table } from '@/lib/home-catalog'
+
+import type { FullTable, Out, TableHit } from './search-worker'
+
+// /search's try panel (brief 53): what is picked, tried for real. A table shows the catalog overlay's three views
+// (TableDetail: Fields, Data, Chart) and an API view: the request as editable SQL, run on the reader's own Data
+// Library key (the one the data pages keep in this browser), the rows in the site's grid table with the time, bytes
+// scanned and query id, and the same call as curl and as the MCP address. Without a key, the table's shipped sample
+// rows, marked as such. A Hugging Face or GitHub box runs its public API from the browser; the other sources need
+// their own keys, so their stored facts stand as the sample. The site holds no key here and calls no model.
+
+export type TryView = TableView | 'api'
+export type Picked = { kind: 'db'; topic: string } | { kind: 'table'; stored: string; field?: string } | { kind: 'box'; box: Box } | { kind: 'resolve'; box: Box }
+
+const API = 'https://data.nysgpt.com'
+const MCP = `${API}/mcp`
+const KEY = 'nysgpt-data-key'
+const VIEWS: { id: TryView; label: string }[] = [
+  { id: 'fields', label: 'Fields' },
+  { id: 'data', label: 'Data' },
+  { id: 'chart', label: 'Chart' },
+  { id: 'api', label: 'API' },
+]
+
+/** Ids far from the search's own (search-app.tsx counts from 1), so the two never answer each other. */
+let nextId = 1_000_000_000
+/** One request to the search worker, answered by id. */
+function ask<T extends Out['type']>(w: Worker, msg: Record<string, unknown> & { type: string }, want: T): Promise<Extract<Out, { type: T }>> {
+  const id = nextId++
+  return new Promise((resolve) => {
+    const on = (e: MessageEvent<Out>) => {
+      const m = e.data as Out & { id?: number }
+      if (m.type === want && m.id === id) {
+        w.removeEventListener('message', on)
+        resolve(m as Extract<Out, { type: T }>)
+      }
+    }
+    w.addEventListener('message', on)
+    w.postMessage({ ...msg, id })
+  })
+}
+
+function Copy({ text, label }: { text: string; label: string }) {
+  const [done, setDone] = useState(false)
+  return (
+    <button
+      type="button"
+      className="sr-copy"
+      onClick={() => {
+        void navigator.clipboard?.writeText(text)
+        setDone(true)
+        window.setTimeout(() => setDone(false), 1200)
+      }}
+    >
+      {done ? 'Copied' : label}
+    </button>
+  )
+}
+
+/** Rows in the site's grid table (home.css .hm-rows). */
+function Grid({ columns, rows }: { columns: string[]; rows: (string | null)[][] }) {
+  return (
+    <div className="sr-grid">
+      <table className="hm-rows">
+        <thead>
+          <tr>
+            {columns.map((c, i) => (
+              <th key={i}>{c}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i}>
+              {r.map((v, k) => (
+                <td key={k} title={v ?? ''}>
+                  {v ?? ''}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+const bytesText = (b: number) => (b >= 1024 ** 3 ? `${(b / 1024 ** 3).toFixed(1)} GB` : b >= 1024 ** 2 ? `${(b / 1024 ** 2).toFixed(1)} MB` : b > 0 ? `${Math.max(1, Math.round(b / 1024))} KB` : '0 KB')
+
+type Ran = { columns: string[]; rows: (string | null)[][]; truncated: boolean; bytes: number; id: string; ms: number } | { error: string; ms: number }
+
+function ApiView({ table, home }: { table: FullTable; home: Table | null }) {
+  const [key, setKey] = useState('')
+  const [sql, setSql] = useState(`SELECT * FROM ${table.stored} LIMIT 5`)
+  const [ran, setRan] = useState<Ran | null>(null)
+  const [busy, setBusy] = useState(false)
+  const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
+  useEffect(() => setKey(localStorage.getItem(KEY) ?? ''), [])
+  useEffect(() => {
+    setSql(`SELECT * FROM ${table.stored} LIMIT 5`)
+    setRan(null)
+  }, [table.stored])
+  useEffect(() => {
+    let live = true
+    setSample('loading')
+    if (!home) return void setSample(null)
+    void loadSample(home).then((s) => live && setSample(s))
+    return () => {
+      live = false
+    }
+  }, [home])
+  const saveKey = (k: string) => {
+    setKey(k)
+    if (k.trim()) localStorage.setItem(KEY, k.trim())
+    else localStorage.removeItem(KEY)
+  }
+  const run = async () => {
+    if (!key.trim() || busy) return
+    setBusy(true)
+    const t0 = performance.now()
+    try {
+      const r = await fetch(`${API}/query`, { method: 'POST', headers: { 'content-type': 'application/json', 'x-api-key': key.trim() }, body: JSON.stringify({ sql }) })
+      const b = (await r.json().catch(() => ({}))) as { columns?: string[]; rows?: (string | null)[][]; truncated?: boolean; bytes_scanned?: number | string; query_id?: string; error?: string; message?: string }
+      const ms = Math.round(performance.now() - t0)
+      if (!r.ok || b.error || !Array.isArray(b.rows)) setRan({ error: String(b.error ?? b.message ?? `The API answered ${r.status}.`), ms })
+      else setRan({ columns: b.columns ?? [], rows: b.rows, truncated: !!b.truncated, bytes: Number(b.bytes_scanned ?? 0) || 0, id: b.query_id ?? '', ms })
+    } catch (e) {
+      setRan({ error: `The API could not be reached: ${(e as Error).message}`, ms: Math.round(performance.now() - t0) })
+    } finally {
+      setBusy(false)
+    }
+  }
+  const curl = `curl -s ${API}/query -H "X-Api-Key: YOUR_KEY" -H "content-type: application/json" -d '${JSON.stringify({ sql }).replace(/'/g, "'\\''")}'`
+  const fieldSample = table.fields.filter((f) => f.sample).slice(0, 20)
+  return (
+    <div className="sr-api">
+      <div className="sr-lbl">Request</div>
+      <textarea className="sr-sql" value={sql} onChange={(e) => setSql(e.target.value)} spellCheck={false} rows={4} aria-label="SQL" />
+      <div className="sr-runrow">
+        <input className="sr-key" type="password" value={key} onChange={(e) => saveKey(e.target.value)} placeholder="Your Data Library key" aria-label="Your Data Library key" autoComplete="off" />
+        <button type="button" className="sr-run" onClick={run} disabled={!key.trim() || busy}>
+          {busy ? 'Running…' : 'Run'}
+        </button>
+      </div>
+      {!key.trim() && (
+        <p className="sr-hint">
+          Run uses your own key, kept in this browser. No key yet? <a href="/data#pricing">Get one</a>.
+        </p>
+      )}
+      {ran &&
+        ('error' in ran ? (
+          <p className="sr-err">{ran.error}</p>
+        ) : (
+          <>
+            <div className="sr-meta">
+              {compactNum(ran.rows.length)} {ran.rows.length === 1 ? 'row' : 'rows'}
+              {ran.truncated ? ' (more not shown)' : ''} · {ran.ms} ms · {bytesText(ran.bytes)} scanned{ran.id ? ` · query ${ran.id}` : ''}
+            </div>
+            <Grid columns={ran.columns} rows={ran.rows} />
+          </>
+        ))}
+      {!ran && !key.trim() && (
+        <>
+          <div className="sr-lbl">Sample rows, not a live call</div>
+          {sample === 'loading' ? (
+            <p className="sr-note">Loading the sample…</p>
+          ) : sample ? (
+            <Grid columns={sample.c} rows={sample.r} />
+          ) : fieldSample.length ? (
+            <Grid columns={['field', 'type', 'a sample value']} rows={fieldSample.map((f) => [f.name, f.type, f.sample])} />
+          ) : (
+            <p className="sr-note">No sample is shipped for this table.</p>
+          )}
+        </>
+      )}
+      <div className="sr-lbl">The same call</div>
+      <div className="sr-call">
+        <code>{curl}</code>
+        <Copy text={curl} label="Copy curl" />
+      </div>
+      <div className="sr-call">
+        <code>MCP: {MCP}</code>
+        <Copy text={MCP} label="Copy address" />
+      </div>
+    </div>
+  )
+}
+
+function TableTry({ stored, view, onView, worker }: { stored: string; view: TryView; onView: (v: TryView) => void; worker: Worker }) {
+  const [t, setT] = useState<FullTable | null | 'loading'>('loading')
+  const [home, setHome] = useState<Table | null>(null)
+  useEffect(() => {
+    let live = true
+    setT('loading')
+    void ask(worker, { type: 'table', stored }, 'table').then((m) => live && setT(m.table))
+    return () => {
+      live = false
+    }
+  }, [stored, worker])
+  // The home catalog's copy of the table, where it has one, for its shipped sample rows (TableDetail's Data view).
+  useEffect(() => {
+    if (!t || t === 'loading') return
+    let live = true
+    void loadCatalog().then((c) => {
+      if (!live) return
+      setHome(c?.tables.find((x) => x.table === t.plain) ?? null)
+    })
+    return () => {
+      live = false
+    }
+  }, [t])
+  const asTable: Table | null = useMemo(() => {
+    if (!t || t === 'loading') return null
+    return home ?? { database: t.topic, table: t.plain, rows: t.rows, about: t.about, years: t.years, fields: t.fields.map((f) => ({ name: f.name, type: f.type, desc: f.desc, sample: f.sample })) }
+  }, [t, home])
+  if (t === 'loading') return <p className="sr-note">Loading the table…</p>
+  if (!t || !asTable) return <p className="sr-note">That table is not in the index.</p>
+  return (
+    <div className="sr-table">
+      <div className="sr-tabs" role="tablist">
+        {VIEWS.map((v) => (
+          <button key={v.id} type="button" role="tab" aria-selected={view === v.id} className={view === v.id ? 'sr-tab sr-tab-on' : 'sr-tab'} onClick={() => onView(v.id)}>
+            {v.label}
+          </button>
+        ))}
+        <span className="sr-stored">{t.stored}</span>
+      </div>
+      {view === 'api' ? <ApiView table={t} home={home} /> : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} />}
+    </div>
+  )
+}
+
+function DbTry({ topic, worker, onPick }: { topic: string; worker: Worker; onPick: (p: Picked) => void }) {
+  const [tables, setTables] = useState<TableHit[] | null>(null)
+  useEffect(() => {
+    let live = true
+    setTables(null)
+    void ask(worker, { type: 'topic', topic }, 'topic').then((m) => live && setTables(m.tables))
+    return () => {
+      live = false
+    }
+  }, [topic, worker])
+  return (
+    <div className="sr-db">
+      <h3 className="sr-h">{topic}</h3>
+      <p className="sr-sub">{tables ? `${compactNum(tables.length)} tables, largest first. Pick one to see its fields, rows and API.` : 'Loading its tables…'}</p>
+      {tables?.map((t) => (
+        <button key={t.stored} type="button" className="sr-row" onClick={() => onPick({ kind: 'table', stored: t.stored })}>
+          <span className="sr-rt">
+            <span className="sr-r1">{t.label}</span>
+            <span className="sr-r2">{t.stored}</span>
+          </span>
+          <span className="sr-rm">{t.rows != null ? `${compactNum(t.rows)} records` : ''}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+/** A source box's public API address, where the source has one that needs no key. */
+function publicApi(b: Box): string | null {
+  if (b.kind.startsWith('gh-') && /^[\w.-]+\/[\w.-]+$/.test(b.title)) return `https://api.github.com/repos/${b.title}`
+  if (b.kind === 'hf-models') return `https://huggingface.co/api/models/${b.title}`
+  if (b.kind === 'hf-datasets') return `https://huggingface.co/api/datasets/${b.title}`
+  if (b.kind === 'hf-spaces') return `https://huggingface.co/api/spaces/${b.title}`
+  return null
+}
+
+const KEYED: Partial<Record<Box['kind'], string>> = { aa: 'Artificial Analysis', kaggle: 'Kaggle', llmstats: 'LLM Stats' }
+
+function BoxTry({ box }: { box: Box }) {
+  const url = publicApi(box)
+  const facts = (SET_INFO as Record<string, { table: string; about: string; fields: { name: string; desc: string }[] }[] | undefined>)[box.kind]?.find((e) => e.table === box.title)
+  const [out, setOut] = useState<{ text: string; ms: number } | { error: string } | null>(null)
+  const [busy, setBusy] = useState(false)
+  useEffect(() => setOut(null), [box])
+  const run = async () => {
+    if (!url) return
+    setBusy(true)
+    const t0 = performance.now()
+    try {
+      const r = await fetch(url)
+      if (!r.ok) setOut({ error: `${new URL(url).host} refused the call (${r.status}${r.status === 403 || r.status === 429 ? ', likely its rate limit for calls without a key' : ''}).` })
+      else setOut({ text: JSON.stringify(await r.json(), null, 2).slice(0, 20000), ms: Math.round(performance.now() - t0) })
+    } catch {
+      setOut({ error: `The browser could not reach ${new URL(url).host}: it refused the call or is not reachable from here.` })
+    } finally {
+      setBusy(false)
+    }
+  }
+  return (
+    <div className="sr-box">
+      <h3 className="sr-h">{box.title}</h3>
+      <p className="sr-sub">{[KIND_NOUN[box.kind] ?? box.kind, box.group, box.foot].filter(Boolean).join(' · ')}</p>
+      {box.body && <p className="sr-body-text">{box.body}</p>}
+      {url ? (
+        <>
+          <div className="sr-lbl">Public API, no key</div>
+          <div className="sr-call">
+            <code>GET {url}</code>
+            <Copy text={url} label="Copy address" />
+          </div>
+          <button type="button" className="sr-run" onClick={run} disabled={busy}>
+            {busy ? 'Running…' : 'Run'}
+          </button>
+          {out && ('error' in out ? <p className="sr-err">{out.error}</p> : <pre className="sr-json">{out.text}</pre>)}
+        </>
+      ) : KEYED[box.kind] ? (
+        <p className="sr-hint">A live call to {KEYED[box.kind]} needs that service’s own key, which this page does not hold. Its stored facts are below as the sample.</p>
+      ) : null}
+      {facts?.fields?.length ? (
+        <>
+          <div className="sr-lbl">{url ? 'Stored facts' : 'Facts'}</div>
+          <Grid columns={['fact', 'value']} rows={facts.fields.map((f) => [f.name, f.desc])} />
+        </>
+      ) : null}
+    </div>
+  )
+}
+
+/** A Data or Tables box from the home page, found in the index by name. */
+function Resolve({ box, worker, onPick }: { box: Box; worker: Worker; onPick: (p: Picked) => void }) {
+  useEffect(() => {
+    let live = true
+    void ask(worker, { type: 'query', q: box.title, limit: { dbs: 5, tables: 20, fields: 0 } }, 'results').then((m) => {
+      if (!live) return
+      const exact = m.tables.items.find((t) => t.label === box.title && (box.kind !== 'tables' || !box.group || t.topic === box.group)) ?? m.tables.items.find((t) => t.label === box.title)
+      const db = m.dbs.items.find((d) => d.label === box.title)
+      if (box.kind === 'data' && db) onPick({ kind: 'db', topic: db.label })
+      else if (exact) onPick({ kind: 'table', stored: exact.stored })
+      else if (db) onPick({ kind: 'db', topic: db.label })
+      else if (m.tables.items[0]) onPick({ kind: 'table', stored: m.tables.items[0].stored })
+      else onPick({ kind: 'box', box })
+    })
+    return () => {
+      live = false
+    }
+  }, [box, worker, onPick])
+  return <p className="sr-note">Finding {box.title} in the index…</p>
+}
+
+export function TryPanel({ picked, view, onView, worker, ready, onPick }: { picked: Picked; view: TryView; onView: (v: TryView) => void; worker: Worker | null; ready: boolean; onPick: (p: Picked) => void }) {
+  if (picked.kind === 'box') return <BoxTry box={picked.box} />
+  if (!worker || !ready) return <p className="sr-note">Loading the table index…</p>
+  if (picked.kind === 'resolve') return <Resolve box={picked.box} worker={worker} onPick={onPick} />
+  if (picked.kind === 'db') return <DbTry topic={picked.topic} worker={worker} onPick={onPick} />
+  return <TableTry stored={picked.stored} view={view} onView={onView} worker={worker} />
+}

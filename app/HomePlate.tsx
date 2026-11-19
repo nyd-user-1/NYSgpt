@@ -458,6 +458,13 @@ function BoxMenu({
         <span>Open in panel</span>
       </button>
       </AnimateOnHover>
+      {/* Brief 53: the box on /search, its API view showing. */}
+      <AnimateOnHover>
+      <button type="button" role="menuitem" className="hm-krow" onClick={act(() => window.location.assign(`/search?pick=${encodeURIComponent(boxKey(box))}&view=api`))}>
+        <TypeIcon icon="plug" />
+        <span>Try API</span>
+      </button>
+      </AnimateOnHover>
       <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(() => navigator.clipboard?.writeText(box.title))}>
         <Icon name="copy" />
