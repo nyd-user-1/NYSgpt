@@ -202,7 +202,6 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
             <span className="block truncate text-xs text-[var(--muted)]">{s.framing}</span>
           </span>
         </button>
-              </AnimateOnHover>
       ))}
       {scripts && filteredScripts.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
     </>
@@ -243,23 +242,19 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
             {/* A leaf: every video template, filled with sample data, placed in the chat. */}
             {onTemplates && (
               <AnimateOnHover>
-              <AnimateOnHover>
               <button onClick={() => { onTemplates(); closeMenu() }} className={row(CATEGORIES.length) + ' text-sm font-medium'}>
                 <MonitorPlay className={ICON} strokeWidth={1.75} />
                 <span className="text-[var(--txt)]">Video templates</span>
               </button>
               </AnimateOnHover>
-              </AnimateOnHover>
             )}
             {/* A leaf, not a drill-down: picking it opens the file dialog. */}
             {onAttach && (
-              <AnimateOnHover>
               <AnimateOnHover>
               <button onClick={() => { onAttach(); closeMenu() }} className={row(CATEGORIES.length) + ' text-sm font-medium'}>
                 <Paperclip className={ICON} strokeWidth={1.75} />
                 <span className="text-[var(--txt)]">Attach</span>
               </button>
-              </AnimateOnHover>
               </AnimateOnHover>
             )}
           </div>
