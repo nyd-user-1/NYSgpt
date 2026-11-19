@@ -398,7 +398,8 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
     }
   }
 
-  const count = ready ? `${compactNum(ready.tables)} tables · ${compactNum(ready.dbs)} databases · ${compactNum(ready.fields)} fields · ${compactNum(OTHER_BOXES.length)} boxes` : `${compactNum(OTHER_BOXES.length)} boxes · loading the tables…`
+  // The counts beside the field are gone (Brendan, 2026-11-19); only the short note while the table index loads stays.
+  const count = ready ? '' : 'loading the tables…'
   const nothing = q.trim() && flat.length === 0 && (ready || failed)
 
   return (
@@ -430,7 +431,7 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
               </svg>
             </button>
           ) : null}
-          <span className="sr-count">{count}</span>
+          {count && <span className="sr-count">{count}</span>}
         </label>
       </div>
       <div className="sr-body">
