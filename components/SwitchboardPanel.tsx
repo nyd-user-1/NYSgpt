@@ -3,7 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import { Columns2, Columns3, ArrowRight, ArrowUpRight } from 'lucide-react'
+import { Columns2, Columns3, ArrowRight, ArrowUpRight, Blocks, Wrench } from 'lucide-react'
 // brief 50: the published animated icons (animate-ui's registry, as written), played by their button or row.
 import { X } from '@/components/animate-ui/icons/x'
 import { ArrowLeft } from '@/components/animate-ui/icons/arrow-left'
@@ -294,7 +294,7 @@ function Row({ children, onClick }: { children: React.ReactNode; onClick: () => 
 }
 
 function SwitchboardPanel() {
-  const { open, width, setWidth, view, setView, cards, digest, close, openMenu, openBox, openData } = useSwitchboard()
+  const { open, width, setWidth, view, setView, cards, digest, close, openMenu, openProduct, openChannel, openBox, openData } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
   const { linkProps } = useProductStatus()
   /** The panel search: it filters the rows of the view on show, and clears when the view changes. */
@@ -633,7 +633,24 @@ function SwitchboardPanel() {
                     </>
                   )
                   const sources = [...new Set(LISTING_GROUPS.map(g => g.source))]
-                  return sources.map(name => {
+                  // Slack, Discord, Blocks and Dev Tools lead the menu (back on Brendan's word, 2026-11-19); Dev Tools on the dev server alone
+                  const dev = DevToolsEntry ? cards.findIndex(c => c.title === DEV_TOOLS) : -1
+                  const lead = (label: string, icon: React.ReactNode, go: () => void) => (
+                    <button key={label} onClick={go} className={ROW}>
+                      <span className="flex h-4 w-4 shrink-0 items-center justify-center text-[var(--paper-text)] [&_svg]:h-4 [&_svg]:w-4">{icon}</span>
+                      <span className={LABEL} style={SERIF}>{label}</span>
+                      <Arrow />
+                    </button>
+                  )
+                  /* eslint-disable @next/next/no-img-element -- 16px brand marks from public/ */
+                  const leads = [
+                    lead('Slack', <img src="/logos/250px-Slack_icon_2019.svg.png" alt="" className="h-4 w-4 object-contain" />, () => openChannel('slack')),
+                    lead('Discord', <img src="/discord-icon.svg" alt="" className="h-4 w-4 object-contain" />, () => openChannel('discord')),
+                    lead('Blocks', <Blocks />, () => setView({ kind: 'blocks' })),
+                    ...(dev >= 0 ? [lead('Dev Tools', <Wrench />, () => openProduct(dev))] : []),
+                  ]
+                  /* eslint-enable @next/next/no-img-element */
+                  return [...leads, ...sources.map(name => {
                     const mine = LISTING_GROUPS.filter(g => g.source === name)
                     return (
                       <button key={name} onClick={() => setAt({ source: name })} className={ROW}>
@@ -643,7 +660,7 @@ function SwitchboardPanel() {
                         <Arrow />
                       </button>
                     )
-                  })
+                  })]
                 })()}
               </>
             )}
