@@ -1,9 +1,11 @@
 'use client'
 
+import { useState } from 'react'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { home, useHome } from '@/lib/home-store'
-import { BOXES, SOURCE_KINDS, SOURCES, TYPE_COLOR, type BoxKind } from '@/lib/home-boxes'
+import { BOXES, isGitHub, SOURCE_KINDS, SOURCES, TYPE_COLOR, type BoxKind } from '@/lib/home-boxes'
+import { TypeIcon } from './HomeIcons'
 
 /**
  * The nysgpt.com masthead (2026-11-19, brief 43, from the option 3 sketch):
@@ -43,6 +45,9 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
   const all = [...ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
   const pages = Array.from({ length: Math.ceil(all.length / 4) }, (_, p) => all.slice(p * 4, p * 4 + 4))
+  // The page of cells in view. On GitHub's page, or with one of its sets on show, the nameplate wears GitHub's mark.
+  const [page, setPage] = useState(0)
+  const gh = isGitHub(pages[page]?.[0]?.set) || isGitHub(set)
 
   return (
     <div className="hm-mast" data-inspect="HomeMasthead">
@@ -51,16 +56,27 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           type="button"
           data-nav="masthead"
           data-inspect="Wordmark"
-          className={`hm-name ${set === null ? 'hm-on' : ''}`}
+          className={`hm-name ${set === null ? 'hm-on' : ''} ${gh ? 'hm-gh' : ''}`}
           aria-label="All boxes"
           aria-pressed={set === null}
           onClick={() => home.showSet(null)}
         >
           <span className="hm-wm">NYSgpt</span>
+          <span className="hm-ghm" aria-hidden>
+            <TypeIcon icon="github" />
+          </span>
           <span className="hm-all" aria-hidden>All</span>
         </button>
 
-        <div className="hm-cells" data-inspect="LedgerScroll">
+        <div
+          className="hm-cells"
+          data-inspect="LedgerScroll"
+          onScroll={e => {
+            const el = e.currentTarget
+            const p = Math.round(el.scrollLeft / (el.clientWidth || 1))
+            if (p !== page) setPage(p)
+          }}
+        >
           {pages.map((cells, p) => (
           <div className="hm-cpage" key={p}>
           {cells.map((l, i) => {

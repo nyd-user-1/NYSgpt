@@ -10,14 +10,19 @@
 import { SOURCE_BOXES, SOURCE_INFO } from './home-sources'
 
 /** The five outside sources, A to Z (2026-11-19): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
-export type SourceKind = 'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats'
-export const SOURCE_KINDS: SourceKind[] = ['aa', 'github', 'hf', 'kaggle', 'llmstats']
+export type SourceKind = 'aa' | 'hf' | 'kaggle' | 'llmstats' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp'
+/* In masthead order, four to a page: the sources page A to Z, then GitHub's own page (its four groups). */
+export const SOURCE_KINDS: SourceKind[] = ['aa', 'hf', 'kaggle', 'llmstats', 'gh-skills', 'gh-design', 'gh-api', 'gh-mcp']
+export const isGitHub = (k: BoxKind | null | undefined) => !!k && k.startsWith('gh-')
 export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
   aa: { word: 'Artificial Analysis', unit: 'Models' },
-  github: { word: 'GitHub', unit: 'Repositories' },
   hf: { word: 'Hugging Face', unit: 'Models' },
   kaggle: { word: 'Kaggle', unit: 'Datasets' },
   llmstats: { word: 'LLM Stats', unit: 'Benchmarks' },
+  'gh-skills': { word: 'Skills', unit: 'Repositories' },
+  'gh-design': { word: 'Design', unit: 'Repositories' },
+  'gh-api': { word: 'API', unit: 'Repositories' },
+  'gh-mcp': { word: 'MCP', unit: 'Repositories' },
 }
 export const isSource = (k: BoxKind): k is SourceKind => (SOURCE_KINDS as BoxKind[]).includes(k)
 
@@ -27,17 +32,21 @@ export type Box = { kind: BoxKind; title: string; group: string; body: string; f
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
-/* The five sources take colours that sit beside the first four without repeating one: rose, slate, gold, green, fuchsia. */
+/* The five sources take colours that sit beside the first four without repeating one: rose, gold, green, slate. */
 export const TYPE_COLOR: Record<BoxKind, string> = {
   data: '#0e7490',
   models: '#7c3aed',
   platforms: '#033882',
   tools: '#ea580c',
   aa: '#be123c',
-  github: '#475569',
   hf: '#a16207',
   kaggle: '#15803d',
-  llmstats: '#c026d3',
+  llmstats: '#475569',
+  // GitHub's page is laid out as the first page is, so its four cells take the first page's four colours in order
+  'gh-skills': '#0e7490',
+  'gh-design': '#7c3aed',
+  'gh-api': '#033882',
+  'gh-mcp': '#ea580c',
 }
 
 const OWN_BOXES: Box[] = [

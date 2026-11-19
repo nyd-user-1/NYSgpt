@@ -113,6 +113,8 @@ await run('GitHub', async () => {
     MCP: ['mcp', 'mcp-server', 'model-context-protocol'],
   }
   let total = 0
+  // a repository belongs to the first group that lists it
+  const ghTaken = new Set()
   for (const [group, topics] of Object.entries(GROUPS)) {
     const seen = new Map()
     for (const t of topics) {
@@ -123,13 +125,17 @@ await run('GitHub', async () => {
     let n = 0
     for (const r of ranked) {
       if (n >= 100) break
-      if (add('github', 'github', {
+      if (ghTaken.has(r.full_name)) continue
+      if (add(`gh-${group.toLowerCase()}`, 'github', {
         title: r.full_name,
         group,
         body: r.description || `${compact(r.stargazers_count)} stars`,
         foot: compact(r.stargazers_count),
         facts: { Stars: r.stargazers_count.toLocaleString('en-US'), Forks: r.forks_count?.toLocaleString('en-US'), Language: r.language, Licence: r.license?.spdx_id && r.license.spdx_id !== 'NOASSERTION' ? r.license.spdx_id : '', Updated: (r.pushed_at ?? '').slice(0, 10), Link: r.html_url },
-      })) n++
+      })) {
+        n++
+        ghTaken.add(r.full_name)
+      }
     }
     total += n
   }
@@ -212,13 +218,13 @@ const banner = `/**
  * scripts/home-sources.mjs on ${new Date().toISOString().slice(0, 10)}; do not edit by hand, run the script again.
  * Counts are as the sources reported them on that day.
  */
-import type { Box, SetEntry } from './home-boxes'
+import type { Box, SetEntry, SourceKind } from './home-boxes'
 
 export const SOURCE_MARKS: Record<string, string> = ${JSON.stringify(marks, null, 1)}
 
 export const SOURCE_BOXES: Box[] = ${JSON.stringify(out.boxes, null, 1)}
 
-export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats', SetEntry[]> = ${JSON.stringify({ aa: [], github: [], hf: [], kaggle: [], llmstats: [], ...out.info }, null, 1)}
+export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], hf: [], kaggle: [], llmstats: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], ...out.info }, null, 1)}
 `
 fs.writeFileSync('lib/home-sources.ts', banner)
 const by = {}

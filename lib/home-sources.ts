@@ -3,7 +3,7 @@
  * scripts/home-sources.mjs on 2026-11-19; do not edit by hand, run the script again.
  * Counts are as the sources reported them on that day.
  */
-import type { Box, SetEntry } from './home-boxes'
+import type { Box, SetEntry, SourceKind } from './home-boxes'
 
 export const SOURCE_MARKS: Record<string, string> = {
  "huggingface": "M12.025 1.13c-5.77 0-10.449 4.647-10.449 10.378 0 1.112.178 2.181.503 3.185.064-.222.203-.444.416-.577a.96.96 0 0 1 .524-.15c.293 0 .584.124.84.284.278.173.48.408.71.694.226.282.458.611.684.951v-.014c.017-.324.106-.622.264-.874s.403-.487.762-.543c.3-.047.596.06.787.203s.31.313.4.467c.15.257.212.468.233.542.01.026.653 1.552 1.657 2.54.616.605 1.01 1.223 1.082 1.912.055.537-.096 1.059-.38 1.572.637.121 1.294.187 1.967.187.657 0 1.298-.063 1.921-.178-.287-.517-.44-1.041-.384-1.581.07-.69.465-1.307 1.081-1.913 1.004-.987 1.647-2.513 1.657-2.539.021-.074.083-.285.233-.542.09-.154.208-.323.4-.467a1.08 1.08 0 0 1 .787-.203c.359.056.604.29.762.543s.247.55.265.874v.015c.225-.34.457-.67.683-.952.23-.286.432-.52.71-.694.257-.16.547-.284.84-.285a.97.97 0 0 1 .524.151c.228.143.373.388.43.625l.006.04a10.3 10.3 0 0 0 .534-3.273c0-5.731-4.678-10.378-10.449-10.378M8.327 6.583a1.5 1.5 0 0 1 .713.174 1.487 1.487 0 0 1 .617 2.013c-.183.343-.762-.214-1.102-.094-.38.134-.532.914-.917.71a1.487 1.487 0 0 1 .69-2.803m7.486 0a1.487 1.487 0 0 1 .689 2.803c-.385.204-.536-.576-.916-.71-.34-.12-.92.437-1.103.094a1.487 1.487 0 0 1 .617-2.013 1.5 1.5 0 0 1 .713-.174m-10.68 1.55a.96.96 0 1 1 0 1.921.96.96 0 0 1 0-1.92m13.838 0a.96.96 0 1 1 0 1.92.96.96 0 0 1 0-1.92M8.489 11.458c.588.01 1.965 1.157 3.572 1.164 1.607-.007 2.984-1.155 3.572-1.164.196-.003.305.12.305.454 0 .886-.424 2.328-1.563 3.202-.22-.756-1.396-1.366-1.63-1.32q-.011.001-.02.006l-.044.026-.01.008-.03.024q-.018.017-.035.036l-.032.04a1 1 0 0 0-.058.09l-.014.025q-.049.088-.11.19a1 1 0 0 1-.083.116 1.2 1.2 0 0 1-.173.18q-.035.029-.075.058a1.3 1.3 0 0 1-.251-.243 1 1 0 0 1-.076-.107c-.124-.193-.177-.363-.337-.444-.034-.016-.104-.008-.2.022q-.094.03-.216.087-.06.028-.125.063l-.13.074q-.067.04-.136.086a3 3 0 0 0-.135.096 3 3 0 0 0-.26.219 2 2 0 0 0-.12.121 2 2 0 0 0-.106.128l-.002.002a2 2 0 0 0-.09.132l-.001.001a1.2 1.2 0 0 0-.105.212q-.013.036-.024.073c-1.139-.875-1.563-2.317-1.563-3.203 0-.334.109-.457.305-.454m.836 10.354c.824-1.19.766-2.082-.365-3.194-1.13-1.112-1.789-2.738-1.789-2.738s-.246-.945-.806-.858-.97 1.499.202 2.362c1.173.864-.233 1.45-.685.64-.45-.812-1.683-2.896-2.322-3.295s-1.089-.175-.938.647 2.822 2.813 2.562 3.244-1.176-.506-1.176-.506-2.866-2.567-3.49-1.898.473 1.23 2.037 2.16c1.564.932 1.686 1.178 1.464 1.53s-3.675-2.511-4-1.297c-.323 1.214 3.524 1.567 3.287 2.405-.238.839-2.71-1.587-3.216-.642-.506.946 3.49 2.056 3.522 2.064 1.29.33 4.568 1.028 5.713-.624m5.349 0c-.824-1.19-.766-2.082.365-3.194 1.13-1.112 1.789-2.738 1.789-2.738s.246-.945.806-.858.97 1.499-.202 2.362c-1.173.864.233 1.45.685.64.451-.812 1.683-2.896 2.322-3.295s1.089-.175.938.647-2.822 2.813-2.562 3.244 1.176-.506 1.176-.506 2.866-2.567 3.49-1.898-.473 1.23-2.037 2.16c-1.564.932-1.686 1.178-1.464 1.53s3.675-2.511 4-1.297c.323 1.214-3.524 1.567-3.287 2.405.238.839 2.71-1.587 3.216-.642.506.946-3.49 2.056-3.522 2.064-1.29.33-4.568 1.028-5.713-.624",
@@ -141,8 +141,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf",
   "title": "Qwen/Qwen3-0.6B",
   "group": "Text generation",
-  "body": "Text generation, 16M downloads in the last month, 1.9K likes.",
-  "foot": "16M",
+  "body": "Text generation, 15.7M downloads in the last month, 1.9K likes.",
+  "foot": "15.7M",
   "accent": "",
   "icon": "hf"
  },
@@ -328,18 +328,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf",
-  "title": "Qwen/Qwen3-Embedding-0.6B",
-  "group": "Feature extraction",
-  "body": "Feature extraction, 7.9M downloads in the last month, 1.4K likes.",
-  "foot": "7.9M",
+  "title": "timm/mobilenetv3_small_100.lamb_in1k",
+  "group": "Image classification",
+  "body": "Image classification, 7.7M downloads in the last month, 160 likes.",
+  "foot": "7.7M",
   "accent": "",
   "icon": "hf"
  },
  {
   "kind": "hf",
-  "title": "timm/mobilenetv3_small_100.lamb_in1k",
-  "group": "Image classification",
-  "body": "Image classification, 7.7M downloads in the last month, 160 likes.",
+  "title": "Qwen/Qwen3-Embedding-0.6B",
+  "group": "Feature extraction",
+  "body": "Feature extraction, 7.7M downloads in the last month, 1.4K likes.",
   "foot": "7.7M",
   "accent": "",
   "icon": "hf"
@@ -402,8 +402,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf",
   "title": "ibm-granite/granite-embedding-small-english-r2",
   "group": "Feature extraction",
-  "body": "Feature extraction, 6.7M downloads in the last month, 118 likes.",
-  "foot": "6.7M",
+  "body": "Feature extraction, 6.6M downloads in the last month, 118 likes.",
+  "foot": "6.6M",
   "accent": "",
   "icon": "hf"
  },
@@ -528,7 +528,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf",
   "title": "ornith-ai/Ornith-1.5-9B-GGUF",
   "group": "Text generation",
-  "body": "Text generation, 5.7M downloads in the last month, 735 likes.",
+  "body": "Text generation, 5.7M downloads in the last month, 736 likes.",
   "foot": "5.7M",
   "accent": "",
   "icon": "hf"
@@ -787,18 +787,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf",
-  "title": "openai/whisper-small",
-  "group": "Automatic speech recognition",
-  "body": "Automatic speech recognition, 4.4M downloads in the last month, 658 likes.",
+  "title": "NeoQuasar/Kronos-Tokenizer-base",
+  "group": "Time series forecasting",
+  "body": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
   "foot": "4.4M",
   "accent": "",
   "icon": "hf"
  },
  {
   "kind": "hf",
-  "title": "NeoQuasar/Kronos-Tokenizer-base",
-  "group": "Time series forecasting",
-  "body": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
+  "title": "openai/whisper-small",
+  "group": "Automatic speech recognition",
+  "body": "Automatic speech recognition, 4.4M downloads in the last month, 658 likes.",
   "foot": "4.4M",
   "accent": "",
   "icon": "hf"
@@ -1812,7 +1812,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "kaggle"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "morluto/rea",
   "group": "Skills",
   "body": "Reverse engineer anything with agents, from app behavior down to native binaries.",
@@ -1821,7 +1821,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "obra/superpowers",
   "group": "Skills",
   "body": "An agentic skills framework & software development methodology that works.",
@@ -1830,7 +1830,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "anthropics/skills",
   "group": "Skills",
   "body": "Public repository for Agent Skills.",
@@ -1839,7 +1839,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "DietrichGebert/ponytail",
   "group": "Skills",
   "body": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
@@ -1848,7 +1848,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "langgenius/dify",
   "group": "Skills",
   "body": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so…",
@@ -1857,7 +1857,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Snailclimb/JavaGuide",
   "group": "Skills",
   "body": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发.",
@@ -1866,7 +1866,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "farion1231/cc-switch",
   "group": "Skills",
   "body": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io.",
@@ -1875,7 +1875,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Graphify-Labs/graphify",
   "group": "Skills",
   "body": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor…",
@@ -1884,7 +1884,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "addyosmani/agent-skills",
   "group": "Skills",
   "body": "Production-grade engineering skills for AI coding agents.",
@@ -1893,7 +1893,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Leonxlnx/taste-skill",
   "group": "Skills",
   "body": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages.",
@@ -1902,7 +1902,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "thedotmack/claude-mem",
   "group": "Skills",
   "body": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects…",
@@ -1911,7 +1911,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "paperclipai/paperclip",
   "group": "Skills",
   "body": "The open-source app everyone uses to manage agents at work.",
@@ -1920,7 +1920,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "pbakaus/impeccable",
   "group": "Skills",
   "body": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
@@ -1929,7 +1929,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "nexu-io/open-design",
   "group": "Skills",
   "body": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create motion, prototypes, websites, apps, dashboards, presentations…",
@@ -1938,7 +1938,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "tt-a1i/archify",
   "group": "Skills",
   "body": "Turn any idea, plan, or codebase into a beautiful interactive diagram. An agent skill for Claude Code, Codex, and more.",
@@ -1947,7 +1947,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Egonex-AI/Understand-Anything",
   "group": "Skills",
   "body": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works…",
@@ -1956,7 +1956,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "lobehub/lobehub",
   "group": "Skills",
   "body": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every…",
@@ -1965,7 +1965,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "career-ops-hq/career-ops",
   "group": "Skills",
   "body": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume…",
@@ -1974,16 +1974,16 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "ComposioHQ/awesome-claude-skills",
   "group": "Skills",
   "body": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows.",
-  "foot": "79.8K",
+  "foot": "79.9K",
   "accent": "",
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "code-yeongyu/oh-my-openagent",
   "group": "Skills",
   "body": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
@@ -1992,7 +1992,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "blader/humanizer",
   "group": "Skills",
   "body": "Agent skill that removes signs of AI-generated writing from text.",
@@ -2001,7 +2001,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "shanraisshan/claude-code-best-practice",
   "group": "Skills",
   "body": "from vibe coding to agentic engineering - practice makes claude perfect.",
@@ -2010,7 +2010,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "cathrynlavery/diagram-design",
   "group": "Skills",
   "body": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG…",
@@ -2019,7 +2019,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "ayghri/i-have-adhd",
   "group": "Skills",
   "body": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
@@ -2028,7 +2028,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "coreyhaines31/marketingskills",
   "group": "Skills",
   "body": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
@@ -2037,7 +2037,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "hesreallyhim/awesome-claude-code",
   "group": "Skills",
   "body": "A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from…",
@@ -2046,7 +2046,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "emilkowalski/skills",
   "group": "Skills",
   "body": "Skills for Designers and Engineers.",
@@ -2055,7 +2055,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "K-Dense-AI/scientific-agent-skills",
   "group": "Skills",
   "body": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated…",
@@ -2064,7 +2064,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "alibaba/open-code-review",
   "group": "Skills",
   "body": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise…",
@@ -2073,7 +2073,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "VoltAgent/awesome-openclaw-skills",
   "group": "Skills",
   "body": "The awesome collection of OpenClaw skills. 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry.🦞.",
@@ -2082,7 +2082,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "CherryHQ/cherry-studio",
   "group": "Skills",
   "body": "Your AI workspace for models, agents, and productivity.",
@@ -2091,7 +2091,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "obsidianmd/obsidian-skills",
   "group": "Skills",
   "body": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
@@ -2100,7 +2100,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "sickn33/agentic-awesome-skills",
   "group": "Skills",
   "body": "3,000+ reusable AI agent skills for Claude Code, Codex, Cursor and Gemini CLI. AAS Core adds local catalog discovery, agent-owned selection and plan…",
@@ -2109,7 +2109,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "jeecgboot/JeecgBoot",
   "group": "Skills",
   "body": "一款免费开源的 AI 低代码平台，也是 AI 时代构建复杂业务系统的开源基座！权限、多租户、工作流、报表、大屏、AI 知识库等通用能力开箱即用，AI 只需生成业务差异部分。AI Skills 一句话生成完整系统——建表、前后端代码、菜单权限、BPM 流程、表单、报表、大屏全自动。内置 AI…",
@@ -2118,7 +2118,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "zhayujie/CowAgent",
   "group": "Skills",
   "body": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent…",
@@ -2127,7 +2127,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "anthropics/claude-plugins-official",
   "group": "Skills",
   "body": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
@@ -2136,7 +2136,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "reactive-resume/reactive-resume",
   "group": "Skills",
   "body": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out…",
@@ -2145,7 +2145,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "wshobson/agents",
   "group": "Skills",
   "body": "Plugins, agents, skills, and commands for Claude Code, Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi, written once in…",
@@ -2154,7 +2154,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "github/awesome-copilot",
   "group": "Skills",
   "body": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
@@ -2163,7 +2163,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "JCodesMore/ai-website-cloner-template",
   "group": "Skills",
   "body": "Clone any website with one command using AI coding agents.",
@@ -2172,7 +2172,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "alchaincyf/nuwa-skill",
   "group": "Skills",
   "body": "你想蒸馏的下一个员工，何必是同事。蒸馏任何人的思维方式——心智模型、决策启发式、表达DNA。Distill how anyone thinks.",
@@ -2181,7 +2181,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "virgiliojr94/book-to-skill",
   "group": "Skills",
   "body": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
@@ -2190,7 +2190,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "agentscope-ai/QwenPaw",
   "group": "Skills",
   "body": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible…",
@@ -2199,7 +2199,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "VoltAgent/awesome-agent-skills",
   "group": "Skills",
   "body": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and…",
@@ -2208,7 +2208,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "freestylefly/awesome-gpt-image-2",
   "group": "Skills",
   "body": "Prompt as Code | GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。.",
@@ -2217,7 +2217,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "iOfficeAI/AionUi",
   "group": "Skills",
   "body": "Open-source 24/7 Cowork app for OpenClaw, Hermes, Claude Code, Codex, OpenCode and 20+ more CLI Agent | Customize your assistants | Team them…",
@@ -2226,7 +2226,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "mksglu/context-mode",
   "group": "Skills",
   "body": "Free, local plugin that keeps tool output out of your coding agent's context window. Sandbox and SQLite FTS5 search, 99% fewer bytes in context…",
@@ -2235,7 +2235,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "davila7/claude-code-templates",
   "group": "Skills",
   "body": "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods.",
@@ -2244,7 +2244,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "alibaba/nacos",
   "group": "Skills",
   "body": "an easy-to-use dynamic service discovery, configuration and service management platform for building AI cloud native applications.",
@@ -2253,7 +2253,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "iOfficeAI/OfficeCLI",
   "group": "Skills",
   "body": "OfficeCLI is the first and best Office suite purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free…",
@@ -2262,7 +2262,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "topoteretes/cognee",
   "group": "Skills",
   "body": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free.",
@@ -2271,7 +2271,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "googleworkspace/cli",
   "group": "Skills",
   "body": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google…",
@@ -2280,7 +2280,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "nanocoai/nanoclaw",
   "group": "Skills",
   "body": "Your own always-on AI assistant: self-hosted, open source, lightweight. Each agent runs in its own container on your machine, on the harness you…",
@@ -2289,7 +2289,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "op7418/guizang-ppt-skill",
   "group": "Skills",
   "body": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power…",
@@ -2298,7 +2298,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "alirezarezvani/claude-skills",
   "group": "Skills",
   "body": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex…",
@@ -2307,7 +2307,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "alchaincyf/huashu-design",
   "group": "Skills",
   "body": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill…",
@@ -2316,7 +2316,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Ebazhanov/linkedin-skill-assessments-quizzes",
   "group": "Skills",
   "body": "Full reference of LinkedIn answers 2024 for skill assessments (aws-lambda, rest-api, javascript, react, git, html, jquery, mongodb, java, Go…",
@@ -2325,7 +2325,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "yikart/AiToEarn",
   "group": "Skills",
   "body": "Let's use AI to Earn!",
@@ -2334,7 +2334,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "phuryn/pm-skills",
   "group": "Skills",
   "body": "PM Skills Marketplace: 100+ agentic skills, commands, and plugins — from discovery to strategy, execution, launch, and growth.",
@@ -2343,7 +2343,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "OthmanAdi/planning-with-files",
   "group": "Skills",
   "body": "Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, session recovery after /clear and…",
@@ -2352,7 +2352,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "JimLiu/baoyu-skills",
   "group": "Skills",
   "body": "27.7K stars.",
@@ -2361,7 +2361,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "agentskills/agentskills",
   "group": "Skills",
   "body": "Specification and documentation for Agent Skills.",
@@ -2370,7 +2370,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "NVIDIA/SkillSpector",
   "group": "Skills",
   "body": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and…",
@@ -2379,7 +2379,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "titanwings/distilly",
   "group": "Skills",
   "body": "Distilly — Distill how they think into reusable Skills for any Agent or Bot. Formerly Colleague Skill（原同事 Skill）.",
@@ -2388,7 +2388,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "pascalorg/editor",
   "group": "Skills",
   "body": "Open-source 3D architecture software for AECO, scan-to-BIM. Agent-friendly, browser-first, MCP, CLI.",
@@ -2397,7 +2397,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "flipped-aurora/gin-vue-admin",
   "group": "Skills",
   "body": "🚀Vite+Vue3+Gin拥有AI辅助的基础开发平台，企业级业务AI+开发解决方案，内置mcp辅助服务，内置skills管理，支持TS和JS混用。它集成了JWT鉴权、权限管理、动态路由、显隐可控组件、分页封装、多点登录拦截、资源权限、上传下载、代码生成器、表单生成器和可配置的导入导出等开发必备…",
@@ -2406,7 +2406,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "nocobase/nocobase",
   "group": "Skills",
   "body": "NocoBase is the open-source platform for building, running, and evolving business systems with AI. Agents write the code and do the work, NocoBase…",
@@ -2415,7 +2415,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "google/skills",
   "group": "Skills",
   "body": "Agent Skills for Google products and technologies.",
@@ -2424,7 +2424,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "citrolabs/ego-lite",
   "group": "Skills",
   "body": "The fastest browser for AI agents to run browser automation, built for sharing your logged-in browser state with your AI agents, like Codex or…",
@@ -2433,7 +2433,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "KKKKhazix/khazix-skills",
   "group": "Skills",
   "body": "数字生命卡兹克开源的 AI Skills 合集 | Agent Skills: leader（帮你定义目标）, neat-freak 洁癖, hv-analysis, khazix-writer & more — Claude Code, Codex & 40+ agents.",
@@ -2442,7 +2442,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "latent-spaces/brag",
   "group": "Skills",
   "body": "You built it. Now brag. Turn the project you just created into a short, shareable launch video with one command.",
@@ -2451,7 +2451,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "eclipse-theia/theia",
   "group": "Skills",
   "body": "Eclipse Theia is an open-source platform for building custom IDEs and tools for browser and desktop. It includes Theia AI, the vendor-neutral AI…",
@@ -2460,7 +2460,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Vincentwei1021/video-shotcraft",
   "group": "Skills",
   "body": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync…",
@@ -2469,7 +2469,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "google/elephant-goldfish-model",
   "group": "Skills",
   "body": "Open-source plugin for designing and reviewing software with agents.",
@@ -2478,7 +2478,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "teng-lin/notebooklm-py",
   "group": "Skills",
   "body": "Unofficial Python API and agentic skill for Google Gemini Notebook. Full programmatic access to Gemini Notebook's features—including capabilities…",
@@ -2487,7 +2487,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "wanshuiyin/Auto-claude-code-research-in-sleep",
   "group": "Skills",
   "body": "ARIS ⚔️ (Auto-Research-In-Sleep) — Lightweight Markdown-only skills for autonomous ML research: cross-model review loops, idea discovery, and…",
@@ -2496,7 +2496,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "microsoft/SkillOpt",
   "group": "Skills",
   "body": "SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits…",
@@ -2505,7 +2505,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "lemomo-ai/lemo-opuscar",
   "group": "Skills",
   "body": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in…",
@@ -2514,7 +2514,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "composio-community/awesome-codex-skills",
   "group": "Skills",
   "body": "A curated list of practical Codex skills for automating workflows across the Codex CLI and API.",
@@ -2523,7 +2523,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "kubesphere/kubesphere",
   "group": "Skills",
   "body": "The container platform tailored for Kubernetes multi-cloud, datacenter, and edge management ⎈ 🖥 ☁️.",
@@ -2532,7 +2532,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "dreammis/social-auto-upload",
   "group": "Skills",
   "body": "自动化上传视频到社交媒体：抖音、小红书、视频号、tiktok、youtube、bilibili.",
@@ -2541,7 +2541,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "AgriciDaniel/claude-obsidian",
   "group": "Skills",
   "body": "Self-organizing AI second brain for Obsidian + Claude Code. Drop any source and Claude reads, links, and files it into one connected knowledge graph…",
@@ -2550,7 +2550,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "alibaba/zvec",
   "group": "Skills",
   "body": "A lightweight, lightning-fast, in-process vector database.",
@@ -2559,7 +2559,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "nidhinjs/prompt-master",
   "group": "Skills",
   "body": "A Claude skill that writes the accurate prompts for any AI tool. Zero tokens or credits wasted. Full context and memory retention.",
@@ -2568,7 +2568,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "travisvn/awesome-claude-skills",
   "group": "Skills",
   "body": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code.",
@@ -2577,7 +2577,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "eigent-ai/eigent",
   "group": "Skills",
   "body": "Eigent: The Open Source Cowork Desktop - Local and Free Alternative to Claude Cowork and Codex.",
@@ -2586,7 +2586,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "ConardLi/garden-skills",
   "group": "Skills",
   "body": "ConardLi's open-source Skills collection, featuring web design, knowledge retrieval, image generation, and more.",
@@ -2595,7 +2595,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "yusufkaraaslan/Skill_Seekers",
   "group": "Skills",
   "body": "Convert documentation websites, GitHub repositories, and PDFs into Claude AI skills with automatic conflict detection.",
@@ -2604,7 +2604,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "OrchestratorInc/agent-orchestrator",
   "group": "Skills",
   "body": "Plan, run and supervise fleets of agents from task to merged PR. Desktop (macOS, Windows, Linux) + iPhone & Android apps. Supports Claude Code…",
@@ -2613,7 +2613,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Orchestra-Research/AI-Research-SKILLs",
   "group": "Skills",
   "body": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent…",
@@ -2622,7 +2622,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "NevaMind-AI/memU",
   "group": "Skills",
   "body": "Personal memory across agents.",
@@ -2631,7 +2631,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "krillinai/OpenCreator",
   "group": "Skills",
   "body": "Formerly KrillinAI, VideoTranslation and Dubbing Tool for 120+ Languages. Open-source AI workspace for creators, powered by Codex. Video downloader…",
@@ -2640,7 +2640,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "EverMind-AI/EverOS",
   "group": "Skills",
   "body": "One portable memory layer for every AI agent: local-first, Markdown-native, user-owned, and self-evolving across apps, tools, and workflows.",
@@ -2649,7 +2649,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "backnotprop/plannotator",
   "group": "Skills",
   "body": "The workspace to stay in the loop and on top of agents - shape, decide, plan, annotate, review code, share with team, and send all feedback to…",
@@ -2658,7 +2658,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "HKUSTDial/Supervisor-Skills",
   "group": "Skills",
   "body": "将博导十年科研经验炼化为可直接调用的 AI 技能。从 Idea 构思到论文投稿，你的 AI 科研副导师。.",
@@ -2667,7 +2667,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "genspark-ai/genoffice",
   "group": "Skills",
   "body": "Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent, plus a `genoffice` CLI and agent…",
@@ -2676,7 +2676,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "tw93/Kami",
   "group": "Skills",
   "body": "👩‍🚒 Good content deserves good paper. Layout rules and templates that let AI agents export PDF, PNG and editable PowerPoint.",
@@ -2685,7 +2685,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "Jeffallan/claude-skills",
   "group": "Skills",
   "body": "67 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
@@ -2694,7 +2694,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "MemTensor/MemOS",
   "group": "Skills",
   "body": "Self-evolving memory OS for LLM & AI Agents: ultra-persistent memory, hybrid-retrieval, and cross-task skill reuse, with 35.24% token savings and…",
@@ -2703,7 +2703,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-skills",
   "title": "ChenLiu-1996/figures4papers",
   "group": "Skills",
   "body": "My Python scripts to make high-quality figures for publications in top AI conferences and journals.",
@@ -2712,7 +2712,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "donnemartin/system-design-primer",
   "group": "Design",
   "body": "Learn how to design large-scale systems. Prep for the system design interview. Includes Anki flashcards.",
@@ -2721,7 +2721,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "nextlevelbuilder/ui-ux-pro-max-skill",
   "group": "Design",
   "body": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
@@ -2730,7 +2730,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "VoltAgent/awesome-design-md",
   "group": "Design",
   "body": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
@@ -2739,7 +2739,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "mui/material-ui",
   "group": "Design",
   "body": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
@@ -2748,7 +2748,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "penpot/penpot",
   "group": "Design",
   "body": "Penpot: The open-source design platform for Product teams that need scalable collaboration.",
@@ -2757,7 +2757,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "tldraw/tldraw",
   "group": "Design",
   "body": "Build infinite canvas apps in React with the tldraw SDK. World's best, top-most agent recommended #1 five star SDK.",
@@ -2766,7 +2766,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "jgthms/bulma",
   "group": "Design",
   "body": "Modern CSS framework based on Flexbox.",
@@ -2775,7 +2775,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "saadeghi/daisyui",
   "group": "Design",
   "body": "🌼 🌼 🌼 🌼 🌼 The most popular, free and open-source Tailwind CSS component library.",
@@ -2784,7 +2784,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "goabstract/Awesome-Design-Tools",
   "group": "Design",
   "body": "The best design tools and plugins for everything 👉.",
@@ -2793,7 +2793,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "vuetifyjs/vuetify",
   "group": "Design",
   "body": "🐉 Vue Component Framework.",
@@ -2802,7 +2802,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "chakra-ui/chakra-ui",
   "group": "Design",
   "body": "Chakra UI is a component system for building SaaS products with speed ⚡️.",
@@ -2811,7 +2811,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "chatwoot/chatwoot",
   "group": "Design",
   "body": "Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬.",
@@ -2820,7 +2820,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "Dogfalo/materialize",
   "group": "Design",
   "body": "Materialize, a CSS Framework based on Material Design.",
@@ -2829,7 +2829,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "nextcloud/server",
   "group": "Design",
   "body": "☁️ Nextcloud server, a safe home for all your data.",
@@ -2838,7 +2838,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "GraphiteEditor/Graphite",
   "group": "Design",
   "body": "Community-built comprehensive 2D content creation appplication for graphic design, digital art, and interactive real-time motion graphics powered by…",
@@ -2847,7 +2847,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "onlook-dev/onlook",
   "group": "Design",
   "body": "The Developer Tool for Designers • An Open-Source AI-First Design tool • Visually build, style, and edit your code with AI • World's best, top-most…",
@@ -2856,7 +2856,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "simple-icons/simple-icons",
   "group": "Design",
   "body": "SVG icons for popular brands.",
@@ -2865,7 +2865,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "lucide-icons/lucide",
   "group": "Design",
   "body": "Beautiful & consistent icon toolkit made by the community. Lucide is an open-source icon library that provides 2000+ vector (svg) files for…",
@@ -2874,7 +2874,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "processing/p5.js",
   "group": "Design",
   "body": "p5.js is a client-side JS platform that empowers artists, designers, students, and anyone to learn to code and express themselves creatively on the…",
@@ -2883,7 +2883,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "iview/iview",
   "group": "Design",
   "body": "A high quality UI Toolkit built on Vue.js 2.0.",
@@ -2892,7 +2892,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "pedronauck/docz",
   "group": "Design",
   "body": "✍ It has never been so easy to document your things!",
@@ -2901,7 +2901,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "palantir/blueprint",
   "group": "Design",
   "body": "A React-based UI toolkit for the web.",
@@ -2910,7 +2910,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "vueComponent/ant-design-vue",
   "group": "Design",
   "body": "🌈 An enterprise-class UI components based on Ant Design and Vue. 🐜.",
@@ -2919,7 +2919,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "rsms/inter",
   "group": "Design",
   "body": "The Inter font family.",
@@ -2928,7 +2928,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "alyssaxuu/screenity",
   "group": "Design",
   "body": "The free and privacy-friendly screen recorder with no limits 🎥.",
@@ -2937,7 +2937,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "mojs/mojs",
   "group": "Design",
   "body": "The motion graphics toolbelt for the web.",
@@ -2946,7 +2946,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "ellisonleao/magictools",
   "group": "Design",
   "body": ":video_game: :pencil: A list of Game Development resources to make magic happen.",
@@ -2955,7 +2955,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "gztchan/awesome-design",
   "group": "Design",
   "body": "🌟 Curated design resources from all over the world.",
@@ -2964,7 +2964,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "dair-ai/ml-visuals",
   "group": "Design",
   "body": "🎨 ML Visuals contains figures and templates which you can reuse and customize to improve your scientific writing.",
@@ -2973,7 +2973,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "MaterialDesignInXAML/MaterialDesignInXamlToolkit",
   "group": "Design",
   "body": "Google's Material Design in XAML & WPF, for C# & VB.Net.",
@@ -2982,7 +2982,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "terkelg/awesome-creative-coding",
   "group": "Design",
   "body": "Creative Coding: Generative Art, Data visualization, Interaction Design, Resources.",
@@ -2991,7 +2991,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "originalankur/maptoposter",
   "group": "Design",
   "body": "Transform your favorite cities into beautiful, minimalist designs. MapToPoster lets you create and export visually striking map posters with code.",
@@ -3000,7 +3000,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "TomSchimansky/CustomTkinter",
   "group": "Design",
   "body": "A modern and customizable python UI-library based on Tkinter.",
@@ -3009,7 +3009,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "stenciljs/core",
   "group": "Design",
   "body": "A toolchain for building scalable, enterprise-ready component systems on top of TypeScript and Web Component standards. Stencil components can be…",
@@ -3018,7 +3018,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "primer/css",
   "group": "Design",
   "body": "Primer is GitHub's design system. This is the CSS implementation.",
@@ -3027,7 +3027,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "markmead/hyperui",
   "group": "Design",
   "body": "Free Tailwind CSS v4 components for your next project, designed to enhance your web development with the latest features and styles 🚀.",
@@ -3036,7 +3036,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "CosmicMind/Material",
   "group": "Design",
   "body": "A UI/UX framework for creating beautiful applications.",
@@ -3045,7 +3045,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "IBM/plex",
   "group": "Design",
   "body": "The package of IBM’s typeface, IBM Plex.",
@@ -3054,7 +3054,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "tachyons-css/tachyons",
   "group": "Design",
   "body": "Functional css for humans.",
@@ -3063,7 +3063,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "jdan/98.css",
   "group": "Design",
   "body": "A design system for building faithful recreations of old UIs.",
@@ -3072,7 +3072,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "material-components/material-web",
   "group": "Design",
   "body": "Material Design Web Components.",
@@ -3081,7 +3081,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "mui/base-ui",
   "group": "Design",
   "body": "Unstyled UI components for building accessible web apps and design systems. From the creators of Radix, Floating UI, and Material UI.",
@@ -3090,7 +3090,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "microsoft/fluentui-system-icons",
   "group": "Design",
   "body": "Fluent System Icons are a collection of familiar, friendly and modern icons from Microsoft.",
@@ -3099,7 +3099,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "akveo/react-native-ui-kitten",
   "group": "Design",
   "body": "React Native UI library built on the Eva Design System: 30+ themeable, accessible components for iOS, Android and web. TypeScript, React 19 / RN…",
@@ -3108,7 +3108,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "DouyinFE/semi-design",
   "group": "Design",
   "body": "🚀A modern, comprehensive, flexible design system and React UI library, AI-friendly built-in.🎨Provide 3000+ Design Tokens, easy to build your…",
@@ -3117,7 +3117,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "milligram/milligram",
   "group": "Design",
   "body": "A minimalist CSS framework.",
@@ -3126,7 +3126,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "evolus/pencil",
   "group": "Design",
   "body": "The Pencil Project's unique mission is to build a free and opensource tool for making diagrams and GUI prototyping that everyone can use.",
@@ -3135,7 +3135,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "swyxio/spark-joy",
   "group": "Design",
   "body": "Archived — Spark Joy now lives on Forge.",
@@ -3144,7 +3144,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "carbon-design-system/carbon",
   "group": "Design",
   "body": "A design system built by IBM.",
@@ -3153,7 +3153,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "miqdadbadjuber/anti-slop",
   "group": "Design",
   "body": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
@@ -3162,7 +3162,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "themesberg/flowbite",
   "group": "Design",
   "body": "Open-source UI component library and front-end development framework based on Tailwind CSS.",
@@ -3171,7 +3171,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "mdbootstrap/material-design-for-bootstrap",
   "group": "Design",
   "body": "Important! A new UI Kit version for Bootstrap 5 is available. Access the latest free version via the link below.",
@@ -3180,7 +3180,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "webstudio-is/webstudio",
   "group": "Design",
   "body": "Open source website builder and Webflow alternative. Webstudio is an advanced visual builder that connects to any headless CMS, supports all CSS…",
@@ -3189,7 +3189,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "rawgraphs/rawgraphs-app",
   "group": "Design",
   "body": "A web interface to create custom vector-based visualizations on top of RAWGraphs core.",
@@ -3198,7 +3198,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "nuejs/nue",
   "group": "Design",
   "body": "Fastest way to build modern websites.",
@@ -3207,7 +3207,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "grommet/grommet",
   "group": "Design",
   "body": "a react-based framework that provides accessibility, modularity, responsiveness, and theming in a tidy package.",
@@ -3216,7 +3216,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "ikuaitu/vue-fabric-editor",
   "group": "Design",
   "body": "快图设计-基于fabric.js和Vue的开源图片编辑器，可自定义字体、素材、设计模板。fabric.js and Vue based image editor, can customize fonts, materials, design templates.",
@@ -3225,7 +3225,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "ParthJadhav/app-store-screenshots",
   "group": "Design",
   "body": "end to end app store screenshot creation using AI.",
@@ -3234,7 +3234,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "prasadgujar/low-level-design-primer",
   "group": "Design",
   "body": "Dedicated Resources for the Low-Level System Design. Learn how to design and implement large-scale systems. Prep for the system design interview.",
@@ -3243,7 +3243,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "rebassjs/rebass",
   "group": "Design",
   "body": ":atom_symbol: React primitive UI components built with styled-system.",
@@ -3252,7 +3252,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "andreasbm/web-skills",
   "group": "Design",
   "body": "A visual overview of useful skills to learn as a web developer.",
@@ -3261,7 +3261,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "tw93/Waza",
   "group": "Design",
   "body": "🥷 Engineering habits you already know, turned into skills AI assistants like Claude Code, Codex and Cursor can run.",
@@ -3270,7 +3270,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "WXRIW/Lyricify-App",
   "group": "Design",
   "body": "Lyricify (/lɪ'rɪsəfaɪ/), a fantastic app to provide scroll lyrics for Spotify, Apple Music and other apps. 一款为 Spotify、Apple Music 等各种应用提供滚动歌词的软件。.",
@@ -3279,7 +3279,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "react95-io/React95",
   "group": "Design",
   "body": "🌈🕹 Windows 95 style UI component library for React.",
@@ -3288,7 +3288,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "uswds/uswds",
   "group": "Design",
   "body": "The U.S. Web Design System helps the federal government build fast, accessible, mobile-friendly websites.",
@@ -3297,7 +3297,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "plasmicapp/plasmic",
   "group": "Design",
   "body": "Visual builder for React. Build apps, websites, and content. Integrate with your codebase.",
@@ -3306,7 +3306,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "grab/cursor-talk-to-figma-mcp",
   "group": "Design",
   "body": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code, Codex) and Figma, allowing Agentic AI to communicate with Figma for reading…",
@@ -3315,7 +3315,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "unovue/reka-ui",
   "group": "Design",
   "body": "An open-source UI component library for building high-quality, accessible design systems and web apps for Vue. Previously Radix Vue.",
@@ -3324,7 +3324,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "nordtheme/nord",
   "group": "Design",
   "body": "An arctic, north-bluish color palette.",
@@ -3333,7 +3333,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "oldratlee/translations",
   "group": "Design",
   "body": "🐼 Chinese translations for classic software development resources.",
@@ -3342,7 +3342,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "adamschwartz/magic-of-css",
   "group": "Design",
   "body": "A CSS course to turn you into a magician.",
@@ -3351,7 +3351,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "nraiden/cofounder",
   "group": "Design",
   "body": "ai-generated apps , full stack + generative UI.",
@@ -3360,7 +3360,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "TalkingData/iview-weapp",
   "group": "Design",
   "body": "一套高质量的微信小程序 UI 组件库.",
@@ -3369,7 +3369,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "ant-design/ant-design-landing",
   "group": "Design",
   "body": ":mountain_bicyclist: Landing Pages of Ant Design System.",
@@ -3378,7 +3378,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "Jakubantalik/transitions.dev",
   "group": "Design",
   "body": "UI motion agent, a library of 43+ crafted transitions, a skill that fits your workflow.",
@@ -3387,7 +3387,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "elastic/eui",
   "group": "Design",
   "body": "Elastic UI Framework 🙌.",
@@ -3396,7 +3396,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "vmware-archive/clarity",
   "group": "Design",
   "body": "Clarity is a scalable, accessible, customizable, open source design system built with web components. Works with any JavaScript framework, built for…",
@@ -3405,7 +3405,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "webslides/WebSlides",
   "group": "Design",
   "body": "Create HTML presentations in seconds —.",
@@ -3414,7 +3414,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "czy0729/Bangumi",
   "group": "Design",
   "body": ":electron: An unofficial https://bgm.tv ui first app client for Android and iOS, built with React Native. 一个无广告、以爱好为驱动、不以盈利为目的、专门做 ACG…",
@@ -3423,7 +3423,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "chakra-ui/panda",
   "group": "Design",
   "body": "🐼 Universal, Type-Safe, CSS-in-JS Framework for Design Systems ⚡️.",
@@ -3432,7 +3432,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "Shopify/polaris-react-archive",
   "group": "Design",
   "body": "Shopify's Polaris Design System - React implementation (Deprecated).",
@@ -3441,7 +3441,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "jolaleye/cssfx",
   "group": "Design",
   "body": "✨ Beautifully simple click-to-copy CSS effects.",
@@ -3450,7 +3450,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "skeletonlabs/skeleton",
   "group": "Design",
   "body": "Skeleton is an adaptive design system powered by Tailwind CSS.",
@@ -3459,7 +3459,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "ghosh/uiGradients",
   "group": "Design",
   "body": "🔴 Beautiful colour gradients for design and code.",
@@ -3468,7 +3468,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "dbacinski/Design-Patterns-In-Kotlin",
   "group": "Design",
   "body": "Design Patterns implemented in Kotlin.",
@@ -3477,7 +3477,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "bendc/animateplus",
   "group": "Design",
   "body": "A+ animation module for the modern web.",
@@ -3486,7 +3486,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "basscss/basscss",
   "group": "Design",
   "body": "Low-level CSS Toolkit – the original Functional/Utility/Atomic CSS library.",
@@ -3495,7 +3495,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "arco-design/arco-design",
   "group": "Design",
   "body": "A comprehensive React UI components library based on Arco Design.",
@@ -3504,7 +3504,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "CodingTrain/website-archive",
   "group": "Design",
   "body": "Archive of the Coding Train website (first version).",
@@ -3513,7 +3513,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "knadh/oat",
   "group": "Design",
   "body": "Ultra-lightweight, zero dependency, semantic HTML, CSS, JS UI library. ~10KB min+gz.",
@@ -3522,7 +3522,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "chakra-ui/ark",
   "group": "Design",
   "body": "Unstyled, accessible UI components for your design System. Works in React, Vue, Solid, and Svelte.",
@@ -3531,7 +3531,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "benjitaylor/agentation",
   "group": "Design",
   "body": "The visual feedback tool for agents.",
@@ -3540,7 +3540,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "system-ui/theme-ui",
   "group": "Design",
   "body": "Build consistent, themeable React apps based on constraint-based design principles.",
@@ -3549,7 +3549,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "williamngan/pts",
   "group": "Design",
   "body": "A library for visualization and creative-coding.",
@@ -3558,7 +3558,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "gluestack/gluestack-ui",
   "group": "Design",
   "body": "React & React Native Components & Patterns (copy-paste components & patterns crafted with Tailwind CSS (NativeWind)).",
@@ -3567,7 +3567,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "akiraux/Akira",
   "group": "Design",
   "body": "Native Linux App for UI and UX Design built in Vala and GTK.",
@@ -3576,7 +3576,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "raysan5/raygui",
   "group": "Design",
   "body": "A simple and easy-to-use immediate-mode gui library.",
@@ -3585,7 +3585,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "nateherkai/scroll-craft",
   "group": "Design",
   "body": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a…",
@@ -3594,7 +3594,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "JakeLin/SwiftLanguageWeather",
   "group": "Design",
   "body": "Swift Language Weather is an iOS weather app developed in Swift 4.",
@@ -3603,7 +3603,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-design",
   "title": "Appllama/appllama-skills",
   "group": "Design",
   "body": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
@@ -3612,7 +3612,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "public-apis/public-apis",
   "group": "API",
   "body": "A collective list of free APIs.",
@@ -3621,7 +3621,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "fastapi/fastapi",
   "group": "API",
   "body": "FastAPI framework, high performance, easy to learn, fast to code, ready for production.",
@@ -3630,7 +3630,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "neovim/neovim",
   "group": "API",
   "body": "Vim-fork focused on extensibility and usability.",
@@ -3639,7 +3639,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "hoppscotch/hoppscotch",
   "group": "API",
   "body": "Open-Source API Development Ecosystem • https://hoppscotch.io • Offline, On-Prem & Cloud • Web, Desktop & CLI • Open-Source Alternative to Postman…",
@@ -3648,7 +3648,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "ocornut/imgui",
   "group": "API",
   "body": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies.",
@@ -3657,7 +3657,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "typicode/json-server",
   "group": "API",
   "body": "Get a full fake REST API with zero coding in less than 30 seconds (seriously).",
@@ -3666,7 +3666,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "strapi/strapi",
   "group": "API",
   "body": "🚀 Strapi is the leading open-source headless CMS. It’s 100% JavaScript/TypeScript, fully customizable, and developer-first.",
@@ -3675,7 +3675,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "nocodb/nocodb",
   "group": "API",
   "body": "🔥 🔥 🔥 A Free & Self-hostable Airtable Alternative.",
@@ -3684,7 +3684,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "meilisearch/meilisearch",
   "group": "API",
   "body": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
@@ -3693,7 +3693,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "mudler/LocalAI",
   "group": "API",
   "body": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
@@ -3702,7 +3702,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "usebruno/bruno",
   "group": "API",
   "body": "Opensource IDE For Exploring and Testing API's (lightweight alternative to Postman/Insomnia).",
@@ -3711,7 +3711,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "chatanywhere/GPT_API_free",
   "group": "API",
   "body": "免费大模型API，支持免费调用GPT、DeepSeek等主流模型，免费额度10000点，每日刷新！另付费价格最低官方1-2折！.",
@@ -3720,7 +3720,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "ccxt/ccxt",
   "group": "API",
   "body": "A unified trading API with more than 100 crypto exchanges and prediction markets in JavaScript / TypeScript / Python / C# / PHP / Go / Java / Rust.",
@@ -3729,7 +3729,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "trpc/trpc",
   "group": "API",
   "body": "🧙‍♀️ Move Fast and Break Nothing. End-to-end typesafe APIs made easy.",
@@ -3738,7 +3738,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "gofiber/fiber",
   "group": "API",
   "body": "⚡️ Express inspired web framework written in Go.",
@@ -3747,7 +3747,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Kong/insomnia",
   "group": "API",
   "body": "The open-source, cross-platform API client for GraphQL, REST, WebSockets, SSE and gRPC. With Cloud, Local and Git storage.",
@@ -3756,7 +3756,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "The-Vibe-Company/quivr",
   "group": "API",
   "body": "An open-source engine that turns continuous content streams into search and monitoring. Durable ingestion, hybrid search, alerts, and plugins for…",
@@ -3765,7 +3765,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "directus/directus",
   "group": "API",
   "body": "The flexible backend for all your projects 🐰 Turn your DB into a headless CMS, admin panels, or apps with a custom UI, instant APIs, auth & more.",
@@ -3774,7 +3774,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "httpie/cli",
   "group": "API",
   "body": "🥧 HTTPie CLI — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, plugins & more.",
@@ -3783,7 +3783,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "songquanpeng/one-api",
   "group": "API",
   "body": "LLM API 管理 & 分发系统，支持 OpenAI、Azure、Anthropic Claude、Google Gemini、DeepSeek、字节豆包、ChatGLM、文心一言、讯飞星火、通义千问、360 智脑、腾讯混元等主流模型，统一 API 适配，可用于 key…",
@@ -3792,7 +3792,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "slatedocs/slate",
   "group": "API",
   "body": "Beautiful static documentation for your API.",
@@ -3801,7 +3801,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "binwiederhier/ntfy",
   "group": "API",
   "body": "Send push notifications to your phone or desktop using PUT/POST.",
@@ -3810,7 +3810,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "zeromicro/go-zero",
   "group": "API",
   "body": "A cloud-native Go microservices framework with cli tool for productivity.",
@@ -3819,7 +3819,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "hasura/graphql-engine",
   "group": "API",
   "body": "Blazing fast, instant realtime GraphQL APIs on all your data with fine grained access control, also trigger webhooks on database events.",
@@ -3828,7 +3828,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "encode/django-rest-framework",
   "group": "API",
   "body": "Web APIs for Django. 🎸.",
@@ -3837,7 +3837,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Binaryify/NeteaseCloudMusicApi",
   "group": "API",
   "body": "网易云音乐 Node.js API service.",
@@ -3846,7 +3846,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "swagger-api/swagger-ui",
   "group": "API",
   "body": "Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
@@ -3855,7 +3855,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "pppscn/SmsForwarder",
   "group": "API",
   "body": "短信转发器——监控Android手机短信、来电、APP通知，并根据指定规则转发到其他手机：钉钉群自定义机器人、钉钉企业内机器人、企业微信群机器人、飞书机器人、企业微信应用消息、邮箱、bark、webhook、Telegram机器人、Server酱、PushPlus、手机短信等。包括主动控制服务端与…",
@@ -3864,7 +3864,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "PostgREST/postgrest",
   "group": "API",
   "body": "REST API for any Postgres database.",
@@ -3873,7 +3873,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "YMFE/yapi",
   "group": "API",
   "body": "YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台.",
@@ -3882,7 +3882,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "OpenAPITools/openapi-generator",
   "group": "API",
   "body": "OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an…",
@@ -3891,7 +3891,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "littlecodersh/ItChat",
   "group": "API",
   "body": "A complete and graceful API for Wechat. 微信个人号接口、微信机器人及命令行微信，三十行即可自定义个人号机器人。.",
@@ -3900,7 +3900,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Skyvern-AI/skyvern",
   "group": "API",
   "body": "Automate browser based workflows with AI.",
@@ -3909,7 +3909,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "shieldfy/API-Security-Checklist",
   "group": "API",
   "body": "Checklist of the most important security countermeasures when designing, testing, and releasing your API.",
@@ -3918,7 +3918,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "microsoft/api-guidelines",
   "group": "API",
   "body": "Microsoft REST API Guidelines.",
@@ -3927,7 +3927,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "go-chi/chi",
   "group": "API",
   "body": "lightweight, idiomatic and composable router for building Go HTTP services.",
@@ -3936,7 +3936,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "wwebjs/whatsapp-web.js",
   "group": "API",
   "body": "A WhatsApp client library for NodeJS that connects through the WhatsApp Web browser app.",
@@ -3945,7 +3945,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Evil0ctal/Douyin_TikTok_Download_API",
   "group": "API",
   "body": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark…",
@@ -3954,7 +3954,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "parse-community/parse-server",
   "group": "API",
   "body": "Parse Server for Node.js / Express.",
@@ -3963,7 +3963,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "FallibleInc/security-guide-for-developers",
   "group": "API",
   "body": "Security Guide for Developers.",
@@ -3972,7 +3972,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "gofr-dev/gofr",
   "group": "API",
   "body": "An opinionated GoLang framework for accelerated microservice development. Built in support for databases and observability.",
@@ -3981,7 +3981,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "paularmstrong/normalizr",
   "group": "API",
   "body": "Normalizes nested JSON according to a schema.",
@@ -3990,7 +3990,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "bitwarden/server",
   "group": "API",
   "body": "Bitwarden infrastructure/backend (API, database, Docker, etc).",
@@ -3999,7 +3999,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "grpc-ecosystem/grpc-gateway",
   "group": "API",
   "body": "gRPC to JSON proxy generator following the gRPC HTTP spec.",
@@ -4008,7 +4008,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "web3/web3.js",
   "group": "API",
   "body": "Collection of comprehensive TypeScript libraries for Interaction with the Ethereum JSON RPC API and utility functions.",
@@ -4017,7 +4017,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "iii-hq/iii",
   "group": "API",
   "body": "Effortlessly compose, extend, observe, discover, and react to every service in real-time for the first time ever.",
@@ -4026,7 +4026,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "getmaxun/maxun",
   "group": "API",
   "body": "Turn any website into a structured API. Extract, automate, search and monitor the web.",
@@ -4035,7 +4035,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "mswjs/msw",
   "group": "API",
   "body": "The industry standard for API mocking in JavaScript.",
@@ -4044,7 +4044,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "swagger-api/swagger-codegen",
   "group": "API",
   "body": "swagger-codegen contains a template-driven engine to generate documentation, API clients and server stubs in different languages by parsing your…",
@@ -4053,7 +4053,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "LibreTranslate/LibreTranslate",
   "group": "API",
   "body": "Free and Open Source Machine Translation API. Self-hosted, offline capable and easy to setup.",
@@ -4062,7 +4062,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "JoeanAmier/TikTokDownloader",
   "group": "API",
   "body": "抖音 / TikTok 平台作品下载/数据采集工具.",
@@ -4071,7 +4071,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Evolink-AI/awesome-gpt-image-2-API-Prompts",
   "group": "API",
   "body": "GPT-Image-2 API and Prompts.",
@@ -4080,7 +4080,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "apache/apisix",
   "group": "API",
   "body": "The Cloud-Native API Gateway and AI Gateway.",
@@ -4089,7 +4089,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "rmyndharis/OpenWA",
   "group": "API",
   "body": "Free, Open Source, Self-Hosted WhatsApp API Gateway.",
@@ -4098,7 +4098,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "scalar/scalar",
   "group": "API",
   "body": "Scalar is an open-source API platform: 🌐 Modern REST API Client 📖 Beautiful API References ✨ 1st-Class OpenAPI/Swagger Support.",
@@ -4107,7 +4107,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "public-api-lists/public-api-lists",
   "group": "API",
   "body": "A curated list of free public APIs — searchable, community-maintained, with a free JSON API.",
@@ -4116,7 +4116,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Jackett/Jackett",
   "group": "API",
   "body": "API Support for your favorite torrent trackers.",
@@ -4125,7 +4125,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "fangzesheng/free-api",
   "group": "API",
   "body": "收集免费的接口服务,做一个api的搬运工.",
@@ -4134,7 +4134,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "FlareSolverr/FlareSolverr",
   "group": "API",
   "body": "Proxy server to bypass Cloudflare protection.",
@@ -4143,7 +4143,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "gotify/server",
   "group": "API",
   "body": "A simple server for sending and receiving messages in real-time per WebSocket. (Includes a sleek web-ui).",
@@ -4152,7 +4152,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "amplication/amplication",
   "group": "API",
   "body": "Amplication brings order to the chaos of large-scale software development by creating Golden Paths for developers - streamlined workflows that drive…",
@@ -4161,7 +4161,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "apitable/apitable",
   "group": "API",
   "body": "🚀🎉📚 APITable, an API-oriented low-code platform for building collaborative apps and better than all other Airtable open-source alternatives.",
@@ -4170,7 +4170,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "jsdoc/jsdoc",
   "group": "API",
   "body": "An API documentation generator for JavaScript.",
@@ -4179,7 +4179,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "BrainJS/brain.js",
   "group": "API",
   "body": "🤖 GPU accelerated Neural networks in JavaScript for Browsers and Node.js.",
@@ -4188,7 +4188,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "youfou/wxpy",
   "group": "API",
   "body": "微信机器人 / 可能是最优雅的微信个人号 API ✨✨.",
@@ -4197,7 +4197,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "kgrzybek/modular-monolith-with-ddd",
   "group": "API",
   "body": "Full Modular Monolith application with Domain-Driven Design approach.",
@@ -4206,7 +4206,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "mnfst/awesome-free-llm-apis",
   "group": "API",
   "body": "List of Permanent Free LLM API (API Keys).",
@@ -4215,7 +4215,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "xszyou/Fay",
   "group": "API",
   "body": "fay是一个帮助数字人（2.5d、3d、移动、pc、网页）或大语言模型（openai兼容、deepseek）连通业务系统的agent框架。.",
@@ -4224,7 +4224,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "postmanlabs/httpbin",
   "group": "API",
   "body": "HTTP Request & Response Service, written in Python + Flask.",
@@ -4233,7 +4233,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "gotenberg/gotenberg",
   "group": "API",
   "body": "A developer-friendly API for converting many document formats into PDF files, and more!",
@@ -4242,7 +4242,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "JoeanAmier/XHS-Downloader",
   "group": "API",
   "body": "小红书（XiaoHongShu、RedNote）链接提取/作品采集工具.",
@@ -4251,7 +4251,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "NangoHQ/nango",
   "group": "API",
   "body": "Connect your agents & product to 1,000 APIs.",
@@ -4260,7 +4260,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "TonnyL/Awesome_APIs",
   "group": "API",
   "body": ":octocat: A collection of APIs.",
@@ -4269,7 +4269,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "ShishirPatil/gorilla",
   "group": "API",
   "body": "Gorilla: Training and Evaluating LLMs for Function Calls (Tool Calls).",
@@ -4278,7 +4278,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "graphile/crystal",
   "group": "API",
   "body": "🔮 Graphile's Crystal Monorepo; home to Grafast, PostGraphile, pg-introspection, pg-sql2 and much more!",
@@ -4287,7 +4287,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "zealdocs/zeal",
   "group": "API",
   "body": "Offline documentation browser. Your personal reference library, searchable in an instant.",
@@ -4296,7 +4296,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "star7th/showdoc",
   "group": "API",
   "body": "ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具.",
@@ -4305,7 +4305,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "Farama-Foundation/Gymnasium",
   "group": "API",
   "body": "A standard API for single-agent reinforcement learning environments, with popular reference environments and related utilities (formerly Gym).",
@@ -4314,7 +4314,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "darrenburns/posting",
   "group": "API",
   "body": "The modern API client that lives in your terminal.",
@@ -4323,7 +4323,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "manticoresoftware/manticoresearch",
   "group": "API",
   "body": "Open-source search database for full-text, vector, and hybrid search with real-time indexing and SQL.",
@@ -4332,7 +4332,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "presenton/presenton",
   "group": "API",
   "body": "Open-Source AI Presentation Generator and API (Gamma, Canva, Beautiful AI, Decktopus, Presentations AI Alternative).",
@@ -4341,7 +4341,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "frappe/frappe",
   "group": "API",
   "body": "Low code web framework for real world applications, in Python and Javascript.",
@@ -4350,7 +4350,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "r-spacex/SpaceX-API",
   "group": "API",
   "body": ":rocket: Open Source REST API for SpaceX launch, rocket, core, capsule, starlink, launchpad, and landing pad data.",
@@ -4359,7 +4359,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "TykTechnologies/tyk",
   "group": "API",
   "body": "Open Source API and AI Gateway supporting REST, GraphQL, TCP, gRPC and MCP (Model Context Protocol).",
@@ -4368,7 +4368,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "restify/node-restify",
   "group": "API",
   "body": "The future of Node.js REST development.",
@@ -4377,7 +4377,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "dotnet-architecture/eShopOnWeb",
   "group": "API",
   "body": "Sample ASP.NET Core 8.0 reference application, now community supported: https://github.com/NimblePros/eShopOnWeb.",
@@ -4386,7 +4386,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "dicebear/dicebear",
   "group": "API",
   "body": "DiceBear is an avatar library for designers and developers. 🌍.",
@@ -4395,7 +4395,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "astrit/css.gg",
   "group": "API",
   "body": "700+ Pure CSS, SVG & Figma UI Icons, 6000+ glyphs, patterns, colors and layouts.",
@@ -4404,7 +4404,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "go-swagger/go-swagger",
   "group": "API",
   "body": "Swagger 2.0 implementation for go.",
@@ -4413,7 +4413,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "ruby-grape/grape",
   "group": "API",
   "body": "An opinionated framework for creating REST-like APIs in Ruby.",
@@ -4422,7 +4422,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "hiteshchoudhary/apihub",
   "group": "API",
   "body": "Your own API Hub to learn and master API interaction. Ideal for frontend, mobile dev and backend developers.",
@@ -4431,7 +4431,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "falconry/falcon",
   "group": "API",
   "body": "The no-magic web API and microservices framework for Python developers, with a focus on reliability and performance at scale.",
@@ -4440,7 +4440,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "lihengming/spring-boot-api-project-seed",
   "group": "API",
   "body": ":seedling::rocket:一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目~.",
@@ -4449,7 +4449,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "loco-rs/loco",
   "group": "API",
   "body": "🚂 🦀 The one-person framework for Rust for side-projects and startups.",
@@ -4458,7 +4458,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "swagger-api/swagger-editor",
   "group": "API",
   "body": "Swagger Editor.",
@@ -4467,7 +4467,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "coaidev/coai",
   "group": "API",
   "body": "🚀 Next Gen Multi-tenant AI One-Stop Solution. Builtin Admin & Billing System. Enterprise-Grade Unified LLM Gateway Support for 200+ Models And 35+…",
@@ -4476,7 +4476,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "vitalik/django-ninja",
   "group": "API",
   "body": "💨 Fast, Async-ready, Openapi, type hints based framework for building APIs.",
@@ -4485,7 +4485,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "yagop/node-telegram-bot-api",
   "group": "API",
   "body": "Telegram Bot API for NodeJS.",
@@ -4494,7 +4494,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "api-platform/api-platform",
   "group": "API",
   "body": "🕸️ Create REST and GraphQL APIs, scaffold Jamstack webapps, stream changes in real-time.",
@@ -4503,7 +4503,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-api",
   "title": "artilleryio/artillery",
   "group": "API",
   "body": "The complete load testing platform. Everything you need for production-grade load tests. Serverless & distributed. Load test with Playwright. Load…",
@@ -4512,7 +4512,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "affaan-m/ECC",
   "group": "MCP",
   "body": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex…",
@@ -4521,7 +4521,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "n8n-io/n8n",
   "group": "MCP",
   "body": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
@@ -4530,7 +4530,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "open-webui/open-webui",
   "group": "MCP",
   "body": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...).",
@@ -4539,7 +4539,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "browser-use/browser-use",
   "group": "MCP",
   "body": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
@@ -4548,7 +4548,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "Panniantong/Agent-Reach",
   "group": "MCP",
   "body": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
@@ -4557,7 +4557,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "google-gemini/gemini-cli",
   "group": "MCP",
   "body": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
@@ -4566,7 +4566,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "ruvnet/RuView",
   "group": "MCP",
   "body": "π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single…",
@@ -4575,7 +4575,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "D4Vinci/Scrapling",
   "group": "MCP",
   "body": "🕷️ The BEST Web Scraping framework that handles everything from a single request to a full-scale crawl! Don't be shy, join here…",
@@ -4584,7 +4584,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "punkpeye/awesome-mcp-servers",
   "group": "MCP",
   "body": "A collection of MCP servers.",
@@ -4593,7 +4593,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "koala73/worldmonitor",
   "group": "MCP",
   "body": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational…",
@@ -4602,7 +4602,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "cheaper-inference/OmniRoute",
   "group": "MCP",
   "body": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax…",
@@ -4611,7 +4611,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "unclecode/crawl4ai",
   "group": "MCP",
   "body": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open…",
@@ -4620,7 +4620,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "heygen-com/hyperframes",
   "group": "MCP",
   "body": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to…",
@@ -4629,7 +4629,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "ruvnet/ruflo",
   "group": "MCP",
   "body": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems…",
@@ -4638,7 +4638,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "netdata/netdata",
   "group": "MCP",
   "body": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI ·…",
@@ -4647,7 +4647,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "headroomlabs-ai/headroom",
   "group": "MCP",
   "body": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same…",
@@ -4656,7 +4656,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "rohitg00/ai-engineering-from-scratch",
   "group": "MCP",
   "body": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
@@ -4665,7 +4665,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "upstash/context7",
   "group": "MCP",
   "body": "Context7 Platform -- Up-to-date docs for AI agents.",
@@ -4674,7 +4674,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "sansan0/TrendRadar",
   "group": "MCP",
   "body": "⭐AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, and smart alerts.🎯 告别信息过载，你的 AI 舆情监控助手与热点筛选工具！聚合多平台热点 + RSS…",
@@ -4683,7 +4683,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "MemPalace/mempalace",
   "group": "MCP",
   "body": "The best-benchmarked open-source AI memory system. And it's free.",
@@ -4692,7 +4692,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "bojieli/ai-agent-book",
   "group": "MCP",
   "body": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码.",
@@ -4701,7 +4701,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "ChromeDevTools/chrome-devtools-mcp",
   "group": "MCP",
   "body": "Chrome DevTools for coding agents.",
@@ -4710,7 +4710,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "aaif-goose/goose",
   "group": "MCP",
   "body": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM.",
@@ -4719,7 +4719,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "HKUDS/nanobot",
   "group": "MCP",
   "body": "Your lightweight open-source personal agent.",
@@ -4728,7 +4728,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "DeusData/codebase-memory-mcp",
   "group": "MCP",
   "body": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent…",
@@ -4737,7 +4737,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "LibreChat-AI/LibreChat",
   "group": "MCP",
   "body": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter…",
@@ -4746,7 +4746,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "siyuan-note/siyuan",
   "group": "MCP",
   "body": "An open-source, privacy-first, self-hosted knowledge workspace where humans and AI agents work together 开源、隐私优先、自托管的知识工作空间，让人与智能体在此协作.",
@@ -4755,7 +4755,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "AstrBotDevs/AstrBot",
   "group": "MCP",
   "body": "AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨.",
@@ -4764,7 +4764,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "Kong/kong",
   "group": "MCP",
   "body": "🦍 The API and AI Gateway.",
@@ -4773,7 +4773,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "tinyhumansai/openhuman",
   "group": "MCP",
   "body": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
@@ -4782,7 +4782,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "patchy631/ai-engineering-hub",
   "group": "MCP",
   "body": "In-depth tutorials on LLMs, RAGs and real-world AI agent applications.",
@@ -4791,7 +4791,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "codewhale-hq/Codewhale",
   "group": "MCP",
   "body": "An open-source coding agent for your terminal, written in Rust. It works with any model, can split one task across several agents, and every line of…",
@@ -4800,7 +4800,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "drawdb-io/drawdb",
   "group": "MCP",
   "body": "Free, simple, and intuitive online database diagram editor and SQL generator.",
@@ -4809,7 +4809,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "microsoft/playwright-mcp",
   "group": "MCP",
   "body": "Playwright MCP server.",
@@ -4818,7 +4818,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "mindsdb/mindshub",
   "group": "MCP",
   "body": "The unified workspace where open-source models get things done for you.",
@@ -4827,7 +4827,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "bytedance/UI-TARS-desktop",
   "group": "MCP",
   "body": "The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra.",
@@ -4836,7 +4836,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "can1357/oh-my-pi",
   "group": "MCP",
   "body": "⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
@@ -4845,7 +4845,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "PDFMathTranslate/PDFMathTranslate",
   "group": "MCP",
   "body": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供…",
@@ -4854,7 +4854,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "HKUDS/Vibe-Trading",
   "group": "MCP",
   "body": "\"Vibe-Trading: Your Personal Trading Agent\".",
@@ -4863,7 +4863,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "DayuanJiang/next-ai-draw-io",
   "group": "MCP",
   "body": "Draw and edit draw.io diagrams by chatting with an AI. Web app, desktop app, and an MCP server for Claude Code, Cursor, Codex and VS Code.",
@@ -4872,7 +4872,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "mukul975/Anthropic-Cybersecurity-Skills",
   "group": "MCP",
   "body": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3…",
@@ -4881,7 +4881,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "agentscope-ai/agentscope",
   "group": "MCP",
   "body": "Build and run agents you can see, understand and trust.",
@@ -4890,7 +4890,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "ahujasid/mcp-for-blender",
   "group": "MCP",
   "body": "Community plugin to control Blender 3D with any LLM of your choice. Not affiliated with the official Blender Foundation.",
@@ -4899,7 +4899,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "github/github-mcp-server",
   "group": "MCP",
   "body": "GitHub's official MCP Server.",
@@ -4908,7 +4908,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "78/xiaozhi-esp32",
   "group": "MCP",
   "body": "An MCP-based chatbot | 一个基于MCP的聊天机器人.",
@@ -4917,7 +4917,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "tirth8205/code-review-graph",
   "group": "MCP",
   "body": "Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with…",
@@ -4926,7 +4926,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "oraios/serena",
   "group": "MCP",
   "body": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent.",
@@ -4935,7 +4935,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "ComposioHQ/composio",
   "group": "MCP",
   "body": "Composio powers 1000+ toolkits, tool search, context management, authentication, and a sandboxed workbench to help you build AI agents that turn…",
@@ -4944,7 +4944,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "t8y2/dbx",
   "group": "MCP",
   "body": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and…",
@@ -4953,7 +4953,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "assafelovic/gpt-researcher",
   "group": "MCP",
   "body": "An autonomous agent that conducts deep research on any data using any LLM providers.",
@@ -4962,7 +4962,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "QwenLM/qwen-code",
   "group": "MCP",
   "body": "An open-source AI coding agent that lives in your terminal.",
@@ -4971,7 +4971,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "labring/FastGPT",
   "group": "MCP",
   "body": "FastGPT is a knowledge-based platform built on the LLMs, offers a comprehensive suite of out-of-the-box capabilities such as data processing, RAG…",
@@ -4980,7 +4980,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "alibaba/page-agent",
   "group": "MCP",
   "body": "JavaScript in-page GUI agent. Control web interfaces with natural language.",
@@ -4989,7 +4989,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "mastra-ai/mastra",
   "group": "MCP",
   "body": "Mastra is the modern TypeScript framework for AI-powered applications and agents.",
@@ -4998,7 +4998,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "yamadashy/repomix",
   "group": "MCP",
   "body": "📦 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to…",
@@ -5007,7 +5007,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "PrefectHQ/fastmcp",
   "group": "MCP",
   "body": "🚀 The fast, Pythonic way to build MCP servers and clients.",
@@ -5016,7 +5016,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "OtterMind/Chat2DB",
   "group": "MCP",
   "body": "Chat2DB is a free, cross-platform, local-first database client and SQL workspace for developers, DBAs, analysts, and data teams. Connect to 40+…",
@@ -5025,7 +5025,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "every-app/open-seo",
   "group": "MCP",
   "body": "Open source alternative to Semrush and Ahrefs.",
@@ -5034,7 +5034,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "deepset-ai/haystack",
   "group": "MCP",
   "body": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent…",
@@ -5043,7 +5043,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "go-kratos/kratos",
   "group": "MCP",
   "body": "Your ultimate Go microservices framework for the cloud-native era.",
@@ -5052,7 +5052,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "activepieces/activepieces",
   "group": "MCP",
   "body": "AI Agents & MCPs & AI Workflow Automation • (~400 MCP servers for AI agents) • AI Automation / AI Agent with MCPs • AI Workflows & AI Agents • MCPs…",
@@ -5061,7 +5061,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "vercel-labs/agent-desktop",
   "group": "MCP",
   "body": "Computer use CLI for AI agents.",
@@ -5070,7 +5070,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "NirDiamant/GenAI_Agents",
   "group": "MCP",
   "body": "50+ tutorials and implementations for Generative AI Agent techniques, from basic conversational bots to complex multi-agent systems.",
@@ -5079,7 +5079,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "modelcontextprotocol/python-sdk",
   "group": "MCP",
   "body": "The official Python SDK for Model Context Protocol servers and clients.",
@@ -5088,7 +5088,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "akfamily/akshare",
   "group": "MCP",
   "body": "AKShare is an elegant and simple financial data interface library for Python, built for human beings! 开源财经数据接口库.",
@@ -5097,7 +5097,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "czlonkowski/n8n-mcp",
   "group": "MCP",
   "body": "MCP server that lets Claude, ChatGPT, Cursor and other AI assistants operate n8n: debug, edit, validate, test and build workflows on any n8n instance.",
@@ -5106,7 +5106,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "1Panel-dev/MaxKB",
   "group": "MCP",
   "body": "🔥 MaxKB is an open-source platform for building enterprise-grade agents. 强大易用的开源企业级智能体平台。.",
@@ -5115,7 +5115,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "DuarteSantos8/openGym",
   "group": "MCP",
   "body": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which…",
@@ -5124,7 +5124,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "dipakkr/awesome-ai-engineering",
   "group": "MCP",
   "body": "🚀 A curated collection of AI engineering resources, roadmaps, tools, and projects covering LLMs, RAG, AI Agents, MCP, fine-tuning, evaluations, and…",
@@ -5133,7 +5133,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "screenpipe/screenpipe",
   "group": "MCP",
   "body": "YC (S26) | Screenpipe finds the work worth automating | Continuously record computer work locally, discover recurring workflows, and hand the result…",
@@ -5142,7 +5142,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "liyupi/ai-guide",
   "group": "MCP",
   "body": "程序员鱼皮的 AI 资源大全 + Vibe Coding 零基础教程，分享 OpenClaw 保姆级教程、大模型玩法（DeepSeek / GPT / Gemini / Claude / GLM）、最新 AI 资讯、Prompt 提示词大全、AI 知识百科（Agent Skills / RAG…",
@@ -5151,7 +5151,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "NirDiamant/agents-towards-production",
   "group": "MCP",
   "body": "End-to-end, code-first tutorials for building production-grade GenAI agents. From prototype to enterprise deployment.",
@@ -5160,7 +5160,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "1jehuang/jcode",
   "group": "MCP",
   "body": "High performance coding agent harness written in Rust, built for heavy multi-agent dev workflows.",
@@ -5169,7 +5169,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "qax-os/excelize",
   "group": "MCP",
   "body": "Go language library for reading and writing Microsoft Excel™ (XLAM / XLSM / XLSX / XLTM / XLTX) spreadsheets.",
@@ -5178,7 +5178,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "modelscope/FunASR",
   "group": "MCP",
   "body": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and…",
@@ -5187,7 +5187,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "datawhalechina/easy-vibe",
   "group": "MCP",
   "body": "💻 Vibe Coding 101｜Your First Course For AI Product Builders.",
@@ -5196,7 +5196,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "rocketride-org/rocketride-server",
   "group": "MCP",
   "body": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers…",
@@ -5205,7 +5205,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "xerj-org/xerj",
   "group": "MCP",
   "body": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and…",
@@ -5214,7 +5214,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "browser-use/browser-harness",
   "group": "MCP",
   "body": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
@@ -5223,7 +5223,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "nukeop/nuclear",
   "group": "MCP",
   "body": "Streaming music player that finds free music for you.",
@@ -5232,7 +5232,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "jub0t/Concat",
   "group": "MCP",
   "body": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
@@ -5241,7 +5241,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "microsoft/mcp-for-beginners",
   "group": "MCP",
   "body": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java…",
@@ -5250,7 +5250,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "xpzouying/xiaohongshu-mcp",
   "group": "MCP",
   "body": "MCP for xiaohongshu.com.",
@@ -5259,7 +5259,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "apify/apify-mcp-server",
   "group": "MCP",
   "body": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using…",
@@ -5268,7 +5268,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "triggerdotdev/trigger.dev",
   "group": "MCP",
   "body": "Trigger.dev – build and deploy durable AI agents and workflows.",
@@ -5277,7 +5277,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "budtmo/docker-android",
   "group": "MCP",
   "body": "Android in docker solution with noVNC supported, video recording, mcp server and AI-agent.",
@@ -5286,7 +5286,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "CoplayDev/unity-mcp",
   "group": "MCP",
   "body": "Unity MCP acts as a bridge between AI assistants and your Unity Editor. Give your LLM tools to manage assets, control scenes, edit scripts, and…",
@@ -5295,7 +5295,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "open-metadata/OpenMetadata",
   "group": "MCP",
   "body": "The Open Context Layer for Data and AI , OpenMetadata is the open platform for building trusted data context and business semantics for humans, AI…",
@@ -5304,7 +5304,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "liketrek/TREK",
   "group": "MCP",
   "body": "The most complete open-source travel planner: real-time collaboration, bookings, budgets, packing lists, journals, offline PWA, SSO and an AI-ready…",
@@ -5313,7 +5313,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "tonhowtf/omniget",
   "group": "MCP",
   "body": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media…",
@@ -5322,7 +5322,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "OpenByteInc/QuantDinger",
   "group": "MCP",
   "body": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization…",
@@ -5331,7 +5331,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "modelcontextprotocol/typescript-sdk",
   "group": "MCP",
   "body": "The official TypeScript SDK for Model Context Protocol servers and clients.",
@@ -5340,7 +5340,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "0x4m4/hexstrike-ai",
   "group": "MCP",
   "body": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for…",
@@ -5349,7 +5349,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "mrexodia/ida-pro-mcp",
   "group": "MCP",
   "body": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
@@ -5358,7 +5358,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "ccfos/nightingale",
   "group": "MCP",
   "body": "Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
@@ -5367,7 +5367,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "tadata-org/fastapi_mcp",
   "group": "MCP",
   "body": "Expose your FastAPI endpoints as Model Context Protocol (MCP) tools, with Auth!",
@@ -5376,7 +5376,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "0xJacky/nginx-ui",
   "group": "MCP",
   "body": "Yet another WebUI for Nginx.",
@@ -5385,7 +5385,7 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
+  "kind": "gh-mcp",
   "title": "holaboss-ai/holaOS",
   "group": "MCP",
   "body": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps…",
@@ -5394,19 +5394,19 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "github"
  },
  {
-  "kind": "github",
-  "title": "xinnan-tech/xiaozhi-esp32-server",
+  "kind": "gh-mcp",
+  "title": "trailhq/Trail-Code",
   "group": "MCP",
-  "body": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
+  "body": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they…",
   "foot": "11.3K",
   "accent": "",
   "icon": "github"
  },
  {
-  "kind": "github",
-  "title": "trailhq/Trail-Code",
+  "kind": "gh-mcp",
+  "title": "xinnan-tech/xiaozhi-esp32-server",
   "group": "MCP",
-  "body": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they…",
+  "body": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
   "foot": "11.3K",
   "accent": "",
   "icon": "github"
@@ -6313,7 +6313,7 @@ export const SOURCE_BOXES: Box[] = [
  }
 ]
 
-export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats', SetEntry[]> = {
+export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
  "aa": [
   {
    "database": "Anthropic",
@@ -8054,12012 +8054,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    ]
   }
  ],
- "github": [
-  {
-   "database": "Skills",
-   "table": "morluto/rea",
-   "about": "Reverse engineer anything with agents, from app behavior down to native binaries.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "468,922"
-    },
-    {
-     "name": "Forks",
-     "desc": "114,609"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/morluto/rea"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "obra/superpowers",
-   "about": "An agentic skills framework & software development methodology that works.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "321,560"
-    },
-    {
-     "name": "Forks",
-     "desc": "28,582"
-    },
-    {
-     "name": "Language",
-     "desc": "Shell"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/obra/superpowers"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "anthropics/skills",
-   "about": "Public repository for Agent Skills.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "197,418"
-    },
-    {
-     "name": "Forks",
-     "desc": "23,114"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/anthropics/skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "DietrichGebert/ponytail",
-   "about": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "194,423"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,954"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-29"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/DietrichGebert/ponytail"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "langgenius/dify",
-   "about": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "161,475"
-    },
-    {
-     "name": "Forks",
-     "desc": "25,528"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/langgenius/dify"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Snailclimb/JavaGuide",
-   "about": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "159,618"
-    },
-    {
-     "name": "Forks",
-     "desc": "46,107"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-25"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Snailclimb/JavaGuide"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "farion1231/cc-switch",
-   "about": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "155,690"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,186"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/farion1231/cc-switch"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Graphify-Labs/graphify",
-   "about": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "150,333"
-    },
-    {
-     "name": "Forks",
-     "desc": "14,457"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Graphify-Labs/graphify"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "addyosmani/agent-skills",
-   "about": "Production-grade engineering skills for AI coding agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "119,038"
-    },
-    {
-     "name": "Forks",
-     "desc": "12,399"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/addyosmani/agent-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Leonxlnx/taste-skill",
-   "about": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "118,637"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,937"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Leonxlnx/taste-skill"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "thedotmack/claude-mem",
-   "about": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "118,306"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,289"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/thedotmack/claude-mem"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "paperclipai/paperclip",
-   "about": "The open-source app everyone uses to manage agents at work.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "114,901"
-    },
-    {
-     "name": "Forks",
-     "desc": "19,079"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/paperclipai/paperclip"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "pbakaus/impeccable",
-   "about": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "113,115"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,738"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/pbakaus/impeccable"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "nexu-io/open-design",
-   "about": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create motion, prototypes, websites, apps, dashboards, presentations, images, and videos with your team and AI agents. Share work, exchange feedback, and iterate together in one workspace.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "108,409"
-    },
-    {
-     "name": "Forks",
-     "desc": "12,300"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nexu-io/open-design"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "tt-a1i/archify",
-   "about": "Turn any idea, plan, or codebase into a beautiful interactive diagram. An agent skill for Claude Code, Codex, and more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "97,881"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,684"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tt-a1i/archify"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Egonex-AI/Understand-Anything",
-   "about": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "93,231"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,954"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Egonex-AI/Understand-Anything"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "lobehub/lobehub",
-   "about": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "85,836"
-    },
-    {
-     "name": "Forks",
-     "desc": "16,351"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/lobehub/lobehub"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "career-ops-hq/career-ops",
-   "about": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume and cover letter, get interview prep and an application tracker. It helps you fill in each application; you press Submit. Runs locally in Codex…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "83,637"
-    },
-    {
-     "name": "Forks",
-     "desc": "15,331"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/career-ops-hq/career-ops"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "ComposioHQ/awesome-claude-skills",
-   "about": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "79,850"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,788"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ComposioHQ/awesome-claude-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "code-yeongyu/oh-my-openagent",
-   "about": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "70,996"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,847"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/code-yeongyu/oh-my-openagent"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "blader/humanizer",
-   "about": "Agent skill that removes signs of AI-generated writing from text.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "70,968"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,564"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/blader/humanizer"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "shanraisshan/claude-code-best-practice",
-   "about": "from vibe coding to agentic engineering - practice makes claude perfect.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "69,217"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,884"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/shanraisshan/claude-code-best-practice"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "cathrynlavery/diagram-design",
-   "about": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "68,321"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,595"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/cathrynlavery/diagram-design"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "ayghri/i-have-adhd",
-   "about": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "61,669"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,621"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ayghri/i-have-adhd"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "coreyhaines31/marketingskills",
-   "about": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "61,340"
-    },
-    {
-     "name": "Forks",
-     "desc": "8,946"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/coreyhaines31/marketingskills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "hesreallyhim/awesome-claude-code",
-   "about": "A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from the unstoppable team at Anthropic PBC (no affiliation). A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "58,336"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,976"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/hesreallyhim/awesome-claude-code"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "emilkowalski/skills",
-   "about": "Skills for Designers and Engineers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "58,061"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,417"
-    },
-    {
-     "name": "Language",
-     "desc": "Markdown"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/emilkowalski/skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "K-Dense-AI/scientific-agent-skills",
-   "about": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "57,780"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,074"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/K-Dense-AI/scientific-agent-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "alibaba/open-code-review",
-   "about": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "54,265"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,489"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alibaba/open-code-review"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "VoltAgent/awesome-openclaw-skills",
-   "about": "The awesome collection of OpenClaw skills. 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry.🦞.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "53,857"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,071"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/VoltAgent/awesome-openclaw-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "CherryHQ/cherry-studio",
-   "about": "Your AI workspace for models, agents, and productivity.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "53,651"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,239"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/CherryHQ/cherry-studio"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "obsidianmd/obsidian-skills",
-   "about": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "53,194"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,787"
-    },
-    {
-     "name": "Language",
-     "desc": "Shell"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/obsidianmd/obsidian-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "sickn33/agentic-awesome-skills",
-   "about": "3,000+ reusable AI agent skills for Claude Code, Codex, Cursor and Gemini CLI. AAS Core adds local catalog discovery, agent-owned selection and plan preview. CLI, MCP and plugins.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "49,974"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,244"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/sickn33/agentic-awesome-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "jeecgboot/JeecgBoot",
-   "about": "一款免费开源的 AI 低代码平台，也是 AI 时代构建复杂业务系统的开源基座！权限、多租户、工作流、报表、大屏、AI 知识库等通用能力开箱即用，AI 只需生成业务差异部分。AI Skills 一句话生成完整系统——建表、前后端代码、菜单权限、BPM 流程、表单、报表、大屏全自动。内置 AI 应用平台（聊天、知识库、流程编排、MCP），兼容主流大模型.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "48,522"
-    },
-    {
-     "name": "Forks",
-     "desc": "16,219"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jeecgboot/JeecgBoot"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "zhayujie/CowAgent",
-   "about": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-model, multi-channel. Lightweight, extensible, one-line install.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "48,005"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,434"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/zhayujie/CowAgent"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "anthropics/claude-plugins-official",
-   "about": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "47,688"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,943"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/anthropics/claude-plugins-official"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "reactive-resume/reactive-resume",
-   "about": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "45,910"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,962"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/reactive-resume/reactive-resume"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "wshobson/agents",
-   "about": "Plugins, agents, skills, and commands for Claude Code, Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi, written once in Markdown and adapted to each tool by generators with validation and evals.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "42,682"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,513"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/wshobson/agents"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "github/awesome-copilot",
-   "about": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "41,345"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,389"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/github/awesome-copilot"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "JCodesMore/ai-website-cloner-template",
-   "about": "Clone any website with one command using AI coding agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "39,487"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,885"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/JCodesMore/ai-website-cloner-template"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "alchaincyf/nuwa-skill",
-   "about": "你想蒸馏的下一个员工，何必是同事。蒸馏任何人的思维方式——心智模型、决策启发式、表达DNA。Distill how anyone thinks.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,622"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,925"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alchaincyf/nuwa-skill"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "virgiliojr94/book-to-skill",
-   "about": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,440"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,095"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/virgiliojr94/book-to-skill"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "agentscope-ai/QwenPaw",
-   "about": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "37,962"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,293"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/agentscope-ai/QwenPaw"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "VoltAgent/awesome-agent-skills",
-   "about": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "37,341"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,168"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/VoltAgent/awesome-agent-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "freestylefly/awesome-gpt-image-2",
-   "about": "Prompt as Code | GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "35,968"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,403"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/freestylefly/awesome-gpt-image-2"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "iOfficeAI/AionUi",
-   "about": "Open-source 24/7 Cowork app for OpenClaw, Hermes, Claude Code, Codex, OpenCode and 20+ more CLI Agent | Customize your assistants | Team them up｜Star if you like it!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "34,377"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,598"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/iOfficeAI/AionUi"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "mksglu/context-mode",
-   "about": "Free, local plugin that keeps tool output out of your coding agent's context window. Sandbox and SQLite FTS5 search, 99% fewer bytes in context. Works with Claude Code, Codex, Pi, OMP, OpenCode, Gemini CLI, Copilot CLI and 4 more agents. Zero telemetry.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "34,290"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,357"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mksglu/context-mode"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "davila7/claude-code-templates",
-   "about": "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,988"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,046"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/davila7/claude-code-templates"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "alibaba/nacos",
-   "about": "an easy-to-use dynamic service discovery, configuration and service management platform for building AI cloud native applications.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,534"
-    },
-    {
-     "name": "Forks",
-     "desc": "13,292"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alibaba/nacos"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "iOfficeAI/OfficeCLI",
-   "about": "OfficeCLI is the first and best Office suite purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free, open-source, single binary, no Office installation required.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,447"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,286"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/iOfficeAI/OfficeCLI"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "topoteretes/cognee",
-   "about": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,400"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,532"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/topoteretes/cognee"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "googleworkspace/cli",
-   "about": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "32,395"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,998"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/googleworkspace/cli"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "nanocoai/nanoclaw",
-   "about": "Your own always-on AI assistant: self-hosted, open source, lightweight. Each agent runs in its own container on your machine, on the harness you choose (Claude Code, Codex, Cursor, OpenCode). Talk to it from Slack, WhatsApp, Telegram, Discord and more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "31,124"
-    },
-    {
-     "name": "Forks",
-     "desc": "12,644"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nanocoai/nanoclaw"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "op7418/guizang-ppt-skill",
-   "about": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power presentation runtime.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,103"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,068"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/op7418/guizang-ppt-skill"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "alirezarezvani/claude-skills",
-   "about": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,098"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,172"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alirezarezvani/claude-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "alchaincyf/huashu-design",
-   "about": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill for Claude Code, Codex, Cursor & any agent.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "29,852"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,185"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alchaincyf/huashu-design"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Ebazhanov/linkedin-skill-assessments-quizzes",
-   "about": "Full reference of LinkedIn answers 2024 for skill assessments (aws-lambda, rest-api, javascript, react, git, html, jquery, mongodb, java, Go, python, machine-learning, power-point) linkedin excel test lösungen, linkedin machine learning test LinkedIn test questions and answers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,881"
-    },
-    {
-     "name": "Forks",
-     "desc": "12,825"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-08-29"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "yikart/AiToEarn",
-   "about": "Let's use AI to Earn!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,385"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,746"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/yikart/AiToEarn"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "phuryn/pm-skills",
-   "about": "PM Skills Marketplace: 100+ agentic skills, commands, and plugins — from discovery to strategy, execution, launch, and growth.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,165"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,896"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/phuryn/pm-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "OthmanAdi/planning-with-files",
-   "about": "Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, session recovery after /clear and compaction, per-turn re-injection against context rot, deterministic completion gate. Manus-style. Install from npm, the Claude Code plugin marketplace, or npx…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,136"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,316"
-    },
-    {
-     "name": "Language",
-     "desc": "Shell"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/OthmanAdi/planning-with-files"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "JimLiu/baoyu-skills",
-   "about": "27.7K stars.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,696"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,006"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/JimLiu/baoyu-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "agentskills/agentskills",
-   "about": "Specification and documentation for Agent Skills.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,452"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,047"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/agentskills/agentskills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "NVIDIA/SkillSpector",
-   "about": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills before you install them.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,868"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,392"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/NVIDIA/SkillSpector"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "titanwings/distilly",
-   "about": "Distilly — Distill how they think into reusable Skills for any Agent or Bot. Formerly Colleague Skill（原同事 Skill）.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,672"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,272"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-13"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/titanwings/distilly"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "pascalorg/editor",
-   "about": "Open-source 3D architecture software for AECO, scan-to-BIM. Agent-friendly, browser-first, MCP, CLI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,615"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,185"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/pascalorg/editor"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "flipped-aurora/gin-vue-admin",
-   "about": "🚀Vite+Vue3+Gin拥有AI辅助的基础开发平台，企业级业务AI+开发解决方案，内置mcp辅助服务，内置skills管理，支持TS和JS混用。它集成了JWT鉴权、权限管理、动态路由、显隐可控组件、分页封装、多点登录拦截、资源权限、上传下载、代码生成器、表单生成器和可配置的导入导出等开发必备功能。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,144"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,101"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/flipped-aurora/gin-vue-admin"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "nocobase/nocobase",
-   "about": "NocoBase is the open-source platform for building, running, and evolving business systems with AI. Agents write the code and do the work, NocoBase provides the foundation and governance, and people make the decisions.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "24,968"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,956"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nocobase/nocobase"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "google/skills",
-   "about": "Agent Skills for Google products and technologies.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "24,438"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,024"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/google/skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "citrolabs/ego-lite",
-   "about": "The fastest browser for AI agents to run browser automation, built for sharing your logged-in browser state with your AI agents, like Codex or Claude Code, without disturbing you. Zero cost, zero config.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,669"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,337"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/citrolabs/ego-lite"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "KKKKhazix/khazix-skills",
-   "about": "数字生命卡兹克开源的 AI Skills 合集 | Agent Skills: leader（帮你定义目标）, neat-freak 洁癖, hv-analysis, khazix-writer & more — Claude Code, Codex & 40+ agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,406"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,352"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/KKKKhazix/khazix-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "latent-spaces/brag",
-   "about": "You built it. Now brag. Turn the project you just created into a short, shareable launch video with one command.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,971"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,712"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/latent-spaces/brag"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "eclipse-theia/theia",
-   "about": "Eclipse Theia is an open-source platform for building custom IDEs and tools for browser and desktop. It includes Theia AI, the vendor-neutral AI harness platform, and powers the AI-native Theia IDE.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,772"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,948"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "EPL-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/eclipse-theia/theia"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Vincentwei1021/video-shotcraft",
-   "about": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync, sound design, Motion Workbench & JianYing (CapCut CN) export.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,498"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,981"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Vincentwei1021/video-shotcraft"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "google/elephant-goldfish-model",
-   "about": "Open-source plugin for designing and reviewing software with agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,251"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,574"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/google/elephant-goldfish-model"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "teng-lin/notebooklm-py",
-   "about": "Unofficial Python API and agentic skill for Google Gemini Notebook. Full programmatic access to Gemini Notebook's features—including capabilities the web UI doesn't expose—via Python, CLI, and AI agents like Claude Code, Codex, and OpenClaw.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,289"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,691"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/teng-lin/notebooklm-py"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "wanshuiyin/Auto-claude-code-research-in-sleep",
-   "about": "ARIS ⚔️ (Auto-Research-In-Sleep) — Lightweight Markdown-only skills for autonomous ML research: cross-model review loops, idea discovery, and experiment automation. No framework, no lock-in — works with Claude Code, Codex, OpenClaw, or any LLM agent.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "19,456"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,562"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "microsoft/SkillOpt",
-   "about": "SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "19,158"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,835"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/microsoft/SkillOpt"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "lemomo-ai/lemo-opuscar",
-   "about": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in code by Claude Opus 5.5, with no video model. By Lemomo. · 一套用代码做片的风格工具箱：99 种现成风格，也能做出你自己的.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,499"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,321"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/lemomo-ai/lemo-opuscar"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "composio-community/awesome-codex-skills",
-   "about": "A curated list of practical Codex skills for automating workflows across the Codex CLI and API.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,360"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,783"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-26"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/composio-community/awesome-codex-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "kubesphere/kubesphere",
-   "about": "The container platform tailored for Kubernetes multi-cloud, datacenter, and edge management ⎈ 🖥 ☁️.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,087"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,751"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/kubesphere/kubesphere"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "dreammis/social-auto-upload",
-   "about": "自动化上传视频到社交媒体：抖音、小红书、视频号、tiktok、youtube、bilibili.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,704"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,826"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-22"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/dreammis/social-auto-upload"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "AgriciDaniel/claude-obsidian",
-   "about": "Self-organizing AI second brain for Obsidian + Claude Code. Drop any source and Claude reads, links, and files it into one connected knowledge graph of plain Markdown you own. AI note-taking, personal knowledge management (PKM), and an open-source Notion alternative. Based on Karpathy's LLM Wiki…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,604"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,627"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-25"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/AgriciDaniel/claude-obsidian"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "alibaba/zvec",
-   "about": "A lightweight, lightning-fast, in-process vector database.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,265"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,027"
-    },
-    {
-     "name": "Language",
-     "desc": "C++"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alibaba/zvec"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "nidhinjs/prompt-master",
-   "about": "A Claude skill that writes the accurate prompts for any AI tool. Zero tokens or credits wasted. Full context and memory retention.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,138"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,855"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-22"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nidhinjs/prompt-master"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "travisvn/awesome-claude-skills",
-   "about": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,873"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,165"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-04-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/travisvn/awesome-claude-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "eigent-ai/eigent",
-   "about": "Eigent: The Open Source Cowork Desktop - Local and Free Alternative to Claude Cowork and Codex.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,850"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,894"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/eigent-ai/eigent"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "ConardLi/garden-skills",
-   "about": "ConardLi's open-source Skills collection, featuring web design, knowledge retrieval, image generation, and more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,473"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,754"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ConardLi/garden-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "yusufkaraaslan/Skill_Seekers",
-   "about": "Convert documentation websites, GitHub repositories, and PDFs into Claude AI skills with automatic conflict detection.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,341"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,562"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/yusufkaraaslan/Skill_Seekers"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "OrchestratorInc/agent-orchestrator",
-   "about": "Plan, run and supervise fleets of agents from task to merged PR. Desktop (macOS, Windows, Linux) + iPhone & Android apps. Supports Claude Code, Codex & 35+ coding agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,912"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,054"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/OrchestratorInc/agent-orchestrator"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Orchestra-Research/AI-Research-SKILLs",
-   "about": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. Maintained by Orchestra Research.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,672"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,008"
-    },
-    {
-     "name": "Language",
-     "desc": "TeX"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Orchestra-Research/AI-Research-SKILLs"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "NevaMind-AI/memU",
-   "about": "Personal memory across agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,627"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,103"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/NevaMind-AI/memU"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "krillinai/OpenCreator",
-   "about": "Formerly KrillinAI, VideoTranslation and Dubbing Tool for 120+ Languages. Open-source AI workspace for creators, powered by Codex. Video downloader, video translation, create videos, images, audios, and edits with Agents in one place. For your Social Media like YouTube, TikTok, Instagram, etc.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,427"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,615"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/krillinai/OpenCreator"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "EverMind-AI/EverOS",
-   "about": "One portable memory layer for every AI agent: local-first, Markdown-native, user-owned, and self-evolving across apps, tools, and workflows.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,941"
-    },
-    {
-     "name": "Forks",
-     "desc": "978"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/EverMind-AI/EverOS"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "backnotprop/plannotator",
-   "about": "The workspace to stay in the loop and on top of agents - shape, decide, plan, annotate, review code, share with team, and send all feedback to agents with one click.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,552"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,368"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/backnotprop/plannotator"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "HKUSTDial/Supervisor-Skills",
-   "about": "将博导十年科研经验炼化为可直接调用的 AI 技能。从 Idea 构思到论文投稿，你的 AI 科研副导师。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,966"
-    },
-    {
-     "name": "Forks",
-     "desc": "765"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/HKUSTDial/Supervisor-Skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "genspark-ai/genoffice",
-   "about": "Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent, plus a `genoffice` CLI and agent skill so Claude Code, Codex and Cursor can create and edit real .docx/.xlsx/.pptx files locally. Bring your own key. macOS, Windows & Linux.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,629"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,763"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/genspark-ai/genoffice"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "tw93/Kami",
-   "about": "👩‍🚒 Good content deserves good paper. Layout rules and templates that let AI agents export PDF, PNG and editable PowerPoint.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,581"
-    },
-    {
-     "name": "Forks",
-     "desc": "585"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tw93/Kami"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "Jeffallan/claude-skills",
-   "about": "67 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,451"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,200"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Jeffallan/claude-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "MemTensor/MemOS",
-   "about": "Self-evolving memory OS for LLM & AI Agents: ultra-persistent memory, hybrid-retrieval, and cross-task skill reuse, with 35.24% token savings and DeepSeek Harness support.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,450"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,130"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/MemTensor/MemOS"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
-   "table": "ChenLiu-1996/figures4papers",
-   "about": "My Python scripts to make high-quality figures for publications in top AI conferences and journals.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,279"
-    },
-    {
-     "name": "Forks",
-     "desc": "875"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ChenLiu-1996/figures4papers"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "donnemartin/system-design-primer",
-   "about": "Learn how to design large-scale systems. Prep for the system design interview. Includes Anki flashcards.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "378,446"
-    },
-    {
-     "name": "Forks",
-     "desc": "59,321"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/donnemartin/system-design-primer"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "nextlevelbuilder/ui-ux-pro-max-skill",
-   "about": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "151,524"
-    },
-    {
-     "name": "Forks",
-     "desc": "16,005"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "VoltAgent/awesome-design-md",
-   "about": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "128,201"
-    },
-    {
-     "name": "Forks",
-     "desc": "14,169"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/VoltAgent/awesome-design-md"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "mui/material-ui",
-   "about": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "99,355"
-    },
-    {
-     "name": "Forks",
-     "desc": "32,486"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mui/material-ui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "penpot/penpot",
-   "about": "Penpot: The open-source design platform for Product teams that need scalable collaboration.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "62,541"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,440"
-    },
-    {
-     "name": "Language",
-     "desc": "Clojure"
-    },
-    {
-     "name": "Licence",
-     "desc": "MPL-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/penpot/penpot"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "tldraw/tldraw",
-   "about": "Build infinite canvas apps in React with the tldraw SDK. World's best, top-most agent recommended #1 five star SDK.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "51,491"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,611"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tldraw/tldraw"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "jgthms/bulma",
-   "about": "Modern CSS framework based on Flexbox.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "50,035"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,856"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jgthms/bulma"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "saadeghi/daisyui",
-   "about": "🌼 🌼 🌼 🌼 🌼 The most popular, free and open-source Tailwind CSS component library.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "42,899"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,726"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/saadeghi/daisyui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "goabstract/Awesome-Design-Tools",
-   "about": "The best design tools and plugins for everything 👉.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "41,963"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,426"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-07-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/goabstract/Awesome-Design-Tools"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "vuetifyjs/vuetify",
-   "about": "🐉 Vue Component Framework.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "41,045"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,098"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/vuetifyjs/vuetify"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "chakra-ui/chakra-ui",
-   "about": "Chakra UI is a component system for building SaaS products with speed ⚡️.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "40,736"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,651"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/chakra-ui/chakra-ui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "chatwoot/chatwoot",
-   "about": "Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "40,155"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,765"
-    },
-    {
-     "name": "Language",
-     "desc": "Ruby"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/chatwoot/chatwoot"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "Dogfalo/materialize",
-   "about": "Materialize, a CSS Framework based on Material Design.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,773"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,572"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-08-20"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Dogfalo/materialize"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "nextcloud/server",
-   "about": "☁️ Nextcloud server, a safe home for all your data.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "37,555"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,366"
-    },
-    {
-     "name": "Language",
-     "desc": "PHP"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nextcloud/server"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "GraphiteEditor/Graphite",
-   "about": "Community-built comprehensive 2D content creation appplication for graphic design, digital art, and interactive real-time motion graphics powered by a node-based procedural graphics engine.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,985"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,334"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/GraphiteEditor/Graphite"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "onlook-dev/onlook",
-   "about": "The Developer Tool for Designers • An Open-Source AI-First Design tool • Visually build, style, and edit your code with AI • World's best, top-most agent recommended #1 Developer tool for Designers and Visual Engineers to design with Real Code.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,266"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,151"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/onlook-dev/onlook"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "simple-icons/simple-icons",
-   "about": "SVG icons for popular brands.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,237"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,199"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "CC0-1.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/simple-icons/simple-icons"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "lucide-icons/lucide",
-   "about": "Beautiful & consistent icon toolkit made by the community. Lucide is an open-source icon library that provides 2000+ vector (svg) files for displaying icons and symbols in digital and non-digital projects.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,860"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,700"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/lucide-icons/lucide"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "processing/p5.js",
-   "about": "p5.js is a client-side JS platform that empowers artists, designers, students, and anyone to learn to code and express themselves creatively on the web. It is based on the core principles of Processing. Looking for p5.js 2.0? http://beta.p5js.org.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "24,398"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,915"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "LGPL-2.1"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/processing/p5.js"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "iview/iview",
-   "about": "A high quality UI Toolkit built on Vue.js 2.0.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,742"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,035"
-    },
-    {
-     "name": "Language",
-     "desc": "Vue"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-01-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/iview/iview"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "pedronauck/docz",
-   "about": "✍ It has never been so easy to document your things!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,555"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,395"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-11-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/pedronauck/docz"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "palantir/blueprint",
-   "about": "A React-based UI toolkit for the web.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,220"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,374"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/palantir/blueprint"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "vueComponent/ant-design-vue",
-   "about": "🌈 An enterprise-class UI components based on Ant Design and Vue. 🐜.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,719"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,882"
-    },
-    {
-     "name": "Language",
-     "desc": "Vue"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/vueComponent/ant-design-vue"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "rsms/inter",
-   "about": "The Inter font family.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,094"
-    },
-    {
-     "name": "Forks",
-     "desc": "487"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "OFL-1.1"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/rsms/inter"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "alyssaxuu/screenity",
-   "about": "The free and privacy-friendly screen recorder with no limits 🎥.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "19,002"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,552"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alyssaxuu/screenity"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "mojs/mojs",
-   "about": "The motion graphics toolbelt for the web.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,932"
-    },
-    {
-     "name": "Forks",
-     "desc": "904"
-    },
-    {
-     "name": "Language",
-     "desc": "CoffeeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mojs/mojs"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "ellisonleao/magictools",
-   "about": ":video_game: :pencil: A list of Game Development resources to make magic happen.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,825"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,360"
-    },
-    {
-     "name": "Language",
-     "desc": "Markdown"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ellisonleao/magictools"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "gztchan/awesome-design",
-   "about": "🌟 Curated design resources from all over the world.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,800"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,257"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-07-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/gztchan/awesome-design"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "dair-ai/ml-visuals",
-   "about": "🎨 ML Visuals contains figures and templates which you can reuse and customize to improve your scientific writing.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,458"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,548"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-02-13"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/dair-ai/ml-visuals"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "MaterialDesignInXAML/MaterialDesignInXamlToolkit",
-   "about": "Google's Material Design in XAML & WPF, for C# & VB.Net.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,304"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,486"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "terkelg/awesome-creative-coding",
-   "about": "Creative Coding: Generative Art, Data visualization, Interaction Design, Resources.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,629"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,016"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/terkelg/awesome-creative-coding"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "originalankur/maptoposter",
-   "about": "Transform your favorite cities into beautiful, minimalist designs. MapToPoster lets you create and export visually striking map posters with code.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,327"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,253"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-08-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/originalankur/maptoposter"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "TomSchimansky/CustomTkinter",
-   "about": "A modern and customizable python UI-library based on Tkinter.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,621"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,164"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/TomSchimansky/CustomTkinter"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "stenciljs/core",
-   "about": "A toolchain for building scalable, enterprise-ready component systems on top of TypeScript and Web Component standards. Stencil components can be distributed natively to React, Angular, Vue, (+ more) and traditional web applications from a single, framework-agnostic codebase.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,155"
-    },
-    {
-     "name": "Forks",
-     "desc": "868"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/stenciljs/core"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "primer/css",
-   "about": "Primer is GitHub's design system. This is the CSS implementation.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,060"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,291"
-    },
-    {
-     "name": "Language",
-     "desc": "SCSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/primer/css"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "markmead/hyperui",
-   "about": "Free Tailwind CSS v4 components for your next project, designed to enhance your web development with the latest features and styles 🚀.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,287"
-    },
-    {
-     "name": "Forks",
-     "desc": "524"
-    },
-    {
-     "name": "Language",
-     "desc": "Astro"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/markmead/hyperui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "CosmicMind/Material",
-   "about": "A UI/UX framework for creating beautiful applications.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,025"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,260"
-    },
-    {
-     "name": "Language",
-     "desc": "Swift"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2022-05-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/CosmicMind/Material"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "IBM/plex",
-   "about": "The package of IBM’s typeface, IBM Plex.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,783"
-    },
-    {
-     "name": "Forks",
-     "desc": "625"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "OFL-1.1"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/IBM/plex"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "tachyons-css/tachyons",
-   "about": "Functional css for humans.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,731"
-    },
-    {
-     "name": "Forks",
-     "desc": "659"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-20"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tachyons-css/tachyons"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "jdan/98.css",
-   "about": "A design system for building faithful recreations of old UIs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,634"
-    },
-    {
-     "name": "Forks",
-     "desc": "383"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-09-07"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jdan/98.css"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "material-components/material-web",
-   "about": "Material Design Web Components.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,459"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,173"
-    },
-    {
-     "name": "Language",
-     "desc": "SCSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/material-components/material-web"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "mui/base-ui",
-   "about": "Unstyled UI components for building accessible web apps and design systems. From the creators of Radix, Floating UI, and Material UI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,457"
-    },
-    {
-     "name": "Forks",
-     "desc": "619"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mui/base-ui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "microsoft/fluentui-system-icons",
-   "about": "Fluent System Icons are a collection of familiar, friendly and modern icons from Microsoft.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,994"
-    },
-    {
-     "name": "Forks",
-     "desc": "817"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/microsoft/fluentui-system-icons"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "akveo/react-native-ui-kitten",
-   "about": "React Native UI library built on the Eva Design System: 30+ themeable, accessible components for iOS, Android and web. TypeScript, React 19 / RN 0.81, Eva and Material themes with runtime light/dark switching, on-demand style compilation.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,667"
-    },
-    {
-     "name": "Forks",
-     "desc": "962"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/akveo/react-native-ui-kitten"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "DouyinFE/semi-design",
-   "about": "🚀A modern, comprehensive, flexible design system and React UI library, AI-friendly built-in.🎨Provide 3000+ Design Tokens, easy to build your design system. Make Semi Design to Any Design.🧑🏻‍💻 Design to Code in one click.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,494"
-    },
-    {
-     "name": "Forks",
-     "desc": "861"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/DouyinFE/semi-design"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "milligram/milligram",
-   "about": "A minimalist CSS framework.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,215"
-    },
-    {
-     "name": "Forks",
-     "desc": "725"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/milligram/milligram"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "evolus/pencil",
-   "about": "The Pencil Project's unique mission is to build a free and opensource tool for making diagrams and GUI prototyping that everyone can use.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,924"
-    },
-    {
-     "name": "Forks",
-     "desc": "797"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/evolus/pencil"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "swyxio/spark-joy",
-   "about": "Archived — Spark Joy now lives on Forge.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,776"
-    },
-    {
-     "name": "Forks",
-     "desc": "355"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-06-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/swyxio/spark-joy"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "carbon-design-system/carbon",
-   "about": "A design system built by IBM.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,630"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,305"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/carbon-design-system/carbon"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "miqdadbadjuber/anti-slop",
-   "about": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,527"
-    },
-    {
-     "name": "Forks",
-     "desc": "654"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/miqdadbadjuber/anti-slop"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "themesberg/flowbite",
-   "about": "Open-source UI component library and front-end development framework based on Tailwind CSS.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,388"
-    },
-    {
-     "name": "Forks",
-     "desc": "867"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-06-27"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/themesberg/flowbite"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "mdbootstrap/material-design-for-bootstrap",
-   "about": "Important! A new UI Kit version for Bootstrap 5 is available. Access the latest free version via the link below.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,240"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,105"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-03-27"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mdbootstrap/material-design-for-bootstrap"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "webstudio-is/webstudio",
-   "about": "Open source website builder and Webflow alternative. Webstudio is an advanced visual builder that connects to any headless CMS, supports all CSS properties, and can be hosted anywhere, including with us.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,178"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,638"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/webstudio-is/webstudio"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "rawgraphs/rawgraphs-app",
-   "about": "A web interface to create custom vector-based visualizations on top of RAWGraphs core.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,058"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,838"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/rawgraphs/rawgraphs-app"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "nuejs/nue",
-   "about": "Fastest way to build modern websites.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "8,803"
-    },
-    {
-     "name": "Forks",
-     "desc": "260"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-02-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nuejs/nue"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "grommet/grommet",
-   "about": "a react-based framework that provides accessibility, modularity, responsiveness, and theming in a tidy package.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "8,352"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,043"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/grommet/grommet"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "ikuaitu/vue-fabric-editor",
-   "about": "快图设计-基于fabric.js和Vue的开源图片编辑器，可自定义字体、素材、设计模板。fabric.js and Vue based image editor, can customize fonts, materials, design templates.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "8,004"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,402"
-    },
-    {
-     "name": "Language",
-     "desc": "Vue"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ikuaitu/vue-fabric-editor"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "ParthJadhav/app-store-screenshots",
-   "about": "end to end app store screenshot creation using AI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,989"
-    },
-    {
-     "name": "Forks",
-     "desc": "566"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-07"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ParthJadhav/app-store-screenshots"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "prasadgujar/low-level-design-primer",
-   "about": "Dedicated Resources for the Low-Level System Design. Learn how to design and implement large-scale systems. Prep for the system design interview.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,985"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,489"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-01-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/prasadgujar/low-level-design-primer"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "rebassjs/rebass",
-   "about": ":atom_symbol: React primitive UI components built with styled-system.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,898"
-    },
-    {
-     "name": "Forks",
-     "desc": "624"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-07-27"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/rebassjs/rebass"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "andreasbm/web-skills",
-   "about": "A visual overview of useful skills to learn as a web developer.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,682"
-    },
-    {
-     "name": "Forks",
-     "desc": "730"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-04-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/andreasbm/web-skills"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "tw93/Waza",
-   "about": "🥷 Engineering habits you already know, turned into skills AI assistants like Claude Code, Codex and Cursor can run.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,609"
-    },
-    {
-     "name": "Forks",
-     "desc": "437"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tw93/Waza"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "WXRIW/Lyricify-App",
-   "about": "Lyricify (/lɪ'rɪsəfaɪ/), a fantastic app to provide scroll lyrics for Spotify, Apple Music and other apps. 一款为 Spotify、Apple Music 等各种应用提供滚动歌词的软件。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,403"
-    },
-    {
-     "name": "Forks",
-     "desc": "128"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/WXRIW/Lyricify-App"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "react95-io/React95",
-   "about": "🌈🕹 Windows 95 style UI component library for React.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,296"
-    },
-    {
-     "name": "Forks",
-     "desc": "214"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-01-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/react95-io/React95"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "uswds/uswds",
-   "about": "The U.S. Web Design System helps the federal government build fast, accessible, mobile-friendly websites.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,248"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,126"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/uswds/uswds"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "plasmicapp/plasmic",
-   "about": "Visual builder for React. Build apps, websites, and content. Integrate with your codebase.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,169"
-    },
-    {
-     "name": "Forks",
-     "desc": "742"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/plasmicapp/plasmic"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "grab/cursor-talk-to-figma-mcp",
-   "about": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code, Codex) and Figma, allowing Agentic AI to communicate with Figma for reading designs and modifying them programmatically.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "7,121"
-    },
-    {
-     "name": "Forks",
-     "desc": "795"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-26"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/grab/cursor-talk-to-figma-mcp"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "unovue/reka-ui",
-   "about": "An open-source UI component library for building high-quality, accessible design systems and web apps for Vue. Previously Radix Vue.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,968"
-    },
-    {
-     "name": "Forks",
-     "desc": "588"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/unovue/reka-ui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "nordtheme/nord",
-   "about": "An arctic, north-bluish color palette.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,924"
-    },
-    {
-     "name": "Forks",
-     "desc": "186"
-    },
-    {
-     "name": "Language",
-     "desc": "SCSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-10-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nordtheme/nord"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "oldratlee/translations",
-   "about": "🐼 Chinese translations for classic software development resources.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,911"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,525"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-03-09"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/oldratlee/translations"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "adamschwartz/magic-of-css",
-   "about": "A CSS course to turn you into a magician.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,676"
-    },
-    {
-     "name": "Forks",
-     "desc": "400"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-05-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/adamschwartz/magic-of-css"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "nraiden/cofounder",
-   "about": "ai-generated apps , full stack + generative UI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,645"
-    },
-    {
-     "name": "Forks",
-     "desc": "712"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-11-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nraiden/cofounder"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "TalkingData/iview-weapp",
-   "about": "一套高质量的微信小程序 UI 组件库.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,601"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,142"
-    },
-    {
-     "name": "Language",
-     "desc": "Less"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-03-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/TalkingData/iview-weapp"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "ant-design/ant-design-landing",
-   "about": ":mountain_bicyclist: Landing Pages of Ant Design System.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,541"
-    },
-    {
-     "name": "Forks",
-     "desc": "663"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-08-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ant-design/ant-design-landing"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "Jakubantalik/transitions.dev",
-   "about": "UI motion agent, a library of 43+ crafted transitions, a skill that fits your workflow.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,406"
-    },
-    {
-     "name": "Forks",
-     "desc": "307"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Jakubantalik/transitions.dev"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "elastic/eui",
-   "about": "Elastic UI Framework 🙌.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,388"
-    },
-    {
-     "name": "Forks",
-     "desc": "929"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/elastic/eui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "vmware-archive/clarity",
-   "about": "Clarity is a scalable, accessible, customizable, open source design system built with web components. Works with any JavaScript framework, built for enterprises, and designed to be inclusive.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,385"
-    },
-    {
-     "name": "Forks",
-     "desc": "723"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-03-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/vmware-archive/clarity"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "webslides/WebSlides",
-   "about": "Create HTML presentations in seconds —.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,328"
-    },
-    {
-     "name": "Forks",
-     "desc": "586"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2022-12-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/webslides/WebSlides"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "czy0729/Bangumi",
-   "about": ":electron: An unofficial https://bgm.tv ui first app client for Android and iOS, built with React Native. 一个无广告、以爱好为驱动、不以盈利为目的、专门做 ACG 的类似豆瓣的追番记录，bgm.tv 第三方客户端。为移动端重新设计，内置大量加强的网页端难以实现的功能，且提供了相当的自定义选项。 目前已适配 iOS / Android。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,260"
-    },
-    {
-     "name": "Forks",
-     "desc": "168"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/czy0729/Bangumi"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "chakra-ui/panda",
-   "about": "🐼 Universal, Type-Safe, CSS-in-JS Framework for Design Systems ⚡️.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,258"
-    },
-    {
-     "name": "Forks",
-     "desc": "329"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/chakra-ui/panda"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "Shopify/polaris-react-archive",
-   "about": "Shopify's Polaris Design System - React implementation (Deprecated).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,146"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,245"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Shopify/polaris-react-archive"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "jolaleye/cssfx",
-   "about": "✨ Beautifully simple click-to-copy CSS effects.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,106"
-    },
-    {
-     "name": "Forks",
-     "desc": "347"
-    },
-    {
-     "name": "Language",
-     "desc": "Vue"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2021-08-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jolaleye/cssfx"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "skeletonlabs/skeleton",
-   "about": "Skeleton is an adaptive design system powered by Tailwind CSS.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,093"
-    },
-    {
-     "name": "Forks",
-     "desc": "391"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/skeletonlabs/skeleton"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "ghosh/uiGradients",
-   "about": "🔴 Beautiful colour gradients for design and code.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "6,034"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,393"
-    },
-    {
-     "name": "Language",
-     "desc": "Vue"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-03-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ghosh/uiGradients"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "dbacinski/Design-Patterns-In-Kotlin",
-   "about": "Design Patterns implemented in Kotlin.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,987"
-    },
-    {
-     "name": "Forks",
-     "desc": "685"
-    },
-    {
-     "name": "Language",
-     "desc": "Kotlin"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-06-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/dbacinski/Design-Patterns-In-Kotlin"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "bendc/animateplus",
-   "about": "A+ animation module for the modern web.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,948"
-    },
-    {
-     "name": "Forks",
-     "desc": "277"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2018-07-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/bendc/animateplus"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "basscss/basscss",
-   "about": "Low-level CSS Toolkit – the original Functional/Utility/Atomic CSS library.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,898"
-    },
-    {
-     "name": "Forks",
-     "desc": "293"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2022-12-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/basscss/basscss"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "arco-design/arco-design",
-   "about": "A comprehensive React UI components library based on Arco Design.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,772"
-    },
-    {
-     "name": "Forks",
-     "desc": "727"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-13"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/arco-design/arco-design"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "CodingTrain/website-archive",
-   "about": "Archive of the Coding Train website (first version).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,743"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,419"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2022-07-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/CodingTrain/website-archive"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "knadh/oat",
-   "about": "Ultra-lightweight, zero dependency, semantic HTML, CSS, JS UI library. ~10KB min+gz.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,612"
-    },
-    {
-     "name": "Forks",
-     "desc": "264"
-    },
-    {
-     "name": "Language",
-     "desc": "CSS"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/knadh/oat"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "chakra-ui/ark",
-   "about": "Unstyled, accessible UI components for your design System. Works in React, Vue, Solid, and Svelte.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,477"
-    },
-    {
-     "name": "Forks",
-     "desc": "225"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/chakra-ui/ark"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "benjitaylor/agentation",
-   "about": "The visual feedback tool for agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,452"
-    },
-    {
-     "name": "Forks",
-     "desc": "433"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-22"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/benjitaylor/agentation"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "system-ui/theme-ui",
-   "about": "Build consistent, themeable React apps based on constraint-based design principles.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,413"
-    },
-    {
-     "name": "Forks",
-     "desc": "649"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-06-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/system-ui/theme-ui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "williamngan/pts",
-   "about": "A library for visualization and creative-coding.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,372"
-    },
-    {
-     "name": "Forks",
-     "desc": "185"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/williamngan/pts"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "gluestack/gluestack-ui",
-   "about": "React & React Native Components & Patterns (copy-paste components & patterns crafted with Tailwind CSS (NativeWind)).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,360"
-    },
-    {
-     "name": "Forks",
-     "desc": "238"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/gluestack/gluestack-ui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "akiraux/Akira",
-   "about": "Native Linux App for UI and UX Design built in Vala and GTK.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,346"
-    },
-    {
-     "name": "Forks",
-     "desc": "198"
-    },
-    {
-     "name": "Language",
-     "desc": "Vala"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-12-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/akiraux/Akira"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "raysan5/raygui",
-   "about": "A simple and easy-to-use immediate-mode gui library.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,290"
-    },
-    {
-     "name": "Forks",
-     "desc": "409"
-    },
-    {
-     "name": "Language",
-     "desc": "C"
-    },
-    {
-     "name": "Licence",
-     "desc": "Zlib"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/raysan5/raygui"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "nateherkai/scroll-craft",
-   "about": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a Claude Code plugin.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,249"
-    },
-    {
-     "name": "Forks",
-     "desc": "732"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nateherkai/scroll-craft"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "JakeLin/SwiftLanguageWeather",
-   "about": "Swift Language Weather is an iOS weather app developed in Swift 4.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,239"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,206"
-    },
-    {
-     "name": "Language",
-     "desc": "Swift"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-09-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/JakeLin/SwiftLanguageWeather"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "Appllama/appllama-skills",
-   "about": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "5,231"
-    },
-    {
-     "name": "Forks",
-     "desc": "265"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Appllama/appllama-skills"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "public-apis/public-apis",
-   "about": "A collective list of free APIs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "500,164"
-    },
-    {
-     "name": "Forks",
-     "desc": "56,117"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/public-apis/public-apis"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "fastapi/fastapi",
-   "about": "FastAPI framework, high performance, easy to learn, fast to code, ready for production.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "104,888"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,361"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/fastapi/fastapi"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "neovim/neovim",
-   "about": "Vim-fork focused on extensibility and usability.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "103,836"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,412"
-    },
-    {
-     "name": "Language",
-     "desc": "Vim Script"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/neovim/neovim"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "hoppscotch/hoppscotch",
-   "about": "Open-Source API Development Ecosystem • https://hoppscotch.io • Offline, On-Prem & Cloud • Web, Desktop & CLI • Open-Source Alternative to Postman, Insomnia.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "80,849"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,248"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/hoppscotch/hoppscotch"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "ocornut/imgui",
-   "about": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "77,171"
-    },
-    {
-     "name": "Forks",
-     "desc": "12,121"
-    },
-    {
-     "name": "Language",
-     "desc": "C++"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ocornut/imgui"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "typicode/json-server",
-   "about": "Get a full fake REST API with zero coding in less than 30 seconds (seriously).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "75,748"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,275"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-03-23"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/typicode/json-server"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "strapi/strapi",
-   "about": "🚀 Strapi is the leading open-source headless CMS. It’s 100% JavaScript/TypeScript, fully customizable, and developer-first.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "73,517"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,032"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/strapi/strapi"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "nocodb/nocodb",
-   "about": "🔥 🔥 🔥 A Free & Self-hostable Airtable Alternative.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "65,573"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,140"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nocodb/nocodb"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "meilisearch/meilisearch",
-   "about": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "59,909"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,801"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/meilisearch/meilisearch"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "mudler/LocalAI",
-   "about": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "50,443"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,618"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mudler/LocalAI"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "usebruno/bruno",
-   "about": "Opensource IDE For Exploring and Testing API's (lightweight alternative to Postman/Insomnia).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "48,460"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,123"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/usebruno/bruno"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "chatanywhere/GPT_API_free",
-   "about": "免费大模型API，支持免费调用GPT、DeepSeek等主流模型，免费额度10000点，每日刷新！另付费价格最低官方1-2折！.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "46,348"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,780"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/chatanywhere/GPT_API_free"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "ccxt/ccxt",
-   "about": "A unified trading API with more than 100 crypto exchanges and prediction markets in JavaScript / TypeScript / Python / C# / PHP / Go / Java / Rust.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "44,923"
-    },
-    {
-     "name": "Forks",
-     "desc": "8,989"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ccxt/ccxt"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "trpc/trpc",
-   "about": "🧙‍♀️ Move Fast and Break Nothing. End-to-end typesafe APIs made easy.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "40,818"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,738"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/trpc/trpc"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "gofiber/fiber",
-   "about": "⚡️ Express inspired web framework written in Go.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "40,286"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,160"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/gofiber/fiber"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Kong/insomnia",
-   "about": "The open-source, cross-platform API client for GraphQL, REST, WebSockets, SSE and gRPC. With Cloud, Local and Git storage.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "40,165"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,403"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Kong/insomnia"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "The-Vibe-Company/quivr",
-   "about": "An open-source engine that turns continuous content streams into search and monitoring. Durable ingestion, hybrid search, alerts, and plugins for formats, models and business rules.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "39,651"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,727"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/The-Vibe-Company/quivr"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "directus/directus",
-   "about": "The flexible backend for all your projects 🐰 Turn your DB into a headless CMS, admin panels, or apps with a custom UI, instant APIs, auth & more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,765"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,994"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/directus/directus"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "httpie/cli",
-   "about": "🥧 HTTPie CLI — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, plugins & more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,724"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,144"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "BSD-3-Clause"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-12-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/httpie/cli"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "songquanpeng/one-api",
-   "about": "LLM API 管理 & 分发系统，支持 OpenAI、Azure、Anthropic Claude、Google Gemini、DeepSeek、字节豆包、ChatGLM、文心一言、讯飞星火、通义千问、360 智脑、腾讯混元等主流模型，统一 API 适配，可用于 key 管理与二次分发。单可执行文件，提供 Docker 镜像，一键部署，开箱即用。LLM API management & key redistribution system, unifying multiple providers under a single API. Single binary…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "37,447"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,887"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-01-09"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/songquanpeng/one-api"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "slatedocs/slate",
-   "about": "Beautiful static documentation for your API.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "35,989"
-    },
-    {
-     "name": "Forks",
-     "desc": "357"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-02-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/slatedocs/slate"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "binwiederhier/ntfy",
-   "about": "Send push notifications to your phone or desktop using PUT/POST.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "35,642"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,726"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/binwiederhier/ntfy"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "zeromicro/go-zero",
-   "about": "A cloud-native Go microservices framework with cli tool for productivity.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,433"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,332"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/zeromicro/go-zero"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "hasura/graphql-engine",
-   "about": "Blazing fast, instant realtime GraphQL APIs on all your data with fine grained access control, also trigger webhooks on database events.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "32,128"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,966"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/hasura/graphql-engine"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "encode/django-rest-framework",
-   "about": "Web APIs for Django. 🎸.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,240"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,101"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/encode/django-rest-framework"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Binaryify/NeteaseCloudMusicApi",
-   "about": "网易云音乐 Node.js API service.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,216"
-    },
-    {
-     "name": "Forks",
-     "desc": "16,007"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-02-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Binaryify/NeteaseCloudMusicApi"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "swagger-api/swagger-ui",
-   "about": "Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "29,087"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,245"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/swagger-api/swagger-ui"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "pppscn/SmsForwarder",
-   "about": "短信转发器——监控Android手机短信、来电、APP通知，并根据指定规则转发到其他手机：钉钉群自定义机器人、钉钉企业内机器人、企业微信群机器人、飞书机器人、企业微信应用消息、邮箱、bark、webhook、Telegram机器人、Server酱、PushPlus、手机短信等。包括主动控制服务端与客户端，让你轻松远程发短信、查短信、查通话、查话簿、查电量等。（V3.0 新增）PS.这个APK主要是学习与自用，如有BUG请提ISSUE，同时欢迎大家提PR指正.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,942"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,530"
-    },
-    {
-     "name": "Language",
-     "desc": "Kotlin"
-    },
-    {
-     "name": "Licence",
-     "desc": "BSD-2-Clause"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/pppscn/SmsForwarder"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "PostgREST/postgrest",
-   "about": "REST API for any Postgres database.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,764"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,239"
-    },
-    {
-     "name": "Language",
-     "desc": "Haskell"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/PostgREST/postgrest"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "YMFE/yapi",
-   "about": "YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,691"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,795"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-08-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/YMFE/yapi"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "OpenAPITools/openapi-generator",
-   "about": "OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,863"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,774"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/OpenAPITools/openapi-generator"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "littlecodersh/ItChat",
-   "about": "A complete and graceful API for Wechat. 微信个人号接口、微信机器人及命令行微信，三十行即可自定义个人号机器人。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,451"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,579"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-09-28"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/littlecodersh/ItChat"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Skyvern-AI/skyvern",
-   "about": "Automate browser based workflows with AI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,464"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,252"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Skyvern-AI/skyvern"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "shieldfy/API-Security-Checklist",
-   "about": "Checklist of the most important security countermeasures when designing, testing, and releasing your API.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,368"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,650"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/shieldfy/API-Security-Checklist"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "microsoft/api-guidelines",
-   "about": "Microsoft REST API Guidelines.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,350"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,683"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/microsoft/api-guidelines"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "go-chi/chi",
-   "about": "lightweight, idiomatic and composable router for building Go HTTP services.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,118"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,731"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-07"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/go-chi/chi"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "wwebjs/whatsapp-web.js",
-   "about": "A WhatsApp client library for NodeJS that connects through the WhatsApp Web browser app.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,932"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,212"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/wwebjs/whatsapp-web.js"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Evil0ctal/Douyin_TikTok_Download_API",
-   "about": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark video downloader — async REST API, MCP server for AI agents, CLI and web console, plus offline speech-to-text for downloaded videos. Self-healing identity…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,494"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,984"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "parse-community/parse-server",
-   "about": "Parse Server for Node.js / Express.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,395"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,813"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/parse-community/parse-server"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "FallibleInc/security-guide-for-developers",
-   "about": "Security Guide for Developers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,108"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,566"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-08-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/FallibleInc/security-guide-for-developers"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "gofr-dev/gofr",
-   "about": "An opinionated GoLang framework for accelerated microservice development. Built in support for databases and observability.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,794"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,790"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/gofr-dev/gofr"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "paularmstrong/normalizr",
-   "about": "Normalizes nested JSON according to a schema.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,777"
-    },
-    {
-     "name": "Forks",
-     "desc": "851"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2022-03-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/paularmstrong/normalizr"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "bitwarden/server",
-   "about": "Bitwarden infrastructure/backend (API, database, Docker, etc).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,674"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,839"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/bitwarden/server"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "grpc-ecosystem/grpc-gateway",
-   "about": "gRPC to JSON proxy generator following the gRPC HTTP spec.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,018"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,413"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "BSD-3-Clause"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/grpc-ecosystem/grpc-gateway"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "web3/web3.js",
-   "about": "Collection of comprehensive TypeScript libraries for Interaction with the Ethereum JSON RPC API and utility functions.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "19,897"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,085"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-03-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/web3/web3.js"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "iii-hq/iii",
-   "about": "Effortlessly compose, extend, observe, discover, and react to every service in real-time for the first time ever.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,935"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,274"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/iii-hq/iii"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "getmaxun/maxun",
-   "about": "Turn any website into a structured API. Extract, automate, search and monitor the web.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,522"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,596"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/getmaxun/maxun"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "mswjs/msw",
-   "about": "The industry standard for API mocking in JavaScript.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,355"
-    },
-    {
-     "name": "Forks",
-     "desc": "651"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mswjs/msw"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "swagger-api/swagger-codegen",
-   "about": "swagger-codegen contains a template-driven engine to generate documentation, API clients and server stubs in different languages by parsing your OpenAPI / Swagger definition.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,803"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,933"
-    },
-    {
-     "name": "Language",
-     "desc": "Mustache"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-13"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/swagger-api/swagger-codegen"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "LibreTranslate/LibreTranslate",
-   "about": "Free and Open Source Machine Translation API. Self-hosted, offline capable and easy to setup.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,791"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,866"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/LibreTranslate/LibreTranslate"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "JoeanAmier/TikTokDownloader",
-   "about": "抖音 / TikTok 平台作品下载/数据采集工具.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,560"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,890"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/JoeanAmier/TikTokDownloader"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Evolink-AI/awesome-gpt-image-2-API-Prompts",
-   "about": "GPT-Image-2 API and Prompts.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,423"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,755"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "CC0-1.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Evolink-AI/awesome-gpt-image-2-API-Prompts"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "apache/apisix",
-   "about": "The Cloud-Native API Gateway and AI Gateway.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,343"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,011"
-    },
-    {
-     "name": "Language",
-     "desc": "Lua"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/apache/apisix"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "rmyndharis/OpenWA",
-   "about": "Free, Open Source, Self-Hosted WhatsApp API Gateway.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,044"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,990"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/rmyndharis/OpenWA"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "scalar/scalar",
-   "about": "Scalar is an open-source API platform: 🌐 Modern REST API Client 📖 Beautiful API References ✨ 1st-Class OpenAPI/Swagger Support.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,428"
-    },
-    {
-     "name": "Forks",
-     "desc": "976"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/scalar/scalar"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "public-api-lists/public-api-lists",
-   "about": "A curated list of free public APIs — searchable, community-maintained, with a free JSON API.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,424"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,975"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/public-api-lists/public-api-lists"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Jackett/Jackett",
-   "about": "API Support for your favorite torrent trackers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,387"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,603"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Jackett/Jackett"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "fangzesheng/free-api",
-   "about": "收集免费的接口服务,做一个api的搬运工.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,298"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,645"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-20"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/fangzesheng/free-api"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "FlareSolverr/FlareSolverr",
-   "about": "Proxy server to bypass Cloudflare protection.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,262"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,303"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-24"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/FlareSolverr/FlareSolverr"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "gotify/server",
-   "about": "A simple server for sending and receiving messages in real-time per WebSocket. (Includes a sleek web-ui).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,224"
-    },
-    {
-     "name": "Forks",
-     "desc": "902"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/gotify/server"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "amplication/amplication",
-   "about": "Amplication brings order to the chaos of large-scale software development by creating Golden Paths for developers - streamlined workflows that drive consistency, enable high-quality code practices, simplify onboarding, and accelerate standardized delivery across teams.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,007"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,537"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-06-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/amplication/amplication"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "apitable/apitable",
-   "about": "🚀🎉📚 APITable, an API-oriented low-code platform for building collaborative apps and better than all other Airtable open-source alternatives.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,670"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,422"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/apitable/apitable"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "jsdoc/jsdoc",
-   "about": "An API documentation generator for JavaScript.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,475"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,490"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jsdoc/jsdoc"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "BrainJS/brain.js",
-   "about": "🤖 GPU accelerated Neural networks in JavaScript for Browsers and Node.js.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,856"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,069"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-09-26"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/BrainJS/brain.js"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "youfou/wxpy",
-   "about": "微信机器人 / 可能是最优雅的微信个人号 API ✨✨.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,250"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,347"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2019-07-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/youfou/wxpy"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "kgrzybek/modular-monolith-with-ddd",
-   "about": "Full Modular Monolith application with Domain-Driven Design approach.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,147"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,199"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-06-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/kgrzybek/modular-monolith-with-ddd"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "mnfst/awesome-free-llm-apis",
-   "about": "List of Permanent Free LLM API (API Keys).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,675"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,675"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "CC0-1.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mnfst/awesome-free-llm-apis"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "xszyou/Fay",
-   "about": "fay是一个帮助数字人（2.5d、3d、移动、pc、网页）或大语言模型（openai兼容、deepseek）连通业务系统的agent框架。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,641"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,374"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/xszyou/Fay"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "postmanlabs/httpbin",
-   "about": "HTTP Request & Response Service, written in Python + Flask.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,637"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,921"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "ISC"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/postmanlabs/httpbin"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "gotenberg/gotenberg",
-   "about": "A developer-friendly API for converting many document formats into PDF files, and more!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,631"
-    },
-    {
-     "name": "Forks",
-     "desc": "916"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/gotenberg/gotenberg"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "JoeanAmier/XHS-Downloader",
-   "about": "小红书（XiaoHongShu、RedNote）链接提取/作品采集工具.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,333"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,947"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/JoeanAmier/XHS-Downloader"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "NangoHQ/nango",
-   "about": "Connect your agents & product to 1,000 APIs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,259"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,539"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/NangoHQ/nango"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "TonnyL/Awesome_APIs",
-   "about": ":octocat: A collection of APIs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,217"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,388"
-    },
-    {
-     "name": "Licence",
-     "desc": "CC-BY-SA-4.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2020-02-29"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/TonnyL/Awesome_APIs"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "ShishirPatil/gorilla",
-   "about": "Gorilla: Training and Evaluating LLMs for Function Calls (Tool Calls).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,079"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,425"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ShishirPatil/gorilla"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "graphile/crystal",
-   "about": "🔮 Graphile's Crystal Monorepo; home to Grafast, PostGraphile, pg-introspection, pg-sql2 and much more!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,938"
-    },
-    {
-     "name": "Forks",
-     "desc": "634"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/graphile/crystal"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "zealdocs/zeal",
-   "about": "Offline documentation browser. Your personal reference library, searchable in an instant.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,882"
-    },
-    {
-     "name": "Forks",
-     "desc": "855"
-    },
-    {
-     "name": "Language",
-     "desc": "C++"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-31"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/zealdocs/zeal"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "star7th/showdoc",
-   "about": "ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,882"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,210"
-    },
-    {
-     "name": "Language",
-     "desc": "PHP"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/star7th/showdoc"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "Farama-Foundation/Gymnasium",
-   "about": "A standard API for single-agent reinforcement learning environments, with popular reference environments and related utilities (formerly Gym).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,838"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,543"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Farama-Foundation/Gymnasium"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "darrenburns/posting",
-   "about": "The modern API client that lives in your terminal.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,642"
-    },
-    {
-     "name": "Forks",
-     "desc": "297"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/darrenburns/posting"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "manticoresoftware/manticoresearch",
-   "about": "Open-source search database for full-text, vector, and hybrid search with real-time indexing and SQL.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,095"
-    },
-    {
-     "name": "Forks",
-     "desc": "655"
-    },
-    {
-     "name": "Language",
-     "desc": "C++"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/manticoresoftware/manticoresearch"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "presenton/presenton",
-   "about": "Open-Source AI Presentation Generator and API (Gamma, Canva, Beautiful AI, Decktopus, Presentations AI Alternative).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,973"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,788"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/presenton/presenton"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "frappe/frappe",
-   "about": "Low code web framework for real world applications, in Python and Javascript.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,128"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,546"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/frappe/frappe"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "r-spacex/SpaceX-API",
-   "about": ":rocket: Open Source REST API for SpaceX launch, rocket, core, capsule, starlink, launchpad, and landing pad data.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,921"
-    },
-    {
-     "name": "Forks",
-     "desc": "987"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-08-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/r-spacex/SpaceX-API"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "TykTechnologies/tyk",
-   "about": "Open Source API and AI Gateway supporting REST, GraphQL, TCP, gRPC and MCP (Model Context Protocol).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,896"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,171"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/TykTechnologies/tyk"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "restify/node-restify",
-   "about": "The future of Node.js REST development.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,690"
-    },
-    {
-     "name": "Forks",
-     "desc": "977"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-23"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/restify/node-restify"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "dotnet-architecture/eShopOnWeb",
-   "about": "Sample ASP.NET Core 8.0 reference application, now community supported: https://github.com/NimblePros/eShopOnWeb.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,668"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,063"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-01-13"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/dotnet-architecture/eShopOnWeb"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "dicebear/dicebear",
-   "about": "DiceBear is an avatar library for designers and developers. 🌍.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,112"
-    },
-    {
-     "name": "Forks",
-     "desc": "446"
-    },
-    {
-     "name": "Language",
-     "desc": "Vue"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/dicebear/dicebear"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "astrit/css.gg",
-   "about": "700+ Pure CSS, SVG & Figma UI Icons, 6000+ glyphs, patterns, colors and layouts.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,064"
-    },
-    {
-     "name": "Forks",
-     "desc": "494"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-08-26"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/astrit/css.gg"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "go-swagger/go-swagger",
-   "about": "Swagger 2.0 implementation for go.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,012"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,305"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/go-swagger/go-swagger"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "ruby-grape/grape",
-   "about": "An opinionated framework for creating REST-like APIs in Ruby.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "10,005"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,231"
-    },
-    {
-     "name": "Language",
-     "desc": "Ruby"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ruby-grape/grape"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "hiteshchoudhary/apihub",
-   "about": "Your own API Hub to learn and master API interaction. Ideal for frontend, mobile dev and backend developers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,872"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,518"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-26"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/hiteshchoudhary/apihub"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "falconry/falcon",
-   "about": "The no-magic web API and microservices framework for Python developers, with a focus on reliability and performance at scale.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,822"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,057"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/falconry/falcon"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "lihengming/spring-boot-api-project-seed",
-   "about": ":seedling::rocket:一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目~.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,671"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,701"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-12-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/lihengming/spring-boot-api-project-seed"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "loco-rs/loco",
-   "about": "🚂 🦀 The one-person framework for Rust for side-projects and startups.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,651"
-    },
-    {
-     "name": "Forks",
-     "desc": "446"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-06"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/loco-rs/loco"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "swagger-api/swagger-editor",
-   "about": "Swagger Editor.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,478"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,359"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/swagger-api/swagger-editor"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "coaidev/coai",
-   "about": "🚀 Next Gen Multi-tenant AI One-Stop Solution. Builtin Admin & Billing System. Enterprise-Grade Unified LLM Gateway Support for 200+ Models And 35+ Providers, Load Balacing w/ Priority-base Routing, Cost Management, Chat Share, Cloud Sync, Credit/Subscription Billing, All File Parsing, Web Search…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,344"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,224"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-03-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/coaidev/coai"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "vitalik/django-ninja",
-   "about": "💨 Fast, Async-ready, Openapi, type hints based framework for building APIs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,249"
-    },
-    {
-     "name": "Forks",
-     "desc": "626"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/vitalik/django-ninja"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "yagop/node-telegram-bot-api",
-   "about": "Telegram Bot API for NodeJS.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,216"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,649"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/yagop/node-telegram-bot-api"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "api-platform/api-platform",
-   "about": "🕸️ Create REST and GraphQL APIs, scaffold Jamstack webapps, stream changes in real-time.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,200"
-    },
-    {
-     "name": "Forks",
-     "desc": "967"
-    },
-    {
-     "name": "Language",
-     "desc": "PHP"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/api-platform/api-platform"
-    }
-   ]
-  },
-  {
-   "database": "API",
-   "table": "artilleryio/artillery",
-   "about": "The complete load testing platform. Everything you need for production-grade load tests. Serverless & distributed. Load test with Playwright. Load test HTTP APIs, GraphQL, WebSocket, and more. Use any Node.js module.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "9,121"
-    },
-    {
-     "name": "Forks",
-     "desc": "577"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MPL-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-20"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/artilleryio/artillery"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "affaan-m/ECC",
-   "about": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "306,828"
-    },
-    {
-     "name": "Forks",
-     "desc": "45,167"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/affaan-m/ECC"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "n8n-io/n8n",
-   "about": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "211,308"
-    },
-    {
-     "name": "Forks",
-     "desc": "61,579"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/n8n-io/n8n"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "open-webui/open-webui",
-   "about": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...).",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "159,070"
-    },
-    {
-     "name": "Forks",
-     "desc": "23,110"
-    },
-    {
-     "name": "Language",
-     "desc": "Svelte"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/open-webui/open-webui"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "browser-use/browser-use",
-   "about": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "121,467"
-    },
-    {
-     "name": "Forks",
-     "desc": "13,573"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/browser-use/browser-use"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "Panniantong/Agent-Reach",
-   "about": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "113,154"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,153"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Panniantong/Agent-Reach"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "google-gemini/gemini-cli",
-   "about": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "108,936"
-    },
-    {
-     "name": "Forks",
-     "desc": "14,964"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/google-gemini/gemini-cli"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "ruvnet/RuView",
-   "about": "π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single pixel of video.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "104,609"
-    },
-    {
-     "name": "Forks",
-     "desc": "13,593"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ruvnet/RuView"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "D4Vinci/Scrapling",
-   "about": "🕷️ The BEST Web Scraping framework that handles everything from a single request to a full-scale crawl! Don't be shy, join here: https://discord.gg/EMgGbDceNQ and follow here for daily tips and tricks: https://x.com/Scrapling_dev.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "104,289"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,891"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "BSD-3-Clause"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/D4Vinci/Scrapling"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "punkpeye/awesome-mcp-servers",
-   "about": "A collection of MCP servers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "98,174"
-    },
-    {
-     "name": "Forks",
-     "desc": "20,388"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/punkpeye/awesome-mcp-servers"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "koala73/worldmonitor",
-   "about": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "90,924"
-    },
-    {
-     "name": "Forks",
-     "desc": "14,116"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/koala73/worldmonitor"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "cheaper-inference/OmniRoute",
-   "about": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "88,768"
-    },
-    {
-     "name": "Forks",
-     "desc": "13,692"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/cheaper-inference/OmniRoute"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "unclecode/crawl4ai",
-   "about": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open source: this repo is the Apache-2.0 crawler that powers it, and you can self-host it.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "87,548"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,131"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/unclecode/crawl4ai"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "heygen-com/hyperframes",
-   "about": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to the frame.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "86,714"
-    },
-    {
-     "name": "Forks",
-     "desc": "8,056"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/heygen-com/hyperframes"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "ruvnet/ruflo",
-   "about": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features adaptive memory, self-learning intelligence, federation, vector RAG integration, and native Claude Code / Codex / Hermes and many more Integrated.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "82,071"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,686"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ruvnet/ruflo"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "netdata/netdata",
-   "about": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI · OpenTelemetry · SNMP · NetFlow/IPFIX/sFlow · IPMI · Redfish · 800+ integrations.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "81,475"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,739"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/netdata/netdata"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "headroomlabs-ai/headroom",
-   "about": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "80,130"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,282"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/headroomlabs-ai/headroom"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "rohitg00/ai-engineering-from-scratch",
-   "about": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "79,553"
-    },
-    {
-     "name": "Forks",
-     "desc": "14,207"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/rohitg00/ai-engineering-from-scratch"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "upstash/context7",
-   "about": "Context7 Platform -- Up-to-date docs for AI agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "65,104"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,271"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/upstash/context7"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "sansan0/TrendRadar",
-   "about": "⭐AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, and smart alerts.🎯 告别信息过载，你的 AI 舆情监控助手与热点筛选工具！聚合多平台热点 + RSS 订阅，支持关键词精准筛选。AI 智能筛选新闻 + AI 翻译 + AI 分析简报直推手机，也支持接入 MCP 架构，赋能 AI 自然语言对话分析、情感洞察与趋势预测等。支持 Docker ，数据本地/云端自持。集成微信/飞书/钉钉/Telegram/邮件/ntfy/bark/slack 等渠道智能推送。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "63,737"
-    },
-    {
-     "name": "Forks",
-     "desc": "24,932"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/sansan0/TrendRadar"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "MemPalace/mempalace",
-   "about": "The best-benchmarked open-source AI memory system. And it's free.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "60,616"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,673"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/MemPalace/mempalace"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "bojieli/ai-agent-book",
-   "about": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "58,783"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,886"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/bojieli/ai-agent-book"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "ChromeDevTools/chrome-devtools-mcp",
-   "about": "Chrome DevTools for coding agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "58,272"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,879"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "aaif-goose/goose",
-   "about": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "56,779"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,622"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/aaif-goose/goose"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "HKUDS/nanobot",
-   "about": "Your lightweight open-source personal agent.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "50,198"
-    },
-    {
-     "name": "Forks",
-     "desc": "8,764"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/HKUDS/nanobot"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "DeusData/codebase-memory-mcp",
-   "about": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent integrations and change-aware test selection.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "48,849"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,060"
-    },
-    {
-     "name": "Language",
-     "desc": "C"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/DeusData/codebase-memory-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "LibreChat-AI/LibreChat",
-   "about": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "47,337"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,748"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/LibreChat-AI/LibreChat"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "siyuan-note/siyuan",
-   "about": "An open-source, privacy-first, self-hosted knowledge workspace where humans and AI agents work together 开源、隐私优先、自托管的知识工作空间，让人与智能体在此协作.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "47,284"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,126"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/siyuan-note/siyuan"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "AstrBotDevs/AstrBot",
-   "about": "AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "47,180"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,618"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/AstrBotDevs/AstrBot"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "Kong/kong",
-   "about": "🦍 The API and AI Gateway.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "44,398"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,244"
-    },
-    {
-     "name": "Language",
-     "desc": "Lua"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Kong/kong"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "tinyhumansai/openhuman",
-   "about": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "42,750"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,223"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tinyhumansai/openhuman"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "patchy631/ai-engineering-hub",
-   "about": "In-depth tutorials on LLMs, RAGs and real-world AI agent applications.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "42,021"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,720"
-    },
-    {
-     "name": "Language",
-     "desc": "Jupyter Notebook"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/patchy631/ai-engineering-hub"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "codewhale-hq/Codewhale",
-   "about": "An open-source coding agent for your terminal, written in Rust. It works with any model, can split one task across several agents, and every line of it is yours to read.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "41,182"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,571"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/codewhale-hq/Codewhale"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "drawdb-io/drawdb",
-   "about": "Free, simple, and intuitive online database diagram editor and SQL generator.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "40,347"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,371"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/drawdb-io/drawdb"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "microsoft/playwright-mcp",
-   "about": "Playwright MCP server.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "39,879"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,453"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/microsoft/playwright-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "mindsdb/mindshub",
-   "about": "The unified workspace where open-source models get things done for you.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "39,868"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,228"
-    },
-    {
-     "name": "Language",
-     "desc": "Makefile"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-23"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mindsdb/mindshub"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "bytedance/UI-TARS-desktop",
-   "about": "The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "39,603"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,050"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-09"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/bytedance/UI-TARS-desktop"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "can1357/oh-my-pi",
-   "about": "⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "39,455"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,528"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/can1357/oh-my-pi"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "PDFMathTranslate/PDFMathTranslate",
-   "about": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,531"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,455"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/PDFMathTranslate/PDFMathTranslate"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "HKUDS/Vibe-Trading",
-   "about": "\"Vibe-Trading: Your Personal Trading Agent\".",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "38,513"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,270"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/HKUDS/Vibe-Trading"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "DayuanJiang/next-ai-draw-io",
-   "about": "Draw and edit draw.io diagrams by chatting with an AI. Web app, desktop app, and an MCP server for Claude Code, Cursor, Codex and VS Code.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "37,065"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,839"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/DayuanJiang/next-ai-draw-io"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "mukul975/Anthropic-Cybersecurity-Skills",
-   "about": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3 (Fight Fraud) · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 20+ platforms · 29 security domains…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "36,389"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,448"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-08-31"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "agentscope-ai/agentscope",
-   "about": "Build and run agents you can see, understand and trust.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "36,287"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,890"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/agentscope-ai/agentscope"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "ahujasid/mcp-for-blender",
-   "about": "Community plugin to control Blender 3D with any LLM of your choice. Not affiliated with the official Blender Foundation.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "34,984"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,197"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ahujasid/mcp-for-blender"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "github/github-mcp-server",
-   "about": "GitHub's official MCP Server.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "34,579"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,373"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/github/github-mcp-server"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "78/xiaozhi-esp32",
-   "about": "An MCP-based chatbot | 一个基于MCP的聊天机器人.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,448"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,980"
-    },
-    {
-     "name": "Language",
-     "desc": "C++"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/78/xiaozhi-esp32"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "tirth8205/code-review-graph",
-   "about": "Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with benchmarked context reductions on reviews and large-repo workflows.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "32,853"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,988"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tirth8205/code-review-graph"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "oraios/serena",
-   "about": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "31,525"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,147"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/oraios/serena"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "ComposioHQ/composio",
-   "about": "Composio powers 1000+ toolkits, tool search, context management, authentication, and a sandboxed workbench to help you build AI agents that turn intent into action.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "31,175"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,962"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ComposioHQ/composio"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "t8y2/dbx",
-   "about": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,863"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,813"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/t8y2/dbx"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "assafelovic/gpt-researcher",
-   "about": "An autonomous agent that conducts deep research on any data using any LLM providers.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,781"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,241"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/assafelovic/gpt-researcher"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "QwenLM/qwen-code",
-   "about": "An open-source AI coding agent that lives in your terminal.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,775"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,559"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/QwenLM/qwen-code"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "labring/FastGPT",
-   "about": "FastGPT is a knowledge-based platform built on the LLMs, offers a comprehensive suite of out-of-the-box capabilities such as data processing, RAG retrieval, and visual AI workflow orchestration, letting you easily develop and deploy complex question-answering systems without the need for extensive…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,072"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,381"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/labring/FastGPT"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "alibaba/page-agent",
-   "about": "JavaScript in-page GUI agent. Control web interfaces with natural language.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "29,716"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,649"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alibaba/page-agent"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "mastra-ai/mastra",
-   "about": "Mastra is the modern TypeScript framework for AI-powered applications and agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "29,630"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,120"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mastra-ai/mastra"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "yamadashy/repomix",
-   "about": "📦 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, DeepSeek, Perplexity, Gemini, Gemma, Llama, Grok, and more.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "29,332"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,648"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/yamadashy/repomix"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "PrefectHQ/fastmcp",
-   "about": "🚀 The fast, Pythonic way to build MCP servers and clients.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,664"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,627"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/PrefectHQ/fastmcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "OtterMind/Chat2DB",
-   "about": "Chat2DB is a free, cross-platform, local-first database client and SQL workspace for developers, DBAs, analysts, and data teams. Connect to 40+ databases, manage data, edit and run SQL, and use your own AI model to generate, explain, and optimize queries. Available on desktop, web, Docker, and…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,368"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,042"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/OtterMind/Chat2DB"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "every-app/open-seo",
-   "about": "Open source alternative to Semrush and Ahrefs.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,289"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,004"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/every-app/open-seo"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "deepset-ai/haystack",
-   "about": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent workflows with explicit control over retrieval, routing, memory, and generation. Built for scalable agents, RAG, multimodal applications, semantic search…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "27,050"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,480"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/deepset-ai/haystack"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "go-kratos/kratos",
-   "about": "Your ultimate Go microservices framework for the cloud-native era.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,036"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,178"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/go-kratos/kratos"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "activepieces/activepieces",
-   "about": "AI Agents & MCPs & AI Workflow Automation • (~400 MCP servers for AI agents) • AI Automation / AI Agent with MCPs • AI Workflows & AI Agents • MCPs for AI Agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,617"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,479"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/activepieces/activepieces"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "vercel-labs/agent-desktop",
-   "about": "Computer use CLI for AI agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,426"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,899"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/vercel-labs/agent-desktop"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "NirDiamant/GenAI_Agents",
-   "about": "50+ tutorials and implementations for Generative AI Agent techniques, from basic conversational bots to complex multi-agent systems.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,065"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,202"
-    },
-    {
-     "name": "Language",
-     "desc": "Jupyter Notebook"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-02"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/NirDiamant/GenAI_Agents"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "modelcontextprotocol/python-sdk",
-   "about": "The official Python SDK for Model Context Protocol servers and clients.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "24,901"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,143"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/modelcontextprotocol/python-sdk"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "akfamily/akshare",
-   "about": "AKShare is an elegant and simple financial data interface library for Python, built for human beings! 开源财经数据接口库.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,401"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,580"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/akfamily/akshare"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "czlonkowski/n8n-mcp",
-   "about": "MCP server that lets Claude, ChatGPT, Cursor and other AI assistants operate n8n: debug, edit, validate, test and build workflows on any n8n instance.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,285"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,674"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/czlonkowski/n8n-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "1Panel-dev/MaxKB",
-   "about": "🔥 MaxKB is an open-source platform for building enterprise-grade agents. 强大易用的开源企业级智能体平台。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "23,172"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,225"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/1Panel-dev/MaxKB"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "DuarteSantos8/openGym",
-   "about": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which muscles are trained, import from Strong/Hevy/FitNotes. Self-host it or use it on the phone alone.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,813"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,034"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/DuarteSantos8/openGym"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "dipakkr/awesome-ai-engineering",
-   "about": "🚀 A curated collection of AI engineering resources, roadmaps, tools, and projects covering LLMs, RAG, AI Agents, MCP, fine-tuning, evaluations, and production AI systems.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,600"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,866"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-21"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/dipakkr/awesome-ai-engineering"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "screenpipe/screenpipe",
-   "about": "YC (S26) | Screenpipe finds the work worth automating | Continuously record computer work locally, discover recurring workflows, and hand the result to any agent you already use.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,468"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,310"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/screenpipe/screenpipe"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "liyupi/ai-guide",
-   "about": "程序员鱼皮的 AI 资源大全 + Vibe Coding 零基础教程，分享 OpenClaw 保姆级教程、大模型玩法（DeepSeek / GPT / Gemini / Claude / GLM）、最新 AI 资讯、Prompt 提示词大全、AI 知识百科（Agent Skills / RAG / MCP / A2A）、AI 编程教程（Harness Engineering）、AI 工具用法（Cursor / Claude Code / TRAE / Codex / Copilot）、AI 开发框架教程（Spring AI / LangChain）、AI 产品变现指南，帮你快速掌握 AI…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "22,223"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,418"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/liyupi/ai-guide"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "NirDiamant/agents-towards-production",
-   "about": "End-to-end, code-first tutorials for building production-grade GenAI agents. From prototype to enterprise deployment.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,927"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,894"
-    },
-    {
-     "name": "Language",
-     "desc": "Jupyter Notebook"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/NirDiamant/agents-towards-production"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "1jehuang/jcode",
-   "about": "High performance coding agent harness written in Rust, built for heavy multi-agent dev workflows.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,900"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,556"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/1jehuang/jcode"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "qax-os/excelize",
-   "about": "Go language library for reading and writing Microsoft Excel™ (XLAM / XLSM / XLSX / XLTM / XLTX) spreadsheets.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,138"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,005"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "BSD-3-Clause"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/qax-os/excelize"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "modelscope/FunASR",
-   "about": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and OpenAI-compatible/MCP serving.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,070"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,137"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/modelscope/FunASR"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "datawhalechina/easy-vibe",
-   "about": "💻 Vibe Coding 101｜Your First Course For AI Product Builders.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,470"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,977"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-22"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/datawhalechina/easy-vibe"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "rocketride-org/rocketride-server",
-   "about": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers, 8+ vector databases, and agent orchestration, all from your IDE. Includes VS Code extension, TypeScript/Python SDKs, and Docker deployment.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "20,016"
-    },
-    {
-     "name": "Forks",
-     "desc": "8,684"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/rocketride-org/rocketride-server"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "xerj-org/xerj",
-   "about": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybrid search, code search without grep, agent memory and RAG. Elasticsearch-compatible API; Corpus Hub serves hundreds of reference memory corpora.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "19,256"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,442"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/xerj-org/xerj"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "browser-use/browser-harness",
-   "about": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "19,152"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,896"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/browser-use/browser-harness"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "nukeop/nuclear",
-   "about": "Streaming music player that finds free music for you.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,968"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,360"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/nukeop/nuclear"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "jub0t/Concat",
-   "about": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "18,826"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,304"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jub0t/Concat"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "microsoft/mcp-for-beginners",
-   "about": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, TypeScript, JavaScript, Rust and Python. Designed for developers, it focuses on practical techniques for building modular, scalable, and secure AI…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,679"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,696"
-    },
-    {
-     "name": "Language",
-     "desc": "Jupyter Notebook"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-13"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/microsoft/mcp-for-beginners"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "xpzouying/xiaohongshu-mcp",
-   "about": "MCP for xiaohongshu.com.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "17,211"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,536"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/xpzouying/xiaohongshu-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "apify/apify-mcp-server",
-   "about": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thousands of ready-made scrapers, crawlers, and automation tools available on the Apify Store.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,952"
-    },
-    {
-     "name": "Forks",
-     "desc": "469"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/apify/apify-mcp-server"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "triggerdotdev/trigger.dev",
-   "about": "Trigger.dev – build and deploy durable AI agents and workflows.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,782"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,533"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/triggerdotdev/trigger.dev"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "budtmo/docker-android",
-   "about": "Android in docker solution with noVNC supported, video recording, mcp server and AI-agent.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,163"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,796"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/budtmo/docker-android"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "CoplayDev/unity-mcp",
-   "about": "Unity MCP acts as a bridge between AI assistants and your Unity Editor. Give your LLM tools to manage assets, control scenes, edit scripts, and automate tasks within Unity.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "16,067"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,643"
-    },
-    {
-     "name": "Language",
-     "desc": "C#"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/CoplayDev/unity-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "open-metadata/OpenMetadata",
-   "about": "The Open Context Layer for Data and AI , OpenMetadata is the open platform for building trusted data context and business semantics for humans, AI assistants, and agents.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,817"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,527"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/open-metadata/OpenMetadata"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "liketrek/TREK",
-   "about": "The most complete open-source travel planner: real-time collaboration, bookings, budgets, packing lists, journals, offline PWA, SSO and an AI-ready MCP server, with planet-wide place search and routing built in.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "15,810"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,352"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/liketrek/TREK"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "tonhowtf/omniget",
-   "about": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media conversion, files, chats and system cleanup. One line connects Claude Code, Codex, Cursor or Gemini CLI, and sensitive actions wait for your click. Free and…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "14,499"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,251"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "GPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tonhowtf/omniget"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "OpenByteInc/QuantDinger",
-   "about": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization, paper/live multi-asset execution, risk controls, monitoring, MCP, and multi-tenant SaaS in one auditable stack.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,862"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,825"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/OpenByteInc/QuantDinger"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "modelcontextprotocol/typescript-sdk",
-   "about": "The official TypeScript SDK for Model Context Protocol servers and clients.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,785"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,406"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/modelcontextprotocol/typescript-sdk"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "0x4m4/hexstrike-ai",
-   "about": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,740"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,816"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-08-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/0x4m4/hexstrike-ai"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "mrexodia/ida-pro-mcp",
-   "about": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,525"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,661"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mrexodia/ida-pro-mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "ccfos/nightingale",
-   "about": "Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "13,506"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,801"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ccfos/nightingale"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "tadata-org/fastapi_mcp",
-   "about": "Expose your FastAPI endpoints as Model Context Protocol (MCP) tools, with Auth!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "12,030"
-    },
-    {
-     "name": "Forks",
-     "desc": "965"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-11-24"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/tadata-org/fastapi_mcp"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "0xJacky/nginx-ui",
-   "about": "Yet another WebUI for Nginx.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,801"
-    },
-    {
-     "name": "Forks",
-     "desc": "921"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/0xJacky/nginx-ui"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "holaboss-ai/holaOS",
-   "about": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps, browser, local files — with shared memory. Any agent (Claude Code, Codex), any model, or BYOK. Set up in clicks, not months. Local-first: your data never…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,453"
-    },
-    {
-     "name": "Forks",
-     "desc": "729"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/holaboss-ai/holaOS"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "xinnan-tech/xiaozhi-esp32-server",
-   "about": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,341"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,857"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/xinnan-tech/xiaozhi-esp32-server"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "trailhq/Trail-Code",
-   "about": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they pick up where you left off.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,341"
-    },
-    {
-     "name": "Forks",
-     "desc": "1,023"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/trailhq/Trail-Code"
-    }
-   ]
-  }
- ],
  "hf": [
   {
    "database": "Sentence similarity",
@@ -20442,7 +8436,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Text generation",
    "table": "Qwen/Qwen3-0.6B",
-   "about": "Text generation, 16M downloads in the last month, 1.9K likes.",
+   "about": "Text generation, 15.7M downloads in the last month, 1.9K likes.",
    "fields": [
     {
      "name": "Task",
@@ -20450,7 +8444,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "16,044,059"
+     "desc": "15,683,001"
     },
     {
      "name": "Likes",
@@ -20558,7 +8552,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "13,223,290"
+     "desc": "13,167,887"
     },
     {
      "name": "Likes",
@@ -20662,7 +8656,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "9,837,533"
+     "desc": "9,835,214"
     },
     {
      "name": "Likes",
@@ -20693,7 +8687,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "1,046"
+     "desc": "1,047"
     },
     {
      "name": "Library",
@@ -21003,33 +8997,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    ]
   },
   {
-   "database": "Feature extraction",
-   "table": "Qwen/Qwen3-Embedding-0.6B",
-   "about": "Feature extraction, 7.9M downloads in the last month, 1.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Feature extraction"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,887,615"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,357"
-    },
-    {
-     "name": "Library",
-     "desc": "sentence-transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B"
-    }
-   ]
-  },
-  {
    "database": "Image classification",
    "table": "timm/mobilenetv3_small_100.lamb_in1k",
    "about": "Image classification, 7.7M downloads in the last month, 160 likes.",
@@ -21053,6 +9020,33 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://huggingface.co/timm/mobilenetv3_small_100.lamb_in1k"
+    }
+   ]
+  },
+  {
+   "database": "Feature extraction",
+   "table": "Qwen/Qwen3-Embedding-0.6B",
+   "about": "Feature extraction, 7.7M downloads in the last month, 1.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Feature extraction"
+    },
+    {
+     "name": "Downloads",
+     "desc": "7,703,469"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,357"
+    },
+    {
+     "name": "Library",
+     "desc": "sentence-transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B"
     }
    ]
   },
@@ -21148,7 +9142,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "6,204"
+     "desc": "6,206"
     },
     {
      "name": "Link",
@@ -21198,7 +9192,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "20,591"
+     "desc": "20,594"
     },
     {
      "name": "Library",
@@ -21213,7 +9207,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Feature extraction",
    "table": "ibm-granite/granite-embedding-small-english-r2",
-   "about": "Feature extraction, 6.7M downloads in the last month, 118 likes.",
+   "about": "Feature extraction, 6.6M downloads in the last month, 118 likes.",
    "fields": [
     {
      "name": "Task",
@@ -21221,7 +9215,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "6,660,224"
+     "desc": "6,632,222"
     },
     {
      "name": "Likes",
@@ -21414,7 +9408,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "1,009"
+     "desc": "1,010"
     },
     {
      "name": "Library",
@@ -21491,7 +9485,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "6,060,361"
+     "desc": "6,056,898"
     },
     {
      "name": "Likes",
@@ -21576,7 +9570,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "7,091"
+     "desc": "7,093"
     },
     {
      "name": "Library",
@@ -21591,7 +9585,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Text generation",
    "table": "ornith-ai/Ornith-1.5-9B-GGUF",
-   "about": "Text generation, 5.7M downloads in the last month, 735 likes.",
+   "about": "Text generation, 5.7M downloads in the last month, 736 likes.",
    "fields": [
     {
      "name": "Task",
@@ -21603,7 +9597,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "735"
+     "desc": "736"
     },
     {
      "name": "Library",
@@ -22031,7 +10025,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "4,711"
+     "desc": "4,712"
     },
     {
      "name": "Library",
@@ -22368,6 +10362,33 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    ]
   },
   {
+   "database": "Time series forecasting",
+   "table": "NeoQuasar/Kronos-Tokenizer-base",
+   "about": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Time series forecasting"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,378,014"
+    },
+    {
+     "name": "Likes",
+     "desc": "122"
+    },
+    {
+     "name": "Library",
+     "desc": "pytorch"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-base"
+    }
+   ]
+  },
+  {
    "database": "Automatic speech recognition",
    "table": "openai/whisper-small",
    "about": "Automatic speech recognition, 4.4M downloads in the last month, 658 likes.",
@@ -22391,33 +10412,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://huggingface.co/openai/whisper-small"
-    }
-   ]
-  },
-  {
-   "database": "Time series forecasting",
-   "table": "NeoQuasar/Kronos-Tokenizer-base",
-   "about": "Time series forecasting, 4.4M downloads in the last month, 122 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Time series forecasting"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,363,027"
-    },
-    {
-     "name": "Likes",
-     "desc": "122"
-    },
-    {
-     "name": "Library",
-     "desc": "pytorch"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/NeoQuasar/Kronos-Tokenizer-base"
     }
    ]
   },
@@ -22463,7 +10457,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "2,365"
+     "desc": "2,367"
     },
     {
      "name": "Library",
@@ -22750,7 +10744,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Votes",
-     "desc": "60,727"
+     "desc": "60,728"
     },
     {
      "name": "Downloads",
@@ -22789,7 +10783,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "1,224,665"
+     "desc": "1,224,678"
     },
     {
      "name": "Size",
@@ -22824,7 +10818,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "243,892"
+     "desc": "243,893"
     },
     {
      "name": "Size",
@@ -22859,7 +10853,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "825,452"
+     "desc": "825,466"
     },
     {
      "name": "Size",
@@ -22894,7 +10888,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "722,300"
+     "desc": "722,320"
     },
     {
      "name": "Size",
@@ -22929,7 +10923,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "819,989"
+     "desc": "819,991"
     },
     {
      "name": "Size",
@@ -23104,7 +11098,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "532,875"
+     "desc": "532,880"
     },
     {
      "name": "Size",
@@ -23174,7 +11168,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "966,384"
+     "desc": "966,391"
     },
     {
      "name": "Size",
@@ -23244,7 +11238,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "706,434"
+     "desc": "706,453"
     },
     {
      "name": "Size",
@@ -23279,7 +11273,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "180,693"
+     "desc": "180,695"
     },
     {
      "name": "Size",
@@ -23349,7 +11343,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "556,016"
+     "desc": "556,025"
     },
     {
      "name": "Size",
@@ -23384,7 +11378,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "300,238"
+     "desc": "300,239"
     },
     {
      "name": "Size",
@@ -23419,7 +11413,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "575,193"
+     "desc": "575,195"
     },
     {
      "name": "Size",
@@ -23454,7 +11448,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "475,190"
+     "desc": "475,192"
     },
     {
      "name": "Size",
@@ -23489,7 +11483,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "639,561"
+     "desc": "639,570"
     },
     {
      "name": "Size",
@@ -23524,7 +11518,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "369,461"
+     "desc": "369,463"
     },
     {
      "name": "Size",
@@ -23559,7 +11553,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "342,553"
+     "desc": "342,555"
     },
     {
      "name": "Size",
@@ -23594,7 +11588,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "317,427"
+     "desc": "317,431"
     },
     {
      "name": "Size",
@@ -23664,7 +11658,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "444,351"
+     "desc": "444,357"
     },
     {
      "name": "Size",
@@ -23699,7 +11693,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "361,657"
+     "desc": "361,658"
     },
     {
      "name": "Size",
@@ -23734,7 +11728,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "290,056"
+     "desc": "290,058"
     },
     {
      "name": "Size",
@@ -23769,7 +11763,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "308,281"
+     "desc": "308,285"
     },
     {
      "name": "Size",
@@ -23804,7 +11798,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "380,193"
+     "desc": "380,198"
     },
     {
      "name": "Size",
@@ -23839,7 +11833,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "259,160"
+     "desc": "259,161"
     },
     {
      "name": "Size",
@@ -23909,7 +11903,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "265,160"
+     "desc": "265,165"
     },
     {
      "name": "Size",
@@ -23979,7 +11973,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "248,666"
+     "desc": "248,671"
     },
     {
      "name": "Size",
@@ -24014,7 +12008,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "164,987"
+     "desc": "164,988"
     },
     {
      "name": "Size",
@@ -24049,7 +12043,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "196,844"
+     "desc": "196,845"
     },
     {
      "name": "Size",
@@ -24084,7 +12078,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "195,689"
+     "desc": "195,696"
     },
     {
      "name": "Size",
@@ -24119,7 +12113,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "208,808"
+     "desc": "208,809"
     },
     {
      "name": "Size",
@@ -24189,7 +12183,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "280,407"
+     "desc": "280,409"
     },
     {
      "name": "Size",
@@ -24434,7 +12428,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "299,668"
+     "desc": "299,671"
     },
     {
      "name": "Size",
@@ -24469,7 +12463,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "255,957"
+     "desc": "255,959"
     },
     {
      "name": "Size",
@@ -24539,7 +12533,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "174,030"
+     "desc": "174,031"
     },
     {
      "name": "Size",
@@ -24574,7 +12568,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "296,968"
+     "desc": "296,970"
     },
     {
      "name": "Size",
@@ -24679,7 +12673,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "173,427"
+     "desc": "173,428"
     },
     {
      "name": "Size",
@@ -24714,7 +12708,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "338,643"
+     "desc": "338,648"
     },
     {
      "name": "Size",
@@ -24784,7 +12778,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "321,165"
+     "desc": "321,166"
     },
     {
      "name": "Size",
@@ -24819,7 +12813,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "168,121"
+     "desc": "168,122"
     },
     {
      "name": "Size",
@@ -24854,7 +12848,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "135,470"
+     "desc": "135,472"
     },
     {
      "name": "Size",
@@ -24924,7 +12918,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "398,889"
+     "desc": "398,893"
     },
     {
      "name": "Size",
@@ -25029,7 +13023,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "49,524"
+     "desc": "49,525"
     },
     {
      "name": "Size",
@@ -25064,7 +13058,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "133,820"
+     "desc": "133,821"
     },
     {
      "name": "Size",
@@ -25099,7 +13093,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "385,620"
+     "desc": "385,626"
     },
     {
      "name": "Size",
@@ -25134,7 +13128,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "300,122"
+     "desc": "300,124"
     },
     {
      "name": "Size",
@@ -25169,7 +13163,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "173,369"
+     "desc": "173,373"
     },
     {
      "name": "Size",
@@ -25204,7 +13198,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "186,453"
+     "desc": "186,454"
     },
     {
      "name": "Size",
@@ -25239,7 +13233,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "249,187"
+     "desc": "249,190"
     },
     {
      "name": "Size",
@@ -25274,7 +13268,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "311,934"
+     "desc": "311,935"
     },
     {
      "name": "Size",
@@ -25344,7 +13338,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "225,413"
+     "desc": "225,414"
     },
     {
      "name": "Size",
@@ -25379,7 +13373,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "444,753"
+     "desc": "444,759"
     },
     {
      "name": "Size",
@@ -25414,7 +13408,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "212,149"
+     "desc": "212,150"
     },
     {
      "name": "Size",
@@ -25449,7 +13443,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "208,072"
+     "desc": "208,077"
     },
     {
      "name": "Size",
@@ -25519,7 +13513,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "137,964"
+     "desc": "137,966"
     },
     {
      "name": "Size",
@@ -25550,11 +13544,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Votes",
-     "desc": "1,742"
+     "desc": "1,743"
     },
     {
      "name": "Downloads",
-     "desc": "334,752"
+     "desc": "334,753"
     },
     {
      "name": "Size",
@@ -25694,7 +13688,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "18,316"
+     "desc": "18,317"
     },
     {
      "name": "Size",
@@ -25729,7 +13723,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "123,601"
+     "desc": "123,602"
     },
     {
      "name": "Size",
@@ -25834,7 +13828,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "166,012"
+     "desc": "166,014"
     },
     {
      "name": "Size",
@@ -26044,7 +14038,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "227,573"
+     "desc": "227,576"
     },
     {
      "name": "Size",
@@ -27588,6 +15582,12018 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://llm-stats.com/benchmarks/drop"
+    }
+   ]
+  }
+ ],
+ "gh-skills": [
+  {
+   "database": "Skills",
+   "table": "morluto/rea",
+   "about": "Reverse engineer anything with agents, from app behavior down to native binaries.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "468,958"
+    },
+    {
+     "name": "Forks",
+     "desc": "114,615"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/morluto/rea"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "obra/superpowers",
+   "about": "An agentic skills framework & software development methodology that works.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "321,578"
+    },
+    {
+     "name": "Forks",
+     "desc": "28,582"
+    },
+    {
+     "name": "Language",
+     "desc": "Shell"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/obra/superpowers"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "anthropics/skills",
+   "about": "Public repository for Agent Skills.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "197,427"
+    },
+    {
+     "name": "Forks",
+     "desc": "23,115"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/anthropics/skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "DietrichGebert/ponytail",
+   "about": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "194,446"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,957"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-29"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/DietrichGebert/ponytail"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "langgenius/dify",
+   "about": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "161,474"
+    },
+    {
+     "name": "Forks",
+     "desc": "25,529"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/langgenius/dify"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Snailclimb/JavaGuide",
+   "about": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "159,618"
+    },
+    {
+     "name": "Forks",
+     "desc": "46,107"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-25"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Snailclimb/JavaGuide"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "farion1231/cc-switch",
+   "about": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "155,697"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,186"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/farion1231/cc-switch"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Graphify-Labs/graphify",
+   "about": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "150,344"
+    },
+    {
+     "name": "Forks",
+     "desc": "14,457"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Graphify-Labs/graphify"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "addyosmani/agent-skills",
+   "about": "Production-grade engineering skills for AI coding agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "119,041"
+    },
+    {
+     "name": "Forks",
+     "desc": "12,400"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/addyosmani/agent-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Leonxlnx/taste-skill",
+   "about": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "118,641"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,938"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Leonxlnx/taste-skill"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "thedotmack/claude-mem",
+   "about": "Persistent Context Across Sessions for Every Agent – Captures everything your agent does during sessions, compresses it with AI, and injects relevant context back into future sessions. Works with Claude Code, OpenClaw, Codex, Gemini, Hermes, Copilot, OpenCode + More.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "118,303"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,289"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/thedotmack/claude-mem"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "paperclipai/paperclip",
+   "about": "The open-source app everyone uses to manage agents at work.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "114,903"
+    },
+    {
+     "name": "Forks",
+     "desc": "19,079"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/paperclipai/paperclip"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "pbakaus/impeccable",
+   "about": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "113,126"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,738"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/pbakaus/impeccable"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "nexu-io/open-design",
+   "about": "The 1st Collaborative AI Design Agent Workspace. Local-first and open source. Create motion, prototypes, websites, apps, dashboards, presentations, images, and videos with your team and AI agents. Share work, exchange feedback, and iterate together in one workspace.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "108,416"
+    },
+    {
+     "name": "Forks",
+     "desc": "12,301"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nexu-io/open-design"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "tt-a1i/archify",
+   "about": "Turn any idea, plan, or codebase into a beautiful interactive diagram. An agent skill for Claude Code, Codex, and more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "97,887"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,684"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tt-a1i/archify"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Egonex-AI/Understand-Anything",
+   "about": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works with Claude Code, Codex, Cursor, Copilot, Gemini CLI, and more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "93,232"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,954"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Egonex-AI/Understand-Anything"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "lobehub/lobehub",
+   "about": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "85,837"
+    },
+    {
+     "name": "Forks",
+     "desc": "16,351"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/lobehub/lobehub"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "career-ops-hq/career-ops",
+   "about": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume and cover letter, get interview prep and an application tracker. It helps you fill in each application; you press Submit. Runs locally in Codex…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "83,646"
+    },
+    {
+     "name": "Forks",
+     "desc": "15,332"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/career-ops-hq/career-ops"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "ComposioHQ/awesome-claude-skills",
+   "about": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "79,851"
+    },
+    {
+     "name": "Forks",
+     "desc": "9,789"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ComposioHQ/awesome-claude-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "code-yeongyu/oh-my-openagent",
+   "about": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "70,996"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,847"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/code-yeongyu/oh-my-openagent"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "blader/humanizer",
+   "about": "Agent skill that removes signs of AI-generated writing from text.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "70,975"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,564"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/blader/humanizer"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "shanraisshan/claude-code-best-practice",
+   "about": "from vibe coding to agentic engineering - practice makes claude perfect.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "69,218"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,884"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/shanraisshan/claude-code-best-practice"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "cathrynlavery/diagram-design",
+   "about": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG. No shadows. No Mermaid slop.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "68,324"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,595"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/cathrynlavery/diagram-design"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "ayghri/i-have-adhd",
+   "about": "A skill to stop your coding agent from burying the answer. ADHD-friendly output.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "61,669"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,621"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ayghri/i-have-adhd"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "coreyhaines31/marketingskills",
+   "about": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "61,344"
+    },
+    {
+     "name": "Forks",
+     "desc": "8,946"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/coreyhaines31/marketingskills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "hesreallyhim/awesome-claude-code",
+   "about": "A hand-picked collection of the finest of resources for the most awesome of agents, Claude Code, the undisputed champion of coding companions, from the unstoppable team at Anthropic PBC (no affiliation). A delectable showcase of top tier skills, ambidextrous agents, scintillating status lines, top…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "58,336"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,976"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/hesreallyhim/awesome-claude-code"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "emilkowalski/skills",
+   "about": "Skills for Designers and Engineers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "58,067"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,417"
+    },
+    {
+     "name": "Language",
+     "desc": "Markdown"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/emilkowalski/skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "K-Dense-AI/scientific-agent-skills",
+   "about": "Turn any AI agent into an AI Scientist. The #1 Agent Skills library for science, used by 250,000+ scientists worldwide. 177 ready-to-use validated skills plus 100+ scientific databases covering biology, chemistry, medicine, and drug discovery. Compatible with Cursor, Claude Code, Codex, Pi…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "57,780"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,074"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/K-Dense-AI/scientific-agent-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "alibaba/open-code-review",
+   "about": "Secure, fast, efficient, battle-tested at Alibaba's scale. Hybrid architecture code review tool: deterministic pipelines + LLM Agent, precise line-level comments, built-in multi-language ruleset (NPE, thread-safety, XSS, SQL injection), OpenAI & Anthropic compatible.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "54,268"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,490"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alibaba/open-code-review"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "VoltAgent/awesome-openclaw-skills",
+   "about": "The awesome collection of OpenClaw skills. 5,400+ skills filtered and categorized from the official OpenClaw Skills Registry.🦞.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "53,857"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,071"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/VoltAgent/awesome-openclaw-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "CherryHQ/cherry-studio",
+   "about": "Your AI workspace for models, agents, and productivity.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "53,652"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,238"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/CherryHQ/cherry-studio"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "obsidianmd/obsidian-skills",
+   "about": "Agent skills for Obsidian. Teach your agent to use Obsidian CLI and open formats including Markdown, Bases, JSON Canvas.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "53,194"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,787"
+    },
+    {
+     "name": "Language",
+     "desc": "Shell"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/obsidianmd/obsidian-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "sickn33/agentic-awesome-skills",
+   "about": "3,000+ reusable AI agent skills for Claude Code, Codex, Cursor and Gemini CLI. AAS Core adds local catalog discovery, agent-owned selection and plan preview. CLI, MCP and plugins.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "49,974"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,245"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/sickn33/agentic-awesome-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "jeecgboot/JeecgBoot",
+   "about": "一款免费开源的 AI 低代码平台，也是 AI 时代构建复杂业务系统的开源基座！权限、多租户、工作流、报表、大屏、AI 知识库等通用能力开箱即用，AI 只需生成业务差异部分。AI Skills 一句话生成完整系统——建表、前后端代码、菜单权限、BPM 流程、表单、报表、大屏全自动。内置 AI 应用平台（聊天、知识库、流程编排、MCP），兼容主流大模型.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "48,522"
+    },
+    {
+     "name": "Forks",
+     "desc": "16,219"
+    },
+    {
+     "name": "Language",
+     "desc": "Java"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jeecgboot/JeecgBoot"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "zhayujie/CowAgent",
+   "about": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-model, multi-channel. Lightweight, extensible, one-line install.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "48,003"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,434"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/zhayujie/CowAgent"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "anthropics/claude-plugins-official",
+   "about": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "47,688"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,943"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/anthropics/claude-plugins-official"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "reactive-resume/reactive-resume",
+   "about": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "45,910"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,962"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/reactive-resume/reactive-resume"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "wshobson/agents",
+   "about": "Plugins, agents, skills, and commands for Claude Code, Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi, written once in Markdown and adapted to each tool by generators with validation and evals.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "42,682"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,513"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/wshobson/agents"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "github/awesome-copilot",
+   "about": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "41,345"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,389"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/github/awesome-copilot"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "JCodesMore/ai-website-cloner-template",
+   "about": "Clone any website with one command using AI coding agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "39,487"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,885"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/JCodesMore/ai-website-cloner-template"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "alchaincyf/nuwa-skill",
+   "about": "你想蒸馏的下一个员工，何必是同事。蒸馏任何人的思维方式——心智模型、决策启发式、表达DNA。Distill how anyone thinks.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,625"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,925"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alchaincyf/nuwa-skill"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "virgiliojr94/book-to-skill",
+   "about": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,441"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,095"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/virgiliojr94/book-to-skill"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "agentscope-ai/QwenPaw",
+   "about": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "37,963"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,293"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/agentscope-ai/QwenPaw"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "VoltAgent/awesome-agent-skills",
+   "about": "A curated collection of 1000+ agent skills from official dev teams and the community, compatible with Claude Code, Codex, Gemini CLI, Cursor, and more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "37,340"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,168"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/VoltAgent/awesome-agent-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "freestylefly/awesome-gpt-image-2",
+   "about": "Prompt as Code | GPT Image 2 / 2.5 提示词与案例库，530+ 个案例、20+ 套工业级模板与可复用 Skills，新增 2.5 同提示词对比专区，附完整提示词与生成记录，持续更新。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "35,968"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,404"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/freestylefly/awesome-gpt-image-2"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "iOfficeAI/AionUi",
+   "about": "Open-source 24/7 Cowork app for OpenClaw, Hermes, Claude Code, Codex, OpenCode and 20+ more CLI Agent | Customize your assistants | Team them up｜Star if you like it!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "34,376"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,598"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/iOfficeAI/AionUi"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "mksglu/context-mode",
+   "about": "Free, local plugin that keeps tool output out of your coding agent's context window. Sandbox and SQLite FTS5 search, 99% fewer bytes in context. Works with Claude Code, Codex, Pi, OMP, OpenCode, Gemini CLI, Copilot CLI and 4 more agents. Zero telemetry.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "34,290"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,357"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mksglu/context-mode"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "davila7/claude-code-templates",
+   "about": "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "33,988"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,046"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/davila7/claude-code-templates"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "alibaba/nacos",
+   "about": "an easy-to-use dynamic service discovery, configuration and service management platform for building AI cloud native applications.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "33,534"
+    },
+    {
+     "name": "Forks",
+     "desc": "13,292"
+    },
+    {
+     "name": "Language",
+     "desc": "Java"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alibaba/nacos"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "iOfficeAI/OfficeCLI",
+   "about": "OfficeCLI is the first and best Office suite purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free, open-source, single binary, no Office installation required.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "33,447"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,286"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/iOfficeAI/OfficeCLI"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "topoteretes/cognee",
+   "about": "Cognee is the open-source AI memory platform for agents. Give your AI agents persistent long-term memory with small models for free.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "33,402"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,533"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/topoteretes/cognee"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "googleworkspace/cli",
+   "about": "Google Workspace CLI — one command-line tool for Drive, Gmail, Calendar, Sheets, Docs, Chat, Admin, and more. Dynamically built from Google Discovery Service. Includes AI agent skills.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "32,395"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,998"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/googleworkspace/cli"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "nanocoai/nanoclaw",
+   "about": "Your own always-on AI assistant: self-hosted, open source, lightweight. Each agent runs in its own container on your machine, on the harness you choose (Claude Code, Codex, Cursor, OpenCode). Talk to it from Slack, WhatsApp, Telegram, Discord and more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "31,124"
+    },
+    {
+     "name": "Forks",
+     "desc": "12,644"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nanocoai/nanoclaw"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "op7418/guizang-ppt-skill",
+   "about": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power presentation runtime.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,105"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,069"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/op7418/guizang-ppt-skill"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "alirezarezvani/claude-skills",
+   "about": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,099"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,172"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alirezarezvani/claude-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "alchaincyf/huashu-design",
+   "about": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill for Claude Code, Codex, Cursor & any agent.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "29,853"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,185"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alchaincyf/huashu-design"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Ebazhanov/linkedin-skill-assessments-quizzes",
+   "about": "Full reference of LinkedIn answers 2024 for skill assessments (aws-lambda, rest-api, javascript, react, git, html, jquery, mongodb, java, Go, python, machine-learning, power-point) linkedin excel test lösungen, linkedin machine learning test LinkedIn test questions and answers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,881"
+    },
+    {
+     "name": "Forks",
+     "desc": "12,825"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-29"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Ebazhanov/linkedin-skill-assessments-quizzes"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "yikart/AiToEarn",
+   "about": "Let's use AI to Earn!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,386"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,746"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/yikart/AiToEarn"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "phuryn/pm-skills",
+   "about": "PM Skills Marketplace: 100+ agentic skills, commands, and plugins — from discovery to strategy, execution, launch, and growth.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,165"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,896"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/phuryn/pm-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "OthmanAdi/planning-with-files",
+   "about": "Persistent file-based planning for AI coding agents and long-running tasks. Crash-proof markdown plans, session recovery after /clear and compaction, per-turn re-injection against context rot, deterministic completion gate. Manus-style. Install from npm, the Claude Code plugin marketplace, or npx…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,135"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,316"
+    },
+    {
+     "name": "Language",
+     "desc": "Shell"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/OthmanAdi/planning-with-files"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "JimLiu/baoyu-skills",
+   "about": "27.7K stars.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,697"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,006"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/JimLiu/baoyu-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "agentskills/agentskills",
+   "about": "Specification and documentation for Agent Skills.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,452"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,047"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/agentskills/agentskills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "NVIDIA/SkillSpector",
+   "about": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills before you install them.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "26,869"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,392"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/NVIDIA/SkillSpector"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "titanwings/distilly",
+   "about": "Distilly — Distill how they think into reusable Skills for any Agent or Bot. Formerly Colleague Skill（原同事 Skill）.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "26,673"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,272"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/titanwings/distilly"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "pascalorg/editor",
+   "about": "Open-source 3D architecture software for AECO, scan-to-BIM. Agent-friendly, browser-first, MCP, CLI.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "25,615"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,185"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/pascalorg/editor"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "flipped-aurora/gin-vue-admin",
+   "about": "🚀Vite+Vue3+Gin拥有AI辅助的基础开发平台，企业级业务AI+开发解决方案，内置mcp辅助服务，内置skills管理，支持TS和JS混用。它集成了JWT鉴权、权限管理、动态路由、显隐可控组件、分页封装、多点登录拦截、资源权限、上传下载、代码生成器、表单生成器和可配置的导入导出等开发必备功能。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "25,144"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,102"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/flipped-aurora/gin-vue-admin"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "nocobase/nocobase",
+   "about": "NocoBase is the open-source platform for building, running, and evolving business systems with AI. Agents write the code and do the work, NocoBase provides the foundation and governance, and people make the decisions.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "24,968"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,956"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nocobase/nocobase"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "google/skills",
+   "about": "Agent Skills for Google products and technologies.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "24,438"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,024"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/google/skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "citrolabs/ego-lite",
+   "about": "The fastest browser for AI agents to run browser automation, built for sharing your logged-in browser state with your AI agents, like Codex or Claude Code, without disturbing you. Zero cost, zero config.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,671"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,337"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/citrolabs/ego-lite"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "KKKKhazix/khazix-skills",
+   "about": "数字生命卡兹克开源的 AI Skills 合集 | Agent Skills: leader（帮你定义目标）, neat-freak 洁癖, hv-analysis, khazix-writer & more — Claude Code, Codex & 40+ agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,407"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,352"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/KKKKhazix/khazix-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "latent-spaces/brag",
+   "about": "You built it. Now brag. Turn the project you just created into a short, shareable launch video with one command.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,971"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,712"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/latent-spaces/brag"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "eclipse-theia/theia",
+   "about": "Eclipse Theia is an open-source platform for building custom IDEs and tools for browser and desktop. It includes Theia AI, the vendor-neutral AI harness platform, and powers the AI-native Theia IDE.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,772"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,948"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "EPL-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/eclipse-theia/theia"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Vincentwei1021/video-shotcraft",
+   "about": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync, sound design, Motion Workbench & JianYing (CapCut CN) export.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,505"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,982"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Vincentwei1021/video-shotcraft"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "google/elephant-goldfish-model",
+   "about": "Open-source plugin for designing and reviewing software with agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,254"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,575"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/google/elephant-goldfish-model"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "teng-lin/notebooklm-py",
+   "about": "Unofficial Python API and agentic skill for Google Gemini Notebook. Full programmatic access to Gemini Notebook's features—including capabilities the web UI doesn't expose—via Python, CLI, and AI agents like Claude Code, Codex, and OpenClaw.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,289"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,692"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/teng-lin/notebooklm-py"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "wanshuiyin/Auto-claude-code-research-in-sleep",
+   "about": "ARIS ⚔️ (Auto-Research-In-Sleep) — Lightweight Markdown-only skills for autonomous ML research: cross-model review loops, idea discovery, and experiment automation. No framework, no lock-in — works with Claude Code, Codex, OpenClaw, or any LLM agent.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,456"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,562"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/wanshuiyin/Auto-claude-code-research-in-sleep"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "microsoft/SkillOpt",
+   "about": "SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,158"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,835"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/microsoft/SkillOpt"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "lemomo-ai/lemo-opuscar",
+   "about": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in code by Claude Opus 5.5, with no video model. By Lemomo. · 一套用代码做片的风格工具箱：99 种现成风格，也能做出你自己的.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,507"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,322"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/lemomo-ai/lemo-opuscar"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "composio-community/awesome-codex-skills",
+   "about": "A curated list of practical Codex skills for automating workflows across the Codex CLI and API.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,360"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,783"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/composio-community/awesome-codex-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "kubesphere/kubesphere",
+   "about": "The container platform tailored for Kubernetes multi-cloud, datacenter, and edge management ⎈ 🖥 ☁️.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,087"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,751"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/kubesphere/kubesphere"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "dreammis/social-auto-upload",
+   "about": "自动化上传视频到社交媒体：抖音、小红书、视频号、tiktok、youtube、bilibili.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,704"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,826"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-22"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/dreammis/social-auto-upload"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "AgriciDaniel/claude-obsidian",
+   "about": "Self-organizing AI second brain for Obsidian + Claude Code. Drop any source and Claude reads, links, and files it into one connected knowledge graph of plain Markdown you own. AI note-taking, personal knowledge management (PKM), and an open-source Notion alternative. Based on Karpathy's LLM Wiki…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,604"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,627"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-25"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/AgriciDaniel/claude-obsidian"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "alibaba/zvec",
+   "about": "A lightweight, lightning-fast, in-process vector database.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,266"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,027"
+    },
+    {
+     "name": "Language",
+     "desc": "C++"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alibaba/zvec"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "nidhinjs/prompt-master",
+   "about": "A Claude skill that writes the accurate prompts for any AI tool. Zero tokens or credits wasted. Full context and memory retention.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,138"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,855"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-22"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nidhinjs/prompt-master"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "travisvn/awesome-claude-skills",
+   "about": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows — particularly Claude Code.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,873"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,165"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-04-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/travisvn/awesome-claude-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "eigent-ai/eigent",
+   "about": "Eigent: The Open Source Cowork Desktop - Local and Free Alternative to Claude Cowork and Codex.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,850"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,894"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/eigent-ai/eigent"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "ConardLi/garden-skills",
+   "about": "ConardLi's open-source Skills collection, featuring web design, knowledge retrieval, image generation, and more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,473"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,754"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ConardLi/garden-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "yusufkaraaslan/Skill_Seekers",
+   "about": "Convert documentation websites, GitHub repositories, and PDFs into Claude AI skills with automatic conflict detection.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,341"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,562"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/yusufkaraaslan/Skill_Seekers"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "OrchestratorInc/agent-orchestrator",
+   "about": "Plan, run and supervise fleets of agents from task to merged PR. Desktop (macOS, Windows, Linux) + iPhone & Android apps. Supports Claude Code, Codex & 35+ coding agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,912"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,054"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/OrchestratorInc/agent-orchestrator"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Orchestra-Research/AI-Research-SKILLs",
+   "about": "Comprehensive open-source library of AI research and engineering skills for any AI model. Package the skills and your claude code/codex/gemini agent will be an AI research agent with full horsepower. Maintained by Orchestra Research.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,672"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,008"
+    },
+    {
+     "name": "Language",
+     "desc": "TeX"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Orchestra-Research/AI-Research-SKILLs"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "NevaMind-AI/memU",
+   "about": "Personal memory across agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,627"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,103"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/NevaMind-AI/memU"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "krillinai/OpenCreator",
+   "about": "Formerly KrillinAI, VideoTranslation and Dubbing Tool for 120+ Languages. Open-source AI workspace for creators, powered by Codex. Video downloader, video translation, create videos, images, audios, and edits with Agents in one place. For your Social Media like YouTube, TikTok, Instagram, etc.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,427"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,615"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/krillinai/OpenCreator"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "EverMind-AI/EverOS",
+   "about": "One portable memory layer for every AI agent: local-first, Markdown-native, user-owned, and self-evolving across apps, tools, and workflows.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,940"
+    },
+    {
+     "name": "Forks",
+     "desc": "978"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/EverMind-AI/EverOS"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "backnotprop/plannotator",
+   "about": "The workspace to stay in the loop and on top of agents - shape, decide, plan, annotate, review code, share with team, and send all feedback to agents with one click.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,552"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,368"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/backnotprop/plannotator"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "HKUSTDial/Supervisor-Skills",
+   "about": "将博导十年科研经验炼化为可直接调用的 AI 技能。从 Idea 构思到论文投稿，你的 AI 科研副导师。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,967"
+    },
+    {
+     "name": "Forks",
+     "desc": "766"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/HKUSTDial/Supervisor-Skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "genspark-ai/genoffice",
+   "about": "Free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent, plus a `genoffice` CLI and agent skill so Claude Code, Codex and Cursor can create and edit real .docx/.xlsx/.pptx files locally. Bring your own key. macOS, Windows & Linux.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,630"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,763"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/genspark-ai/genoffice"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "tw93/Kami",
+   "about": "👩‍🚒 Good content deserves good paper. Layout rules and templates that let AI agents export PDF, PNG and editable PowerPoint.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,581"
+    },
+    {
+     "name": "Forks",
+     "desc": "585"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tw93/Kami"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "Jeffallan/claude-skills",
+   "about": "67 Specialized Skills for Full-Stack Developers. Transform Claude Code into your expert pair programmer.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,454"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,200"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Jeffallan/claude-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "MemTensor/MemOS",
+   "about": "Self-evolving memory OS for LLM & AI Agents: ultra-persistent memory, hybrid-retrieval, and cross-task skill reuse, with 35.24% token savings and DeepSeek Harness support.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,450"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,130"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/MemTensor/MemOS"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
+   "table": "ChenLiu-1996/figures4papers",
+   "about": "My Python scripts to make high-quality figures for publications in top AI conferences and journals.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,279"
+    },
+    {
+     "name": "Forks",
+     "desc": "875"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ChenLiu-1996/figures4papers"
+    }
+   ]
+  }
+ ],
+ "gh-design": [
+  {
+   "database": "Design",
+   "table": "donnemartin/system-design-primer",
+   "about": "Learn how to design large-scale systems. Prep for the system design interview. Includes Anki flashcards.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "378,449"
+    },
+    {
+     "name": "Forks",
+     "desc": "59,321"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/donnemartin/system-design-primer"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "nextlevelbuilder/ui-ux-pro-max-skill",
+   "about": "An AI skill that provides design intelligence for building professional UI/UX across multiple platforms.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "151,531"
+    },
+    {
+     "name": "Forks",
+     "desc": "16,006"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "VoltAgent/awesome-design-md",
+   "about": "A collection of DESIGN.md files analysis by popular brand design systems. Drop one into your project and let coding agents generate a matching UI.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "128,203"
+    },
+    {
+     "name": "Forks",
+     "desc": "14,169"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/VoltAgent/awesome-design-md"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "mui/material-ui",
+   "about": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "99,355"
+    },
+    {
+     "name": "Forks",
+     "desc": "32,486"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mui/material-ui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "penpot/penpot",
+   "about": "Penpot: The open-source design platform for Product teams that need scalable collaboration.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "62,541"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,440"
+    },
+    {
+     "name": "Language",
+     "desc": "Clojure"
+    },
+    {
+     "name": "Licence",
+     "desc": "MPL-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/penpot/penpot"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "tldraw/tldraw",
+   "about": "Build infinite canvas apps in React with the tldraw SDK. World's best, top-most agent recommended #1 five star SDK.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "51,492"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,611"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tldraw/tldraw"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "jgthms/bulma",
+   "about": "Modern CSS framework based on Flexbox.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "50,035"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,856"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jgthms/bulma"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "saadeghi/daisyui",
+   "about": "🌼 🌼 🌼 🌼 🌼 The most popular, free and open-source Tailwind CSS component library.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "42,900"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,726"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/saadeghi/daisyui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "goabstract/Awesome-Design-Tools",
+   "about": "The best design tools and plugins for everything 👉.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "41,963"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,426"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-07-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/goabstract/Awesome-Design-Tools"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "vuetifyjs/vuetify",
+   "about": "🐉 Vue Component Framework.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "41,045"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,098"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/vuetifyjs/vuetify"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "chakra-ui/chakra-ui",
+   "about": "Chakra UI is a component system for building SaaS products with speed ⚡️.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "40,736"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,651"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/chakra-ui/chakra-ui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "chatwoot/chatwoot",
+   "about": "Open-source live-chat, email support, omni-channel desk. An alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "40,156"
+    },
+    {
+     "name": "Forks",
+     "desc": "9,764"
+    },
+    {
+     "name": "Language",
+     "desc": "Ruby"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/chatwoot/chatwoot"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "Dogfalo/materialize",
+   "about": "Materialize, a CSS Framework based on Material Design.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,773"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,572"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Dogfalo/materialize"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "nextcloud/server",
+   "about": "☁️ Nextcloud server, a safe home for all your data.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "37,555"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,366"
+    },
+    {
+     "name": "Language",
+     "desc": "PHP"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nextcloud/server"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "GraphiteEditor/Graphite",
+   "about": "Community-built comprehensive 2D content creation appplication for graphic design, digital art, and interactive real-time motion graphics powered by a node-based procedural graphics engine.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,985"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,334"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/GraphiteEditor/Graphite"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "onlook-dev/onlook",
+   "about": "The Developer Tool for Designers • An Open-Source AI-First Design tool • Visually build, style, and edit your code with AI • World's best, top-most agent recommended #1 Developer tool for Designers and Visual Engineers to design with Real Code.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,266"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,151"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/onlook-dev/onlook"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "simple-icons/simple-icons",
+   "about": "SVG icons for popular brands.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "26,237"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,199"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "CC0-1.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/simple-icons/simple-icons"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "lucide-icons/lucide",
+   "about": "Beautiful & consistent icon toolkit made by the community. Lucide is an open-source icon library that provides 2000+ vector (svg) files for displaying icons and symbols in digital and non-digital projects.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "25,860"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,700"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/lucide-icons/lucide"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "processing/p5.js",
+   "about": "p5.js is a client-side JS platform that empowers artists, designers, students, and anyone to learn to code and express themselves creatively on the web. It is based on the core principles of Processing. Looking for p5.js 2.0? http://beta.p5js.org.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "24,398"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,915"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "LGPL-2.1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/processing/p5.js"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "iview/iview",
+   "about": "A high quality UI Toolkit built on Vue.js 2.0.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,742"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,035"
+    },
+    {
+     "name": "Language",
+     "desc": "Vue"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/iview/iview"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "pedronauck/docz",
+   "about": "✍ It has never been so easy to document your things!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,555"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,395"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-11-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/pedronauck/docz"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "palantir/blueprint",
+   "about": "A React-based UI toolkit for the web.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,220"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,374"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/palantir/blueprint"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "vueComponent/ant-design-vue",
+   "about": "🌈 An enterprise-class UI components based on Ant Design and Vue. 🐜.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,719"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,882"
+    },
+    {
+     "name": "Language",
+     "desc": "Vue"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/vueComponent/ant-design-vue"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "rsms/inter",
+   "about": "The Inter font family.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,094"
+    },
+    {
+     "name": "Forks",
+     "desc": "487"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "OFL-1.1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rsms/inter"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "alyssaxuu/screenity",
+   "about": "The free and privacy-friendly screen recorder with no limits 🎥.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,002"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,552"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alyssaxuu/screenity"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "mojs/mojs",
+   "about": "The motion graphics toolbelt for the web.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,932"
+    },
+    {
+     "name": "Forks",
+     "desc": "904"
+    },
+    {
+     "name": "Language",
+     "desc": "CoffeeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mojs/mojs"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "ellisonleao/magictools",
+   "about": ":video_game: :pencil: A list of Game Development resources to make magic happen.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,825"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,360"
+    },
+    {
+     "name": "Language",
+     "desc": "Markdown"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ellisonleao/magictools"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "gztchan/awesome-design",
+   "about": "🌟 Curated design resources from all over the world.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,800"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,257"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-07-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/gztchan/awesome-design"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "dair-ai/ml-visuals",
+   "about": "🎨 ML Visuals contains figures and templates which you can reuse and customize to improve your scientific writing.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,458"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,548"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-02-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/dair-ai/ml-visuals"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "MaterialDesignInXAML/MaterialDesignInXamlToolkit",
+   "about": "Google's Material Design in XAML & WPF, for C# & VB.Net.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,304"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,486"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "terkelg/awesome-creative-coding",
+   "about": "Creative Coding: Generative Art, Data visualization, Interaction Design, Resources.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,629"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,016"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/terkelg/awesome-creative-coding"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "originalankur/maptoposter",
+   "about": "Transform your favorite cities into beautiful, minimalist designs. MapToPoster lets you create and export visually striking map posters with code.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,327"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,253"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/originalankur/maptoposter"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "TomSchimansky/CustomTkinter",
+   "about": "A modern and customizable python UI-library based on Tkinter.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,621"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,164"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/TomSchimansky/CustomTkinter"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "stenciljs/core",
+   "about": "A toolchain for building scalable, enterprise-ready component systems on top of TypeScript and Web Component standards. Stencil components can be distributed natively to React, Angular, Vue, (+ more) and traditional web applications from a single, framework-agnostic codebase.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,155"
+    },
+    {
+     "name": "Forks",
+     "desc": "868"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/stenciljs/core"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "primer/css",
+   "about": "Primer is GitHub's design system. This is the CSS implementation.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,060"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,291"
+    },
+    {
+     "name": "Language",
+     "desc": "SCSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/primer/css"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "markmead/hyperui",
+   "about": "Free Tailwind CSS v4 components for your next project, designed to enhance your web development with the latest features and styles 🚀.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,287"
+    },
+    {
+     "name": "Forks",
+     "desc": "524"
+    },
+    {
+     "name": "Language",
+     "desc": "Astro"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/markmead/hyperui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "CosmicMind/Material",
+   "about": "A UI/UX framework for creating beautiful applications.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,025"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,260"
+    },
+    {
+     "name": "Language",
+     "desc": "Swift"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2022-05-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/CosmicMind/Material"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "IBM/plex",
+   "about": "The package of IBM’s typeface, IBM Plex.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,783"
+    },
+    {
+     "name": "Forks",
+     "desc": "625"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "OFL-1.1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/IBM/plex"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "tachyons-css/tachyons",
+   "about": "Functional css for humans.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,731"
+    },
+    {
+     "name": "Forks",
+     "desc": "659"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tachyons-css/tachyons"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "jdan/98.css",
+   "about": "A design system for building faithful recreations of old UIs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,634"
+    },
+    {
+     "name": "Forks",
+     "desc": "383"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-09-07"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jdan/98.css"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "material-components/material-web",
+   "about": "Material Design Web Components.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,459"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,173"
+    },
+    {
+     "name": "Language",
+     "desc": "SCSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/material-components/material-web"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "mui/base-ui",
+   "about": "Unstyled UI components for building accessible web apps and design systems. From the creators of Radix, Floating UI, and Material UI.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,457"
+    },
+    {
+     "name": "Forks",
+     "desc": "619"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mui/base-ui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "microsoft/fluentui-system-icons",
+   "about": "Fluent System Icons are a collection of familiar, friendly and modern icons from Microsoft.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,994"
+    },
+    {
+     "name": "Forks",
+     "desc": "817"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/microsoft/fluentui-system-icons"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "akveo/react-native-ui-kitten",
+   "about": "React Native UI library built on the Eva Design System: 30+ themeable, accessible components for iOS, Android and web. TypeScript, React 19 / RN 0.81, Eva and Material themes with runtime light/dark switching, on-demand style compilation.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,667"
+    },
+    {
+     "name": "Forks",
+     "desc": "962"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/akveo/react-native-ui-kitten"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "DouyinFE/semi-design",
+   "about": "🚀A modern, comprehensive, flexible design system and React UI library, AI-friendly built-in.🎨Provide 3000+ Design Tokens, easy to build your design system. Make Semi Design to Any Design.🧑🏻‍💻 Design to Code in one click.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,495"
+    },
+    {
+     "name": "Forks",
+     "desc": "862"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/DouyinFE/semi-design"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "milligram/milligram",
+   "about": "A minimalist CSS framework.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,215"
+    },
+    {
+     "name": "Forks",
+     "desc": "725"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/milligram/milligram"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "evolus/pencil",
+   "about": "The Pencil Project's unique mission is to build a free and opensource tool for making diagrams and GUI prototyping that everyone can use.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,924"
+    },
+    {
+     "name": "Forks",
+     "desc": "797"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/evolus/pencil"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "swyxio/spark-joy",
+   "about": "Archived — Spark Joy now lives on Forge.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,776"
+    },
+    {
+     "name": "Forks",
+     "desc": "355"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-06-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/swyxio/spark-joy"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "carbon-design-system/carbon",
+   "about": "A design system built by IBM.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,630"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,305"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/carbon-design-system/carbon"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "miqdadbadjuber/anti-slop",
+   "about": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,530"
+    },
+    {
+     "name": "Forks",
+     "desc": "654"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/miqdadbadjuber/anti-slop"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "themesberg/flowbite",
+   "about": "Open-source UI component library and front-end development framework based on Tailwind CSS.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,388"
+    },
+    {
+     "name": "Forks",
+     "desc": "867"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-06-27"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/themesberg/flowbite"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "mdbootstrap/material-design-for-bootstrap",
+   "about": "Important! A new UI Kit version for Bootstrap 5 is available. Access the latest free version via the link below.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,240"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,105"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-27"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mdbootstrap/material-design-for-bootstrap"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "webstudio-is/webstudio",
+   "about": "Open source website builder and Webflow alternative. Webstudio is an advanced visual builder that connects to any headless CMS, supports all CSS properties, and can be hosted anywhere, including with us.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,178"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,638"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/webstudio-is/webstudio"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "rawgraphs/rawgraphs-app",
+   "about": "A web interface to create custom vector-based visualizations on top of RAWGraphs core.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,058"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,838"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rawgraphs/rawgraphs-app"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "nuejs/nue",
+   "about": "Fastest way to build modern websites.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "8,803"
+    },
+    {
+     "name": "Forks",
+     "desc": "260"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-02-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nuejs/nue"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "grommet/grommet",
+   "about": "a react-based framework that provides accessibility, modularity, responsiveness, and theming in a tidy package.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "8,352"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,043"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/grommet/grommet"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "ikuaitu/vue-fabric-editor",
+   "about": "快图设计-基于fabric.js和Vue的开源图片编辑器，可自定义字体、素材、设计模板。fabric.js and Vue based image editor, can customize fonts, materials, design templates.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "8,003"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,402"
+    },
+    {
+     "name": "Language",
+     "desc": "Vue"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ikuaitu/vue-fabric-editor"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "ParthJadhav/app-store-screenshots",
+   "about": "end to end app store screenshot creation using AI.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,990"
+    },
+    {
+     "name": "Forks",
+     "desc": "566"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-07"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ParthJadhav/app-store-screenshots"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "prasadgujar/low-level-design-primer",
+   "about": "Dedicated Resources for the Low-Level System Design. Learn how to design and implement large-scale systems. Prep for the system design interview.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,985"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,489"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/prasadgujar/low-level-design-primer"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "rebassjs/rebass",
+   "about": ":atom_symbol: React primitive UI components built with styled-system.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,898"
+    },
+    {
+     "name": "Forks",
+     "desc": "624"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-07-27"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rebassjs/rebass"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "andreasbm/web-skills",
+   "about": "A visual overview of useful skills to learn as a web developer.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,682"
+    },
+    {
+     "name": "Forks",
+     "desc": "730"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-04-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/andreasbm/web-skills"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "tw93/Waza",
+   "about": "🥷 Engineering habits you already know, turned into skills AI assistants like Claude Code, Codex and Cursor can run.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,609"
+    },
+    {
+     "name": "Forks",
+     "desc": "437"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tw93/Waza"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "WXRIW/Lyricify-App",
+   "about": "Lyricify (/lɪ'rɪsəfaɪ/), a fantastic app to provide scroll lyrics for Spotify, Apple Music and other apps. 一款为 Spotify、Apple Music 等各种应用提供滚动歌词的软件。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,403"
+    },
+    {
+     "name": "Forks",
+     "desc": "128"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/WXRIW/Lyricify-App"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "react95-io/React95",
+   "about": "🌈🕹 Windows 95 style UI component library for React.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,296"
+    },
+    {
+     "name": "Forks",
+     "desc": "214"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/react95-io/React95"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "uswds/uswds",
+   "about": "The U.S. Web Design System helps the federal government build fast, accessible, mobile-friendly websites.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,248"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,126"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/uswds/uswds"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "plasmicapp/plasmic",
+   "about": "Visual builder for React. Build apps, websites, and content. Integrate with your codebase.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,169"
+    },
+    {
+     "name": "Forks",
+     "desc": "742"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/plasmicapp/plasmic"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "grab/cursor-talk-to-figma-mcp",
+   "about": "TalkToFigma: MCP integration between AI Agent (Cursor, Claude Code, Codex) and Figma, allowing Agentic AI to communicate with Figma for reading designs and modifying them programmatically.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "7,121"
+    },
+    {
+     "name": "Forks",
+     "desc": "795"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/grab/cursor-talk-to-figma-mcp"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "unovue/reka-ui",
+   "about": "An open-source UI component library for building high-quality, accessible design systems and web apps for Vue. Previously Radix Vue.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,968"
+    },
+    {
+     "name": "Forks",
+     "desc": "588"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/unovue/reka-ui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "nordtheme/nord",
+   "about": "An arctic, north-bluish color palette.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,924"
+    },
+    {
+     "name": "Forks",
+     "desc": "186"
+    },
+    {
+     "name": "Language",
+     "desc": "SCSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-10-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nordtheme/nord"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "oldratlee/translations",
+   "about": "🐼 Chinese translations for classic software development resources.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,911"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,525"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-03-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/oldratlee/translations"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "adamschwartz/magic-of-css",
+   "about": "A CSS course to turn you into a magician.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,676"
+    },
+    {
+     "name": "Forks",
+     "desc": "400"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-05-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/adamschwartz/magic-of-css"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "nraiden/cofounder",
+   "about": "ai-generated apps , full stack + generative UI.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,645"
+    },
+    {
+     "name": "Forks",
+     "desc": "712"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-11-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nraiden/cofounder"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "TalkingData/iview-weapp",
+   "about": "一套高质量的微信小程序 UI 组件库.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,601"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,142"
+    },
+    {
+     "name": "Language",
+     "desc": "Less"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-03-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/TalkingData/iview-weapp"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "ant-design/ant-design-landing",
+   "about": ":mountain_bicyclist: Landing Pages of Ant Design System.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,541"
+    },
+    {
+     "name": "Forks",
+     "desc": "663"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-08-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ant-design/ant-design-landing"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "Jakubantalik/transitions.dev",
+   "about": "UI motion agent, a library of 43+ crafted transitions, a skill that fits your workflow.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,406"
+    },
+    {
+     "name": "Forks",
+     "desc": "307"
+    },
+    {
+     "name": "Language",
+     "desc": "HTML"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Jakubantalik/transitions.dev"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "elastic/eui",
+   "about": "Elastic UI Framework 🙌.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,388"
+    },
+    {
+     "name": "Forks",
+     "desc": "929"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/elastic/eui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "vmware-archive/clarity",
+   "about": "Clarity is a scalable, accessible, customizable, open source design system built with web components. Works with any JavaScript framework, built for enterprises, and designed to be inclusive.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,385"
+    },
+    {
+     "name": "Forks",
+     "desc": "723"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-03-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/vmware-archive/clarity"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "webslides/WebSlides",
+   "about": "Create HTML presentations in seconds —.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,328"
+    },
+    {
+     "name": "Forks",
+     "desc": "586"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2022-12-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/webslides/WebSlides"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "czy0729/Bangumi",
+   "about": ":electron: An unofficial https://bgm.tv ui first app client for Android and iOS, built with React Native. 一个无广告、以爱好为驱动、不以盈利为目的、专门做 ACG 的类似豆瓣的追番记录，bgm.tv 第三方客户端。为移动端重新设计，内置大量加强的网页端难以实现的功能，且提供了相当的自定义选项。 目前已适配 iOS / Android。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,260"
+    },
+    {
+     "name": "Forks",
+     "desc": "168"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/czy0729/Bangumi"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "chakra-ui/panda",
+   "about": "🐼 Universal, Type-Safe, CSS-in-JS Framework for Design Systems ⚡️.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,258"
+    },
+    {
+     "name": "Forks",
+     "desc": "329"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/chakra-ui/panda"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "Shopify/polaris-react-archive",
+   "about": "Shopify's Polaris Design System - React implementation (Deprecated).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,146"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,245"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Shopify/polaris-react-archive"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "jolaleye/cssfx",
+   "about": "✨ Beautifully simple click-to-copy CSS effects.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,106"
+    },
+    {
+     "name": "Forks",
+     "desc": "347"
+    },
+    {
+     "name": "Language",
+     "desc": "Vue"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2021-08-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jolaleye/cssfx"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "skeletonlabs/skeleton",
+   "about": "Skeleton is an adaptive design system powered by Tailwind CSS.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,093"
+    },
+    {
+     "name": "Forks",
+     "desc": "391"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/skeletonlabs/skeleton"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "ghosh/uiGradients",
+   "about": "🔴 Beautiful colour gradients for design and code.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "6,034"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,393"
+    },
+    {
+     "name": "Language",
+     "desc": "Vue"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ghosh/uiGradients"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "dbacinski/Design-Patterns-In-Kotlin",
+   "about": "Design Patterns implemented in Kotlin.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,987"
+    },
+    {
+     "name": "Forks",
+     "desc": "685"
+    },
+    {
+     "name": "Language",
+     "desc": "Kotlin"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-06-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/dbacinski/Design-Patterns-In-Kotlin"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "bendc/animateplus",
+   "about": "A+ animation module for the modern web.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,948"
+    },
+    {
+     "name": "Forks",
+     "desc": "277"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2018-07-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/bendc/animateplus"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "basscss/basscss",
+   "about": "Low-level CSS Toolkit – the original Functional/Utility/Atomic CSS library.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,898"
+    },
+    {
+     "name": "Forks",
+     "desc": "293"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2022-12-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/basscss/basscss"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "arco-design/arco-design",
+   "about": "A comprehensive React UI components library based on Arco Design.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,772"
+    },
+    {
+     "name": "Forks",
+     "desc": "727"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/arco-design/arco-design"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "CodingTrain/website-archive",
+   "about": "Archive of the Coding Train website (first version).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,743"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,419"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2022-07-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/CodingTrain/website-archive"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "knadh/oat",
+   "about": "Ultra-lightweight, zero dependency, semantic HTML, CSS, JS UI library. ~10KB min+gz.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,612"
+    },
+    {
+     "name": "Forks",
+     "desc": "264"
+    },
+    {
+     "name": "Language",
+     "desc": "CSS"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/knadh/oat"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "chakra-ui/ark",
+   "about": "Unstyled, accessible UI components for your design System. Works in React, Vue, Solid, and Svelte.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,477"
+    },
+    {
+     "name": "Forks",
+     "desc": "225"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/chakra-ui/ark"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "benjitaylor/agentation",
+   "about": "The visual feedback tool for agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,452"
+    },
+    {
+     "name": "Forks",
+     "desc": "433"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-22"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/benjitaylor/agentation"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "system-ui/theme-ui",
+   "about": "Build consistent, themeable React apps based on constraint-based design principles.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,413"
+    },
+    {
+     "name": "Forks",
+     "desc": "649"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-06-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/system-ui/theme-ui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "williamngan/pts",
+   "about": "A library for visualization and creative-coding.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,372"
+    },
+    {
+     "name": "Forks",
+     "desc": "185"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/williamngan/pts"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "gluestack/gluestack-ui",
+   "about": "React & React Native Components & Patterns (copy-paste components & patterns crafted with Tailwind CSS (NativeWind)).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,360"
+    },
+    {
+     "name": "Forks",
+     "desc": "238"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/gluestack/gluestack-ui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "akiraux/Akira",
+   "about": "Native Linux App for UI and UX Design built in Vala and GTK.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,346"
+    },
+    {
+     "name": "Forks",
+     "desc": "198"
+    },
+    {
+     "name": "Language",
+     "desc": "Vala"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-12-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/akiraux/Akira"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "raysan5/raygui",
+   "about": "A simple and easy-to-use immediate-mode gui library.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,290"
+    },
+    {
+     "name": "Forks",
+     "desc": "409"
+    },
+    {
+     "name": "Language",
+     "desc": "C"
+    },
+    {
+     "name": "Licence",
+     "desc": "Zlib"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/raysan5/raygui"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "nateherkai/scroll-craft",
+   "about": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a Claude Code plugin.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,249"
+    },
+    {
+     "name": "Forks",
+     "desc": "732"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nateherkai/scroll-craft"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "JakeLin/SwiftLanguageWeather",
+   "about": "Swift Language Weather is an iOS weather app developed in Swift 4.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,239"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,206"
+    },
+    {
+     "name": "Language",
+     "desc": "Swift"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-09-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/JakeLin/SwiftLanguageWeather"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "Appllama/appllama-skills",
+   "about": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,231"
+    },
+    {
+     "name": "Forks",
+     "desc": "265"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Appllama/appllama-skills"
+    }
+   ]
+  }
+ ],
+ "gh-api": [
+  {
+   "database": "API",
+   "table": "public-apis/public-apis",
+   "about": "A collective list of free APIs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "500,166"
+    },
+    {
+     "name": "Forks",
+     "desc": "56,118"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/public-apis/public-apis"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "fastapi/fastapi",
+   "about": "FastAPI framework, high performance, easy to learn, fast to code, ready for production.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "104,889"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,361"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/fastapi/fastapi"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "neovim/neovim",
+   "about": "Vim-fork focused on extensibility and usability.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "103,840"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,414"
+    },
+    {
+     "name": "Language",
+     "desc": "Vim Script"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/neovim/neovim"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "hoppscotch/hoppscotch",
+   "about": "Open-Source API Development Ecosystem • https://hoppscotch.io • Offline, On-Prem & Cloud • Web, Desktop & CLI • Open-Source Alternative to Postman, Insomnia.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "80,849"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,248"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/hoppscotch/hoppscotch"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "ocornut/imgui",
+   "about": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "77,171"
+    },
+    {
+     "name": "Forks",
+     "desc": "12,121"
+    },
+    {
+     "name": "Language",
+     "desc": "C++"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ocornut/imgui"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "typicode/json-server",
+   "about": "Get a full fake REST API with zero coding in less than 30 seconds (seriously).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "75,748"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,275"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/typicode/json-server"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "strapi/strapi",
+   "about": "🚀 Strapi is the leading open-source headless CMS. It’s 100% JavaScript/TypeScript, fully customizable, and developer-first.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "73,517"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,032"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/strapi/strapi"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "nocodb/nocodb",
+   "about": "🔥 🔥 🔥 A Free & Self-hostable Airtable Alternative.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "65,573"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,140"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nocodb/nocodb"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "meilisearch/meilisearch",
+   "about": "A lightning-fast search engine API bringing AI-powered hybrid search to your sites and applications.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "59,909"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,801"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/meilisearch/meilisearch"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "mudler/LocalAI",
+   "about": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "50,443"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,618"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mudler/LocalAI"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "usebruno/bruno",
+   "about": "Opensource IDE For Exploring and Testing API's (lightweight alternative to Postman/Insomnia).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "48,460"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,123"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/usebruno/bruno"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "chatanywhere/GPT_API_free",
+   "about": "免费大模型API，支持免费调用GPT、DeepSeek等主流模型，免费额度10000点，每日刷新！另付费价格最低官方1-2折！.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "46,349"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,780"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/chatanywhere/GPT_API_free"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "ccxt/ccxt",
+   "about": "A unified trading API with more than 100 crypto exchanges and prediction markets in JavaScript / TypeScript / Python / C# / PHP / Go / Java / Rust.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "44,923"
+    },
+    {
+     "name": "Forks",
+     "desc": "8,989"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ccxt/ccxt"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "trpc/trpc",
+   "about": "🧙‍♀️ Move Fast and Break Nothing. End-to-end typesafe APIs made easy.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "40,818"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,738"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/trpc/trpc"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "gofiber/fiber",
+   "about": "⚡️ Express inspired web framework written in Go.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "40,286"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,160"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/gofiber/fiber"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Kong/insomnia",
+   "about": "The open-source, cross-platform API client for GraphQL, REST, WebSockets, SSE and gRPC. With Cloud, Local and Git storage.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "40,165"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,404"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Kong/insomnia"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "The-Vibe-Company/quivr",
+   "about": "An open-source engine that turns continuous content streams into search and monitoring. Durable ingestion, hybrid search, alerts, and plugins for formats, models and business rules.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "39,651"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,727"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/The-Vibe-Company/quivr"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "directus/directus",
+   "about": "The flexible backend for all your projects 🐰 Turn your DB into a headless CMS, admin panels, or apps with a custom UI, instant APIs, auth & more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,766"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,994"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/directus/directus"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "httpie/cli",
+   "about": "🥧 HTTPie CLI — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, plugins & more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,724"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,143"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "BSD-3-Clause"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-12-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/httpie/cli"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "songquanpeng/one-api",
+   "about": "LLM API 管理 & 分发系统，支持 OpenAI、Azure、Anthropic Claude、Google Gemini、DeepSeek、字节豆包、ChatGLM、文心一言、讯飞星火、通义千问、360 智脑、腾讯混元等主流模型，统一 API 适配，可用于 key 管理与二次分发。单可执行文件，提供 Docker 镜像，一键部署，开箱即用。LLM API management & key redistribution system, unifying multiple providers under a single API. Single binary…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "37,448"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,886"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-01-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/songquanpeng/one-api"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "slatedocs/slate",
+   "about": "Beautiful static documentation for your API.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "35,989"
+    },
+    {
+     "name": "Forks",
+     "desc": "357"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-02-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/slatedocs/slate"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "binwiederhier/ntfy",
+   "about": "Send push notifications to your phone or desktop using PUT/POST.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "35,642"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,726"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/binwiederhier/ntfy"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "zeromicro/go-zero",
+   "about": "A cloud-native Go microservices framework with cli tool for productivity.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "33,433"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,332"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/zeromicro/go-zero"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "hasura/graphql-engine",
+   "about": "Blazing fast, instant realtime GraphQL APIs on all your data with fine grained access control, also trigger webhooks on database events.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "32,128"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,966"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/hasura/graphql-engine"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "encode/django-rest-framework",
+   "about": "Web APIs for Django. 🎸.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,240"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,101"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/encode/django-rest-framework"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Binaryify/NeteaseCloudMusicApi",
+   "about": "网易云音乐 Node.js API service.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,216"
+    },
+    {
+     "name": "Forks",
+     "desc": "16,007"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-02-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Binaryify/NeteaseCloudMusicApi"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "swagger-api/swagger-ui",
+   "about": "Swagger UI is a collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "29,087"
+    },
+    {
+     "name": "Forks",
+     "desc": "9,245"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/swagger-api/swagger-ui"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "pppscn/SmsForwarder",
+   "about": "短信转发器——监控Android手机短信、来电、APP通知，并根据指定规则转发到其他手机：钉钉群自定义机器人、钉钉企业内机器人、企业微信群机器人、飞书机器人、企业微信应用消息、邮箱、bark、webhook、Telegram机器人、Server酱、PushPlus、手机短信等。包括主动控制服务端与客户端，让你轻松远程发短信、查短信、查通话、查话簿、查电量等。（V3.0 新增）PS.这个APK主要是学习与自用，如有BUG请提ISSUE，同时欢迎大家提PR指正.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,942"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,530"
+    },
+    {
+     "name": "Language",
+     "desc": "Kotlin"
+    },
+    {
+     "name": "Licence",
+     "desc": "BSD-2-Clause"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/pppscn/SmsForwarder"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "PostgREST/postgrest",
+   "about": "REST API for any Postgres database.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,764"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,239"
+    },
+    {
+     "name": "Language",
+     "desc": "Haskell"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/PostgREST/postgrest"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "YMFE/yapi",
+   "about": "YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,691"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,795"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-08-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/YMFE/yapi"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "OpenAPITools/openapi-generator",
+   "about": "OpenAPI Generator allows generation of API client libraries (SDK generation), server stubs, documentation and configuration automatically given an OpenAPI Spec (v2, v3).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "26,863"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,775"
+    },
+    {
+     "name": "Language",
+     "desc": "Java"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/OpenAPITools/openapi-generator"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "littlecodersh/ItChat",
+   "about": "A complete and graceful API for Wechat. 微信个人号接口、微信机器人及命令行微信，三十行即可自定义个人号机器人。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "26,451"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,579"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-09-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/littlecodersh/ItChat"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Skyvern-AI/skyvern",
+   "about": "Automate browser based workflows with AI.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,464"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,251"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Skyvern-AI/skyvern"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "shieldfy/API-Security-Checklist",
+   "about": "Checklist of the most important security countermeasures when designing, testing, and releasing your API.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,368"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,650"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/shieldfy/API-Security-Checklist"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "microsoft/api-guidelines",
+   "about": "Microsoft REST API Guidelines.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,350"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,683"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/microsoft/api-guidelines"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "go-chi/chi",
+   "about": "lightweight, idiomatic and composable router for building Go HTTP services.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,118"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,731"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-07"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/go-chi/chi"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "wwebjs/whatsapp-web.js",
+   "about": "A WhatsApp client library for NodeJS that connects through the WhatsApp Web browser app.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,932"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,212"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/wwebjs/whatsapp-web.js"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Evil0ctal/Douyin_TikTok_Download_API",
+   "about": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark video downloader — async REST API, MCP server for AI agents, CLI and web console, plus offline speech-to-text for downloaded videos. Self-healing identity…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,493"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,984"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "parse-community/parse-server",
+   "about": "Parse Server for Node.js / Express.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,395"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,813"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/parse-community/parse-server"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "FallibleInc/security-guide-for-developers",
+   "about": "Security Guide for Developers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,108"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,566"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-08-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/FallibleInc/security-guide-for-developers"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "gofr-dev/gofr",
+   "about": "An opinionated GoLang framework for accelerated microservice development. Built in support for databases and observability.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,794"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,790"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/gofr-dev/gofr"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "paularmstrong/normalizr",
+   "about": "Normalizes nested JSON according to a schema.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,777"
+    },
+    {
+     "name": "Forks",
+     "desc": "851"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2022-03-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/paularmstrong/normalizr"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "bitwarden/server",
+   "about": "Bitwarden infrastructure/backend (API, database, Docker, etc).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,674"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,839"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/bitwarden/server"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "grpc-ecosystem/grpc-gateway",
+   "about": "gRPC to JSON proxy generator following the gRPC HTTP spec.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,018"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,413"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "BSD-3-Clause"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/grpc-ecosystem/grpc-gateway"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "web3/web3.js",
+   "about": "Collection of comprehensive TypeScript libraries for Interaction with the Ethereum JSON RPC API and utility functions.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,897"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,085"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-03-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/web3/web3.js"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "iii-hq/iii",
+   "about": "Effortlessly compose, extend, observe, discover, and react to every service in real-time for the first time ever.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,935"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,274"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/iii-hq/iii"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "getmaxun/maxun",
+   "about": "Turn any website into a structured API. Extract, automate, search and monitor the web.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,522"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,596"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/getmaxun/maxun"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "mswjs/msw",
+   "about": "The industry standard for API mocking in JavaScript.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,355"
+    },
+    {
+     "name": "Forks",
+     "desc": "651"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mswjs/msw"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "swagger-api/swagger-codegen",
+   "about": "swagger-codegen contains a template-driven engine to generate documentation, API clients and server stubs in different languages by parsing your OpenAPI / Swagger definition.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,803"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,933"
+    },
+    {
+     "name": "Language",
+     "desc": "Mustache"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/swagger-api/swagger-codegen"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "LibreTranslate/LibreTranslate",
+   "about": "Free and Open Source Machine Translation API. Self-hosted, offline capable and easy to setup.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,791"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,866"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/LibreTranslate/LibreTranslate"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "JoeanAmier/TikTokDownloader",
+   "about": "抖音 / TikTok 平台作品下载/数据采集工具.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,560"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,890"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/JoeanAmier/TikTokDownloader"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Evolink-AI/awesome-gpt-image-2-API-Prompts",
+   "about": "GPT-Image-2 API and Prompts.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,424"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,755"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "CC0-1.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Evolink-AI/awesome-gpt-image-2-API-Prompts"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "apache/apisix",
+   "about": "The Cloud-Native API Gateway and AI Gateway.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,343"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,011"
+    },
+    {
+     "name": "Language",
+     "desc": "Lua"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/apache/apisix"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "rmyndharis/OpenWA",
+   "about": "Free, Open Source, Self-Hosted WhatsApp API Gateway.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,045"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,990"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rmyndharis/OpenWA"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "scalar/scalar",
+   "about": "Scalar is an open-source API platform: 🌐 Modern REST API Client 📖 Beautiful API References ✨ 1st-Class OpenAPI/Swagger Support.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,428"
+    },
+    {
+     "name": "Forks",
+     "desc": "976"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/scalar/scalar"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "public-api-lists/public-api-lists",
+   "about": "A curated list of free public APIs — searchable, community-maintained, with a free JSON API.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,425"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,975"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/public-api-lists/public-api-lists"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Jackett/Jackett",
+   "about": "API Support for your favorite torrent trackers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,387"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,603"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Jackett/Jackett"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "fangzesheng/free-api",
+   "about": "收集免费的接口服务,做一个api的搬运工.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,298"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,645"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/fangzesheng/free-api"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "FlareSolverr/FlareSolverr",
+   "about": "Proxy server to bypass Cloudflare protection.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,262"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,303"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/FlareSolverr/FlareSolverr"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "gotify/server",
+   "about": "A simple server for sending and receiving messages in real-time per WebSocket. (Includes a sleek web-ui).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,224"
+    },
+    {
+     "name": "Forks",
+     "desc": "902"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/gotify/server"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "amplication/amplication",
+   "about": "Amplication brings order to the chaos of large-scale software development by creating Golden Paths for developers - streamlined workflows that drive consistency, enable high-quality code practices, simplify onboarding, and accelerate standardized delivery across teams.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,007"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,537"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-06-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/amplication/amplication"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "apitable/apitable",
+   "about": "🚀🎉📚 APITable, an API-oriented low-code platform for building collaborative apps and better than all other Airtable open-source alternatives.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,670"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,422"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/apitable/apitable"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "jsdoc/jsdoc",
+   "about": "An API documentation generator for JavaScript.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,475"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,490"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jsdoc/jsdoc"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "BrainJS/brain.js",
+   "about": "🤖 GPU accelerated Neural networks in JavaScript for Browsers and Node.js.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,856"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,069"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-09-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/BrainJS/brain.js"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "youfou/wxpy",
+   "about": "微信机器人 / 可能是最优雅的微信个人号 API ✨✨.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,250"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,347"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2019-07-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/youfou/wxpy"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "kgrzybek/modular-monolith-with-ddd",
+   "about": "Full Modular Monolith application with Domain-Driven Design approach.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,147"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,199"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-06-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/kgrzybek/modular-monolith-with-ddd"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "mnfst/awesome-free-llm-apis",
+   "about": "List of Permanent Free LLM API (API Keys).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,678"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,675"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "CC0-1.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mnfst/awesome-free-llm-apis"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "xszyou/Fay",
+   "about": "fay是一个帮助数字人（2.5d、3d、移动、pc、网页）或大语言模型（openai兼容、deepseek）连通业务系统的agent框架。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,641"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,374"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xszyou/Fay"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "postmanlabs/httpbin",
+   "about": "HTTP Request & Response Service, written in Python + Flask.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,637"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,921"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "ISC"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/postmanlabs/httpbin"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "gotenberg/gotenberg",
+   "about": "A developer-friendly API for converting many document formats into PDF files, and more!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,631"
+    },
+    {
+     "name": "Forks",
+     "desc": "916"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/gotenberg/gotenberg"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "JoeanAmier/XHS-Downloader",
+   "about": "小红书（XiaoHongShu、RedNote）链接提取/作品采集工具.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,333"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,947"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/JoeanAmier/XHS-Downloader"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "NangoHQ/nango",
+   "about": "Connect your agents & product to 1,000 APIs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,260"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,539"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/NangoHQ/nango"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "TonnyL/Awesome_APIs",
+   "about": ":octocat: A collection of APIs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,217"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,388"
+    },
+    {
+     "name": "Licence",
+     "desc": "CC-BY-SA-4.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2020-02-29"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/TonnyL/Awesome_APIs"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "ShishirPatil/gorilla",
+   "about": "Gorilla: Training and Evaluating LLMs for Function Calls (Tool Calls).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,079"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,425"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ShishirPatil/gorilla"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "graphile/crystal",
+   "about": "🔮 Graphile's Crystal Monorepo; home to Grafast, PostGraphile, pg-introspection, pg-sql2 and much more!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,938"
+    },
+    {
+     "name": "Forks",
+     "desc": "634"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/graphile/crystal"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "zealdocs/zeal",
+   "about": "Offline documentation browser. Your personal reference library, searchable in an instant.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,882"
+    },
+    {
+     "name": "Forks",
+     "desc": "855"
+    },
+    {
+     "name": "Language",
+     "desc": "C++"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-31"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/zealdocs/zeal"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "star7th/showdoc",
+   "about": "ShowDoc is a tool greatly applicable for an IT team to share documents online一个非常适合IT团队的在线API文档、技术文档工具.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,882"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,210"
+    },
+    {
+     "name": "Language",
+     "desc": "PHP"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/star7th/showdoc"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "Farama-Foundation/Gymnasium",
+   "about": "A standard API for single-agent reinforcement learning environments, with popular reference environments and related utilities (formerly Gym).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,838"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,543"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Farama-Foundation/Gymnasium"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "darrenburns/posting",
+   "about": "The modern API client that lives in your terminal.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,642"
+    },
+    {
+     "name": "Forks",
+     "desc": "297"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/darrenburns/posting"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "manticoresoftware/manticoresearch",
+   "about": "Open-source search database for full-text, vector, and hybrid search with real-time indexing and SQL.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,095"
+    },
+    {
+     "name": "Forks",
+     "desc": "655"
+    },
+    {
+     "name": "Language",
+     "desc": "C++"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/manticoresoftware/manticoresearch"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "presenton/presenton",
+   "about": "Open-Source AI Presentation Generator and API (Gamma, Canva, Beautiful AI, Decktopus, Presentations AI Alternative).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,974"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,788"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/presenton/presenton"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "frappe/frappe",
+   "about": "Low code web framework for real world applications, in Python and Javascript.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,128"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,546"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/frappe/frappe"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "r-spacex/SpaceX-API",
+   "about": ":rocket: Open Source REST API for SpaceX launch, rocket, core, capsule, starlink, launchpad, and landing pad data.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,921"
+    },
+    {
+     "name": "Forks",
+     "desc": "987"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-08-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/r-spacex/SpaceX-API"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "TykTechnologies/tyk",
+   "about": "Open Source API and AI Gateway supporting REST, GraphQL, TCP, gRPC and MCP (Model Context Protocol).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,896"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,171"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/TykTechnologies/tyk"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "restify/node-restify",
+   "about": "The future of Node.js REST development.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,690"
+    },
+    {
+     "name": "Forks",
+     "desc": "977"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/restify/node-restify"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "dotnet-architecture/eShopOnWeb",
+   "about": "Sample ASP.NET Core 8.0 reference application, now community supported: https://github.com/NimblePros/eShopOnWeb.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,668"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,063"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-01-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/dotnet-architecture/eShopOnWeb"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "dicebear/dicebear",
+   "about": "DiceBear is an avatar library for designers and developers. 🌍.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,113"
+    },
+    {
+     "name": "Forks",
+     "desc": "447"
+    },
+    {
+     "name": "Language",
+     "desc": "Vue"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/dicebear/dicebear"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "astrit/css.gg",
+   "about": "700+ Pure CSS, SVG & Figma UI Icons, 6000+ glyphs, patterns, colors and layouts.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,064"
+    },
+    {
+     "name": "Forks",
+     "desc": "494"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-08-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/astrit/css.gg"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "go-swagger/go-swagger",
+   "about": "Swagger 2.0 implementation for go.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,012"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,305"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/go-swagger/go-swagger"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "ruby-grape/grape",
+   "about": "An opinionated framework for creating REST-like APIs in Ruby.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "10,005"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,231"
+    },
+    {
+     "name": "Language",
+     "desc": "Ruby"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ruby-grape/grape"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "hiteshchoudhary/apihub",
+   "about": "Your own API Hub to learn and master API interaction. Ideal for frontend, mobile dev and backend developers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,872"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,518"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/hiteshchoudhary/apihub"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "falconry/falcon",
+   "about": "The no-magic web API and microservices framework for Python developers, with a focus on reliability and performance at scale.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,822"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,057"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/falconry/falcon"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "lihengming/spring-boot-api-project-seed",
+   "about": ":seedling::rocket:一个基于Spring Boot & MyBatis的种子项目，用于快速构建中小型API、RESTful API项目~.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,671"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,701"
+    },
+    {
+     "name": "Language",
+     "desc": "Java"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-12-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/lihengming/spring-boot-api-project-seed"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "loco-rs/loco",
+   "about": "🚂 🦀 The one-person framework for Rust for side-projects and startups.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,651"
+    },
+    {
+     "name": "Forks",
+     "desc": "446"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/loco-rs/loco"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "swagger-api/swagger-editor",
+   "about": "Swagger Editor.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,478"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,359"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/swagger-api/swagger-editor"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "coaidev/coai",
+   "about": "🚀 Next Gen Multi-tenant AI One-Stop Solution. Builtin Admin & Billing System. Enterprise-Grade Unified LLM Gateway Support for 200+ Models And 35+ Providers, Load Balacing w/ Priority-base Routing, Cost Management, Chat Share, Cloud Sync, Credit/Subscription Billing, All File Parsing, Web Search…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,344"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,224"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/coaidev/coai"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "vitalik/django-ninja",
+   "about": "💨 Fast, Async-ready, Openapi, type hints based framework for building APIs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,249"
+    },
+    {
+     "name": "Forks",
+     "desc": "626"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/vitalik/django-ninja"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "yagop/node-telegram-bot-api",
+   "about": "Telegram Bot API for NodeJS.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,216"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,649"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/yagop/node-telegram-bot-api"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "api-platform/api-platform",
+   "about": "🕸️ Create REST and GraphQL APIs, scaffold Jamstack webapps, stream changes in real-time.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,200"
+    },
+    {
+     "name": "Forks",
+     "desc": "967"
+    },
+    {
+     "name": "Language",
+     "desc": "PHP"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/api-platform/api-platform"
+    }
+   ]
+  },
+  {
+   "database": "API",
+   "table": "artilleryio/artillery",
+   "about": "The complete load testing platform. Everything you need for production-grade load tests. Serverless & distributed. Load test with Playwright. Load test HTTP APIs, GraphQL, WebSocket, and more. Use any Node.js module.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "9,121"
+    },
+    {
+     "name": "Forks",
+     "desc": "577"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MPL-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/artilleryio/artillery"
+    }
+   ]
+  }
+ ],
+ "gh-mcp": [
+  {
+   "database": "MCP",
+   "table": "affaan-m/ECC",
+   "about": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "306,842"
+    },
+    {
+     "name": "Forks",
+     "desc": "45,170"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/affaan-m/ECC"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "n8n-io/n8n",
+   "about": "Fair-code workflow automation platform with native AI capabilities. Combine visual building with custom code, self-host or cloud, 400+ integrations.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "211,314"
+    },
+    {
+     "name": "Forks",
+     "desc": "61,580"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/n8n-io/n8n"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "open-webui/open-webui",
+   "about": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...).",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "159,070"
+    },
+    {
+     "name": "Forks",
+     "desc": "23,110"
+    },
+    {
+     "name": "Language",
+     "desc": "Svelte"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/open-webui/open-webui"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "browser-use/browser-use",
+   "about": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "121,469"
+    },
+    {
+     "name": "Forks",
+     "desc": "13,573"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/browser-use/browser-use"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "Panniantong/Agent-Reach",
+   "about": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "113,157"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,155"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Panniantong/Agent-Reach"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "google-gemini/gemini-cli",
+   "about": "An open-source AI agent that brings the power of Gemini directly into your terminal.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "108,935"
+    },
+    {
+     "name": "Forks",
+     "desc": "14,964"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/google-gemini/gemini-cli"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ruvnet/RuView",
+   "about": "π RuView turns commodity WiFi signals into real-time spatial intelligence, vital sign monitoring, and presence detection — all without a single pixel of video.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "104,610"
+    },
+    {
+     "name": "Forks",
+     "desc": "13,593"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ruvnet/RuView"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "D4Vinci/Scrapling",
+   "about": "🕷️ The BEST Web Scraping framework that handles everything from a single request to a full-scale crawl! Don't be shy, join here: https://discord.gg/EMgGbDceNQ and follow here for daily tips and tricks: https://x.com/Scrapling_dev.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "104,291"
+    },
+    {
+     "name": "Forks",
+     "desc": "10,891"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "BSD-3-Clause"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/D4Vinci/Scrapling"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "punkpeye/awesome-mcp-servers",
+   "about": "A collection of MCP servers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "98,180"
+    },
+    {
+     "name": "Forks",
+     "desc": "20,390"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/punkpeye/awesome-mcp-servers"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "koala73/worldmonitor",
+   "about": "Real-time global intelligence dashboard. AI-powered news aggregation, geopolitical monitoring, and infrastructure tracking in a unified situational awareness interface.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "90,924"
+    },
+    {
+     "name": "Forks",
+     "desc": "14,116"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/koala73/worldmonitor"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "cheaper-inference/OmniRoute",
+   "about": "Never stop coding. Free MIT AI gateway: one endpoint, 375 providers (150+ free), 1,400+ models Kimi, Claude, GPT, Gemini, GLM, DeepSeek, MiniMax. Works with Claude Code, Codex, Cursor, OpenCode, Cline & Copilot. Quota-aware auto-fallback, RTK+Caveman compression saves 15-95% tokens, MCP/A2A…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "88,774"
+    },
+    {
+     "name": "Forks",
+     "desc": "13,693"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/cheaper-inference/OmniRoute"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "unclecode/crawl4ai",
+   "about": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open source: this repo is the Apache-2.0 crawler that powers it, and you can self-host it.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "87,549"
+    },
+    {
+     "name": "Forks",
+     "desc": "9,131"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/unclecode/crawl4ai"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "heygen-com/hyperframes",
+   "about": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to the frame.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "86,717"
+    },
+    {
+     "name": "Forks",
+     "desc": "8,058"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/heygen-com/hyperframes"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ruvnet/ruflo",
+   "about": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems. Features adaptive memory, self-learning intelligence, federation, vector RAG integration, and native Claude Code / Codex / Hermes and many more Integrated.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "82,071"
+    },
+    {
+     "name": "Forks",
+     "desc": "9,686"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ruvnet/ruflo"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "netdata/netdata",
+   "about": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI · OpenTelemetry · SNMP · NetFlow/IPFIX/sFlow · IPMI · Redfish · 800+ integrations.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "81,476"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,739"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/netdata/netdata"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "headroomlabs-ai/headroom",
+   "about": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same answers. Library, proxy, MCP server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "80,130"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,282"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/headroomlabs-ai/headroom"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "rohitg00/ai-engineering-from-scratch",
+   "about": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "79,553"
+    },
+    {
+     "name": "Forks",
+     "desc": "14,208"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rohitg00/ai-engineering-from-scratch"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "upstash/context7",
+   "about": "Context7 Platform -- Up-to-date docs for AI agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "65,104"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,271"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/upstash/context7"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "sansan0/TrendRadar",
+   "about": "⭐AI-driven public opinion & trend monitor with multi-platform aggregation, RSS, and smart alerts.🎯 告别信息过载，你的 AI 舆情监控助手与热点筛选工具！聚合多平台热点 + RSS 订阅，支持关键词精准筛选。AI 智能筛选新闻 + AI 翻译 + AI 分析简报直推手机，也支持接入 MCP 架构，赋能 AI 自然语言对话分析、情感洞察与趋势预测等。支持 Docker ，数据本地/云端自持。集成微信/飞书/钉钉/Telegram/邮件/ntfy/bark/slack 等渠道智能推送。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "63,738"
+    },
+    {
+     "name": "Forks",
+     "desc": "24,932"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/sansan0/TrendRadar"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "MemPalace/mempalace",
+   "about": "The best-benchmarked open-source AI memory system. And it's free.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "60,616"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,673"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/MemPalace/mempalace"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "bojieli/ai-agent-book",
+   "about": "《深入理解 AI Agent：设计原理与工程实践》（李博杰 著）开源主仓库：全书正文、编译版 PDF 与按章配套代码.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "58,786"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,886"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/bojieli/ai-agent-book"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ChromeDevTools/chrome-devtools-mcp",
+   "about": "Chrome DevTools for coding agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "58,276"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,879"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ChromeDevTools/chrome-devtools-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "aaif-goose/goose",
+   "about": "an open source, extensible AI agent that goes beyond code suggestions - install, execute, edit, and test with any LLM.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "56,778"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,622"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/aaif-goose/goose"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "HKUDS/nanobot",
+   "about": "Your lightweight open-source personal agent.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "50,198"
+    },
+    {
+     "name": "Forks",
+     "desc": "8,764"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/HKUDS/nanobot"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "DeusData/codebase-memory-mcp",
+   "about": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent integrations and change-aware test selection.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "48,849"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,061"
+    },
+    {
+     "name": "Language",
+     "desc": "C"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/DeusData/codebase-memory-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "LibreChat-AI/LibreChat",
+   "about": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "47,338"
+    },
+    {
+     "name": "Forks",
+     "desc": "9,748"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/LibreChat-AI/LibreChat"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "siyuan-note/siyuan",
+   "about": "An open-source, privacy-first, self-hosted knowledge workspace where humans and AI agents work together 开源、隐私优先、自托管的知识工作空间，让人与智能体在此协作.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "47,285"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,126"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/siyuan-note/siyuan"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "AstrBotDevs/AstrBot",
+   "about": "AI Agent Assistant & development framework that integrates lots of IM platforms, LLMs, plugins and AI feature, and can be your openclaw alternative. ✨.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "47,181"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,618"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/AstrBotDevs/AstrBot"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "Kong/kong",
+   "about": "🦍 The API and AI Gateway.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "44,398"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,244"
+    },
+    {
+     "name": "Language",
+     "desc": "Lua"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Kong/kong"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "tinyhumansai/openhuman",
+   "about": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "42,753"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,222"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tinyhumansai/openhuman"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "patchy631/ai-engineering-hub",
+   "about": "In-depth tutorials on LLMs, RAGs and real-world AI agent applications.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "42,021"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,720"
+    },
+    {
+     "name": "Language",
+     "desc": "Jupyter Notebook"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/patchy631/ai-engineering-hub"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "codewhale-hq/Codewhale",
+   "about": "An open-source coding agent for your terminal, written in Rust. It works with any model, can split one task across several agents, and every line of it is yours to read.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "41,182"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,571"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/codewhale-hq/Codewhale"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "drawdb-io/drawdb",
+   "about": "Free, simple, and intuitive online database diagram editor and SQL generator.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "40,347"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,371"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/drawdb-io/drawdb"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "microsoft/playwright-mcp",
+   "about": "Playwright MCP server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "39,882"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,453"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/microsoft/playwright-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "mindsdb/mindshub",
+   "about": "The unified workspace where open-source models get things done for you.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "39,867"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,228"
+    },
+    {
+     "name": "Language",
+     "desc": "Makefile"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mindsdb/mindshub"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "bytedance/UI-TARS-desktop",
+   "about": "The Open-Source Multimodal AI Agent Stack: Connecting Cutting-Edge AI Models and Agent Infra.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "39,603"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,050"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/bytedance/UI-TARS-desktop"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "can1357/oh-my-pi",
+   "about": "⌥ Coding agent with the IDE wired in. Built by Stencil Labs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "39,454"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,528"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/can1357/oh-my-pi"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "PDFMathTranslate/PDFMathTranslate",
+   "about": "[EMNLP 2025 Demo] PDF scientific paper translation with preserved formats - 基于 AI 完整保留排版的 PDF 文档全文双语翻译，支持 Google/DeepL/Ollama/OpenAI 等服务，提供 CLI/GUI/MCP/Docker/Zotero.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,531"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,455"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/PDFMathTranslate/PDFMathTranslate"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "HKUDS/Vibe-Trading",
+   "about": "\"Vibe-Trading: Your Personal Trading Agent\".",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "38,514"
+    },
+    {
+     "name": "Forks",
+     "desc": "6,270"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/HKUDS/Vibe-Trading"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "DayuanJiang/next-ai-draw-io",
+   "about": "Draw and edit draw.io diagrams by chatting with an AI. Web app, desktop app, and an MCP server for Claude Code, Cursor, Codex and VS Code.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "37,067"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,839"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/DayuanJiang/next-ai-draw-io"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "mukul975/Anthropic-Cybersecurity-Skills",
+   "about": "817 structured cybersecurity skills for AI agents · Mapped to 6 frameworks: MITRE ATT&CK, NIST CSF 2.0, MITRE ATLAS, D3FEND, NIST AI RMF & MITRE F3 (Fight Fraud) · agentskills.io standard · Works with Claude Code, GitHub Copilot, Codex CLI, Cursor, Gemini CLI & 20+ platforms · 29 security domains…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "36,390"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,448"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-31"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mukul975/Anthropic-Cybersecurity-Skills"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "agentscope-ai/agentscope",
+   "about": "Build and run agents you can see, understand and trust.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "36,288"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,890"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/agentscope-ai/agentscope"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ahujasid/mcp-for-blender",
+   "about": "Community plugin to control Blender 3D with any LLM of your choice. Not affiliated with the official Blender Foundation.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "34,986"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,197"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ahujasid/mcp-for-blender"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "github/github-mcp-server",
+   "about": "GitHub's official MCP Server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "34,579"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,373"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/github/github-mcp-server"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "78/xiaozhi-esp32",
+   "about": "An MCP-based chatbot | 一个基于MCP的聊天机器人.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "33,448"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,980"
+    },
+    {
+     "name": "Language",
+     "desc": "C++"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/78/xiaozhi-esp32"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "tirth8205/code-review-graph",
+   "about": "Local-first code intelligence graph for MCP and CLI. Builds a persistent map of your codebase so AI coding tools read only what matters, with benchmarked context reductions on reviews and large-repo workflows.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "32,854"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,988"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tirth8205/code-review-graph"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "oraios/serena",
+   "about": "A powerful MCP toolkit for coding, providing semantic retrieval and editing capabilities - the IDE for your agent.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "31,525"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,147"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/oraios/serena"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ComposioHQ/composio",
+   "about": "Composio powers 1000+ toolkits, tool search, context management, authentication, and a sandboxed workbench to help you build AI agents that turn intent into action.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "31,175"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,962"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ComposioHQ/composio"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "t8y2/dbx",
+   "about": "25 MB lightweight cross-platform database client for 100+ databases, including MySQL, PostgreSQL, SQLite, Redis, MongoDB, DuckDB, SQL Server, and Dameng. Built-in AI, MCP Server, CLI, desktop and Docker. | 轻量级跨平台数据库管理工具，支持 MySQL、PostgreSQL、SQLite、Redis、MongoDB、达梦等 100+ 数据库，提供桌面端、Docker、CLI、内置 AI…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,867"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,813"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/t8y2/dbx"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "assafelovic/gpt-researcher",
+   "about": "An autonomous agent that conducts deep research on any data using any LLM providers.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,781"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,241"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/assafelovic/gpt-researcher"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "QwenLM/qwen-code",
+   "about": "An open-source AI coding agent that lives in your terminal.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,775"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,559"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/QwenLM/qwen-code"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "labring/FastGPT",
+   "about": "FastGPT is a knowledge-based platform built on the LLMs, offers a comprehensive suite of out-of-the-box capabilities such as data processing, RAG retrieval, and visual AI workflow orchestration, letting you easily develop and deploy complex question-answering systems without the need for extensive…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,072"
+    },
+    {
+     "name": "Forks",
+     "desc": "7,381"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/labring/FastGPT"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "alibaba/page-agent",
+   "about": "JavaScript in-page GUI agent. Control web interfaces with natural language.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "29,716"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,649"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alibaba/page-agent"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "mastra-ai/mastra",
+   "about": "Mastra is the modern TypeScript framework for AI-powered applications and agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "29,632"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,120"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mastra-ai/mastra"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "yamadashy/repomix",
+   "about": "📦 Repomix is a powerful tool that packs your entire repository into a single, AI-friendly file. Perfect for when you need to feed your codebase to Large Language Models (LLMs) or other AI tools like Claude, ChatGPT, DeepSeek, Perplexity, Gemini, Gemma, Llama, Grok, and more.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "29,332"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,648"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/yamadashy/repomix"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "PrefectHQ/fastmcp",
+   "about": "🚀 The fast, Pythonic way to build MCP servers and clients.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,665"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,627"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/PrefectHQ/fastmcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "OtterMind/Chat2DB",
+   "about": "Chat2DB is a free, cross-platform, local-first database client and SQL workspace for developers, DBAs, analysts, and data teams. Connect to 40+ databases, manage data, edit and run SQL, and use your own AI model to generate, explain, and optimize queries. Available on desktop, web, Docker, and…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,368"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,042"
+    },
+    {
+     "name": "Language",
+     "desc": "Java"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/OtterMind/Chat2DB"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "every-app/open-seo",
+   "about": "Open source alternative to Semrush and Ahrefs.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "28,291"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,004"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/every-app/open-seo"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "deepset-ai/haystack",
+   "about": "Open-source AI orchestration framework for building context-engineered, production-ready LLM applications. Design modular pipelines and agent workflows with explicit control over retrieval, routing, memory, and generation. Built for scalable agents, RAG, multimodal applications, semantic search…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "27,050"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,480"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/deepset-ai/haystack"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "go-kratos/kratos",
+   "about": "Your ultimate Go microservices framework for the cloud-native era.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "26,036"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,178"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/go-kratos/kratos"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "activepieces/activepieces",
+   "about": "AI Agents & MCPs & AI Workflow Automation • (~400 MCP servers for AI agents) • AI Automation / AI Agent with MCPs • AI Workflows & AI Agents • MCPs for AI Agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "25,617"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,479"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/activepieces/activepieces"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "vercel-labs/agent-desktop",
+   "about": "Computer use CLI for AI agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "25,429"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,899"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/vercel-labs/agent-desktop"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "NirDiamant/GenAI_Agents",
+   "about": "50+ tutorials and implementations for Generative AI Agent techniques, from basic conversational bots to complex multi-agent systems.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "25,065"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,202"
+    },
+    {
+     "name": "Language",
+     "desc": "Jupyter Notebook"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/NirDiamant/GenAI_Agents"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "modelcontextprotocol/python-sdk",
+   "about": "The official Python SDK for Model Context Protocol servers and clients.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "24,901"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,143"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/modelcontextprotocol/python-sdk"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "akfamily/akshare",
+   "about": "AKShare is an elegant and simple financial data interface library for Python, built for human beings! 开源财经数据接口库.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,401"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,580"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/akfamily/akshare"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "czlonkowski/n8n-mcp",
+   "about": "MCP server that lets Claude, ChatGPT, Cursor and other AI assistants operate n8n: debug, edit, validate, test and build workflows on any n8n instance.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,285"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,674"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/czlonkowski/n8n-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "1Panel-dev/MaxKB",
+   "about": "🔥 MaxKB is an open-source platform for building enterprise-grade agents. 强大易用的开源企业级智能体平台。.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "23,172"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,225"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/1Panel-dev/MaxKB"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "DuarteSantos8/openGym",
+   "about": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which muscles are trained, import from Strong/Hevy/FitNotes. Self-host it or use it on the phone alone.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,813"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,033"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/DuarteSantos8/openGym"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "dipakkr/awesome-ai-engineering",
+   "about": "🚀 A curated collection of AI engineering resources, roadmaps, tools, and projects covering LLMs, RAG, AI Agents, MCP, fine-tuning, evaluations, and production AI systems.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,600"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,866"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/dipakkr/awesome-ai-engineering"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "screenpipe/screenpipe",
+   "about": "YC (S26) | Screenpipe finds the work worth automating | Continuously record computer work locally, discover recurring workflows, and hand the result to any agent you already use.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,468"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,310"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/screenpipe/screenpipe"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "liyupi/ai-guide",
+   "about": "程序员鱼皮的 AI 资源大全 + Vibe Coding 零基础教程，分享 OpenClaw 保姆级教程、大模型玩法（DeepSeek / GPT / Gemini / Claude / GLM）、最新 AI 资讯、Prompt 提示词大全、AI 知识百科（Agent Skills / RAG / MCP / A2A）、AI 编程教程（Harness Engineering）、AI 工具用法（Cursor / Claude Code / TRAE / Codex / Copilot）、AI 开发框架教程（Spring AI / LangChain）、AI 产品变现指南，帮你快速掌握 AI…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "22,223"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,418"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/liyupi/ai-guide"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "NirDiamant/agents-towards-production",
+   "about": "End-to-end, code-first tutorials for building production-grade GenAI agents. From prototype to enterprise deployment.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,927"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,894"
+    },
+    {
+     "name": "Language",
+     "desc": "Jupyter Notebook"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/NirDiamant/agents-towards-production"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "1jehuang/jcode",
+   "about": "High performance coding agent harness written in Rust, built for heavy multi-agent dev workflows.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,900"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,556"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/1jehuang/jcode"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "qax-os/excelize",
+   "about": "Go language library for reading and writing Microsoft Excel™ (XLAM / XLSM / XLSX / XLTM / XLTX) spreadsheets.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,138"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,005"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "BSD-3-Clause"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/qax-os/excelize"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "modelscope/FunASR",
+   "about": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and OpenAI-compatible/MCP serving.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,071"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,137"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/modelscope/FunASR"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "datawhalechina/easy-vibe",
+   "about": "💻 Vibe Coding 101｜Your First Course For AI Product Builders.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,471"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,977"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-22"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/datawhalechina/easy-vibe"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "rocketride-org/rocketride-server",
+   "about": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers, 8+ vector databases, and agent orchestration, all from your IDE. Includes VS Code extension, TypeScript/Python SDKs, and Docker deployment.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,016"
+    },
+    {
+     "name": "Forks",
+     "desc": "8,684"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rocketride-org/rocketride-server"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xerj-org/xerj",
+   "about": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybrid search, code search without grep, agent memory and RAG. Elasticsearch-compatible API; Corpus Hub serves hundreds of reference memory corpora.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,256"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,442"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xerj-org/xerj"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "browser-use/browser-harness",
+   "about": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,153"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,896"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/browser-use/browser-harness"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "nukeop/nuclear",
+   "about": "Streaming music player that finds free music for you.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,968"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,360"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nukeop/nuclear"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "jub0t/Concat",
+   "about": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,833"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,304"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jub0t/Concat"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "microsoft/mcp-for-beginners",
+   "about": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, TypeScript, JavaScript, Rust and Python. Designed for developers, it focuses on practical techniques for building modular, scalable, and secure AI…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,680"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,696"
+    },
+    {
+     "name": "Language",
+     "desc": "Jupyter Notebook"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/microsoft/mcp-for-beginners"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xpzouying/xiaohongshu-mcp",
+   "about": "MCP for xiaohongshu.com.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,211"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,536"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xpzouying/xiaohongshu-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "apify/apify-mcp-server",
+   "about": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thousands of ready-made scrapers, crawlers, and automation tools available on the Apify Store.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,956"
+    },
+    {
+     "name": "Forks",
+     "desc": "469"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/apify/apify-mcp-server"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "triggerdotdev/trigger.dev",
+   "about": "Trigger.dev – build and deploy durable AI agents and workflows.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,783"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,533"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/triggerdotdev/trigger.dev"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "budtmo/docker-android",
+   "about": "Android in docker solution with noVNC supported, video recording, mcp server and AI-agent.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,163"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,796"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/budtmo/docker-android"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "CoplayDev/unity-mcp",
+   "about": "Unity MCP acts as a bridge between AI assistants and your Unity Editor. Give your LLM tools to manage assets, control scenes, edit scripts, and automate tasks within Unity.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,068"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,643"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/CoplayDev/unity-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "open-metadata/OpenMetadata",
+   "about": "The Open Context Layer for Data and AI , OpenMetadata is the open platform for building trusted data context and business semantics for humans, AI assistants, and agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,817"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,527"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/open-metadata/OpenMetadata"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "liketrek/TREK",
+   "about": "The most complete open-source travel planner: real-time collaboration, bookings, budgets, packing lists, journals, offline PWA, SSO and an AI-ready MCP server, with planet-wide place search and routing built in.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,810"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,352"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/liketrek/TREK"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "tonhowtf/omniget",
+   "about": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media conversion, files, chats and system cleanup. One line connects Claude Code, Codex, Cursor or Gemini CLI, and sensitive actions wait for your click. Free and…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,499"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,251"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tonhowtf/omniget"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "OpenByteInc/QuantDinger",
+   "about": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization, paper/live multi-asset execution, risk controls, monitoring, MCP, and multi-tenant SaaS in one auditable stack.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,862"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,826"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/OpenByteInc/QuantDinger"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "modelcontextprotocol/typescript-sdk",
+   "about": "The official TypeScript SDK for Model Context Protocol servers and clients.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,785"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,406"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/modelcontextprotocol/typescript-sdk"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "0x4m4/hexstrike-ai",
+   "about": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,740"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,816"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/0x4m4/hexstrike-ai"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "mrexodia/ida-pro-mcp",
+   "about": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,525"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,661"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mrexodia/ida-pro-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ccfos/nightingale",
+   "about": "Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,506"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,801"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ccfos/nightingale"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "tadata-org/fastapi_mcp",
+   "about": "Expose your FastAPI endpoints as Model Context Protocol (MCP) tools, with Auth!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,030"
+    },
+    {
+     "name": "Forks",
+     "desc": "965"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-11-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tadata-org/fastapi_mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "0xJacky/nginx-ui",
+   "about": "Yet another WebUI for Nginx.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,801"
+    },
+    {
+     "name": "Forks",
+     "desc": "921"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/0xJacky/nginx-ui"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "holaboss-ai/holaOS",
+   "about": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps, browser, local files — with shared memory. Any agent (Claude Code, Codex), any model, or BYOK. Set up in clicks, not months. Local-first: your data never…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,453"
+    },
+    {
+     "name": "Forks",
+     "desc": "729"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/holaboss-ai/holaOS"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "trailhq/Trail-Code",
+   "about": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they pick up where you left off.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,342"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,023"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/trailhq/Trail-Code"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xinnan-tech/xiaozhi-esp32-server",
+   "about": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,341"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,857"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xinnan-tech/xiaozhi-esp32-server"
     }
    ]
   }
