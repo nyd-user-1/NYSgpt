@@ -241,8 +241,12 @@ const BRAND_LOGO: Record<string, string> = {
 }
 const LISTINGS: Box[] = (() => {
   const seen = new Set<string>()
+  // sorted on the title from its first letter or digit (a leading space or bracket does not count), letters before digits
+  const k = (t: string) => { const s = t.replace(/^[^\p{L}\p{N}]+/u, ''); return (/^\p{L}/u.test(s) ? '0' : '1') + s }
   return BOXES.filter(b => !seen.has(boxKey(b)) && !!seen.add(boxKey(b)))
-    .sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base', numeric: true }))
+    .map(b => ({ b, k: k(b.title) }))
+    .sort((x, y) => x.k.localeCompare(y.k, 'en', { sensitivity: 'base', numeric: true }))
+    .map(x => x.b)
 })()
 function ListingMark({ b }: { b: Box }) {
   const brand = brandOf(b.kind)

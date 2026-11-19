@@ -49,13 +49,17 @@ const LIBRARY_SIZE = '9.2 TB'
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
   const pages = [ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
-  // The nameplate reads NYSgpt until a source's set is chosen (Enter or a click on its cell); then it wears that
-  // source's logo. Moving the keyboard or the page of cells across a source does not change it (Brendan, 2026-11-19).
-  const brand = brandOf(set)
+  // Whole mastheads side by side (Brendan, 2026-11-19): each page is a nameplate and its four cells, and the nameplate
+  // scrolls off with its cells. GitHub's and Hugging Face's pages carry their logo as the nameplate; the others read NYSgpt.
 
   return (
     <div className="hm-mast" data-inspect="HomeMasthead">
-      <div className="hm-mgrid">
+      <div className="hm-mgrid" data-inspect="LedgerScroll">
+        {pages.map((cells, p) => {
+        const b = brandOf(cells[0].set)
+        const brand = b === 'github' || b === 'hf' ? b : null
+        return (
+        <div className="hm-mpage" key={p}>
         <button
           type="button"
           data-nav="masthead"
@@ -69,12 +73,11 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           <span className="hm-ghm" aria-hidden>
             {brand && <TypeIcon icon={brand} />}
           </span>
-          <span className="hm-all" aria-hidden>{LIBRARY_SIZE}</span>
+          {!brand && <span className="hm-all" aria-hidden>{LIBRARY_SIZE}</span>}
         </button>
 
-        <div className="hm-cells" data-inspect="LedgerScroll">
-          {pages.map((cells, p) => (
-          <div className="hm-cpage" key={p}>
+        <div className="hm-cells">
+          <div className="hm-cpage">
           {cells.map((l, i) => {
             const s = l.set
             const fig = compact(l.value)
@@ -119,8 +122,9 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
             <span key={k} className="hm-cell hm-fill" aria-hidden />
           ))}
           </div>
-          ))}
         </div>
+        </div>
+        )})}
       </div>
     </div>
   )

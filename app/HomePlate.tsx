@@ -355,7 +355,7 @@ export function HomePlate() {
 
 /** The three-dot menu (ported from pax2 components/dash/card-tools.tsx by way of the sketch). */
 function BoxMenu({
-  box, at, pinned, first, fav, onShelf, onClose, onOpen, onPanel, onStay, onLeave,
+  box, at, pinned, fav, onShelf, onClose, onOpen, onPanel, onStay, onLeave,
 }: {
   /** Open the box in the right side panel. */
   onPanel: () => void
@@ -415,19 +415,11 @@ function BoxMenu({
       </div>
       <div className="hm-ksep" />
       <AnimateOnHover>
-      <button type="button" role="menuitem" className="hm-krow" disabled={first} onClick={act(() => home.pin(key))}>
-        <Icon name="pin" />
-        <span>Pin to top</span>
+      <button type="button" role="menuitem" className="hm-krow" onClick={act(() => (pinned ? home.unpin(key) : home.pin(key)))}>
+        <Icon name="pin" fill={pinned ? 'currentColor' : undefined} />
+        <span>{pinned ? 'Unpin' : 'Pin to top'}</span>
       </button>
       </AnimateOnHover>
-      {pinned && (
-        <AnimateOnHover>
-        <button type="button" role="menuitem" className="hm-krow" onClick={act(() => home.unpin(key))}>
-          <Icon name="pin" />
-          <span>Unpin</span>
-        </button>
-        </AnimateOnHover>
-      )}
       <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(() => home.toggleFav(key))}>
         <Icon name="star" fill={fav ? '#fbbf24' : undefined} />
