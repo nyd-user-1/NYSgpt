@@ -2,6 +2,7 @@ import { Geist_Mono, Plus_Jakarta_Sans } from "next/font/google"
 
 import { AppLayout } from "@/components/AppLayout"
 import { Chat } from "@/components/chat/chat"
+import { ChatInsetPanel } from "@/components/chat/ChatInsetPanel"
 import type { ScriptChip } from "@/components/chat/plus-menu"
 import { openChat } from "@/app/chat-actions"
 import { RandomUUID } from "./random-uuid"
@@ -28,9 +29,13 @@ export default async function ChatPage({ searchParams }: { searchParams: Promise
   const chatId = saved ? saved.meta.id : crypto.randomUUID()
   return (
     <AppLayout paperMode>
-      <div className={`pax-chat ${sans.variable} ${mono.variable} flex min-h-0 flex-1 flex-col font-sans text-foreground antialiased`}>
-        <RandomUUID />
-        <Chat key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} explore={false} scripts={SCRIPTS} videos={[]} shorts={[]} />
+      {/* The conversation and the inset right rail (brief 60, as nsrgpt's /graph frames its canvas): the rail narrows the conversation. */}
+      <div className="flex min-h-0 flex-1">
+        <div className={`pax-chat ${sans.variable} ${mono.variable} flex min-h-0 min-w-0 flex-1 flex-col font-sans text-foreground antialiased`}>
+          <RandomUUID />
+          <Chat key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} explore={false} scripts={SCRIPTS} videos={[]} shorts={[]} />
+        </div>
+        <ChatInsetPanel />
       </div>
     </AppLayout>
   )

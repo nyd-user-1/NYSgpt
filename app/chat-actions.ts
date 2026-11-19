@@ -21,6 +21,11 @@ export async function openChat(id: string): Promise<{ meta: ChatMeta; messages: 
   return null
 }
 
+/** The saved chats, newest first, for the inset right rail on /chat (components/chat/ChatInsetPanel.tsx; pax-trinity: DynamoDB). Here: none are kept. */
+export async function listChats(): Promise<ChatMeta[]> {
+  return []
+}
+
 /** One citation's evidence, as the citations panel reads it (components/chat/script-citations.tsx). */
 type Cite = { finding: string; research: { label: string; diff: number; low: number; high: number; ads: number; outcome: "votechoice" | "favorability" } | null; channel: { label: string; points: number; low: number; high: number; channels: number; scope: string } | null; source: { label: string; href: string } | null }
 
