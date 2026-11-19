@@ -299,7 +299,7 @@ function SwitchboardPanel() {
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
+      if (e.key !== 'Escape' || e.defaultPrevented) return // something above (the command palette) already took this Escape
       if (view.kind === 'menu' || view.kind === 'aws-register' || view.kind === 'aws-console') close()
       else back()
     }
