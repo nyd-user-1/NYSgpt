@@ -36,9 +36,20 @@ const FRIENDLY: Record<string, string> = {
 /** The pool's own password rule, checked here so a typo costs no Cognito call. */
 const weak = (pw: string) => pw.length < 10 || !/[a-z]/.test(pw) || !/\d/.test(pw);
 
+const PRIVATE = { "cache-control": "private, no-store" };
+
 export async function GET(_req: Request, { params }: { params: Promise<{ action: string }> }) {
-  if ((await params).action !== "me") return NextResponse.json({ error: "Unknown action" }, { status: 404 });
-  return NextResponse.json({ user: await currentUser() }, { headers: { "cache-control": "private, no-store" } });
+  const action = (await params).action;
+  if (action === "me") return NextResponse.json({ user: await currentUser() }, { headers: PRIVATE });
+  // An admin's own Data Library key (brief 58), from NYSGPT_ADMIN_QUERY_KEY on the server, so /search can fill its
+  // key field. Given only to a signed-in admin, never cached, never logged; everyone else gets 403 and no key.
+  if (action === "key") {
+    const user = await currentUser();
+    const key = process.env.NYSGPT_ADMIN_QUERY_KEY;
+    if (!user?.admin || !key) return NextResponse.json({ key: null }, { status: 403, headers: PRIVATE });
+    return NextResponse.json({ key }, { headers: PRIVATE });
+  }
+  return NextResponse.json({ error: "Unknown action" }, { status: 404 });
 }
 
 export async function POST(req: Request, { params }: { params: Promise<{ action: string }> }) {

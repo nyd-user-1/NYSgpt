@@ -21,6 +21,14 @@ export type Picked = { kind: 'db'; topic: string } | { kind: 'table'; stored: st
 const API = 'https://data.nysgpt.com'
 const MCP = `${API}/mcp`
 const KEY = 'nysgpt-data-key'
+/** A signed-in admin's own key from the session (brief 58), kept once found; null for everyone else, asked again next time. */
+let adminKey: Promise<string | null> | null = null
+const sessionKey = () =>
+  (adminKey ??= fetch('/api/auth/key', { cache: 'no-store' })
+    .then((r) => (r.ok ? (r.json() as Promise<{ key?: string | null }>) : null))
+    .then((b) => b?.key || null)
+    .catch(() => null)
+    .then((k) => ((adminKey = k ? adminKey : null), k)))
 const VIEWS: { id: TryView; label: string }[] = [
   { id: 'fields', label: 'Fields' },
   { id: 'data', label: 'Data' },
@@ -101,7 +109,16 @@ function ApiView({ table, home, initialSql }: { table: FullTable; home: Table | 
   const [ran, setRan] = useState<Ran | null>(null)
   const [busy, setBusy] = useState(false)
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
-  useEffect(() => setKey(localStorage.getItem(KEY) ?? ''), [])
+  useEffect(() => {
+    // A key the reader saved in this browser wins; otherwise an admin's key from the session fills the field unsaved.
+    const saved = localStorage.getItem(KEY)
+    if (saved) return void setKey(saved)
+    let live = true
+    void sessionKey().then((k) => live && k && setKey((cur) => cur || k))
+    return () => {
+      live = false
+    }
+  }, [])
   useEffect(() => {
     setSql(initialSql || `SELECT * FROM ${table.stored} LIMIT 5`)
     setRan(null)

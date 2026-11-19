@@ -15,14 +15,24 @@ const verifier = POOL && CLIENT ? CognitoJwtVerifier.create({ userPoolId: POOL, 
 
 export const SESSION_COOKIE = "nysgpt_session";
 
-export type SessionUser = { email: string };
+export type SessionUser = { email: string; admin: boolean };
+
+/**
+ * Admins (brief 58): the e-mail addresses in NYSGPT_ADMINS, comma-separated,
+ * compared without regard to case. Server-side only; unset means no admins.
+ */
+export function isAdmin(email: string): boolean {
+  const list = (process.env.NYSGPT_ADMINS ?? "").split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+  return !!email && list.includes(email.trim().toLowerCase());
+}
 
 export async function currentUser(): Promise<SessionUser | null> {
   const token = (await cookies()).get(SESSION_COOKIE)?.value;
   if (!token || !verifier) return null;
   try {
     const claims = await verifier.verify(token);
-    return { email: String(claims.email ?? "").toLowerCase() };
+    const email = String(claims.email ?? "").toLowerCase();
+    return { email, admin: isAdmin(email) };
   } catch {
     return null;
   }
