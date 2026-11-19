@@ -126,10 +126,10 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
           </colgroup>
           <thead>
             <tr>
-              <th>Field</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Sample</th>
+              <th>field</th>
+              <th>type</th>
+              <th>description</th>
+              <th>sample</th>
             </tr>
           </thead>
           <tbody>
