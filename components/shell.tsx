@@ -143,8 +143,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
   // working surface, not an address.
   const [pane2, setPane2] = React.useState<{ src: string; href: string; n: number } | null>(null)
   const pane2Ref = React.useRef<HTMLIFrameElement>(null)
-  // The second panel opens at the half (trinity, 2026-10-31); its button walks third → half → full.
-  const [size, setSize] = React.useState<PanelSize>("half")
+  // The second panel opens at a third (Brendan, 2026-11-19; nsrgpt opened it at the half); its button walks third → half → full.
+  const [size, setSize] = React.useState<PanelSize>("third")
   const [split, setSplit] = React.useState(0.5)
   const [dragging, setDragging] = React.useState(false)
   const nextSize: PanelSize = size === "third" ? "half" : size === "half" ? "full" : size === "full" ? "third" : split < 0.5 ? "half" : "full"
@@ -163,16 +163,38 @@ export function Shell({ children }: { children: React.ReactNode }) {
         return
       }
       sbClose()
-      // Data tables open at the third — the minimum (Brendan, 2026-11-04); everything else at the half.
-      setSize(href.startsWith("/viz/data/") ? "third" : "half")
+      // Every page opens at the third (Brendan, 2026-11-19).
+      setSize("third")
       setPane({ src: href, href, n: Date.now() })
     },
     [router, sbClose],
   )
+  // The second panel slides in and out over 500 ms, with its handle and the page's push (Brendan, 2026-11-19):
+  // it mounts off the right edge and moves in on the next frame; closing slides it out, then it unmounts.
+  const [shown, setShown] = React.useState(false)
+  const shutTimer = React.useRef<number | undefined>(undefined)
+  const shutPane = React.useCallback(() => {
+    setShown(false)
+    window.clearTimeout(shutTimer.current)
+    shutTimer.current = window.setTimeout(() => {
+      setPane(null)
+      setPane2(null)
+    }, 500)
+  }, [])
+  const paneN = pane?.n
+  React.useEffect(() => {
+    if (paneN === undefined) return
+    window.clearTimeout(shutTimer.current)
+    let r = requestAnimationFrame(() => {
+      r = requestAnimationFrame(() => setShown(true))
+    })
+    return () => cancelAnimationFrame(r)
+  }, [paneN])
+
   // One right panel at a time: the switchboard opening shuts the second panel.
   React.useEffect(() => {
-    if (sbOpen) setPane(null)
-  }, [sbOpen])
+    if (sbOpen) shutPane()
+  }, [sbOpen, shutPane])
 
   const goTo = React.useCallback(
     (href: string, to: Side) => {
@@ -330,7 +352,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <div
         style={{ "--pane-w": second ? "calc(100vw - 124px)" : width } as React.CSSProperties}
         data-page-slim={slim || undefined}
-        className={`${dragging ? "" : "transition-[padding] duration-300 ease-in-out"} ${pane ? "sm:pr-[calc(var(--pane-w)+18px)]" : ""}`}
+        className={`${dragging ? "" : "transition-[padding] duration-500 ease-in-out"} ${pane && shown ? "sm:pr-[calc(var(--pane-w)+18px)]" : ""}`}
       >
         {children}
       </div>
@@ -371,8 +393,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 const left = window.innerWidth - GAP - (paneRef.current?.parentElement?.getBoundingClientRect().width ?? 0)
                 resizeTo(left - GAP / 2 + (e.key === "ArrowLeft" ? -24 : 24))
               }}
-              style={{ right: `calc(${width} + 18px)` }}
-              className="group fixed top-1/2 z-40 hidden h-16 w-[18px] -translate-y-1/2 cursor-col-resize touch-none items-center justify-center outline-none sm:flex"
+              style={{ right: shown ? `calc(${width} + 18px)` : "-18px" }}
+              className={`${dragging ? "" : "transition-[right] duration-500 ease-in-out"} group fixed top-1/2 z-40 hidden h-16 w-[18px] -translate-y-1/2 cursor-col-resize touch-none items-center justify-center outline-none sm:flex`}
             >
               <span className={`h-8 w-1 rounded-full transition-colors group-hover:bg-[#033882] group-focus-visible:bg-[#033882] ${dragging ? "bg-[#033882]" : "bg-[rgba(22,24,29,0.18)] dark:bg-[rgba(240,233,216,0.2)]"}`} />
             </div>
@@ -388,11 +410,12 @@ export function Shell({ children }: { children: React.ReactNode }) {
             onSize={second ? () => {} : () => setSize(nextSize)}
             onClose={() => {
               // Closing panel 2 while panel 3 lives promotes the third into its place.
-              if (pane2) { setPane(pane2); setPane2(null) } else setPane(null)
+              if (pane2) { setPane(pane2); setPane2(null) } else shutPane()
             }}
             menu={headerMenu("pane")}
             frameRef={paneRef}
             paired={!slim}
+            shown={shown}
           />
           {second && pane2 && (
             <PaneFrame
@@ -406,6 +429,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               onClose={() => setPane2(null)}
               menu={headerMenu("pane")}
               frameRef={pane2Ref}
+              shown={shown}
             />
           )}
         </>

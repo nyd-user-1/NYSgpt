@@ -38,6 +38,7 @@ export function PaneFrame({
   menu,
   frameRef,
   paired,
+  shown = true,
 }: {
   src: string
   href: string
@@ -53,6 +54,8 @@ export function PaneFrame({
   frameRef: React.RefObject<HTMLIFrameElement | null>
   /** Beside the page (not FULL, no third panel): the corner bite carries a close, as in trinity's shell. */
   paired?: boolean
+  /** False while the panel slides in or out (components/shell.tsx): it sits off the right edge. */
+  shown?: boolean
 }) {
   const [title, setTitle] = React.useState(() => pageTitle(null, href))
   // nsrgpt names its charts from lib/header-titles.ts; NYSgpt has no such list, so the page's own title.
@@ -69,7 +72,7 @@ export function PaneFrame({
     <section
       data-pane-host
       style={{ "--pane-w": width, "--pane-r": offsetRight ?? "18px" } as React.CSSProperties}
-      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[var(--pane-r)] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-header ${dragging ? "" : "transition-[width,right] duration-300 ease-in-out"}`}
+      className={`nysgpt-app fixed inset-0 z-40 flex flex-col overflow-hidden bg-[var(--paper)] sm:inset-y-[18px] sm:left-auto sm:right-[var(--pane-r)] sm:w-[var(--pane-w)] sm:rounded-2xl sm:border sm:border-[var(--paper-rule)] sm:shadow-header ${shown ? "translate-x-0" : "translate-x-full sm:translate-x-[calc(100%+var(--pane-r))]"} ${dragging ? "" : "transition-[width,right,translate] duration-500 ease-in-out"}`}
     >
       <div {...menu} className="relative z-10 flex shrink-0 items-center gap-3 border-b border-[var(--paper-rule)] px-5 pt-5 pb-5 shadow-header">
         {/* The title as panel 1's (Brendan, 2026-11-06): the ground on hover, and the copy button beside it. */}
@@ -103,8 +106,8 @@ export function PaneFrame({
     {/* The pane is fixed, so the bite rides a fixed box on its bottom-right corner (trinity's sits in the drawer beside the pane). */}
     {paired && (
       <div
-        style={{ "--pane-r": offsetRight ?? "18px" } as React.CSSProperties}
-        className={`nysgpt-app pointer-events-none fixed bottom-[18px] right-[var(--pane-r)] z-40 size-11 ${dragging ? "" : "transition-[right] duration-300 ease-in-out"}`}
+        style={{ "--pane-r": offsetRight ?? "18px", "--pane-w": width } as React.CSSProperties}
+        className={`nysgpt-app pointer-events-none fixed bottom-[18px] right-[var(--pane-r)] z-40 size-11 ${shown ? "translate-x-0" : "translate-x-[calc(var(--pane-w)+var(--pane-r))]"} ${dragging ? "" : "transition-[right,translate] duration-500 ease-in-out"}`}
       >
         <CornerClose label="Close" onClose={onClose} name="Panel 2" />
       </div>

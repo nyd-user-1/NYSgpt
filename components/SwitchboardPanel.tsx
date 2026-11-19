@@ -353,7 +353,7 @@ function SwitchboardPanel() {
           the same thing. */}
       <aside
         aria-hidden={!open}
-        className={`nysgpt-app hm-sbanim fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto sm:w-[var(--sbw,50vw)] transition-[transform,width] duration-500 ease-in-out ${
+        className={`nysgpt-app hm-sbanim fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto sm:w-[var(--sbw,50vw)] transition-[translate,width] duration-500 ease-in-out ${
           open ? 'translate-x-0' : 'translate-x-full sm:translate-x-[calc(100%+18px)] pointer-events-none'
         }`}
       >
