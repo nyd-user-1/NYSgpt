@@ -1,7 +1,7 @@
 "use client"
 // The wordmark drawn over the page while it loads (Brendan, 2026-11-19): the stroke-drawn wordmark of the other app's
 // load curtain (its components/load-curtain.tsx and components/stroke-text.tsx, the latter copied as written), reading
-// NYSgpt: outlines in #033882 drawn letter by letter and each letter filled light blue in turn, all inside half a second. Drawn with the page's
+// NYSgpt: outlines in #033882 drawn letter by letter; once the whole outline stands (0.25 s), each letter fills light blue in turn; all inside half a second. Drawn with the page's
 // first paint, held until the drawing has finished, then faded out and removed. On the root page.
 import { useEffect, useState } from "react"
 import StrokeText from "@/components/stroke-text"
@@ -27,7 +27,7 @@ export function PageLoader() {
         <StrokeText
           text="NYSgpt"
           strokeColor="#033882"
-          strokeWidth={1.6}
+          strokeWidth={2}
           fillMode="fade"
           fillColor="#dbe7fa"
           fontSize={144}
@@ -35,9 +35,9 @@ export function PageLoader() {
           fontFamily="var(--font-display), Georgia, serif"
           letterSpacing={-4}
           drawDuration={0.15}
-          fillDelay={0}
+          fillDelay={0.1}
           fillDuration={0.15}
-          stagger={0.04}
+          stagger={0.02}
         />
       </div>
     </div>
