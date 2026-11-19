@@ -9,7 +9,9 @@ import { boxKey, getHome, home } from "@/lib/home-store"
 import { TypeIcon } from "@/app/HomeIcons"
 import type { BoxIcon } from "@/lib/home-boxes"
 
-import { ASK_AT, ITEMS, KINDS, SECTIONS, setNavigate, suggested, type CommandItem } from "./command-data"
+import { ASK_AT, ITEMS, KINDS, SECTIONS, boxActions, preloadForCommands, setNavigate, suggested, type CommandItem, type RunCtx } from "./command-data"
+import { useSwitchboard } from "@/components/SwitchboardPanel"
+import { useShellPanel } from "@/components/shell"
 import { NysgptMark as PaxMark } from "./nysgpt-mark"
 import "./command-k.css"
 
@@ -67,6 +69,27 @@ function Tile({ icon: Icon, tint, size = 28, logo, mark, fg }: { icon: React.Com
 export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number }) {
   const router = useRouter()
   React.useEffect(() => setNavigate((href) => router.push(href)), [router])
+  // Run commands (brief 51): what they can reach, and the sentence a failed one leaves in the foot.
+  const switchboard = useSwitchboard()
+  const shell = useShellPanel()
+  const ctx: RunCtx = { push: (href) => router.push(href), openBlocks: switchboard.openBlocks, openPane: shell.openPane, openResult: switchboard.openResult }
+  const [note, setNote] = React.useState("")
+  React.useEffect(() => preloadForCommands(), [])
+  const runAct = async (act: NonNullable<CommandItem["act"]>) => {
+    setNote("")
+    try {
+      const why = await act(ctx)
+      if (typeof why === "string") {
+        setNote(why)
+        setActions(false)
+        return
+      }
+      onClose()
+    } catch (e) {
+      setNote(`That did not work: ${(e as Error).message}.`)
+      setActions(false)
+    }
+  }
   const [mode, setMode] = React.useState<"search" | "ask">("search")
   const [q, setQ] = React.useState("")
   const [asked, setAsked] = React.useState("")
@@ -112,6 +135,7 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
   const current = rows[Math.min(at, rows.length - 1)]
 
   React.useEffect(() => setAt(0), [q, asked, mode])
+  React.useEffect(() => setNote(""), [q, mode])
   React.useEffect(() => {
     list.current?.querySelector('[data-picked="true"]')?.scrollIntoView({ block: "nearest" })
   }, [at])
@@ -134,6 +158,9 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
       const key = boxKey(item.box)
       if (!getHome().shelf.some((s) => s.key === key)) home.toggleShelf(item.box)
       home.placeShelf(key, slot)
+    } else if (item?.act) {
+      void runAct(item.act)
+      return
     } else if (item?.run) item.run()
     else if (item?.href) router.push(item.href)
     onClose()
@@ -143,31 +170,28 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
   const actionList: Action[] = current?.item
     ? [
         { label: KINDS[current.item.kind].action, keys: ["↵"], run: () => open(current) },
-        {
-          label: "Open in New Tab",
-          keys: ["⌘", "↵"],
-          run: () => {
-            if (current.item?.href) window.open(current.item.href, "_blank", "noopener")
-            onClose()
-          },
-        },
-        {
-          label: "Copy Link",
-          keys: ["⌘", "C"],
-          run: () => {
-            if (current.item?.href) void navigator.clipboard.writeText(`${window.location.origin}${current.item.href}`)
-            onClose()
-          },
-        },
-        {
-          label: "Add to Blocks",
-          keys: ["⌘", "B"],
-          run: () => {
-            const b = current.item?.box
-            if (b && !getHome().shelf.some((s) => s.key === boxKey(b))) home.toggleShelf(b)
-            onClose()
-          },
-        },
+        ...(current.item.href
+          ? [
+              {
+                label: "Open in New Tab",
+                keys: ["⌘", "↵"],
+                run: () => {
+                  if (current.item?.href) window.open(current.item.href, "_blank", "noopener")
+                  onClose()
+                },
+              },
+              {
+                label: "Copy Link",
+                keys: ["⌘", "C"],
+                run: () => {
+                  if (current.item?.href) void navigator.clipboard.writeText(`${window.location.origin}${current.item.href}`)
+                  onClose()
+                },
+              },
+            ]
+          : []),
+        // A box's Run commands (brief 51): only those that can work for it.
+        ...(current.item.box ? boxActions(current.item.box).map((a) => ({ label: a.label, keys: a.keys, run: () => void runAct(a.act) })) : []),
         {
           label: "Ask NYSgpt About This",
           keys: ["⌘", "J"],
@@ -304,6 +328,7 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
         <div className="cmdk-foot flex h-[52px] items-center gap-3 border-t px-4">
           <PaxMark size={18} />
           {mode === "ask" && <span className="cmdk-muted text-[14px]">Ask NYSgpt</span>}
+          {note && <span role="status" className="cmdk-note min-w-0 truncate text-[13px]" title={note}>{note}</span>}
           <span className="ml-auto flex items-center gap-2.5 text-[14px]">
             <span className="cmdk-ink font-medium">{primary}</span>
             <span className={KBD}>

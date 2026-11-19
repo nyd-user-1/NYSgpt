@@ -48,3 +48,4 @@
 /* a logo tile is always white, so the logos inside keep their light-scheme ink (the NYSgpt mark flips its ink in dark mode) */
 [data-cmdk] .cmdk-logo { color-scheme: light; }
 [data-cmdk] .cmdk-logo img { color-scheme: light; }
+[data-cmdk] .cmdk-note { color: #b42318; }
