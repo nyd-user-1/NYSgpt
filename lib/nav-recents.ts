@@ -5,8 +5,8 @@ import * as React from "react"
 // The pages lately visited, newest first, kept in this browser (Brendan, 2026-10-31): the header's Go to menu
 // leads with them. The shell records each page it arrives on, its query included.
 
-const KEY = "pax2-nav-recents"
-const EVENT = "pax2-nav-recents"
+const KEY = "nysgpt-nav-recents"
+const EVENT = "nysgpt-nav-recents"
 const KEEP = 12
 /** Pages that are a way in, not a place to go back to. */
 const SKIP = /^\/(signin|signup)(\/|$)/

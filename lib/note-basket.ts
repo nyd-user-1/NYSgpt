@@ -24,8 +24,8 @@ export type BasketItem = {
   added: string
 }
 
-const KEY = "pax2-note-basket"
-const EVENT = "pax2-note-basket"
+const KEY = "nysgpt-note-basket"
+const EVENT = "nysgpt-note-basket"
 
 const read = (): BasketItem[] => {
   try {

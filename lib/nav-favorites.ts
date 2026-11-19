@@ -4,8 +4,8 @@ import * as React from "react"
 
 // The sidebar's favorites: pages starred from an item's three-dot menu, kept in this browser.
 
-const KEY = "pax2-nav-favorites"
-const EVENT = "pax2-nav-favorites"
+const KEY = "nysgpt-nav-favorites"
+const EVENT = "nysgpt-nav-favorites"
 
 const read = (): string[] => {
   try {
