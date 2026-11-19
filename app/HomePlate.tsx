@@ -8,6 +8,9 @@ import { boxKey, home, sortBoxes, useHome } from '@/lib/home-store'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 import { Icon, TypeIcon } from './HomeIcons'
 import { AnimateOnHover } from '@/components/animate-on-hover'
+import { NOTES_AND_RIGHT_CLICK } from '@/lib/features'
+import { useBasket } from '@/lib/note-basket'
+import { collectAttr } from '@/lib/note-collect'
 
 // The Inspector's overlay loads when a reader turns it on, not with the page.
 const InspectorMode = dynamic(() => import('./InspectorMode').then(m => m.InspectorMode), { ssr: false })
@@ -244,6 +247,20 @@ export function HomePlate() {
                       if ((e.target as HTMLElement).closest('button')) return
                       openCatalog(b, e.currentTarget)
                     }}
+                    // Brief 61 (pax-trinity's right-click family): a right-click opens the box in the side panel, as its
+                    // menu's Open in panel does (Shift is the Nav's); the box carries what a note in Collect gathers
+                    // (Option and a right-click, or the menu's Add to the note), keyed by the box so Add all to Blocks
+                    // puts it on the shelf.
+                    {...(NOTES_AND_RIGHT_CLICK ? collectAttr({ kind: 'block', key, title: b.title, path: '/', anchor: key }) : {})}
+                    onContextMenu={
+                      NOTES_AND_RIGHT_CLICK
+                        ? e => {
+                            if (e.shiftKey || (e.target as HTMLElement).closest('button')) return
+                            e.preventDefault()
+                            openPanel(b)
+                          }
+                        : undefined
+                    }
                   >
                     <AnimateOnHover>
                     <button
@@ -406,6 +423,9 @@ function BoxMenu({
     onClose()
     f()
   }
+  // Add to the note (brief 61): Add to Blocks' sibling while a note is open in Collect (lib/note-basket.ts).
+  const basket = useBasket()
+  const inNote = basket.has(key)
 
   return createPortal(
     <div ref={ref} className="nysgpt-app hm-kmenu" role="menu" style={{ top: pos.top, right: pos.right }} onMouseEnter={onStay} onMouseLeave={onLeave}>
@@ -437,6 +457,24 @@ function BoxMenu({
         )}
       </button>
       </AnimateOnHover>
+      {NOTES_AND_RIGHT_CLICK && basket.open && (
+        <AnimateOnHover>
+        <button
+          type="button"
+          role="menuitem"
+          className="hm-krow"
+          onClick={act(() => (inNote ? basket.remove(key) : basket.add({ key, kind: 'block', title: box.title, path: '/', anchor: key })))}
+        >
+          <Icon name="plus" />
+          <span>{inNote ? 'Remove from the note' : 'Add to the note'}</span>
+          {inNote && (
+            <span className="hm-kchk">
+              <Icon name="check" />
+            </span>
+          )}
+        </button>
+        </AnimateOnHover>
+      )}
       <div className="hm-ksep" />
       <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(onOpen)}>
