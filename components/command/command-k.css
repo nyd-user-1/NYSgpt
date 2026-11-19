@@ -43,3 +43,4 @@
 [data-cmdk] .cmdk-act { color: var(--paper-text); }
 [data-cmdk] .cmdk-act.cmdk-on { background: #033882; color: #fff; }
 [data-cmdk] .cmdk-act.cmdk-on .cmdk-kbd { border-color: rgba(255, 255, 255, .5); background: transparent; color: #fff; }
+[data-cmdk] .cmdk-row.cmdk-on .cmdk-tile { outline: 1.5px solid rgba(255, 255, 255, .85); outline-offset: 0; }

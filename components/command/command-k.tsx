@@ -43,13 +43,13 @@ function Tile({ icon: Icon, tint, size = 28, logo }: { icon: React.ComponentType
   // A box with its own logo: the logo on white in a tile ringed in its set's colour (NYSgpt's boxes, 2026-11-19).
   if (logo)
     return (
-      <span className="flex shrink-0 items-center justify-center rounded-lg bg-white" style={{ width: size, height: size, boxShadow: `inset 0 0 0 1.5px ${tint}` }}>
+      <span className="cmdk-tile flex shrink-0 items-center justify-center rounded-lg bg-white" style={{ width: size, height: size, boxShadow: `inset 0 0 0 1.5px ${tint}` }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={logo} alt="" className={size > 40 ? "size-7 object-contain" : "size-4 object-contain"} />
       </span>
     )
   return (
-    <span className="flex shrink-0 items-center justify-center rounded-lg text-white shadow-[inset_0_-1px_0_rgb(0_0_0/0.12)]" style={{ width: size, height: size, background: tint }}>
+    <span className="cmdk-tile flex shrink-0 items-center justify-center rounded-lg text-white shadow-[inset_0_-1px_0_rgb(0_0_0/0.12)]" style={{ width: size, height: size, background: tint }}>
       <Icon className={size > 40 ? "size-7" : "size-4"} strokeWidth={2} />
     </span>
   )
