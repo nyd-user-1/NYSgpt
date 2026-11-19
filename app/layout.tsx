@@ -6,6 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
 import { DevToolsMount } from "@/components/dev/devtools-mount";
+import { Shell } from "@/components/shell";
+import { EMBED_SCRIPT } from "@/lib/pane";
 import { getDigest } from "@/lib/digest";
 import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
@@ -84,6 +86,8 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body>
+        {/* Marks a framed load (the second panel, lib/pane.ts) before paint, so its chrome never shows. */}
+        <script dangerouslySetInnerHTML={{ __html: EMBED_SCRIPT }} />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -94,9 +98,13 @@ export default async function RootLayout({
               shell wrapper and the drawer stay in one system. */}
           <ProductStatusProvider cards={CARDS}>
             <SwitchboardProvider cards={SWITCHBOARD} digest={digest}>
-              <SwitchboardShell>{children}</SwitchboardShell>
-              {/* Dev Tools (comments, sonar, inspector): on the dev server alone; a production build carries none of it. */}
-              <DevToolsMount />
+              {/* The shell (components/shell.tsx, from nsrgpt, brief 48): the second panel beside the page, and the
+                  contract the chat calls — so it sits inside it. */}
+              <Shell>
+                <SwitchboardShell>{children}</SwitchboardShell>
+                {/* Dev Tools (comments, sonar, inspector): on the dev server alone; a production build carries none of it. */}
+                <DevToolsMount />
+              </Shell>
             </SwitchboardProvider>
           </ProductStatusProvider>
         </ThemeProvider>

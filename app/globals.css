@@ -8,6 +8,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* The panel headers' shadow (nsrgpt app/globals.css, brief 48). */
+  --shadow-header: var(--pax2-shadow-header);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -66,6 +68,7 @@
 }
 
 :root {
+  --pax2-shadow-header: 0 4px 12px -8px rgb(15 23 42 / 0.21);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --radius: 0.625rem;
@@ -103,6 +106,7 @@
 }
 
 .dark {
+  --pax2-shadow-header: 0 4px 12px -8px rgb(0 0 0 / 0.5);
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -304,3 +308,11 @@
 ::view-transition-old(root) {
   z-index: 1;
 }
+
+/* The second panel's frame (lib/pane.ts, 2026-11-04): framed, the app shows only the page. EMBED_SCRIPT
+   marks <html> data-embed before paint; the shell's chrome hides and the app frame gives up its gutter and
+   card, since the panel around it is the card. (nsrgpt app/globals.css, brief 48. NYSgpt's data-app-frame
+   already names the card, so its padded container is marked data-app-shell.) */
+html[data-embed] [data-chrome] { display: none !important; }
+html[data-embed] [data-app-shell] { padding: 0 !important; }
+html[data-embed] [data-app-card] { border-width: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
