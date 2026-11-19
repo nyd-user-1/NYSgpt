@@ -109,7 +109,8 @@ const REFUSE_BIG = /too large|too big|byte limit|narrow(er)?|a smaller (question
 
 function score(q, r) {
   const want = (q.tables ?? []).map(tableName)
-  const got = (r.tables ?? []).map(tableName)
+  // found: the tables the search showed the model (sent since run 2); a table counts as found if shown or used
+  const got = [...(r.tables ?? []), ...(r.found ?? [])].map(tableName)
   const tableFound = want.length ? got.some(g => want.some(w => g === w || g.endsWith(`.${w}`) || w.endsWith(`.${g}`))) : null
   const queryRan = (r.sql ?? []).length > 0 && !r.error
   // The server sets `refused` to a label, or to true when it cannot say which (it also sets true when an
