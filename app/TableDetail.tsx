@@ -4,6 +4,15 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { compactNum, loadSample, type Sample, type Table } from '@/lib/home-catalog'
 import { Icon, TableIcon } from './HomeIcons'
 
+/** The fields button, shown while the sample rows are up: a list of lines, in the site's blue like the table button. */
+function FieldsIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#033882" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M3 5h.01M3 12h.01M3 19h.01M8 5h13M8 12h13M8 19h13" />
+    </svg>
+  )
+}
+
 /** One table: its name, counts and description, then its fields or its sample rows. Shared with the side panel. */
 export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolean; onRows: () => void; panel?: boolean }) {
   const head = useRef<HTMLDivElement>(null)
@@ -64,8 +73,14 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
             </button>
           </h3>
           {t.rows != null && (
-            <button type="button" className="hm-ovr hm-tb" aria-label="Show the sample rows" title="Show the sample rows" onClick={onRows}>
-              <TableIcon />
+            <button
+              type="button"
+              className="hm-ovr hm-tb"
+              aria-label={rows ? 'Show the fields' : 'Show the sample rows'}
+              title={rows ? 'Show the fields' : 'Show the sample rows'}
+              onClick={onRows}
+            >
+              {rows ? <FieldsIcon /> : <TableIcon />}
             </button>
           )}
         </div>

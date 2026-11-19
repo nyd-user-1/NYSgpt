@@ -252,7 +252,11 @@ export function CatalogOverlay() {
           return all.reduce((a, b) => (Math.abs(mid(b) - y) < Math.abs(mid(a) - y) ? b : a))
         }
         if (k === 'ArrowRight') {
-          if (col === 'table') return
+          // already in the tables: right again turns the right pane between the fields and the sample rows
+          if (col === 'table') {
+            setRows(v => !v)
+            return
+          }
           const to = nearest(document.querySelector('.hm-odb .hm-oi.hm-on, .hm-odb .hm-oi.hm-at'), '.hm-otb .hm-oi')
           if (to?.dataset.i) setSel(Number(to.dataset.i))
           setCol('table')

@@ -141,6 +141,8 @@
 .hm-ovb > div.hm-pane.hm-ovl { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); overflow: hidden; }
 .hm-odb, .hm-otb { min-height: 0; overflow: auto; }
 .hm-odb { border-right: 1px solid var(--paper-rule); }
+/* the two list labels stay in place; the rows pass under them */
+.hm-odb > .hm-og, .hm-otb > .hm-og { position: sticky; top: 0; z-index: 2; margin: 0; padding: 16px 20px 6px; background: var(--paper); }
 .hm-oi.hm-at { background: color-mix(in oklab, var(--paper-text) 8%, var(--paper)); }
 .hm-ovd { padding: 0 24px 32px; }
 .hm-chd { position: absolute; top: 50%; left: var(--owl, 360px); z-index: 40; display: flex; align-items: center; justify-content: center; width: 18px; height: 64px; transform: translate(-50%, -50%); cursor: col-resize; touch-action: none; outline: none; border: 0; background: none; padding: 0; }
