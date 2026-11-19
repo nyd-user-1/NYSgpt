@@ -239,7 +239,33 @@ export function CatalogOverlay() {
         if (inp && inp.value) return
         e.preventDefault()
         e.stopImmediatePropagation()
-        setCol(k === 'ArrowLeft' ? 'db' : 'table')
+        // Console movement: the cursor crosses to the row level with it in the other list, not to the top.
+        const mid = (el: Element) => {
+          const r = el.getBoundingClientRect()
+          return r.top + r.height / 2
+        }
+        const nearest = (from: Element | null, sel: string) => {
+          const all = [...document.querySelectorAll<HTMLElement>(sel)]
+          if (!all.length) return null
+          if (!from) return all[0]
+          const y = mid(from)
+          return all.reduce((a, b) => (Math.abs(mid(b) - y) < Math.abs(mid(a) - y) ? b : a))
+        }
+        if (k === 'ArrowRight') {
+          if (col === 'table') return
+          const to = nearest(document.querySelector('.hm-odb .hm-oi.hm-on, .hm-odb .hm-oi.hm-at'), '.hm-otb .hm-oi')
+          if (to?.dataset.i) setSel(Number(to.dataset.i))
+          setCol('table')
+        } else {
+          if (col === 'db') return
+          // back to the databases: the database level with the table the cursor leaves becomes the one on show
+          const to = nearest(document.querySelector('.hm-otb .hm-oi.hm-on'), '.hm-odb .hm-oi')
+          if (to?.dataset.d) {
+            setProduct(to.dataset.d)
+            setSel(null)
+          }
+          setCol('db')
+        }
       }
     }
     window.addEventListener('keydown', onKey, true)
@@ -336,7 +362,8 @@ export function CatalogOverlay() {
                   <button
                     type="button"
                     key={d}
-                    className={`hm-oi hm-od ${d === (product !== 'All' ? product : table?.database) ? (product !== 'All' && col === 'db' ? 'hm-on' : 'hm-at') : ''}`}
+                    data-d={d}
+                    className={`hm-oi hm-od ${d === (product !== 'All' ? product : table?.database) ? (product !== 'All' ? 'hm-on' : 'hm-at') : ''}`}
                     onClick={() => {
                       setProduct(d)
                       setSel(null)
@@ -357,6 +384,7 @@ export function CatalogOverlay() {
                   <button
                     type="button"
                     key={i}
+                    data-i={i}
                     className={`hm-oi ${i === cur ? (col === 'db' ? 'hm-at' : 'hm-on') : ''}`}
                     onClick={() => {
                       setSel(i)
