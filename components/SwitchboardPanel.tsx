@@ -16,7 +16,7 @@ import { SwitchboardApiList } from './SwitchboardApiList'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
 import { FeedbackDialog } from '@/components/FeedbackDialog'
-import { BOXES, KIND_NOUN, SET_INFO, TYPE_COLOR, brandOf, type Box } from '@/lib/home-boxes'
+import { BOXES, KIND_NOUN, SET_INFO, SOURCES, TYPE_COLOR, brandOf, isSource, type Box, type BoxKind } from '@/lib/home-boxes'
 import { boxKey, getHome, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
@@ -249,17 +249,27 @@ const LISTINGS: Box[] = (() => {
     .sort((x, y) => x.k.localeCompare(y.k, 'en', { sensitivity: 'base', numeric: true }))
     .map(x => x.b)
 })()
-/* The list by where each listing comes from (Brendan, 2026-11-19): NYSgpt first, then the sources A to Z; A to Z within each. */
+/* The list by where each listing comes from and what it is (Brendan, 2026-11-19): NYSgpt first, then the sources A to Z;
+   under each, its sets in the masthead's order (NYSgpt: Databases, Models, Platforms, Tables, Blocks); A to Z within a set. */
 const SOURCE_NAME: Record<string, string> = { nysgpt: 'NYSgpt', aa: 'Artificial Analysis', github: 'GitHub', hf: 'Hugging Face', kaggle: 'Kaggle', llmstats: 'LLM Stats', openrouter: 'OpenRouter' }
-const LISTING_GROUPS: { name: string; items: Box[] }[] = (() => {
-  const by = new Map<string, Box[]>()
+const OWN_SET: Partial<Record<BoxKind, string>> = { data: 'Databases', models: 'Models', platforms: 'Platforms', tables: 'Tables', tools: 'Tools' }
+const LISTING_GROUPS: { source: string; set: string; items: Box[] }[] = (() => {
+  const by = new Map<string, { k: string; source: string; set: string; at: number; items: Box[] }>()
+  BOXES.forEach((b, at) => {
+    const k = brandOf(b.kind) ?? 'nysgpt'
+    const source = SOURCE_NAME[k] ?? k
+    // a source with one set is named for what it holds (Kaggle: Datasets), one with several for the set (GitHub: Skills)
+    const set = isSource(b.kind) ? (SOURCES[b.kind].word === source ? SOURCES[b.kind].unit : SOURCES[b.kind].word) : OWN_SET[b.kind] ?? 'Blocks'
+    const id = `${k}/${set}`
+    if (!by.has(id)) by.set(id, { k, source, set, at, items: [] })
+  })
   for (const b of LISTINGS) {
     const k = brandOf(b.kind) ?? 'nysgpt'
-    by.set(k, [...(by.get(k) ?? []), b])
+    const source = SOURCE_NAME[k] ?? k
+    const set = isSource(b.kind) ? (SOURCES[b.kind].word === source ? SOURCES[b.kind].unit : SOURCES[b.kind].word) : OWN_SET[b.kind] ?? 'Blocks'
+    by.get(`${k}/${set}`)!.items.push(b)
   }
-  return [...by.entries()]
-    .map(([k, items]) => ({ k, name: SOURCE_NAME[k] ?? k, items }))
-    .sort((x, y) => (x.k === 'nysgpt' ? -1 : y.k === 'nysgpt' ? 1 : x.name.localeCompare(y.name)))
+  return [...by.values()].sort((x, y) => (x.k === y.k ? x.at - y.at : x.k === 'nysgpt' ? -1 : y.k === 'nysgpt' ? 1 : x.source.localeCompare(y.source)))
 })()
 function ListingMark({ b }: { b: Box }) {
   const brand = brandOf(b.kind)
@@ -602,9 +612,9 @@ function SwitchboardPanel() {
                   const hits = g.items.filter(b => match(q, b.title))
                   if (!hits.length) return null
                   return (
-                    <section key={g.name}>
+                    <section key={`${g.source}/${g.set}`}>
                       <p className="sticky top-0 z-[1] flex items-baseline justify-between border-b border-[var(--paper-rule)] bg-[var(--paper)] px-5 pb-2 pt-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]" style={MONO}>
-                        <span>{g.name}</span>
+                        <span>{g.source} <span className="text-[var(--paper-text)]">{g.set}</span></span>
                         <span className="tabular-nums tracking-normal">{hits.length.toLocaleString('en-US')}</span>
                       </p>
                       {hits.map(b => (
