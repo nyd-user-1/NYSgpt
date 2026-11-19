@@ -273,7 +273,7 @@
 /* the split handle between the page and the panel, as nsrgpt's shell */
 .hm-split { display: none; }
 @media (min-width: 640px) {
-  .hm-split { position: fixed; z-index: 61; top: 50%; width: 18px; height: 64px; margin-top: -32px; right: calc(var(--sbw, 423px) + 18px); display: flex; align-items: center; justify-content: center; cursor: col-resize; touch-action: none; outline: none; border: 0; background: none; padding: 0; transition: right .5s ease-in-out; }
+  .hm-split { position: fixed; z-index: 61; top: 50%; width: 18px; height: 64px; margin-top: -32px; right: calc(var(--sbw, 423px) + 18px); display: flex; align-items: center; justify-content: center; cursor: col-resize; touch-action: none; outline: none; border: 0; background: none; padding: 0; transition: right .5s cubic-bezier(0.4, 0, 0.2, 1); }
   .hm-split.hm-shut { right: -18px; pointer-events: none; }
   .hm-split.hm-drag { transition: none; }
   .hm-split span { width: 4px; height: 32px; border-radius: 999px; background: color-mix(in oklab, var(--paper-text) 18%, transparent); transition: background-color .15s; }
