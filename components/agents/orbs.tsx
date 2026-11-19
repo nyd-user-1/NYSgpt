@@ -22,7 +22,7 @@ export type OrbKind = 'pax' | 'blue' | 'red' | 'purple' | 'green' | 'yellow' | '
 export const ORB_KINDS: readonly OrbKind[] = ['pax', 'blue', 'red', 'purple', 'green', 'yellow', 'orange']
 
 /** The orb the chat wears. 'pax' is the strands sphere; any other name is its CSS kin. */
-export const CHAT_ORB: OrbKind = 'blue'
+export const CHAT_ORB: OrbKind = 'pax'
 
 /** The strands turned up for the chat's small marks: thicker, brighter, faster, so the color's
  *  movement reads at a mark's size — at the shader's defaults a mark this small looks still and pale.

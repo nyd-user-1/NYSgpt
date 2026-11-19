@@ -3,7 +3,7 @@
 import * as React from "react"
 import dynamic from "next/dynamic"
 
-import { useThemeVersion } from "@/lib/theme-client"
+import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import "./agent-orb.css"
 
@@ -43,7 +43,8 @@ const SMALL_STRANDS = { thickness: 2.4, glow: 1.5, spread: 1.4 }
 
 /** Light unless the app's theme is dark, following the theme as it changes. */
 function useLightTheme() {
-  const version = useThemeVersion()
+  // NYSgpt (brief 62): the theme is next-themes' dark class, so the orb follows its resolved theme (nsrgpt: useThemeVersion)
+  const version = useTheme().resolvedTheme
   const [light, setLight] = React.useState(true)
   React.useEffect(() => setLight(!document.documentElement.classList.contains("dark")), [version])
   return light

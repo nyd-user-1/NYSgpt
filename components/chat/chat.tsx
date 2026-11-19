@@ -41,6 +41,9 @@ import { ChipRow, MeasuredFooter, measuredContent, splitMeasured } from '@/compo
 import { useUsage } from '@/components/usage-beacon'
 import type { ChipOffer, Surface } from '@/lib/question-resolver'
 import { RestOrb, ThinkingOrb } from '@/components/agents/orbs'
+import { AnswerOrb } from '@/components/agents/answer-orb'
+import { AnimatePresence, motion } from 'motion/react'
+import { EASE_OUT } from '@/lib/ease'
 import { filterMentions, MentionList, mentionContext, type Mention } from '@/components/chat/mentions'
 import { BLOCK_EXAMPLES } from '@/components/chat/block-examples'
 import { ONBOARD_OPENER } from '@/lib/chat-onboard'
@@ -230,8 +233,8 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
   const [mention, setMention] = useState<Mention | null>(null)
   const [mentionIdx, setMentionIdx] = useState(0)
   const [mentionHidden, setMentionHidden] = useState(false)
-  const [followUps, setFollowUps] = useState<Record<string, string[] | 'loading'>>({})
-  const [followUpsFor, setFollowUpsFor] = useState<string | null>(null)
+  // nsrgpt's two follow-ups above the input (brief 62): fetched once per finished answer from the orb's endpoint
+  const [followUps, setFollowUps] = useState<Record<string, string[] | 'loading' | 'none'>>({})
   const [briefSend, setBriefSend] = useState<{ org: Mention; subject: string; body: string; id: string } | null>(null)
   const [briefSendError, setBriefSendError] = useState<string | null>(null)
   const [briefSent, setBriefSent] = useState<string | null>(null)
@@ -850,30 +853,26 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
     setTimeout(() => textareaRef.current?.focus(), 0)
   }
 
-  // The orb's follow-ups: fetched on the first click alone, kept per message, three chips from the orb.
-  const orbAsk = async (id: string) => {
-    if (streaming || loading) return
-    if (followUpsFor === id) { setFollowUpsFor(null); return }
-    if (Array.isArray(followUps[id])) { setFollowUpsFor(id); return }
-    setFollowUps((prev) => ({ ...prev, [id]: 'loading' }))
-    try {
-      const extras = [mention ? mentionContext(mention) : null, skill?.instructions].filter(Boolean).join('\n\n')
-      const res = await fetch('/api/chat/follow-ups', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: messages.slice(-8).map((m) => ({ role: m.role, content: m.content.slice(0, 2400) })), ...(extras ? { context: extras } : {}) }),
-      })
-      const data = (await res.json()) as { suggestions?: string[] }
-      if (res.ok && Array.isArray(data.suggestions) && data.suggestions.length) {
-        setFollowUps((prev) => ({ ...prev, [id]: data.suggestions! }))
-        setFollowUpsFor(id)
-      } else {
-        setFollowUps((prev) => { const { [id]: gone, ...rest } = prev; void gone; return rest })
-      }
-    } catch {
-      setFollowUps((prev) => { const { [id]: gone, ...rest } = prev; void gone; return rest })
-    }
-  }
+  // The orb under the newest answer is nsrgpt's AnswerOrb (brief 62): it asks /api/chat/follow-ups itself on a click.
+  // nsrgpt's two follow-ups (Brendan, 2026-11-19): once the newest answer has finished and the reader has reached its
+  // end, two next prompts float into place above the input; one click asks it. Fetched once per answer from the orb's
+  // endpoint, the first two of its three.
+  const turns = messages.filter((m) => m.role === 'user' || m.role === 'assistant').map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }))
+  const lastMsg = messages[messages.length - 1]
+  const answered = !!lastMsg && lastMsg.role === 'assistant' && !streaming && !loading && !!lastMsg.content
+  useEffect(() => {
+    if (!answered || away || !lastMsg || followUps[lastMsg.id]) return
+    const id = lastMsg.id
+    setFollowUps((f) => ({ ...f, [id]: 'loading' }))
+    fetch('/api/chat/follow-ups', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: turns }) })
+      .then((r) => (r.ok ? (r.json() as Promise<{ suggestions?: string[] }>) : null))
+      .then((d) => setFollowUps((f) => ({ ...f, [id]: d?.suggestions?.length ? d.suggestions.slice(0, 2) : 'none' })))
+      .catch(() => setFollowUps((f) => ({ ...f, [id]: 'none' })))
+    // turns is rebuilt every render; the answer's id is what matters.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [answered, away, lastMsg?.id])
+  const nextAsks = answered && !away && lastMsg && Array.isArray(followUps[lastMsg.id]) ? (followUps[lastMsg.id] as string[]) : null
+
 
   // The onboarding sends its own opener once, so Pax speaks first when the PAX mark opened this chat.
   const onboardSent = useRef(false)
@@ -1296,7 +1295,8 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
             <div className="flex w-full max-w-[773px] flex-col gap-6">
               {!compact && (
                 <div className="transition-transform duration-150" style={{ transform: `translateY(-${grow}px)` }}>
-                  {/* the typed line above the box is gone (Brendan, 2026-11-19) */}
+                  {/* the typed line above the box is gone (Brendan, 2026-11-19); the orb stands there at rest (brief 62) */}
+                  <RestOrb thinking={false} />
                   {heading}
                 </div>
               )}
@@ -1462,22 +1462,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
                       <ThinkingOrb />
                     )}
                     {msgStreaming && Boolean(msg.content) && <StreamSkeleton />}
-                    {msg.id === orbAt && Boolean(msg.content) && <RestOrb thinking={msgStreaming} busy={followUps[msg.id] === 'loading'} onClick={() => orbAsk(msg.id)} />}
-                    {msg.id === orbAt && !msgStreaming && followUpsFor === msg.id && Array.isArray(followUps[msg.id]) && (
-                      <span className="mt-3 flex flex-wrap gap-2">
-                        {(followUps[msg.id] as string[]).map((q, qi) => (
-                          <button
-                            key={q}
-                            type="button"
-                            style={{ animationDelay: `${qi * 80}ms` }}
-                            onClick={() => { setFollowUpsFor(null); submit(q) }}
-                            className="orb-chip rounded-full border border-[var(--border)] bg-[var(--inp-bg)] px-3.5 py-1.5 text-left text-[13.5px] text-[var(--txt)] shadow-e1 transition-colors hover:border-pax2-light-blue"
-                          >
-                            {q}
-                          </button>
-                        ))}
-                      </span>
-                    )}
+                    {msg.id === orbAt && Boolean(msg.content) && <AnswerOrb content={msg.content} streaming={msgStreaming} messages={turns} onAsk={(q) => submit(q)} />}
                     {msg.id === orbAt && !msgStreaming && mention?.kind === 'partner' && skill?.id === 'brief-a-partner' && (
                       <span className="mt-3 block">
                         {briefSent === msg.id ? (
@@ -1528,6 +1513,30 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
       {/* In the side panel the input stays pinned to the bottom from the start. */}
       {(!isEmpty || compact) && (
         <div className="shrink-0 px-4 pb-4 pt-2">
+          <AnimatePresence>
+            {nextAsks && !compact && (
+              <motion.div
+                key={lastMsg!.id}
+                className="mx-auto mb-2 flex w-full max-w-[773px] flex-wrap gap-2"
+                initial="hidden"
+                animate="shown"
+                exit={{ opacity: 0, y: 6, transition: { duration: 0.15 } }}
+                variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.08 } } }}
+              >
+                {nextAsks.map((q) => (
+                  <motion.button
+                    key={q}
+                    type="button"
+                    onClick={() => submit(q)}
+                    variants={{ hidden: { opacity: 0, y: 14 }, shown: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE_OUT } } }}
+                    className="rounded-xl border border-[var(--paper-rule)] bg-[var(--paper)] px-3.5 py-2 text-left text-sm text-[var(--paper-text)] shadow-sm transition-colors hover:bg-[var(--paper-quiet)]"
+                  >
+                    {q}
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
           <div className="mx-auto max-w-[773px]">{inputBox}</div>
         </div>
       )}
