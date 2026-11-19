@@ -327,9 +327,3 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 
 /* the lower-right button is Blocks now: it carries the box's colour once the box is in Blocks */
 .hm-pnl.hm-on { color: var(--type); }
-
-/* Blocks tiles at rest wear their box's colour in full (ground and words); the coloured edge comes only under the mouse
-   or the keyboard (Brendan, 2026-11-19). */
-.hm-stile { border-color: transparent; background: color-mix(in oklab, var(--type) 10%, var(--paper)); }
-.hm-stile .hm-sl, .hm-stile .hm-sm { color: var(--type); }
-.hm-stile:hover, .hm-stile:focus-visible { border-color: var(--type); }

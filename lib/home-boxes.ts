@@ -46,6 +46,26 @@ export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download'
 export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon; /** a logo file under public/, shown in place of the icon */ logo?: string }
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
+/** What one box of each set is, in a word: the label on its Blocks tile (Brendan, 2026-11-19). */
+export const KIND_NOUN: Record<BoxKind, string> = {
+  data: 'Database',
+  models: 'Model',
+  platforms: 'Platform',
+  tables: 'Table',
+  tools: 'Tool',
+  aa: 'Model',
+  kaggle: 'Dataset',
+  llmstats: 'Benchmark',
+  'gh-skills': 'Repository',
+  'gh-design': 'Repository',
+  'gh-api': 'Repository',
+  'gh-mcp': 'Repository',
+  'hf-models': 'Model',
+  'hf-datasets': 'Dataset',
+  'hf-spaces': 'Space',
+  'hf-papers': 'Paper',
+}
+
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
 /* The five sources take colours that sit beside the first four without repeating one: rose, green, slate. */
 export const TYPE_COLOR: Record<BoxKind, string> = {

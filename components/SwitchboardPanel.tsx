@@ -12,7 +12,7 @@ import { SwitchboardApiList } from './SwitchboardApiList'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
 import { FeedbackDialog } from '@/components/FeedbackDialog'
-import { BOXES, SET_INFO, TYPE_COLOR } from '@/lib/home-boxes'
+import { BOXES, KIND_NOUN, SET_INFO, TYPE_COLOR } from '@/lib/home-boxes'
 import { boxKey, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
@@ -881,7 +881,7 @@ function BlocksView({ q }: { q: string }) {
               )}
             </span>
             <span className="hm-sl">{s.title}</span>
-            <span className="hm-sm">{s.group || s.set}</span>
+            <span className="hm-sm">{KIND_NOUN[s.set] ?? s.group}</span>
             <button
               type="button"
               className="hm-sx"
