@@ -4,15 +4,15 @@ import * as React from "react"
 import { ArrowLeft, Check, ChevronDown } from "lucide-react"
 
 import { TypeIcon } from "@/app/HomeIcons"
-import { loadCatalog } from "@/lib/home-catalog"
 import { cn } from "@/lib/utils"
 
 // The composer's second picker on NYSgpt (Brendan, 2026-11-19, brief 49): what the chat searches. It takes the
 // place of pax-trinity's video model picker (video-model-picker.tsx) in that picker's exact dress, the button,
 // the list dropping up or down by the room there is, the rows and the check; the button names the choice.
 // "All records", then every database A to Z with its table count, and inside one, its tables. The choice rides
-// with each question (/api/chat's `scope`) and narrows the table search to that database or table. The list is
-// the home page's catalog (public/home-catalog/catalog.json) until the chat's own index lands.
+// with each question (/api/chat's `scope`) and narrows the table search to that database or table. The list is the
+// chat's own index (public/library-topics.json, built with lib/library-index.json by scripts/library-index.mjs): the
+// topics and tables the table finder searches.
 
 export type ChatScope = { db: string | null; table: string | null }
 const ALL: ChatScope = { db: null, table: null }
@@ -53,12 +53,13 @@ export function ScopePicker({ value, onChange }: { value: ChatScope; onChange: (
   const btn = React.useRef<HTMLButtonElement>(null)
   React.useEffect(() => {
     if (!open || cat) return
-    void loadCatalog().then((c) => {
-      if (!c) return
-      const by = new Map<string, string[]>()
-      for (const t of c.tables) by.set(t.database, [...(by.get(t.database) ?? []), t.table])
-      setCat({ dbs: [...by.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([name, tables]) => ({ name, tables: tables.sort((a, b) => a.localeCompare(b)) })) })
-    })
+    void fetch("/library-topics.json")
+      .then((r) => (r.ok ? (r.json() as Promise<{ topic: string; tables: { stored: string; plain: string }[] }[]>) : null))
+      .then((topics) => {
+        if (!topics) return
+        setCat({ dbs: topics.map((t) => ({ name: t.topic, tables: t.tables.map((x) => x.plain).sort((a, b) => a.localeCompare(b)) })).sort((a, b) => a.name.localeCompare(b.name)) })
+      })
+      .catch(() => {})
   }, [open, cat])
   React.useEffect(() => {
     if (!open) return
