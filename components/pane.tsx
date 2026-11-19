@@ -50,7 +50,7 @@ export function PaneFrame({
   onSize: () => void
   onClose: () => void
   /** The header's click opens the Nav (components/shell.tsx headerMenu). */
-  menu: { onMouseDown: () => void; onClick: (e: React.MouseEvent) => void }
+  menu: { onMouseDown: () => void; onClick: (e: React.MouseEvent) => void; onContextMenu: (e: React.MouseEvent) => void }
   frameRef: React.RefObject<HTMLIFrameElement | null>
   /** Beside the page (not FULL, no third panel): the corner bite carries a close, as in trinity's shell. */
   paired?: boolean

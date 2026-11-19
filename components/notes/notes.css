@@ -1,0 +1,72 @@
+/* The Shift note, the Nav and their menus in NYSgpt's colours (brief 61). Their classes are pax-trinity's, as
+   ported (bg-pax2-surface, text-pax2-blue, shadow-e3, the slate steps); components/chat/pax2-theme.css maps those
+   classes onto --pax2-* variables that only the chat's .pax-chat wrapper sets. The note card, the Nav and the menus
+   are portaled to <body>, outside .nysgpt-app and .pax-chat, so the variables are set here at the root, to NYSgpt's
+   paper palette (app/globals.css .nysgpt-app); inside .pax-chat the chat's own values still win. */
+:root {
+  --pax2-blue: #033882;
+  --pax2-light-blue: #2f6bd1;
+  --pax2-lavender: #dbe7fa;
+  --pax2-mist: #f5f7fb;
+  --pax2-surface: #ffffff;
+  --pax2-frame: #eef1f6;
+  --pax2-sidebar: #f5f7fb;
+  --pax2-lift: #ffffff;
+  --pax2-raised: #ffffff;
+  --pax2-red: #dc2626;
+  --pax2-red-deep: #991b1b;
+  --pax2-red-soft: #fee2e2;
+  --pax2-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
+  --pax2-shadow-2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
+}
+.dark {
+  --pax2-blue: #b6d0f4;
+  --pax2-light-blue: #8fb4ec;
+  --pax2-lavender: rgba(182, 208, 244, 0.16);
+  --pax2-mist: #1d1912;
+  --pax2-surface: #15120d;
+  --pax2-frame: #1d1912;
+  --pax2-sidebar: #1d1912;
+  --pax2-lift: #221d15;
+  --pax2-raised: #221d15;
+  --pax2-shadow-1: 0 1px 2px rgb(0 0 0 / 0.3);
+  --pax2-shadow-2: 0 4px 14px -4px rgb(0 0 0 / 0.5);
+  --pax2-shadow-3: 0 18px 40px -12px rgb(0 0 0 / 0.7), 0 6px 12px -6px rgb(0 0 0 / 0.4);
+}
+/* In Dark the slate steps the ported files use turn with the theme, as pax-trinity's themes turn them (by role:
+   50–300 the grounds and rules, 400–950 the type), on the note's surfaces and the menus portaled to <body> only. */
+.dark .nysgpt-note,
+.dark body > [role="menu"],
+.dark body > [data-note-popup] {
+  --color-slate-50: #1d1912;
+  --color-slate-100: #262016;
+  --color-slate-200: rgba(240, 233, 216, 0.14);
+  --color-slate-300: rgba(240, 233, 216, 0.24);
+  --color-slate-400: rgba(240, 233, 216, 0.42);
+  --color-slate-500: rgba(240, 233, 216, 0.58);
+  --color-slate-600: rgba(240, 233, 216, 0.7);
+  --color-slate-700: rgba(240, 233, 216, 0.82);
+  --color-slate-800: #ece4d1;
+  --color-slate-900: #f0e9d8;
+  --color-slate-950: #f7f2e6;
+  color: #f0e9d8;
+}
+
+/* The rich editor's blocks beyond mail's (rich-body.tsx; pax-trinity app/pax2.css): a note card's headings, tables,
+   dividers and mentions. */
+.rich-body .ProseMirror h1 { margin: 0.8em 0 0.3em; font-size: 20px; font-weight: 600; line-height: 1.3; color: var(--color-slate-900); }
+.rich-body .ProseMirror h2 { margin: 0.8em 0 0.3em; font-size: 17px; font-weight: 600; line-height: 1.35; color: var(--color-slate-900); }
+.rich-body .ProseMirror h3 { margin: 0.7em 0 0.25em; font-size: 15px; font-weight: 600; line-height: 1.4; color: var(--color-slate-900); }
+.rich-body .ProseMirror hr { border: none; border-top: 1px solid var(--color-slate-200); margin: 1.2em 0; }
+.rich-body .ProseMirror .tableWrapper { overflow-x: auto; margin: 0.9em 0; }
+.rich-body .ProseMirror table { border-collapse: collapse; table-layout: fixed; width: 100%; margin: 0; font-size: 13px; overflow: hidden; }
+.rich-body .ProseMirror td, .rich-body .ProseMirror th { border: 1px solid var(--color-slate-200); padding: 6px 9px; vertical-align: top; position: relative; }
+.rich-body .ProseMirror th { background: var(--color-slate-50); color: var(--color-slate-900); font-weight: 600; text-align: left; }
+.rich-body .ProseMirror td > p, .rich-body .ProseMirror th > p { margin: 0; }
+.rich-body .ProseMirror .selectedCell::after { content: ""; position: absolute; inset: 0; background: rgba(3, 56, 130, 0.08); pointer-events: none; }
+.rich-body .ProseMirror .mention { border-radius: 4px; background: var(--pax2-lavender); padding: 0 3px; color: var(--pax2-blue); font-weight: 500; }
+
+/* What scrolls in a note or the Nav wears the site's thin scroll bar (.thin-scrollbar in app/globals.css). */
+.nysgpt-note .overflow-y-auto, .nysgpt-note .overflow-x-auto, .nysgpt-note .tableWrapper { scrollbar-width: thin; scrollbar-color: rgba(0, 0, 0, 0.22) transparent; }
+.dark .nysgpt-note .overflow-y-auto, .dark .nysgpt-note .overflow-x-auto, .dark .nysgpt-note .tableWrapper { scrollbar-color: rgba(255, 255, 255, 0.22) transparent; }

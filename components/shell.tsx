@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import dynamic from "next/dynamic"
 import { useRouter } from "next/navigation"
 
 import type { ChipOffer } from "@/lib/question-resolver"
@@ -8,6 +9,9 @@ import { PANE_MAIN, PANE_MESSAGE, PANE_PARAM, PANE_SECOND, SEED_PREFIX, VIZ_POIN
 import { PaneFrame, PaneSync } from "@/components/pane"
 import { useSwitchboard } from "@/components/SwitchboardPanel"
 import { useProductStatus } from "@/components/ProductStatus"
+
+// The Shift note and the right-click family (brief 61): mounted once here, loaded after the page.
+const NotesAndRightClick = dynamic(() => import("@/components/notes/right-click").then((m) => m.NotesAndRightClick), { ssr: false })
 
 // The shell, made real (2026-11-04, ported from pax-trinity's components/shell.tsx). It holds trinity's
 // panel contract — the chat tree and the note card call it unchanged — and the second panel: a page of
@@ -55,8 +59,9 @@ type PanelState = {
   nav: NavAt | null
   openNav: (at: NavAt) => void
   closeNav: () => void
-  /** A click on a header's empty space opens the Nav for that header's side; spread on the header. */
-  headerMenu: (side: Side) => { onMouseDown: () => void; onClick: (e: React.MouseEvent) => void }
+  /** A click on a header's empty space opens the Nav for that header's side; spread on the header. A right-click on
+   *  it does too (pax-trinity's, brief 61), Shift aside: Shift and a right-click is the Nav's anywhere. */
+  headerMenu: (side: Side) => { onMouseDown: () => void; onClick: (e: React.MouseEvent) => void; onContextMenu: (e: React.MouseEvent) => void }
   /** Opens a page on a side: the main page navigates; the second panel opens or moves. */
   goTo: (href: string, to: Side) => void
   /** The main page's address, without the second panel's ?pane. */
@@ -91,7 +96,7 @@ const PanelCtx = React.createContext<PanelState>({
   nav: null,
   openNav: noop,
   closeNav: noop,
-  headerMenu: () => ({ onMouseDown: noop, onClick: noop }),
+  headerMenu: () => ({ onMouseDown: noop, onClick: noop, onContextMenu: noop }),
   goTo: noop,
   mainHere: () => "/",
   closePage: null,
@@ -131,9 +136,21 @@ function storeSeed(text: string): string {
 export function Shell({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const switchboard = useSwitchboard()
-  // The reader, from NYSgpt's ProductStatusProvider: its email only; NYSgpt has no admin roles.
+  // The reader, from NYSgpt's ProductStatusProvider: its email; admin from the session (brief 58, NYSGPT_ADMINS).
   const status = useProductStatus()
-  const reader = { email: status.email, admin: false, superAdmin: false }
+  const [admin, setAdmin] = React.useState(false)
+  React.useEffect(() => {
+    if (!status.email) return setAdmin(false)
+    let live = true
+    void fetch("/api/auth/me", { cache: "no-store" })
+      .then((r) => (r.ok ? (r.json() as Promise<{ user?: { admin?: boolean } | null }>) : null))
+      .then((b) => live && setAdmin(!!b?.user?.admin))
+      .catch(() => {})
+    return () => {
+      live = false
+    }
+  }, [status.email])
+  const reader = { email: status.email, admin, superAdmin: false }
   // The second panel: the page it opened on (its frame's src, fixed per opening), where it is now, and `n`,
   // which reloads the frame when a page is opened into it again.
   const [pane, setPane] = React.useState<{ src: string; href: string; n: number } | null>(null)
@@ -226,6 +243,12 @@ export function Shell({ children }: { children: React.ReactNode }) {
       },
       onClick: (e: React.MouseEvent) => {
         if (pressedOpen.current || (e.target as Element).closest(NATIVE_MENU)) return
+        setNav({ x: e.clientX, y: e.clientY, side, here: side === "pane" ? (pane?.href ?? "") : mainHereNow() })
+      },
+      onContextMenu: (e: React.MouseEvent) => {
+        // Shift is the global gesture's (useShiftNav), which opens the same menu here.
+        if (e.shiftKey || (e.target as Element).closest(NATIVE_MENU)) return
+        e.preventDefault()
         setNav({ x: e.clientX, y: e.clientY, side, here: side === "pane" ? (pane?.href ?? "") : mainHereNow() })
       },
     }),
@@ -348,6 +371,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <React.Suspense>
         <PaneSync href={pane?.href ?? null} onOpen={openPane} />
       </React.Suspense>
+      <NotesAndRightClick />
       {/* The page narrows beside the panel, as SwitchboardShell narrows it beside the switchboard. */}
       <div
         style={{ "--pane-w": second ? "calc(100vw - 124px)" : width } as React.CSSProperties}

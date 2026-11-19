@@ -9,6 +9,7 @@ import { DiscussionHeaderButton } from "@/components/DiscussionHeaderButton";
 import { UserPanel } from "@/components/UserPanel";
 import { VisitorLog } from "@/components/VisitorLog";
 import { CommandKHost } from "@/components/command/command-k-host";
+import { useShellPanel } from "@/components/shell";
 
 /**
  * The 44b app shell — a floating rounded content panel beside a collapsible
@@ -26,6 +27,8 @@ export function AppLayout({
   paperMode?: boolean;
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // A right-click on the header's empty run opens the Nav (brief 61; components/notes/right-click.tsx).
+  const { headerMenu } = useShellPanel();
 
   return (
     // data-app-shell, data-chrome, data-app-card: the second panel's marks (nsrgpt's shell, brief 48): framed, the
@@ -62,7 +65,7 @@ export function AppLayout({
             : "bg-[var(--surface)] sm:border-[var(--border)]"
         }`}
       >
-        <div data-chrome className="flex items-center px-5 pt-5 pb-5">
+        <div data-chrome onContextMenu={headerMenu("main").onContextMenu} className="flex items-center px-5 pt-5 pb-5">
           <AnimateOnHover>
           <button
             onClick={() => setSidebarOpen((v) => !v)}
