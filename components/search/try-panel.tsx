@@ -9,7 +9,7 @@ import { compactNum, loadCatalog, loadSample, type Sample, type Table } from '@/
 import type { FullTable, Out, TableHit } from './search-worker'
 
 // /search's try panel (brief 53): what is picked, tried for real. A table shows the catalog overlay's three views
-// (TableDetail: Fields, Data, Chart) and an API view: the request as editable SQL, run on the reader's own Data
+// (TableDetail: Fields, Data, Columns) and an API view: the request as editable SQL, run on the reader's own Data
 // Library key (the one the data pages keep in this browser), the rows in the site's grid table with the time, bytes
 // scanned and query id, and the same call as curl and as the MCP address. Without a key, the table's shipped sample
 // rows, marked as such. A Hugging Face or GitHub box runs its public API from the browser; the other sources need
@@ -24,7 +24,7 @@ const KEY = 'nysgpt-data-key'
 const VIEWS: { id: TryView; label: string }[] = [
   { id: 'fields', label: 'Fields' },
   { id: 'data', label: 'Data' },
-  { id: 'chart', label: 'Chart' },
+  { id: 'chart', label: 'Columns' },
   { id: 'api', label: 'API' },
 ]
 
@@ -229,9 +229,8 @@ function TableTry({ stored, sql, view, onView, worker }: { stored: string; sql?:
             {v.label}
           </button>
         ))}
-        <span className="sr-stored">{t.stored}</span>
       </div>
-      {view === 'api' ? <ApiView table={t} home={home} initialSql={sql} /> : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} />}
+      {view === 'api' ? <ApiView table={t} home={home} initialSql={sql} /> : <TableDetail t={asTable} rows={view === 'data'} onRows={() => {}} panel view={view} onView={(v) => onView(v)} stored={t.stored} />}
     </div>
   )
 }

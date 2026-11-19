@@ -6,7 +6,14 @@ import { TypeIcon } from '@/app/HomeIcons'
 import { BOXES, KIND_NOUN, TYPE_COLOR, type Box, type BoxKind } from '@/lib/home-boxes'
 import { boxKey } from '@/lib/home-store'
 import { compactNum } from '@/lib/home-catalog'
-import { findNames, type NameEntry } from '@/lib/find-names'
+import { findNames, type NameEntry, type NameKind } from '@/lib/find-names'
+import { Atom, Briefcase, Building, Building2, Factory, Gavel, GraduationCap, HandHeart, Hospital, Landmark, Lightbulb, MapPin, Scale, School, Users, Vote, Zap, type LucideIcon } from 'lucide-react'
+
+/** Each kind of name's icon, white on the kind's colour (brief 57: "each row with its kind's icon"). */
+const NAME_ICON: Record<NameKind, LucideIcon> = {
+  congress: Landmark, legislator: Landmark, candidate: Vote, judge: Gavel, committee: Users, agency: Building2, contractor: Briefcase, company: Building,
+  court: Scale, place: MapPin, plant: Factory, utility: Zap, college: GraduationCap, district: School, hospital: Hospital, nonprofit: HandHeart, assignee: Lightbulb, reactor: Atom,
+}
 
 import type { DbHit, FieldHit, Match, Out, Results, TableHit } from './search-worker'
 import { TryPanel, type Picked, type TryView } from './try-panel'
@@ -116,9 +123,10 @@ function RowView({ row, on, onPick, onHover }: { row: Row; on: boolean; onPick: 
     sub = [row.hit.topic, row.hit.stored].filter(Boolean).join(' · ')
     meta = row.hit.rows != null ? `${compactNum(row.hit.rows)} records` : ''
   } else if (row.group === 'names') {
+    const KindIcon = NAME_ICON[row.hit.kind] ?? MapPin
     tile = (
       <span className="sr-tile sr-name" style={{ background: row.hit.color }} aria-hidden>
-        {row.hit.label.replace(/[^A-Za-z]/g, '').charAt(0)}
+        <KindIcon width={15} height={15} strokeWidth={2} color="#fff" />
       </span>
     )
     title = <>{row.hit.label}</>
