@@ -309,3 +309,7 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 .hm-fav.hm-on svg { fill: #facc15; animation: hm-fav-pop .38s cubic-bezier(.2, .9, .3, 1.4); }
 @keyframes hm-fav-pop { 0% { transform: scale(.4) rotate(-24deg); } 60% { transform: scale(1.35) rotate(8deg); } 100% { transform: scale(1) rotate(0); } }
 @media (prefers-reduced-motion: reduce) { .hm-fav.hm-on svg { animation: none; } }
+
+/* a chosen favourite keeps its yellow star showing, in place of the icon, whether or not the mouse is on it */
+.hm-fav.hm-on { opacity: 1; }
+.hm-ti:has(.hm-fav.hm-on) > svg, .hm-ti:has(.hm-fav.hm-on) > img { opacity: 0; }

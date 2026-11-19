@@ -43,7 +43,7 @@ export type BoxKind = 'data' | 'models' | 'platforms' | 'tables' | 'tools' | Sou
 /** The sets the all view shows: the first masthead page. */
 export const OWN_KINDS: BoxKind[] = ['data', 'models', 'platforms', 'tables']
 export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file' | 'table'
-export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon }
+export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon; /** a logo file under public/, shown in place of the icon */ logo?: string }
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
@@ -796,7 +796,8 @@ const OWN_BOXES: Box[] = [
   "body": "Select patents, papers, and policies concerning AI, the research behind them, and related peer review records.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -805,7 +806,8 @@ const OWN_BOXES: Box[] = [
   "body": "New York's 28-page childcare-subsidy PDF, rebuilt as a guided form that files itself.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -814,7 +816,8 @@ const OWN_BOXES: Box[] = [
   "body": "Gather opinion at scale; groups emerge from the votes, not the loudest voice.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -823,7 +826,8 @@ const OWN_BOXES: Box[] = [
   "body": "Every generator in the EIA inventory — capacity, fuel, emissions, and actual net generation across the grid.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -832,7 +836,8 @@ const OWN_BOXES: Box[] = [
   "body": "The New York legislature as data — bills, votes, sponsors, contracts, and the full lobbying record.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -841,7 +846,8 @@ const OWN_BOXES: Box[] = [
   "body": "All-in-one practice management and EHR — scheduling, notes, and billing over millions of published rates.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -850,7 +856,8 @@ const OWN_BOXES: Box[] = [
   "body": "Compare and buy auto coverage inside the chat, over NHTSA safety ratings for every make and model.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -859,7 +866,8 @@ const OWN_BOXES: Box[] = [
   "body": "Brookhaven's Nuclear Science References — indexed by nuclide, reaction, and measured quantity.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -868,7 +876,8 @@ const OWN_BOXES: Box[] = [
   "body": "Read a CBP 7501 and get the refund you're owed — customs rulings, HTS codes, and the duty math.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -877,7 +886,8 @@ const OWN_BOXES: Box[] = [
   "body": "Make videos that change minds and move feet.",
   "foot": "ORIGINAL",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/nysgpt.svg"
  },
  {
   "kind": "platforms",
@@ -886,7 +896,8 @@ const OWN_BOXES: Box[] = [
   "body": "Models, datasets and Spaces for machine learning.",
   "foot": "MODELS",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/sources/huggingface.svg"
  },
  {
   "kind": "platforms",
@@ -895,7 +906,8 @@ const OWN_BOXES: Box[] = [
   "body": "Datasets, notebooks and data science competitions.",
   "foot": "DATA",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/sources/kaggle.png"
  },
  {
   "kind": "platforms",
@@ -904,7 +916,7 @@ const OWN_BOXES: Box[] = [
   "body": "Code hosting and collaboration.",
   "foot": "CODE",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "github"
  },
  {
   "kind": "platforms",
@@ -913,7 +925,8 @@ const OWN_BOXES: Box[] = [
   "body": "Software and data listings sold through AWS.",
   "foot": "MARKETPLACE",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/aws.png"
  },
  {
   "kind": "platforms",
@@ -931,7 +944,8 @@ const OWN_BOXES: Box[] = [
   "body": "Research data and software archive run by CERN.",
   "foot": "ARCHIVE",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/zenodo.png"
  },
  {
   "kind": "platforms",
@@ -940,7 +954,8 @@ const OWN_BOXES: Box[] = [
   "body": "Open datasets and experiment records for machine learning.",
   "foot": "DATA",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/openml.png"
  },
  {
   "kind": "platforms",
@@ -949,7 +964,8 @@ const OWN_BOXES: Box[] = [
   "body": "Run and host machine learning models through an API.",
   "foot": "MODELS",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/replicate.svg"
  },
  {
   "kind": "platforms",
@@ -958,7 +974,8 @@ const OWN_BOXES: Box[] = [
   "body": "Experiment tracking and model evaluation.",
   "foot": "TRACKING",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/weights-and-biases.svg"
  },
  {
   "kind": "platforms",
@@ -967,7 +984,8 @@ const OWN_BOXES: Box[] = [
   "body": "Search engine for open datasets across the web.",
   "foot": "SEARCH",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/google.svg"
  },
  {
   "kind": "platforms",
@@ -976,7 +994,8 @@ const OWN_BOXES: Box[] = [
   "body": "Public datasets hosted on AWS.",
   "foot": "DATA",
   "accent": "#033882",
-  "icon": "layers"
+  "icon": "layers",
+  "logo": "/logos/platforms/aws.png"
  },
  {
   "kind": "tools",

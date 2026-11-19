@@ -263,7 +263,12 @@ export function HomePlate() {
                     <div className="hm-foot">
                       {/* the type icon at rest; under the mouse or the keyboard it gives way to the favourite star */}
                       <span className="hm-ti">
-                        <TypeIcon icon={b.icon} />
+                        {b.logo ? (
+                          // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
+                          <img src={b.logo} alt="" />
+                        ) : (
+                          <TypeIcon icon={b.icon} />
+                        )}
                         <button
                           type="button"
                           className={`hm-fav ${favs.includes(key) ? 'hm-on' : ''}`}
