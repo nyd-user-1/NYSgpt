@@ -791,6 +791,8 @@ function BlocksView({ q }: { q: string }) {
   const openTile = (s: ShelfItem) => {
     // Brief 52: a block that carries a payload opens it here; a plain Block (a Tables box added before payloads, too) goes to its box as before.
     if (hasPayload(s)) return setView({ kind: 'block', key: s.key })
+    // a Block saved under a set that no longer exists (brief 59 renamed the four sources' sets) has no box to go to
+    if (!BOXES.some(b => boxKey(b) === s.key)) return
     home.showSet(s.set)
     if (innerWidth < 640) close()
     window.setTimeout(() => {

@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 /**
- * Builds lib/home-sources.ts: the home page boxes for the five outside sources
- * (Brendan, 2026-11-19). One box per item, all to one pattern:
+ * Builds lib/home-sources.ts: the home page boxes for the six outside sources
+ * (Brendan, 2026-11-19; brief 59). One box per item, all to one pattern. Each
+ * source is a masthead page of four cells, A to Z:
  *
- *   Artificial Analysis  top 50 language models by its Intelligence Index
+ *   Artificial Analysis  Language: top 50 by its Intelligence Index; Image, Video, Speech: top 50 of each
+ *                        arena by Elo (the free tier's media lists; Video has 40)
  *   GitHub               top 100 repositories by stars for each of: Skills, Design, API, MCP
- *   Hugging Face         top 100 models by downloads
- *   Kaggle               top 100 datasets by votes
- *   LLM Stats            top 50 benchmarks by the number of models scored
- *   OpenRouter           the 50 newest models on its public list (the list carries no usage ranking; no key needed)
+ *   Hugging Face         top 100 models, datasets and spaces, and the 100 most upvoted recent papers
+ *   Kaggle               top 100 datasets, notebooks and models by votes, and competitions by teams
+ *   LLM Stats            top 50 benchmarks by models scored, the 100 newest models, the latest 100
+ *                        scores, and its overall ranking (category general, top 50)
+ *   OpenRouter           the 100 newest models (the list carries no usage ranking; no key needed), every
+ *                        embedding model, every provider, and every model free to call
  *
  * Run from the repo root:  node scripts/home-sources.mjs
  * Keys: Artificial Analysis, LLM Stats and Kaggle read their keys from an env
@@ -114,16 +118,20 @@ await run('Hugging Face', async () => {
 await run('Kaggle', async () => {
   const key = env.KAGGLE_API_TOKEN
   if (!key) throw new Error('KAGGLE_API_TOKEN is not set')
-  const all = []
-  for (let page = 1; page <= 5 && all.length < 100; page++) {
-    const list = await getJson(`https://www.kaggle.com/api/v1/datasets/list?sortBy=votes&page=${page}`, { authorization: `Bearer ${key}` })
+  const auth = { authorization: `Bearer ${key}` }
+  const api = 'https://www.kaggle.com/api/v1'
+  let total = 0
+  // Datasets: top 100 by votes (20 a page)
+  const sets = []
+  for (let page = 1; page <= 6 && sets.length < 100; page++) {
+    const list = await getJson(`${api}/datasets/list?sortBy=votes&page=${page}`, auth)
     if (!Array.isArray(list) || !list.length) break
-    all.push(...list)
+    sets.push(...list)
   }
-  for (const d of all.slice(0, 100)) {
+  for (const d of sets.slice(0, 100)) {
     const votes = d.voteCount ?? d.totalVotes
     const dl = d.downloadCount ?? d.totalDownloads
-    add('kaggle', 'kaggle', {
+    total += add('kaggle-datasets', 'kaggle', {
       title: d.title ?? d.ref,
       group: 'Dataset',
       body: d.subtitle || `${compact(votes)} votes, ${compact(dl)} downloads`,
@@ -131,7 +139,59 @@ await run('Kaggle', async () => {
       facts: { Owner: d.ownerName ?? d.creatorName, Votes: votes?.toLocaleString('en-US'), Downloads: dl?.toLocaleString('en-US'), Size: d.totalBytes ? `${compact(d.totalBytes)}B` : '', Licence: d.licenseName, Updated: (d.lastUpdated ?? '').slice(0, 10), Link: d.url ?? (d.ref ? `https://www.kaggle.com/datasets/${d.ref}` : '') },
     })
   }
-  return Math.min(all.length, 100)
+  // Competitions: top 100 by number of teams. The general list holds only the open competitions (about 20), so the
+  // community list (20 a page) is added and the two are ranked together.
+  const comps = []
+  for (const group of ['general', 'community'])
+    for (let page = 1; page <= (group === 'general' ? 3 : 10); page++) {
+      const list = await getJson(`${api}/competitions/list?sortBy=numberOfTeams&group=${group}&page=${page}`, auth)
+      if (!Array.isArray(list) || !list.length) break
+      comps.push(...list)
+    }
+  let nComp = 0
+  for (const c of comps.sort((a, b) => (b.teamCount ?? 0) - (a.teamCount ?? 0))) {
+    if (nComp >= 100) break
+    nComp += add('kaggle-competitions', 'kaggle', {
+      title: c.title,
+      group: c.category || 'Competition',
+      body: c.description || `${compact(c.teamCount)} teams`,
+      foot: compact(c.teamCount),
+      facts: { Host: c.organizationName, Category: c.category, Reward: c.reward, Teams: c.teamCount?.toLocaleString('en-US'), Metric: c.evaluationMetric, Deadline: (c.deadline ?? '').slice(0, 10), Link: c.url ?? c.ref },
+    })
+  }
+  total += nComp
+  // Notebooks: top 100 by votes
+  const kernels = await getJson(`${api}/kernels/list?sortBy=voteCount&pageSize=100`, auth)
+  for (const k of (Array.isArray(kernels) ? kernels : []).slice(0, 100))
+    total += add('kaggle-notebooks', 'kaggle', {
+      title: k.title,
+      group: k.author || 'Notebook',
+      body: `${k.author ? `By ${k.author}, ` : ''}${compact(k.totalVotes)} votes`,
+      foot: compact(k.totalVotes),
+      facts: { Author: k.author, Votes: k.totalVotes?.toLocaleString('en-US'), 'Last run': (k.lastRunTime ?? '').slice(0, 10), Link: k.ref ? `https://www.kaggle.com/code/${k.ref}` : '' },
+    })
+  // Models: top 100 by votes (50 a page, by page token)
+  const models = []
+  let token = ''
+  for (let page = 0; page < 4 && models.length < 150; page++) {
+    const j = await getJson(`${api}/models/list?sortBy=voteCount&pageSize=50${token ? `&pageToken=${encodeURIComponent(token)}` : ''}`, auth)
+    models.push(...(j.models ?? []))
+    token = j.nextPageToken
+    if (!token) break
+  }
+  let nModel = 0
+  for (const m of models) {
+    if (nModel >= 100) break
+    nModel += add('kaggle-models', 'kaggle', {
+      title: m.title,
+      group: m.author || 'Model',
+      body: m.subtitle || `${compact(m.voteCount)} votes`,
+      foot: compact(m.voteCount),
+      facts: { Author: m.author, Votes: m.voteCount?.toLocaleString('en-US'), Updated: (m.updateTime ?? '').slice(0, 10), Link: m.url ? (m.url.startsWith('http') ? m.url : `https://www.kaggle.com${m.url}`) : m.ref ? `https://www.kaggle.com/models/${m.ref}` : '' },
+    })
+  }
+  total += nModel
+  return total
 })
 
 await run('GitHub', async () => {
@@ -175,11 +235,12 @@ await run('GitHub', async () => {
 await run('Artificial Analysis', async () => {
   const key = env.Analysis_API_Key
   if (!key) throw new Error('Analysis_API_Key is not set')
-  // The free list (the legacy /data/ address was retired on 4 Nov 2026), page by page.
+  const auth = { 'x-api-key': key }
+  const aa = 'https://artificialanalysis.ai'
+  // The free tier allows 100 requests a day: the language list's pages and one request for each media list.
   const data = []
   for (let page = 1; page <= 20; page++) {
-    const j = await getJson(`https://artificialanalysis.ai/api/v2/language/models/free?page=${page}`, { 'x-api-key': key })
-    if (page === 1) console.log('  Artificial Analysis pagination:', JSON.stringify(j.pagination))
+    const j = await getJson(`${aa}/api/v2/language/models/free?page=${page}`, auth)
     const fresh = (j.data ?? []).filter(m => !data.some(d => d.id === m.id))
     data.push(...fresh)
     const p = j.pagination ?? {}
@@ -187,35 +248,54 @@ await run('Artificial Analysis', async () => {
   }
   const idx = m => m.evaluations?.artificial_analysis_intelligence_index
   const models = data.filter(m => Number.isFinite(idx(m))).sort((a, b) => idx(b) - idx(a)).slice(0, 50)
+  let total = 0
+  // Language: top 50 by the Intelligence Index
   for (const m of models) {
     const maker = m.model_creator?.name ?? ''
     const pin = m.pricing?.price_1m_input_tokens
     const pout = m.pricing?.price_1m_output_tokens
     const price = pin != null && pout != null ? (3 * pin + pout) / 4 : null
     const speed = m.performance?.median_output_tokens_per_second
-    add('aa', 'aa', {
+    total += add('aa-language', 'aa', {
       title: m.name,
       group: maker || 'Model',
       body: [maker, `Intelligence Index ${+idx(m).toFixed(1)}`, price != null ? `${+price.toFixed(2)} per million tokens (3 to 1 input to output)` : '', speed ? `${Math.round(speed)} tokens a second` : ''].filter(Boolean).join(', '),
       foot: String(+idx(m).toFixed(1)),
-      facts: { Maker: maker, 'Intelligence Index': +idx(m).toFixed(1), 'Coding Index': m.evaluations?.artificial_analysis_coding_index, 'Price per 1M input tokens': pin != null ? `${pin}` : '', 'Price per 1M output tokens': pout != null ? `${pout}` : '', 'Output tokens a second': speed ? Math.round(speed) : '', Released: m.release_date, Link: m.slug ? `https://artificialanalysis.ai/models/${m.slug}` : 'https://artificialanalysis.ai' },
+      facts: { Maker: maker, 'Intelligence Index': +idx(m).toFixed(1), 'Price per 1M input tokens': pin != null ? `${pin}` : '', 'Price per 1M output tokens': pout != null ? `${pout}` : '', 'Output tokens a second': speed ? Math.round(speed) : '', Released: m.release_date, Link: m.slug ? `${aa}/models/${m.slug}` : aa },
     })
   }
-  return models.length
+  // Image, Video, Speech: each arena's ranked models, top 50 by Elo
+  for (const [kind, path, word] of [['aa-image', 'text-to-image', 'Text to image'], ['aa-video', 'text-to-video', 'Text to video'], ['aa-speech', 'text-to-speech', 'Text to speech']]) {
+    const j = await getJson(`${aa}/api/v2/media/${path}/models/free`, auth)
+    const ranked = (j.data ?? []).filter(m => Number.isFinite(m.elo)).sort((a, b) => b.elo - a.elo).slice(0, 50)
+    ranked.forEach((m, i) => {
+      const maker = m.model_creator?.name ?? ''
+      total += add(kind, 'aa', {
+        title: m.name,
+        group: maker || word,
+        body: [maker, `${word} arena Elo ${Math.round(m.elo)}${m.ci_95 != null ? ` (within ${m.ci_95} either way)` : ''}`, `rank ${i + 1}`].filter(Boolean).join(', '),
+        foot: String(Math.round(m.elo)),
+        facts: { Maker: maker, Arena: word, Elo: Math.round(m.elo), '95% interval': m.ci_95 != null ? `±${m.ci_95}` : '', Rank: i + 1, Link: `${aa}/${path}` },
+      })
+    })
+  }
+  return total
 })
 
 await run('LLM Stats', async () => {
   const key = env.LLM_STATS_API_KEY
   if (!key) throw new Error('LLM_STATS_API_KEY is not set')
-  const j = await getJson('https://api.llm-stats.com/stats/v1/benchmarks', { authorization: `Bearer ${key}` })
-  const list = j.benchmarks ?? []
-  if (list[0]) console.log('  LLM Stats benchmark fields:', Object.keys(list[0]).join(', '))
+  const auth = { authorization: `Bearer ${key}` }
+  const api = 'https://api.llm-stats.com/stats/v1'
+  const num = v => (v == null || !Number.isFinite(+v) ? '' : Math.abs(+v) >= 1000 ? compact(+v) : String(+(+v).toFixed(2)))
+  let total = 0
+  // Benchmarks: top 50 by the number of models scored
+  const list = (await getJson(`${api}/benchmarks`, auth)).benchmarks ?? []
   const count = b => b.model_count ?? b.models_count ?? b.num_models ?? b.score_count ?? b.scores_count ?? 0
-  const top = [...list].sort((a, b) => count(b) - count(a)).slice(0, 50)
-  for (const b of top) {
+  for (const b of [...list].sort((a, b) => count(b) - count(a)).slice(0, 50)) {
     const name = b.name ?? b.benchmark_id ?? b.id
     const cats = Array.isArray(b.categories) ? b.categories.join(', ') : (b.category ?? '')
-    add('llmstats', 'llmstats', {
+    total += add('llmstats-benchmarks', 'llmstats', {
       title: name,
       group: (Array.isArray(b.categories) ? b.categories[0] : b.category) || 'Benchmark',
       body: b.description || [cats, count(b) ? `${count(b)} models scored` : ''].filter(Boolean).join(', ') || 'Benchmark',
@@ -223,18 +303,68 @@ await run('LLM Stats', async () => {
       facts: { Categories: cats, 'Models scored': count(b) || '', Modality: b.modality, 'Max score': b.max_score, Link: b.id ? `https://llm-stats.com/benchmarks/${b.id}` : 'https://llm-stats.com' },
     })
   }
-  return top.length
+  // Models: the 100 most recently released (50 a page, by cursor)
+  const models = []
+  let cursor = ''
+  for (let page = 0; page < 12; page++) {
+    const j = await getJson(`${api}/models${cursor ? `?cursor=${encodeURIComponent(cursor)}` : ''}`, auth)
+    models.push(...(j.models ?? []))
+    cursor = j.next_cursor
+    if (!cursor || !(j.models ?? []).length) break
+  }
+  let nLm = 0
+  for (const m of models.filter(m => m.name).sort((a, b) => String(b.release_date ?? '').localeCompare(String(a.release_date ?? '')))) {
+    if (nLm >= 100) break
+    const org = m.organization?.name ?? m.organization?.id ?? ''
+    nLm += add('llmstats-models', 'llmstats', {
+      title: m.name,
+      group: org || 'Model',
+      body: m.description || [org, m.release_date ? `released ${m.release_date}` : ''].filter(Boolean).join(', '),
+      foot: m.param_count ? compact(m.param_count) : (m.release_date ?? '').slice(0, 7),
+      facts: { Organization: org, Released: m.release_date, Parameters: m.param_count ? compact(m.param_count) : '', 'Context window': m.context_window ? compact(m.context_window) : '', 'Open weights': m.open_weight == null ? '' : m.open_weight ? 'Yes' : 'No', Licence: m.license, Link: m.url ?? 'https://llm-stats.com' },
+    })
+  }
+  total += nLm
+  // Scores: the latest 100 scores reported, one per model and benchmark (100 a page, by cursor)
+  let nScore = 0
+  let sc = ''
+  for (let page = 0; page < 8 && nScore < 100; page++) {
+    const j = await getJson(`${api}/scores${sc ? `?cursor=${encodeURIComponent(sc)}` : ''}`, auth)
+    for (const s of j.scores ?? []) {
+      if (nScore >= 100) break
+      nScore += add('llmstats-scores', 'llmstats', {
+      title: `${s.model_name} on ${s.benchmark_name}`,
+      group: s.category ? s.category.replace(/_/g, ' ').replace(/^\w/, c => c.toUpperCase()) : 'Score',
+      body: `${s.model_name} scored ${num(s.score)}${s.max_score != null ? ` of ${num(s.max_score)}` : ''} on ${s.benchmark_name}${s.verified ? ', verified' : s.is_self_reported ? ', reported by its maker' : ''}`,
+      foot: num(s.score),
+      facts: { Model: s.model_name, Benchmark: s.benchmark_name, Score: num(s.score), 'Max score': num(s.max_score), Verified: s.verified ? 'Yes' : 'No', 'Reported by its maker': s.is_self_reported ? 'Yes' : 'No', Scored: (s.scored_at ?? '').slice(0, 10), Link: s.url ?? 'https://llm-stats.com' },
+      })
+    }
+    sc = j.next_cursor
+    if (!sc) break
+  }
+  total += nScore
+  // Rankings: its overall ranking (category general), top 50
+  const rk = (await getJson(`${api}/rankings?category=general&limit=50`, auth)).models ?? []
+  for (const r of rk)
+    total += add('llmstats-rankings', 'llmstats', {
+      title: r.model_name,
+      group: r.organization ? r.organization.replace(/^\w/, c => c.toUpperCase()) : 'Model',
+      body: `Rank ${r.rank} overall, rating ${num(r.conservative_rating)}, across ${r.benchmarks_evaluated} benchmarks${r.open_weight ? ', open weights' : ''}`,
+      foot: `#${r.rank}`,
+      facts: { Rank: r.rank, Rating: num(r.conservative_rating), 'Benchmarks evaluated': r.benchmarks_evaluated, 'Open weights': r.open_weight ? 'Yes' : 'No', 'Lowest input price per 1M tokens': r.min_input_price ?? '', Link: r.url ?? 'https://llm-stats.com' },
+    })
+  return total
 })
 
 await run('OpenRouter', async () => {
-  const j = await getJson('https://openrouter.ai/api/v1/models')
+  const api = 'https://openrouter.ai/api/v1'
   const perM = v => (v != null && Number.isFinite(+v) ? +(+v * 1e6).toFixed(2) : null)
-  const top = [...(j.data ?? [])].sort((a, b) => (b.created ?? 0) - (a.created ?? 0)).slice(0, 50)
-  for (const m of top) {
+  const modelBox = (kind, m) => {
     const [maker, ...rest] = String(m.name ?? m.id).split(': ')
     const pin = perM(m.pricing?.prompt)
     const pout = perM(m.pricing?.completion)
-    add('openrouter', 'openrouter', {
+    return add(kind, 'openrouter', {
       title: m.name ?? m.id,
       group: rest.length ? maker : String(m.id).split('/')[0],
       body: m.description || [m.context_length ? `${compact(m.context_length)} tokens of context` : '', pin != null ? `${pin} per million input tokens` : ''].filter(Boolean).join(', ') || 'Model',
@@ -242,7 +372,26 @@ await run('OpenRouter', async () => {
       facts: { Id: m.id, 'Context length': m.context_length, 'Price per 1M input tokens': pin, 'Price per 1M output tokens': pout, Modality: m.architecture?.modality, Added: m.created ? new Date(m.created * 1000).toISOString().slice(0, 10) : '', Link: `https://openrouter.ai/${m.id}` },
     })
   }
-  return top.length
+  const all = [...((await getJson(`${api}/models`)).data ?? [])].sort((a, b) => (b.created ?? 0) - (a.created ?? 0))
+  let total = 0
+  // Models: the 100 newest (the list carries no usage ranking)
+  for (const m of all.slice(0, 100)) total += modelBox('or-models', m)
+  // Embeddings: every embedding model
+  for (const m of [...((await getJson(`${api}/embeddings/models`)).data ?? [])].sort((a, b) => (b.created ?? 0) - (a.created ?? 0))) total += modelBox('or-embeddings', m)
+  // Providers: every provider, A to Z
+  for (const p of [...((await getJson(`${api}/providers`)).data ?? [])].sort((a, b) => String(a.name).localeCompare(String(b.name)))) {
+    const dcs = Array.isArray(p.datacenters) ? p.datacenters : []
+    total += add('or-providers', 'openrouter', {
+      title: p.name,
+      group: p.headquarters || 'Provider',
+      body: [p.headquarters ? `Headquartered in ${p.headquarters}` : '', dcs.length ? `data centres in ${dcs.join(', ')}` : ''].filter(Boolean).join(', ') || 'Provider',
+      foot: p.headquarters ?? '',
+      facts: { Headquarters: p.headquarters, 'Data centres': dcs.join(', '), 'Privacy policy': p.privacy_policy_url, Terms: p.terms_of_service_url, 'Status page': p.status_page_url, Link: p.slug ? `https://openrouter.ai/provider/${p.slug}` : 'https://openrouter.ai' },
+    })
+  }
+  // Free: every model priced at zero for input and output, newest first
+  for (const m of all.filter(m => +m.pricing?.prompt === 0 && +m.pricing?.completion === 0)) total += modelBox('or-free', m)
+  return total
 })
 
 /* the two brand marks not already in the icon set, from Simple Icons (CC0) */
@@ -266,8 +415,13 @@ for (const k of [...new Set(out.boxes.map(b => b.kind))]) {
 }
 const dupes = out.boxes.length - new Set(out.boxes.map(b => `${b.kind}:${b.title}`)).size
 if (dupes) throw new Error(`${dupes} boxes share a source and name`)
+/* a source that fails must not wipe the others' boxes: nothing is written unless every source answered (brief 59) */
+if (out.notes.length) {
+  console.log(`NOT WRITTEN: ${out.notes.join(' | ')}`)
+  process.exit(1)
+}
 const banner = `/**
- * The home page boxes for the five outside sources. GENERATED by
+ * The home page boxes for the six outside sources. GENERATED by
  * scripts/home-sources.mjs on ${new Date().toISOString().slice(0, 10)}; do not edit by hand, run the script again.
  * Counts are as the sources reported them on that day.
  */
@@ -278,7 +432,7 @@ export const SOURCE_MARKS: Record<string, string> = ${JSON.stringify(marks, null
 /* as text: 1,200 boxes written as a literal are more than the type checker will take */
 export const SOURCE_BOXES: Box[] = JSON.parse(${JSON.stringify(JSON.stringify(out.boxes))})
 
-export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], kaggle: [], llmstats: [], openrouter: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], 'hf-models': [], 'hf-datasets': [], 'hf-spaces': [], 'hf-papers': [], ...out.info }, null, 1)}
+export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ ...Object.fromEntries(['aa-language', 'aa-image', 'aa-video', 'aa-speech', 'gh-skills', 'gh-design', 'gh-api', 'gh-mcp', 'hf-models', 'hf-datasets', 'hf-spaces', 'hf-papers', 'kaggle-datasets', 'kaggle-competitions', 'kaggle-notebooks', 'kaggle-models', 'llmstats-benchmarks', 'llmstats-models', 'llmstats-scores', 'llmstats-rankings', 'or-models', 'or-embeddings', 'or-providers', 'or-free'].map(k => [k, []])), ...out.info }, null, 1)}
 `
 fs.writeFileSync('lib/home-sources.ts', banner)
 const by = {}

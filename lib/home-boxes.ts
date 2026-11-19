@@ -10,24 +10,46 @@
 import { SOURCE_BOXES, SOURCE_INFO } from './home-sources'
 import { TABLE_BOXES } from './home-tables'
 
-/** The five outside sources, A to Z (2026-11-19): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
-export type SourceKind = 'aa' | 'kaggle' | 'llmstats' | 'openrouter' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp' | 'hf-models' | 'hf-datasets' | 'hf-spaces' | 'hf-papers'
-/* The masthead's later pages, in order: the sources page A to Z, then a page each for GitHub and Hugging Face (A to Z),
-   whose four cells are that source's groups and whose nameplate wears its mark. */
+/** The six outside sources, A to Z (2026-11-19; brief 59): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
+export type SourceKind =
+  | 'aa-language' | 'aa-image' | 'aa-video' | 'aa-speech'
+  | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp'
+  | 'hf-models' | 'hf-datasets' | 'hf-spaces' | 'hf-papers'
+  | 'kaggle-datasets' | 'kaggle-competitions' | 'kaggle-notebooks' | 'kaggle-models'
+  | 'llmstats-benchmarks' | 'llmstats-models' | 'llmstats-scores' | 'llmstats-rankings'
+  | 'or-models' | 'or-embeddings' | 'or-providers' | 'or-free'
+/* The masthead's later pages, in order: a page for each source, A to Z, whose four cells are that source's groups and
+   whose nameplate wears its logo (brief 59). */
 export const SOURCE_PAGES: SourceKind[][] = [
-  ['aa', 'kaggle', 'llmstats', 'openrouter'],
+  ['aa-language', 'aa-image', 'aa-video', 'aa-speech'],
   ['gh-skills', 'gh-design', 'gh-api', 'gh-mcp'],
   ['hf-models', 'hf-datasets', 'hf-spaces', 'hf-papers'],
+  ['kaggle-datasets', 'kaggle-competitions', 'kaggle-notebooks', 'kaggle-models'],
+  ['llmstats-benchmarks', 'llmstats-models', 'llmstats-scores', 'llmstats-rankings'],
+  ['or-models', 'or-embeddings', 'or-providers', 'or-free'],
 ]
 export const SOURCE_KINDS: SourceKind[] = SOURCE_PAGES.flat()
 /** The source whose logo the nameplate wears while this set is on show; none for the first four sets. */
-export const brandOf = (k: BoxKind | null | undefined): 'github' | 'hf' | 'aa' | 'kaggle' | 'llmstats' | 'openrouter' | null =>
-  !k ? null : k.startsWith('gh-') ? 'github' : k.startsWith('hf-') ? 'hf' : k === 'aa' || k === 'kaggle' || k === 'llmstats' || k === 'openrouter' ? k : null
+export type Brand = 'github' | 'hf' | 'aa' | 'kaggle' | 'llmstats' | 'openrouter'
+const BRAND_PREFIX: [string, Brand][] = [['gh-', 'github'], ['hf-', 'hf'], ['aa-', 'aa'], ['kaggle-', 'kaggle'], ['llmstats-', 'llmstats'], ['or-', 'openrouter']]
+export const brandOf = (k: BoxKind | null | undefined): Brand | null => (!k ? null : (BRAND_PREFIX.find(([p]) => k.startsWith(p))?.[1] ?? null))
 export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
-  aa: { word: 'Artificial Analysis', unit: 'Models' },
-  kaggle: { word: 'Kaggle', unit: 'Datasets' },
-  llmstats: { word: 'LLM Stats', unit: 'Benchmarks' },
-  openrouter: { word: 'OpenRouter', unit: 'Models' },
+  'aa-language': { word: 'Language', unit: 'Models' },
+  'aa-image': { word: 'Image', unit: 'Models' },
+  'aa-video': { word: 'Video', unit: 'Models' },
+  'aa-speech': { word: 'Speech', unit: 'Models' },
+  'kaggle-datasets': { word: 'Datasets', unit: 'Datasets' },
+  'kaggle-competitions': { word: 'Competitions', unit: 'Competitions' },
+  'kaggle-notebooks': { word: 'Notebooks', unit: 'Notebooks' },
+  'kaggle-models': { word: 'Models', unit: 'Models' },
+  'llmstats-benchmarks': { word: 'Benchmarks', unit: 'Benchmarks' },
+  'llmstats-models': { word: 'Models', unit: 'Models' },
+  'llmstats-scores': { word: 'Scores', unit: 'Scores' },
+  'llmstats-rankings': { word: 'Rankings', unit: 'Models' },
+  'or-models': { word: 'Models', unit: 'Models' },
+  'or-embeddings': { word: 'Embeddings', unit: 'Models' },
+  'or-providers': { word: 'Providers', unit: 'Providers' },
+  'or-free': { word: 'Free', unit: 'Models' },
   'gh-skills': { word: 'Skills', unit: 'Repositories' },
   'gh-design': { word: 'Design', unit: 'Repositories' },
   'gh-api': { word: 'API', unit: 'Repositories' },
@@ -56,10 +78,22 @@ export const KIND_NOUN: Record<BoxKind, string> = {
   platforms: 'Platform',
   tables: 'Table',
   tools: 'Tool',
-  aa: 'Model',
-  kaggle: 'Dataset',
-  llmstats: 'Benchmark',
-  openrouter: 'Model',
+  'aa-language': 'Model',
+  'aa-image': 'Model',
+  'aa-video': 'Model',
+  'aa-speech': 'Model',
+  'kaggle-datasets': 'Dataset',
+  'kaggle-competitions': 'Competition',
+  'kaggle-notebooks': 'Notebook',
+  'kaggle-models': 'Model',
+  'llmstats-benchmarks': 'Benchmark',
+  'llmstats-models': 'Model',
+  'llmstats-scores': 'Score',
+  'llmstats-rankings': 'Model',
+  'or-models': 'Model',
+  'or-embeddings': 'Model',
+  'or-providers': 'Provider',
+  'or-free': 'Model',
   'gh-skills': 'Repository',
   'gh-design': 'Repository',
   'gh-api': 'Repository',
@@ -75,18 +109,17 @@ export const KIND_NOUN: Record<BoxKind, string> = {
 }
 
 /** The type colours: a box's footer icon, its hover tint and its title on hover. */
-/* The five sources take colours that sit beside the first four without repeating one: rose, green, slate. */
+/* Each source's page is laid out as the first page is, so its four cells take the first page's four colours in order (brief 59). */
 export const TYPE_COLOR: Record<BoxKind, string> = {
   data: '#0e7490',
   models: '#7c3aed',
   platforms: '#033882',
   tables: '#ea580c',
   tools: '#ea580c',
-  aa: '#be123c',
-  kaggle: '#15803d',
-  llmstats: '#475569',
-  openrouter: '#a16207',
-  // GitHub's and Hugging Face's pages are laid out as the first page is, so their cells take its four colours in order
+  'aa-language': '#0e7490',
+  'aa-image': '#7c3aed',
+  'aa-video': '#033882',
+  'aa-speech': '#ea580c',
   'gh-skills': '#0e7490',
   'gh-design': '#7c3aed',
   'gh-api': '#033882',
@@ -95,6 +128,18 @@ export const TYPE_COLOR: Record<BoxKind, string> = {
   'hf-datasets': '#7c3aed',
   'hf-spaces': '#033882',
   'hf-papers': '#ea580c',
+  'kaggle-datasets': '#0e7490',
+  'kaggle-competitions': '#7c3aed',
+  'kaggle-notebooks': '#033882',
+  'kaggle-models': '#ea580c',
+  'llmstats-benchmarks': '#0e7490',
+  'llmstats-models': '#7c3aed',
+  'llmstats-scores': '#033882',
+  'llmstats-rankings': '#ea580c',
+  'or-models': '#0e7490',
+  'or-embeddings': '#7c3aed',
+  'or-providers': '#033882',
+  'or-free': '#ea580c',
   // brief 52: the payload blocks, in colours no set uses
   design: '#c026d3',
   'site-page': '#ca8a04',

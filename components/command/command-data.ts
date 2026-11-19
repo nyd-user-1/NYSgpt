@@ -68,7 +68,7 @@ function GridGlyph({ className }: { className?: string }) {
 }
 
 /** TypeIcon's marks that are logos, not line icons: they keep their own colours on a white tile. */
-const MARKS = new Set<Box["icon"]>(["github", "hf", "aa", "kaggle", "llmstats"])
+const MARKS = new Set<Box["icon"]>(["github", "hf", "aa", "kaggle", "llmstats", "openrouter"])
 
 /** A set's icon: the one most of its boxes wear (so a page row shows what its boxes show). */
 const iconOf = (k: BoxKind): Box["icon"] => {
@@ -326,11 +326,12 @@ export const ITEMS: CommandItem[] = [
   { ...r("page", "Models", ledger("Models"), "/", "parameters", () => showSet("models")), ...setTile("models") },
   { ...r("page", "Platforms", ledger("Platforms"), "/", "requests", () => showSet("platforms")), ...setTile("platforms") },
   { ...r("page", "Tables", ledger("Tables"), "/", "catalog", () => showSet("tables")), ...setTile("tables") },
-  { ...r("page", "Artificial Analysis", "Models", "/", "aa", () => showSet("aa")), ...setTile("aa") },
-  { ...r("page", "Kaggle", "Datasets", "/", undefined, () => showSet("kaggle")), ...setTile("kaggle") },
-  { ...r("page", "LLM Stats", "Benchmarks", "/", undefined, () => showSet("llmstats")), ...setTile("llmstats") },
+  { ...r("page", "Artificial Analysis", "Language, Image, Video, Speech", "/", "aa models", () => showSet("aa-language")), ...setTile("aa-language") },
   { ...r("page", "GitHub", "Skills, Design, API, MCP", "/", "repositories", () => showSet("gh-skills")), ...setTile("gh-skills") },
   { ...r("page", "Hugging Face", "Models, Datasets, Spaces, Papers", "/", "hf", () => showSet("hf-models")), ...setTile("hf-models") },
+  { ...r("page", "Kaggle", "Datasets, Competitions, Notebooks, Models", "/", undefined, () => showSet("kaggle-datasets")), ...setTile("kaggle-datasets") },
+  { ...r("page", "LLM Stats", "Benchmarks, Models, Scores, Rankings", "/", undefined, () => showSet("llmstats-benchmarks")), ...setTile("llmstats-benchmarks") },
+  { ...r("page", "OpenRouter", "Models, Embeddings, Providers, Free", "/", undefined, () => showSet("or-models")), ...setTile("or-models") },
   { ...r("page", "Data Library", "52.8B public records in SQL and MCP", "/data", "subjects library"), icon: LibraryBig, tint: TYPE_COLOR.data },
 
   // Commands
@@ -357,8 +358,9 @@ export const ASK_AT: { label: string; icon: React.ComponentType<{ className?: st
   { label: "Models", icon: Cpu, tint: TYPE_COLOR.models },
   { label: "Platforms", icon: Layers, tint: TYPE_COLOR.platforms },
   { label: "Tables", icon: Table2, tint: TYPE_COLOR.tables },
-  { label: "Artificial Analysis", icon: glyph("aa"), tint: TYPE_COLOR.aa },
-  { label: "Kaggle", icon: glyph("kaggle"), tint: TYPE_COLOR.kaggle },
-  { label: "LLM Stats", icon: glyph("llmstats"), tint: TYPE_COLOR.llmstats },
+  { label: "Artificial Analysis", icon: glyph("aa"), tint: TYPE_COLOR["aa-language"] },
+  { label: "Kaggle", icon: glyph("kaggle"), tint: TYPE_COLOR["kaggle-datasets"] },
+  { label: "LLM Stats", icon: glyph("llmstats"), tint: TYPE_COLOR["llmstats-benchmarks"] },
+  { label: "OpenRouter", icon: glyph("openrouter"), tint: TYPE_COLOR["or-models"] },
   { label: "Data Library", icon: LibraryBig, tint: "#1e3a8a" },
 ]

@@ -29,7 +29,7 @@ const SETS: BoxKind[] = ['data', 'models', 'platforms', 'tables']
 /**
  * The ledger's later pages (Brendan, 2026-11-19), as nsrgpt's masthead pages its cells (app/HomeMasthead.tsx there):
  * pages of four cells, two by two, side by side; the first shows and the rest wait off to the right until a sideways
- * scroll or the arrow keys bring them in. These are the five outside sources, A to Z, left to right and top to bottom.
+ * scroll or the arrow keys bring them in. These are the six outside sources, a page each, A to Z.
  * Each is a set like the first four: a click shows its boxes on the plate. Its figure is the number of boxes it holds.
  */
 const MORE: (LedgerEntry & { set: BoxKind })[][] = SOURCE_PAGES.map(page =>
@@ -50,14 +50,14 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
   const pages = [ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
   // Whole mastheads side by side (Brendan, 2026-11-19): each page is a nameplate and its four cells, and the nameplate
-  // scrolls off with its cells. GitHub's and Hugging Face's pages carry their logo as the nameplate; the others read NYSgpt.
+  // scrolls off with its cells. Each source's page carries its logo as the nameplate; the first reads NYSgpt.
 
   return (
     <div className="hm-mast" data-inspect="HomeMasthead">
       <div className="hm-mgrid" data-inspect="LedgerScroll">
         {pages.map((cells, p) => {
-        const b = brandOf(cells[0].set)
-        const brand = b === 'github' || b === 'hf' ? b : null
+        // every source page wears its source's logo as the nameplate (brief 59); the first page reads NYSgpt
+        const brand = brandOf(cells[0].set)
         return (
         <div className="hm-mpage" key={p}>
         <button
