@@ -4,6 +4,7 @@ import { PAPER_BRIDGE } from "@/components/editorial/PaperBridge";
 import { HomeMasthead } from "./HomeMasthead";
 import { HomePlate } from "./HomePlate";
 import { CatalogOverlay } from "./CatalogOverlay";
+import { PageLoader } from "@/components/PageLoader";
 import { LEDGER } from "@/lib/home-data";
 import "./home.css";
 
@@ -16,6 +17,7 @@ export const metadata = {
 export default function HomePage() {
   return (
     <AppLayout paperMode>
+      <PageLoader />
       <div
         className="hm-scroll flex-1 overflow-y-auto no-scrollbar"
         style={{ backgroundColor: "var(--paper)", ...PAPER_BRIDGE }}
