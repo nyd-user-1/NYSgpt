@@ -18,7 +18,8 @@
 // Answers (brief 58): scripts/search-answers.json holds each query's result from one free run (DuckDB on the lake's
 // Parquet files), keyed by the first 12 hex of the SQL's SHA-1, so an edited query loses its answer until it is run
 // again. A question whose stored result has rows gets { c: columns, r: at most 10 rows, on: the date run } as its
-// sixth element. Queries that returned no rows, or one row of empty values, are listed for their authors to fix.
+// sixth element. Queries that returned no rows, or a column empty in every row, are listed for their authors to fix
+// and show no answer.
 
 import crypto from "node:crypto"
 import fs from "node:fs"
@@ -107,9 +108,13 @@ const ANSWERS = path.join(ROOT, "scripts", "search-answers.json")
 const answers = fs.existsSync(ANSWERS) ? JSON.parse(fs.readFileSync(ANSWERS, "utf8")).answers ?? {} : {}
 const hashOf = (sql) => crypto.createHash("sha1").update(sql).digest("hex").slice(0, 12)
 const flagged = []
+// a result with a column that is empty in every row (a sum of text, a missing key) answers nothing in that column
+const blankColumn = (a) => a.c.find((_, j) => a.r.every((row) => row[j] == null || row[j] === ""))
 for (const r of all) {
   const a = r[4] ? answers[hashOf(r[4])] : null
-  if (a?.st === "ok") r.push({ c: a.c, r: a.r, on: a.on })
+  const blank = a?.st === "ok" ? blankColumn(a) : undefined
+  if (a?.st === "ok" && blank === undefined) r.push({ c: a.c, r: a.r, on: a.on })
+  else if (blank !== undefined) flagged.push([`${blank} empty in every row`, r[0]])
   else if (a && (a.st === "empty" || a.st === "null")) flagged.push([a.st === "empty" ? "no rows" : "one row, all empty", r[0]])
 }
 
