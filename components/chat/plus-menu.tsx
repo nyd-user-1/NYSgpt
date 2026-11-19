@@ -10,7 +10,17 @@
 // the chat with its Graphics card). Icons wear the sidebar's clothes: 18px, 1.75 stroke, lavender fill on hover.
 
 import { useState, useRef, useEffect } from 'react'
-import { Plus, ChevronRight, ArrowLeft, X, Compass, NotebookPen, Paperclip, PlaySquare, Clapperboard, AudioLines, Volume2, Loader2, Film, Shapes, Sparkles, MonitorPlay } from 'lucide-react'
+import { Plus, ChevronRight, ArrowLeft, X, Volume2, Loader2, Film, Shapes, Sparkles, MonitorPlay } from 'lucide-react'
+// brief 50 (2026-11-19): the published animated icons, as written (govblock's notebook-pen and square-play;
+// animate-ui's compass, clapperboard, audio-lines, paperclip), played by their row through AnimateOnHover.
+// Film, Shapes (its only motion is a scale), Sparkles (the same) and MonitorPlay keep the two-tone fill only.
+import { NotebookPen } from '@/components/animate-ui/icons/notebook-pen'
+import { SquarePlay as PlaySquare } from '@/components/animate-ui/icons/square-play'
+import { Compass } from '@/components/animate-ui/icons/compass'
+import { Clapperboard } from '@/components/animate-ui/icons/clapperboard'
+import { AudioLines } from '@/components/animate-ui/icons/audio-lines'
+import { Paperclip } from '@/components/animate-ui/icons/paperclip'
+import { AnimateOnHover } from '@/components/animate-on-hover'
 
 import { narrate } from '@/app/studio-actions'
 import { SHOWN_SKILLS, type ChatSkill } from '@/lib/chat-skills'
@@ -82,7 +92,7 @@ interface Props {
 }
 
 /* Sidebar dress for every menu icon (shell.tsx's item): 18px, 1.75 stroke, lavender fill on row hover. */
-const ICON = 'icon-pop size-[18px] shrink-0 transition-colors text-slate-500 group-hover:fill-pax2-lavender group-hover:text-pax2-blue'
+const ICON = 'size-[18px] shrink-0 transition-colors text-slate-500 group-hover:fill-pax2-lavender group-hover:text-pax2-blue'
 
 const VOICE_LINE = 'Open primaries let every voter pick the person, not the party.'
 
@@ -192,6 +202,7 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
             <span className="block truncate text-xs text-[var(--muted)]">{s.framing}</span>
           </span>
         </button>
+              </AnimateOnHover>
       ))}
       {scripts && filteredScripts.length === 0 && <p className="px-4 py-3 text-xs text-[var(--muted)]">No matches</p>}
     </>
@@ -221,25 +232,35 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
         <div className={`absolute left-0 ${panelSide} w-56 max-w-[calc(100vw-2rem)] rounded-2xl border border-[var(--border)] bg-[var(--surface)] shadow-xl overflow-hidden z-20`}>
           <div className="no-scrollbar overflow-y-auto py-1" style={room ? { maxHeight: room } : undefined}>
             {CATEGORIES.map((cat, i) => (
-              <button key={cat.key} onClick={() => handleCategoryClick(cat.key)} className={row(i) + ' text-sm font-medium'}>
+              <AnimateOnHover key={cat.key}>
+              <button onClick={() => handleCategoryClick(cat.key)} className={row(i) + ' text-sm font-medium'}>
                 {cat.icon}
                 <span className="text-[var(--txt)]">{cat.label}</span>
                 <ChevronRight className="h-4 w-4 ml-auto text-[var(--muted)]" />
               </button>
+              </AnimateOnHover>
             ))}
             {/* A leaf: every video template, filled with sample data, placed in the chat. */}
             {onTemplates && (
+              <AnimateOnHover>
+              <AnimateOnHover>
               <button onClick={() => { onTemplates(); closeMenu() }} className={row(CATEGORIES.length) + ' text-sm font-medium'}>
                 <MonitorPlay className={ICON} strokeWidth={1.75} />
                 <span className="text-[var(--txt)]">Video templates</span>
               </button>
+              </AnimateOnHover>
+              </AnimateOnHover>
             )}
             {/* A leaf, not a drill-down: picking it opens the file dialog. */}
             {onAttach && (
+              <AnimateOnHover>
+              <AnimateOnHover>
               <button onClick={() => { onAttach(); closeMenu() }} className={row(CATEGORIES.length) + ' text-sm font-medium'}>
                 <Paperclip className={ICON} strokeWidth={1.75} />
                 <span className="text-[var(--txt)]">Attach</span>
               </button>
+              </AnimateOnHover>
+              </AnimateOnHover>
             )}
           </div>
         </div>
