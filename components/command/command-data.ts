@@ -1,7 +1,7 @@
 import { ChevronsLeftRight, Cpu, Database, Layers, LibraryBig, PanelLeft, Table2, type LucideIcon } from "lucide-react"
 import * as React from "react"
 
-import { TypeIcon } from "@/app/HomeIcons"
+import { Icon, TypeIcon } from "@/app/HomeIcons"
 import { BOXES, SOURCES, TYPE_COLOR, type Box, type BoxKind, type SourceKind } from "@/lib/home-boxes"
 import { LEDGER } from "@/lib/home-data"
 import { compact } from "@/lib/compact"
@@ -30,6 +30,11 @@ export type CommandItem = {
   box?: Box
   icon?: React.ComponentType<{ className?: string; strokeWidth?: number }>
   logo?: string
+  /** The tile's own colour and icon colour, where they are not the kind's (a page wears its set's). */
+  tint?: string
+  fg?: string
+  /** A mark drawn by TypeIcon that is a logo (GitHub, Hugging Face and the sources): it sits on a white tile. */
+  mark?: Box["icon"]
 }
 
 type KindInfo = { section: string; label: string; icon: LucideIcon | React.ComponentType<{ className?: string; strokeWidth?: number }>; tint: string; action: string }
@@ -37,9 +42,30 @@ type KindInfo = { section: string; label: string; icon: LucideIcon | React.Compo
 /** A box's type icon in the tile's place: TypeIcon draws at its own size, so the wrapper sets it. */
 const glyph = (icon: Box["icon"]) => {
   function Glyph({ className }: { className?: string }) {
-    return React.createElement("span", { className: `${className ?? ""} flex [&>svg]:size-full` }, React.createElement(TypeIcon, { icon }))
+    return React.createElement("span", { className: `${className ?? ""} flex [&>svg]:size-full [&>img]:size-full [&>img]:object-contain` }, React.createElement(TypeIcon, { icon }))
   }
   return Glyph
+}
+
+/** The All page's icon: the home page's grid (Blocks) icon. */
+function GridGlyph({ className }: { className?: string }) {
+  return React.createElement("span", { className: `${className ?? ""} flex [&>svg]:size-full` }, React.createElement(Icon, { name: "grid" }))
+}
+
+/** TypeIcon's marks that are logos, not line icons: they keep their own colours on a white tile. */
+const MARKS = new Set<Box["icon"]>(["github", "hf", "aa", "kaggle", "llmstats"])
+
+/** A set's icon: the one most of its boxes wear (so a page row shows what its boxes show). */
+const iconOf = (k: BoxKind): Box["icon"] => {
+  const n = new Map<Box["icon"], number>()
+  for (const b of BOXES) if (b.kind === k) n.set(b.icon, (n.get(b.icon) ?? 0) + 1)
+  return [...n.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] ?? "db"
+}
+
+/** A page row's tile for a set: its colour from TYPE_COLOR and its icon or mark from the boxes. */
+const setTile = (k: BoxKind) => {
+  const icon = iconOf(k)
+  return MARKS.has(icon) ? { mark: icon, tint: TYPE_COLOR[k] } : { icon: glyph(icon), tint: TYPE_COLOR[k] }
 }
 
 const singular = (unit: string) => (unit.endsWith("ies") ? `${unit.slice(0, -3)}y` : unit.replace(/s$/, ""))
@@ -108,17 +134,17 @@ const ledger = (word: string) => {
 
 export const ITEMS: CommandItem[] = [
   // Pages: the masthead's sets, the source pages, and the Data Library.
-  r("page", "All", "All boxes", "/", "home nysgpt", () => showSet(null)),
-  r("page", "Data", ledger("Data"), "/", "records databases", () => showSet("data")),
-  r("page", "Models", ledger("Models"), "/", "parameters", () => showSet("models")),
-  r("page", "Platforms", ledger("Platforms"), "/", "requests", () => showSet("platforms")),
-  r("page", "Tables", ledger("Tables"), "/", "catalog", () => showSet("tables")),
-  r("page", "Artificial Analysis", "Models", "/", "aa", () => showSet("aa")),
-  r("page", "Kaggle", "Datasets", "/", undefined, () => showSet("kaggle")),
-  r("page", "LLM Stats", "Benchmarks", "/", undefined, () => showSet("llmstats")),
-  r("page", "GitHub", "Skills, Design, API, MCP", "/", "repositories", () => showSet("gh-skills")),
-  r("page", "Hugging Face", "Models, Datasets, Spaces, Papers", "/", "hf", () => showSet("hf-models")),
-  r("page", "Data Library", "52.8B public records in SQL and MCP", "/data", "subjects library"),
+  { ...r("page", "All", "All boxes", "/", "home nysgpt", () => showSet(null)), icon: GridGlyph, tint: "var(--paper-text)", fg: "var(--paper)" },
+  { ...r("page", "Data", ledger("Data"), "/", "records databases", () => showSet("data")), ...setTile("data") },
+  { ...r("page", "Models", ledger("Models"), "/", "parameters", () => showSet("models")), ...setTile("models") },
+  { ...r("page", "Platforms", ledger("Platforms"), "/", "requests", () => showSet("platforms")), ...setTile("platforms") },
+  { ...r("page", "Tables", ledger("Tables"), "/", "catalog", () => showSet("tables")), ...setTile("tables") },
+  { ...r("page", "Artificial Analysis", "Models", "/", "aa", () => showSet("aa")), ...setTile("aa") },
+  { ...r("page", "Kaggle", "Datasets", "/", undefined, () => showSet("kaggle")), ...setTile("kaggle") },
+  { ...r("page", "LLM Stats", "Benchmarks", "/", undefined, () => showSet("llmstats")), ...setTile("llmstats") },
+  { ...r("page", "GitHub", "Skills, Design, API, MCP", "/", "repositories", () => showSet("gh-skills")), ...setTile("gh-skills") },
+  { ...r("page", "Hugging Face", "Models, Datasets, Spaces, Papers", "/", "hf", () => showSet("hf-models")), ...setTile("hf-models") },
+  { ...r("page", "Data Library", "52.8B public records in SQL and MCP", "/data", "subjects library"), icon: LibraryBig, tint: TYPE_COLOR.data },
 
   // Commands
   r("command", "Toggle Sidebar", "Shell", undefined, "log", () => document.querySelector<HTMLButtonElement>('button[aria-label="Toggle sidebar"]:not([class*="fixed"])')?.click()),
@@ -127,8 +153,7 @@ export const ITEMS: CommandItem[] = [
   ...BOXES.map((b) => ({
     ...r(b.kind, b.title, b.group || undefined, undefined, b.body, () => openBox(b)),
     box: b,
-    icon: glyph(b.icon),
-    logo: b.logo,
+    ...(b.logo ? { logo: b.logo } : MARKS.has(b.icon) ? { mark: b.icon } : { icon: glyph(b.icon) }),
   })),
 ]
 

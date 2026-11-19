@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation"
 
 import { cn } from "@/lib/utils"
 import { boxKey, getHome, home } from "@/lib/home-store"
+import { TypeIcon } from "@/app/HomeIcons"
+import type { BoxIcon } from "@/lib/home-boxes"
 
 import { ASK_AT, ITEMS, KINDS, SECTIONS, setNavigate, suggested, type CommandItem } from "./command-data"
 import { NysgptMark as PaxMark } from "./nysgpt-mark"
@@ -39,17 +41,24 @@ function score(item: CommandItem, q: string) {
   return title.startsWith(q) ? 3 : title.includes(q) ? 2 : 1
 }
 
-function Tile({ icon: Icon, tint, size = 28, logo }: { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; tint: string; size?: number; logo?: string }) {
-  // A box with its own logo: the logo on white in a tile ringed in its set's colour (NYSgpt's boxes, 2026-11-19).
-  if (logo)
+function Tile({ icon: Icon, tint, size = 28, logo, mark, fg }: { icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; tint: string; size?: number; logo?: string; mark?: BoxIcon; fg?: string }) {
+  // A logo (a box's logo file, or a mark TypeIcon draws: GitHub, Hugging Face, the sources) sits on a white
+  // tile with a 1px rule; every other tile is its set's colour with the icon in white (2026-11-19).
+  if (logo || mark)
     return (
-      <span className="cmdk-tile flex shrink-0 items-center justify-center rounded-lg bg-white" style={{ width: size, height: size, boxShadow: `inset 0 0 0 1.5px ${tint}` }}>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={logo} alt="" className={size > 40 ? "size-7 object-contain" : "size-4 object-contain"} />
+      <span className="cmdk-tile cmdk-logo flex shrink-0 items-center justify-center rounded-lg border bg-white" style={{ width: size, height: size }}>
+        {logo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={logo} alt="" className={size > 40 ? "size-7 object-contain" : "size-4 object-contain"} />
+        ) : (
+          <span className={cn("flex text-[#16181d] [&>img]:size-full [&>img]:object-contain [&>svg]:size-full", size > 40 ? "size-7" : "size-4")}>
+            <TypeIcon icon={mark!} />
+          </span>
+        )}
       </span>
     )
   return (
-    <span className="cmdk-tile flex shrink-0 items-center justify-center rounded-lg text-white shadow-[inset_0_-1px_0_rgb(0_0_0/0.12)]" style={{ width: size, height: size, background: tint }}>
+    <span className="cmdk-tile flex shrink-0 items-center justify-center rounded-lg text-white shadow-[inset_0_-1px_0_rgb(0_0_0/0.12)]" style={{ width: size, height: size, background: tint, color: fg }}>
       <Icon className={size > 40 ? "size-7" : "size-4"} strokeWidth={2} />
     </span>
   )
@@ -277,7 +286,7 @@ export function CommandK({ onClose, slot }: { onClose: () => void; slot?: number
                       onClick={() => open(row)}
                       className={cn("cmdk-row flex h-12 w-full items-center gap-3 px-5 text-left transition-colors", picked && "cmdk-on")}
                     >
-                      {row.item && k ? <Tile icon={row.item.icon ?? k.icon} tint={k.tint} logo={row.item.logo} /> : row.at ? <Tile icon={row.at.icon} tint={row.at.tint} /> : <PaxMark size={18} className="mx-[5px] shrink-0" />}
+                      {row.item && k ? <Tile icon={row.item.icon ?? k.icon} tint={row.item.tint ?? k.tint} logo={row.item.logo} mark={row.item.mark} fg={row.item.fg} /> : row.at ? <Tile icon={row.at.icon} tint={row.at.tint} /> : <PaxMark size={18} className="mx-[5px] shrink-0" />}
                       <span className="flex min-w-0 flex-1 items-baseline gap-3">
                         <span className="cmdk-row-title truncate text-[15px] font-medium">{row.item?.title ?? (row.at ? `@${row.at.label}` : "Ask NYSgpt")}</span>
                         <span className="cmdk-row-sub truncate text-[14px]">{row.item?.subtitle ?? (row.at ? "Ask about this page" : `“${row.ask}”`)}</span>
