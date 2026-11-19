@@ -33,7 +33,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "cross-encoder/ms-marco-MiniLM-L6-v2",
   "group": "Text ranking",
-  "body": "Text ranking, 56.3M downloads in the last month, 451 likes.",
+  "body": "Text ranking, 56.3M downloads in the last month, 452 likes.",
   "foot": "56.3M",
   "accent": "",
   "icon": "cpu"
@@ -60,8 +60,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "autogluon/chronos-2",
   "group": "Time series forecasting",
-  "body": "Time series forecasting, 34.1M downloads in the last month, 97 likes.",
-  "foot": "34.1M",
+  "body": "Time series forecasting, 34.2M downloads in the last month, 97 likes.",
+  "foot": "34.2M",
   "accent": "",
   "icon": "cpu"
  },
@@ -78,8 +78,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "Comfy-Org/MiniMax-H3",
   "group": "Model",
-  "body": "Model, 33M downloads in the last month, 2.8K likes.",
-  "foot": "33M",
+  "body": "Model, 33.1M downloads in the last month, 2.8K likes.",
+  "foot": "33.1M",
   "accent": "",
   "icon": "cpu"
  },
@@ -204,8 +204,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "deepseek-ai/DeepSeek-V3.2",
   "group": "Text generation",
-  "body": "Text generation, 9.9M downloads in the last month, 1.6K likes.",
-  "foot": "9.9M",
+  "body": "Text generation, 10.1M downloads in the last month, 1.6K likes.",
+  "foot": "10.1M",
   "accent": "",
   "icon": "cpu"
  },
@@ -231,8 +231,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "audio-cpp/audio.cpp-gguf",
   "group": "Text to speech",
-  "body": "Text to speech, 9.6M downloads in the last month, 333 likes.",
-  "foot": "9.6M",
+  "body": "Text to speech, 9.7M downloads in the last month, 333 likes.",
+  "foot": "9.7M",
   "accent": "",
   "icon": "cpu"
  },
@@ -240,8 +240,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "Comfy-Org/Qwen-Image-2.1",
   "group": "Text to image",
-  "body": "Text to image, 9.6M downloads in the last month, 1.3K likes.",
-  "foot": "9.6M",
+  "body": "Text to image, 9.5M downloads in the last month, 1.3K likes.",
+  "foot": "9.5M",
   "accent": "",
   "icon": "cpu"
  },
@@ -294,7 +294,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "FacebookAI/xlm-roberta-base",
   "group": "Fill mask",
-  "body": "Fill mask, 8.5M downloads in the last month, 977 likes.",
+  "body": "Fill mask, 8.5M downloads in the last month, 978 likes.",
   "foot": "8.5M",
   "accent": "",
   "icon": "cpu"
@@ -312,8 +312,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "amazon/chronos-2",
   "group": "Time series forecasting",
-  "body": "Time series forecasting, 8.2M downloads in the last month, 577 likes.",
-  "foot": "8.2M",
+  "body": "Time series forecasting, 8.1M downloads in the last month, 577 likes.",
+  "foot": "8.1M",
   "accent": "",
   "icon": "cpu"
  },
@@ -346,15 +346,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "intfloat/multilingual-e5-large",
-  "group": "Feature extraction",
-  "body": "Feature extraction, 7.3M downloads in the last month, 1.3K likes.",
-  "foot": "7.3M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
   "title": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
   "group": "Image text to text",
   "body": "Image text to text, 7.3M downloads in the last month, 1.3K likes.",
@@ -364,10 +355,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "Serveurperso/YuE2-GGUF",
-  "group": "Model",
-  "body": "Model, 7.1M downloads in the last month, 32 likes.",
-  "foot": "7.1M",
+  "title": "intfloat/multilingual-e5-large",
+  "group": "Feature extraction",
+  "body": "Feature extraction, 7.3M downloads in the last month, 1.3K likes.",
+  "foot": "7.3M",
   "accent": "",
   "icon": "cpu"
  },
@@ -375,8 +366,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "unsloth/Qwen3.8-27B-GGUF",
   "group": "Model",
-  "body": "Model, 7M downloads in the last month, 6.2K likes.",
-  "foot": "7M",
+  "body": "Model, 7.1M downloads in the last month, 6.2K likes.",
+  "foot": "7.1M",
   "accent": "",
   "icon": "cpu"
  },
@@ -391,10 +382,19 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
+  "title": "Serveurperso/YuE2-GGUF",
+  "group": "Model",
+  "body": "Model, 6.9M downloads in the last month, 32 likes.",
+  "foot": "6.9M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
   "title": "Qwen/Qwen3.8-27B",
   "group": "Image text to text",
-  "body": "Image text to text, 6.9M downloads in the last month, 20.6K likes.",
-  "foot": "6.9M",
+  "body": "Image text to text, 6.6M downloads in the last month, 20.6K likes.",
+  "foot": "6.6M",
   "accent": "",
   "icon": "cpu"
  },
@@ -409,19 +409,28 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "Qwen/Qwen3.5-9B",
-  "group": "Image text to text",
-  "body": "Image text to text, 6.5M downloads in the last month, 2.4K likes.",
+  "title": "Systran/faster-whisper-small",
+  "group": "Automatic speech recognition",
+  "body": "Automatic speech recognition, 6.5M downloads in the last month, 108 likes.",
   "foot": "6.5M",
   "accent": "",
   "icon": "cpu"
  },
  {
   "kind": "hf-models",
-  "title": "Systran/faster-whisper-small",
-  "group": "Automatic speech recognition",
-  "body": "Automatic speech recognition, 6.5M downloads in the last month, 108 likes.",
-  "foot": "6.5M",
+  "title": "Qwen/Qwen3.8-27B-FP8",
+  "group": "Image text to text",
+  "body": "Image text to text, 6.4M downloads in the last month, 1K likes.",
+  "foot": "6.4M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "Qwen/Qwen3.5-9B",
+  "group": "Image text to text",
+  "body": "Image text to text, 6.4M downloads in the last month, 2.4K likes.",
+  "foot": "6.4M",
   "accent": "",
   "icon": "cpu"
  },
@@ -447,35 +456,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "Qwen/Qwen3-VL-8B-Instruct",
   "group": "Image text to text",
-  "body": "Image text to text, 6.4M downloads in the last month, 1.3K likes.",
-  "foot": "6.4M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
-  "title": "Comfy-Org/MOSS-Image",
-  "group": "Model",
-  "body": "Model, 6.4M downloads in the last month, 730 likes.",
-  "foot": "6.4M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
-  "title": "Qwen/Qwen3.8-27B-FP8",
-  "group": "Image text to text",
-  "body": "Image text to text, 6.3M downloads in the last month, 1K likes.",
-  "foot": "6.3M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
-  "title": "google/gemma-4-31B-it",
-  "group": "Image text to text",
-  "body": "Image text to text, 6.3M downloads in the last month, 4.4K likes.",
-  "foot": "6.3M",
+  "body": "Image text to text, 6.2M downloads in the last month, 1.3K likes.",
+  "foot": "6.2M",
   "accent": "",
   "icon": "cpu"
  },
@@ -485,6 +467,24 @@ export const SOURCE_BOXES: Box[] = [
   "group": "Automatic speech recognition",
   "body": "Automatic speech recognition, 6.2M downloads in the last month, 5.3K likes.",
   "foot": "6.2M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "google/gemma-4-31B-it",
+  "group": "Image text to text",
+  "body": "Image text to text, 6.1M downloads in the last month, 4.4K likes.",
+  "foot": "6.1M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "Comfy-Org/MOSS-Image",
+  "group": "Model",
+  "body": "Model, 6.1M downloads in the last month, 730 likes.",
+  "foot": "6.1M",
   "accent": "",
   "icon": "cpu"
  },
@@ -517,6 +517,15 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
+  "title": "ornith-ai/Ornith-1.5-9B-GGUF",
+  "group": "Text generation",
+  "body": "Text generation, 5.8M downloads in the last month, 738 likes.",
+  "foot": "5.8M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
   "title": "MiniMaxAI/MiniMax-H3",
   "group": "Image text to video",
   "body": "Image text to video, 5.7M downloads in the last month, 7.1K likes.",
@@ -526,19 +535,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "ornith-ai/Ornith-1.5-9B-GGUF",
-  "group": "Text generation",
-  "body": "Text generation, 5.7M downloads in the last month, 736 likes.",
-  "foot": "5.7M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
   "title": "baidu/Unlimited-OCR",
   "group": "Image text to text",
-  "body": "Image text to text, 5.7M downloads in the last month, 5K likes.",
-  "foot": "5.7M",
+  "body": "Image text to text, 5.6M downloads in the last month, 5K likes.",
+  "foot": "5.6M",
   "accent": "",
   "icon": "cpu"
  },
@@ -618,7 +618,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
   "group": "Image text to text",
-  "body": "Image text to text, 5.1M downloads in the last month, 121 likes.",
+  "body": "Image text to text, 5.1M downloads in the last month, 123 likes.",
   "foot": "5.1M",
   "accent": "",
   "icon": "cpu"
@@ -654,8 +654,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "google/gemma-4-26B-A4B-it",
   "group": "Image text to text",
-  "body": "Image text to text, 5M downloads in the last month, 1.8K likes.",
-  "foot": "5M",
+  "body": "Image text to text, 4.9M downloads in the last month, 1.8K likes.",
+  "foot": "4.9M",
   "accent": "",
   "icon": "cpu"
  },
@@ -663,7 +663,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "Qwen/Qwen2.5-1.5B-Instruct",
   "group": "Text generation",
-  "body": "Text generation, 4.9M downloads in the last month, 947 likes.",
+  "body": "Text generation, 4.9M downloads in the last month, 948 likes.",
   "foot": "4.9M",
   "accent": "",
   "icon": "cpu"
@@ -715,15 +715,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "Qwen/Qwen3.5-4B",
-  "group": "Image text to text",
-  "body": "Image text to text, 4.7M downloads in the last month, 1.3K likes.",
-  "foot": "4.7M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
   "title": "intfloat/multilingual-e5-base",
   "group": "Sentence similarity",
   "body": "Sentence similarity, 4.7M downloads in the last month, 422 likes.",
@@ -769,9 +760,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
+  "title": "Qwen/Qwen3.5-4B",
+  "group": "Image text to text",
+  "body": "Image text to text, 4.6M downloads in the last month, 1.3K likes.",
+  "foot": "4.6M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
   "title": "Comfy-Org/Krea-2",
   "group": "Text to image",
-  "body": "Text to image, 4.5M downloads in the last month, 848 likes.",
+  "body": "Text to image, 4.5M downloads in the last month, 849 likes.",
   "foot": "4.5M",
   "accent": "",
   "icon": "cpu"
@@ -781,6 +781,15 @@ export const SOURCE_BOXES: Box[] = [
   "title": "ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF",
   "group": "Text generation",
   "body": "Text generation, 4.4M downloads in the last month, 683 likes.",
+  "foot": "4.4M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+  "group": "Image text to text",
+  "body": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
   "foot": "4.4M",
   "accent": "",
   "icon": "cpu"
@@ -807,26 +816,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "google/gemma-4-E4B-it",
   "group": "Any to any",
-  "body": "Any to any, 4.4M downloads in the last month, 1.9K likes.",
-  "foot": "4.4M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
-  "title": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
-  "group": "Image text to text",
-  "body": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
-  "foot": "4.4M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
-  "title": "thenlper/gte-small",
-  "group": "Sentence similarity",
-  "body": "Sentence similarity, 4.2M downloads in the last month, 203 likes.",
-  "foot": "4.2M",
+  "body": "Any to any, 4.3M downloads in the last month, 1.9K likes.",
+  "foot": "4.3M",
   "accent": "",
   "icon": "cpu"
  },
@@ -834,8 +825,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-models",
   "title": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
   "group": "Image text to text",
-  "body": "Image text to text, 4.2M downloads in the last month, 1.2K likes.",
-  "foot": "4.2M",
+  "body": "Image text to text, 4.3M downloads in the last month, 1.2K likes.",
+  "foot": "4.3M",
   "accent": "",
   "icon": "cpu"
  },
@@ -844,6 +835,15 @@ export const SOURCE_BOXES: Box[] = [
   "title": "k2-fsa/OmniVoice",
   "group": "Text to speech",
   "body": "Text to speech, 4.2M downloads in the last month, 1.7K likes.",
+  "foot": "4.2M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "thenlper/gte-small",
+  "group": "Sentence similarity",
+  "body": "Sentence similarity, 4.2M downloads in the last month, 203 likes.",
   "foot": "4.2M",
   "accent": "",
   "icon": "cpu"
@@ -859,9 +859,9 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+  "title": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
   "group": "Text generation",
-  "body": "Text generation, 4.1M downloads in the last month, 686 likes.",
+  "body": "Text generation, 4.1M downloads in the last month, 628 likes.",
   "foot": "4.1M",
   "accent": "",
   "icon": "cpu"
@@ -877,24 +877,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
-  "group": "Text generation",
-  "body": "Text generation, 4.1M downloads in the last month, 628 likes.",
-  "foot": "4.1M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
-  "title": "Qwen/Qwen2.5-0.5B-Instruct",
-  "group": "Text generation",
-  "body": "Text generation, 4.1M downloads in the last month, 753 likes.",
-  "foot": "4.1M",
-  "accent": "",
-  "icon": "cpu"
- },
- {
-  "kind": "hf-models",
   "title": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
   "group": "Model",
   "body": "Model, 4.1M downloads in the last month, 608 likes.",
@@ -904,10 +886,28 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-models",
-  "title": "Qwen/Qwen3.6-35B-A3B-FP8",
-  "group": "Image text to text",
-  "body": "Image text to text, 4M downloads in the last month, 454 likes.",
-  "foot": "4M",
+  "title": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+  "group": "Text generation",
+  "body": "Text generation, 4.1M downloads in the last month, 686 likes.",
+  "foot": "4.1M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "Qwen/Qwen2.5-0.5B-Instruct",
+  "group": "Text generation",
+  "body": "Text generation, 4.1M downloads in the last month, 754 likes.",
+  "foot": "4.1M",
+  "accent": "",
+  "icon": "cpu"
+ },
+ {
+  "kind": "hf-models",
+  "title": "Qwen/Qwen3-32B",
+  "group": "Text generation",
+  "body": "Text generation, 3.9M downloads in the last month, 797 likes.",
+  "foot": "3.9M",
   "accent": "",
   "icon": "cpu"
  },
@@ -942,8 +942,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "allenai/objaverse",
   "group": "Dataset",
-  "body": "2.3M downloads in the last month, 495 likes.",
-  "foot": "2.3M",
+  "body": "2.4M downloads in the last month, 495 likes.",
+  "foot": "2.4M",
   "accent": "",
   "icon": "db"
  },
@@ -951,8 +951,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Salesforce/wikitext",
   "group": "Dataset",
-  "body": "2.2M downloads in the last month, 869 likes.",
-  "foot": "2.2M",
+  "body": "2.3M downloads in the last month, 869 likes.",
+  "foot": "2.3M",
   "accent": "",
   "icon": "db"
  },
@@ -969,8 +969,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "IaLoverSpaghetti/LocaIAinHTML",
   "group": "Dataset",
-  "body": "1.8M downloads in the last month, 1 likes.",
-  "foot": "1.8M",
+  "body": "2M downloads in the last month, 1 likes.",
+  "foot": "2M",
   "accent": "",
   "icon": "db"
  },
@@ -978,8 +978,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "nicoboou/IDRCell100k",
   "group": "Dataset",
-  "body": "1.8M downloads in the last month, 18 likes.",
-  "foot": "1.8M",
+  "body": "1.7M downloads in the last month, 18 likes.",
+  "foot": "1.7M",
   "accent": "",
   "icon": "db"
  },
@@ -987,7 +987,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "nvidia/simready-assets",
   "group": "Dataset",
-  "body": "1.7M downloads in the last month, 1.6K likes.",
+  "body": "1.7M downloads in the last month, 1.7K likes.",
   "foot": "1.7M",
   "accent": "",
   "icon": "db"
@@ -1014,8 +1014,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "OPR-Project/OxfordRobotCar_OpenPlaceRecognition",
   "group": "Dataset",
-  "body": "1.4M downloads in the last month, 10 likes.",
-  "foot": "1.4M",
+  "body": "1.5M downloads in the last month, 10 likes.",
+  "foot": "1.5M",
   "accent": "",
   "icon": "db"
  },
@@ -1084,6 +1084,15 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-datasets",
+  "title": "nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim",
+  "group": "Dataset",
+  "body": "1.1M downloads in the last month, 293 likes.",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
   "title": "filapro/cad-recode-v1.5",
   "group": "Dataset",
   "body": "1M downloads in the last month, 13 likes.",
@@ -1095,17 +1104,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "wei82/precancer-omics-data",
   "group": "Dataset",
-  "body": "1M downloads in the last month, 34 likes.",
-  "foot": "1M",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim",
-  "group": "Dataset",
-  "body": "978K downloads in the last month, 293 likes.",
-  "foot": "978K",
+  "body": "986K downloads in the last month, 34 likes.",
+  "foot": "986K",
   "accent": "",
   "icon": "db"
  },
@@ -1113,8 +1113,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "xlangai/osworld_v2_assets",
   "group": "Dataset",
-  "body": "846K downloads in the last month, 25 likes.",
-  "foot": "846K",
+  "body": "884K downloads in the last month, 25 likes.",
+  "foot": "884K",
   "accent": "",
   "icon": "db"
  },
@@ -1122,17 +1122,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Osamap3/PSP_ph",
   "group": "Dataset",
-  "body": "814K downloads in the last month, 4 likes.",
-  "foot": "814K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "XDOF/ABC-130k",
-  "group": "Dataset",
-  "body": "809K downloads in the last month, 147 likes.",
-  "foot": "809K",
+  "body": "866K downloads in the last month, 4 likes.",
+  "foot": "866K",
   "accent": "",
   "icon": "db"
  },
@@ -1140,8 +1131,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Drakesuper/rodridre",
   "group": "Dataset",
-  "body": "808K downloads in the last month, 20 likes.",
-  "foot": "808K",
+  "body": "809K downloads in the last month, 20 likes.",
+  "foot": "809K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "XDOF/ABC-130k",
+  "group": "Dataset",
+  "body": "807K downloads in the last month, 147 likes.",
+  "foot": "807K",
   "accent": "",
   "icon": "db"
  },
@@ -1149,8 +1149,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Dagonulca/figofigofigofigo",
   "group": "Dataset",
-  "body": "789K downloads in the last month, 36 likes.",
-  "foot": "789K",
+  "body": "803K downloads in the last month, 36 likes.",
+  "foot": "803K",
   "accent": "",
   "icon": "db"
  },
@@ -1158,8 +1158,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "allenai/c4",
   "group": "Dataset",
-  "body": "764K downloads in the last month, 705 likes.",
-  "foot": "764K",
+  "body": "774K downloads in the last month, 705 likes.",
+  "foot": "774K",
   "accent": "",
   "icon": "db"
  },
@@ -1167,8 +1167,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "roisincrtai/ptb-xl-1.0.3",
   "group": "Dataset",
-  "body": "744K downloads in the last month, 4 likes.",
-  "foot": "744K",
+  "body": "742K downloads in the last month, 4 likes.",
+  "foot": "742K",
   "accent": "",
   "icon": "db"
  },
@@ -1176,8 +1176,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "challenge-2026/challenge_data",
   "group": "Dataset",
-  "body": "712K downloads in the last month, 18 likes.",
-  "foot": "712K",
+  "body": "713K downloads in the last month, 18 likes.",
+  "foot": "713K",
   "accent": "",
   "icon": "db"
  },
@@ -1185,8 +1185,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "HennyPr/ps2_hf2",
   "group": "Dataset",
-  "body": "681K downloads in the last month, 48 likes.",
-  "foot": "681K",
+  "body": "699K downloads in the last month, 48 likes.",
+  "foot": "699K",
   "accent": "",
   "icon": "db"
  },
@@ -1194,44 +1194,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "evaleval/EEE_datastore",
   "group": "Dataset",
-  "body": "651K downloads in the last month, 62 likes.",
-  "foot": "651K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "epfml/FineWeb-HQ",
-  "group": "Dataset",
-  "body": "607K downloads in the last month, 36 likes.",
-  "foot": "607K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "huggingface/DEH-image-scan-data",
-  "group": "Dataset",
-  "body": "600K downloads in the last month, 27 likes.",
-  "foot": "600K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "world-igr-plum/regions",
-  "group": "Dataset",
-  "body": "598K downloads in the last month, 41 likes.",
-  "foot": "598K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "banned-historical-archives/banned-historical-archives",
-  "group": "Dataset",
-  "body": "591K downloads in the last month, 122 likes.",
-  "foot": "591K",
+  "body": "631K downloads in the last month, 62 likes.",
+  "foot": "631K",
   "accent": "",
   "icon": "db"
  },
@@ -1239,35 +1203,26 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "carlotabronze/sm-stuff",
   "group": "Dataset",
-  "body": "590K downloads in the last month, 2 likes.",
-  "foot": "590K",
+  "body": "615K downloads in the last month, 2 likes.",
+  "foot": "615K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "pulmo/ncbi-genbank-complete",
+  "title": "world-igr-plum/regions",
   "group": "Dataset",
-  "body": "588K downloads in the last month, 28 likes.",
-  "foot": "588K",
+  "body": "603K downloads in the last month, 41 likes.",
+  "foot": "603K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M",
+  "title": "huggingface/DEH-image-scan-data",
   "group": "Dataset",
-  "body": "579K downloads in the last month, 112 likes.",
-  "foot": "579K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "cais/mmlu",
-  "group": "Dataset",
-  "body": "576K downloads in the last month, 890 likes.",
-  "foot": "576K",
+  "body": "591K downloads in the last month, 27 likes.",
+  "foot": "591K",
   "accent": "",
   "icon": "db"
  },
@@ -1275,17 +1230,35 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "visionhdstream/data-vision-01",
   "group": "Dataset",
-  "body": "576K downloads in the last month, 3 likes.",
-  "foot": "576K",
+  "body": "591K downloads in the last month, 3 likes.",
+  "foot": "591K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "omegalabsinc/omega-voice",
+  "title": "cais/mmlu",
   "group": "Dataset",
-  "body": "547K downloads in the last month, 6 likes.",
-  "foot": "547K",
+  "body": "581K downloads in the last month, 890 likes.",
+  "foot": "581K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "banned-historical-archives/banned-historical-archives",
+  "group": "Dataset",
+  "body": "560K downloads in the last month, 122 likes.",
+  "foot": "560K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "pulmo/ncbi-genbank-complete",
+  "group": "Dataset",
+  "body": "559K downloads in the last month, 28 likes.",
+  "foot": "559K",
   "accent": "",
   "icon": "db"
  },
@@ -1293,8 +1266,26 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "allenai/ai2_arc",
   "group": "Dataset",
-  "body": "535K downloads in the last month, 433 likes.",
-  "foot": "535K",
+  "body": "533K downloads in the last month, 433 likes.",
+  "foot": "533K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "omegalabsinc/omega-voice",
+  "group": "Dataset",
+  "body": "522K downloads in the last month, 6 likes.",
+  "foot": "522K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Sharpa-Robotics/SharpaDex-v1.0",
+  "group": "Dataset",
+  "body": "522K downloads in the last month, 63 likes.",
+  "foot": "522K",
   "accent": "",
   "icon": "db"
  },
@@ -1302,35 +1293,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "ieasybooks-org/prophet-mosque-library",
   "group": "Dataset",
-  "body": "508K downloads in the last month, 27 likes.",
-  "foot": "508K",
+  "body": "521K downloads in the last month, 27 likes.",
+  "foot": "521K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "ksolovev/fine-news",
+  "title": "mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M",
   "group": "Dataset",
-  "body": "494K downloads in the last month, 53 likes.",
-  "foot": "494K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "k9cli/video-vec2wav2-tokenizer",
-  "group": "Dataset",
-  "body": "491K downloads in the last month, 41 likes.",
-  "foot": "491K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "sunblaze-ucb/cybergym",
-  "group": "Dataset",
-  "body": "488K downloads in the last month, 73 likes.",
-  "foot": "488K",
+  "body": "505K downloads in the last month, 112 likes.",
+  "foot": "505K",
   "accent": "",
   "icon": "db"
  },
@@ -1338,17 +1311,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Maximilians/ps2_hf1",
   "group": "Dataset",
-  "body": "483K downloads in the last month, 54 likes.",
-  "foot": "483K",
+  "body": "498K downloads in the last month, 54 likes.",
+  "foot": "498K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "hf-doc-build/doc-build-dev",
+  "title": "k9cli/video-vec2wav2-tokenizer",
   "group": "Dataset",
-  "body": "480K downloads in the last month, 81 likes.",
-  "foot": "480K",
+  "body": "498K downloads in the last month, 41 likes.",
+  "foot": "498K",
   "accent": "",
   "icon": "db"
  },
@@ -1356,8 +1329,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "adscli/copycheck-videos",
   "group": "Dataset",
-  "body": "480K downloads in the last month, 1 likes.",
-  "foot": "480K",
+  "body": "493K downloads in the last month, 1 likes.",
+  "foot": "493K",
   "accent": "",
   "icon": "db"
  },
@@ -1365,8 +1338,44 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Salesforce/GiftEvalPretrain",
   "group": "Dataset",
-  "body": "474K downloads in the last month, 56 likes.",
-  "foot": "474K",
+  "body": "487K downloads in the last month, 56 likes.",
+  "foot": "487K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "sunblaze-ucb/cybergym",
+  "group": "Dataset",
+  "body": "481K downloads in the last month, 73 likes.",
+  "foot": "481K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "miniiohinkimsavol/copyright-detection-videos",
+  "group": "Dataset",
+  "body": "475K downloads in the last month, 1 likes.",
+  "foot": "475K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "ksolovev/fine-news",
+  "group": "Dataset",
+  "body": "475K downloads in the last month, 53 likes.",
+  "foot": "475K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "hf-doc-build/doc-build-dev",
+  "group": "Dataset",
+  "body": "470K downloads in the last month, 81 likes.",
+  "foot": "470K",
   "accent": "",
   "icon": "db"
  },
@@ -1374,8 +1383,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "nyu-mll/glue",
   "group": "Dataset",
-  "body": "473K downloads in the last month, 787 likes.",
-  "foot": "473K",
+  "body": "467K downloads in the last month, 787 likes.",
+  "foot": "467K",
   "accent": "",
   "icon": "db"
  },
@@ -1390,19 +1399,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-datasets",
-  "title": "miniiohinkimsavol/copyright-detection-videos",
+  "title": "k9cli/video-vec2wav2-tokenizer-2",
   "group": "Dataset",
-  "body": "463K downloads in the last month, 1 likes.",
-  "foot": "463K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "Sharpa-Robotics/SharpaDex-v1.0",
-  "group": "Dataset",
-  "body": "461K downloads in the last month, 63 likes.",
-  "foot": "461K",
+  "body": "453K downloads in the last month, 31 likes.",
+  "foot": "453K",
   "accent": "",
   "icon": "db"
  },
@@ -1410,53 +1410,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "m-a-p/FineFineWeb",
   "group": "Dataset",
-  "body": "459K downloads in the last month, 244 likes.",
-  "foot": "459K",
+  "body": "451K downloads in the last month, 244 likes.",
+  "foot": "451K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "Tuxifan/UbuntuIRC",
+  "title": "epfml/FineWeb-HQ",
   "group": "Dataset",
-  "body": "456K downloads in the last month, 5 likes.",
-  "foot": "456K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "k9cli/video-vec2wav2-tokenizer-2",
-  "group": "Dataset",
-  "body": "449K downloads in the last month, 31 likes.",
-  "foot": "449K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "gradio/frontend",
-  "group": "Dataset",
-  "body": "443K downloads in the last month, 6 likes.",
-  "foot": "443K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "liwu/MNBVC",
-  "group": "Dataset",
-  "body": "437K downloads in the last month, 680 likes.",
-  "foot": "437K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "k9cli/video-vec2wav2-tokenizer-3",
-  "group": "Dataset",
-  "body": "431K downloads in the last month, 14 likes.",
-  "foot": "431K",
+  "body": "438K downloads in the last month, 36 likes.",
+  "foot": "438K",
   "accent": "",
   "icon": "db"
  },
@@ -1464,17 +1428,26 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Kthera/pesoz",
   "group": "Dataset",
-  "body": "418K downloads in the last month, 52 likes.",
-  "foot": "418K",
+  "body": "433K downloads in the last month, 52 likes.",
+  "foot": "433K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "TIGER-Lab/MMLU-Pro",
+  "title": "k9cli/video-vec2wav2-tokenizer-3",
   "group": "Dataset",
-  "body": "418K downloads in the last month, 607 likes.",
-  "foot": "418K",
+  "body": "432K downloads in the last month, 14 likes.",
+  "foot": "432K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "gradio/frontend",
+  "group": "Dataset",
+  "body": "429K downloads in the last month, 6 likes.",
+  "foot": "429K",
   "accent": "",
   "icon": "db"
  },
@@ -1482,8 +1455,35 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "HuggingFaceFW/fineweb-edu",
   "group": "Dataset",
-  "body": "414K downloads in the last month, 1.4K likes.",
+  "body": "424K downloads in the last month, 1.4K likes.",
+  "foot": "424K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "liwu/MNBVC",
+  "group": "Dataset",
+  "body": "420K downloads in the last month, 680 likes.",
+  "foot": "420K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "TIGER-Lab/MMLU-Pro",
+  "group": "Dataset",
+  "body": "414K downloads in the last month, 607 likes.",
   "foot": "414K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Tuxifan/UbuntuIRC",
+  "group": "Dataset",
+  "body": "411K downloads in the last month, 5 likes.",
+  "foot": "411K",
   "accent": "",
   "icon": "db"
  },
@@ -1491,8 +1491,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "hf-doc-build/doc-build",
   "group": "Dataset",
-  "body": "410K downloads in the last month, 48 likes.",
-  "foot": "410K",
+  "body": "408K downloads in the last month, 48 likes.",
+  "foot": "408K",
   "accent": "",
   "icon": "db"
  },
@@ -1500,26 +1500,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "numix/balises-openwindmap-pyrenees",
   "group": "Dataset",
-  "body": "406K downloads in the last month, 5 likes.",
-  "foot": "406K",
+  "body": "400K downloads in the last month, 5 likes.",
+  "foot": "400K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "Chelsea707/arxiv-cs-2020-2025-pdfs",
+  "title": "McGill-NLP/WebLINX-full",
   "group": "Dataset",
-  "body": "394K downloads in the last month, 27 likes.",
-  "foot": "394K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "assassinlike/everything132",
-  "group": "Dataset",
-  "body": "389K downloads in the last month, 2 likes.",
-  "foot": "389K",
+  "body": "399K downloads in the last month, 8 likes.",
+  "foot": "399K",
   "accent": "",
   "icon": "db"
  },
@@ -1527,8 +1518,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "lioooox/T2I-CoReBench-Images",
   "group": "Dataset",
-  "body": "382K downloads in the last month, 6 likes.",
-  "foot": "382K",
+  "body": "397K downloads in the last month, 6 likes.",
+  "foot": "397K",
   "accent": "",
   "icon": "db"
  },
@@ -1536,8 +1527,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "meloqiao/us-stock-data",
   "group": "Dataset",
-  "body": "370K downloads in the last month, 1 likes.",
-  "foot": "370K",
+  "body": "380K downloads in the last month, 1 likes.",
+  "foot": "380K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "assassinlike/everything132",
+  "group": "Dataset",
+  "body": "380K downloads in the last month, 2 likes.",
+  "foot": "380K",
   "accent": "",
   "icon": "db"
  },
@@ -1545,8 +1545,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "siril-spcc/gaia",
   "group": "Dataset",
-  "body": "370K downloads in the last month, 38 likes.",
-  "foot": "370K",
+  "body": "374K downloads in the last month, 38 likes.",
+  "foot": "374K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "VoiceOfML/VOMEBOOK",
+  "group": "Dataset",
+  "body": "374K downloads in the last month, 18 likes.",
+  "foot": "374K",
   "accent": "",
   "icon": "db"
  },
@@ -1554,8 +1563,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "ccoffee20/flatpak",
   "group": "Dataset",
-  "body": "364K downloads in the last month, 3 likes.",
-  "foot": "364K",
+  "body": "369K downloads in the last month, 3 likes.",
+  "foot": "369K",
   "accent": "",
   "icon": "db"
  },
@@ -1563,8 +1572,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "agents-course/course-images",
   "group": "Dataset",
-  "body": "362K downloads in the last month, 23 likes.",
-  "foot": "362K",
+  "body": "368K downloads in the last month, 23 likes.",
+  "foot": "368K",
   "accent": "",
   "icon": "db"
  },
@@ -1572,8 +1581,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "YiboZhang2001/TexVerse",
   "group": "Dataset",
-  "body": "357K downloads in the last month, 64 likes.",
-  "foot": "357K",
+  "body": "365K downloads in the last month, 64 likes.",
+  "foot": "365K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "Chelsea707/arxiv-cs-2020-2025-pdfs",
+  "group": "Dataset",
+  "body": "364K downloads in the last month, 27 likes.",
+  "foot": "364K",
   "accent": "",
   "icon": "db"
  },
@@ -1581,8 +1599,17 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "HuggingFaceFW/fineweb",
   "group": "Dataset",
-  "body": "357K downloads in the last month, 3.8K likes.",
-  "foot": "357K",
+  "body": "361K downloads in the last month, 3.8K likes.",
+  "foot": "361K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "RoboDojo-Benchmark/RoboDojo",
+  "group": "Dataset",
+  "body": "356K downloads in the last month, 28 likes.",
+  "foot": "356K",
   "accent": "",
   "icon": "db"
  },
@@ -1597,10 +1624,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-datasets",
-  "title": "RoboDojo-Benchmark/RoboDojo",
+  "title": "huggingface/badges",
   "group": "Dataset",
-  "body": "354K downloads in the last month, 28 likes.",
-  "foot": "354K",
+  "body": "348K downloads in the last month, 62 likes.",
+  "foot": "348K",
   "accent": "",
   "icon": "db"
  },
@@ -1617,25 +1644,25 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "shash42/forecast-news",
   "group": "Dataset",
-  "body": "345K downloads in the last month, 9 likes.",
-  "foot": "345K",
+  "body": "347K downloads in the last month, 9 likes.",
+  "foot": "347K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "huggingface/badges",
+  "title": "Emmyc2/psp",
   "group": "Dataset",
-  "body": "343K downloads in the last month, 62 likes.",
-  "foot": "343K",
+  "body": "347K downloads in the last month, 49 likes.",
+  "foot": "347K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "57xj5SHr/Tui9DGhp",
+  "title": "lmarena-ai/leaderboard-dataset",
   "group": "Dataset",
-  "body": "343K downloads in the last month, 21 likes.",
+  "body": "343K downloads in the last month, 50 likes.",
   "foot": "343K",
   "accent": "",
   "icon": "db"
@@ -1644,26 +1671,35 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "anon8231489123/ShareGPT_Vicuna_unfiltered",
   "group": "Dataset",
-  "body": "339K downloads in the last month, 951 likes.",
-  "foot": "339K",
+  "body": "341K downloads in the last month, 951 likes.",
+  "foot": "341K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "Emmyc2/psp",
+  "title": "57xj5SHr/Tui9DGhp",
   "group": "Dataset",
-  "body": "338K downloads in the last month, 49 likes.",
-  "foot": "338K",
+  "body": "340K downloads in the last month, 21 likes.",
+  "foot": "340K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "lmarena-ai/leaderboard-dataset",
+  "title": "nyarlathotep12/MXStuff",
   "group": "Dataset",
-  "body": "335K downloads in the last month, 50 likes.",
-  "foot": "335K",
+  "body": "332K downloads in the last month, 1 likes.",
+  "foot": "332K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "allenai/MADLAD-400",
+  "group": "Dataset",
+  "body": "331K downloads in the last month, 185 likes.",
+  "foot": "331K",
   "accent": "",
   "icon": "db"
  },
@@ -1678,19 +1714,19 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-datasets",
-  "title": "allenai/MADLAD-400",
+  "title": "harborframework/terminal-bench-science-lfs",
   "group": "Dataset",
-  "body": "328K downloads in the last month, 185 likes.",
-  "foot": "328K",
+  "body": "326K downloads in the last month, 11 likes.",
+  "foot": "326K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "nyarlathotep12/MXStuff",
+  "title": "wikimedia/wikipedia",
   "group": "Dataset",
-  "body": "327K downloads in the last month, 1 likes.",
-  "foot": "327K",
+  "body": "322K downloads in the last month, 1.7K likes.",
+  "foot": "322K",
   "accent": "",
   "icon": "db"
  },
@@ -1705,55 +1741,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-datasets",
-  "title": "McGill-NLP/WebLINX-full",
-  "group": "Dataset",
-  "body": "319K downloads in the last month, 8 likes.",
-  "foot": "319K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "VoiceOfML/VOMEBOOK",
-  "group": "Dataset",
-  "body": "319K downloads in the last month, 18 likes.",
-  "foot": "319K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "wikimedia/wikipedia",
-  "group": "Dataset",
-  "body": "317K downloads in the last month, 1.7K likes.",
-  "foot": "317K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "harborframework/terminal-bench-science-lfs",
-  "group": "Dataset",
-  "body": "304K downloads in the last month, 11 likes.",
-  "foot": "304K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
-  "title": "jat-project/jat-dataset-tokenized",
-  "group": "Dataset",
-  "body": "302K downloads in the last month, 43 likes.",
-  "foot": "302K",
-  "accent": "",
-  "icon": "db"
- },
- {
-  "kind": "hf-datasets",
   "title": "huggingface-course/documentation-images",
   "group": "Dataset",
-  "body": "296K downloads in the last month, 6 likes.",
-  "foot": "296K",
+  "body": "299K downloads in the last month, 6 likes.",
+  "foot": "299K",
   "accent": "",
   "icon": "db"
  },
@@ -1761,8 +1752,8 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "OpenFinMind/stock_dataset",
   "group": "Dataset",
-  "body": "296K downloads in the last month, 3 likes.",
-  "foot": "296K",
+  "body": "297K downloads in the last month, 3 likes.",
+  "foot": "297K",
   "accent": "",
   "icon": "db"
  },
@@ -1786,10 +1777,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-datasets",
-  "title": "XiaomiMiMo/MiMo-V2.6-RL-oss",
+  "title": "openai/gdpval",
   "group": "Dataset",
-  "body": "288K downloads in the last month, 1.1K likes.",
-  "foot": "288K",
+  "body": "290K downloads in the last month, 578 likes.",
+  "foot": "290K",
   "accent": "",
   "icon": "db"
  },
@@ -1797,17 +1788,26 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "hf-datasets",
   "title": "Forceless/Zenodo10K",
   "group": "Dataset",
-  "body": "287K downloads in the last month, 33 likes.",
-  "foot": "287K",
+  "body": "290K downloads in the last month, 33 likes.",
+  "foot": "290K",
   "accent": "",
   "icon": "db"
  },
  {
   "kind": "hf-datasets",
-  "title": "openai/gdpval",
+  "title": "YipengGao/3DCodeBench",
   "group": "Dataset",
-  "body": "286K downloads in the last month, 578 likes.",
-  "foot": "286K",
+  "body": "288K downloads in the last month, 37 likes.",
+  "foot": "288K",
+  "accent": "",
+  "icon": "db"
+ },
+ {
+  "kind": "hf-datasets",
+  "title": "openai/openai_humaneval",
+  "group": "Dataset",
+  "body": "288K downloads in the last month, 419 likes.",
+  "foot": "288K",
   "accent": "",
   "icon": "db"
  },
@@ -2716,16 +2716,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "TeleChat to Xing4: Advancing Frontier Agentic Models on Domestic Chips and Frameworks",
   "group": "Paper",
   "body": "We present Xing 4, a series of large language models that extends the TeleChat lineage through coordinated advances in model architecture and…",
-  "foot": "156",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "Sage S2.1 Flash Technical Report",
-  "group": "Paper",
-  "body": "We introduce Sage S1.5 Flash, a 320-billion-parameter general-purpose mixture-of-experts model designed to reason over scientific evidence and act…",
-  "foot": "96",
+  "foot": "157",
   "accent": "",
   "icon": "file"
  },
@@ -2740,15 +2731,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
-  "group": "Paper",
-  "body": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a…",
-  "foot": "60",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
   "title": "Weight-Space Programming Doesn't Need Transformers",
   "group": "Paper",
   "body": "When large language models write neural network weights without gradient-based training, they tend to design sparse table or associative-memory…",
@@ -2758,10 +2740,19 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
+  "title": "Jeveration: System One Models Now Generate",
+  "group": "Paper",
+  "body": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single…",
+  "foot": "51",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
   "title": "Multi-Branch Transformer",
   "group": "Paper",
   "body": "Branching Transformer blocks into parallel parameterized branches, combined with shared KV caching, improves language model quality and inference…",
-  "foot": "45",
+  "foot": "43",
   "accent": "",
   "icon": "file"
  },
@@ -2770,16 +2761,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "ForceHarness: Turning Force into Action and Physics for Frozen Frontier Models",
   "group": "Paper",
   "body": "Frontier multimodal models can now control robots zero-shot from images, yet many manipulation tasks depend on contact forces that images cannot…",
-  "foot": "41",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "Jeveration: System One Models Now Generate",
-  "group": "Paper",
-  "body": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single…",
-  "foot": "35",
+  "foot": "40",
   "accent": "",
   "icon": "file"
  },
@@ -2788,7 +2770,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "Beyond Answering: Learning to Speak First and Act in Streaming Video",
   "group": "Paper",
   "body": "AURA 2.0 is a streaming video large language model that can initiate conversations, call tools, and perform interactive visual grounding, with…",
-  "foot": "35",
+  "foot": "36",
   "accent": "",
   "icon": "file"
  },
@@ -2806,7 +2788,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "Self-Improvement Memory Enables Continual Recursive Self-Improvement",
   "group": "Paper",
   "body": "Continual recursive self-improvement lets harness optimizers reuse and revise prior edits across changing benchmarks or policy models by storing…",
-  "foot": "31",
+  "foot": "30",
   "accent": "",
   "icon": "file"
  },
@@ -2815,7 +2797,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "PROLA: Principal-Orthogonal Low-rank Adaptation for Predictive Spatiotemporal Weather Downscaling",
   "group": "Paper",
   "body": "High-resolution weather prediction is important for resolving local atmospheric patterns missed by coarse global forecasts. Large pretrained weather…",
-  "foot": "26",
+  "foot": "27",
   "accent": "",
   "icon": "file"
  },
@@ -2824,7 +2806,16 @@ export const SOURCE_BOXES: Box[] = [
   "title": "FastFrames: Video Generation at Interactive Latency",
   "group": "Paper",
   "body": "Autoregressive video diffusion models generate frames based on new observations and inputs, making them a promising medium for interactive visual…",
-  "foot": "25",
+  "foot": "26",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
+  "group": "Paper",
+  "body": "Agent evolution is often bottlenecked by noisy evaluations that cannot reliably identify better candidate artifacts or rank methods, so progress…",
+  "foot": "24",
   "accent": "",
   "icon": "file"
  },
@@ -2842,6 +2833,24 @@ export const SOURCE_BOXES: Box[] = [
   "title": "Game2Player: Scaling Gameplay Experience for Visual Agents through Environment-Player Co-Development",
   "group": "Paper",
   "body": "Games are a rich testbed for visual agents, demanding perception, long-horizon planning, and precise control. However, collecting human gameplay is…",
+  "foot": "23",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "ALIVE: Making Streaming Video Models Interactive",
+  "group": "Paper",
+  "body": "Streaming video LLMs can continuously observe the world, yet often handle user requests in isolation. We introduce ALIVE, an interactive streaming…",
+  "foot": "23",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "HINT-WAM: Hindsight-Informed Training for World Action Models",
+  "group": "Paper",
+  "body": "World action models (WAMs) have shown promising generalization and data efficiency in robot manipulation by coupling action generation with…",
   "foot": "22",
   "accent": "",
   "icon": "file"
@@ -2866,6 +2875,15 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
+  "title": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+  "group": "Paper",
+  "body": "CurvDelta and CurvLoRA constrain LLM updates to a low-curvature preservation space, improving retention while maintaining target adaptation across…",
+  "foot": "20",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
   "title": "VideoNexus: Video Perception Beyond the Reasoning Context",
   "group": "Paper",
   "body": "VideoNexus separates detailed video perception from evidence-driven planning and reasoning, using perception sub-agents to return compact temporally…",
@@ -2875,19 +2893,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "ALIVE: Making Streaming Video Models Interactive",
+  "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
   "group": "Paper",
-  "body": "Streaming video LLMs can continuously observe the world, yet often handle user requests in isolation. We introduce ALIVE, an interactive streaming…",
-  "foot": "19",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
-  "group": "Paper",
-  "body": "Agent evolution is often bottlenecked by noisy evaluations that cannot reliably identify better candidate artifacts or rank methods, so progress…",
-  "foot": "17",
+  "body": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least…",
+  "foot": "15",
   "accent": "",
   "icon": "file"
  },
@@ -2896,15 +2905,6 @@ export const SOURCE_BOXES: Box[] = [
   "title": "WorldRuler: Interactive World Modeling under Configurable Rules",
   "group": "Paper",
   "body": "A rule-graph-based generative world model preserves user-defined rules and world states across saving and loading while accurately realizing…",
-  "foot": "15",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "SALA: Semantically Aligned Latent Actions Enable Dual-Axis Scaling of Embodied Foundation Models",
-  "group": "Paper",
-  "body": "SALA aligns latent actions across human and robot videos by using language-based semantic similarities to form a shared latent action space that…",
   "foot": "15",
   "accent": "",
   "icon": "file"
@@ -2929,9 +2929,9 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+  "title": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
   "group": "Paper",
-  "body": "CurvDelta and CurvLoRA constrain LLM updates to a low-curvature preservation space, improving retention while maintaining target adaptation across…",
+  "body": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip…",
   "foot": "12",
   "accent": "",
   "icon": "file"
@@ -2947,10 +2947,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
+  "title": "StrideWorld: Benchmarking Scene Rigidity and Action Consistency in Interactive Video World Model",
   "group": "Paper",
-  "body": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip…",
-  "foot": "11",
+  "body": "StrideWorld is a benchmark that fixes references before motion to detect scene deformation and action inconsistency in interactive video world…",
+  "foot": "10",
   "accent": "",
   "icon": "file"
  },
@@ -3001,15 +3001,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "MPEG-Diffusion: Mixed-Resolution Video Generation",
-  "group": "Paper",
-  "body": "MPEG-Diffusion reduces the computational cost of video diffusion transformers by generating only a self-selected high-resolution region with…",
-  "foot": "9",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
   "title": "Energy-Based Reasoners: Your Recurrent Reasoner Should Be an Energy-Based Model",
   "group": "Paper",
   "body": "Energy-Based Reasoners guide looped latent reasoning by learning an energy function whose gradient refines states and signals when to stop, with…",
@@ -3019,10 +3010,28 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "HINT-WAM: Hindsight-Informed Training for World Action Models",
+  "title": "MPEG-Diffusion: Mixed-Resolution Video Generation",
   "group": "Paper",
-  "body": "World action models (WAMs) have shown promising generalization and data efficiency in robot manipulation by coupling action generation with…",
+  "body": "MPEG-Diffusion reduces the computational cost of video diffusion transformers by generating only a self-selected high-resolution region with…",
   "foot": "8",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "RoughCut-Bench: A Benchmark for Automatic Video Rough-Cut with Large Vision-Language Models",
+  "group": "Paper",
+  "body": "A new benchmark and agentic workflows assess vision-language models for automatic video rough-cut, revealing current models struggle to match expert…",
+  "foot": "7",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Mechanistic Critics for Sample-Efficient NPU Design-Space Exploration",
+  "group": "Paper",
+  "body": "NPU design-space exploration for LLM inference mainly relies on an expensive simulator that often returns only scalar feedback such as latency and…",
+  "foot": "7",
   "accent": "",
   "icon": "file"
  },
@@ -3055,27 +3064,27 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "OutfitterBench: Evaluating LLM Agents on Long-Horizon Resource Allocation and Commitment Coordination",
+  "title": "PReMind: When Personal Memory Meets Visual Hazards",
   "group": "Paper",
-  "body": "OutfitterBench evaluates LLM agents managing a 200-day outdoor-equipment rental business under fixed capital and uncertain demand, revealing…",
-  "foot": "7",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "RoughCut-Bench: A Benchmark for Automatic Video Rough-Cut with Large Vision-Language Models",
-  "group": "Paper",
-  "body": "A new benchmark and agentic workflows assess vision-language models for automatic video rough-cut, revealing current models struggle to match expert…",
+  "body": "A diagnostic benchmark and two-phase reinforcement learning framework enable personalized vision-language assistants to jointly connect visual…",
   "foot": "6",
   "accent": "",
   "icon": "file"
  },
  {
   "kind": "hf-papers",
-  "title": "Mechanistic Critics for Sample-Efficient NPU Design-Space Exploration",
+  "title": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
   "group": "Paper",
-  "body": "NPU design-space exploration for LLM inference mainly relies on an expensive simulator that often returns only scalar feedback such as latency and…",
+  "body": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a…",
+  "foot": "6",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "DNeo: Your Parallel Draft Model Needs Better Target Feature Encoding",
+  "group": "Paper",
+  "body": "A lightweight feature-encoding method with rejection memory and architectural enhancements enables faster large language model inference by…",
   "foot": "6",
   "accent": "",
   "icon": "file"
@@ -3109,18 +3118,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "JEPA4R: Embodied JEPA World Models with 4D Point Planning",
+  "title": "StatePortal: Agentic Checkpoint Synthesis for Testing Deep States in Interactive Software",
   "group": "Paper",
-  "body": "Joint-embedding predictive architecture (JEPA) world models predict future embeddings instead of pixels and plan in latent space. Two challenges…",
-  "foot": "6",
+  "body": "Large language models have reduced the effort to generate code for interactive software with graphical user interfaces (GUIs). For such software, a…",
+  "foot": "5",
   "accent": "",
   "icon": "file"
  },
  {
   "kind": "hf-papers",
-  "title": "PReMind: When Personal Memory Meets Visual Hazards",
+  "title": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
   "group": "Paper",
-  "body": "A diagnostic benchmark and two-phase reinforcement learning framework enable personalized vision-language assistants to jointly connect visual…",
+  "body": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data…",
   "foot": "5",
   "accent": "",
   "icon": "file"
@@ -3172,27 +3181,36 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Continuation-Guided LLM Evolution of Program Policies and Goal Compilers in Craftax",
+  "title": "JEPA4R: Embodied JEPA World Models with 4D Point Planning",
   "group": "Paper",
-  "body": "A framework uses coding agents and a feedback cascade to synthesize code-based policies that achieve long-horizon success and can be factored into a…",
+  "body": "Joint-embedding predictive architecture (JEPA) world models predict future embeddings instead of pixels and plan in latent space. Two challenges…",
   "foot": "5",
   "accent": "",
   "icon": "file"
  },
  {
   "kind": "hf-papers",
-  "title": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
+  "title": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
   "group": "Paper",
-  "body": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data…",
+  "body": "UltraTex employs a cascaded multi-view framework that integrates physical knowledge and vision-language model features to accurately generate…",
   "foot": "4",
   "accent": "",
   "icon": "file"
  },
  {
   "kind": "hf-papers",
-  "title": "DNeo: Your Parallel Draft Model Needs Better Target Feature Encoding",
+  "title": "Late Entry in Looped Language Models",
   "group": "Paper",
-  "body": "A lightweight feature-encoding method with rejection memory and architectural enhancements enables faster large language model inference by…",
+  "body": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "LogT: Logically Think with Images for Visual Search",
+  "group": "Paper",
+  "body": "Thinking with images empowers vision-language models (VLMs) to use an external Zoom-in tool for fine-grained visual search. Recent works employ…",
   "foot": "4",
   "accent": "",
   "icon": "file"
@@ -3202,6 +3220,15 @@ export const SOURCE_BOXES: Box[] = [
   "title": "HubEgo-100K: In-the-Wild Egocentric Video of Skilled Work for Robot Learning",
   "group": "Paper",
   "body": "Robot policies trained by imitation generalize poorly outside the environments and objects seen in training. Published data-scaling studies find…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "MillBill: A Machining Agent with Geometric Feedback",
+  "group": "Paper",
+  "body": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by…",
   "foot": "4",
   "accent": "",
   "icon": "file"
@@ -3262,6 +3289,42 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
+  "title": "Dataset Distillation via Drifting",
+  "group": "Paper",
+  "body": "A dataset distillation method learns synthetic samples that approximate per-class data distributions in a feature extractor's latent space…",
+  "foot": "4",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "BiCAT: Bimanual Coordination Action Tokenization",
+  "group": "Paper",
+  "body": "BiCAT shares a motion representation across arms and conditions each arm's tokens on its partner via symmetric cross-arm attention and a joint…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Chorus: Shared N-gram Embeddings with Layer-wise Adaptation",
+  "group": "Paper",
+  "body": "Chorus shares one set of n-gram embedding tables across all layers, letting each layer project and rescale the embedding using its hidden state…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "FVScore: Specification-Driven Neuro-Symbolic Video Evaluation",
+  "group": "Paper",
+  "body": "FVSCORE is a neuro-symbolic evaluation framework that compiles videos into prompt and implicit constraint propositions, verifies them with…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
   "title": "Movie2Game-Bench: Holistic Evaluation of Film-to-Game Adaptation Beyond Playability",
   "group": "Paper",
   "body": "Adapting a film into a game requires selecting source elements and translating them into player actions, rules, and feedback. We introduce…",
@@ -3271,9 +3334,27 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Late Entry in Looped Language Models",
+  "title": "Out of Sight, Still in Mind: Token Compression for Omni-LLMs",
   "group": "Paper",
-  "body": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth…",
+  "body": "ReMo, a training-free method, reduces inference input token cost for omni-modal large language models by compressing redundant visual tokens through…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Evidence-Based Credit Assignment for Search-Augmented Language Models",
+  "group": "Paper",
+  "body": "Reinforcement learning from terminal answer rewards enables search-augmented language models to interleave reasoning and retrieval without…",
+  "foot": "3",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "VAE Rhythm: Temporal Decoding Traces for AI-Generated Video Detection",
+  "group": "Paper",
+  "body": "Visible artifacts are an unreliable cue for detecting generated videos, because newer generators learn to remove them. We instead detect a trace…",
   "foot": "3",
   "accent": "",
   "icon": "file"
@@ -3298,9 +3379,9 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "MillBill: A Machining Agent with Geometric Feedback",
+  "title": "The novelty exposed: ablation, reproducibility and transparency in 40 technical reports of open-weight large language models (LLMs)",
   "group": "Paper",
-  "body": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by…",
+  "body": "In 2025 alone, 48 new large language model (LLM) architectures were added to the Hugging Face transformers library, and many of them arrive with a…",
   "foot": "3",
   "accent": "",
   "icon": "file"
@@ -3325,36 +3406,36 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Dataset Distillation via Drifting",
+  "title": "WaveView: The Novel View Is in the Noise",
   "group": "Paper",
-  "body": "A dataset distillation method learns synthetic samples that approximate per-class data distributions in a feature extractor's latent space…",
-  "foot": "3",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "BiCAT: Bimanual Coordination Action Tokenization",
-  "group": "Paper",
-  "body": "BiCAT shares a motion representation across arms and conditions each arm's tokens on its partner via symmetric cross-arm attention and a joint…",
+  "body": "Generative novel view synthesis (NVS) employs a diffusion model to render a static or dynamic scene from a target camera view. Explicit warp methods…",
   "foot": "2",
   "accent": "",
   "icon": "file"
  },
  {
   "kind": "hf-papers",
-  "title": "FVScore: Specification-Driven Neuro-Symbolic Video Evaluation",
+  "title": "AVTR: Adaptive Multimodal Reasoning with Visual Imagination",
   "group": "Paper",
-  "body": "FVSCORE is a neuro-symbolic evaluation framework that compiles videos into prompt and implicit constraint propositions, verifies them with…",
+  "body": "Adaptive Visual-Textual Reasoning combines generative visual reflection with textual reasoning and learns to route between them per input, improving…",
   "foot": "2",
   "accent": "",
   "icon": "file"
  },
  {
   "kind": "hf-papers",
-  "title": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
+  "title": "PGPO: Prototype-Guided Progressive Obfuscation for Privacy-Preserving LLM-Enhanced Recommendation",
   "group": "Paper",
-  "body": "UltraTex employs a cascaded multi-view framework that integrates physical knowledge and vision-language model features to accurately generate…",
+  "body": "A prototype-guided progressive obfuscation method preserves relative item relations while perturbing high-influence semantic embeddings to defend…",
+  "foot": "2",
+  "accent": "",
+  "icon": "file"
+ },
+ {
+  "kind": "hf-papers",
+  "title": "Thinking Fast, Anywhere: One System-1 for the Decision Points of Any Agent Workflow",
+  "group": "Paper",
+  "body": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to…",
   "foot": "2",
   "accent": "",
   "icon": "file"
@@ -3370,9 +3451,9 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Out of Sight, Still in Mind: Token Compression for Omni-LLMs",
+  "title": "NexSight: Verifiable Tasks for Fine-Grained Agentic Long-Video Understanding",
   "group": "Paper",
-  "body": "ReMo, a training-free method, reduces inference input token cost for omni-modal large language models by compressing redundant visual tokens through…",
+  "body": "Fine-grained questions about long videos ask how many times an action occurs, in what order events unfold, or exactly when a state changes…",
   "foot": "2",
   "accent": "",
   "icon": "file"
@@ -3388,27 +3469,9 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf-papers",
-  "title": "Evidence-Based Credit Assignment for Search-Augmented Language Models",
+  "title": "A Foundation Model to Measure and Predict Human Behaviour",
   "group": "Paper",
-  "body": "Reinforcement learning from terminal answer rewards enables search-augmented language models to interleave reasoning and retrieval without…",
-  "foot": "2",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "VAE Rhythm: Temporal Decoding Traces for AI-Generated Video Detection",
-  "group": "Paper",
-  "body": "Visible artifacts are an unreliable cue for detecting generated videos, because newer generators learn to remove them. We instead detect a trace…",
-  "foot": "2",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "LogT: Logically Think with Images for Visual Search",
-  "group": "Paper",
-  "body": "Thinking with images empowers vision-language models (VLMs) to use an external Zoom-in tool for fine-grained visual search. Recent works employ…",
+  "body": "A foundation model fine-tuned from a large language model measures and predicts human behaviour and aligns simulated population responses with human…",
   "foot": "2",
   "accent": "",
   "icon": "file"
@@ -3427,15 +3490,6 @@ export const SOURCE_BOXES: Box[] = [
   "title": "IDEA: Intent-Dominance Evidence Audit for Inference-Time Backdoor Detection in GUI Agents",
   "group": "Paper",
   "body": "A step-level inference-time audit detects visual-trigger backdoors in open-weight GUI agents by comparing instruction- and region-induced shifts in…",
-  "foot": "2",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "The novelty exposed: ablation, reproducibility and transparency in 40 technical reports of open-weight large language models (LLMs)",
-  "group": "Paper",
-  "body": "In 2025 alone, 48 new large language model (LLM) architectures were added to the Hugging Face transformers library, and many of them arrive with a…",
   "foot": "2",
   "accent": "",
   "icon": "file"
@@ -3491,33 +3545,6 @@ export const SOURCE_BOXES: Box[] = [
   "group": "Paper",
   "body": "MS-HVED enables flexible super-resolution of partially overlapping brain MRI stacks by fusing independently encoded multi-scale Gaussian posteriors…",
   "foot": "2",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
-  "group": "Paper",
-  "body": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least…",
-  "foot": "1",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "NexSight: Verifiable Tasks for Fine-Grained Agentic Long-Video Understanding",
-  "group": "Paper",
-  "body": "Fine-grained questions about long videos ask how many times an action occurs, in what order events unfold, or exactly when a state changes…",
-  "foot": "1",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "A Foundation Model to Measure and Predict Human Behaviour",
-  "group": "Paper",
-  "body": "A foundation model fine-tuned from a large language model measures and predicts human behaviour and aligns simulated population responses with human…",
-  "foot": "1",
   "accent": "",
   "icon": "file"
  },
@@ -3581,33 +3608,6 @@ export const SOURCE_BOXES: Box[] = [
   "group": "Paper",
   "body": "A reinforcement learning agent with a lightweight actor-critic architecture explores the Standard Model Effective Field Theory operator space to…",
   "foot": "1",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "PGPO: Prototype-Guided Progressive Obfuscation for Privacy-Preserving LLM-Enhanced Recommendation",
-  "group": "Paper",
-  "body": "A prototype-guided progressive obfuscation method preserves relative item relations while perturbing high-influence semantic embeddings to defend…",
-  "foot": "0",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "Thinking Fast, Anywhere: One System-1 for the Decision Points of Any Agent Workflow",
-  "group": "Paper",
-  "body": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to…",
-  "foot": "0",
-  "accent": "",
-  "icon": "file"
- },
- {
-  "kind": "hf-papers",
-  "title": "Chorus: Shared N-gram Embeddings with Layer-wise Adaptation",
-  "group": "Paper",
-  "body": "Chorus shares one set of n-gram embedding tables across all layers, letting each layer project and rescale the embedding using its hidden state…",
-  "foot": "0",
   "accent": "",
   "icon": "file"
  },
@@ -4534,7 +4534,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "anthropics/skills",
   "group": "Skills",
   "body": "Public repository for Agent Skills.",
-  "foot": "197K",
+  "foot": "198K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4543,7 +4543,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "DietrichGebert/ponytail",
   "group": "Skills",
   "body": "Makes your AI agent think like the laziest senior dev in the room. The best code is the code you never wrote.",
-  "foot": "194K",
+  "foot": "195K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4651,7 +4651,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "Egonex-AI/Understand-Anything",
   "group": "Skills",
   "body": "Graphs that teach > graphs that impress. Turn any code into an interactive knowledge graph you can explore, search, and ask questions about. Works…",
-  "foot": "93.2K",
+  "foot": "93.3K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4669,7 +4669,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "career-ops-hq/career-ops",
   "group": "Skills",
   "body": "Open-source AI job search agent and job finder: scan job boards, score each job 1-5 against your CV before you apply, tailor an ATS-friendly resume…",
-  "foot": "83.6K",
+  "foot": "83.7K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4684,18 +4684,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "gh-skills",
-  "title": "code-yeongyu/oh-my-openagent",
+  "title": "blader/humanizer",
   "group": "Skills",
-  "body": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
-  "foot": "71K",
+  "body": "Agent skill that removes signs of AI-generated writing from text.",
+  "foot": "71.1K",
   "accent": "",
   "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
-  "title": "blader/humanizer",
+  "title": "code-yeongyu/oh-my-openagent",
   "group": "Skills",
-  "body": "Agent skill that removes signs of AI-generated writing from text.",
+  "body": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
   "foot": "71K",
   "accent": "",
   "icon": "sparkles"
@@ -4714,7 +4714,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "cathrynlavery/diagram-design",
   "group": "Skills",
   "body": "Editorial diagram design for Claude Code, Codex, GitHub Copilot, Cursor, Factory Droid, Qoder, and Pi. 45 diagram types. Self-contained HTML + SVG…",
-  "foot": "68.3K",
+  "foot": "68.4K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4732,7 +4732,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "coreyhaines31/marketingskills",
   "group": "Skills",
   "body": "Marketing skills for Claude Code and AI agents. CRO, copywriting, SEO, analytics, and growth engineering.",
-  "foot": "61.3K",
+  "foot": "61.4K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4858,7 +4858,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "github/awesome-copilot",
   "group": "Skills",
   "body": "Community-contributed instructions, agents, skills, and configurations to help you make the most of GitHub Copilot.",
-  "foot": "41.3K",
+  "foot": "41.4K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4885,7 +4885,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "virgiliojr94/book-to-skill",
   "group": "Skills",
   "body": "Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.",
-  "foot": "38.4K",
+  "foot": "38.5K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4957,7 +4957,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "iOfficeAI/OfficeCLI",
   "group": "Skills",
   "body": "OfficeCLI is the first and best Office suite purpose-built for AI agents to read, edit, and automate Word, Excel, and PowerPoint files. Free…",
-  "foot": "33.4K",
+  "foot": "33.5K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -4990,18 +4990,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "gh-skills",
-  "title": "op7418/guizang-ppt-skill",
+  "title": "alirezarezvani/claude-skills",
   "group": "Skills",
-  "body": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power…",
+  "body": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex…",
   "foot": "30.1K",
   "accent": "",
   "icon": "sparkles"
  },
  {
   "kind": "gh-skills",
-  "title": "alirezarezvani/claude-skills",
+  "title": "op7418/guizang-ppt-skill",
   "group": "Skills",
-  "body": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex…",
+  "body": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power…",
   "foot": "30.1K",
   "accent": "",
   "icon": "sparkles"
@@ -5164,7 +5164,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "Vincentwei1021/video-shotcraft",
   "group": "Skills",
   "body": "AI video skill for Claude Code & Codex — cinematic, editable product promos with Remotion: 124 shot recipe cards, 150 motion previews, beat sync…",
-  "foot": "21.5K",
+  "foot": "21.6K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -5209,7 +5209,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "lemomo-ai/lemo-opuscar",
   "group": "Skills",
   "body": "A toolbox of film styles made in code for Claude Code: 99 ready to use, and your own. Each style is a style prompt plus a demo film made entirely in…",
-  "foot": "18.5K",
+  "foot": "18.6K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -5398,7 +5398,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "MemTensor/MemOS",
   "group": "Skills",
   "body": "Self-evolving memory OS for LLM & AI Agents: ultra-persistent memory, hybrid-retrieval, and cross-task skill reuse, with 35.24% token savings and…",
-  "foot": "12.4K",
+  "foot": "12.5K",
   "accent": "",
   "icon": "sparkles"
  },
@@ -5857,7 +5857,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "miqdadbadjuber/anti-slop",
   "group": "Design",
   "body": "Rules for an AI coding agent to filter out generic AI-generated UI designs, text, and code.",
-  "foot": "9.5K",
+  "foot": "9.6K",
   "accent": "",
   "icon": "palette"
  },
@@ -6289,7 +6289,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "nateherkai/scroll-craft",
   "group": "Design",
   "body": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a…",
-  "foot": "5.2K",
+  "foot": "5.3K",
   "accent": "",
   "icon": "palette"
  },
@@ -6793,7 +6793,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "rmyndharis/OpenWA",
   "group": "API",
   "body": "Free, Open Source, Self-Hosted WhatsApp API Gateway.",
-  "foot": "17K",
+  "foot": "17.1K",
   "accent": "",
   "icon": "braces"
  },
@@ -7315,7 +7315,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "unclecode/crawl4ai",
   "group": "MCP",
   "body": "Official Crawl4AI Cloud: a hosted web scraping, extraction, and search API for AI agents. Free API key, 1,000 credits a month, no card. Fully open…",
-  "foot": "87.5K",
+  "foot": "87.6K",
   "accent": "",
   "icon": "plug"
  },
@@ -7324,7 +7324,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "heygen-com/hyperframes",
   "group": "MCP",
   "body": "AI video you can actually edit. HyperFrames is a free, open-source AI video editor. Describe any video and get a real project you can change down to…",
-  "foot": "86.7K",
+  "foot": "86.8K",
   "accent": "",
   "icon": "plug"
  },
@@ -7341,7 +7341,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "gh-mcp",
   "title": "netdata/netdata",
   "group": "MCP",
-  "body": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI ·…",
+  "body": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI SRE ·…",
   "foot": "81.5K",
   "accent": "",
   "icon": "plug"
@@ -7432,7 +7432,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "DeusData/codebase-memory-mcp",
   "group": "MCP",
   "body": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent…",
-  "foot": "48.8K",
+  "foot": "48.9K",
   "accent": "",
   "icon": "plug"
  },
@@ -7612,7 +7612,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "78/xiaozhi-esp32",
   "group": "MCP",
   "body": "An MCP-based chatbot | 一个基于MCP的聊天机器人.",
-  "foot": "33.4K",
+  "foot": "33.5K",
   "accent": "",
   "icon": "plug"
  },
@@ -7765,7 +7765,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "vercel-labs/agent-desktop",
   "group": "MCP",
   "body": "Computer use CLI for AI agents.",
-  "foot": "25.4K",
+  "foot": "25.5K",
   "accent": "",
   "icon": "plug"
  },
@@ -7819,7 +7819,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "DuarteSantos8/openGym",
   "group": "MCP",
   "body": "Open-source gym & body-weight tracker, now in the App Store (iPhone + Apple Watch) and as an Android APK. Plan routines, log workouts, see which…",
-  "foot": "22.8K",
+  "foot": "22.9K",
   "accent": "",
   "icon": "plug"
  },
@@ -7909,7 +7909,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "xerj-org/xerj",
   "group": "MCP",
   "body": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and…",
-  "foot": "19.3K",
+  "foot": "19.2K",
   "accent": "",
   "icon": "plug"
  },
@@ -7936,7 +7936,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "jub0t/Concat",
   "group": "MCP",
   "body": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
-  "foot": "18.8K",
+  "foot": "18.9K",
   "accent": "",
   "icon": "plug"
  },
@@ -8089,16 +8089,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "holaboss-ai/holaOS",
   "group": "MCP",
   "body": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps…",
-  "foot": "11.5K",
-  "accent": "",
-  "icon": "plug"
- },
- {
-  "kind": "gh-mcp",
-  "title": "trailhq/Trail-Code",
-  "group": "MCP",
-  "body": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they…",
-  "foot": "11.3K",
+  "foot": "11.4K",
   "accent": "",
   "icon": "plug"
  },
@@ -8112,10 +8103,19 @@ export const SOURCE_BOXES: Box[] = [
   "icon": "plug"
  },
  {
+  "kind": "gh-mcp",
+  "title": "trailhq/Trail-Code",
+  "group": "MCP",
+  "body": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they…",
+  "foot": "11.3K",
+  "accent": "",
+  "icon": "plug"
+ },
+ {
   "kind": "aa",
   "title": "Claude Fable 5.2 (Max, Default Fallback)",
   "group": "Anthropic",
-  "body": "Anthropic, Intelligence Index 64.6, 16 per million tokens (3 to 1 input to output), 91 tokens a second.",
+  "body": "Anthropic, Intelligence Index 64.6, 16 per million tokens (3 to 1 input to output), 88 tokens a second.",
   "foot": "64.6",
   "accent": "",
   "icon": "aa"
@@ -8133,7 +8133,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 62.1, 16 per million tokens (3 to 1 input to output), 73 tokens a second.",
+  "body": "OpenAI, Intelligence Index 62.1, 16 per million tokens (3 to 1 input to output), 71 tokens a second.",
   "foot": "62.1",
   "accent": "",
   "icon": "aa"
@@ -8151,7 +8151,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (Xhigh)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 61.6, 16 per million tokens (3 to 1 input to output), 55 tokens a second.",
+  "body": "OpenAI, Intelligence Index 61.6, 16 per million tokens (3 to 1 input to output), 51 tokens a second.",
   "foot": "61.6",
   "accent": "",
   "icon": "aa"
@@ -8169,7 +8169,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (High)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 50 tokens a second.",
+  "body": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 47 tokens a second.",
   "foot": "60.1",
   "accent": "",
   "icon": "aa"
@@ -8178,7 +8178,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Gemini 4 Carbon (High)",
   "group": "Google",
-  "body": "Google, Intelligence Index 60, 8 per million tokens (3 to 1 input to output), 83 tokens a second.",
+  "body": "Google, Intelligence Index 60, 8 per million tokens (3 to 1 input to output), 85 tokens a second.",
   "foot": "60",
   "accent": "",
   "icon": "aa"
@@ -8223,7 +8223,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Sol (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
+  "body": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 95 tokens a second.",
   "foot": "57.3",
   "accent": "",
   "icon": "aa"
@@ -8232,7 +8232,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (Medium)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 42 tokens a second.",
+  "body": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 43 tokens a second.",
   "foot": "57",
   "accent": "",
   "icon": "aa"
@@ -8241,7 +8241,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6 Astra (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 47 tokens a second.",
+  "body": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 48 tokens a second.",
   "foot": "56.9",
   "accent": "",
   "icon": "aa"
@@ -8259,7 +8259,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Sol (Xhigh)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
+  "body": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 97 tokens a second.",
   "foot": "55.7",
   "accent": "",
   "icon": "aa"
@@ -8322,7 +8322,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Gemini 4 Carbon (Low)",
   "group": "Google",
-  "body": "Google, Intelligence Index 54.2, 8 per million tokens (3 to 1 input to output), 74 tokens a second.",
+  "body": "Google, Intelligence Index 54.2, 8 per million tokens (3 to 1 input to output), 75 tokens a second.",
   "foot": "54.2",
   "accent": "",
   "icon": "aa"
@@ -8349,7 +8349,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Sol (Medium)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 52.7, 4 per million tokens (3 to 1 input to output), 90 tokens a second.",
+  "body": "OpenAI, Intelligence Index 52.7, 4 per million tokens (3 to 1 input to output), 89 tokens a second.",
   "foot": "52.7",
   "accent": "",
   "icon": "aa"
@@ -8385,7 +8385,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.1 Terra (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 86 tokens a second.",
+  "body": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 83 tokens a second.",
   "foot": "51.3",
   "accent": "",
   "icon": "aa"
@@ -8448,7 +8448,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Claude Fable 5.1 (Max, Default Fallback)",
   "group": "Anthropic",
-  "body": "Anthropic, Intelligence Index 49.2, 20 per million tokens (3 to 1 input to output), 66 tokens a second.",
+  "body": "Anthropic, Intelligence Index 49.2, 20 per million tokens (3 to 1 input to output), 65 tokens a second.",
   "foot": "49.2",
   "accent": "",
   "icon": "aa"
@@ -9010,6 +9010,456 @@ export const SOURCE_BOXES: Box[] = [
   "foot": "30",
   "accent": "",
   "icon": "llmstats"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini 4 Neon",
+  "group": "Google",
+  "body": "Gemini 4 Neon is a fast, mid-priced model in the Gemini 4 family from Google, built for coding and agentic work. It is suited for repository and…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini 4 Neon (batch)",
+  "group": "Google",
+  "body": "Gemini 4 Neon is a fast, mid-priced model in the Gemini 4 family from Google, built for coding and agentic work. It is suited for repository and…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Astra Pro",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Astra Pro is the same underlying model as [GPT-6.2 Astra](https://openrouter.ai/openai/gpt-6.2-astra), served with `reasoning.mode` set to…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Astra Pro (batch)",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Astra Pro is the same underlying model as [GPT-6.2 Astra](https://openrouter.ai/openai/gpt-6.2-astra), served with `reasoning.mode` set to…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Astra",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Astra is the flagship model in the GPT-6.2 series from OpenAI, built for the hardest projects. It is suited for real-world engineering…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Astra (batch)",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Astra is the flagship model in the GPT-6.2 series from OpenAI, built for the hardest projects. It is suited for real-world engineering…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Sol Pro",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Sol Pro is the same underlying model as [GPT-6.2 Sol](https://openrouter.ai/openai/gpt-6.2-sol), served with `reasoning.mode` set to `pro`…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Sol Pro (batch)",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Sol Pro is the same underlying model as [GPT-6.2 Sol](https://openrouter.ai/openai/gpt-6.2-sol), served with `reasoning.mode` set to `pro`…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Sol",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Sol is an upgrade to GPT-6.1 Sol from OpenAI, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series. It is an efficient…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.2 Sol (batch)",
+  "group": "OpenAI",
+  "body": "GPT-6.2 Sol is an upgrade to GPT-6.1 Sol from OpenAI, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series. It is an efficient…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Tencent: Hy4 flash",
+  "group": "Tencent",
+  "body": "Hy4 flash is a cost-efficient variant of [Hy4](https://openrouter.ai/tencent/hy4) from Tencent, served with roughly a quarter of the flagship's…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Qwen: Qwen4 Max",
+  "group": "Qwen",
+  "body": "Qwen4 Max is the flagship model in Alibaba's Qwen4 series. It accepts text, image, and video input and returns text, with a 1M-token context window…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "inclusionAI: Ling 3.2 Flash (free)",
+  "group": "inclusionAI",
+  "body": "Ling 3.2 Flash is a hybrid reasoning model from inclusionAI that accepts text and image input, with a 1M-token context window and up to 200 images…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini 4 Hydrogen",
+  "group": "Google",
+  "body": "Gemini 4 Hydrogen is the high-efficiency workhorse model of the Gemini 4 family from Google, built for high-throughput agentic workflows, coding and…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini 4 Hydrogen (batch)",
+  "group": "Google",
+  "body": "Gemini 4 Hydrogen is the high-efficiency workhorse model of the Gemini 4 family from Google, built for high-throughput agentic workflows, coding and…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+  "group": "Baidu",
+  "body": "ERNIE 5.5 Flash Preview is the latest foundation model in the ERNIE family, with comprehensive improvements in coding, agentic capabilities…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Baidu: ERNIE-Light-DT-1.0",
+  "group": "Baidu",
+  "body": "ERNIE-Light-DT-1.0 is based on open-source GLM models and includes research findings from Baidu Search's Lightning large model. It features Baidu…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini 4 Carbon",
+  "group": "Google",
+  "body": "Gemini 4 Carbon is a frontier Gemini 4 model from Google for coding, agentic and complex reasoning work. It takes text, image, audio, video and file…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini 4 Carbon (batch)",
+  "group": "Google",
+  "body": "Gemini 4 Carbon is a frontier Gemini 4 model from Google for coding, agentic and complex reasoning work. It takes text, image, audio, video and file…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Nex AGI: Nex-N2.6",
+  "group": "Nex AGI",
+  "body": "Nex-N2.6 is an agentic model from Nex AGI, built on [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash-BF16) with about 321B parameters…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Thinking Machines: Inkling 2 Small",
+  "group": "Thinking Machines",
+  "body": "Inkling 2 Small is an open-weight multimodal mixture-of-experts reasoning model from Thinking Machines Lab, with 17B active parameters out of 594B…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Anthropic: Claude Fable 5.2",
+  "group": "Anthropic",
+  "body": "Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in coding, reasoning, and…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Anthropic: Claude Fable 5.2 (batch)",
+  "group": "Anthropic",
+  "body": "Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in coding, reasoning, and…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Meta: Muse Ember",
+  "group": "Meta",
+  "body": "Muse Ember is the smallest and most efficient model from Meta that’s designed for complex reasoning execution and the work agents repeat all day…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "LiquidAI: LFM3-1.7B",
+  "group": "LiquidAI",
+  "body": "A compact 1.7B-parameter text model with a 256K-token context, post-trained for agents, tool calling, and structured outputs. It reasons before it…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "LiquidAI: LFM3-1.7B (free)",
+  "group": "LiquidAI",
+  "body": "A compact 1.7B-parameter text model with a 256K-token context, post-trained for agents, tool calling, and structured outputs. It reasons before it…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini Omni 1.2 Flash",
+  "group": "Google",
+  "body": "Gemini Omni 1.2 Flash is Google's native multimodal video generation and editing model, the successor to Gemini Omni 1.1 Flash. It generates clips…",
+  "foot": "131K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "KT: Mi:dm K 3.0 Pro",
+  "group": "KT",
+  "body": "Mi:dm K 3.0 Pro is a Mixture-of-Experts reasoning model from KT, with 120B total and 12B active parameters. It uses a hybrid architecture that mixes…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Auto Router",
+  "group": "openrouter",
+  "body": "Auto is OpenRouter’s flagship model router, built for general-purpose usage. It adapts to each request, choosing cost-optimal models and adjusting…",
+  "foot": "2M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Auto Code",
+  "group": "openrouter",
+  "body": "Auto Code is OpenRouter’s router built specifically for coding agents and harnesses. It uses the same routing engine as the [Auto…",
+  "foot": "2M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Google: Gemini Omni 1.1 Flash",
+  "group": "Google",
+  "body": "Gemini Omni 1.1 Flash is Google's native multimodal video generation and editing model, the generally available successor to Gemini Omni Flash…",
+  "foot": "131K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Ricursive: Ripple 65B Preview",
+  "group": "Ricursive",
+  "body": "Ripple-65B-Preview by ricursiveAI, a 65B model with native tool calling, served in BF16.",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Tencent: Hy4",
+  "group": "Tencent",
+  "body": "The official release of Hy4 delivers comprehensive and substantial improvements over Hy4 Preview, with particularly strong gains in agentic…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Motif Technologies: Motif 3",
+  "group": "Motif Technologies",
+  "body": "Motif 3 is a Mixture-of-Experts language model from Motif Technologies, with 314B total and 13.2B active parameters. It is a general-purpose…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Z.ai: GLM 5.3 FlashX Legal",
+  "group": "Z.ai",
+  "body": "GLM-5.3-FlashX-Legal (GLM-Legal) is Z.ai's legal-domain variant of GLM-5.3-FlashX, a native multimodal model that accepts text, image, and video…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Particle AI: Particle-1",
+  "group": "Particle AI",
+  "body": "Particle-1 is a token-efficient agentic coding model from Particle AI, post-trained on DeepSeek V4.1 Flash. It is suited for software engineering…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Particle AI: Particle-1 (free)",
+  "group": "Particle AI",
+  "body": "Particle-1 is a token-efficient agentic coding model from Particle AI, post-trained on DeepSeek V4.1 Flash. It is suited for software engineering…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.1 Terra Pro",
+  "group": "OpenAI",
+  "body": "GPT-6.1 Terra Pro is the same underlying model as [GPT-6.1 Terra](https://openrouter.ai/openai/gpt-6.1-terra), served with `reasoning.mode` set to…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.1 Terra Pro (batch)",
+  "group": "OpenAI",
+  "body": "GPT-6.1 Terra Pro is the same underlying model as [GPT-6.1 Terra](https://openrouter.ai/openai/gpt-6.1-terra), served with `reasoning.mode` set to…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.1 Terra",
+  "group": "OpenAI",
+  "body": "GPT-6.1 Terra is the mid-tier model in OpenAI's GPT-6.1 series, priced below GPT-6.1 Sol. It is suited for everyday agentic, coding, and writing…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "OpenAI: GPT-6.1 Terra (batch)",
+  "group": "OpenAI",
+  "body": "GPT-6.1 Terra is the mid-tier model in OpenAI's GPT-6.1 series, priced below GPT-6.1 Sol. It is suited for everyday agentic, coding, and writing…",
+  "foot": "1.1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "MoonshotAI: Kimi K3.1 Pro",
+  "group": "MoonshotAI",
+  "body": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "MoonshotAI: Kimi K3.1 Pro (batch)",
+  "group": "MoonshotAI",
+  "body": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Recursive: Flint (free)",
+  "group": "Recursive",
+  "body": "Flint is an open-weight mixture-of-experts model from Recursive, with about 2.5B active parameters out of 40B total, built by Recursive's…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "MiniMax: MiniMax M3.1 Flash",
+  "group": "MiniMax",
+  "body": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "DeepSeek: DeepSeek V4.1 Flash 1017",
+  "group": "DeepSeek",
+  "body": "DeepSeek V4.1 Flash 1017 is the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served by DeepSeek under the `deepseek-flash` API model name. V4.1…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "DeepSeek: DeepSeek V4.1 Flash 1017 (batch)",
+  "group": "DeepSeek",
+  "body": "DeepSeek V4.1 Flash 1017 is the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served by DeepSeek under the `deepseek-flash` API model name. V4.1…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Elorian: Glimpse",
+  "group": "Elorian",
+  "body": "Glimpse is a multimodal visual reasoning model from Elorian, built for visual understanding and complex visual reasoning in the physical world. It…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "Reflection: Beam 1.0 501B A23B",
+  "group": "Reflection",
+  "body": "Beam 1.0 is Reflection's open-weight reasoning model for coding and long-horizon agentic workflows. It uses a sparse mixture-of-experts architecture…",
+  "foot": "1M",
+  "accent": "",
+  "icon": "openrouter"
+ },
+ {
+  "kind": "openrouter",
+  "title": "PrismML: Ternary Bonsai 2 9B",
+  "group": "PrismML",
+  "body": "Ternary Bonsai 2 9B is PrismML’s compact, open-weight language model for conversational AI, reasoning, and tool use. Built on Qwen3.5, it uses…",
+  "foot": "262K",
+  "accent": "",
+  "icon": "openrouter"
  }
 ]
 
@@ -9018,7 +9468,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Anthropic",
    "table": "Claude Fable 5.2 (Max, Default Fallback)",
-   "about": "Anthropic, Intelligence Index 64.6, 16 per million tokens (3 to 1 input to output), 91 tokens a second.",
+   "about": "Anthropic, Intelligence Index 64.6, 16 per million tokens (3 to 1 input to output), 88 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9038,7 +9488,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "91"
+     "desc": "88"
     },
     {
      "name": "Released",
@@ -9088,7 +9538,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (Max)",
-   "about": "OpenAI, Intelligence Index 62.1, 16 per million tokens (3 to 1 input to output), 73 tokens a second.",
+   "about": "OpenAI, Intelligence Index 62.1, 16 per million tokens (3 to 1 input to output), 71 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9108,7 +9558,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "73"
+     "desc": "71"
     },
     {
      "name": "Released",
@@ -9158,7 +9608,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (Xhigh)",
-   "about": "OpenAI, Intelligence Index 61.6, 16 per million tokens (3 to 1 input to output), 55 tokens a second.",
+   "about": "OpenAI, Intelligence Index 61.6, 16 per million tokens (3 to 1 input to output), 51 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9178,7 +9628,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "55"
+     "desc": "51"
     },
     {
      "name": "Released",
@@ -9228,7 +9678,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (High)",
-   "about": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 50 tokens a second.",
+   "about": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 47 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9248,7 +9698,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "50"
+     "desc": "47"
     },
     {
      "name": "Released",
@@ -9263,7 +9713,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Google",
    "table": "Gemini 4 Carbon (High)",
-   "about": "Google, Intelligence Index 60, 8 per million tokens (3 to 1 input to output), 83 tokens a second.",
+   "about": "Google, Intelligence Index 60, 8 per million tokens (3 to 1 input to output), 85 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9283,7 +9733,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "83"
+     "desc": "85"
     },
     {
      "name": "Released",
@@ -9438,7 +9888,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Sol (Max)",
-   "about": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
+   "about": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 95 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9458,7 +9908,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "98"
+     "desc": "95"
     },
     {
      "name": "Released",
@@ -9473,7 +9923,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (Medium)",
-   "about": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 42 tokens a second.",
+   "about": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 43 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9493,7 +9943,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "42"
+     "desc": "43"
     },
     {
      "name": "Released",
@@ -9508,7 +9958,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6 Astra (Max)",
-   "about": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 47 tokens a second.",
+   "about": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 48 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9528,7 +9978,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "47"
+     "desc": "48"
     },
     {
      "name": "Released",
@@ -9578,7 +10028,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Sol (Xhigh)",
-   "about": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
+   "about": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 97 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9598,7 +10048,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "98"
+     "desc": "97"
     },
     {
      "name": "Released",
@@ -9823,7 +10273,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Google",
    "table": "Gemini 4 Carbon (Low)",
-   "about": "Google, Intelligence Index 54.2, 8 per million tokens (3 to 1 input to output), 74 tokens a second.",
+   "about": "Google, Intelligence Index 54.2, 8 per million tokens (3 to 1 input to output), 75 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9843,7 +10293,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "74"
+     "desc": "75"
     },
     {
      "name": "Released",
@@ -9928,7 +10378,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Sol (Medium)",
-   "about": "OpenAI, Intelligence Index 52.7, 4 per million tokens (3 to 1 input to output), 90 tokens a second.",
+   "about": "OpenAI, Intelligence Index 52.7, 4 per million tokens (3 to 1 input to output), 89 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -9948,7 +10398,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "90"
+     "desc": "89"
     },
     {
      "name": "Released",
@@ -10068,7 +10518,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "OpenAI",
    "table": "GPT-6.1 Terra (Max)",
-   "about": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 86 tokens a second.",
+   "about": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 83 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -10088,7 +10538,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "86"
+     "desc": "83"
     },
     {
      "name": "Released",
@@ -10301,7 +10751,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Anthropic",
    "table": "Claude Fable 5.1 (Max, Default Fallback)",
-   "about": "Anthropic, Intelligence Index 49.2, 20 per million tokens (3 to 1 input to output), 66 tokens a second.",
+   "about": "Anthropic, Intelligence Index 49.2, 20 per million tokens (3 to 1 input to output), 65 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -10321,7 +10771,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Output tokens a second",
-     "desc": "66"
+     "desc": "65"
     },
     {
      "name": "Released",
@@ -10766,11 +11216,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "60,728"
+     "desc": "60,731"
     },
     {
      "name": "Downloads",
-     "desc": "105,469"
+     "desc": "105,491"
     },
     {
      "name": "Size",
@@ -10805,7 +11255,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "1,224,683"
+     "desc": "1,224,793"
     },
     {
      "name": "Size",
@@ -10840,7 +11290,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "243,893"
+     "desc": "243,899"
     },
     {
      "name": "Size",
@@ -10875,7 +11325,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "825,468"
+     "desc": "825,519"
     },
     {
      "name": "Size",
@@ -10910,7 +11360,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "722,327"
+     "desc": "722,575"
     },
     {
      "name": "Size",
@@ -10945,7 +11395,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "819,991"
+     "desc": "820,014"
     },
     {
      "name": "Size",
@@ -10980,7 +11430,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "485,169"
+     "desc": "485,174"
     },
     {
      "name": "Size",
@@ -11015,7 +11465,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "323,315"
+     "desc": "323,334"
     },
     {
      "name": "Size",
@@ -11050,7 +11500,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "41,293"
+     "desc": "41,297"
     },
     {
      "name": "Size",
@@ -11120,7 +11570,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "532,883"
+     "desc": "532,940"
     },
     {
      "name": "Size",
@@ -11155,7 +11605,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "304,397"
+     "desc": "304,411"
     },
     {
      "name": "Size",
@@ -11190,7 +11640,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "966,392"
+     "desc": "966,497"
     },
     {
      "name": "Size",
@@ -11225,7 +11675,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "282,410"
+     "desc": "282,414"
     },
     {
      "name": "Size",
@@ -11256,11 +11706,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "4,793"
+     "desc": "4,794"
     },
     {
      "name": "Downloads",
-     "desc": "706,460"
+     "desc": "706,707"
     },
     {
      "name": "Size",
@@ -11295,7 +11745,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "180,695"
+     "desc": "180,998"
     },
     {
      "name": "Size",
@@ -11330,7 +11780,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "412,760"
+     "desc": "412,782"
     },
     {
      "name": "Size",
@@ -11365,7 +11815,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "556,031"
+     "desc": "556,061"
     },
     {
      "name": "Size",
@@ -11400,7 +11850,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "300,239"
+     "desc": "300,250"
     },
     {
      "name": "Size",
@@ -11435,7 +11885,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "575,197"
+     "desc": "575,255"
     },
     {
      "name": "Size",
@@ -11470,7 +11920,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "475,192"
+     "desc": "475,210"
     },
     {
      "name": "Size",
@@ -11501,11 +11951,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "3,976"
+     "desc": "3,977"
     },
     {
      "name": "Downloads",
-     "desc": "639,572"
+     "desc": "639,686"
     },
     {
      "name": "Size",
@@ -11540,7 +11990,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "369,463"
+     "desc": "369,472"
     },
     {
      "name": "Size",
@@ -11575,7 +12025,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "342,555"
+     "desc": "342,561"
     },
     {
      "name": "Size",
@@ -11610,7 +12060,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "317,431"
+     "desc": "317,460"
     },
     {
      "name": "Size",
@@ -11645,7 +12095,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "270,184"
+     "desc": "270,194"
     },
     {
      "name": "Size",
@@ -11680,7 +12130,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "444,359"
+     "desc": "444,420"
     },
     {
      "name": "Size",
@@ -11715,7 +12165,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "361,659"
+     "desc": "361,677"
     },
     {
      "name": "Size",
@@ -11750,7 +12200,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "290,058"
+     "desc": "290,073"
     },
     {
      "name": "Size",
@@ -11785,7 +12235,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "308,287"
+     "desc": "308,315"
     },
     {
      "name": "Size",
@@ -11820,7 +12270,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "380,199"
+     "desc": "380,257"
     },
     {
      "name": "Size",
@@ -11855,7 +12305,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "259,161"
+     "desc": "259,173"
     },
     {
      "name": "Size",
@@ -11890,7 +12340,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "152,398"
+     "desc": "152,399"
     },
     {
      "name": "Size",
@@ -11925,7 +12375,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "265,165"
+     "desc": "265,196"
     },
     {
      "name": "Size",
@@ -11960,7 +12410,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "439,710"
+     "desc": "439,726"
     },
     {
      "name": "Size",
@@ -11995,7 +12445,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "248,671"
+     "desc": "248,725"
     },
     {
      "name": "Size",
@@ -12030,7 +12480,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "164,988"
+     "desc": "164,997"
     },
     {
      "name": "Size",
@@ -12065,7 +12515,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "196,847"
+     "desc": "196,860"
     },
     {
      "name": "Size",
@@ -12100,7 +12550,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "195,697"
+     "desc": "195,715"
     },
     {
      "name": "Size",
@@ -12135,7 +12585,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "208,809"
+     "desc": "208,817"
     },
     {
      "name": "Size",
@@ -12170,7 +12620,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "156,191"
+     "desc": "156,195"
     },
     {
      "name": "Size",
@@ -12205,7 +12655,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "280,409"
+     "desc": "280,420"
     },
     {
      "name": "Size",
@@ -12240,7 +12690,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "123,458"
+     "desc": "123,460"
     },
     {
      "name": "Size",
@@ -12275,7 +12725,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "239,964"
+     "desc": "239,974"
     },
     {
      "name": "Size",
@@ -12310,7 +12760,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "190,079"
+     "desc": "190,086"
     },
     {
      "name": "Size",
@@ -12345,7 +12795,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "149,029"
+     "desc": "149,045"
     },
     {
      "name": "Size",
@@ -12380,7 +12830,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "186,927"
+     "desc": "186,929"
     },
     {
      "name": "Size",
@@ -12415,7 +12865,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "269,953"
+     "desc": "269,973"
     },
     {
      "name": "Size",
@@ -12450,7 +12900,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "299,671"
+     "desc": "299,703"
     },
     {
      "name": "Size",
@@ -12485,7 +12935,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "255,966"
+     "desc": "255,980"
     },
     {
      "name": "Size",
@@ -12520,7 +12970,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "280,740"
+     "desc": "280,743"
     },
     {
      "name": "Size",
@@ -12555,7 +13005,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "174,032"
+     "desc": "174,065"
     },
     {
      "name": "Size",
@@ -12590,7 +13040,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "296,971"
+     "desc": "296,998"
     },
     {
      "name": "Size",
@@ -12660,7 +13110,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "31,605"
+     "desc": "31,607"
     },
     {
      "name": "Size",
@@ -12695,7 +13145,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "173,429"
+     "desc": "173,435"
     },
     {
      "name": "Size",
@@ -12730,7 +13180,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "338,648"
+     "desc": "338,685"
     },
     {
      "name": "Size",
@@ -12765,7 +13215,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "182,297"
+     "desc": "182,299"
     },
     {
      "name": "Size",
@@ -12800,7 +13250,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "321,166"
+     "desc": "321,168"
     },
     {
      "name": "Size",
@@ -12835,7 +13285,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "168,124"
+     "desc": "168,130"
     },
     {
      "name": "Size",
@@ -12870,7 +13320,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "135,472"
+     "desc": "135,473"
     },
     {
      "name": "Size",
@@ -12940,7 +13390,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "398,894"
+     "desc": "398,920"
     },
     {
      "name": "Size",
@@ -12971,11 +13421,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "2,033"
+     "desc": "2,034"
     },
     {
      "name": "Downloads",
-     "desc": "260,892"
+     "desc": "260,909"
     },
     {
      "name": "Size",
@@ -13010,7 +13460,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "93,445"
+     "desc": "93,449"
     },
     {
      "name": "Size",
@@ -13045,7 +13495,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "49,526"
+     "desc": "49,531"
     },
     {
      "name": "Size",
@@ -13080,7 +13530,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "133,821"
+     "desc": "133,834"
     },
     {
      "name": "Size",
@@ -13115,7 +13565,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "385,629"
+     "desc": "385,661"
     },
     {
      "name": "Size",
@@ -13146,11 +13596,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "1,940"
+     "desc": "1,941"
     },
     {
      "name": "Downloads",
-     "desc": "300,124"
+     "desc": "300,138"
     },
     {
      "name": "Size",
@@ -13185,7 +13635,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "173,373"
+     "desc": "173,405"
     },
     {
      "name": "Size",
@@ -13220,7 +13670,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "186,454"
+     "desc": "186,463"
     },
     {
      "name": "Size",
@@ -13255,7 +13705,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "249,190"
+     "desc": "249,201"
     },
     {
      "name": "Size",
@@ -13286,11 +13736,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "1,876"
+     "desc": "1,877"
     },
     {
      "name": "Downloads",
-     "desc": "311,935"
+     "desc": "311,986"
     },
     {
      "name": "Size",
@@ -13325,7 +13775,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "168,362"
+     "desc": "168,365"
     },
     {
      "name": "Size",
@@ -13360,7 +13810,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "225,416"
+     "desc": "225,425"
     },
     {
      "name": "Size",
@@ -13395,7 +13845,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "444,764"
+     "desc": "444,819"
     },
     {
      "name": "Size",
@@ -13430,7 +13880,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "212,151"
+     "desc": "212,161"
     },
     {
      "name": "Size",
@@ -13465,7 +13915,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "208,077"
+     "desc": "208,098"
     },
     {
      "name": "Size",
@@ -13500,7 +13950,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "65,414"
+     "desc": "65,434"
     },
     {
      "name": "Size",
@@ -13535,7 +13985,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "137,967"
+     "desc": "137,980"
     },
     {
      "name": "Size",
@@ -13566,11 +14016,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "1,743"
+     "desc": "1,744"
     },
     {
      "name": "Downloads",
-     "desc": "334,753"
+     "desc": "334,791"
     },
     {
      "name": "Size",
@@ -13605,7 +14055,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "160,261"
+     "desc": "160,264"
     },
     {
      "name": "Size",
@@ -13675,7 +14125,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "74,276"
+     "desc": "74,279"
     },
     {
      "name": "Size",
@@ -13710,7 +14160,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "18,317"
+     "desc": "18,319"
     },
     {
      "name": "Size",
@@ -13741,11 +14191,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Votes",
-     "desc": "1,701"
+     "desc": "1,702"
     },
     {
      "name": "Downloads",
-     "desc": "123,603"
+     "desc": "123,611"
     },
     {
      "name": "Size",
@@ -13780,7 +14230,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "694,410"
+     "desc": "694,427"
     },
     {
      "name": "Size",
@@ -13815,7 +14265,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "136,262"
+     "desc": "136,277"
     },
     {
      "name": "Size",
@@ -13850,7 +14300,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "166,015"
+     "desc": "166,046"
     },
     {
      "name": "Size",
@@ -13885,7 +14335,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "107,820"
+     "desc": "107,822"
     },
     {
      "name": "Size",
@@ -13955,7 +14405,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "102,013"
+     "desc": "102,019"
     },
     {
      "name": "Size",
@@ -13990,7 +14440,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "169,447"
+     "desc": "169,460"
     },
     {
      "name": "Size",
@@ -14025,7 +14475,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "145,839"
+     "desc": "145,843"
     },
     {
      "name": "Size",
@@ -14060,7 +14510,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "227,576"
+     "desc": "227,585"
     },
     {
      "name": "Size",
@@ -14095,7 +14545,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "90,754"
+     "desc": "90,755"
     },
     {
      "name": "Size",
@@ -14130,7 +14580,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "31,696"
+     "desc": "31,699"
     },
     {
      "name": "Size",
@@ -14200,7 +14650,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "13,510"
+     "desc": "13,511"
     },
     {
      "name": "Size",
@@ -14235,7 +14685,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "76,249"
+     "desc": "76,253"
     },
     {
      "name": "Size",
@@ -15608,6 +16058,1758 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   }
  ],
+ "openrouter": [
+  {
+   "database": "Google",
+   "table": "Google: Gemini 4 Neon",
+   "about": "Gemini 4 Neon is a fast, mid-priced model in the Gemini 4 family from Google, built for coding and agentic work. It is suited for repository and terminal coding, web...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-4-neon"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "3"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "15"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-4-neon"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini 4 Neon (batch)",
+   "about": "Gemini 4 Neon is a fast, mid-priced model in the Gemini 4 family from Google, built for coding and agentic work. It is suited for repository and terminal coding, web...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-4-neon:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1.5"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "7.5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-4-neon:batch"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Astra Pro",
+   "about": "GPT-6.2 Astra Pro is the same underlying model as [GPT-6.2 Astra](https://openrouter.ai/openai/gpt-6.2-astra), served with `reasoning.mode` set to `pro` for higher-quality responses on complex tasks. **Cost note:** pro mode spends far more...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-astra-pro"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "8"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "40"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-astra-pro"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Astra Pro (batch)",
+   "about": "GPT-6.2 Astra Pro is the same underlying model as [GPT-6.2 Astra](https://openrouter.ai/openai/gpt-6.2-astra), served with `reasoning.mode` set to `pro` for higher-quality responses on complex tasks. **Cost note:** pro mode spends far more...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-astra-pro:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "4"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "20"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-astra-pro:batch"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Astra",
+   "about": "GPT-6.2 Astra is the flagship model in the GPT-6.2 series from OpenAI, built for the hardest projects. It is suited for real-world engineering, professional work and scientific research, with stronger...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-astra"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "8"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "40"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-astra"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Astra (batch)",
+   "about": "GPT-6.2 Astra is the flagship model in the GPT-6.2 series from OpenAI, built for the hardest projects. It is suited for real-world engineering, professional work and scientific research, with stronger...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-astra:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "4"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "20"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-astra:batch"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Sol Pro",
+   "about": "GPT-6.2 Sol Pro is the same underlying model as [GPT-6.2 Sol](https://openrouter.ai/openai/gpt-6.2-sol), served with `reasoning.mode` set to `pro` for higher-quality responses on complex tasks. **Cost note:** pro mode spends far more...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-sol-pro"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "2"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "10"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-sol-pro"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Sol Pro (batch)",
+   "about": "GPT-6.2 Sol Pro is the same underlying model as [GPT-6.2 Sol](https://openrouter.ai/openai/gpt-6.2-sol), served with `reasoning.mode` set to `pro` for higher-quality responses on complex tasks. **Cost note:** pro mode spends far more...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-sol-pro:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-sol-pro:batch"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Sol",
+   "about": "GPT-6.2 Sol is an upgrade to GPT-6.1 Sol from OpenAI, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series. It is an efficient, versatile model for everyday work, suited...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-sol"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "2"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "10"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-sol"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.2 Sol (batch)",
+   "about": "GPT-6.2 Sol is an upgrade to GPT-6.1 Sol from OpenAI, positioned below the flagship GPT-6.2 Astra in the GPT-6.2 series. It is an efficient, versatile model for everyday work, suited...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.2-sol:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.2-sol:batch"
+    }
+   ]
+  },
+  {
+   "database": "Tencent",
+   "table": "Tencent: Hy4 flash",
+   "about": "Hy4 flash is a cost-efficient variant of [Hy4](https://openrouter.ai/tencent/hy4) from Tencent, served with roughly a quarter of the flagship's parameter count for lower latency and cost. It targets code assistance, agent...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "tencent/hy4-flash"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.04"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.14"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/tencent/hy4-flash"
+    }
+   ]
+  },
+  {
+   "database": "Qwen",
+   "table": "Qwen: Qwen4 Max",
+   "about": "Qwen4 Max is the flagship model in Alibaba's Qwen4 series. It accepts text, image, and video input and returns text, with a 1M-token context window and reasoning enabled by default....",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "qwen/qwen4-max"
+    },
+    {
+     "name": "Context length",
+     "desc": "1000000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1.42"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "4.27"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/qwen/qwen4-max"
+    }
+   ]
+  },
+  {
+   "database": "inclusionAI",
+   "table": "inclusionAI: Ling 3.2 Flash (free)",
+   "about": "Ling 3.2 Flash is a hybrid reasoning model from inclusionAI that accepts text and image input, with a 1M-token context window and up to 200 images per request. Thinking can...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "inclusionai/ling-3.2-flash:free"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/inclusionai/ling-3.2-flash:free"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini 4 Hydrogen",
+   "about": "Gemini 4 Hydrogen is the high-efficiency workhorse model of the Gemini 4 family from Google, built for high-throughput agentic workflows, coding and multi-model routing at lower cost and latency than...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-4-hydrogen"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1.5"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "7.5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-4-hydrogen"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini 4 Hydrogen (batch)",
+   "about": "Gemini 4 Hydrogen is the high-efficiency workhorse model of the Gemini 4 family from Google, built for high-throughput agentic workflows, coding and multi-model routing at lower cost and latency than...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-4-hydrogen:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.75"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "3.75"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-4-hydrogen:batch"
+    }
+   ]
+  },
+  {
+   "database": "Baidu",
+   "table": "Baidu: ERNIE-5.5-Flash-Preview (free)",
+   "about": "ERNIE 5.5 Flash Preview is the latest foundation model in the ERNIE family, with comprehensive improvements in coding, agentic capabilities, knowledge work, and deep research. It has 280 billion total...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "baidu/ernie-5.5-flash-preview:free"
+    },
+    {
+     "name": "Context length",
+     "desc": "1024000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/baidu/ernie-5.5-flash-preview:free"
+    }
+   ]
+  },
+  {
+   "database": "Baidu",
+   "table": "Baidu: ERNIE-Light-DT-1.0",
+   "about": "ERNIE-Light-DT-1.0 is based on open-source GLM models and includes research findings from Baidu Search's Lightning large model. It features Baidu Sparse Attention (BSA), a unique sparse attention mechanism developed by...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "baidu/ernie-light-dt-1.0-intl"
+    },
+    {
+     "name": "Context length",
+     "desc": "1024000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1.13"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "3.94"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/baidu/ernie-light-dt-1.0-intl"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini 4 Carbon",
+   "about": "Gemini 4 Carbon is a frontier Gemini 4 model from Google for coding, agentic and complex reasoning work. It takes text, image, audio, video and file input, supports long decode...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-4-carbon"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "2"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "10"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-4-carbon"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini 4 Carbon (batch)",
+   "about": "Gemini 4 Carbon is a frontier Gemini 4 model from Google for coding, agentic and complex reasoning work. It takes text, image, audio, video and file input, supports long decode...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-4-carbon:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-4-carbon:batch"
+    }
+   ]
+  },
+  {
+   "database": "Nex AGI",
+   "table": "Nex AGI: Nex-N2.6",
+   "about": "Nex-N2.6 is an agentic model from Nex AGI, built on [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash-BF16) with about 321B parameters. It is suited for computer use, coding, and long-horizon tasks that involve tools. Compared with...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "nex-agi/nex-n2.6"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.12"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.4"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-10"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/nex-agi/nex-n2.6"
+    }
+   ]
+  },
+  {
+   "database": "Thinking Machines",
+   "table": "Thinking Machines: Inkling 2 Small",
+   "about": "Inkling 2 Small is an open-weight multimodal mixture-of-experts reasoning model from Thinking Machines Lab, with 17B active parameters out of 594B total. It is the first model in the second...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "thinkingmachines/inkling-2-small"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.3"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/thinkingmachines/inkling-2-small"
+    }
+   ]
+  },
+  {
+   "database": "Anthropic",
+   "table": "Anthropic: Claude Fable 5.2",
+   "about": "Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in coding, reasoning, and vision. In prerelease testing it completed otherwise-infeasible...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "anthropic/claude-fable-5.2"
+    },
+    {
+     "name": "Context length",
+     "desc": "1000000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "8"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "40"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/anthropic/claude-fable-5.2"
+    }
+   ]
+  },
+  {
+   "database": "Anthropic",
+   "table": "Anthropic: Claude Fable 5.2 (batch)",
+   "about": "Claude Fable 5.2 is Anthropic's most capable model for the most demanding technical work, with gains over Fable 5.1 in coding, reasoning, and vision. In prerelease testing it completed otherwise-infeasible...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "anthropic/claude-fable-5.2:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1000000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "4"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "20"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/anthropic/claude-fable-5.2:batch"
+    }
+   ]
+  },
+  {
+   "database": "Meta",
+   "table": "Meta: Muse Ember",
+   "about": "Muse Ember is the smallest and most efficient model from Meta that’s designed for complex reasoning execution and the work agents repeat all day: tool calls, coding agent subtasks, routing,...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "meta/muse-ember"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/meta/muse-ember"
+    }
+   ]
+  },
+  {
+   "database": "LiquidAI",
+   "table": "LiquidAI: LFM3-1.7B",
+   "about": "A compact 1.7B-parameter text model with a 256K-token context, post-trained for agents, tool calling, and structured outputs. It reasons before it answers. Prompts and outputs may be retained and used...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "liquid/lfm-3-1.7b"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.08"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.2"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/liquid/lfm-3-1.7b"
+    }
+   ]
+  },
+  {
+   "database": "LiquidAI",
+   "table": "LiquidAI: LFM3-1.7B (free)",
+   "about": "A compact 1.7B-parameter text model with a 256K-token context, post-trained for agents, tool calling, and structured outputs. It reasons before it answers. Prompts and outputs may be retained and used...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "liquid/lfm-3-1.7b:free"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/liquid/lfm-3-1.7b:free"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini Omni 1.2 Flash",
+   "about": "Gemini Omni 1.2 Flash is Google's native multimodal video generation and editing model, the successor to Gemini Omni 1.1 Flash. It generates clips up to 15 seconds long with native...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-omni-1.2-flash"
+    },
+    {
+     "name": "Context length",
+     "desc": "131072"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1.5"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "9"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text+video"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-omni-1.2-flash"
+    }
+   ]
+  },
+  {
+   "database": "KT",
+   "table": "KT: Mi:dm K 3.0 Pro",
+   "about": "Mi:dm K 3.0 Pro is a Mixture-of-Experts reasoning model from KT, with 120B total and 12B active parameters. It uses a hybrid architecture that mixes Mamba, MoE and attention layers.",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "kt/midm-k-3.0-pro"
+    },
+    {
+     "name": "Context length",
+     "desc": "261795"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.2"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.8"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/kt/midm-k-3.0-pro"
+    }
+   ]
+  },
+  {
+   "database": "openrouter",
+   "table": "Auto Router",
+   "about": "Auto is OpenRouter’s flagship model router, built for general-purpose usage. It adapts to each request, choosing cost-optimal models and adjusting reasoning effort. It balances task difficulty, benchmark results, live prices,...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openrouter/auto"
+    },
+    {
+     "name": "Context length",
+     "desc": "2000000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "-1000000"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "-1000000"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text+image"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openrouter/auto"
+    }
+   ]
+  },
+  {
+   "database": "openrouter",
+   "table": "Auto Code",
+   "about": "Auto Code is OpenRouter’s router built specifically for coding agents and harnesses. It uses the same routing engine as the [Auto Router](https://openrouter.ai/openrouter/auto), with every request treated as part of an...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openrouter/auto-code"
+    },
+    {
+     "name": "Context length",
+     "desc": "2000000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "-1000000"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "-1000000"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file+audio+video->text+image"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openrouter/auto-code"
+    }
+   ]
+  },
+  {
+   "database": "Google",
+   "table": "Google: Gemini Omni 1.1 Flash",
+   "about": "Gemini Omni 1.1 Flash is Google's native multimodal video generation and editing model, the generally available successor to Gemini Omni Flash Preview. It is suited for text-to-video, image-to-video, first and...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "google/gemini-omni-1.1-flash"
+    },
+    {
+     "name": "Context length",
+     "desc": "131072"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1.5"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "9"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text+video"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/google/gemini-omni-1.1-flash"
+    }
+   ]
+  },
+  {
+   "database": "Ricursive",
+   "table": "Ricursive: Ripple 65B Preview",
+   "about": "Ripple-65B-Preview by ricursiveAI, a 65B model with native tool calling, served in BF16.",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "ricursiveai/ripple-65b-preview"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.3"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/ricursiveai/ripple-65b-preview"
+    }
+   ]
+  },
+  {
+   "database": "Tencent",
+   "table": "Tencent: Hy4",
+   "about": "The official release of Hy4 delivers comprehensive and substantial improvements over Hy4 Preview, with particularly strong gains in agentic capabilities and performance across a wide range of long-horizon, real-world productivity...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "tencent/hy4"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.42"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "1.25"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/tencent/hy4"
+    }
+   ]
+  },
+  {
+   "database": "Motif Technologies",
+   "table": "Motif Technologies: Motif 3",
+   "about": "Motif 3 is a Mixture-of-Experts language model from Motif Technologies, with 314B total and 13.2B active parameters. It is a general-purpose multilingual model for English and Korean, particularly strong at...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "motif-technologies/motif-3"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.3"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "1.2"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/motif-technologies/motif-3"
+    }
+   ]
+  },
+  {
+   "database": "Z.ai",
+   "table": "Z.ai: GLM 5.3 FlashX Legal",
+   "about": "GLM-5.3-FlashX-Legal (GLM-Legal) is Z.ai's legal-domain variant of GLM-5.3-FlashX, a native multimodal model that accepts text, image, and video input and produces text. It adds legal-domain mid-training and post-training with reinforcement...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "z-ai/glm-5.3-flashx-legal"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.37"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "1.25"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-11-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/z-ai/glm-5.3-flashx-legal"
+    }
+   ]
+  },
+  {
+   "database": "Particle AI",
+   "table": "Particle AI: Particle-1",
+   "about": "Particle-1 is a token-efficient agentic coding model from Particle AI, post-trained on DeepSeek V4.1 Flash. It is suited for software engineering work such as terminal workflows, codebase changes, and data...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "particle-ai/particle-1"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.06"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/particle-ai/particle-1"
+    }
+   ]
+  },
+  {
+   "database": "Particle AI",
+   "table": "Particle AI: Particle-1 (free)",
+   "about": "Particle-1 is a token-efficient agentic coding model from Particle AI, post-trained on DeepSeek V4.1 Flash. It is suited for software engineering work such as terminal workflows, codebase changes, and data...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "particle-ai/particle-1:free"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-28"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/particle-ai/particle-1:free"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.1 Terra Pro",
+   "about": "GPT-6.1 Terra Pro is the same underlying model as [GPT-6.1 Terra](https://openrouter.ai/openai/gpt-6.1-terra), served with `reasoning.mode` set to `pro` for higher-quality responses on complex tasks. **Cost note:** pro mode spends far more...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.1-terra-pro"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.1-terra-pro"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.1 Terra Pro (batch)",
+   "about": "GPT-6.1 Terra Pro is the same underlying model as [GPT-6.1 Terra](https://openrouter.ai/openai/gpt-6.1-terra), served with `reasoning.mode` set to `pro` for higher-quality responses on complex tasks. **Cost note:** pro mode spends far more...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.1-terra-pro:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.5"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "2.5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.1-terra-pro:batch"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.1 Terra",
+   "about": "GPT-6.1 Terra is the mid-tier model in OpenAI's GPT-6.1 series, priced below GPT-6.1 Sol. It is suited for everyday agentic, coding, and writing work, is particularly strong at understanding screenshots...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.1-terra"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.1-terra"
+    }
+   ]
+  },
+  {
+   "database": "OpenAI",
+   "table": "OpenAI: GPT-6.1 Terra (batch)",
+   "about": "GPT-6.1 Terra is the mid-tier model in OpenAI's GPT-6.1 series, priced below GPT-6.1 Sol. It is suited for everyday agentic, coding, and writing work, is particularly strong at understanding screenshots...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "openai/gpt-6.1-terra:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1050000"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.5"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "2.5"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+file->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/openai/gpt-6.1-terra:batch"
+    }
+   ]
+  },
+  {
+   "database": "MoonshotAI",
+   "table": "MoonshotAI: Kimi K3.1 Pro",
+   "about": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context window. It is built for long-horizon coding, 3D...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "moonshotai/kimi-k3.1-pro"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.25"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "8.8"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/moonshotai/kimi-k3.1-pro"
+    }
+   ]
+  },
+  {
+   "database": "MoonshotAI",
+   "table": "MoonshotAI: Kimi K3.1 Pro (batch)",
+   "about": "Kimi K3.1 Pro is Moonshot AI's flagship open-weight multimodal reasoning model and a post-trained successor to Kimi K3, with a 1M-token context window. It is built for long-horizon coding, 3D...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "moonshotai/kimi-k3.1-pro:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.37"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "5.58"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/moonshotai/kimi-k3.1-pro:batch"
+    }
+   ]
+  },
+  {
+   "database": "Recursive",
+   "table": "Recursive: Flint (free)",
+   "about": "Flint is an open-weight mixture-of-experts model from Recursive, with about 2.5B active parameters out of 40B total, built by Recursive's autoresearch system Eureka Machine for coding agents. It is suited...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "recursive/flint-v1.0:free"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-21"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/recursive/flint-v1.0:free"
+    }
+   ]
+  },
+  {
+   "database": "MiniMax",
+   "table": "MiniMax: MiniMax M3.1 Flash",
+   "about": "MiniMax-M3.1-Flash is a multimodal model from MiniMax. Compared with M3, it delivers significant improvements across multiple benchmarks, particularly in complex agentic tasks, coding, and cybersecurity. It is built for complex,...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "minimax/minimax-m3.1-flash"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.15"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.6"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/minimax/minimax-m3.1-flash"
+    }
+   ]
+  },
+  {
+   "database": "DeepSeek",
+   "table": "DeepSeek: DeepSeek V4.1 Flash 1017",
+   "about": "DeepSeek V4.1 Flash 1017 is the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served by DeepSeek under the `deepseek-flash` API model name. V4.1 Flash is a sparse mixture-of-experts model...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "deepseek/deepseek-v4.1-flash-1017"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.04"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.15"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/deepseek/deepseek-v4.1-flash-1017"
+    }
+   ]
+  },
+  {
+   "database": "DeepSeek",
+   "table": "DeepSeek: DeepSeek V4.1 Flash 1017 (batch)",
+   "about": "DeepSeek V4.1 Flash 1017 is the October 17, 2026 snapshot of DeepSeek V4.1 Flash, served by DeepSeek under the `deepseek-flash` API model name. V4.1 Flash is a sparse mixture-of-experts model...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "deepseek/deepseek-v4.1-flash-1017:batch"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.04"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.15"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/deepseek/deepseek-v4.1-flash-1017:batch"
+    }
+   ]
+  },
+  {
+   "database": "Elorian",
+   "table": "Elorian: Glimpse",
+   "about": "Glimpse is a multimodal visual reasoning model from Elorian, built for visual understanding and complex visual reasoning in the physical world. It reasons directly over images and video rather than...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "elorian/glimpse"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.6"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "3"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image+video->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/elorian/glimpse"
+    }
+   ]
+  },
+  {
+   "database": "Reflection",
+   "table": "Reflection: Beam 1.0 501B A23B",
+   "about": "Beam 1.0 is Reflection's open-weight reasoning model for coding and long-horizon agentic workflows. It uses a sparse mixture-of-experts architecture with 501B total and 23B active parameters per token, and a...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "reflection/beam-1.0-501b-a23b"
+    },
+    {
+     "name": "Context length",
+     "desc": "1048576"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.25"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "1"
+    },
+    {
+     "name": "Modality",
+     "desc": "text->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/reflection/beam-1.0-501b-a23b"
+    }
+   ]
+  },
+  {
+   "database": "PrismML",
+   "table": "PrismML: Ternary Bonsai 2 9B",
+   "about": "Ternary Bonsai 2 9B is PrismML’s compact, open-weight language model for conversational AI, reasoning, and tool use. Built on Qwen3.5, it uses ternary weights packed into 2 bits for efficient...",
+   "fields": [
+    {
+     "name": "Id",
+     "desc": "prism-ml/ternary-bonsai-2-9b"
+    },
+    {
+     "name": "Context length",
+     "desc": "262144"
+    },
+    {
+     "name": "Price per 1M input tokens",
+     "desc": "0.08"
+    },
+    {
+     "name": "Price per 1M output tokens",
+     "desc": "0.13"
+    },
+    {
+     "name": "Modality",
+     "desc": "text+image->text"
+    },
+    {
+     "name": "Added",
+     "desc": "2026-10-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://openrouter.ai/prism-ml/ternary-bonsai-2-9b"
+    }
+   ]
+  }
+ ],
  "gh-skills": [
   {
    "database": "Skills",
@@ -15616,11 +17818,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "468,965"
+     "desc": "469,299"
     },
     {
      "name": "Forks",
-     "desc": "114,617"
+     "desc": "114,677"
     },
     {
      "name": "Language",
@@ -15647,11 +17849,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "321,582"
+     "desc": "321,715"
     },
     {
      "name": "Forks",
-     "desc": "28,582"
+     "desc": "28,599"
     },
     {
      "name": "Language",
@@ -15678,11 +17880,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "197,430"
+     "desc": "197,532"
     },
     {
      "name": "Forks",
-     "desc": "23,115"
+     "desc": "23,135"
     },
     {
      "name": "Language",
@@ -15705,11 +17907,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "194,449"
+     "desc": "194,579"
     },
     {
      "name": "Forks",
-     "desc": "10,957"
+     "desc": "10,966"
     },
     {
      "name": "Language",
@@ -15736,7 +17938,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "161,475"
+     "desc": "161,495"
     },
     {
      "name": "Forks",
@@ -15763,7 +17965,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "159,618"
+     "desc": "159,623"
     },
     {
      "name": "Forks",
@@ -15794,11 +17996,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "155,699"
+     "desc": "155,744"
     },
     {
      "name": "Forks",
-     "desc": "10,186"
+     "desc": "10,191"
     },
     {
      "name": "Language",
@@ -15825,11 +18027,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "150,344"
+     "desc": "150,417"
     },
     {
      "name": "Forks",
-     "desc": "14,457"
+     "desc": "14,463"
     },
     {
      "name": "Language",
@@ -15856,11 +18058,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "119,043"
+     "desc": "119,086"
     },
     {
      "name": "Forks",
-     "desc": "12,400"
+     "desc": "12,403"
     },
     {
      "name": "Language",
@@ -15887,11 +18089,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "118,642"
+     "desc": "118,724"
     },
     {
      "name": "Forks",
-     "desc": "7,938"
+     "desc": "7,942"
     },
     {
      "name": "Language",
@@ -15918,11 +18120,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "118,305"
+     "desc": "118,337"
     },
     {
      "name": "Forks",
-     "desc": "10,290"
+     "desc": "10,292"
     },
     {
      "name": "Language",
@@ -15949,11 +18151,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "114,904"
+     "desc": "114,983"
     },
     {
      "name": "Forks",
-     "desc": "19,079"
+     "desc": "19,094"
     },
     {
      "name": "Language",
@@ -15980,11 +18182,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "113,130"
+     "desc": "113,230"
     },
     {
      "name": "Forks",
-     "desc": "6,739"
+     "desc": "6,747"
     },
     {
      "name": "Language",
@@ -16011,11 +18213,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "108,418"
+     "desc": "108,447"
     },
     {
      "name": "Forks",
-     "desc": "12,301"
+     "desc": "12,302"
     },
     {
      "name": "Language",
@@ -16042,11 +18244,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "97,887"
+     "desc": "97,935"
     },
     {
      "name": "Forks",
-     "desc": "6,684"
+     "desc": "6,690"
     },
     {
      "name": "Language",
@@ -16073,11 +18275,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "93,231"
+     "desc": "93,257"
     },
     {
      "name": "Forks",
-     "desc": "7,954"
+     "desc": "7,957"
     },
     {
      "name": "Language",
@@ -16104,11 +18306,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "85,837"
+     "desc": "85,846"
     },
     {
      "name": "Forks",
-     "desc": "16,351"
+     "desc": "16,349"
     },
     {
      "name": "Language",
@@ -16131,11 +18333,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "83,646"
+     "desc": "83,698"
     },
     {
      "name": "Forks",
-     "desc": "15,333"
+     "desc": "15,341"
     },
     {
      "name": "Language",
@@ -16162,11 +18364,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "79,851"
+     "desc": "79,861"
     },
     {
      "name": "Forks",
-     "desc": "9,789"
+     "desc": "9,795"
     },
     {
      "name": "Language",
@@ -16184,16 +18386,47 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Skills",
+   "table": "blader/humanizer",
+   "about": "Agent skill that removes signs of AI-generated writing from text.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "71,080"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,570"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/blader/humanizer"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
    "table": "code-yeongyu/oh-my-openagent",
    "about": "OmO: Just type \"mass ulw\" keyword with your prompt. Now you are the master of graph engineering.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "70,996"
+     "desc": "70,997"
     },
     {
      "name": "Forks",
-     "desc": "5,847"
+     "desc": "5,846"
     },
     {
      "name": "Language",
@@ -16211,43 +18444,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Skills",
-   "table": "blader/humanizer",
-   "about": "Agent skill that removes signs of AI-generated writing from text.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "70,978"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,563"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/blader/humanizer"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
    "table": "shanraisshan/claude-code-best-practice",
    "about": "from vibe coding to agentic engineering - practice makes claude perfect.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "69,218"
+     "desc": "69,224"
     },
     {
      "name": "Forks",
@@ -16278,11 +18480,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "68,325"
+     "desc": "68,379"
     },
     {
      "name": "Forks",
-     "desc": "4,595"
+     "desc": "4,601"
     },
     {
      "name": "Language",
@@ -16309,11 +18511,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "61,669"
+     "desc": "61,688"
     },
     {
      "name": "Forks",
-     "desc": "3,621"
+     "desc": "3,623"
     },
     {
      "name": "Language",
@@ -16340,11 +18542,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "61,346"
+     "desc": "61,399"
     },
     {
      "name": "Forks",
-     "desc": "8,946"
+     "desc": "8,948"
     },
     {
      "name": "Language",
@@ -16371,11 +18573,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,336"
+     "desc": "58,348"
     },
     {
      "name": "Forks",
-     "desc": "4,976"
+     "desc": "4,978"
     },
     {
      "name": "Language",
@@ -16398,11 +18600,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,069"
+     "desc": "58,101"
     },
     {
      "name": "Forks",
-     "desc": "3,417"
+     "desc": "3,419"
     },
     {
      "name": "Language",
@@ -16429,7 +18631,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "57,780"
+     "desc": "57,808"
     },
     {
      "name": "Forks",
@@ -16460,11 +18662,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "54,269"
+     "desc": "54,309"
     },
     {
      "name": "Forks",
-     "desc": "4,489"
+     "desc": "4,495"
     },
     {
      "name": "Language",
@@ -16491,7 +18693,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,857"
+     "desc": "53,856"
     },
     {
      "name": "Forks",
@@ -16518,7 +18720,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,651"
+     "desc": "53,657"
     },
     {
      "name": "Forks",
@@ -16549,7 +18751,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,196"
+     "desc": "53,218"
     },
     {
      "name": "Forks",
@@ -16580,11 +18782,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "49,974"
+     "desc": "49,984"
     },
     {
      "name": "Forks",
-     "desc": "7,245"
+     "desc": "7,244"
     },
     {
      "name": "Language",
@@ -16615,7 +18817,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "16,219"
+     "desc": "16,218"
     },
     {
      "name": "Language",
@@ -16642,11 +18844,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "48,003"
+     "desc": "48,008"
     },
     {
      "name": "Forks",
-     "desc": "10,434"
+     "desc": "10,436"
     },
     {
      "name": "Language",
@@ -16673,11 +18875,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "47,688"
+     "desc": "47,696"
     },
     {
      "name": "Forks",
-     "desc": "4,943"
+     "desc": "4,944"
     },
     {
      "name": "Language",
@@ -16704,7 +18906,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "45,910"
+     "desc": "45,916"
     },
     {
      "name": "Forks",
@@ -16735,7 +18937,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "42,682"
+     "desc": "42,689"
     },
     {
      "name": "Forks",
@@ -16766,11 +18968,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "41,345"
+     "desc": "41,350"
     },
     {
      "name": "Forks",
-     "desc": "5,389"
+     "desc": "5,390"
     },
     {
      "name": "Language",
@@ -16797,11 +18999,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,487"
+     "desc": "39,493"
     },
     {
      "name": "Forks",
-     "desc": "5,885"
+     "desc": "5,886"
     },
     {
      "name": "Language",
@@ -16828,7 +19030,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,625"
+     "desc": "38,631"
     },
     {
      "name": "Forks",
@@ -16859,11 +19061,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,441"
+     "desc": "38,456"
     },
     {
      "name": "Forks",
-     "desc": "4,095"
+     "desc": "4,097"
     },
     {
      "name": "Language",
@@ -16875,7 +19077,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -16890,7 +19092,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,963"
+     "desc": "37,968"
     },
     {
      "name": "Forks",
@@ -16921,11 +19123,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,340"
+     "desc": "37,345"
     },
     {
      "name": "Forks",
-     "desc": "4,168"
+     "desc": "4,169"
     },
     {
      "name": "Licence",
@@ -16948,7 +19150,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "35,968"
+     "desc": "35,971"
     },
     {
      "name": "Forks",
@@ -16979,11 +19181,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,376"
+     "desc": "34,379"
     },
     {
      "name": "Forks",
-     "desc": "3,598"
+     "desc": "3,597"
     },
     {
      "name": "Language",
@@ -17010,7 +19212,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,291"
+     "desc": "34,294"
     },
     {
      "name": "Forks",
@@ -17037,11 +19239,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,988"
+     "desc": "33,995"
     },
     {
      "name": "Forks",
-     "desc": "4,046"
+     "desc": "4,051"
     },
     {
      "name": "Language",
@@ -17068,11 +19270,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,534"
+     "desc": "33,533"
     },
     {
      "name": "Forks",
-     "desc": "13,292"
+     "desc": "13,290"
     },
     {
      "name": "Language",
@@ -17099,11 +19301,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,447"
+     "desc": "33,454"
     },
     {
      "name": "Forks",
-     "desc": "2,286"
+     "desc": "2,287"
     },
     {
      "name": "Language",
@@ -17130,11 +19332,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,402"
+     "desc": "33,405"
     },
     {
      "name": "Forks",
-     "desc": "3,533"
+     "desc": "3,534"
     },
     {
      "name": "Language",
@@ -17161,11 +19363,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "32,395"
+     "desc": "32,397"
     },
     {
      "name": "Forks",
-     "desc": "1,998"
+     "desc": "1,997"
     },
     {
      "name": "Language",
@@ -17192,11 +19394,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "31,124"
+     "desc": "31,125"
     },
     {
      "name": "Forks",
-     "desc": "12,644"
+     "desc": "12,642"
     },
     {
      "name": "Language",
@@ -17218,12 +19420,43 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Skills",
+   "table": "alirezarezvani/claude-skills",
+   "about": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "30,119"
+    },
+    {
+     "name": "Forks",
+     "desc": "4,175"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/alirezarezvani/claude-skills"
+    }
+   ]
+  },
+  {
+   "database": "Skills",
    "table": "op7418/guizang-ppt-skill",
    "about": "AI-agent Skill for generating polished HTML slide decks: editorial magazine and Swiss layouts, image prompts, social covers, and a WebGL/low-power presentation runtime.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,105"
+     "desc": "30,111"
     },
     {
      "name": "Forks",
@@ -17249,43 +19482,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Skills",
-   "table": "alirezarezvani/claude-skills",
-   "about": "410 Claude Code skills & agent skills & plugins (120+ Agents, custom commands, 410+ skills, customizable references, scripts)for Claude Code, Codex, Gemini CLI, Cursor, and 8 more coding agents — engineering, marketing, product, compliance, C-level advisory, research, business operations…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "30,099"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,172"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alirezarezvani/claude-skills"
-    }
-   ]
-  },
-  {
-   "database": "Skills",
    "table": "alchaincyf/huashu-design",
    "about": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill for Claude Code, Codex, Cursor & any agent.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "29,853"
+     "desc": "29,864"
     },
     {
      "name": "Forks",
@@ -17316,7 +19518,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,881"
+     "desc": "28,883"
     },
     {
      "name": "Forks",
@@ -17347,11 +19549,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,387"
+     "desc": "28,404"
     },
     {
      "name": "Forks",
-     "desc": "4,746"
+     "desc": "4,751"
     },
     {
      "name": "Language",
@@ -17378,11 +19580,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,165"
+     "desc": "28,169"
     },
     {
      "name": "Forks",
-     "desc": "2,896"
+     "desc": "2,898"
     },
     {
      "name": "Licence",
@@ -17405,7 +19607,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,135"
+     "desc": "28,137"
     },
     {
      "name": "Forks",
@@ -17436,11 +19638,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "27,698"
+     "desc": "27,704"
     },
     {
      "name": "Forks",
-     "desc": "3,006"
+     "desc": "3,007"
     },
     {
      "name": "Language",
@@ -17467,11 +19669,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "27,452"
+     "desc": "27,455"
     },
     {
      "name": "Forks",
-     "desc": "2,047"
+     "desc": "2,048"
     },
     {
      "name": "Language",
@@ -17498,7 +19700,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,869"
+     "desc": "26,901"
     },
     {
      "name": "Forks",
@@ -17529,7 +19731,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,672"
+     "desc": "26,677"
     },
     {
      "name": "Forks",
@@ -17560,11 +19762,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,615"
+     "desc": "25,617"
     },
     {
      "name": "Forks",
-     "desc": "3,185"
+     "desc": "3,187"
     },
     {
      "name": "Language",
@@ -17591,7 +19793,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,144"
+     "desc": "25,145"
     },
     {
      "name": "Forks",
@@ -17622,11 +19824,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "24,969"
+     "desc": "24,971"
     },
     {
      "name": "Forks",
-     "desc": "2,956"
+     "desc": "2,955"
     },
     {
      "name": "Language",
@@ -17649,11 +19851,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "24,438"
+     "desc": "24,440"
     },
     {
      "name": "Forks",
-     "desc": "2,024"
+     "desc": "2,025"
     },
     {
      "name": "Language",
@@ -17680,11 +19882,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,672"
+     "desc": "23,711"
     },
     {
      "name": "Forks",
-     "desc": "1,337"
+     "desc": "1,338"
     },
     {
      "name": "Language",
@@ -17711,7 +19913,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,407"
+     "desc": "22,409"
     },
     {
      "name": "Forks",
@@ -17742,11 +19944,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,971"
+     "desc": "21,990"
     },
     {
      "name": "Forks",
-     "desc": "1,712"
+     "desc": "1,713"
     },
     {
      "name": "Language",
@@ -17773,11 +19975,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,772"
+     "desc": "21,774"
     },
     {
      "name": "Forks",
-     "desc": "2,948"
+     "desc": "2,947"
     },
     {
      "name": "Language",
@@ -17804,11 +20006,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,507"
+     "desc": "21,567"
     },
     {
      "name": "Forks",
-     "desc": "1,982"
+     "desc": "1,986"
     },
     {
      "name": "Language",
@@ -17835,11 +20037,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,255"
+     "desc": "21,312"
     },
     {
      "name": "Forks",
-     "desc": "1,575"
+     "desc": "1,578"
     },
     {
      "name": "Language",
@@ -17866,11 +20068,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,289"
+     "desc": "20,291"
     },
     {
      "name": "Forks",
-     "desc": "2,692"
+     "desc": "2,691"
     },
     {
      "name": "Language",
@@ -17897,7 +20099,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "19,456"
+     "desc": "19,461"
     },
     {
      "name": "Forks",
@@ -17913,7 +20115,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -17959,11 +20161,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,512"
+     "desc": "18,573"
     },
     {
      "name": "Forks",
-     "desc": "2,323"
+     "desc": "2,331"
     },
     {
      "name": "Language",
@@ -17986,7 +20188,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,361"
+     "desc": "17,362"
     },
     {
      "name": "Forks",
@@ -18013,7 +20215,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,087"
+     "desc": "17,088"
     },
     {
      "name": "Forks",
@@ -18040,11 +20242,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,704"
+     "desc": "16,707"
     },
     {
      "name": "Forks",
-     "desc": "2,826"
+     "desc": "2,827"
     },
     {
      "name": "Language",
@@ -18071,7 +20273,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,604"
+     "desc": "16,609"
     },
     {
      "name": "Forks",
@@ -18102,11 +20304,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,266"
+     "desc": "16,268"
     },
     {
      "name": "Forks",
-     "desc": "1,027"
+     "desc": "1,028"
     },
     {
      "name": "Language",
@@ -18133,11 +20335,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,138"
+     "desc": "16,142"
     },
     {
      "name": "Forks",
-     "desc": "1,855"
+     "desc": "1,856"
     },
     {
      "name": "Licence",
@@ -18160,7 +20362,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,873"
+     "desc": "15,877"
     },
     {
      "name": "Forks",
@@ -18214,11 +20416,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,474"
+     "desc": "15,483"
     },
     {
      "name": "Forks",
-     "desc": "1,754"
+     "desc": "1,755"
     },
     {
      "name": "Language",
@@ -18230,7 +20432,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-14"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -18245,7 +20447,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,341"
+     "desc": "15,343"
     },
     {
      "name": "Forks",
@@ -18276,11 +20478,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,913"
+     "desc": "14,914"
     },
     {
      "name": "Forks",
-     "desc": "2,054"
+     "desc": "2,056"
     },
     {
      "name": "Language",
@@ -18307,7 +20509,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,672"
+     "desc": "14,676"
     },
     {
      "name": "Forks",
@@ -18365,11 +20567,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,428"
+     "desc": "14,431"
     },
     {
      "name": "Forks",
-     "desc": "1,615"
+     "desc": "1,616"
     },
     {
      "name": "Language",
@@ -18427,11 +20629,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,553"
+     "desc": "13,584"
     },
     {
      "name": "Forks",
-     "desc": "1,368"
+     "desc": "1,369"
     },
     {
      "name": "Language",
@@ -18458,11 +20660,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,968"
+     "desc": "12,982"
     },
     {
      "name": "Forks",
-     "desc": "766"
+     "desc": "767"
     },
     {
      "name": "Language",
@@ -18485,11 +20687,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,630"
+     "desc": "12,640"
     },
     {
      "name": "Forks",
-     "desc": "1,763"
+     "desc": "1,762"
     },
     {
      "name": "Language",
@@ -18516,7 +20718,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,581"
+     "desc": "12,583"
     },
     {
      "name": "Forks",
@@ -18551,7 +20753,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "1,200"
+     "desc": "1,201"
     },
     {
      "name": "Language",
@@ -18578,7 +20780,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,450"
+     "desc": "12,451"
     },
     {
      "name": "Forks",
@@ -18609,7 +20811,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,278"
+     "desc": "12,284"
     },
     {
      "name": "Forks",
@@ -18638,11 +20840,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "378,449"
+     "desc": "378,467"
     },
     {
      "name": "Forks",
-     "desc": "59,321"
+     "desc": "59,324"
     },
     {
      "name": "Language",
@@ -18665,11 +20867,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "151,530"
+     "desc": "151,593"
     },
     {
      "name": "Forks",
-     "desc": "16,006"
+     "desc": "16,011"
     },
     {
      "name": "Language",
@@ -18696,11 +20898,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "128,206"
+     "desc": "128,230"
     },
     {
      "name": "Forks",
-     "desc": "14,169"
+     "desc": "14,172"
     },
     {
      "name": "Licence",
@@ -18723,11 +20925,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "99,355"
+     "desc": "99,356"
     },
     {
      "name": "Forks",
-     "desc": "32,486"
+     "desc": "32,487"
     },
     {
      "name": "Language",
@@ -18754,7 +20956,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "62,541"
+     "desc": "62,546"
     },
     {
      "name": "Forks",
@@ -18785,7 +20987,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "51,492"
+     "desc": "51,493"
     },
     {
      "name": "Forks",
@@ -18843,7 +21045,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "42,900"
+     "desc": "42,906"
     },
     {
      "name": "Forks",
@@ -18932,11 +21134,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "40,736"
+     "desc": "40,737"
     },
     {
      "name": "Forks",
-     "desc": "3,651"
+     "desc": "3,649"
     },
     {
      "name": "Language",
@@ -18963,11 +21165,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "40,156"
+     "desc": "40,170"
     },
     {
      "name": "Forks",
-     "desc": "9,764"
+     "desc": "9,767"
     },
     {
      "name": "Language",
@@ -18994,7 +21196,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "4,572"
+     "desc": "4,571"
     },
     {
      "name": "Language",
@@ -19021,7 +21223,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,555"
+     "desc": "37,558"
     },
     {
      "name": "Forks",
@@ -19052,7 +21254,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "27,985"
+     "desc": "27,986"
     },
     {
      "name": "Forks",
@@ -19087,7 +21289,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "2,151"
+     "desc": "2,152"
     },
     {
      "name": "Language",
@@ -19114,7 +21316,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,237"
+     "desc": "26,238"
     },
     {
      "name": "Forks",
@@ -19130,7 +21332,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-16"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -19145,7 +21347,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,860"
+     "desc": "25,863"
     },
     {
      "name": "Forks",
@@ -19172,7 +21374,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "24,398"
+     "desc": "24,399"
     },
     {
      "name": "Forks",
@@ -19296,7 +21498,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "3,882"
+     "desc": "3,881"
     },
     {
      "name": "Language",
@@ -19319,7 +21521,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,094"
+     "desc": "20,096"
     },
     {
      "name": "Forks",
@@ -19350,7 +21552,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "19,002"
+     "desc": "19,003"
     },
     {
      "name": "Forks",
@@ -19412,11 +21614,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,826"
+     "desc": "17,828"
     },
     {
      "name": "Forks",
-     "desc": "1,360"
+     "desc": "1,361"
     },
     {
      "name": "Language",
@@ -19443,7 +21645,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,800"
+     "desc": "17,802"
     },
     {
      "name": "Forks",
@@ -19671,7 +21873,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,287"
+     "desc": "12,288"
     },
     {
      "name": "Forks",
@@ -19687,7 +21889,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -19733,7 +21935,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "11,783"
+     "desc": "11,782"
     },
     {
      "name": "Forks",
@@ -19888,7 +22090,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "10,994"
+     "desc": "10,995"
     },
     {
      "name": "Forks",
@@ -19950,7 +22152,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "10,495"
+     "desc": "10,496"
     },
     {
      "name": "Forks",
@@ -20082,7 +22284,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -20097,11 +22299,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,531"
+     "desc": "9,556"
     },
     {
      "name": "Forks",
-     "desc": "654"
+     "desc": "655"
     },
     {
      "name": "Language",
@@ -20128,7 +22330,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,388"
+     "desc": "9,387"
     },
     {
      "name": "Forks",
@@ -20345,7 +22547,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "7,990"
+     "desc": "7,991"
     },
     {
      "name": "Forks",
@@ -20457,7 +22659,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "7,609"
+     "desc": "7,610"
     },
     {
      "name": "Forks",
@@ -20488,7 +22690,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "7,403"
+     "desc": "7,406"
     },
     {
      "name": "Forks",
@@ -20569,7 +22771,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "7,169"
+     "desc": "7,170"
     },
     {
      "name": "Forks",
@@ -20635,7 +22837,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "588"
+     "desc": "590"
     },
     {
      "name": "Language",
@@ -20836,11 +23038,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "6,406"
+     "desc": "6,408"
     },
     {
      "name": "Forks",
-     "desc": "307"
+     "desc": "308"
     },
     {
      "name": "Language",
@@ -20867,7 +23069,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "929"
+     "desc": "928"
     },
     {
      "name": "Language",
@@ -20952,7 +23154,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "6,260"
+     "desc": "6,261"
     },
     {
      "name": "Forks",
@@ -20968,7 +23170,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-17"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -21072,7 +23274,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "6,093"
+     "desc": "6,092"
     },
     {
      "name": "Forks",
@@ -21134,7 +23336,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,987"
+     "desc": "5,986"
     },
     {
      "name": "Forks",
@@ -21196,7 +23398,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,898"
+     "desc": "5,899"
     },
     {
      "name": "Forks",
@@ -21227,7 +23429,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,772"
+     "desc": "5,773"
     },
     {
      "name": "Forks",
@@ -21289,7 +23491,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,612"
+     "desc": "5,614"
     },
     {
      "name": "Forks",
@@ -21351,7 +23553,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,452"
+     "desc": "5,454"
     },
     {
      "name": "Forks",
@@ -21378,7 +23580,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,413"
+     "desc": "5,414"
     },
     {
      "name": "Forks",
@@ -21440,7 +23642,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,360"
+     "desc": "5,361"
     },
     {
      "name": "Forks",
@@ -21529,11 +23731,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,249"
+     "desc": "5,252"
     },
     {
      "name": "Forks",
-     "desc": "732"
+     "desc": "735"
     },
     {
      "name": "Language",
@@ -21591,7 +23793,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "5,231"
+     "desc": "5,232"
     },
     {
      "name": "Forks",
@@ -21620,11 +23822,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "500,167"
+     "desc": "500,204"
     },
     {
      "name": "Forks",
-     "desc": "56,118"
+     "desc": "56,125"
     },
     {
      "name": "Language",
@@ -21651,11 +23853,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "104,890"
+     "desc": "104,895"
     },
     {
      "name": "Forks",
-     "desc": "10,361"
+     "desc": "10,367"
     },
     {
      "name": "Language",
@@ -21682,11 +23884,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "103,842"
+     "desc": "103,852"
     },
     {
      "name": "Forks",
-     "desc": "7,414"
+     "desc": "7,420"
     },
     {
      "name": "Language",
@@ -21740,11 +23942,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "77,171"
+     "desc": "77,176"
     },
     {
      "name": "Forks",
-     "desc": "12,121"
+     "desc": "12,122"
     },
     {
      "name": "Language",
@@ -21802,11 +24004,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "73,517"
+     "desc": "73,516"
     },
     {
      "name": "Forks",
-     "desc": "10,032"
+     "desc": "10,031"
     },
     {
      "name": "Language",
@@ -21829,11 +24031,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "65,573"
+     "desc": "65,576"
     },
     {
      "name": "Forks",
-     "desc": "5,140"
+     "desc": "5,142"
     },
     {
      "name": "Language",
@@ -21856,7 +24058,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "59,909"
+     "desc": "59,912"
     },
     {
      "name": "Forks",
@@ -21883,11 +24085,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "50,443"
+     "desc": "50,449"
     },
     {
      "name": "Forks",
-     "desc": "4,618"
+     "desc": "4,619"
     },
     {
      "name": "Language",
@@ -21914,7 +24116,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "48,460"
+     "desc": "48,461"
     },
     {
      "name": "Forks",
@@ -21945,7 +24147,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "46,350"
+     "desc": "46,361"
     },
     {
      "name": "Forks",
@@ -22034,11 +24236,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "40,286"
+     "desc": "40,288"
     },
     {
      "name": "Forks",
-     "desc": "2,160"
+     "desc": "2,161"
     },
     {
      "name": "Language",
@@ -22065,7 +24267,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "40,165"
+     "desc": "40,168"
     },
     {
      "name": "Forks",
@@ -22096,7 +24298,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,651"
+     "desc": "39,652"
     },
     {
      "name": "Forks",
@@ -22127,7 +24329,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,766"
+     "desc": "38,768"
     },
     {
      "name": "Forks",
@@ -22185,7 +24387,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,448"
+     "desc": "37,447"
     },
     {
      "name": "Forks",
@@ -22220,7 +24422,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "357"
+     "desc": "356"
     },
     {
      "name": "Updated",
@@ -22239,7 +24441,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "35,642"
+     "desc": "35,645"
     },
     {
      "name": "Forks",
@@ -22274,7 +24476,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "4,332"
+     "desc": "4,333"
     },
     {
      "name": "Language",
@@ -22301,7 +24503,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "32,128"
+     "desc": "32,129"
     },
     {
      "name": "Forks",
@@ -22332,11 +24534,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,240"
+     "desc": "30,243"
     },
     {
      "name": "Forks",
-     "desc": "7,101"
+     "desc": "7,103"
     },
     {
      "name": "Language",
@@ -22363,7 +24565,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "16,007"
+     "desc": "16,009"
     },
     {
      "name": "Updated",
@@ -22413,7 +24615,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,942"
+     "desc": "28,947"
     },
     {
      "name": "Forks",
@@ -22444,11 +24646,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "27,764"
+     "desc": "27,765"
     },
     {
      "name": "Forks",
-     "desc": "1,239"
+     "desc": "1,240"
     },
     {
      "name": "Language",
@@ -22506,11 +24708,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,863"
+     "desc": "26,862"
     },
     {
      "name": "Forks",
-     "desc": "7,775"
+     "desc": "7,774"
     },
     {
      "name": "Language",
@@ -22537,11 +24739,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,451"
+     "desc": "26,452"
     },
     {
      "name": "Forks",
-     "desc": "5,579"
+     "desc": "5,578"
     },
     {
      "name": "Language",
@@ -22568,7 +24770,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,465"
+     "desc": "23,469"
     },
     {
      "name": "Forks",
@@ -22626,7 +24828,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,350"
+     "desc": "23,351"
     },
     {
      "name": "Forks",
@@ -22649,7 +24851,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,118"
+     "desc": "23,121"
     },
     {
      "name": "Forks",
@@ -22680,7 +24882,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,932"
+     "desc": "22,931"
     },
     {
      "name": "Forks",
@@ -22715,7 +24917,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "2,984"
+     "desc": "2,985"
     },
     {
      "name": "Language",
@@ -22746,7 +24948,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "4,813"
+     "desc": "4,811"
     },
     {
      "name": "Language",
@@ -22796,11 +24998,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,794"
+     "desc": "20,795"
     },
     {
      "name": "Forks",
-     "desc": "1,790"
+     "desc": "1,791"
     },
     {
      "name": "Language",
@@ -22858,11 +25060,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,674"
+     "desc": "20,677"
     },
     {
      "name": "Forks",
-     "desc": "1,839"
+     "desc": "1,841"
     },
     {
      "name": "Language",
@@ -22885,7 +25087,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,018"
+     "desc": "20,019"
     },
     {
      "name": "Forks",
@@ -22970,7 +25172,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,522"
+     "desc": "18,521"
     },
     {
      "name": "Forks",
@@ -22986,7 +25188,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -23063,7 +25265,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,791"
+     "desc": "17,793"
     },
     {
      "name": "Forks",
@@ -23094,11 +25296,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,560"
+     "desc": "17,565"
     },
     {
      "name": "Forks",
-     "desc": "2,890"
+     "desc": "2,891"
     },
     {
      "name": "Language",
@@ -23156,7 +25358,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,343"
+     "desc": "17,344"
     },
     {
      "name": "Forks",
@@ -23187,11 +25389,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,045"
+     "desc": "17,057"
     },
     {
      "name": "Forks",
-     "desc": "3,990"
+     "desc": "3,991"
     },
     {
      "name": "Language",
@@ -23218,7 +25420,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,428"
+     "desc": "16,430"
     },
     {
      "name": "Forks",
@@ -23249,7 +25451,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,425"
+     "desc": "16,426"
     },
     {
      "name": "Forks",
@@ -23276,7 +25478,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,387"
+     "desc": "16,388"
     },
     {
      "name": "Forks",
@@ -23330,7 +25532,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,262"
+     "desc": "16,264"
     },
     {
      "name": "Forks",
@@ -23361,7 +25563,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,224"
+     "desc": "16,225"
     },
     {
      "name": "Forks",
@@ -23570,11 +25772,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,678"
+     "desc": "13,695"
     },
     {
      "name": "Forks",
-     "desc": "1,675"
+     "desc": "1,681"
     },
     {
      "name": "Language",
@@ -23586,7 +25788,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -23601,7 +25803,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,641"
+     "desc": "13,642"
     },
     {
      "name": "Forks",
@@ -23663,11 +25865,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,631"
+     "desc": "13,632"
     },
     {
      "name": "Forks",
-     "desc": "916"
+     "desc": "915"
     },
     {
      "name": "Language",
@@ -23679,7 +25881,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -23694,7 +25896,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,333"
+     "desc": "13,335"
     },
     {
      "name": "Forks",
@@ -23725,11 +25927,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,260"
+     "desc": "13,266"
     },
     {
      "name": "Forks",
-     "desc": "1,539"
+     "desc": "1,540"
     },
     {
      "name": "Language",
@@ -23841,7 +26043,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,882"
+     "desc": "12,883"
     },
     {
      "name": "Forks",
@@ -23899,7 +26101,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,838"
+     "desc": "12,839"
     },
     {
      "name": "Forks",
@@ -23930,11 +26132,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,642"
+     "desc": "12,643"
     },
     {
      "name": "Forks",
-     "desc": "297"
+     "desc": "298"
     },
     {
      "name": "Language",
@@ -23992,7 +26194,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "11,974"
+     "desc": "11,975"
     },
     {
      "name": "Forks",
@@ -24023,7 +26225,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "11,128"
+     "desc": "11,129"
     },
     {
      "name": "Forks",
@@ -24294,7 +26496,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,872"
+     "desc": "9,870"
     },
     {
      "name": "Forks",
@@ -24379,7 +26581,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,651"
+     "desc": "9,652"
     },
     {
      "name": "Forks",
@@ -24437,7 +26639,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,344"
+     "desc": "9,345"
     },
     {
      "name": "Forks",
@@ -24472,7 +26674,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "626"
+     "desc": "625"
     },
     {
      "name": "Language",
@@ -24594,11 +26796,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "306,846"
+     "desc": "306,953"
     },
     {
      "name": "Forks",
-     "desc": "45,171"
+     "desc": "45,190"
     },
     {
      "name": "Language",
@@ -24625,11 +26827,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "211,319"
+     "desc": "211,385"
     },
     {
      "name": "Forks",
-     "desc": "61,580"
+     "desc": "61,589"
     },
     {
      "name": "Language",
@@ -24652,11 +26854,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "159,070"
+     "desc": "159,081"
     },
     {
      "name": "Forks",
-     "desc": "23,110"
+     "desc": "23,108"
     },
     {
      "name": "Language",
@@ -24679,11 +26881,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "121,469"
+     "desc": "121,481"
     },
     {
      "name": "Forks",
-     "desc": "13,573"
+     "desc": "13,575"
     },
     {
      "name": "Language",
@@ -24710,11 +26912,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "113,160"
+     "desc": "113,206"
     },
     {
      "name": "Forks",
-     "desc": "10,155"
+     "desc": "10,164"
     },
     {
      "name": "Language",
@@ -24741,11 +26943,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "108,935"
+     "desc": "108,939"
     },
     {
      "name": "Forks",
-     "desc": "14,964"
+     "desc": "14,963"
     },
     {
      "name": "Language",
@@ -24772,7 +26974,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "104,610"
+     "desc": "104,615"
     },
     {
      "name": "Forks",
@@ -24803,11 +27005,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "104,292"
+     "desc": "104,321"
     },
     {
      "name": "Forks",
-     "desc": "10,891"
+     "desc": "10,898"
     },
     {
      "name": "Language",
@@ -24834,11 +27036,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "98,183"
+     "desc": "98,224"
     },
     {
      "name": "Forks",
-     "desc": "20,390"
+     "desc": "20,405"
     },
     {
      "name": "Licence",
@@ -24861,11 +27063,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "90,925"
+     "desc": "90,934"
     },
     {
      "name": "Forks",
-     "desc": "14,116"
+     "desc": "14,119"
     },
     {
      "name": "Language",
@@ -24892,11 +27094,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "88,775"
+     "desc": "88,809"
     },
     {
      "name": "Forks",
-     "desc": "13,693"
+     "desc": "13,702"
     },
     {
      "name": "Language",
@@ -24923,7 +27125,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "87,549"
+     "desc": "87,556"
     },
     {
      "name": "Forks",
@@ -24954,11 +27156,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "86,719"
+     "desc": "86,799"
     },
     {
      "name": "Forks",
-     "desc": "8,058"
+     "desc": "8,069"
     },
     {
      "name": "Language",
@@ -24985,7 +27187,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "82,071"
+     "desc": "82,080"
     },
     {
      "name": "Forks",
@@ -25012,15 +27214,15 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "MCP",
    "table": "netdata/netdata",
-   "about": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI · OpenTelemetry · SNMP · NetFlow/IPFIX/sFlow · IPMI · Redfish · 800+ integrations.",
+   "about": "Full-stack observability · Metrics · Logs · Traces · Flows · Topology · Infrastructure · APM · NPM · DBM · RUM · Synthetics · Cloud · AI SRE · OpenTelemetry · SNMP · NetFlow/IPFIX/sFlow · IPMI · Redfish · 2000+ integrations.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "81,476"
+     "desc": "81,477"
     },
     {
      "name": "Forks",
-     "desc": "6,739"
+     "desc": "6,743"
     },
     {
      "name": "Language",
@@ -25047,11 +27249,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "80,130"
+     "desc": "80,136"
     },
     {
      "name": "Forks",
-     "desc": "6,282"
+     "desc": "6,283"
     },
     {
      "name": "Language",
@@ -25078,11 +27280,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "79,553"
+     "desc": "79,565"
     },
     {
      "name": "Forks",
-     "desc": "14,208"
+     "desc": "14,213"
     },
     {
      "name": "Language",
@@ -25109,11 +27311,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "65,104"
+     "desc": "65,108"
     },
     {
      "name": "Forks",
-     "desc": "3,271"
+     "desc": "3,272"
     },
     {
      "name": "Language",
@@ -25140,11 +27342,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "63,738"
+     "desc": "63,741"
     },
     {
      "name": "Forks",
-     "desc": "24,932"
+     "desc": "24,931"
     },
     {
      "name": "Language",
@@ -25171,7 +27373,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "60,616"
+     "desc": "60,619"
     },
     {
      "name": "Forks",
@@ -25202,11 +27404,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,787"
+     "desc": "58,805"
     },
     {
      "name": "Forks",
-     "desc": "6,888"
+     "desc": "6,890"
     },
     {
      "name": "Language",
@@ -25233,11 +27435,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,276"
+     "desc": "58,304"
     },
     {
      "name": "Forks",
-     "desc": "4,879"
+     "desc": "4,882"
     },
     {
      "name": "Language",
@@ -25264,11 +27466,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "56,778"
+     "desc": "56,789"
     },
     {
      "name": "Forks",
-     "desc": "6,622"
+     "desc": "6,625"
     },
     {
      "name": "Language",
@@ -25295,7 +27497,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "50,198"
+     "desc": "50,204"
     },
     {
      "name": "Forks",
@@ -25326,11 +27528,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "48,849"
+     "desc": "48,862"
     },
     {
      "name": "Forks",
-     "desc": "4,061"
+     "desc": "4,062"
     },
     {
      "name": "Language",
@@ -25357,11 +27559,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "47,338"
+     "desc": "47,341"
     },
     {
      "name": "Forks",
-     "desc": "9,748"
+     "desc": "9,749"
     },
     {
      "name": "Language",
@@ -25388,11 +27590,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "47,285"
+     "desc": "47,286"
     },
     {
      "name": "Forks",
-     "desc": "3,126"
+     "desc": "3,125"
     },
     {
      "name": "Language",
@@ -25419,11 +27621,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "47,181"
+     "desc": "47,196"
     },
     {
      "name": "Forks",
-     "desc": "3,618"
+     "desc": "3,622"
     },
     {
      "name": "Language",
@@ -25450,7 +27652,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "44,398"
+     "desc": "44,397"
     },
     {
      "name": "Forks",
@@ -25481,7 +27683,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "42,753"
+     "desc": "42,758"
     },
     {
      "name": "Forks",
@@ -25512,7 +27714,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "42,021"
+     "desc": "42,020"
     },
     {
      "name": "Forks",
@@ -25543,11 +27745,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "41,182"
+     "desc": "41,180"
     },
     {
      "name": "Forks",
-     "desc": "3,571"
+     "desc": "3,570"
     },
     {
      "name": "Language",
@@ -25574,7 +27776,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "40,347"
+     "desc": "40,346"
     },
     {
      "name": "Forks",
@@ -25605,11 +27807,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,882"
+     "desc": "39,889"
     },
     {
      "name": "Forks",
-     "desc": "3,453"
+     "desc": "3,456"
     },
     {
      "name": "Language",
@@ -25636,7 +27838,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,867"
+     "desc": "39,868"
     },
     {
      "name": "Forks",
@@ -25671,7 +27873,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "4,050"
+     "desc": "4,051"
     },
     {
      "name": "Language",
@@ -25698,11 +27900,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,454"
+     "desc": "39,462"
     },
     {
      "name": "Forks",
-     "desc": "4,528"
+     "desc": "4,529"
     },
     {
      "name": "Language",
@@ -25729,7 +27931,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,532"
+     "desc": "38,534"
     },
     {
      "name": "Forks",
@@ -25760,7 +27962,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,515"
+     "desc": "38,518"
     },
     {
      "name": "Forks",
@@ -25791,7 +27993,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,067"
+     "desc": "37,073"
     },
     {
      "name": "Forks",
@@ -25822,11 +28024,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "36,390"
+     "desc": "36,397"
     },
     {
      "name": "Forks",
-     "desc": "4,448"
+     "desc": "4,450"
     },
     {
      "name": "Language",
@@ -25853,11 +28055,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "36,288"
+     "desc": "36,294"
     },
     {
      "name": "Forks",
-     "desc": "3,890"
+     "desc": "3,891"
     },
     {
      "name": "Language",
@@ -25884,7 +28086,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,988"
+     "desc": "35,008"
     },
     {
      "name": "Forks",
@@ -25915,11 +28117,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,579"
+     "desc": "34,581"
     },
     {
      "name": "Forks",
-     "desc": "5,373"
+     "desc": "5,370"
     },
     {
      "name": "Language",
@@ -25946,11 +28148,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,449"
+     "desc": "33,460"
     },
     {
      "name": "Forks",
-     "desc": "7,980"
+     "desc": "7,981"
     },
     {
      "name": "Language",
@@ -25977,7 +28179,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "32,854"
+     "desc": "32,861"
     },
     {
      "name": "Forks",
@@ -26008,7 +28210,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "31,525"
+     "desc": "31,529"
     },
     {
      "name": "Forks",
@@ -26035,11 +28237,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "31,176"
+     "desc": "31,178"
     },
     {
      "name": "Forks",
-     "desc": "4,962"
+     "desc": "4,963"
     },
     {
      "name": "Language",
@@ -26066,11 +28268,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,867"
+     "desc": "30,894"
     },
     {
      "name": "Forks",
-     "desc": "2,813"
+     "desc": "2,815"
     },
     {
      "name": "Language",
@@ -26097,11 +28299,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,781"
+     "desc": "30,782"
     },
     {
      "name": "Forks",
-     "desc": "4,241"
+     "desc": "4,240"
     },
     {
      "name": "Language",
@@ -26128,7 +28330,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,775"
+     "desc": "30,781"
     },
     {
      "name": "Forks",
@@ -26159,7 +28361,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,072"
+     "desc": "30,075"
     },
     {
      "name": "Forks",
@@ -26186,7 +28388,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "29,716"
+     "desc": "29,719"
     },
     {
      "name": "Forks",
@@ -26217,7 +28419,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "29,632"
+     "desc": "29,641"
     },
     {
      "name": "Forks",
@@ -26244,7 +28446,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "29,332"
+     "desc": "29,335"
     },
     {
      "name": "Forks",
@@ -26275,7 +28477,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,665"
+     "desc": "28,668"
     },
     {
      "name": "Forks",
@@ -26306,7 +28508,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,368"
+     "desc": "28,369"
     },
     {
      "name": "Forks",
@@ -26333,11 +28535,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,291"
+     "desc": "28,316"
     },
     {
      "name": "Forks",
-     "desc": "4,005"
+     "desc": "4,007"
     },
     {
      "name": "Language",
@@ -26368,7 +28570,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "3,480"
+     "desc": "3,481"
     },
     {
      "name": "Language",
@@ -26395,7 +28597,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "26,036"
+     "desc": "26,037"
     },
     {
      "name": "Forks",
@@ -26426,11 +28628,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,617"
+     "desc": "25,619"
     },
     {
      "name": "Forks",
-     "desc": "4,479"
+     "desc": "4,482"
     },
     {
      "name": "Language",
@@ -26453,11 +28655,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,429"
+     "desc": "25,470"
     },
     {
      "name": "Forks",
-     "desc": "1,900"
+     "desc": "1,909"
     },
     {
      "name": "Language",
@@ -26484,11 +28686,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,065"
+     "desc": "25,068"
     },
     {
      "name": "Forks",
-     "desc": "4,202"
+     "desc": "4,200"
     },
     {
      "name": "Language",
@@ -26511,11 +28713,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "24,901"
+     "desc": "24,904"
     },
     {
      "name": "Forks",
-     "desc": "4,143"
+     "desc": "4,144"
     },
     {
      "name": "Language",
@@ -26542,7 +28744,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,401"
+     "desc": "23,402"
     },
     {
      "name": "Forks",
@@ -26573,11 +28775,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,285"
+     "desc": "23,283"
     },
     {
      "name": "Forks",
-     "desc": "3,674"
+     "desc": "3,673"
     },
     {
      "name": "Language",
@@ -26604,7 +28806,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "23,172"
+     "desc": "23,174"
     },
     {
      "name": "Forks",
@@ -26635,11 +28837,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,813"
+     "desc": "22,856"
     },
     {
      "name": "Forks",
-     "desc": "3,033"
+     "desc": "3,040"
     },
     {
      "name": "Language",
@@ -26693,11 +28895,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,468"
+     "desc": "22,473"
     },
     {
      "name": "Forks",
-     "desc": "2,310"
+     "desc": "2,311"
     },
     {
      "name": "Language",
@@ -26720,7 +28922,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,223"
+     "desc": "22,230"
     },
     {
      "name": "Forks",
@@ -26747,7 +28949,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,927"
+     "desc": "21,929"
     },
     {
      "name": "Forks",
@@ -26774,11 +28976,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,900"
+     "desc": "21,901"
     },
     {
      "name": "Forks",
-     "desc": "2,556"
+     "desc": "2,557"
     },
     {
      "name": "Language",
@@ -26809,7 +29011,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Forks",
-     "desc": "2,005"
+     "desc": "2,004"
     },
     {
      "name": "Language",
@@ -26836,7 +29038,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,072"
+     "desc": "21,074"
     },
     {
      "name": "Forks",
@@ -26867,11 +29069,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,471"
+     "desc": "20,476"
     },
     {
      "name": "Forks",
-     "desc": "1,977"
+     "desc": "1,976"
     },
     {
      "name": "Language",
@@ -26894,11 +29096,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "20,016"
+     "desc": "20,014"
     },
     {
      "name": "Forks",
-     "desc": "8,684"
+     "desc": "8,683"
     },
     {
      "name": "Language",
@@ -26925,11 +29127,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "19,256"
+     "desc": "19,238"
     },
     {
      "name": "Forks",
-     "desc": "1,442"
+     "desc": "1,443"
     },
     {
      "name": "Language",
@@ -26956,11 +29158,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "19,153"
+     "desc": "19,155"
     },
     {
      "name": "Forks",
-     "desc": "1,896"
+     "desc": "1,897"
     },
     {
      "name": "Language",
@@ -26987,7 +29189,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,968"
+     "desc": "18,970"
     },
     {
      "name": "Forks",
@@ -27018,11 +29220,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,835"
+     "desc": "18,878"
     },
     {
      "name": "Forks",
-     "desc": "2,304"
+     "desc": "2,309"
     },
     {
      "name": "Language",
@@ -27049,11 +29251,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,680"
+     "desc": "17,684"
     },
     {
      "name": "Forks",
-     "desc": "5,696"
+     "desc": "5,698"
     },
     {
      "name": "Language",
@@ -27080,7 +29282,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,211"
+     "desc": "17,212"
     },
     {
      "name": "Forks",
@@ -27111,11 +29313,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,956"
+     "desc": "16,994"
     },
     {
      "name": "Forks",
-     "desc": "469"
+     "desc": "470"
     },
     {
      "name": "Language",
@@ -27142,7 +29344,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,783"
+     "desc": "16,782"
     },
     {
      "name": "Forks",
@@ -27173,7 +29375,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,163"
+     "desc": "16,165"
     },
     {
      "name": "Forks",
@@ -27200,7 +29402,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,068"
+     "desc": "16,069"
     },
     {
      "name": "Forks",
@@ -27231,11 +29433,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,817"
+     "desc": "15,816"
     },
     {
      "name": "Forks",
-     "desc": "2,527"
+     "desc": "2,526"
     },
     {
      "name": "Language",
@@ -27262,7 +29464,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,810"
+     "desc": "15,814"
     },
     {
      "name": "Forks",
@@ -27293,11 +29495,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "14,499"
+     "desc": "14,503"
     },
     {
      "name": "Forks",
-     "desc": "1,251"
+     "desc": "1,252"
     },
     {
      "name": "Language",
@@ -27309,7 +29511,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Updated",
-     "desc": "2026-11-18"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
@@ -27324,11 +29526,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,862"
+     "desc": "13,868"
     },
     {
      "name": "Forks",
-     "desc": "2,826"
+     "desc": "2,827"
     },
     {
      "name": "Language",
@@ -27355,11 +29557,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,786"
+     "desc": "13,787"
     },
     {
      "name": "Forks",
-     "desc": "2,406"
+     "desc": "2,408"
     },
     {
      "name": "Language",
@@ -27382,11 +29584,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,740"
+     "desc": "13,748"
     },
     {
      "name": "Forks",
-     "desc": "2,816"
+     "desc": "2,818"
     },
     {
      "name": "Language",
@@ -27413,11 +29615,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,525"
+     "desc": "13,527"
     },
     {
      "name": "Forks",
-     "desc": "1,661"
+     "desc": "1,662"
     },
     {
      "name": "Language",
@@ -27537,7 +29739,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Stars",
-     "desc": "11,453"
+     "desc": "11,444"
     },
     {
      "name": "Forks",
@@ -27554,6 +29756,37 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://github.com/holaboss-ai/holaOS"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xinnan-tech/xiaozhi-esp32-server",
+   "about": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,345"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,857"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xinnan-tech/xiaozhi-esp32-server"
     }
    ]
   },
@@ -27585,37 +29818,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://github.com/trailhq/Trail-Code"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "xinnan-tech/xiaozhi-esp32-server",
-   "about": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "11,341"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,857"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/xinnan-tech/xiaozhi-esp32-server"
     }
    ]
   }
@@ -27678,7 +29880,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Text ranking",
    "table": "cross-encoder/ms-marco-MiniLM-L6-v2",
-   "about": "Text ranking, 56.3M downloads in the last month, 451 likes.",
+   "about": "Text ranking, 56.3M downloads in the last month, 452 likes.",
    "fields": [
     {
      "name": "Task",
@@ -27690,7 +29892,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "451"
+     "desc": "452"
     },
     {
      "name": "Library",
@@ -27759,7 +29961,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Time series forecasting",
    "table": "autogluon/chronos-2",
-   "about": "Time series forecasting, 34.1M downloads in the last month, 97 likes.",
+   "about": "Time series forecasting, 34.2M downloads in the last month, 97 likes.",
    "fields": [
     {
      "name": "Task",
@@ -27767,7 +29969,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "34,066,524"
+     "desc": "34,219,621"
     },
     {
      "name": "Likes",
@@ -27813,15 +30015,15 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Model",
    "table": "Comfy-Org/MiniMax-H3",
-   "about": "Model, 33M downloads in the last month, 2.8K likes.",
+   "about": "Model, 33.1M downloads in the last month, 2.8K likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "33,040,522"
+     "desc": "33,102,276"
     },
     {
      "name": "Likes",
-     "desc": "2,772"
+     "desc": "2,776"
     },
     {
      "name": "Library",
@@ -28183,7 +30385,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Text generation",
    "table": "deepseek-ai/DeepSeek-V3.2",
-   "about": "Text generation, 9.9M downloads in the last month, 1.6K likes.",
+   "about": "Text generation, 10.1M downloads in the last month, 1.6K likes.",
    "fields": [
     {
      "name": "Task",
@@ -28191,7 +30393,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "9,854,997"
+     "desc": "10,126,272"
     },
     {
      "name": "Likes",
@@ -28241,7 +30443,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "9,726,303"
+     "desc": "9,747,065"
     },
     {
      "name": "Likes",
@@ -28260,7 +30462,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Text to speech",
    "table": "audio-cpp/audio.cpp-gguf",
-   "about": "Text to speech, 9.6M downloads in the last month, 333 likes.",
+   "about": "Text to speech, 9.7M downloads in the last month, 333 likes.",
    "fields": [
     {
      "name": "Task",
@@ -28268,7 +30470,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "9,595,071"
+     "desc": "9,697,609"
     },
     {
      "name": "Likes",
@@ -28287,7 +30489,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Text to image",
    "table": "Comfy-Org/Qwen-Image-2.1",
-   "about": "Text to image, 9.6M downloads in the last month, 1.3K likes.",
+   "about": "Text to image, 9.5M downloads in the last month, 1.3K likes.",
    "fields": [
     {
      "name": "Task",
@@ -28295,7 +30497,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "9,550,345"
+     "desc": "9,474,359"
     },
     {
      "name": "Likes",
@@ -28449,7 +30651,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Fill mask",
    "table": "FacebookAI/xlm-roberta-base",
-   "about": "Fill mask, 8.5M downloads in the last month, 977 likes.",
+   "about": "Fill mask, 8.5M downloads in the last month, 978 likes.",
    "fields": [
     {
      "name": "Task",
@@ -28461,7 +30663,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "977"
+     "desc": "978"
     },
     {
      "name": "Library",
@@ -28499,7 +30701,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Time series forecasting",
    "table": "amazon/chronos-2",
-   "about": "Time series forecasting, 8.2M downloads in the last month, 577 likes.",
+   "about": "Time series forecasting, 8.1M downloads in the last month, 577 likes.",
    "fields": [
     {
      "name": "Task",
@@ -28507,7 +30709,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "8,165,291"
+     "desc": "8,114,919"
     },
     {
      "name": "Likes",
@@ -28601,6 +30803,33 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
+   "database": "Image text to text",
+   "table": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
+   "about": "Image text to text, 7.3M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "7,342,712"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,307"
+    },
+    {
+     "name": "Library",
+     "desc": "gguf"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"
+    }
+   ]
+  },
+  {
    "database": "Feature extraction",
    "table": "intfloat/multilingual-e5-large",
    "about": "Feature extraction, 7.3M downloads in the last month, 1.3K likes.",
@@ -28628,63 +30857,17 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
-   "database": "Image text to text",
-   "table": "ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF",
-   "about": "Image text to text, 7.3M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "7,298,936"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,307"
-    },
-    {
-     "name": "Library",
-     "desc": "gguf"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Serveurperso/YuE2-GGUF",
-   "about": "Model, 7.1M downloads in the last month, 32 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "7,132,572"
-    },
-    {
-     "name": "Likes",
-     "desc": "32"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Serveurperso/YuE2-GGUF"
-    }
-   ]
-  },
-  {
    "database": "Model",
    "table": "unsloth/Qwen3.8-27B-GGUF",
-   "about": "Model, 7M downloads in the last month, 6.2K likes.",
+   "about": "Model, 7.1M downloads in the last month, 6.2K likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "6,998,076"
+     "desc": "7,138,192"
     },
     {
      "name": "Likes",
-     "desc": "6,206"
+     "desc": "6,213"
     },
     {
      "name": "Link",
@@ -28720,9 +30903,28 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
+   "database": "Model",
+   "table": "Serveurperso/YuE2-GGUF",
+   "about": "Model, 6.9M downloads in the last month, 32 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "6,880,967"
+    },
+    {
+     "name": "Likes",
+     "desc": "32"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Serveurperso/YuE2-GGUF"
+    }
+   ]
+  },
+  {
    "database": "Image text to text",
    "table": "Qwen/Qwen3.8-27B",
-   "about": "Image text to text, 6.9M downloads in the last month, 20.6K likes.",
+   "about": "Image text to text, 6.6M downloads in the last month, 20.6K likes.",
    "fields": [
     {
      "name": "Task",
@@ -28730,11 +30932,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "6,888,351"
+     "desc": "6,647,301"
     },
     {
      "name": "Likes",
-     "desc": "20,596"
+     "desc": "20,617"
     },
     {
      "name": "Library",
@@ -28774,33 +30976,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.5-9B",
-   "about": "Image text to text, 6.5M downloads in the last month, 2.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,514,100"
-    },
-    {
-     "name": "Likes",
-     "desc": "2,406"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.5-9B"
-    }
-   ]
-  },
-  {
    "database": "Automatic speech recognition",
    "table": "Systran/faster-whisper-small",
    "about": "Automatic speech recognition, 6.5M downloads in the last month, 108 likes.",
@@ -28824,6 +30999,60 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/Systran/faster-whisper-small"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.8-27B-FP8",
+   "about": "Image text to text, 6.4M downloads in the last month, 1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,422,727"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,011"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.5-9B",
+   "about": "Image text to text, 6.4M downloads in the last month, 2.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,395,460"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,408"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.5-9B"
     }
    ]
   },
@@ -28865,7 +31094,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "6,378,401"
+     "desc": "6,370,092"
     },
     {
      "name": "Likes",
@@ -28884,7 +31113,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Image text to text",
    "table": "Qwen/Qwen3-VL-8B-Instruct",
-   "about": "Image text to text, 6.4M downloads in the last month, 1.3K likes.",
+   "about": "Image text to text, 6.2M downloads in the last month, 1.3K likes.",
    "fields": [
     {
      "name": "Task",
@@ -28892,7 +31121,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "6,361,206"
+     "desc": "6,237,707"
     },
     {
      "name": "Likes",
@@ -28905,83 +31134,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct"
-    }
-   ]
-  },
-  {
-   "database": "Model",
-   "table": "Comfy-Org/MOSS-Image",
-   "about": "Model, 6.4M downloads in the last month, 730 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "6,356,810"
-    },
-    {
-     "name": "Likes",
-     "desc": "730"
-    },
-    {
-     "name": "Library",
-     "desc": "diffusion-single-file"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Comfy-Org/MOSS-Image"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.8-27B-FP8",
-   "about": "Image text to text, 6.3M downloads in the last month, 1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,285,486"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,010"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.8-27B-FP8"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "google/gemma-4-31B-it",
-   "about": "Image text to text, 6.3M downloads in the last month, 4.4K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "6,264,804"
-    },
-    {
-     "name": "Likes",
-     "desc": "4,409"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/google/gemma-4-31B-it"
     }
    ]
   },
@@ -29000,7 +31152,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "5,339"
+     "desc": "5,346"
     },
     {
      "name": "Library",
@@ -29009,6 +31161,56 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/pyannote/speaker-diarization-3.1"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "google/gemma-4-31B-it",
+   "about": "Image text to text, 6.1M downloads in the last month, 4.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "6,148,549"
+    },
+    {
+     "name": "Likes",
+     "desc": "4,419"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/google/gemma-4-31B-it"
+    }
+   ]
+  },
+  {
+   "database": "Model",
+   "table": "Comfy-Org/MOSS-Image",
+   "about": "Model, 6.1M downloads in the last month, 730 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "6,119,809"
+    },
+    {
+     "name": "Likes",
+     "desc": "730"
+    },
+    {
+     "name": "Library",
+     "desc": "diffusion-single-file"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Comfy-Org/MOSS-Image"
     }
    ]
   },
@@ -29027,7 +31229,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "2,201"
+     "desc": "2,202"
     },
     {
      "name": "Library",
@@ -29094,36 +31296,9 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
-   "database": "Image text to video",
-   "table": "MiniMaxAI/MiniMax-H3",
-   "about": "Image text to video, 5.7M downloads in the last month, 7.1K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to video"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,713,769"
-    },
-    {
-     "name": "Likes",
-     "desc": "7,094"
-    },
-    {
-     "name": "Library",
-     "desc": "minimax-h3"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
-    }
-   ]
-  },
-  {
    "database": "Text generation",
    "table": "ornith-ai/Ornith-1.5-9B-GGUF",
-   "about": "Text generation, 5.7M downloads in the last month, 736 likes.",
+   "about": "Text generation, 5.8M downloads in the last month, 738 likes.",
    "fields": [
     {
      "name": "Task",
@@ -29131,11 +31306,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "5,679,963"
+     "desc": "5,796,623"
     },
     {
      "name": "Likes",
-     "desc": "736"
+     "desc": "738"
     },
     {
      "name": "Library",
@@ -29148,9 +31323,36 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
+   "database": "Image text to video",
+   "table": "MiniMaxAI/MiniMax-H3",
+   "about": "Image text to video, 5.7M downloads in the last month, 7.1K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to video"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,714,802"
+    },
+    {
+     "name": "Likes",
+     "desc": "7,119"
+    },
+    {
+     "name": "Library",
+     "desc": "minimax-h3"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/MiniMaxAI/MiniMax-H3"
+    }
+   ]
+  },
+  {
    "database": "Image text to text",
    "table": "baidu/Unlimited-OCR",
-   "about": "Image text to text, 5.7M downloads in the last month, 5K likes.",
+   "about": "Image text to text, 5.6M downloads in the last month, 5K likes.",
    "fields": [
     {
      "name": "Task",
@@ -29158,11 +31360,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "5,651,604"
+     "desc": "5,605,765"
     },
     {
      "name": "Likes",
-     "desc": "5,022"
+     "desc": "5,021"
     },
     {
      "name": "Library",
@@ -29212,7 +31414,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "5,503,788"
+     "desc": "5,547,178"
     },
     {
      "name": "Likes",
@@ -29320,7 +31522,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "1,778"
+     "desc": "1,779"
     },
     {
      "name": "Library",
@@ -29385,7 +31587,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Image text to text",
    "table": "huihui-ai/Huihui-Qwen3.6-35B-A3B-abliterated-MTP-GGUF",
-   "about": "Image text to text, 5.1M downloads in the last month, 121 likes.",
+   "about": "Image text to text, 5.1M downloads in the last month, 123 likes.",
    "fields": [
     {
      "name": "Task",
@@ -29393,11 +31595,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "5,119,599"
+     "desc": "5,134,613"
     },
     {
      "name": "Likes",
-     "desc": "121"
+     "desc": "123"
     },
     {
      "name": "Library",
@@ -29451,7 +31653,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "3,975"
+     "desc": "3,974"
     },
     {
      "name": "Library",
@@ -29489,7 +31691,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Image text to text",
    "table": "google/gemma-4-26B-A4B-it",
-   "about": "Image text to text, 5M downloads in the last month, 1.8K likes.",
+   "about": "Image text to text, 4.9M downloads in the last month, 1.8K likes.",
    "fields": [
     {
      "name": "Task",
@@ -29497,11 +31699,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "5,022,424"
+     "desc": "4,940,525"
     },
     {
      "name": "Likes",
-     "desc": "1,788"
+     "desc": "1,789"
     },
     {
      "name": "Library",
@@ -29516,7 +31718,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Text generation",
    "table": "Qwen/Qwen2.5-1.5B-Instruct",
-   "about": "Text generation, 4.9M downloads in the last month, 947 likes.",
+   "about": "Text generation, 4.9M downloads in the last month, 948 likes.",
    "fields": [
     {
      "name": "Task",
@@ -29528,7 +31730,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "947"
+     "desc": "948"
     },
     {
      "name": "Library",
@@ -29555,7 +31757,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "4,714"
+     "desc": "4,738"
     },
     {
      "name": "Library",
@@ -29672,33 +31874,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/openai/whisper-large-v3-turbo"
-    }
-   ]
-  },
-  {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.5-4B",
-   "about": "Image text to text, 4.7M downloads in the last month, 1.3K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,674,064"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,253"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.5-4B"
     }
    ]
   },
@@ -29825,7 +32000,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Likes",
-     "desc": "2,788"
+     "desc": "2,791"
     },
     {
      "name": "Library",
@@ -29838,9 +32013,36 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
+   "database": "Image text to text",
+   "table": "Qwen/Qwen3.5-4B",
+   "about": "Image text to text, 4.6M downloads in the last month, 1.3K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,550,702"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,254"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3.5-4B"
+    }
+   ]
+  },
+  {
    "database": "Text to image",
    "table": "Comfy-Org/Krea-2",
-   "about": "Text to image, 4.5M downloads in the last month, 848 likes.",
+   "about": "Text to image, 4.5M downloads in the last month, 849 likes.",
    "fields": [
     {
      "name": "Task",
@@ -29848,11 +32050,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "4,510,397"
+     "desc": "4,476,275"
     },
     {
      "name": "Likes",
-     "desc": "848"
+     "desc": "849"
     },
     {
      "name": "Library",
@@ -29875,7 +32077,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "4,388,749"
+     "desc": "4,422,957"
     },
     {
      "name": "Likes",
@@ -29888,6 +32090,33 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/ISTA-DASLab/DeepSeek-V4.1-Flash-1017-GSQ-RCO-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Image text to text",
+   "table": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
+   "about": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image text to text"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,382,996"
+    },
+    {
+     "name": "Likes",
+     "desc": "2,398"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF"
     }
    ]
   },
@@ -29948,7 +32177,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Any to any",
    "table": "google/gemma-4-E4B-it",
-   "about": "Any to any, 4.4M downloads in the last month, 1.9K likes.",
+   "about": "Any to any, 4.3M downloads in the last month, 1.9K likes.",
    "fields": [
     {
      "name": "Task",
@@ -29956,11 +32185,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "4,354,817"
+     "desc": "4,328,955"
     },
     {
      "name": "Likes",
-     "desc": "1,875"
+     "desc": "1,877"
     },
     {
      "name": "Library",
@@ -29974,8 +32203,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Image text to text",
-   "table": "huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF",
-   "about": "Image text to text, 4.4M downloads in the last month, 2.4K likes.",
+   "table": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
+   "about": "Image text to text, 4.3M downloads in the last month, 1.2K likes.",
    "fields": [
     {
      "name": "Task",
@@ -29983,19 +32212,46 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "4,351,329"
+     "desc": "4,283,063"
     },
     {
      "name": "Likes",
-     "desc": "2,368"
+     "desc": "1,176"
     },
     {
      "name": "Library",
-     "desc": "transformers"
+     "desc": "gguf"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/huihui-ai/Huihui-Qwen3.8-27B-abliterated-GGUF"
+     "desc": "https://huggingface.co/SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF"
+    }
+   ]
+  },
+  {
+   "database": "Text to speech",
+   "table": "k2-fsa/OmniVoice",
+   "about": "Text to speech, 4.2M downloads in the last month, 1.7K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text to speech"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,246,399"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,717"
+    },
+    {
+     "name": "Library",
+     "desc": "omnivoice"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/k2-fsa/OmniVoice"
     }
    ]
   },
@@ -30027,60 +32283,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
-   "database": "Image text to text",
-   "table": "SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF",
-   "about": "Image text to text, 4.2M downloads in the last month, 1.2K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image text to text"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,217,023"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,155"
-    },
-    {
-     "name": "Library",
-     "desc": "gguf"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/SC117/Qwen3.8-Flash-Next-GSQ-RCO-abliterated-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Text to speech",
-   "table": "k2-fsa/OmniVoice",
-   "about": "Text to speech, 4.2M downloads in the last month, 1.7K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text to speech"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,210,382"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,717"
-    },
-    {
-     "name": "Library",
-     "desc": "omnivoice"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/k2-fsa/OmniVoice"
-    }
-   ]
-  },
-  {
    "database": "Text generation",
    "table": "farbodtavakkoli/OTel-2.0-Decision-26B-A4B-4bit",
    "about": "Text generation, 4.2M downloads in the last month, 9 likes.",
@@ -30091,7 +32293,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "4,194,624"
+     "desc": "4,156,727"
     },
     {
      "name": "Likes",
@@ -30105,8 +32307,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Text generation",
-   "table": "nvidia/Qwen3.6-35B-A3B-NVFP4",
-   "about": "Text generation, 4.1M downloads in the last month, 686 likes.",
+   "table": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
+   "about": "Text generation, 4.1M downloads in the last month, 628 likes.",
    "fields": [
     {
      "name": "Task",
@@ -30114,19 +32316,19 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Downloads",
-     "desc": "4,147,961"
+     "desc": "4,141,717"
     },
     {
      "name": "Likes",
-     "desc": "686"
+     "desc": "628"
     },
     {
      "name": "Library",
-     "desc": "Model Optimizer"
+     "desc": "transformers"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/nvidia/Qwen3.6-35B-A3B-NVFP4"
+     "desc": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF"
     }
    ]
   },
@@ -30158,67 +32360,13 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
-   "database": "Text generation",
-   "table": "ornith-ai/Ornith-1.5-35B-A3B-GGUF",
-   "about": "Text generation, 4.1M downloads in the last month, 628 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,083,220"
-    },
-    {
-     "name": "Likes",
-     "desc": "628"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B-GGUF"
-    }
-   ]
-  },
-  {
-   "database": "Text generation",
-   "table": "Qwen/Qwen2.5-0.5B-Instruct",
-   "about": "Text generation, 4.1M downloads in the last month, 753 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Text generation"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,071,520"
-    },
-    {
-     "name": "Likes",
-     "desc": "753"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct"
-    }
-   ]
-  },
-  {
    "database": "Model",
    "table": "Qwen/Qwen3-TTS-12Hz-1.7B-Base",
    "about": "Model, 4.1M downloads in the last month, 608 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "4,061,594"
+     "desc": "4,094,343"
     },
     {
      "name": "Likes",
@@ -30231,21 +32379,48 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    ]
   },
   {
-   "database": "Image text to text",
-   "table": "Qwen/Qwen3.6-35B-A3B-FP8",
-   "about": "Image text to text, 4M downloads in the last month, 454 likes.",
+   "database": "Text generation",
+   "table": "nvidia/Qwen3.6-35B-A3B-NVFP4",
+   "about": "Text generation, 4.1M downloads in the last month, 686 likes.",
    "fields": [
     {
      "name": "Task",
-     "desc": "Image text to text"
+     "desc": "Text generation"
     },
     {
      "name": "Downloads",
-     "desc": "4,042,773"
+     "desc": "4,087,564"
     },
     {
      "name": "Likes",
-     "desc": "454"
+     "desc": "686"
+    },
+    {
+     "name": "Library",
+     "desc": "Model Optimizer"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/nvidia/Qwen3.6-35B-A3B-NVFP4"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen2.5-0.5B-Instruct",
+   "about": "Text generation, 4.1M downloads in the last month, 754 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,071,520"
+    },
+    {
+     "name": "Likes",
+     "desc": "754"
     },
     {
      "name": "Library",
@@ -30253,7 +32428,34 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B-FP8"
+     "desc": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Text generation",
+   "table": "Qwen/Qwen3-32B",
+   "about": "Text generation, 3.9M downloads in the last month, 797 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Text generation"
+    },
+    {
+     "name": "Downloads",
+     "desc": "3,941,735"
+    },
+    {
+     "name": "Likes",
+     "desc": "797"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/Qwen/Qwen3-32B"
     }
    ]
   }
@@ -30266,7 +32468,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "4,156,877"
+     "desc": "4,238,148"
     },
     {
      "name": "Likes",
@@ -30289,7 +32491,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "2,981,520"
+     "desc": "2,985,969"
     },
     {
      "name": "Likes",
@@ -30312,7 +32514,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "2,923,684"
+     "desc": "2,933,955"
     },
     {
      "name": "Likes",
@@ -30331,11 +32533,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "allenai/objaverse",
-   "about": "2.3M downloads in the last month, 495 likes.",
+   "about": "2.4M downloads in the last month, 495 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "2,326,800"
+     "desc": "2,366,772"
     },
     {
      "name": "Likes",
@@ -30354,11 +32556,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "Salesforce/wikitext",
-   "about": "2.2M downloads in the last month, 869 likes.",
+   "about": "2.3M downloads in the last month, 869 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "2,245,883"
+     "desc": "2,319,928"
     },
     {
      "name": "Likes",
@@ -30381,7 +32583,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "2,062,447"
+     "desc": "2,068,299"
     },
     {
      "name": "Likes",
@@ -30400,11 +32602,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "IaLoverSpaghetti/LocaIAinHTML",
-   "about": "1.8M downloads in the last month, 1 likes.",
+   "about": "2M downloads in the last month, 1 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,828,864"
+     "desc": "2,027,662"
     },
     {
      "name": "Likes",
@@ -30423,11 +32625,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "nicoboou/IDRCell100k",
-   "about": "1.8M downloads in the last month, 18 likes.",
+   "about": "1.7M downloads in the last month, 18 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,773,868"
+     "desc": "1,749,475"
     },
     {
      "name": "Likes",
@@ -30446,15 +32648,15 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "nvidia/simready-assets",
-   "about": "1.7M downloads in the last month, 1.6K likes.",
+   "about": "1.7M downloads in the last month, 1.7K likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,695,432"
+     "desc": "1,713,377"
     },
     {
      "name": "Likes",
-     "desc": "1,650"
+     "desc": "1,654"
     },
     {
      "name": "Updated",
@@ -30473,7 +32675,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,590,722"
+     "desc": "1,589,350"
     },
     {
      "name": "Likes",
@@ -30496,7 +32698,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,522,241"
+     "desc": "1,528,907"
     },
     {
      "name": "Likes",
@@ -30515,11 +32717,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "OPR-Project/OxfordRobotCar_OpenPlaceRecognition",
-   "about": "1.4M downloads in the last month, 10 likes.",
+   "about": "1.5M downloads in the last month, 10 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,361,111"
+     "desc": "1,450,844"
     },
     {
      "name": "Likes",
@@ -30542,7 +32744,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,360,136"
+     "desc": "1,376,641"
     },
     {
      "name": "Likes",
@@ -30565,7 +32767,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,333,522"
+     "desc": "1,343,798"
     },
     {
      "name": "Likes",
@@ -30588,7 +32790,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,294,472"
+     "desc": "1,331,654"
     },
     {
      "name": "Likes",
@@ -30611,11 +32813,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,190,689"
+     "desc": "1,217,166"
     },
     {
      "name": "Likes",
-     "desc": "2,061"
+     "desc": "2,062"
     },
     {
      "name": "Updated",
@@ -30634,7 +32836,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,158,879"
+     "desc": "1,164,501"
     },
     {
      "name": "Likes",
@@ -30657,7 +32859,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,122,973"
+     "desc": "1,136,504"
     },
     {
      "name": "Likes",
@@ -30680,7 +32882,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,089,479"
+     "desc": "1,098,974"
     },
     {
      "name": "Likes",
@@ -30698,12 +32900,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
+   "table": "nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim",
+   "about": "1.1M downloads in the last month, 293 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "1,051,472"
+    },
+    {
+     "name": "Likes",
+     "desc": "293"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-03-05"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
    "table": "filapro/cad-recode-v1.5",
    "about": "1M downloads in the last month, 13 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,036,258"
+     "desc": "1,036,052"
     },
     {
      "name": "Likes",
@@ -30722,11 +32947,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "wei82/precancer-omics-data",
-   "about": "1M downloads in the last month, 34 likes.",
+   "about": "986K downloads in the last month, 34 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "1,022,226"
+     "desc": "986,185"
     },
     {
      "name": "Likes",
@@ -30744,35 +32969,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim",
-   "about": "978K downloads in the last month, 293 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "977,538"
-    },
-    {
-     "name": "Likes",
-     "desc": "293"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-03-05"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/nvidia/PhysicalAI-Robotics-GR00T-X-Embodiment-Sim"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
    "table": "xlangai/osworld_v2_assets",
-   "about": "846K downloads in the last month, 25 likes.",
+   "about": "884K downloads in the last month, 25 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "846,129"
+     "desc": "884,185"
     },
     {
      "name": "Likes",
@@ -30791,11 +32993,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "Osamap3/PSP_ph",
-   "about": "814K downloads in the last month, 4 likes.",
+   "about": "866K downloads in the last month, 4 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "814,306"
+     "desc": "866,165"
     },
     {
      "name": "Likes",
@@ -30813,35 +33015,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "XDOF/ABC-130k",
-   "about": "809K downloads in the last month, 147 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "808,767"
-    },
-    {
-     "name": "Likes",
-     "desc": "147"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-24"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/XDOF/ABC-130k"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
    "table": "Drakesuper/rodridre",
-   "about": "808K downloads in the last month, 20 likes.",
+   "about": "809K downloads in the last month, 20 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "808,004"
+     "desc": "809,374"
     },
     {
      "name": "Likes",
@@ -30859,12 +33038,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "Dagonulca/figofigofigofigo",
-   "about": "789K downloads in the last month, 36 likes.",
+   "table": "XDOF/ABC-130k",
+   "about": "807K downloads in the last month, 147 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "789,079"
+     "desc": "806,536"
+    },
+    {
+     "name": "Likes",
+     "desc": "147"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/XDOF/ABC-130k"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Dagonulca/figofigofigofigo",
+   "about": "803K downloads in the last month, 36 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "803,007"
     },
     {
      "name": "Likes",
@@ -30883,11 +33085,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "allenai/c4",
-   "about": "764K downloads in the last month, 705 likes.",
+   "about": "774K downloads in the last month, 705 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "764,425"
+     "desc": "774,294"
     },
     {
      "name": "Likes",
@@ -30906,11 +33108,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "roisincrtai/ptb-xl-1.0.3",
-   "about": "744K downloads in the last month, 4 likes.",
+   "about": "742K downloads in the last month, 4 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "743,520"
+     "desc": "742,419"
     },
     {
      "name": "Likes",
@@ -30929,11 +33131,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "challenge-2026/challenge_data",
-   "about": "712K downloads in the last month, 18 likes.",
+   "about": "713K downloads in the last month, 18 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "711,601"
+     "desc": "712,712"
     },
     {
      "name": "Likes",
@@ -30952,11 +33154,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "HennyPr/ps2_hf2",
-   "about": "681K downloads in the last month, 48 likes.",
+   "about": "699K downloads in the last month, 48 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "680,903"
+     "desc": "698,709"
     },
     {
      "name": "Likes",
@@ -30975,11 +33177,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "evaleval/EEE_datastore",
-   "about": "651K downloads in the last month, 62 likes.",
+   "about": "631K downloads in the last month, 62 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "650,709"
+     "desc": "630,637"
     },
     {
      "name": "Likes",
@@ -30997,104 +33199,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "epfml/FineWeb-HQ",
-   "about": "607K downloads in the last month, 36 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "606,830"
-    },
-    {
-     "name": "Likes",
-     "desc": "36"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-09-30"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/epfml/FineWeb-HQ"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "huggingface/DEH-image-scan-data",
-   "about": "600K downloads in the last month, 27 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "600,166"
-    },
-    {
-     "name": "Likes",
-     "desc": "27"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-25"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/huggingface/DEH-image-scan-data"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "world-igr-plum/regions",
-   "about": "598K downloads in the last month, 41 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "597,849"
-    },
-    {
-     "name": "Likes",
-     "desc": "41"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-06-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/world-igr-plum/regions"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "banned-historical-archives/banned-historical-archives",
-   "about": "591K downloads in the last month, 122 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "590,633"
-    },
-    {
-     "name": "Likes",
-     "desc": "122"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-10-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/banned-historical-archives/banned-historical-archives"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
    "table": "carlotabronze/sm-stuff",
-   "about": "590K downloads in the last month, 2 likes.",
+   "about": "615K downloads in the last month, 2 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "590,387"
+     "desc": "615,373"
     },
     {
      "name": "Likes",
@@ -31112,81 +33222,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "pulmo/ncbi-genbank-complete",
-   "about": "588K downloads in the last month, 28 likes.",
+   "table": "world-igr-plum/regions",
+   "about": "603K downloads in the last month, 41 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "587,956"
+     "desc": "603,464"
     },
     {
      "name": "Likes",
-     "desc": "28"
+     "desc": "41"
     },
     {
      "name": "Updated",
-     "desc": "2026-05-14"
+     "desc": "2025-06-17"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/pulmo/ncbi-genbank-complete"
+     "desc": "https://huggingface.co/datasets/world-igr-plum/regions"
     }
    ]
   },
   {
    "database": "Dataset",
-   "table": "mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M",
-   "about": "579K downloads in the last month, 112 likes.",
+   "table": "huggingface/DEH-image-scan-data",
+   "about": "591K downloads in the last month, 27 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "579,202"
+     "desc": "591,445"
     },
     {
      "name": "Likes",
-     "desc": "112"
+     "desc": "27"
     },
     {
      "name": "Updated",
-     "desc": "2026-07-16"
+     "desc": "2026-09-25"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "cais/mmlu",
-   "about": "576K downloads in the last month, 890 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "576,302"
-    },
-    {
-     "name": "Likes",
-     "desc": "890"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-03-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/cais/mmlu"
+     "desc": "https://huggingface.co/datasets/huggingface/DEH-image-scan-data"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "visionhdstream/data-vision-01",
-   "about": "576K downloads in the last month, 3 likes.",
+   "about": "591K downloads in the last month, 3 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "576,160"
+     "desc": "590,650"
     },
     {
      "name": "Likes",
@@ -31204,35 +33291,81 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "omegalabsinc/omega-voice",
-   "about": "547K downloads in the last month, 6 likes.",
+   "table": "cais/mmlu",
+   "about": "581K downloads in the last month, 890 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "547,479"
+     "desc": "581,420"
     },
     {
      "name": "Likes",
-     "desc": "6"
+     "desc": "890"
     },
     {
      "name": "Updated",
-     "desc": "2025-04-02"
+     "desc": "2024-03-08"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/omegalabsinc/omega-voice"
+     "desc": "https://huggingface.co/datasets/cais/mmlu"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "banned-historical-archives/banned-historical-archives",
+   "about": "560K downloads in the last month, 122 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "559,676"
+    },
+    {
+     "name": "Likes",
+     "desc": "122"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-10-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/banned-historical-archives/banned-historical-archives"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "pulmo/ncbi-genbank-complete",
+   "about": "559K downloads in the last month, 28 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "559,493"
+    },
+    {
+     "name": "Likes",
+     "desc": "28"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-05-14"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/pulmo/ncbi-genbank-complete"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "allenai/ai2_arc",
-   "about": "535K downloads in the last month, 433 likes.",
+   "about": "533K downloads in the last month, 433 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "534,861"
+     "desc": "533,294"
     },
     {
      "name": "Likes",
@@ -31250,12 +33383,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "ieasybooks-org/prophet-mosque-library",
-   "about": "508K downloads in the last month, 27 likes.",
+   "table": "omegalabsinc/omega-voice",
+   "about": "522K downloads in the last month, 6 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "507,671"
+     "desc": "521,703"
+    },
+    {
+     "name": "Likes",
+     "desc": "6"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-04-02"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/omegalabsinc/omega-voice"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "Sharpa-Robotics/SharpaDex-v1.0",
+   "about": "522K downloads in the last month, 63 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "521,634"
+    },
+    {
+     "name": "Likes",
+     "desc": "63"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Sharpa-Robotics/SharpaDex-v1.0"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ieasybooks-org/prophet-mosque-library",
+   "about": "521K downloads in the last month, 27 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "520,596"
     },
     {
      "name": "Likes",
@@ -31273,81 +33452,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "ksolovev/fine-news",
-   "about": "494K downloads in the last month, 53 likes.",
+   "table": "mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M",
+   "about": "505K downloads in the last month, 112 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "494,092"
+     "desc": "505,304"
     },
     {
      "name": "Likes",
-     "desc": "53"
+     "desc": "112"
     },
     {
      "name": "Updated",
-     "desc": "2026-10-08"
+     "desc": "2026-07-16"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/ksolovev/fine-news"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "k9cli/video-vec2wav2-tokenizer",
-   "about": "491K downloads in the last month, 41 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "491,267"
-    },
-    {
-     "name": "Likes",
-     "desc": "41"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-24"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "sunblaze-ucb/cybergym",
-   "about": "488K downloads in the last month, 73 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "487,740"
-    },
-    {
-     "name": "Likes",
-     "desc": "73"
-    },
-    {
-     "name": "Updated",
-     "desc": "2025-05-15"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/sunblaze-ucb/cybergym"
+     "desc": "https://huggingface.co/datasets/mvp-lab/LLaVA-OneVision-1.5-Mid-Training-85M"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "Maximilians/ps2_hf1",
-   "about": "483K downloads in the last month, 54 likes.",
+   "about": "498K downloads in the last month, 54 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "483,379"
+     "desc": "498,244"
     },
     {
      "name": "Likes",
@@ -31365,35 +33498,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "hf-doc-build/doc-build-dev",
-   "about": "480K downloads in the last month, 81 likes.",
+   "table": "k9cli/video-vec2wav2-tokenizer",
+   "about": "498K downloads in the last month, 41 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "480,460"
+     "desc": "497,948"
     },
     {
      "name": "Likes",
-     "desc": "81"
+     "desc": "41"
     },
     {
      "name": "Updated",
-     "desc": "2026-04-20"
+     "desc": "2026-09-24"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/hf-doc-build/doc-build-dev"
+     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "adscli/copycheck-videos",
-   "about": "480K downloads in the last month, 1 likes.",
+   "about": "493K downloads in the last month, 1 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "479,528"
+     "desc": "493,097"
     },
     {
      "name": "Likes",
@@ -31412,11 +33545,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "Salesforce/GiftEvalPretrain",
-   "about": "474K downloads in the last month, 56 likes.",
+   "about": "487K downloads in the last month, 56 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "474,129"
+     "desc": "486,592"
     },
     {
      "name": "Likes",
@@ -31434,12 +33567,104 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "nyu-mll/glue",
-   "about": "473K downloads in the last month, 787 likes.",
+   "table": "sunblaze-ucb/cybergym",
+   "about": "481K downloads in the last month, 73 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "473,192"
+     "desc": "481,074"
+    },
+    {
+     "name": "Likes",
+     "desc": "73"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-05-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/sunblaze-ucb/cybergym"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "miniiohinkimsavol/copyright-detection-videos",
+   "about": "475K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "475,095"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-26"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/miniiohinkimsavol/copyright-detection-videos"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ksolovev/fine-news",
+   "about": "475K downloads in the last month, 53 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "475,026"
+    },
+    {
+     "name": "Likes",
+     "desc": "53"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-08"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/ksolovev/fine-news"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "hf-doc-build/doc-build-dev",
+   "about": "470K downloads in the last month, 81 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "469,836"
+    },
+    {
+     "name": "Likes",
+     "desc": "81"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-04-20"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/hf-doc-build/doc-build-dev"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "nyu-mll/glue",
+   "about": "467K downloads in the last month, 787 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "467,452"
     },
     {
      "name": "Likes",
@@ -31462,7 +33687,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "463,373"
+     "desc": "463,489"
     },
     {
      "name": "Likes",
@@ -31480,104 +33705,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "miniiohinkimsavol/copyright-detection-videos",
-   "about": "463K downloads in the last month, 1 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "463,340"
-    },
-    {
-     "name": "Likes",
-     "desc": "1"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-26"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/miniiohinkimsavol/copyright-detection-videos"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "Sharpa-Robotics/SharpaDex-v1.0",
-   "about": "461K downloads in the last month, 63 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "461,020"
-    },
-    {
-     "name": "Likes",
-     "desc": "63"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/Sharpa-Robotics/SharpaDex-v1.0"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "m-a-p/FineFineWeb",
-   "about": "459K downloads in the last month, 244 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "458,506"
-    },
-    {
-     "name": "Likes",
-     "desc": "244"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-12-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/m-a-p/FineFineWeb"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "Tuxifan/UbuntuIRC",
-   "about": "456K downloads in the last month, 5 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "455,972"
-    },
-    {
-     "name": "Likes",
-     "desc": "5"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-06-04"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/Tuxifan/UbuntuIRC"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
    "table": "k9cli/video-vec2wav2-tokenizer-2",
-   "about": "449K downloads in the last month, 31 likes.",
+   "about": "453K downloads in the last month, 31 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "449,433"
+     "desc": "453,337"
     },
     {
      "name": "Likes",
@@ -31595,81 +33728,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "gradio/frontend",
-   "about": "443K downloads in the last month, 6 likes.",
+   "table": "m-a-p/FineFineWeb",
+   "about": "451K downloads in the last month, 244 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "443,064"
+     "desc": "450,758"
     },
     {
      "name": "Likes",
-     "desc": "6"
+     "desc": "244"
     },
     {
      "name": "Updated",
-     "desc": "2026-11-19"
+     "desc": "2024-12-19"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/gradio/frontend"
+     "desc": "https://huggingface.co/datasets/m-a-p/FineFineWeb"
     }
    ]
   },
   {
    "database": "Dataset",
-   "table": "liwu/MNBVC",
-   "about": "437K downloads in the last month, 680 likes.",
+   "table": "epfml/FineWeb-HQ",
+   "about": "438K downloads in the last month, 36 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "437,168"
+     "desc": "437,700"
     },
     {
      "name": "Likes",
-     "desc": "680"
+     "desc": "36"
     },
     {
      "name": "Updated",
-     "desc": "2026-08-23"
+     "desc": "2025-09-30"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/liwu/MNBVC"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "k9cli/video-vec2wav2-tokenizer-3",
-   "about": "431K downloads in the last month, 14 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "431,277"
-    },
-    {
-     "name": "Likes",
-     "desc": "14"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-09"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer-3"
+     "desc": "https://huggingface.co/datasets/epfml/FineWeb-HQ"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "Kthera/pesoz",
-   "about": "418K downloads in the last month, 52 likes.",
+   "about": "433K downloads in the last month, 52 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "418,303"
+     "desc": "432,779"
     },
     {
      "name": "Likes",
@@ -31687,12 +33797,104 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "TIGER-Lab/MMLU-Pro",
-   "about": "418K downloads in the last month, 607 likes.",
+   "table": "k9cli/video-vec2wav2-tokenizer-3",
+   "about": "432K downloads in the last month, 14 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "417,913"
+     "desc": "431,870"
+    },
+    {
+     "name": "Likes",
+     "desc": "14"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-09"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/k9cli/video-vec2wav2-tokenizer-3"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "gradio/frontend",
+   "about": "429K downloads in the last month, 6 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "428,731"
+    },
+    {
+     "name": "Likes",
+     "desc": "6"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/gradio/frontend"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "HuggingFaceFW/fineweb-edu",
+   "about": "424K downloads in the last month, 1.4K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "423,945"
+    },
+    {
+     "name": "Likes",
+     "desc": "1,419"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-07-11"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "liwu/MNBVC",
+   "about": "420K downloads in the last month, 680 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "419,604"
+    },
+    {
+     "name": "Likes",
+     "desc": "680"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/liwu/MNBVC"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "TIGER-Lab/MMLU-Pro",
+   "about": "414K downloads in the last month, 607 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "413,586"
     },
     {
      "name": "Likes",
@@ -31710,35 +33912,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "HuggingFaceFW/fineweb-edu",
-   "about": "414K downloads in the last month, 1.4K likes.",
+   "table": "Tuxifan/UbuntuIRC",
+   "about": "411K downloads in the last month, 5 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "413,801"
+     "desc": "410,832"
     },
     {
      "name": "Likes",
-     "desc": "1,418"
+     "desc": "5"
     },
     {
      "name": "Updated",
-     "desc": "2025-07-11"
+     "desc": "2023-06-04"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/HuggingFaceFW/fineweb-edu"
+     "desc": "https://huggingface.co/datasets/Tuxifan/UbuntuIRC"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "hf-doc-build/doc-build",
-   "about": "410K downloads in the last month, 48 likes.",
+   "about": "408K downloads in the last month, 48 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "409,665"
+     "desc": "407,644"
     },
     {
      "name": "Likes",
@@ -31757,11 +33959,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "numix/balises-openwindmap-pyrenees",
-   "about": "406K downloads in the last month, 5 likes.",
+   "about": "400K downloads in the last month, 5 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "406,227"
+     "desc": "399,780"
     },
     {
      "name": "Likes",
@@ -31779,58 +33981,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "Chelsea707/arxiv-cs-2020-2025-pdfs",
-   "about": "394K downloads in the last month, 27 likes.",
+   "table": "McGill-NLP/WebLINX-full",
+   "about": "399K downloads in the last month, 8 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "393,508"
+     "desc": "399,496"
     },
     {
      "name": "Likes",
-     "desc": "27"
+     "desc": "8"
     },
     {
      "name": "Updated",
-     "desc": "2025-12-23"
+     "desc": "2025-09-21"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/Chelsea707/arxiv-cs-2020-2025-pdfs"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "assassinlike/everything132",
-   "about": "389K downloads in the last month, 2 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "389,249"
-    },
-    {
-     "name": "Likes",
-     "desc": "2"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-08-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/assassinlike/everything132"
+     "desc": "https://huggingface.co/datasets/McGill-NLP/WebLINX-full"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "lioooox/T2I-CoReBench-Images",
-   "about": "382K downloads in the last month, 6 likes.",
+   "about": "397K downloads in the last month, 6 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "381,934"
+     "desc": "396,987"
     },
     {
      "name": "Likes",
@@ -31849,11 +34028,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "meloqiao/us-stock-data",
-   "about": "370K downloads in the last month, 1 likes.",
+   "about": "380K downloads in the last month, 1 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "370,465"
+     "desc": "380,233"
     },
     {
      "name": "Likes",
@@ -31871,12 +34050,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "siril-spcc/gaia",
-   "about": "370K downloads in the last month, 38 likes.",
+   "table": "assassinlike/everything132",
+   "about": "380K downloads in the last month, 2 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "369,838"
+     "desc": "379,753"
+    },
+    {
+     "name": "Likes",
+     "desc": "2"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/assassinlike/everything132"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "siril-spcc/gaia",
+   "about": "374K downloads in the last month, 38 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "373,638"
     },
     {
      "name": "Likes",
@@ -31894,12 +34096,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "ccoffee20/flatpak",
-   "about": "364K downloads in the last month, 3 likes.",
+   "table": "VoiceOfML/VOMEBOOK",
+   "about": "374K downloads in the last month, 18 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "363,889"
+     "desc": "373,532"
+    },
+    {
+     "name": "Likes",
+     "desc": "18"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/VoiceOfML/VOMEBOOK"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "ccoffee20/flatpak",
+   "about": "369K downloads in the last month, 3 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "369,200"
     },
     {
      "name": "Likes",
@@ -31918,11 +34143,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "agents-course/course-images",
-   "about": "362K downloads in the last month, 23 likes.",
+   "about": "368K downloads in the last month, 23 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "362,400"
+     "desc": "368,212"
     },
     {
      "name": "Likes",
@@ -31941,11 +34166,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "YiboZhang2001/TexVerse",
-   "about": "357K downloads in the last month, 64 likes.",
+   "about": "365K downloads in the last month, 64 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "356,820"
+     "desc": "365,277"
     },
     {
      "name": "Likes",
@@ -31963,16 +34188,39 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "HuggingFaceFW/fineweb",
-   "about": "357K downloads in the last month, 3.8K likes.",
+   "table": "Chelsea707/arxiv-cs-2020-2025-pdfs",
+   "about": "364K downloads in the last month, 27 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "356,783"
+     "desc": "363,742"
     },
     {
      "name": "Likes",
-     "desc": "3,763"
+     "desc": "27"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-12-23"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/Chelsea707/arxiv-cs-2020-2025-pdfs"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "HuggingFaceFW/fineweb",
+   "about": "361K downloads in the last month, 3.8K likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "361,078"
+    },
+    {
+     "name": "Likes",
+     "desc": "3,764"
     },
     {
      "name": "Updated",
@@ -31986,35 +34234,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "TGMR/one_pass_ingestion",
-   "about": "356K downloads in the last month, 1 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "356,025"
-    },
-    {
-     "name": "Likes",
-     "desc": "1"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-07-01"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/TGMR/one_pass_ingestion"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
    "table": "RoboDojo-Benchmark/RoboDojo",
-   "about": "354K downloads in the last month, 28 likes.",
+   "about": "356K downloads in the last month, 28 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "353,642"
+     "desc": "356,370"
     },
     {
      "name": "Likes",
@@ -32032,12 +34257,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
+   "table": "TGMR/one_pass_ingestion",
+   "about": "356K downloads in the last month, 1 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "356,030"
+    },
+    {
+     "name": "Likes",
+     "desc": "1"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-07-01"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/TGMR/one_pass_ingestion"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "huggingface/badges",
+   "about": "348K downloads in the last month, 62 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "347,817"
+    },
+    {
+     "name": "Likes",
+     "desc": "62"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/huggingface/badges"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
    "table": "inclusionAI/OpenAoE-2000h",
    "about": "347K downloads in the last month, 57 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "347,159"
+     "desc": "347,280"
     },
     {
      "name": "Likes",
@@ -32056,11 +34327,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "shash42/forecast-news",
-   "about": "345K downloads in the last month, 9 likes.",
+   "about": "347K downloads in the last month, 9 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "345,215"
+     "desc": "347,054"
     },
     {
      "name": "Likes",
@@ -32078,81 +34349,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "huggingface/badges",
-   "about": "343K downloads in the last month, 62 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "342,978"
-    },
-    {
-     "name": "Likes",
-     "desc": "62"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-03"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/huggingface/badges"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "57xj5SHr/Tui9DGhp",
-   "about": "343K downloads in the last month, 21 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "342,655"
-    },
-    {
-     "name": "Likes",
-     "desc": "21"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/57xj5SHr/Tui9DGhp"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "anon8231489123/ShareGPT_Vicuna_unfiltered",
-   "about": "339K downloads in the last month, 951 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "338,999"
-    },
-    {
-     "name": "Likes",
-     "desc": "951"
-    },
-    {
-     "name": "Updated",
-     "desc": "2023-04-12"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
    "table": "Emmyc2/psp",
-   "about": "338K downloads in the last month, 49 likes.",
+   "about": "347K downloads in the last month, 49 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "338,200"
+     "desc": "346,609"
     },
     {
      "name": "Likes",
@@ -32171,11 +34373,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "lmarena-ai/leaderboard-dataset",
-   "about": "335K downloads in the last month, 50 likes.",
+   "about": "343K downloads in the last month, 50 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "335,161"
+     "desc": "343,435"
     },
     {
      "name": "Likes",
@@ -32193,58 +34395,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "mickeykang/Event6DBlender",
-   "about": "330K downloads in the last month, 10 likes.",
+   "table": "anon8231489123/ShareGPT_Vicuna_unfiltered",
+   "about": "341K downloads in the last month, 951 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "330,354"
+     "desc": "341,302"
     },
     {
      "name": "Likes",
-     "desc": "10"
+     "desc": "951"
     },
     {
      "name": "Updated",
-     "desc": "2026-05-31"
+     "desc": "2023-04-12"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/mickeykang/Event6DBlender"
+     "desc": "https://huggingface.co/datasets/anon8231489123/ShareGPT_Vicuna_unfiltered"
     }
    ]
   },
   {
    "database": "Dataset",
-   "table": "allenai/MADLAD-400",
-   "about": "328K downloads in the last month, 185 likes.",
+   "table": "57xj5SHr/Tui9DGhp",
+   "about": "340K downloads in the last month, 21 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "328,018"
+     "desc": "340,161"
     },
     {
      "name": "Likes",
-     "desc": "185"
+     "desc": "21"
     },
     {
      "name": "Updated",
-     "desc": "2024-09-09"
+     "desc": "2026-11-19"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/allenai/MADLAD-400"
+     "desc": "https://huggingface.co/datasets/57xj5SHr/Tui9DGhp"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "nyarlathotep12/MXStuff",
-   "about": "327K downloads in the last month, 1 likes.",
+   "about": "332K downloads in the last month, 1 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "327,041"
+     "desc": "332,015"
     },
     {
      "name": "Likes",
@@ -32262,104 +34464,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "MINT-SJTU/RW-RL-Dataset",
-   "about": "319K downloads in the last month, 19 likes.",
+   "table": "allenai/MADLAD-400",
+   "about": "331K downloads in the last month, 185 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "319,442"
+     "desc": "331,099"
     },
     {
      "name": "Likes",
-     "desc": "19"
+     "desc": "185"
     },
     {
      "name": "Updated",
-     "desc": "2026-10-19"
+     "desc": "2024-09-09"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/MINT-SJTU/RW-RL-Dataset"
+     "desc": "https://huggingface.co/datasets/allenai/MADLAD-400"
     }
    ]
   },
   {
    "database": "Dataset",
-   "table": "McGill-NLP/WebLINX-full",
-   "about": "319K downloads in the last month, 8 likes.",
+   "table": "mickeykang/Event6DBlender",
+   "about": "330K downloads in the last month, 10 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "319,250"
+     "desc": "329,860"
     },
     {
      "name": "Likes",
-     "desc": "8"
+     "desc": "10"
     },
     {
      "name": "Updated",
-     "desc": "2025-09-21"
+     "desc": "2026-05-31"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/McGill-NLP/WebLINX-full"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "VoiceOfML/VOMEBOOK",
-   "about": "319K downloads in the last month, 18 likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "318,935"
-    },
-    {
-     "name": "Likes",
-     "desc": "18"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/VoiceOfML/VOMEBOOK"
-    }
-   ]
-  },
-  {
-   "database": "Dataset",
-   "table": "wikimedia/wikipedia",
-   "about": "317K downloads in the last month, 1.7K likes.",
-   "fields": [
-    {
-     "name": "Downloads",
-     "desc": "316,884"
-    },
-    {
-     "name": "Likes",
-     "desc": "1,738"
-    },
-    {
-     "name": "Updated",
-     "desc": "2024-01-09"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/datasets/wikimedia/wikipedia"
+     "desc": "https://huggingface.co/datasets/mickeykang/Event6DBlender"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "harborframework/terminal-bench-science-lfs",
-   "about": "304K downloads in the last month, 11 likes.",
+   "about": "326K downloads in the last month, 11 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "303,861"
+     "desc": "326,246"
     },
     {
      "name": "Likes",
@@ -32377,35 +34533,58 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "jat-project/jat-dataset-tokenized",
-   "about": "302K downloads in the last month, 43 likes.",
+   "table": "wikimedia/wikipedia",
+   "about": "322K downloads in the last month, 1.7K likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "302,240"
+     "desc": "322,428"
     },
     {
      "name": "Likes",
-     "desc": "43"
+     "desc": "1,738"
     },
     {
      "name": "Updated",
-     "desc": "2023-12-22"
+     "desc": "2024-01-09"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/jat-project/jat-dataset-tokenized"
+     "desc": "https://huggingface.co/datasets/wikimedia/wikipedia"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "MINT-SJTU/RW-RL-Dataset",
+   "about": "319K downloads in the last month, 19 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "318,714"
+    },
+    {
+     "name": "Likes",
+     "desc": "19"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/MINT-SJTU/RW-RL-Dataset"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "huggingface-course/documentation-images",
-   "about": "296K downloads in the last month, 6 likes.",
+   "about": "299K downloads in the last month, 6 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "296,429"
+     "desc": "299,300"
     },
     {
      "name": "Likes",
@@ -32424,11 +34603,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   {
    "database": "Dataset",
    "table": "OpenFinMind/stock_dataset",
-   "about": "296K downloads in the last month, 3 likes.",
+   "about": "297K downloads in the last month, 3 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "296,285"
+     "desc": "296,520"
     },
     {
      "name": "Likes",
@@ -32451,7 +34630,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "290,739"
+     "desc": "290,749"
     },
     {
      "name": "Likes",
@@ -32474,7 +34653,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Downloads",
-     "desc": "290,721"
+     "desc": "290,525"
     },
     {
      "name": "Likes",
@@ -32492,35 +34671,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "XiaomiMiMo/MiMo-V2.6-RL-oss",
-   "about": "288K downloads in the last month, 1.1K likes.",
+   "table": "openai/gdpval",
+   "about": "290K downloads in the last month, 578 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "288,379"
+     "desc": "290,427"
     },
     {
      "name": "Likes",
-     "desc": "1,065"
+     "desc": "578"
     },
     {
      "name": "Updated",
-     "desc": "2026-10-20"
+     "desc": "2026-02-10"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/XiaomiMiMo/MiMo-V2.6-RL-oss"
+     "desc": "https://huggingface.co/datasets/openai/gdpval"
     }
    ]
   },
   {
    "database": "Dataset",
    "table": "Forceless/Zenodo10K",
-   "about": "287K downloads in the last month, 33 likes.",
+   "about": "290K downloads in the last month, 33 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "286,947"
+     "desc": "290,148"
     },
     {
      "name": "Likes",
@@ -32538,24 +34717,47 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Dataset",
-   "table": "openai/gdpval",
-   "about": "286K downloads in the last month, 578 likes.",
+   "table": "YipengGao/3DCodeBench",
+   "about": "288K downloads in the last month, 37 likes.",
    "fields": [
     {
      "name": "Downloads",
-     "desc": "285,907"
+     "desc": "287,679"
     },
     {
      "name": "Likes",
-     "desc": "578"
+     "desc": "37"
     },
     {
      "name": "Updated",
-     "desc": "2026-02-10"
+     "desc": "2026-10-31"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/datasets/openai/gdpval"
+     "desc": "https://huggingface.co/datasets/YipengGao/3DCodeBench"
+    }
+   ]
+  },
+  {
+   "database": "Dataset",
+   "table": "openai/openai_humaneval",
+   "about": "288K downloads in the last month, 419 likes.",
+   "fields": [
+    {
+     "name": "Downloads",
+     "desc": "287,502"
+    },
+    {
+     "name": "Likes",
+     "desc": "419"
+    },
+    {
+     "name": "Updated",
+     "desc": "2024-01-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/datasets/openai/openai_humaneval"
     }
    ]
   }
@@ -32587,7 +34789,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "14,165"
+     "desc": "14,166"
     },
     {
      "name": "Built",
@@ -32663,7 +34865,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "7,779"
+     "desc": "7,780"
     },
     {
      "name": "Built",
@@ -32701,7 +34903,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "5,459"
+     "desc": "5,460"
     },
     {
      "name": "Built",
@@ -32720,7 +34922,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "5,163"
+     "desc": "5,165"
     },
     {
      "name": "Built",
@@ -32758,7 +34960,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "5,041"
+     "desc": "5,042"
     },
     {
      "name": "Built",
@@ -32834,7 +35036,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "3,955"
+     "desc": "3,954"
     },
     {
      "name": "Built",
@@ -32853,7 +35055,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "3,894"
+     "desc": "3,897"
     },
     {
      "name": "Built",
@@ -32986,7 +35188,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "3,325"
+     "desc": "3,327"
     },
     {
      "name": "Built",
@@ -33062,7 +35264,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "2,989"
+     "desc": "2,990"
     },
     {
      "name": "Built",
@@ -33081,7 +35283,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "2,960"
+     "desc": "2,961"
     },
     {
      "name": "Built",
@@ -33290,7 +35492,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "2,421"
+     "desc": "2,423"
     },
     {
      "name": "Built",
@@ -33309,7 +35511,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "2,419"
+     "desc": "2,420"
     },
     {
      "name": "Built",
@@ -33347,7 +35549,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "2,386"
+     "desc": "2,388"
     },
     {
      "name": "Built",
@@ -33860,7 +36062,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "1,683"
+     "desc": "1,684"
     },
     {
      "name": "Built",
@@ -34069,7 +36271,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Likes",
-     "desc": "1,568"
+     "desc": "1,569"
     },
     {
      "name": "Built",
@@ -34470,7 +36672,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "156"
+     "desc": "157"
     },
     {
      "name": "Published",
@@ -34483,29 +36685,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.22115"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "Sage S2.1 Flash Technical Report",
-   "about": "We introduce Sage S1.5 Flash, a 320-billion-parameter general-purpose mixture-of-experts model designed to reason over scientific evidence and act in interactive environments. Sage Sci-Perception uses dedicated encoders for molecular graphs and biological sequences and represents spectra as…",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "96"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.21072"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.21072"
     }
    ]
   },
@@ -34534,29 +36713,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
-   "about": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a unified memory pool with phase-aware layouts and optimized CUDA Graph execution under expert paging.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "60"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.14848"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.14848"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
    "table": "Weight-Space Programming Doesn't Need Transformers",
    "about": "When large language models write neural network weights without gradient-based training, they tend to design sparse table or associative-memory models that outperform same-sized Transformers with far fewer parameters and faster GPU inference, though pretrained LLMs remain more accurate.",
    "fields": [
@@ -34580,12 +36736,35 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
+   "table": "Jeveration: System One Models Now Generate",
+   "about": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single forward pass with fast 512x512 generation.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "51"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24738"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24738"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
    "table": "Multi-Branch Transformer",
    "about": "Branching Transformer blocks into parallel parameterized branches, combined with shared KV caching, improves language model quality and inference efficiency compared with standard sequential Transformers.",
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "45"
+     "desc": "43"
     },
     {
      "name": "Published",
@@ -34608,7 +36787,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "41"
+     "desc": "40"
     },
     {
      "name": "Published",
@@ -34626,35 +36805,12 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Jeveration: System One Models Now Generate",
-   "about": "Jeveration repurposes a frozen vision-language model to generate coherent images and perform image-to-image and dense prediction tasks in a single forward pass with fast 512x512 generation.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "35"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.24738"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24738"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
    "table": "Beyond Answering: Learning to Speak First and Act in Streaming Video",
    "about": "AURA 2.0 is a streaming video large language model that can initiate conversations, call tools, and perform interactive visual grounding, with long-horizon memory and a three-stage training scheme for improved streaming interaction.",
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "35"
+     "desc": "36"
     },
     {
      "name": "Published",
@@ -34700,7 +36856,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "31"
+     "desc": "30"
     },
     {
      "name": "Published",
@@ -34723,7 +36879,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "26"
+     "desc": "27"
     },
     {
      "name": "Published",
@@ -34746,7 +36902,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "25"
+     "desc": "26"
     },
     {
      "name": "Published",
@@ -34759,6 +36915,29 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.23226"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
+   "about": "Agent evolution is often bottlenecked by noisy evaluations that cannot reliably identify better candidate artifacts or rank methods, so progress requires making true improvements detectable and accumulable.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "24"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23068"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23068"
     }
    ]
   },
@@ -34792,7 +36971,7 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "22"
+     "desc": "23"
     },
     {
      "name": "Published",
@@ -34805,6 +36984,52 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.24154"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "ALIVE: Making Streaming Video Models Interactive",
+   "about": "Streaming video LLMs can continuously observe the world, yet often handle user requests in isolation. We introduce ALIVE, an interactive streaming video model supporting proactive monitoring, streaming task coordination, and feedback-seeking interaction. We construct ALIVE-SFT-288K and ALIVE-RL-3K…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "23"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21366"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21366"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "HINT-WAM: Hindsight-Informed Training for World Action Models",
+   "about": "World action models (WAMs) have shown promising generalization and data efficiency in robot manipulation by coupling action generation with predictions of future visual dynamics. Translating these capabilities into reliable task execution, however, remains a challenge for existing post-training…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "22"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24789"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24789"
     }
    ]
   },
@@ -34856,6 +37081,29 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
+   "table": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
+   "about": "CurvDelta and CurvLoRA constrain LLM updates to a low-curvature preservation space, improving retention while maintaining target adaptation across reasoning, code, and unlearning tasks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "20"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24654"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24654"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
    "table": "VideoNexus: Video Perception Beyond the Reasoning Context",
    "about": "VideoNexus separates detailed video perception from evidence-driven planning and reasoning, using perception sub-agents to return compact temporally grounded evidence and achieving higher accuracy at lower cost on long-video benchmarks.",
    "fields": [
@@ -34879,47 +37127,24 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "ALIVE: Making Streaming Video Models Interactive",
-   "about": "Streaming video LLMs can continuously observe the world, yet often handle user requests in isolation. We introduce ALIVE, an interactive streaming video model supporting proactive monitoring, streaming task coordination, and feedback-seeking interaction. We construct ALIVE-SFT-288K and ALIVE-RL-3K…",
+   "table": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
+   "about": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least squares, improving multimodal tabular model performance with minimal runtime overhead.",
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "19"
+     "desc": "15"
     },
     {
      "name": "Published",
-     "desc": "2026-11-16"
+     "desc": "2026-11-12"
     },
     {
      "name": "arXiv",
-     "desc": "2611.21366"
+     "desc": "2611.17600"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.21366"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "The Resolution Hypothesis: Agent Evolution's Key Is Identifying Improvements",
-   "about": "Agent evolution is often bottlenecked by noisy evaluations that cannot reliably identify better candidate artifacts or rank methods, so progress requires making true improvements detectable and accumulable.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "17"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.23068"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23068"
+     "desc": "https://huggingface.co/papers/2611.17600"
     }
    ]
   },
@@ -34943,29 +37168,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.24869"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "SALA: Semantically Aligned Latent Actions Enable Dual-Axis Scaling of Embodied Foundation Models",
-   "about": "SALA aligns latent actions across human and robot videos by using language-based semantic similarities to form a shared latent action space that supervises embodied foundation model training and improves robot task performance.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "15"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.17110"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.17110"
     }
    ]
   },
@@ -35017,8 +37219,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "CurvDelta: Low-Curvature Delta Modeling For Surgical Learning and Unlearning",
-   "about": "CurvDelta and CurvLoRA constrain LLM updates to a low-curvature preservation space, improving retention while maintaining target adaptation across reasoning, code, and unlearning tasks.",
+   "table": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
+   "about": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip creation and real-time interactive streaming. Yet a practical renderer must address two challenges. Upstream proxies vary from coarse layouts to fine…",
    "fields": [
     {
      "name": "Upvotes",
@@ -35026,15 +37228,15 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Published",
-     "desc": "2026-11-18"
+     "desc": "2026-11-17"
     },
     {
      "name": "arXiv",
-     "desc": "2611.24654"
+     "desc": "2611.22925"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24654"
+     "desc": "https://huggingface.co/papers/2611.22925"
     }
    ]
   },
@@ -35063,24 +37265,24 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Code World Model 2.0: Towards Infinite Controllable Video Generation",
-   "about": "Visual proxies decouple explicit world-state simulation from photorealistic video synthesis, offering a controllable interface for both offline clip creation and real-time interactive streaming. Yet a practical renderer must address two challenges. Upstream proxies vary from coarse layouts to fine…",
+   "table": "StrideWorld: Benchmarking Scene Rigidity and Action Consistency in Interactive Video World Model",
+   "about": "StrideWorld is a benchmark that fixes references before motion to detect scene deformation and action inconsistency in interactive video world models, showing that most models deform scenes and only depth-scaled command models preserve composed routes.",
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "11"
+     "desc": "10"
     },
     {
      "name": "Published",
-     "desc": "2026-11-17"
+     "desc": "2026-11-18"
     },
     {
      "name": "arXiv",
-     "desc": "2611.22925"
+     "desc": "2611.24408"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.22925"
+     "desc": "https://huggingface.co/papers/2611.24408"
     }
    ]
   },
@@ -35201,29 +37403,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "MPEG-Diffusion: Mixed-Resolution Video Generation",
-   "about": "MPEG-Diffusion reduces the computational cost of video diffusion transformers by generating only a self-selected high-resolution region with dual-resolution attention and a mixed-resolution decoder, achieving faster denoising without quality loss.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "9"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-09"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.12069"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.12069"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
    "table": "Energy-Based Reasoners: Your Recurrent Reasoner Should Be an Energy-Based Model",
    "about": "Energy-Based Reasoners guide looped latent reasoning by learning an energy function whose gradient refines states and signals when to stop, with exploration-based training improving performance and efficiency.",
    "fields": [
@@ -35247,8 +37426,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "HINT-WAM: Hindsight-Informed Training for World Action Models",
-   "about": "World action models (WAMs) have shown promising generalization and data efficiency in robot manipulation by coupling action generation with predictions of future visual dynamics. Translating these capabilities into reliable task execution, however, remains a challenge for existing post-training…",
+   "table": "MPEG-Diffusion: Mixed-Resolution Video Generation",
+   "about": "MPEG-Diffusion reduces the computational cost of video diffusion transformers by generating only a self-selected high-resolution region with dual-resolution attention and a mixed-resolution decoder, achieving faster denoising without quality loss.",
    "fields": [
     {
      "name": "Upvotes",
@@ -35256,15 +37435,61 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Published",
+     "desc": "2026-11-09"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.12069"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.12069"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "RoughCut-Bench: A Benchmark for Automatic Video Rough-Cut with Large Vision-Language Models",
+   "about": "A new benchmark and agentic workflows assess vision-language models for automatic video rough-cut, revealing current models struggle to match expert cut plans.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "7"
+    },
+    {
+     "name": "Published",
      "desc": "2026-11-18"
     },
     {
      "name": "arXiv",
-     "desc": "2611.24789"
+     "desc": "2611.24098"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24789"
+     "desc": "https://huggingface.co/papers/2611.24098"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Mechanistic Critics for Sample-Efficient NPU Design-Space Exploration",
+   "about": "NPU design-space exploration for LLM inference mainly relies on an expensive simulator that often returns only scalar feedback such as latency and power. Such feedback can rank evaluated configurations, but gives little information for deciding why a configuration is slow or which architecture…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "7"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24733"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24733"
     }
    ]
   },
@@ -35339,31 +37564,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "OutfitterBench: Evaluating LLM Agents on Long-Horizon Resource Allocation and Commitment Coordination",
-   "about": "OutfitterBench evaluates LLM agents managing a 200-day outdoor-equipment rental business under fixed capital and uncertain demand, revealing limitations in sustaining feasible commitments and reallocating resources.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "7"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-13"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.17933"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.17933"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "RoughCut-Bench: A Benchmark for Automatic Video Rough-Cut with Large Vision-Language Models",
-   "about": "A new benchmark and agentic workflows assess vision-language models for automatic video rough-cut, revealing current models struggle to match expert cut plans.",
+   "table": "PReMind: When Personal Memory Meets Visual Hazards",
+   "about": "A diagnostic benchmark and two-phase reinforcement learning framework enable personalized vision-language assistants to jointly connect visual hazard evidence with personal memory for appropriate responses.",
    "fields": [
     {
      "name": "Upvotes",
@@ -35375,18 +37577,18 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2611.24098"
+     "desc": "2611.23808"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24098"
+     "desc": "https://huggingface.co/papers/2611.23808"
     }
    ]
   },
   {
    "database": "Paper",
-   "table": "Mechanistic Critics for Sample-Efficient NPU Design-Space Exploration",
-   "about": "NPU design-space exploration for LLM inference mainly relies on an expensive simulator that often returns only scalar feedback such as latency and power. Such feedback can rank evaluated configurations, but gives little information for deciding why a configuration is slow or which architecture…",
+   "table": "Tideway: Phase-Aware Tiered Memory Management for MoE Inference on Consumer Devices",
+   "about": "TIDEWAY enables efficient inference of large Mixture-of-Experts models on memory-constrained consumer devices by treating host RAM and GPU VRAM as a unified memory pool with phase-aware layouts and optimized CUDA Graph execution under expert paging.",
    "fields": [
     {
      "name": "Upvotes",
@@ -35394,15 +37596,38 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Published",
-     "desc": "2026-11-18"
+     "desc": "2026-11-10"
     },
     {
      "name": "arXiv",
-     "desc": "2611.24733"
+     "desc": "2611.14848"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24733"
+     "desc": "https://huggingface.co/papers/2611.14848"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "DNeo: Your Parallel Draft Model Needs Better Target Feature Encoding",
+   "about": "A lightweight feature-encoding method with rejection memory and architectural enhancements enables faster large language model inference by improving speculative-diffusion draft verification.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "6"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21925"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21925"
     }
    ]
   },
@@ -35477,31 +37702,31 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "JEPA4R: Embodied JEPA World Models with 4D Point Planning",
-   "about": "Joint-embedding predictive architecture (JEPA) world models predict future embeddings instead of pixels and plan in latent space. Two challenges remain: 2D images leave the metric geometry that manipulation acts on implicit and entangled with appearance, and what these models imagine stays hidden…",
+   "table": "StatePortal: Agentic Checkpoint Synthesis for Testing Deep States in Interactive Software",
+   "about": "Large language models have reduced the effort to generate code for interactive software with graphical user interfaces (GUIs). For such software, a key testing bottleneck is reaching a deep state, one that requires a long interaction history. The cost of reaching it recurs across commits, and the…",
    "fields": [
     {
      "name": "Upvotes",
-     "desc": "6"
+     "desc": "5"
     },
     {
      "name": "Published",
-     "desc": "2026-11-15"
+     "desc": "2026-09-29"
     },
     {
      "name": "arXiv",
-     "desc": "2611.19771"
+     "desc": "2611.23257"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.19771"
+     "desc": "https://huggingface.co/papers/2611.23257"
     }
    ]
   },
   {
    "database": "Paper",
-   "table": "PReMind: When Personal Memory Meets Visual Hazards",
-   "about": "A diagnostic benchmark and two-phase reinforcement learning framework enable personalized vision-language assistants to jointly connect visual hazard evidence with personal memory for appropriate responses.",
+   "table": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
+   "about": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data Engineering and recursive self-improvement (RSI). The models predict probabilities over candidate answers for general-purpose text and visual judgments…",
    "fields": [
     {
      "name": "Upvotes",
@@ -35513,11 +37738,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2611.23808"
+     "desc": "2611.24651"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23808"
+     "desc": "https://huggingface.co/papers/2611.24651"
     }
    ]
   },
@@ -35638,8 +37863,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Continuation-Guided LLM Evolution of Program Policies and Goal Compilers in Craftax",
-   "about": "A framework uses coding agents and a feedback cascade to synthesize code-based policies that achieve long-horizon success and can be factored into a reusable goal compiler for zero-shot transfer to new tasks.",
+   "table": "JEPA4R: Embodied JEPA World Models with 4D Point Planning",
+   "about": "Joint-embedding predictive architecture (JEPA) world models predict future embeddings instead of pixels and plan in latent space. Two challenges remain: 2D images leave the metric geometry that manipulation acts on implicit and entangled with appearance, and what these models imagine stays hidden…",
    "fields": [
     {
      "name": "Upvotes",
@@ -35647,22 +37872,22 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Published",
-     "desc": "2026-11-14"
+     "desc": "2026-11-15"
     },
     {
      "name": "arXiv",
-     "desc": "2611.19537"
+     "desc": "2611.19771"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.19537"
+     "desc": "https://huggingface.co/papers/2611.19771"
     }
    ]
   },
   {
    "database": "Paper",
-   "table": "Piccolo: Co-Evolving Decision Models and Data through Recursive Self-Improvement",
-   "about": "We present Piccolo, a family of multimodal decision models (0.8B to 27B) that coevolves model capabilities and training data via Agentic Data Engineering and recursive self-improvement (RSI). The models predict probabilities over candidate answers for general-purpose text and visual judgments…",
+   "table": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
+   "about": "UltraTex employs a cascaded multi-view framework that integrates physical knowledge and vision-language model features to accurately generate physically plausible PBR texture maps.",
    "fields": [
     {
      "name": "Upvotes",
@@ -35674,18 +37899,18 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2611.24651"
+     "desc": "2611.24941"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24651"
+     "desc": "https://huggingface.co/papers/2611.24941"
     }
    ]
   },
   {
    "database": "Paper",
-   "table": "DNeo: Your Parallel Draft Model Needs Better Target Feature Encoding",
-   "about": "A lightweight feature-encoding method with rejection memory and architectural enhancements enables faster large language model inference by improving speculative-diffusion draft verification.",
+   "table": "Late Entry in Looped Language Models",
+   "about": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth directly into sequential decoding latency. Conventional early-exit decoding halts after initial passes without cache completion, truncating cached…",
    "fields": [
     {
      "name": "Upvotes",
@@ -35693,15 +37918,38 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Published",
-     "desc": "2026-11-16"
+     "desc": "2026-11-18"
     },
     {
      "name": "arXiv",
-     "desc": "2611.21925"
+     "desc": "2611.24576"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.21925"
+     "desc": "https://huggingface.co/papers/2611.24576"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "LogT: Logically Think with Images for Visual Search",
+   "about": "Thinking with images empowers vision-language models (VLMs) to use an external Zoom-in tool for fine-grained visual search. Recent works employ supervised fine-tuning (SFT) and reinforcement learning (RL) with tool-specific designs to enable such capabilities. However, achieving logical reasoning…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-14"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.19200"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.19200"
     }
    ]
   },
@@ -35725,6 +37973,29 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.21938"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "MillBill: A Machining Agent with Geometric Feedback",
+   "about": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by writing geometry and toolpath code for each part, but this makes numerical execution part of the model's task. We introduce MillBill, an agent that…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22565"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22565"
     }
    ]
   },
@@ -35868,6 +38139,98 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
+   "table": "Dataset Distillation via Drifting",
+   "about": "A dataset distillation method learns synthetic samples that approximate per-class data distributions in a feature extractor's latent space, improving distribution coverage and classification training while supporting visualization and other modalities.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "4"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.16642"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.16642"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "BiCAT: Bimanual Coordination Action Tokenization",
+   "about": "BiCAT shares a motion representation across arms and conditions each arm's tokens on its partner via symmetric cross-arm attention and a joint decoder, enabling parallel arm token prediction and improving bimanual manipulation success.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23499"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23499"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Chorus: Shared N-gram Embeddings with Layer-wise Adaptation",
+   "about": "Chorus shares one set of n-gram embedding tables across all layers, letting each layer project and rescale the embedding using its hidden state, achieving better quality with much smaller tables and lower optimizer memory.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23386"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23386"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "FVScore: Specification-Driven Neuro-Symbolic Video Evaluation",
+   "about": "FVSCORE is a neuro-symbolic evaluation framework that compiles videos into prompt and implicit constraint propositions, verifies them with perceptual tools and soft temporal logic, and calibrates significant violations to produce interpretable, human-aligned feedback for video generation.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.22673"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.22673"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
    "table": "Movie2Game-Bench: Holistic Evaluation of Film-to-Game Adaptation Beyond Playability",
    "about": "Adapting a film into a game requires selecting source elements and translating them into player actions, rules, and feedback. We introduce Movie2Game-Bench (M2G-bench), a benchmark for evaluating film-to-game adaptation beyond playability. M2G-bench combines general evaluation, movie-specific…",
    "fields": [
@@ -35891,8 +38254,31 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Late Entry in Looped Language Models",
-   "about": "Looped language models deepen reasoning at a compact parameter count by iterating a shared layer stack T times per token, turning recurrence depth directly into sequential decoding latency. Conventional early-exit decoding halts after initial passes without cache completion, truncating cached…",
+   "table": "Out of Sight, Still in Mind: Token Compression for Omni-LLMs",
+   "about": "ReMo, a training-free method, reduces inference input token cost for omni-modal large language models by compressing redundant visual tokens through cross-modal alignment and replacing object-level visual tokens with compact text descriptions, achieving comparable accuracy on audio-visual tasks.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2607.21179"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2607.21179"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Evidence-Based Credit Assignment for Search-Augmented Language Models",
+   "about": "Reinforcement learning from terminal answer rewards enables search-augmented language models to interleave reasoning and retrieval without step-level annotations, yet outcome supervision assigns identical credit to every search in a trajectory regardless of whether it retrieved useful information…",
    "fields": [
     {
      "name": "Upvotes",
@@ -35904,11 +38290,34 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2611.24576"
+     "desc": "2611.23824"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24576"
+     "desc": "https://huggingface.co/papers/2611.23824"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "VAE Rhythm: Temporal Decoding Traces for AI-Generated Video Detection",
+   "about": "Visible artifacts are an unreliable cue for detecting generated videos, because newer generators learn to remove them. We instead detect a trace left by the generation pipeline itself. Most video generators decode latents with a 3D causal VAE that groups consecutive frames in time, so the fidelity…",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "3"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.21114"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.21114"
     }
    ]
   },
@@ -35960,8 +38369,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "MillBill: A Machining Agent with Geometric Feedback",
-   "about": "Turning a CAD model into a machining program requires both process knowledge and geometric precision. Language models can generate such workflows by writing geometry and toolpath code for each part, but this makes numerical execution part of the model's task. We introduce MillBill, an agent that…",
+   "table": "The novelty exposed: ablation, reproducibility and transparency in 40 technical reports of open-weight large language models (LLMs)",
+   "about": "In 2025 alone, 48 new large language model (LLM) architectures were added to the Hugging Face transformers library, and many of them arrive with a technical report that presents the model as new. What is actually new in these models, and is it tested? We put this question to LLM technical reports…",
    "fields": [
     {
      "name": "Upvotes",
@@ -35969,15 +38378,15 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "Published",
-     "desc": "2026-11-17"
+     "desc": "2026-11-15"
     },
     {
      "name": "arXiv",
-     "desc": "2611.22565"
+     "desc": "2611.20003"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.22565"
+     "desc": "https://huggingface.co/papers/2611.20003"
     }
    ]
   },
@@ -36029,77 +38438,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Dataset Distillation via Drifting",
-   "about": "A dataset distillation method learns synthetic samples that approximate per-class data distributions in a feature extractor's latent space, improving distribution coverage and classification training while supporting visualization and other modalities.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "3"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-12"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.16642"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.16642"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "BiCAT: Bimanual Coordination Action Tokenization",
-   "about": "BiCAT shares a motion representation across arms and conditions each arm's tokens on its partner via symmetric cross-arm attention and a joint decoder, enabling parallel arm token prediction and improving bimanual manipulation success.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "2"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.23499"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23499"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "FVScore: Specification-Driven Neuro-Symbolic Video Evaluation",
-   "about": "FVSCORE is a neuro-symbolic evaluation framework that compiles videos into prompt and implicit constraint propositions, verifies them with perceptual tools and soft temporal logic, and calibrates significant violations to produce interpretable, human-aligned feedback for video generation.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "2"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.22673"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.22673"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "UltraTex: Aligning Physical Knowledge for High-Fidelity PBR Texture Generation",
-   "about": "UltraTex employs a cascaded multi-view framework that integrates physical knowledge and vision-language model features to accurately generate physically plausible PBR texture maps.",
+   "table": "WaveView: The Novel View Is in the Noise",
+   "about": "Generative novel view synthesis (NVS) employs a diffusion model to render a static or dynamic scene from a target camera view. Explicit warp methods complete a reprojection of the source with video diffusion models, and implicit methods encode the camera parameters or 3D cues. Both add inference…",
    "fields": [
     {
      "name": "Upvotes",
@@ -36111,11 +38451,80 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2611.24941"
+     "desc": "2611.23994"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24941"
+     "desc": "https://huggingface.co/papers/2611.23994"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "AVTR: Adaptive Multimodal Reasoning with Visual Imagination",
+   "about": "Adaptive Visual-Textual Reasoning combines generative visual reflection with textual reasoning and learns to route between them per input, improving multimodal task accuracy while reducing inference latency.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.24161"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.24161"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "PGPO: Prototype-Guided Progressive Obfuscation for Privacy-Preserving LLM-Enhanced Recommendation",
+   "about": "A prototype-guided progressive obfuscation method preserves relative item relations while perturbing high-influence semantic embeddings to defend against inversion attacks in LLM-enhanced recommender systems.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-08-26"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23236"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23236"
+    }
+   ]
+  },
+  {
+   "database": "Paper",
+   "table": "Thinking Fast, Anywhere: One System-1 for the Decision Points of Any Agent Workflow",
+   "about": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to a large model when uncertain, reducing cost and latency while preserving reliability.",
+   "fields": [
+    {
+     "name": "Upvotes",
+     "desc": "2"
+    },
+    {
+     "name": "Published",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "arXiv",
+     "desc": "2611.23751"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/papers/2611.23751"
     }
    ]
   },
@@ -36144,8 +38553,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Out of Sight, Still in Mind: Token Compression for Omni-LLMs",
-   "about": "ReMo, a training-free method, reduces inference input token cost for omni-modal large language models by compressing redundant visual tokens through cross-modal alignment and replacing object-level visual tokens with compact text descriptions, achieving comparable accuracy on audio-visual tasks.",
+   "table": "NexSight: Verifiable Tasks for Fine-Grained Agentic Long-Video Understanding",
+   "about": "Fine-grained questions about long videos ask how many times an action occurs, in what order events unfold, or exactly when a state changes. Answering them can require finding brief moments scattered across hours of footage. Agentic models that decide when and where to look promise to find these…",
    "fields": [
     {
      "name": "Upvotes",
@@ -36157,11 +38566,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2607.21179"
+     "desc": "2611.22790"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2607.21179"
+     "desc": "https://huggingface.co/papers/2611.22790"
     }
    ]
   },
@@ -36190,8 +38599,8 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
   },
   {
    "database": "Paper",
-   "table": "Evidence-Based Credit Assignment for Search-Augmented Language Models",
-   "about": "Reinforcement learning from terminal answer rewards enables search-augmented language models to interleave reasoning and retrieval without step-level annotations, yet outcome supervision assigns identical credit to every search in a trajectory regardless of whether it retrieved useful information…",
+   "table": "A Foundation Model to Measure and Predict Human Behaviour",
+   "about": "A foundation model fine-tuned from a large language model measures and predicts human behaviour and aligns simulated population responses with human statistics, improving accuracy over frontier LLMs.",
    "fields": [
     {
      "name": "Upvotes",
@@ -36203,57 +38612,11 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     },
     {
      "name": "arXiv",
-     "desc": "2611.23824"
+     "desc": "2611.24830"
     },
     {
      "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23824"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "VAE Rhythm: Temporal Decoding Traces for AI-Generated Video Detection",
-   "about": "Visible artifacts are an unreliable cue for detecting generated videos, because newer generators learn to remove them. We instead detect a trace left by the generation pipeline itself. Most video generators decode latents with a 3D causal VAE that groups consecutive frames in time, so the fidelity…",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "2"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.21114"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.21114"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "LogT: Logically Think with Images for Visual Search",
-   "about": "Thinking with images empowers vision-language models (VLMs) to use an external Zoom-in tool for fine-grained visual search. Recent works employ supervised fine-tuning (SFT) and reinforcement learning (RL) with tool-specific designs to enable such capabilities. However, achieving logical reasoning…",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "2"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.19200"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.19200"
+     "desc": "https://huggingface.co/papers/2611.24830"
     }
    ]
   },
@@ -36300,29 +38663,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.24102"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "The novelty exposed: ablation, reproducibility and transparency in 40 technical reports of open-weight large language models (LLMs)",
-   "about": "In 2025 alone, 48 new large language model (LLM) architectures were added to the Hugging Face transformers library, and many of them arrive with a technical report that presents the model as new. What is actually new in these models, and is it tested? We put this question to LLM technical reports…",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "2"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-15"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.20003"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.20003"
     }
    ]
   },
@@ -36461,75 +38801,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.21412"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "LightTAR: Light and Fast Target-Aware Representations for Multimodal Tabular Learning",
-   "about": "LightTAR adapts dimensionality reduction to the prediction task by adding target-aware features from encoder layers via regularized partial least squares, improving multimodal tabular model performance with minimal runtime overhead.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "1"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-12"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.17600"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.17600"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "NexSight: Verifiable Tasks for Fine-Grained Agentic Long-Video Understanding",
-   "about": "Fine-grained questions about long videos ask how many times an action occurs, in what order events unfold, or exactly when a state changes. Answering them can require finding brief moments scattered across hours of footage. Agentic models that decide when and where to look promise to find these…",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "1"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.22790"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.22790"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "A Foundation Model to Measure and Predict Human Behaviour",
-   "about": "A foundation model fine-tuned from a large language model measures and predicts human behaviour and aligns simulated population responses with human statistics, improving accuracy over frontier LLMs.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "1"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.24830"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.24830"
     }
    ]
   },
@@ -36691,75 +38962,6 @@ export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = {
     {
      "name": "Link",
      "desc": "https://huggingface.co/papers/2611.21439"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "PGPO: Prototype-Guided Progressive Obfuscation for Privacy-Preserving LLM-Enhanced Recommendation",
-   "about": "A prototype-guided progressive obfuscation method preserves relative item relations while perturbing high-influence semantic embeddings to defend against inversion attacks in LLM-enhanced recommender systems.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "0"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-08-26"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.23236"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23236"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "Thinking Fast, Anywhere: One System-1 for the Decision Points of Any Agent Workflow",
-   "about": "AnyS1 converts procedural skills into shared decision points, trains a small calibrated pointer model to resolve routine choices, and falls back to a large model when uncertain, reducing cost and latency while preserving reliability.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "0"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.23751"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23751"
-    }
-   ]
-  },
-  {
-   "database": "Paper",
-   "table": "Chorus: Shared N-gram Embeddings with Layer-wise Adaptation",
-   "about": "Chorus shares one set of n-gram embedding tables across all layers, letting each layer project and rescale the embedding using its hidden state, achieving better quality with much smaller tables and lower optimizer memory.",
-   "fields": [
-    {
-     "name": "Upvotes",
-     "desc": "0"
-    },
-    {
-     "name": "Published",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "arXiv",
-     "desc": "2611.23386"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/papers/2611.23386"
     }
    ]
   }

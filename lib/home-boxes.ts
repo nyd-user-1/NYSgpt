@@ -11,22 +11,23 @@ import { SOURCE_BOXES, SOURCE_INFO } from './home-sources'
 import { TABLE_BOXES } from './home-tables'
 
 /** The five outside sources, A to Z (2026-11-19): their boxes come from lib/home-sources.ts, written by scripts/home-sources.mjs. */
-export type SourceKind = 'aa' | 'kaggle' | 'llmstats' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp' | 'hf-models' | 'hf-datasets' | 'hf-spaces' | 'hf-papers'
+export type SourceKind = 'aa' | 'kaggle' | 'llmstats' | 'openrouter' | 'gh-skills' | 'gh-design' | 'gh-api' | 'gh-mcp' | 'hf-models' | 'hf-datasets' | 'hf-spaces' | 'hf-papers'
 /* The masthead's later pages, in order: the sources page A to Z, then a page each for GitHub and Hugging Face (A to Z),
    whose four cells are that source's groups and whose nameplate wears its mark. */
 export const SOURCE_PAGES: SourceKind[][] = [
-  ['aa', 'kaggle', 'llmstats'],
+  ['aa', 'kaggle', 'llmstats', 'openrouter'],
   ['gh-skills', 'gh-design', 'gh-api', 'gh-mcp'],
   ['hf-models', 'hf-datasets', 'hf-spaces', 'hf-papers'],
 ]
 export const SOURCE_KINDS: SourceKind[] = SOURCE_PAGES.flat()
 /** The source whose logo the nameplate wears while this set is on show; none for the first four sets. */
-export const brandOf = (k: BoxKind | null | undefined): 'github' | 'hf' | 'aa' | 'kaggle' | 'llmstats' | null =>
-  !k ? null : k.startsWith('gh-') ? 'github' : k.startsWith('hf-') ? 'hf' : k === 'aa' || k === 'kaggle' || k === 'llmstats' ? k : null
+export const brandOf = (k: BoxKind | null | undefined): 'github' | 'hf' | 'aa' | 'kaggle' | 'llmstats' | 'openrouter' | null =>
+  !k ? null : k.startsWith('gh-') ? 'github' : k.startsWith('hf-') ? 'hf' : k === 'aa' || k === 'kaggle' || k === 'llmstats' || k === 'openrouter' ? k : null
 export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
   aa: { word: 'Artificial Analysis', unit: 'Models' },
   kaggle: { word: 'Kaggle', unit: 'Datasets' },
   llmstats: { word: 'LLM Stats', unit: 'Benchmarks' },
+  openrouter: { word: 'OpenRouter', unit: 'Models' },
   'gh-skills': { word: 'Skills', unit: 'Repositories' },
   'gh-design': { word: 'Design', unit: 'Repositories' },
   'gh-api': { word: 'API', unit: 'Repositories' },
@@ -44,7 +45,7 @@ export type BoxKind = 'data' | 'models' | 'platforms' | 'tables' | 'tools' | Sou
 export type BlockKind = 'design' | 'site-page' | 'brief' | 'api'
 /** The sets the all view shows: the first masthead page. */
 export const OWN_KINDS: BoxKind[] = ['data', 'models', 'platforms', 'tables']
-export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file' | 'table'
+export type BoxIcon = 'db' | 'cpu' | 'layers' | 'wrench' | 'github' | 'download' | 'package' | 'hf' | 'kaggle' | 'aa' | 'llmstats' | 'openrouter' | 'sparkles' | 'palette' | 'braces' | 'plug' | 'file' | 'table'
 export type Box = { kind: BoxKind; title: string; group: string; body: string; foot: string; accent: string; icon: BoxIcon; /** a logo file under public/, shown in place of the icon */ logo?: string }
 export type SetEntry = { database: string; table: string; about: string; fields: { name: string; desc: string }[] }
 
@@ -58,6 +59,7 @@ export const KIND_NOUN: Record<BoxKind, string> = {
   aa: 'Model',
   kaggle: 'Dataset',
   llmstats: 'Benchmark',
+  openrouter: 'Model',
   'gh-skills': 'Repository',
   'gh-design': 'Repository',
   'gh-api': 'Repository',
@@ -83,6 +85,7 @@ export const TYPE_COLOR: Record<BoxKind, string> = {
   aa: '#be123c',
   kaggle: '#15803d',
   llmstats: '#475569',
+  openrouter: '#a16207',
   // GitHub's and Hugging Face's pages are laid out as the first page is, so their cells take its four colours in order
   'gh-skills': '#0e7490',
   'gh-design': '#7c3aed',

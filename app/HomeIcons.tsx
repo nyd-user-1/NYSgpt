@@ -72,6 +72,9 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
     case 'kaggle':
       // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
       return <img src="/logos/sources/kaggle.png" alt="" />
+    case 'openrouter':
+      // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
+      return <img src="/logos/sources/openrouter.svg" alt="" />
     case 'sparkles':
       return (
         <svg {...P}>

@@ -238,6 +238,7 @@ const BRAND_LOGO: Record<string, string> = {
   aa: '/logos/sources/artificial-analysis.png',
   kaggle: '/logos/sources/kaggle.png',
   llmstats: '/logos/sources/llm-stats.png',
+  openrouter: '/logos/sources/openrouter.svg',
 }
 const LISTINGS: Box[] = (() => {
   const seen = new Set<string>()

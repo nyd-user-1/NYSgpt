@@ -8,6 +8,7 @@
  *   Hugging Face         top 100 models by downloads
  *   Kaggle               top 100 datasets by votes
  *   LLM Stats            top 50 benchmarks by the number of models scored
+ *   OpenRouter           the 50 newest models on its public list (the list carries no usage ranking; no key needed)
  *
  * Run from the repo root:  node scripts/home-sources.mjs
  * Keys: Artificial Analysis, LLM Stats and Kaggle read their keys from an env
@@ -225,6 +226,25 @@ await run('LLM Stats', async () => {
   return top.length
 })
 
+await run('OpenRouter', async () => {
+  const j = await getJson('https://openrouter.ai/api/v1/models')
+  const perM = v => (v != null && Number.isFinite(+v) ? +(+v * 1e6).toFixed(2) : null)
+  const top = [...(j.data ?? [])].sort((a, b) => (b.created ?? 0) - (a.created ?? 0)).slice(0, 50)
+  for (const m of top) {
+    const [maker, ...rest] = String(m.name ?? m.id).split(': ')
+    const pin = perM(m.pricing?.prompt)
+    const pout = perM(m.pricing?.completion)
+    add('openrouter', 'openrouter', {
+      title: m.name ?? m.id,
+      group: rest.length ? maker : String(m.id).split('/')[0],
+      body: m.description || [m.context_length ? `${compact(m.context_length)} tokens of context` : '', pin != null ? `${pin} per million input tokens` : ''].filter(Boolean).join(', ') || 'Model',
+      foot: m.context_length ? compact(m.context_length) : '',
+      facts: { Id: m.id, 'Context length': m.context_length, 'Price per 1M input tokens': pin, 'Price per 1M output tokens': pout, Modality: m.architecture?.modality, Added: m.created ? new Date(m.created * 1000).toISOString().slice(0, 10) : '', Link: `https://openrouter.ai/${m.id}` },
+    })
+  }
+  return top.length
+})
+
 /* the two brand marks not already in the icon set, from Simple Icons (CC0) */
 const marks = {}
 for (const slug of ['huggingface']) {
@@ -257,7 +277,7 @@ export const SOURCE_MARKS: Record<string, string> = ${JSON.stringify(marks, null
 
 export const SOURCE_BOXES: Box[] = ${JSON.stringify(out.boxes, null, 1)}
 
-export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], kaggle: [], llmstats: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], 'hf-models': [], 'hf-datasets': [], 'hf-spaces': [], 'hf-papers': [], ...out.info }, null, 1)}
+export const SOURCE_INFO: Record<SourceKind, SetEntry[]> = ${JSON.stringify({ aa: [], kaggle: [], llmstats: [], openrouter: [], 'gh-skills': [], 'gh-design': [], 'gh-api': [], 'gh-mcp': [], 'hf-models': [], 'hf-datasets': [], 'hf-spaces': [], 'hf-papers': [], ...out.info }, null, 1)}
 `
 fs.writeFileSync('lib/home-sources.ts', banner)
 const by = {}

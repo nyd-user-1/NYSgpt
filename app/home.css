@@ -290,8 +290,8 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 .hm-card { height: 210px; overflow: hidden; }
 .hm-card .hm-body { min-height: 0; }
 .hm-card .hm-body p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; flex: 0 1 auto; }
-.hm-card[data-kind="aa"] h3, .hm-card[data-kind^="gh-"] h3, .hm-card[data-kind^="hf-"] h3, .hm-card[data-kind="tables"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3 { -webkit-line-clamp: 2; }
-.hm-card[data-kind="aa"] .hm-body p, .hm-card[data-kind^="gh-"] .hm-body p, .hm-card[data-kind^="hf-"] .hm-body p, .hm-card[data-kind="kaggle"] .hm-body p, .hm-card[data-kind="llmstats"] .hm-body p { -webkit-line-clamp: 3; }
+.hm-card[data-kind="aa"] h3, .hm-card[data-kind^="gh-"] h3, .hm-card[data-kind^="hf-"] h3, .hm-card[data-kind="tables"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3, .hm-card[data-kind="openrouter"] h3 { -webkit-line-clamp: 2; }
+.hm-card[data-kind="aa"] .hm-body p, .hm-card[data-kind^="gh-"] .hm-body p, .hm-card[data-kind^="hf-"] .hm-body p, .hm-card[data-kind="kaggle"] .hm-body p, .hm-card[data-kind="llmstats"] .hm-body p, .hm-card[data-kind="openrouter"] .hm-body p { -webkit-line-clamp: 3; }
 
 /* A box shows its name alone; its line appears on mouse hover or keyboard selection (Brendan, 2026-11-19).
    The line keeps its space, so nothing moves when it shows. */
