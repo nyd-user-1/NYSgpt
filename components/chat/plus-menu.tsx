@@ -13,7 +13,7 @@ import { useState, useRef, useEffect } from 'react'
 import { Plus, ChevronRight, ArrowLeft, X, Compass, NotebookPen, Paperclip, PlaySquare, Clapperboard, AudioLines, Volume2, Loader2, Film, Shapes, Sparkles, MonitorPlay } from 'lucide-react'
 
 import { narrate } from '@/app/studio-actions'
-import { CHAT_SKILLS, type ChatSkill } from '@/lib/chat-skills'
+import { SHOWN_SKILLS, type ChatSkill } from '@/lib/chat-skills'
 import { BROLL, GRAPHIC_KINDS, type FootageFocus, type GraphicKind } from '@/lib/footage'
 import type { ListedScript } from '@/lib/script-list'
 import { VOICES, type VoiceId } from '@/lib/studio-style'
@@ -150,7 +150,7 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
 
   const q = search.toLowerCase()
   const filteredPrompts = ONBOARDING_QUESTIONS.filter(p => !search || p.toLowerCase().includes(q))
-  const filteredSkills = CHAT_SKILLS.filter(k => !search || k.name.toLowerCase().includes(q) || k.about.toLowerCase().includes(q))
+  const filteredSkills = SHOWN_SKILLS.filter(k => !search || k.name.toLowerCase().includes(q) || k.about.toLowerCase().includes(q))
   const filteredScripts = (scripts ?? []).filter(s => !search || s.title.toLowerCase().includes(q) || s.framing.toLowerCase().includes(q) || s.text.toLowerCase().includes(q))
   const filteredVideos = videos.filter(v => !search || v.label.toLowerCase().includes(q))
   const filteredShorts = shorts.filter(v => !search || v.label.toLowerCase().includes(q))
@@ -172,7 +172,7 @@ export function PlusMenu({ videos, shorts = [], onSelect, onShort, onFootage, on
   const isDrawer = step !== 'categories'
 
   const CATEGORIES: { key: Exclude<DrillStep, 'categories'>; label: string; icon: React.ReactNode }[] = [
-    ...(onSkill ? [{ key: 'skills' as const, label: 'Skills', icon: <Sparkles className={ICON} strokeWidth={1.75} /> }] : []),
+    ...(onSkill && SHOWN_SKILLS.length ? [{ key: 'skills' as const, label: 'Skills', icon: <Sparkles className={ICON} strokeWidth={1.75} /> }] : []),
     { key: 'prompts', label: 'Onboarding', icon: <Compass className={ICON} strokeWidth={1.75} /> },
     { key: 'pick-script', label: 'Scripts', icon: <NotebookPen className={ICON} strokeWidth={1.75} /> },
     ...(videos.length ? [{ key: 'pick-video' as const, label: 'Videos', icon: <PlaySquare className={ICON} strokeWidth={1.75} /> }] : []),

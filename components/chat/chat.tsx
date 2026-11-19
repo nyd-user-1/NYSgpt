@@ -31,7 +31,8 @@ import { isShelfDrag, readShelfDrag } from '@/lib/shelf-drag'
 import { useShelf } from '@/lib/home-blocks'
 import { BLOCK_REF, ChatBlock } from '@/components/chat/chat-block'
 import { ModelPicker, useChatModel } from '@/components/chat/model-picker'
-import { useVideoModel, VideoModelPicker } from '@/components/chat/video-model-picker'
+import { useVideoModel } from '@/components/chat/video-model-picker'
+import { ScopePicker, useScope } from '@/components/chat/scope-picker'
 import type { FootageFocus, FootageShow } from '@/lib/footage'
 import { ResponseFooter } from '@/components/chat/response-footer'
 import { saveChat } from '@/app/chat-actions'
@@ -262,7 +263,9 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
     }
   }, [searchMode])
   const [model, setModel] = useChatModel()
-  const [videoModel, setVideoModel] = useVideoModel()
+  const [videoModel] = useVideoModel()
+  // NYSgpt (brief 49): what the chat searches, in the composer's second picker (scope-picker.tsx), sent with each question.
+  const [scope, setScope] = useScope()
   // A script the plus menu put in the chat (or picked a graphic for), and what its footage block should light.
   const [footageFocus, setFootageFocus] = useState<{ script: string; focus: FootageFocus } | null>(null)
   const [recordMode, setRecordMode] = useState(record)
@@ -534,7 +537,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         // The model reads its own video blocks back with the versions they were saved as (lib/studio.ts withVersions).
-        body: JSON.stringify({ messages: allMessages.map(m => ({ role: m.role, content: m.role === 'assistant' ? withVersions(m.content, (json) => blockKey(chatId, m.id, json)) : m.content })), ...(pdf ? { document: { name: pdf.name, data: pdf.data } } : {}), ...(selectedAddress ? { address: selectedAddress.description, place: placeInsight } : {}), ...((context || attached?.context || recordMode || analysisRef.current || skill || mention || onboard) ? { systemContext: [context?.(), attached?.context, recordMode ? RECORD_GUIDE : null, onboard ?? null, analysisRef.current, skill?.instructions, mention ? mentionContext(mention) : null].filter(Boolean).join('\n\n') } : {}), ...(recordMode ? { record: true } : {}), model }),
+        body: JSON.stringify({ messages: allMessages.map(m => ({ role: m.role, content: m.role === 'assistant' ? withVersions(m.content, (json) => blockKey(chatId, m.id, json)) : m.content })), ...(pdf ? { document: { name: pdf.name, data: pdf.data } } : {}), ...(selectedAddress ? { address: selectedAddress.description, place: placeInsight } : {}), ...((context || attached?.context || recordMode || analysisRef.current || skill || mention || onboard) ? { systemContext: [context?.(), attached?.context, recordMode ? RECORD_GUIDE : null, onboard ?? null, analysisRef.current, skill?.instructions, mention ? mentionContext(mention) : null].filter(Boolean).join('\n\n') } : {}), ...(recordMode ? { record: true } : {}), ...(scope.db ? { scope } : {}), model }),
         signal: controller.signal,
       })
       if (!res.ok || !res.body) {
@@ -986,9 +989,10 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
         }}
         onFocus={() => setIsFocused(true)}
         onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && setIsFocused(false)}
-        className={`relative flex flex-col rounded-2xl border ${searchMode ? 'border-pax2-red/60' : addressMode || recordMode || (isEmpty && isFocused) ? 'border-pax2-light-blue' : recordingState !== 'idle' ? 'border-blue-500' : 'border-[var(--border)]'} bg-[var(--inp-bg)] px-4 pt-3 pb-3 transition-all gap-1 shadow-e1 ${isFocused ? 'shadow-[0_8px_24px_rgba(0,0,0,0.08)]' : ''}`}>
-        {/* Record mode's light, and before a chat starts the same light while the cursor is in the box (Brendan, 2026-10-29). */}
-        {!searchMode && (recordMode || (isEmpty && isFocused)) && <BorderLight />}
+        className={`relative flex flex-col rounded-2xl border ${searchMode ? 'border-pax2-red/60' : addressMode || recordMode || isEmpty ? 'border-pax2-light-blue' : recordingState !== 'idle' ? 'border-blue-500' : 'border-[var(--border)]'} bg-[var(--inp-bg)] px-4 pt-3 pb-3 transition-all gap-1 shadow-e1 ${isFocused || isEmpty ? 'shadow-[0_8px_24px_rgba(0,0,0,0.08)]' : ''}`}>
+        {/* Record mode's light, and before a chat starts the same light, whether or not the cursor is in the box
+            (NYSgpt, Brendan, 2026-11-19: the focused look by default; pax-trinity shows it while focused). */}
+        {!searchMode && (recordMode || isEmpty) && <BorderLight />}
 
         {mentionItems.length > 0 && (
           <div className="absolute bottom-full left-0 right-0 z-20 mb-2">
@@ -1085,7 +1089,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
                   if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(input) }
                 }
               }}
-              placeholder={addressMode ? 'Enter an address…' : recordMode ? 'Record mode — tell me a little about you…' : selectedAddress ? 'Ask about this address…' : 'Ask about the scores, scripts and results…'}
+              placeholder={addressMode ? 'Enter an address…' : recordMode ? 'Record mode — tell me a little about you…' : selectedAddress ? 'Ask about this address…' : 'Ask about the records.'}
               className="flex-1 resize-none bg-transparent py-1 text-[17px] text-[var(--txt)] placeholder:text-[var(--muted2)] outline-none leading-relaxed"
               style={{ minHeight: '40px' }} />
           </div>
@@ -1187,7 +1191,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
             </span>
           ) : (
           <>
-          <VideoModelPicker value={videoModel} onChange={setVideoModel} />
+          <ScopePicker value={scope} onChange={setScope} />
           <ModelPicker value={model} onChange={setModel} />
           {streaming ? (
             <button type="button"

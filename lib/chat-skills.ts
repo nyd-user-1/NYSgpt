@@ -51,3 +51,10 @@ export const CHAT_SKILLS: ChatSkill[] = [
       'SKILL — MAKE A VIDEO. Answer with one video made from a template, as VIDEO TEMPLATES says: one sentence naming what it shows and where its figures come from, then one ```pax-video block whose props fit the template\'s schema, every figure taken as written from your context (LIFT RESULTS for a lift card or a leaderboard). Where a figure the template needs is missing, say which one and ask for it; write no block. When the user asks for a change, write the whole block again with only that change and "parent" set to the version it revises.',
   },
 ]
+
+/** NYSgpt (brief 49): the skills above are pax-trinity's own work, so the + menu hides them until NYSgpt's are
+ *  written. They stay here, listed, rather than deleted. */
+export const HIDDEN_SKILLS = new Set(["script-doctor", "read-a-test", "pick-the-audience", "survey-question", "brief-a-partner", "make-a-video"])
+
+/** The skills the + menu shows. */
+export const SHOWN_SKILLS = CHAT_SKILLS.filter((k) => !HIDDEN_SKILLS.has(k.id))
