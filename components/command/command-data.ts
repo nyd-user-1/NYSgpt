@@ -217,7 +217,10 @@ export const preloadForCommands = () =>
     for (const t of list ?? []) for (const x of t.tables) byPlain.set(x.plain, [...(byPlain.get(x.plain) ?? []), { topic: t.topic, ...x }])
     const pick = (plain: string, prefer: string) => {
       const hits = byPlain.get(plain)
-      return hits ? (hits.find((h) => h.topic === prefer) ?? hits[0]) : null
+      if (!hits) return null
+      // a name in several subjects ("Transactions") counts only where the subject matches the box's database
+      const lower = prefer.toLowerCase()
+      return hits.find((h) => h.topic === prefer) ?? (hits.length === 1 ? hits[0] : (hits.find((h) => h.topic.toLowerCase().includes(lower) || lower.includes(h.topic.toLowerCase())) ?? null))
     }
     for (const box of BOXES) {
       if (!isTable(box)) continue
