@@ -75,7 +75,7 @@
 .hm-pframe { position: relative; width: 100%; display: flex; flex-direction: column; overflow: hidden; border-radius: 16px; border: 1px solid var(--paper-rule); background: var(--paper); }
 .hm-pin { margin: -1px; flex: 1; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scrollbar-width: none; }
 .hm-pin::-webkit-scrollbar { display: none; }
-.hm-grid { --col: 100%; display: grid; grid-auto-flow: row; grid-template-rows: repeat(2, minmax(210px, auto)); border-top: 1px solid var(--paper-rule); border-left: 1px solid var(--paper-rule); }
+.hm-grid { --col: 100%; display: grid; grid-auto-flow: row; grid-template-rows: repeat(2, 210px); border-top: 1px solid var(--paper-rule); border-left: 1px solid var(--paper-rule); }
 @container page (min-width: 420px) { .hm-grid { --col: 50%; } }
 @container page (min-width: 640px) { .hm-grid { --col: 33.3333%; } }
 @container page (min-width: 900px) { .hm-grid { --col: 25%; } }
@@ -270,3 +270,11 @@
 }
 /* a drag of the split handle follows the pointer with no easing */
 body.hm-sbdrag .hm-sbanim { transition: none !important; }
+
+/* The boxes and the plate never change size (Brendan, 2026-11-19): every row is 210px whatever a box holds.
+   A long name or line is cut to fit, and the full text is in the side panel and the catalog view. */
+.hm-card { height: 210px; overflow: hidden; }
+.hm-card .hm-body { min-height: 0; }
+.hm-card .hm-body p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; flex: 0 1 auto; }
+.hm-card[data-kind="aa"] h3, .hm-card[data-kind="github"] h3, .hm-card[data-kind="hf"] h3, .hm-card[data-kind="kaggle"] h3, .hm-card[data-kind="llmstats"] h3 { -webkit-line-clamp: 2; }
+.hm-card[data-kind="aa"] .hm-body p, .hm-card[data-kind="github"] .hm-body p, .hm-card[data-kind="hf"] .hm-body p, .hm-card[data-kind="kaggle"] .hm-body p, .hm-card[data-kind="llmstats"] .hm-body p { -webkit-line-clamp: 3; }
