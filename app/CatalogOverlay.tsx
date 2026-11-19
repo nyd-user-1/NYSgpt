@@ -336,7 +336,7 @@ export function CatalogOverlay() {
                   <button
                     type="button"
                     key={d}
-                    className={`hm-oi hm-od ${d === (product !== 'All' ? product : table?.database) ? (product !== 'All' ? 'hm-on' : 'hm-at') : ''}`}
+                    className={`hm-oi hm-od ${d === (product !== 'All' ? product : table?.database) ? (product !== 'All' && col === 'db' ? 'hm-on' : 'hm-at') : ''}`}
                     onClick={() => {
                       setProduct(d)
                       setSel(null)
