@@ -5,7 +5,7 @@
 // carries the expected figure (numbers within 1 percent, names exactly), and a refusal where one is due.
 // Whatever it cannot match is listed for a person to read.
 //
-//   node scripts/chat-eval.mjs [--base http://18.188.148.0:3001] [--set <test-set.json>] [--out <dir>]
+//   node scripts/chat-eval.mjs [--base http://18.188.148.0:3001] [--set <test-set.json>[,<another.json>]] [--out <dir>]
 //                              [--only q01,q02] [--limit-model 1.00] [--limit-athena 0.50] [--note "..."]
 //
 // Each run writes <out>/run-NN/ (results.json, unmatched.md) and adds a row to <out>/README.md.
@@ -33,8 +33,12 @@ const PRICE_BYTE = 5 / 1e12
 const TIMEOUT_MS = 240_000
 
 /* ── the test set ── */
-const set = JSON.parse(readFileSync(SET, 'utf8'))
-const questions = (Array.isArray(set) ? set : set.questions).filter(q => !ONLY.length || ONLY.includes(q.id))
+// --set takes one file or several, comma-separated; with --only, the questions run in the order --only names them.
+const all = SET.split(',').flatMap(f => {
+  const j = JSON.parse(readFileSync(f.trim(), 'utf8'))
+  return Array.isArray(j) ? j : j.questions
+})
+const questions = ONLY.length ? ONLY.map(id => all.find(q => q.id === id)).filter(Boolean) : all
 
 /* ── the runs so far: their spend counts against the caps ── */
 mkdirSync(OUT, { recursive: true })
