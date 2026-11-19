@@ -210,7 +210,8 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
           setRes(m)
         }
       }
-      w.postMessage({ type: 'load', url: '/library-index.json' })
+      // A full address: inside the worker a bare path has no base to resolve against.
+      w.postMessage({ type: 'load', url: new URL('/library-index.json', window.location.origin).href })
     }
     const t = window.setTimeout(start, 0)
     return () => {
