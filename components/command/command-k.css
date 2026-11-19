@@ -1,20 +1,45 @@
 /*
- * The pax2 tokens the palette's classes name, with pax-trinity's light values (src/app/pax2.css),
- * set inside the palette only ([data-cmdk]). Both forms: the variables, for any @theme mapping the
- * site already has, and the classes themselves, so the palette looks the same whether or not one does.
+ * The palette in NYSgpt's look (Brendan, 2026-11-19 05:45: "white with the clear lines"), from the
+ * home page and the catalog overlay (app/home.css: .hm-ovp, .hm-kmenu, .hm-oi, .hm-og): the paper
+ * ground, 1px rules in the paper rule colour and a clear outline, the paper inks, the masthead serif
+ * for the title, DM Sans for the rows, small mono capitals for the group headings, the picked row in
+ * the site blue with white type, hover in the quiet tint. Every colour is a paper token, so the dark
+ * theme holds. No blur, no translucent grounds; the one shadow is the catalog overlay's.
  */
-[data-cmdk] {
-  --pax2-blue: #1e3a8a;
-  --pax2-red: #dc2626;
-  --pax2-surface: #ffffff;
-  --pax2-shadow-1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
-  --pax2-shadow-3: 0 18px 40px -12px rgb(15 23 42 / 0.22), 0 6px 12px -6px rgb(15 23 42 / 0.1);
-}
-[data-cmdk].bg-night-900\/15 { background-color: rgb(15 23 42 / 0.15); }
-[data-cmdk] .bg-pax2-surface { background-color: var(--pax2-surface); }
-[data-cmdk] .bg-pax2-surface\/70 { background-color: rgb(255 255 255 / 0.7); }
-[data-cmdk] .hover\:bg-pax2-surface\/60:hover { background-color: rgb(255 255 255 / 0.6); }
-[data-cmdk] .shadow-e1 { box-shadow: var(--pax2-shadow-1); }
-[data-cmdk] .shadow-e3 { box-shadow: var(--pax2-shadow-3); }
-[data-cmdk] .text-pax2-blue { color: var(--pax2-blue); }
-[data-cmdk] .text-pax2-red { color: var(--pax2-red); }
+[data-cmdk] { font-family: var(--font-sans, "DM Sans"), sans-serif; }
+
+[data-cmdk] .cmdk-box { border-color: var(--paper-rule); background: var(--paper); color: var(--paper-text); box-shadow: 0 4px 24px rgba(0, 0, 0, .07); }
+[data-cmdk] .cmdk-rule-b { border-color: var(--paper-rule); }
+[data-cmdk] .cmdk-foot { border-color: var(--paper-rule); background: var(--paper); }
+
+[data-cmdk] .cmdk-input { color: var(--paper-text); }
+[data-cmdk] .cmdk-input::placeholder { color: var(--paper-faint); }
+[data-cmdk] .cmdk-back { border-color: var(--paper-rule); background: var(--paper); color: var(--paper-text); }
+[data-cmdk] .cmdk-back:hover { background: var(--paper-quiet); }
+
+[data-cmdk] .cmdk-ink { color: var(--paper-text); }
+[data-cmdk] .cmdk-muted { color: var(--paper-muted); }
+[data-cmdk] .cmdk-faint { color: var(--paper-faint); }
+[data-cmdk] .cmdk-quiet { color: var(--paper-muted); }
+[data-cmdk] .cmdk-quiet:hover { color: var(--paper-text); }
+[data-cmdk] .cmdk-sep { background: var(--paper-rule); }
+[data-cmdk] .cmdk-mark { color: var(--paper-text); }
+[data-cmdk] .cmdk-title { font-family: var(--font-display), Georgia, serif; font-weight: 400; letter-spacing: -.02em; line-height: 1; color: var(--paper-text); }
+
+[data-cmdk] .cmdk-kbd { border-color: var(--paper-rule); background: var(--paper); color: var(--paper-muted); }
+
+[data-cmdk] .cmdk-group { margin: 0; font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; font-weight: 400; letter-spacing: .28em; text-transform: uppercase; color: var(--paper-faint); }
+
+[data-cmdk] .cmdk-row { color: var(--paper-text); }
+[data-cmdk] .cmdk-row:hover { background: var(--paper-quiet); }
+[data-cmdk] .cmdk-row-title { color: var(--paper-text); }
+[data-cmdk] .cmdk-row-sub { color: var(--paper-muted); }
+[data-cmdk] .cmdk-row-kind { font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--paper-faint); }
+[data-cmdk] .cmdk-row.cmdk-on { background: #033882; }
+[data-cmdk] .cmdk-row.cmdk-on .cmdk-row-title, [data-cmdk] .cmdk-row.cmdk-on .cmdk-mark { color: #fff; }
+[data-cmdk] .cmdk-row.cmdk-on .cmdk-row-sub, [data-cmdk] .cmdk-row.cmdk-on .cmdk-row-kind { color: #dfe8f0; }
+
+[data-cmdk] .cmdk-menu { border-color: var(--paper-rule); background: var(--paper); color: var(--paper-text); box-shadow: 0 4px 24px rgba(0, 0, 0, .07); }
+[data-cmdk] .cmdk-act { color: var(--paper-text); }
+[data-cmdk] .cmdk-act.cmdk-on { background: #033882; color: #fff; }
+[data-cmdk] .cmdk-act.cmdk-on .cmdk-kbd { border-color: rgba(255, 255, 255, .5); background: transparent; color: #fff; }
