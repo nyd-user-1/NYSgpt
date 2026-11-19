@@ -260,6 +260,16 @@ function ListingRow({ b, onClick }: { b: Box; onClick: () => void }) {
   )
 }
 
+/** A plain row: the whole thing drills down. */
+function Row({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
+  return (
+    <button onClick={onClick} className={ROW}>
+      <span className={LABEL} style={SERIF}>{children}</span>
+      <Arrow />
+    </button>
+  )
+}
+
 function SwitchboardPanel() {
   const { open, width, setWidth, view, setView, cards, digest, close, openMenu, openBox, openData } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
