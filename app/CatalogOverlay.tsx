@@ -7,7 +7,7 @@ import { home, useHome } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { useSwitchboard } from '@/components/SwitchboardPanel'
 import { Icon } from './HomeIcons'
-import { TableDetail } from './TableDetail'
+import { nextView, TableDetail, type TableView } from './TableDetail'
 
 /**
  * The catalog overlay (2026-11-19, brief 43, the option 3 sketch's): a box
@@ -51,7 +51,7 @@ export function CatalogOverlay() {
   const [product, setProduct] = useState(overlay.product)
   const [q, setQ] = useState('')
   const [sel, setSel] = useState<number | null>(null)
-  const [rows, setRows] = useState(false)
+  const [view, setView] = useState<TableView>('fields')
   /* which list the up and down keys move through: left goes to the databases, right back to the tables */
   const [col, setCol] = useState<'db' | 'table'>('table')
 
@@ -65,7 +65,7 @@ export function CatalogOverlay() {
       setProduct(overlay.product)
       setQ('')
       setSel(null)
-      setRows(false)
+      setView('fields')
     } else if (el && shown) {
       setGrown(false)
       const t1 = window.setTimeout(() => place(el, overlay.from), 120)
@@ -234,7 +234,7 @@ export function CatalogOverlay() {
         if ((inp && inp !== input.current) || (t.closest?.('button') && !t.closest('.hm-oi'))) return
         e.preventDefault()
         e.stopImmediatePropagation()
-        setRows(true)
+        setView('data')
       } else if (k === 'ArrowLeft' || k === 'ArrowRight') {
         if (inp && inp.value) return
         e.preventDefault()
@@ -252,9 +252,9 @@ export function CatalogOverlay() {
           return all.reduce((a, b) => (Math.abs(mid(b) - y) < Math.abs(mid(a) - y) ? b : a))
         }
         if (k === 'ArrowRight') {
-          // already in the tables: right again turns the right pane between the fields and the sample rows
+          // already in the tables: right again turns the right pane to its next view (fields, data, chart)
           if (col === 'table') {
-            setRows(v => !v)
+            setView(nextView)
             return
           }
           const to = nearest(document.querySelector('.hm-odb .hm-oi.hm-on, .hm-odb .hm-oi.hm-at'), '.hm-otb .hm-oi')
@@ -404,7 +404,7 @@ export function CatalogOverlay() {
                         onClick={e => {
                           e.stopPropagation()
                           setSel(i)
-                          setRows(true)
+                          setView('data')
                         }}
                       >
                         <Icon name="arrow" />
@@ -418,7 +418,7 @@ export function CatalogOverlay() {
             <p className="hm-cnote" style={{ padding: '16px 20px' }}>No tables match.</p>
           ))}
         </div>
-        <div className="hm-pane hm-ovd thin-scrollbar">{table && <TableDetail key={cur} t={table} rows={rows} onRows={() => setRows(v => !v)} />}</div>
+        <div className="hm-pane hm-ovd thin-scrollbar">{table && <TableDetail key={cur} t={table} rows={view === 'data'} onRows={() => setView(v => (v === 'data' ? 'fields' : 'data'))} view={view} onView={setView} />}</div>
       </Columns>
     </div>,
     document.body,

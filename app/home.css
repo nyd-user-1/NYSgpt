@@ -168,6 +168,28 @@
 /* the name copies on a click: a quiet ground on hover and the copy mark at its end */
 .hm-copy { display: inline-flex; align-items: center; gap: 10px; margin: -4px -10px; padding: 4px 10px; border: 0; border-radius: 8px; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; transition: background-color .15s; }
 .hm-copy:hover, .hm-copy:focus-visible, .hm-copy.hm-copied { background: var(--paper-quiet); outline: none; }
+/* the name is the view switcher (Fields, Data, Chart); the copy mark is its own button after it */
+.hm-dt h3 { display: flex; align-items: center; gap: 14px; min-width: 0; }
+.hm-ctx { position: relative; display: inline-flex; min-width: 0; }
+.hm-ctx-b[aria-expanded="true"] { background: var(--paper-quiet); }
+.hm-ctx-v { font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--paper-muted); border: 1px solid var(--paper-rule-soft); border-radius: 999px; padding: 4px 8px 3px; line-height: 1; white-space: nowrap; }
+.hm-ctx-c { display: inline-flex; color: var(--paper-muted); }
+.hm-ctx-m { position: absolute; top: calc(100% + 8px); left: -10px; z-index: 6; min-width: 12rem; display: flex; flex-direction: column; padding: 4px; border-radius: 12px; border: 1px solid var(--paper-rule); background: var(--paper); box-shadow: 0 12px 24px -6px rgba(22,24,29,.14), 0 4px 8px -2px rgba(22,24,29,.08); font-family: var(--font-sans, "DM Sans"), sans-serif; font-size: 14px; line-height: 1.2; }
+.hm-ctx-m button { display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 0; border-radius: 8px; background: none; padding: 8px 10px; font: inherit; color: var(--paper-text); text-align: left; cursor: pointer; }
+.hm-ctx-m button:hover, .hm-ctx-m button:focus-visible { background: var(--paper-quiet); outline: none; }
+.hm-ctx-m button svg { width: 16px; height: 16px; color: #033882; }
+.hm-copy-b { margin: 0; padding: 8px; }
+.hm-copy-b .hm-copy-ic { opacity: .55; }
+.hm-copy-b:hover .hm-copy-ic, .hm-copy-b.hm-copied .hm-copy-ic { opacity: 1; }
+/* the chart view: one small chart per field */
+.hm-charts { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; margin-top: 16px; }
+.hm-chart { min-width: 0; border: 1px solid color-mix(in oklab, var(--paper-text) 16%, var(--paper)); border-radius: 10px; padding: 12px 12px 8px; }
+.hm-chart-n { margin: 0; font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; color: var(--paper-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-chart-k { margin: 3px 0 0; font-size: 11px; color: var(--paper-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hm-chart-c { height: 84px; margin-top: 8px; }
+.hm-chart-none { border-bottom: 1px solid color-mix(in oklab, var(--paper-text) 25%, transparent); }
+.hm-chart-e { display: flex; justify-content: space-between; gap: 8px; margin: 4px 0 0; min-height: 14px; font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; color: var(--paper-faint); }
+.hm-chart-e span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .hm-copy-ic { display: inline-flex; opacity: 0; color: var(--paper-muted); transition: opacity .15s; }
 .hm-copy-ic svg { width: 16px; height: 16px; }
 .hm-copy:hover .hm-copy-ic, .hm-copy:focus-visible .hm-copy-ic, .hm-copy.hm-copied .hm-copy-ic { opacity: 1; }

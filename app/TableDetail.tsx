@@ -3,6 +3,25 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { compactNum, loadSample, type Sample, type Table } from '@/lib/home-catalog'
 import { Icon, TableIcon } from './HomeIcons'
+import { TableChart } from './TableChart'
+
+/** The three views of a table, in the order the switcher lists them. */
+export type TableView = 'fields' | 'data' | 'chart'
+export const TABLE_VIEWS: { id: TableView; label: string }[] = [
+  { id: 'fields', label: 'Fields' },
+  { id: 'data', label: 'Data' },
+  { id: 'chart', label: 'Chart' },
+]
+export const nextView = (v: TableView): TableView => TABLE_VIEWS[(TABLE_VIEWS.findIndex(x => x.id === v) + 1) % TABLE_VIEWS.length].id
+
+/** The chart button: three bars in the site's blue. */
+function ChartIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#033882" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M5 21V10M12 21V4M19 21v-7" />
+    </svg>
+  )
+}
 
 /** The fields button, shown while the sample rows are up: a list of lines, in the site's blue like the table button. */
 function FieldsIcon() {
@@ -14,7 +33,48 @@ function FieldsIcon() {
 }
 
 /** One table: its name, counts and description, then its fields or its sample rows. Shared with the side panel. */
-export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolean; onRows: () => void; panel?: boolean }) {
+export function TableDetail({
+  t,
+  rows,
+  onRows,
+  panel,
+  view: viewProp,
+  onView,
+}: {
+  t: Table
+  rows: boolean
+  onRows: () => void
+  panel?: boolean
+  /** The overlay passes the view and its setter; the side panel passes only rows, and the chart view is kept here. */
+  view?: TableView
+  onView?: (v: TableView) => void
+}) {
+  const [local, setLocal] = useState<TableView>(rows ? 'data' : 'fields')
+  const view: TableView = viewProp ?? (local === 'chart' ? 'chart' : rows ? 'data' : 'fields')
+  const setView = (v: TableView) => {
+    if (onView) return onView(v)
+    setLocal(v)
+    if (v !== 'chart' && (v === 'data') !== rows) onRows()
+  }
+  const [menu, setMenu] = useState(false)
+  const sw = useRef<HTMLSpanElement>(null)
+  useEffect(() => {
+    if (!menu) return
+    const away = (e: MouseEvent) => {
+      if (!sw.current?.contains(e.target as Node)) setMenu(false)
+    }
+    const esc = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.stopImmediatePropagation()
+      setMenu(false)
+    }
+    document.addEventListener('mousedown', away, true)
+    window.addEventListener('keydown', esc, true)
+    return () => {
+      document.removeEventListener('mousedown', away, true)
+      window.removeEventListener('keydown', esc, true)
+    }
+  }, [menu])
   const head = useRef<HTMLDivElement>(null)
   const wrap = useRef<HTMLDivElement>(null)
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
@@ -38,7 +98,7 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
     return () => ro.disconnect()
   }, [])
   useEffect(() => {
-    if (!rows) return
+    if (view === 'fields') return
     let live = true
     setSample('loading')
     loadSample(t).then(s => {
@@ -47,16 +107,54 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
     return () => {
       live = false
     }
-  }, [rows, t])
+  }, [view, t])
 
   return (
     <div ref={wrap} className={panel ? 'hm-panel' : undefined}>
       <div ref={head} className="hm-dh">
         <div className="hm-dt">
           <h3>
+            <span ref={sw} className="hm-ctx">
+              <button
+                type="button"
+                className="hm-copy hm-ctx-b"
+                aria-haspopup="menu"
+                aria-expanded={menu}
+                title="Switch the view"
+                onClick={() => setMenu(v => !v)}
+              >
+                <span>{t.table}</span>
+                <span className="hm-ctx-v">{TABLE_VIEWS.find(x => x.id === view)?.label}</span>
+                <span className="hm-ctx-c" aria-hidden>
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m7 15 5 5 5-5M7 9l5-5 5 5" />
+                  </svg>
+                </span>
+              </button>
+              {menu && (
+                <span className="hm-ctx-m" role="menu">
+                  {TABLE_VIEWS.map(x => (
+                    <button
+                      type="button"
+                      key={x.id}
+                      role="menuitemradio"
+                      aria-checked={x.id === view}
+                      className={x.id === view ? 'hm-on' : undefined}
+                      onClick={() => {
+                        setView(x.id)
+                        setMenu(false)
+                      }}
+                    >
+                      <span>{x.label}</span>
+                      {x.id === view && <Icon name="check" />}
+                    </button>
+                  ))}
+                </span>
+              )}
+            </span>
             <button
               type="button"
-              className={`hm-copy ${copied ? 'hm-copied' : ''}`}
+              className={`hm-copy hm-copy-b ${copied ? 'hm-copied' : ''}`}
               title="Copy the name"
               aria-label={`Copy the name ${t.table}`}
               onClick={() => {
@@ -66,7 +164,6 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
                 })
               }}
             >
-              <span>{t.table}</span>
               <span className="hm-copy-ic" aria-hidden>
                 <Icon name={copied ? 'check' : 'copy'} />
               </span>
@@ -76,20 +173,22 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
             <button
               type="button"
               className="hm-ovr hm-tb"
-              aria-label={rows ? 'Show the fields' : 'Show the sample rows'}
-              title={rows ? 'Show the fields' : 'Show the sample rows'}
-              onClick={onRows}
+              aria-label={`Show ${TABLE_VIEWS.find(x => x.id === nextView(view))?.label.toLowerCase()}`}
+              title={`Show ${TABLE_VIEWS.find(x => x.id === nextView(view))?.label.toLowerCase()}`}
+              onClick={() => setView(nextView(view))}
             >
-              {rows ? <FieldsIcon /> : <TableIcon />}
+              {nextView(view) === 'data' ? <TableIcon /> : nextView(view) === 'chart' ? <ChartIcon /> : <FieldsIcon />}
             </button>
           )}
         </div>
         <p className="hm-om">{meta}</p>
         {t.about && <p className="hm-oa">{t.about}</p>}
       </div>
-      {rows ? (
+      {view !== 'fields' ? (
         sample === 'loading' ? (
           <p className="hm-cnote" style={panel ? { padding: '0 20px' } : undefined}>Loading the rows…</p>
+        ) : sample && view === 'chart' ? (
+          <TableChart sample={sample} panel={panel} />
         ) : sample ? (
           <>
             <table className="hm-rows">
