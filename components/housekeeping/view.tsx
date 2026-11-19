@@ -136,9 +136,14 @@ export function HousekeepingView() {
   const listRef = React.useRef<HTMLDivElement>(null)
   const fileRef = React.useRef<HTMLInputElement>(null)
 
+  // Each load's number: an answer for a thread no longer shown (a slow first fetch of the stream landing after
+  // the Admin channel's) is dropped rather than drawn over the right one (NYSgpt, 2026-11-19).
+  const loads = React.useRef(0)
   const load = React.useCallback(async () => {
+    const n = ++loads.current
     const res = await fetch(`/api/housekeeping${adminChan ? "?channel=admin" : withEmail ? `?with=${encodeURIComponent(withEmail)}` : ""}`, { cache: "no-store" })
     const body = await res.json().catch(() => ({ error: "Dev Comments did not answer." }))
+    if (n !== loads.current) return
     if (!res.ok) return setError(body.error ?? "Dev Comments did not load.")
     setError(null)
     setThread(body as Thread)
