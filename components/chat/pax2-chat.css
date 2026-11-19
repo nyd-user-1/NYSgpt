@@ -74,6 +74,8 @@
 .dark .pax-chat ::-webkit-scrollbar-thumb, .dark .pax-chat::-webkit-scrollbar-thumb { background: rgb(240 233 216 / 0.22); background-clip: padding-box; }
 .dark .pax-chat ::-webkit-scrollbar-thumb:hover, .dark .pax-chat::-webkit-scrollbar-thumb:hover { background: rgb(240 233 216 / 0.36); background-clip: padding-box; }
 .dark .pax-chat .surface { outline-color: rgb(255 255 255 / 0.06); }
+/* the model picker's two black marks (Anthropic's, OpenAI's) would vanish on the dark paper; the coloured ones stay */
+.dark .pax-chat img[src$="/logos/models/anthropic.webp"], .dark .pax-chat img[src$="/logos/models/openai.webp"] { filter: invert(1); }
 
 
 
