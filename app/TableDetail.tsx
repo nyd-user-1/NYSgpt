@@ -31,6 +31,21 @@ export const nextView = (v: TableView): TableView => TABLE_VIEWS[(TABLE_VIEWS.fi
 
 const FIRST = 10
 
+/* Escape with the column chooser or the view menu open closes that, not the overlay or the panel around it: this
+   listener is set when the module loads, so it runs before theirs, which are set when they mount. */
+const CLOSE = 'tx:close'
+if (typeof window !== 'undefined')
+  window.addEventListener(
+    'keydown',
+    e => {
+      if (e.key !== 'Escape' || !document.querySelector('.tx-cpop, .tx .hm-ctx-m')) return
+      e.preventDefault()
+      e.stopImmediatePropagation()
+      window.dispatchEvent(new Event(CLOSE))
+    },
+    true,
+  )
+
 /** The chart button: three bars in the site's blue. */
 function ChartIcon() {
   return (
@@ -59,16 +74,12 @@ function Chooser({ all, shown, onShown }: { all: { name: string; kind: Kind }[];
     const away = (e: MouseEvent) => {
       if (!box.current?.contains(e.target as Node)) setOpen(false)
     }
-    const esc = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
-      e.stopImmediatePropagation()
-      setOpen(false)
-    }
+    const esc = () => setOpen(false)
     document.addEventListener('mousedown', away, true)
-    window.addEventListener('keydown', esc, true)
+    window.addEventListener(CLOSE, esc)
     return () => {
       document.removeEventListener('mousedown', away, true)
-      window.removeEventListener('keydown', esc, true)
+      window.removeEventListener(CLOSE, esc)
     }
   }, [open])
   const words = q.toLowerCase().split(/\s+/).filter(Boolean)
@@ -140,16 +151,12 @@ export function TableDetail({
     const away = (e: MouseEvent) => {
       if (!sw.current?.contains(e.target as Node)) setMenu(false)
     }
-    const esc = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
-      e.stopImmediatePropagation()
-      setMenu(false)
-    }
+    const esc = () => setMenu(false)
     document.addEventListener('mousedown', away, true)
-    window.addEventListener('keydown', esc, true)
+    window.addEventListener(CLOSE, esc)
     return () => {
       document.removeEventListener('mousedown', away, true)
-      window.removeEventListener('keydown', esc, true)
+      window.removeEventListener(CLOSE, esc)
     }
   }, [menu])
   const head = useRef<HTMLDivElement>(null)
