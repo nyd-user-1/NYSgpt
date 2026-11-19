@@ -11,9 +11,17 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
   const [sample, setSample] = useState<Sample | null | 'loading'>('loading')
   const meta = [`${t.fields.length} fields`, t.rows != null ? `${compactNum(t.rows)} rows` : '', t.years].filter(Boolean).join(' · ')
 
+  /* the table's header row sticks under the title block, whose height changes as the overlay grows */
   useLayoutEffect(() => {
-    if (head.current && wrap.current) wrap.current.style.setProperty('--ovh', `${head.current.offsetHeight}px`)
-  })
+    const h = head.current
+    const w = wrap.current
+    if (!h || !w) return
+    const fit = () => w.style.setProperty('--ovh', `${h.offsetHeight}px`)
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(h)
+    return () => ro.disconnect()
+  }, [])
   useEffect(() => {
     if (!rows) return
     let live = true
@@ -76,8 +84,8 @@ export function TableDetail({ t, rows, onRows, panel }: { t: Table; rows: boolea
         <table className="hm-of">
           <colgroup>
             <col style={{ width: '24%' }} />
-            <col style={{ width: '9%' }} />
-            <col style={{ width: '37%' }} />
+            <col style={{ width: '12%' }} />
+            <col style={{ width: '34%' }} />
             <col style={{ width: '30%' }} />
           </colgroup>
           <thead>
