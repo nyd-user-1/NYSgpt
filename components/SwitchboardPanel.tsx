@@ -669,7 +669,6 @@ function SwitchboardPanel() {
           <div className="hm-sbf">
             <FeedbackDialog />
             <a href="/data">Data Library</a>
-            <span>© 2026 All Rights Reserved.</span>
           </div>
         </div>
       </aside>

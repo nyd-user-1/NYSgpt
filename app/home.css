@@ -327,3 +327,8 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 
 /* the lower-right button is Blocks now: it carries the box's colour once the box is in Blocks */
 .hm-pnl.hm-on { color: var(--type); }
+
+/* a box that is in Blocks shows the Blocks button filled in, in its colour (Brendan, 2026-11-19) */
+.hm-pnl.hm-on svg rect { fill: currentColor; }
+/* the panel footer holds two links now, Contact at the left edge and Data Library at the right */
+.hm-sbf > :last-child { margin-right: 0; }
