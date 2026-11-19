@@ -17,7 +17,12 @@
 .hm-name .hm-all { pointer-events: none; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .5s; font-family: var(--font-display), Georgia, serif; font-size: clamp(1.8rem, 5cqw, 3rem); letter-spacing: -.02em; color: var(--paper-text); }
 .hm-name:hover .hm-wm { opacity: 0; }
 .hm-name:hover .hm-all { opacity: 1; }
-.hm-cells { display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--paper-rule); border-left: 1px solid var(--paper-rule); }
+/* the ledger in pages of four cells, as nsrgpt's masthead: the first page shows, the rest wait off to the right */
+.hm-cells { display: flex; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; border-top: 1px solid var(--paper-rule); border-left: 1px solid var(--paper-rule); }
+.hm-cells::-webkit-scrollbar { display: none; }
+.hm-cpage { display: grid; grid-template-columns: repeat(2, 1fr); width: 100%; flex-shrink: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.hm-cell.hm-fill { cursor: default; }
+.hm-cell.hm-fill:hover { background: none; }
 .hm-cell { container-type: inline-size; position: relative; display: grid; min-height: 7.5rem; align-items: center; border: 0; border-right: 1px solid var(--paper-rule); padding: 24px 20px; transition: background-color .15s; cursor: pointer; background: none; text-align: left; font: inherit; color: inherit; outline: none; }
 .hm-cell.hm-bb { border-bottom: 1px solid var(--paper-rule); }
 .hm-cell:hover { background: var(--kind-tint); }

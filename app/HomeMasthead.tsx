@@ -25,6 +25,16 @@ export type LedgerEntry = { word: string; value: number; unit: string; exact?: b
 
 const SETS: BoxKind[] = ['data', 'models', 'platforms', 'tools']
 
+/**
+ * The second page of the ledger (Brendan, 2026-11-19), as nsrgpt's masthead pages its cells (app/HomeMasthead.tsx
+ * there): pages of four cells, two by two, side by side; the first shows and the rest wait off to the right until a
+ * sideways scroll or the arrow keys bring them in. What these two cells hold and open is still to come.
+ */
+const MORE: { word: string; color: string }[] = [
+  { word: 'Hugging Face', color: '#b45309' },
+  { word: 'GitHub', color: 'var(--paper-text)' },
+]
+
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
 
@@ -44,7 +54,8 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           <span className="hm-all" aria-hidden>All</span>
         </button>
 
-        <div className="hm-cells">
+        <div className="hm-cells" data-inspect="LedgerScroll">
+          <div className="hm-cpage">
           {ledger.map((l, i) => {
             const s = SETS[i]
             const fig = compact(l.value)
@@ -85,6 +96,23 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
               </button>
             )
           })}
+          </div>
+          <div className="hm-cpage">
+            {MORE.map(x => (
+              <button
+                type="button"
+                key={x.word}
+                data-nav="masthead"
+                data-inspect="LedgerCell"
+                className="hm-cell hm-bb"
+                style={{ '--kind': x.color, '--kind-tint': `color-mix(in oklab, ${x.color} 5%, var(--paper))` } as React.CSSProperties}
+              >
+                <span className="hm-word">{x.word}</span>
+              </button>
+            ))}
+            <span className="hm-cell hm-fill" aria-hidden />
+            <span className="hm-cell hm-fill" aria-hidden />
+          </div>
         </div>
       </div>
     </div>
