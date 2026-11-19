@@ -279,7 +279,7 @@ function ListingMark({ b }: { b: Box }) {
 }
 function ListingRow({ b, onClick }: { b: Box; onClick: () => void }) {
   return (
-    <button onClick={onClick} className={ROW} style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 53px' }}>
+    <button onClick={onClick} className={`${ROW} pl-9`} style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 53px' }}>
       <ListingMark b={b} />
       <span className={LABEL} style={SERIF}>{b.title}</span>
       <Arrow />
@@ -303,6 +303,8 @@ function SwitchboardPanel() {
   const { linkProps } = useProductStatus()
   /** The panel search: it filters the rows of the view on show, and clears when the view changes. */
   const [q, setQ] = useState('')
+  /* the set whose listings are open in the menu; one at a time */
+  const [openSet, setOpenSet] = useState<string | null>(null)
   const viewKey = JSON.stringify(view.kind === 'data' ? { k: 'data', db: view.db, t: view.table } : view.kind === 'box' ? view : { k: view.kind })
   useEffect(() => setQ(''), [viewKey])
 
@@ -607,17 +609,23 @@ function SwitchboardPanel() {
                   <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{INTRO}</p>
                 </div>
 
-                {/* 2026-11-19: every listing from every content plate, A to Z, each with its mark. */}
+                {/* 2026-11-19: the menu is one row per set (NYSgpt's Databases, Models, Platforms, Tables, Blocks, then each
+                    source's sets), each with its source's mark; a click opens its listings under it, A to Z. A search
+                    opens every set that has a match. */}
                 {LISTING_GROUPS.map(g => {
-                  const hits = g.items.filter(b => match(q, b.title))
+                  const id = `${g.source}/${g.set}`
+                  const hits = q ? g.items.filter(b => match(q, b.title)) : g.items
                   if (!hits.length) return null
+                  const isOpen = q ? true : openSet === id
                   return (
-                    <section key={`${g.source}/${g.set}`}>
-                      <p className="sticky top-0 z-[1] flex items-baseline justify-between border-b border-[var(--paper-rule)] bg-[var(--paper)] px-5 pb-2 pt-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]" style={MONO}>
-                        <span>{g.source} <span className="text-[var(--paper-text)]">{g.set}</span></span>
-                        <span className="tabular-nums tracking-normal">{hits.length.toLocaleString('en-US')}</span>
-                      </p>
-                      {hits.map(b => (
+                    <section key={id}>
+                      <button onClick={() => setOpenSet(isOpen ? null : id)} aria-expanded={isOpen} className={`${ROW} sticky top-0 z-[1] bg-[var(--paper)]`}>
+                        <ListingMark b={g.items[0]} />
+                        <span className={LABEL} style={SERIF}>{g.set}</span>
+                        <span className="hm-count">{hits.length.toLocaleString('en-US')}</span>
+                        <ArrowRight className={`${GLYPH} transition-[rotate,color] duration-300 ease-out ${isOpen ? 'rotate-90' : 'group-hover/row:-rotate-45'}`} />
+                      </button>
+                      {isOpen && hits.map(b => (
                         <ListingRow key={boxKey(b)} b={b} onClick={() => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))} />
                       ))}
                     </section>
