@@ -107,7 +107,7 @@ function RowView({ row, on, onPick, onHover }: { row: Row; on: boolean; onPick: 
   } else if (row.group === 'tables') {
     tile = <Tile kind="tables" icon="table" />
     title = <Marked text={row.hit.label} m={row.hit.m} />
-    sub = [row.hit.topic, row.hit.rowIs ? `a row is ${row.hit.rowIs.replace(/^(a|an|one)\s+/i, 'a ')}` : ''].filter(Boolean).join(' · ')
+    sub = [row.hit.topic, row.hit.rowIs].filter(Boolean).join(' · ')
     meta = [row.hit.rows != null ? `${compactNum(row.hit.rows)} records` : '', row.hit.years].filter(Boolean).join(' · ')
   } else if (row.group === 'fields') {
     tile = <Tile kind="tables" icon="braces" />

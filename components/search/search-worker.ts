@@ -56,8 +56,16 @@ function build(j: Index) {
       for (const n of j.X[t.x] ?? []) if (lists[n]) (lists[n].t.push(ti), lists[n].f.push(-1), fieldCount++)
   })
   nameLow = j.N.map((n) => n.toLowerCase())
-  occ = lists.map((l) => ({ t: Int32Array.from(l.t), f: Int32Array.from(l.f) }))
+  // Each name's tables, larger tables first, sorted once here rather than on every keystroke.
+  occ = lists.map((l) => {
+    const order = l.t.map((_, k) => k).sort((a, b) => (j.tables[l.t[b]].n ?? 0) - (j.tables[l.t[a]].n ?? 0))
+    return { t: Int32Array.from(order.map((k) => l.t[k])), f: Int32Array.from(order.map((k) => l.f[k])) }
+  })
+  last = null
 }
+
+/** The last query's matches in each list, so a query that only adds letters searches within them. */
+let last: { q: string; topics: number[]; tables: number[]; names: number[] } | null = null
 
 /** 3 when the name starts with q, 2 when a word in it does, 1 when it holds q; -1 otherwise. Also where. */
 function scoreOf(s: string, q: string): [number, number] {
@@ -72,11 +80,14 @@ function scoreOf(s: string, q: string): [number, number] {
 }
 
 /** The best `limit` of the items that match, and how many match in all. */
-function rank(list: string[], q: string, limit: number, size: (i: number) => number = () => 0): { total: number; hits: { i: number; at: number }[] } {
+function rank(list: string[], q: string, limit: number, size: (i: number) => number = () => 0, cand?: number[]): { total: number; hits: { i: number; at: number }[]; all: number[] } {
   const buckets: { i: number; at: number }[][] = [[], [], []]
-  for (let i = 0; i < list.length; i++) {
+  const all: number[] = []
+  const n = cand ? cand.length : list.length
+  for (let k = 0; k < n; k++) {
+    const i = cand ? cand[k] : k
     const [s, at] = scoreOf(list[i], q)
-    if (s > 0) buckets[3 - s].push({ i, at })
+    if (s > 0) (buckets[3 - s].push({ i, at }), all.push(i))
   }
   const total = buckets[0].length + buckets[1].length + buckets[2].length
   const hits: { i: number; at: number }[] = []
@@ -89,7 +100,7 @@ function rank(list: string[], q: string, limit: number, size: (i: number) => num
       hits.push(h)
     }
   }
-  return { total, hits }
+  return { total, hits, all }
 }
 
 const tableHit = (i: number, at: number, q: string): TableHit => {
@@ -102,21 +113,22 @@ function query(id: number, raw: string, limit: { dbs: number; tables: number; fi
   const q = raw.trim().toLowerCase()
   const empty = { total: 0, items: [] }
   if (!J || !q) return { id, q: raw, ms: 0, dbs: empty, tables: empty, fields: empty }
-  const d = rank(topicLow, q, limit.dbs, (i) => topicRows[i])
+  const narrow = last && last.q && q.startsWith(last.q) ? last : null
+  const d = rank(topicLow, q, limit.dbs, (i) => topicRows[i], narrow?.topics)
   const dbs = { total: d.total, items: d.hits.map(({ i, at }) => ({ label: J!.topics[i], tables: topicTables[i].length, rows: topicRows[i], m: [at, q.length] as Match })) }
-  const t = rank(tableLow, q, limit.tables, (i) => J!.tables[i].n ?? 0)
+  const t = rank(tableLow, q, limit.tables, (i) => J!.tables[i].n ?? 0, narrow?.tables)
   const tables = { total: t.total, items: t.hits.map(({ i, at }) => tableHit(i, at, q)) }
   // Fields: rank the distinct names, then list each name's tables, larger tables first, until the limit.
-  const n = rank(nameLow, q, Math.max(limit.fields, 50))
+  const n = rank(nameLow, q, Math.max(limit.fields, 5), () => 0, narrow?.names)
+  last = { q, topics: d.all, tables: t.all, names: n.all }
+  // Every field that matches: each matching name counted once for each table that has it.
   let total = 0
-  for (const h of n.hits) total += occ[h.i].t.length
-  if (n.total > n.hits.length) total = Math.max(total, n.total)
+  for (const i of n.all) total += occ[i].t.length
   const items: FieldHit[] = []
   for (const h of n.hits) {
     if (items.length >= limit.fields) break
     const o = occ[h.i]
-    const order = Array.from(o.t.keys()).sort((a, b) => (J!.tables[o.t[b]].n ?? 0) - (J!.tables[o.t[a]].n ?? 0))
-    for (const k of order) {
+    for (let k = 0; k < o.t.length; k++) {
       if (items.length >= limit.fields) break
       const tab = J!.tables[o.t[k]]
       const f = o.f[k] >= 0 ? tab.f[o.f[k]] : null
