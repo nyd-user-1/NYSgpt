@@ -4,6 +4,7 @@ import { AppLayout } from "@/components/AppLayout"
 import { Chat } from "@/components/chat/chat"
 import type { ScriptChip } from "@/components/chat/plus-menu"
 import { openChat } from "@/app/chat-actions"
+import { RandomUUID } from "./random-uuid"
 import "@/components/chat/pax2-chat.css"
 
 // /chat, from pax-trinity's src/app/chat/page.tsx (brief 46): the same Chat, inside NYSgpt's frame (AppLayout)
@@ -28,6 +29,7 @@ export default async function ChatPage({ searchParams }: { searchParams: Promise
   return (
     <AppLayout>
       <div className={`pax-chat ${sans.variable} ${mono.variable} flex min-h-0 flex-1 flex-col font-sans text-foreground antialiased`}>
+        <RandomUUID />
         <Chat key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} explore={false} scripts={SCRIPTS} videos={[]} shorts={[]} />
       </div>
     </AppLayout>
