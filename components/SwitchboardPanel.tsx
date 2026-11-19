@@ -249,6 +249,18 @@ const LISTINGS: Box[] = (() => {
     .sort((x, y) => x.k.localeCompare(y.k, 'en', { sensitivity: 'base', numeric: true }))
     .map(x => x.b)
 })()
+/* The list by where each listing comes from (Brendan, 2026-11-19): NYSgpt first, then the sources A to Z; A to Z within each. */
+const SOURCE_NAME: Record<string, string> = { nysgpt: 'NYSgpt', aa: 'Artificial Analysis', github: 'GitHub', hf: 'Hugging Face', kaggle: 'Kaggle', llmstats: 'LLM Stats', openrouter: 'OpenRouter' }
+const LISTING_GROUPS: { name: string; items: Box[] }[] = (() => {
+  const by = new Map<string, Box[]>()
+  for (const b of LISTINGS) {
+    const k = brandOf(b.kind) ?? 'nysgpt'
+    by.set(k, [...(by.get(k) ?? []), b])
+  }
+  return [...by.entries()]
+    .map(([k, items]) => ({ k, name: SOURCE_NAME[k] ?? k, items }))
+    .sort((x, y) => (x.k === 'nysgpt' ? -1 : y.k === 'nysgpt' ? 1 : x.name.localeCompare(y.name)))
+})()
 function ListingMark({ b }: { b: Box }) {
   const brand = brandOf(b.kind)
   if (brand === 'github' && !b.logo) return <span className="flex h-4 w-4 shrink-0 items-center justify-center text-[var(--paper-text)] [&_svg]:h-4 [&_svg]:w-4"><TypeIcon icon="github" /></span>
@@ -586,9 +598,21 @@ function SwitchboardPanel() {
                 </div>
 
                 {/* 2026-11-19: every listing from every content plate, A to Z, each with its mark. */}
-                {LISTINGS.map(b => match(q, b.title) && (
-                  <ListingRow key={boxKey(b)} b={b} onClick={() => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))} />
-                ))}
+                {LISTING_GROUPS.map(g => {
+                  const hits = g.items.filter(b => match(q, b.title))
+                  if (!hits.length) return null
+                  return (
+                    <section key={g.name}>
+                      <p className="sticky top-0 z-[1] flex items-baseline justify-between border-b border-[var(--paper-rule)] bg-[var(--paper)] px-5 pb-2 pt-4 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]" style={MONO}>
+                        <span>{g.name}</span>
+                        <span className="tabular-nums tracking-normal">{hits.length.toLocaleString('en-US')}</span>
+                      </p>
+                      {hits.map(b => (
+                        <ListingRow key={boxKey(b)} b={b} onClick={() => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))} />
+                      ))}
+                    </section>
+                  )
+                })}
               </>
             )}
 
