@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { X, ChevronRight, ArrowLeft, ArrowRight, Columns2, Columns3, Sparkles, ArrowUpRight } from 'lucide-react'
@@ -11,6 +11,13 @@ import type { HomeCardData } from '@/lib/home-data'
 import { SwitchboardApiList } from './SwitchboardApiList'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
+import { FeedbackDialog } from '@/components/FeedbackDialog'
+import { BOXES, SET_INFO, TYPE_COLOR } from '@/lib/home-boxes'
+import { boxKey, home, shelfItems, useHome, type ShelfItem } from '@/lib/home-store'
+import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
+import { Icon, TypeIcon } from '@/app/HomeIcons'
+import { TableDetail } from '@/app/TableDetail'
+import '@/app/home.css'
 
 /**
  * The nysgpt.com switchboard panel — the right-hand drawer, and the store that
@@ -77,16 +84,24 @@ type View =
   | { kind: 'product'; index: number }
   | { kind: 'channel'; id: ChannelId }
   | AwsView
+  /* 2026-11-19, brief 43 (the option 3 sketch): the Blocks shelf, one box,
+     and the data: the databases, one database's tables, one table. */
+  | { kind: 'blocks' }
+  | { kind: 'box'; key: string }
+  | { kind: 'data'; db?: string; table?: number; rows?: boolean }
 
 export type ChannelId = 'slack' | 'discord' | 'ask'
 
 type Ctx = {
   open: boolean
-  /** Wide mode. Lives here, not in the panel, because SwitchboardShell sizes the
-   *  page's padding from it — the push has to match the panel's actual width. */
-  expanded: boolean
-  setExpanded: (fn: (v: boolean) => boolean) => void
+  /** The panel's width, a CSS length: half the window (50vw, the default), a
+   *  third, or whatever the drag handle set; kept in this browser (2026-11-19).
+   *  Lives here, not in the panel, because SwitchboardShell sizes the page's
+   *  padding from it — the push has to match the panel's actual width. */
+  width: string
+  setWidth: (w: string) => void
   view: View
+  setView: (v: View) => void
   cards: HomeCardData[]
   digest: Digest
   toggle: () => void
@@ -95,6 +110,10 @@ type Ctx = {
   openProduct: (index: number) => void
   openChannel: (id: ChannelId) => void
   openAws: (view: AwsView) => void
+  openBox: (key: string) => void
+  /** A database at its first table, or the list of databases. */
+  openData: (db: string | null) => void
+  openBlocks: () => void
 }
 
 const PanelCtx = createContext<Ctx | null>(null)
@@ -107,20 +126,41 @@ export function useSwitchboard() {
 
 export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCardData[]; digest: Digest; children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
-  const [expanded, setExpanded] = useState(false)
+  const [width, setWidthState] = useState('50vw')
   const [view, setView] = useState<View>({ kind: 'menu' })
+
+  /* the width: set on the root as --sbw (the panel, the page's push and the
+     split handle all read it), and remembered in this browser */
+  useEffect(() => {
+    try {
+      const w = localStorage.getItem(WIDTH_KEY)
+      if (w) setWidthState(w)
+    } catch {}
+  }, [])
+  useEffect(() => {
+    document.documentElement.style.setProperty('--sbw', width)
+  }, [width])
+  const setWidth = useCallback((w: string) => {
+    setWidthState(w)
+    try {
+      localStorage.setItem(WIDTH_KEY, w)
+    } catch {}
+  }, [])
 
   const close = useCallback(() => setOpen(false), [])
   const openMenu = useCallback(() => { setView({ kind: 'menu' }); setOpen(true) }, [])
   const openProduct = useCallback((index: number) => { setView({ kind: 'product', index }); setOpen(true) }, [])
   const openChannel = useCallback((id: ChannelId) => { setView({ kind: 'channel', id }); setOpen(true) }, [])
   const openAws = useCallback((v: AwsView) => { setView(v); setOpen(true) }, [])
+  const openBox = useCallback((key: string) => { setView({ kind: 'box', key }); setOpen(true) }, [])
+  const openData = useCallback((db: string | null) => { setView(db ? { kind: 'data', db, table: 0 } : { kind: 'data' }); setOpen(true) }, [])
+  const openBlocks = useCallback(() => { setView({ kind: 'blocks' }); setOpen(true) }, [])
   // Toggle always returns to the menu, so the trigger is a switch rather than a
   // way to resume wherever you happened to leave off.
   const toggle = useCallback(() => setOpen(v => { if (!v) setView({ kind: 'menu' }); return !v }), [])
 
   return (
-    <PanelCtx.Provider value={{ open, expanded, setExpanded, view, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws }}>
+    <PanelCtx.Provider value={{ open, width, setWidth, view, setView, cards, digest, toggle, close, openMenu, openProduct, openChannel, openAws, openBox, openData, openBlocks }}>
       {children}
       <SwitchboardPanel />
     </PanelCtx.Provider>
@@ -143,11 +183,11 @@ export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCa
  * 441px = 423 (panel) + 18 (gutter). sm+ only; mobile overlays over a scrim.
  */
 export function SwitchboardShell({ children }: { children: React.ReactNode }) {
-  const { open, expanded } = useSwitchboard()
+  const { open } = useSwitchboard()
   return (
     <div
-      className={`transition-[padding] duration-300 ease-in-out ${
-        open ? (expanded ? 'sm:pr-[calc(50vw+18px)]' : 'sm:pr-[441px]') : ''
+      className={`hm-sbanim transition-[padding] duration-500 ease-in-out ${
+        open ? 'sm:pr-[calc(var(--sbw,50vw)+18px)]' : ''
       }`}
     >
       {children}
@@ -235,22 +275,33 @@ function ChannelRow({
 }
 
 function SwitchboardPanel() {
-  const { open, expanded, setExpanded, view, cards, digest, close, openMenu, openProduct, openChannel } = useSwitchboard()
+  const { open, width, setWidth, view, setView, cards, digest, close, openMenu, openProduct, openChannel } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
   const { linkProps } = useProductStatus()
+  /** The panel search: it filters the rows of the view on show, and clears when the view changes. */
+  const [q, setQ] = useState('')
+  const viewKey = JSON.stringify(view.kind === 'data' ? { k: 'data', db: view.db, t: view.table } : view.kind === 'box' ? view : { k: view.kind })
+  useEffect(() => setQ(''), [viewKey])
 
   useEffect(() => setMounted(true), [])
+
+  /** One level up: a table to its database, a database to the list, anything else to the menu. */
+  const back = useCallback(() => {
+    if (view.kind === 'data' && view.table != null) setView({ kind: 'data', db: view.db })
+    else if (view.kind === 'data' && view.db) setView({ kind: 'data' })
+    else openMenu()
+  }, [view, setView, openMenu])
 
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
-      if (view.kind === 'product' || view.kind === 'channel') openMenu()
-      else close()
+      if (view.kind === 'menu' || view.kind === 'aws-register' || view.kind === 'aws-console') close()
+      else back()
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [open, view, close, openMenu])
+  }, [open, view, close, back])
 
   if (!mounted) return null
 
@@ -266,7 +317,11 @@ function SwitchboardPanel() {
   // An AWS buyer's views are headed by the product they bought, and have no way
   // back to the menu: a Marketplace buyer did not come from the switchboard.
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
-  const title = awsTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
+  const box = view.kind === 'box' ? BOXES.find(b => boxKey(b) === view.key) ?? null : null
+  const newTitle = view.kind === 'blocks' ? 'Blocks' : box ? box.title : view.kind === 'data' ? (view.db ?? 'Data') : null
+  const title = awsTitle ?? newTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
+  const deeper = deep || view.kind === 'blocks' || view.kind === 'box' || view.kind === 'data'
+  const half = width === '50vw'
 
   return createPortal(
     <>
@@ -291,19 +346,19 @@ function SwitchboardPanel() {
           the same thing. */}
       <aside
         aria-hidden={!open}
-        className={`nysgpt-app fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto transition-transform duration-300 ease-in-out ${
-          expanded ? 'sm:w-[50vw]' : 'sm:w-[423px]'
-        } ${open ? 'translate-x-0' : 'translate-x-full sm:translate-x-[calc(100%+18px)] pointer-events-none'}`}
+        className={`nysgpt-app hm-sbanim fixed z-[60] inset-y-0 right-0 w-full sm:inset-y-[18px] sm:right-[18px] sm:left-auto sm:w-[var(--sbw,50vw)] transition-[transform,width] duration-500 ease-in-out ${
+          open ? 'translate-x-0' : 'translate-x-full sm:translate-x-[calc(100%+18px)] pointer-events-none'
+        }`}
       >
-        <div className="flex h-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] sm:rounded-2xl sm:border">
+        <div className="relative flex h-full flex-col overflow-hidden border-l border-[var(--paper-rule)] bg-[var(--paper)] shadow-[0_4px_32px_rgba(0,0,0,0.18)] sm:rounded-2xl sm:border">
 
           {/* Header — the dot becomes a back arrow one level down, and the title
               becomes the product name. That IS the navigation affordance. */}
           <div className="flex shrink-0 items-center gap-2 border-b border-[var(--paper-rule)] px-5 py-4">
-            {deep ? (
+            {deeper ? (
               <button
-                onClick={openMenu}
-                aria-label="Back to the switchboard"
+                onClick={back}
+                aria-label="Back"
                 className="shrink-0 rounded-lg p-1.5 text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)]"
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -314,12 +369,13 @@ function SwitchboardPanel() {
             <span className="min-w-0 flex-1 truncate text-[var(--paper-text)]" style={{ ...SERIF, fontSize: 17 }}>
               {title}
             </span>
+            {/* Half the window or a third; the split handle sets any width between. */}
             <button
-              onClick={() => setExpanded(v => !v)}
-              aria-label={expanded ? 'Narrow the panel' : 'Widen the panel'}
+              onClick={() => setWidth(half ? '33.3333vw' : '50vw')}
+              aria-label={half ? 'Make the panel a third of the window' : 'Make the panel half the window'}
               className="hidden shrink-0 rounded-lg p-1.5 text-[var(--paper-faint)] transition-colors hover:bg-[var(--paper-quiet)] hover:text-[var(--paper-text)] sm:flex"
             >
-              {expanded ? <Columns3 className="h-4 w-4" /> : <Columns2 className="h-4 w-4" />}
+              {half ? <Columns3 className="h-4 w-4" /> : <Columns2 className="h-4 w-4" />}
             </button>
             <button
               onClick={close}
@@ -330,11 +386,24 @@ function SwitchboardPanel() {
             </button>
           </div>
 
-          <div className="no-scrollbar flex-1 overflow-y-auto">
+          {/* The panel search (2026-11-19, from the option 3 sketch). */}
+          {view.kind !== 'aws-register' && view.kind !== 'aws-console' && !(view.kind === 'data' && view.table != null) && (
+            <div className="hm-sbs">
+              <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search..." aria-label="Search the panel" />
+            </div>
+          )}
+
+          <div className="no-scrollbar flex-1 overflow-y-auto pb-[42px]">
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
             <div className="flex min-h-full flex-col">
-            {view.kind === 'aws-register' ? (
+            {view.kind === 'blocks' ? (
+              <BlocksView q={q} />
+            ) : view.kind === 'box' ? (
+              box ? <BoxView boxKey={view.key} /> : null
+            ) : view.kind === 'data' ? (
+              <DataView view={view} q={q} onGo={setView} />
+            ) : view.kind === 'aws-register' ? (
               <AwsRegister plan={view.plan} signedIn={view.signedIn} />
             ) : view.kind === 'aws-console' ? (
               <AwsConsole sub={view.sub} />
@@ -496,6 +565,7 @@ function SwitchboardPanel() {
                 {/* lucide ships no Slack or Discord mark, so both are brand
                     assets from /public — the same files 44B's panel uses, which
                     keeps the two panels identical. */}
+                {match(q, 'Slack') && (
                 <ChannelRow
                   icon={<img src="/logos/250px-Slack_icon_2019.svg.png" alt="" className="h-4 w-4 shrink-0 object-contain" />}
                   onOpen={() => openChannel('slack')}
@@ -503,6 +573,8 @@ function SwitchboardPanel() {
                 >
                   Slack
                 </ChannelRow>
+                )}
+                {match(q, 'Discord') && (
                 <ChannelRow
                   icon={<img src="/discord-icon.svg" alt="" className="h-4 w-4 shrink-0 object-contain" />}
                   onOpen={() => openChannel('discord')}
@@ -510,6 +582,8 @@ function SwitchboardPanel() {
                 >
                   Discord
                 </ChannelRow>
+                )}
+                {match(q, 'Ask NYSgpt') && (
                 <ChannelRow
                   icon={<Sparkles className="h-4 w-4" />}
                   onOpen={() => openChannel('ask')}
@@ -518,12 +592,17 @@ function SwitchboardPanel() {
                 >
                   Ask NYSgpt
                 </ChannelRow>
+                )}
+
+                {/* 2026-11-19 (the option 3 sketch): the Blocks shelf and the data. */}
+                {match(q, 'Blocks') && <Row onClick={() => setView({ kind: 'blocks' })}>Blocks</Row>}
+                {match(q, 'Data') && <Row onClick={() => setView({ kind: 'data' })}>Data</Row>}
 
                 <p className="px-5 pb-2 pt-5 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]" style={MONO}>
                   Products
                 </p>
 
-                {cards.map((c, i) => (
+                {cards.map((c, i) => match(q, c.title) && (
                   <Row key={c.href + c.title} onClick={() => openProduct(i)}>{c.title}</Row>
                 ))}
               </>
@@ -538,7 +617,7 @@ function SwitchboardPanel() {
                 to the panel's bottom edge even when the content runs short —
                 the Visit link lives at the bottom, always (ruling 2026-08-24). */}
             {deep && (channel || product!.href) && (
-              <div className="sticky bottom-0 z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
+              <div className="sticky bottom-[42px] z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
                 {/* ⚠ Branch on WHICH view this is — never `channel?.x ?? product!.x`.
                     `??` only short-circuits on a non-nullish left side, and
                     `sameTab` is undefined for Slack and Discord, so that spelling
@@ -566,8 +645,18 @@ function SwitchboardPanel() {
             )}
             </div>
           </div>
+
+          {/* The page's footer, moved here from under the plate (2026-11-19, the
+              option 3 sketch): always at the panel's foot, the content scrolling
+              behind it. */}
+          <div className="hm-sbf">
+            <FeedbackDialog />
+            <a href="/data">Data Library</a>
+            <span>© 2026 All Rights Reserved.</span>
+          </div>
         </div>
       </aside>
+      <SplitHandle open={open} width={width} setWidth={setWidth} />
     </>,
     document.body,
   )
@@ -577,4 +666,285 @@ function SwitchboardPanel() {
 function countProps(value: number) {
   const f = compact(value)
   return { value: f.count, decimals: f.decimals, suffix: f.suffix }
+}
+
+const WIDTH_KEY = 'sb-width'
+
+/** The panel search's test: every word of the search is in the text. */
+function match(q: string, text: string) {
+  const t = text.toLowerCase()
+  return q.toLowerCase().split(/\s+/).filter(Boolean).every(w => t.includes(w))
+}
+
+/** The box's element on the plate, so the catalog can grow out of it. */
+function boxEl(title: string) {
+  return document.querySelector<HTMLElement>(`[data-nav="plate"][aria-label="${CSS.escape(title)}: open in the catalog"]`)
+}
+
+/**
+ * The split between the page and the panel (2026-11-19, from the option 3
+ * sketch, after nsrgpt's components/shell.tsx): drag it to set the panel's
+ * width, the arrow keys step it, a double-click makes it the half. It sits at
+ * the panel's left edge and slides with it; off the right edge when shut.
+ */
+function SplitHandle({ open, width, setWidth }: { open: boolean; width: string; setWidth: (w: string) => void }) {
+  const [drag, setDrag] = useState(false)
+  const MIN = 320
+  const GAP = 18
+  const clamp = (w: number) => Math.max(MIN, Math.min(w, innerWidth - GAP * 3 - MIN))
+  return (
+    <button
+      type="button"
+      role="separator"
+      aria-orientation="vertical"
+      aria-label="Resize the panels"
+      className={`nysgpt-app hm-split ${open ? '' : 'hm-shut'} ${drag ? 'hm-drag' : ''}`}
+      onPointerDown={e => {
+        if (e.button !== 0) return
+        e.preventDefault()
+        e.currentTarget.setPointerCapture(e.pointerId)
+        setDrag(true)
+        document.body.classList.add('hm-sbdrag')
+        document.body.style.cursor = 'col-resize'
+        document.body.style.userSelect = 'none'
+      }}
+      onPointerMove={e => {
+        if (drag) document.documentElement.style.setProperty('--sbw', `${clamp(innerWidth - 27 - e.clientX)}px`)
+      }}
+      onPointerUp={() => {
+        if (!drag) return
+        setDrag(false)
+        document.body.classList.remove('hm-sbdrag')
+        document.body.style.cursor = ''
+        document.body.style.userSelect = ''
+        setWidth(document.documentElement.style.getPropertyValue('--sbw') || width)
+      }}
+      onDoubleClick={() => setWidth('50vw')}
+      onKeyDown={e => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+        e.preventDefault()
+        const cur = document.querySelector<HTMLElement>('aside.hm-sbanim')?.getBoundingClientRect().width ?? MIN
+        setWidth(`${clamp(cur + (e.key === 'ArrowLeft' ? 24 : -24))}px`)
+      }}
+    >
+      <span />
+    </button>
+  )
+}
+
+/**
+ * The Blocks view (2026-11-19, ported from pax2 components/discussion-panel.tsx
+ * BlocksShelf by way of the option 3 sketch): the boxes added with the
+ * three-dot menu, as square tiles. The columns come from the panel's width (at
+ * least 120px a tile, 3 to 6 across); empty dashed slots fill the rest of the
+ * panel's height; drag a tile onto another to put it there. A tile opens its
+ * box; its × takes it off the shelf.
+ */
+function BlocksView({ q }: { q: string }) {
+  const st = useHome()
+  const items = shelfItems(st).filter(s => match(q, s.title))
+  const ref = useRef<HTMLDivElement>(null)
+  const [size, setSize] = useState({ w: 0, h: 0 })
+  const [dragKey, setDragKey] = useState<string | null>(null)
+  const { close } = useSwitchboard()
+
+  useEffect(() => {
+    const el = ref.current?.closest('.overflow-y-auto') as HTMLElement | null
+    if (!el) return
+    const fit = () => setSize({ w: el.clientWidth, h: el.clientHeight - 42 })
+    fit()
+    const ro = new ResizeObserver(fit)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  const GAPX = 10
+  const w = Math.max(0, size.w - 40)
+  const cols = Math.min(6, Math.max(3, Math.floor((w + GAPX) / (120 + GAPX))))
+  const side = (w - GAPX * (cols - 1)) / cols
+  const rows = Math.max(Math.ceil(items.length / cols), side > 0 ? Math.ceil((size.h - 40 + GAPX) / (side + GAPX)) : 0)
+  const empties = Math.max(0, rows * cols - items.length)
+
+  const openTile = (s: ShelfItem) => {
+    home.showSet(s.set)
+    if (innerWidth < 640) close()
+    window.setTimeout(() => {
+      const el = boxEl(s.title)
+      if (!el) return
+      el.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' })
+      el.click()
+    }, 60)
+  }
+
+  return (
+    <div ref={ref} className="hm-shelf" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
+      {items.map(s => (
+        <div
+          key={s.key}
+          className={`hm-stile ${dragKey === s.key ? 'hm-drag' : ''}`}
+          draggable
+          role="button"
+          tabIndex={0}
+          aria-label={`Open ${s.title}`}
+          onClick={() => openTile(s)}
+          onKeyDown={e => {
+            if (e.key === 'Enter') openTile(s)
+          }}
+          onDragStart={e => {
+            setDragKey(s.key)
+            e.dataTransfer.effectAllowed = 'move'
+            try {
+              e.dataTransfer.setData('text/plain', s.key)
+            } catch {}
+          }}
+          onDragOver={e => {
+            if (dragKey) e.preventDefault()
+          }}
+          onDrop={e => {
+            if (!dragKey) return
+            e.preventDefault()
+            e.stopPropagation()
+            home.moveShelf(dragKey, s.key)
+            setDragKey(null)
+          }}
+          onDragEnd={() => setDragKey(null)}
+          style={{ '--type': TYPE_COLOR[s.set] } as React.CSSProperties}
+        >
+          <span className="hm-sic">
+            <TypeIcon icon={BOXES.find(b => boxKey(b) === s.key)?.icon ?? 'db'} />
+          </span>
+          <span className="hm-sl">{s.title}</span>
+          <span className="hm-sm">{s.group || s.set}</span>
+          <button
+            type="button"
+            className="hm-sx"
+            aria-label={`Take ${s.title} off the shelf`}
+            onClick={e => {
+              e.stopPropagation()
+              home.removeShelf(s.key)
+            }}
+          >
+            <Icon name="x" />
+          </button>
+        </div>
+      ))}
+      {Array.from({ length: empties }, (_, i) => (
+        <div
+          key={`e${i}`}
+          className="hm-sempty"
+          onDragOver={e => {
+            if (dragKey) e.preventDefault()
+          }}
+          onDrop={e => {
+            if (!dragKey) return
+            e.preventDefault()
+            home.moveShelf(dragKey, null)
+            setDragKey(null)
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+/** A model, platform or tool in the panel: its name and text, its figure or label, its facts, and a way into the catalog. */
+function BoxView({ boxKey: key }: { boxKey: string }) {
+  const b = BOXES.find(x => boxKey(x) === key)
+  if (!b) return null
+  const ent = b.kind === 'data' ? undefined : SET_INFO[b.kind].find(t => t.table === b.title && t.database === b.group)
+  return (
+    <>
+      <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+        <h2 className="text-[22px] leading-[1.15] text-[var(--paper-text)] [overflow-wrap:anywhere]" style={SERIF}>{b.title}</h2>
+        <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{b.body}</p>
+      </div>
+      {b.foot && (
+        <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+          <p className="m-0 leading-none tabular-nums" style={{ ...MONO, fontSize: 'clamp(2.2rem,5vw,3rem)', color: TYPE_COLOR[b.kind] }}>{b.foot}</p>
+        </div>
+      )}
+      {ent && ent.fields.length > 0 && (
+        <table className="hm-kv" style={{ marginTop: 16 }}>
+          <thead>
+            <tr>
+              <th>Field</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {ent.fields.map(f => (
+              <tr key={f.name}>
+                <td>{f.name}</td>
+                <td>{/^https?:\/\//.test(f.desc) ? <a href={f.desc} target="_blank" rel="noreferrer noopener" className="underline">{f.desc}</a> : f.desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+      <p className="p-5">
+        <button
+          type="button"
+          className="hm-boxopen"
+          onClick={() => home.openOverlay({ set: b.kind, product: b.group, from: boxEl(b.title)?.getBoundingClientRect() ?? null })}
+        >
+          Open in the catalog
+        </button>
+      </p>
+    </>
+  )
+}
+
+/** The data in the panel: the databases, a database's tables, then one table's fields (the table button shows its sample rows). */
+function DataView({ view, q, onGo }: { view: { db?: string; table?: number; rows?: boolean }; q: string; onGo: (v: View) => void }) {
+  const [cat, setCat] = useState<{ dbs: string[]; tables: Table[] } | null | 'loading'>('loading')
+  useEffect(() => {
+    let live = true
+    loadCatalog().then(c => {
+      if (live) setCat(c)
+    })
+    return () => {
+      live = false
+    }
+  }, [])
+  if (cat === 'loading') return <p className="hm-cnote" style={{ padding: 20 }}>Loading the catalog…</p>
+  if (!cat) return <p className="hm-cnote" style={{ padding: 20 }}>The catalog did not load.</p>
+
+  const by = new Map<string, Table[]>()
+  for (const t of cat.tables) by.set(t.database, [...(by.get(t.database) ?? []), t])
+
+  if (view.db && view.table != null) {
+    const t = (by.get(view.db) ?? [])[view.table]
+    if (!t) return <p className="hm-cnote" style={{ padding: 20 }}>No tables in this database.</p>
+    return <TableDetail key={`${view.db}/${view.table}`} t={t} rows={!!view.rows} panel onRows={() => onGo({ kind: 'data', db: view.db, table: view.table, rows: !view.rows })} />
+  }
+  const row = (label: string, count: string, go: () => void, key: string) => (
+    <button key={key} onClick={go} className={ROW}>
+      <span className={LABEL} style={SERIF}>{label}</span>
+      <span className="hm-count">{count}</span>
+      <ChevronRight className={GLYPH} />
+    </button>
+  )
+  if (view.db) {
+    const l = by.get(view.db) ?? []
+    return (
+      <>
+        <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+          <h2 className="text-[26px] leading-none text-[var(--paper-text)]" style={SERIF}>{view.db}</h2>
+          <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{l.length} tables</p>
+        </div>
+        {l.map((t, i) => match(q, t.table) && row(t.table, t.rows != null ? compactNum(t.rows) : '', () => onGo({ kind: 'data', db: view.db, table: i }), `${i}`))}
+      </>
+    )
+  }
+  return (
+    <>
+      <div className="border-b border-[var(--paper-rule)] px-5 py-6">
+        <h2 className="text-[26px] leading-none text-[var(--paper-text)]" style={SERIF}>Data</h2>
+        <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>
+          {by.size} databases · {cat.tables.length.toLocaleString('en-US')} tables
+        </p>
+      </div>
+      {[...by.entries()].map(([db, l]) => match(q, db) && row(db, String(l.length), () => onGo({ kind: 'data', db }), db))}
+    </>
+  )
 }

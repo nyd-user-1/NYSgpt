@@ -45,7 +45,9 @@ export function AppLayout({
         </div>
       </div>
 
+      {/* data-app-frame: the home page's catalog overlay takes this frame's shape. */}
       <div
+        data-app-frame
         className={`relative flex flex-1 flex-col min-w-0 rounded-none sm:rounded-2xl overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.07)] sm:border ${
           paperMode
             ? "bg-[var(--paper)] sm:border-[var(--paper-rule)]"
