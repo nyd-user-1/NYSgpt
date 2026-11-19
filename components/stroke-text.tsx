@@ -48,6 +48,8 @@ type StrokeTextProps = {
   strokeWidth?: number
   drawDuration?: number
   fillDelay?: number
+  /** NYSgpt's one addition (2026-11-19): the fill's length in seconds; without it, the source's own (half the draw, at least 0.4). */
+  fillDuration?: number
   stagger?: number
   ease?: string
   trigger?: "mount" | "scroll" | "hover" | "loop"
@@ -79,6 +81,7 @@ const StrokeText = ({
   strokeWidth = 1.4,
   drawDuration = 1.6,
   fillDelay = 0.2,
+  fillDuration: fillDurationProp,
   stagger = 0.05,
   ease = "power2.out",
   trigger = "mount",
@@ -194,7 +197,7 @@ const StrokeText = ({
 
     const fillEnabled = fillMode !== "none"
     const useWipe = fillEnabled && fillMode === "wipe"
-    const fillDuration = Math.max(0.4, drawDuration * 0.5)
+    const fillDuration = fillDurationProp ?? Math.max(0.4, drawDuration * 0.5)
     const staggerConfig = reverse ? { each: stagger, from: "end" as const } : stagger
     const frames = getWipeFrames(box, wipeFrom)
     const lifted = { dx: lift, dy: lift, "flood-opacity": SHADOW_OPACITY }
@@ -336,6 +339,7 @@ const StrokeText = ({
     dash,
     drawDuration,
     fillDelay,
+    fillDurationProp,
     stagger,
     ease,
     trigger,
