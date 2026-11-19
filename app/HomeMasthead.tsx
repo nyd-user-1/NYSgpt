@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
 import { home, useHome } from '@/lib/home-store'
@@ -50,9 +49,9 @@ const LIBRARY_SIZE = '9.2 TB'
 export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
   const { set } = useHome()
   const pages = [ledger.map((l, i) => ({ ...l, set: SETS[i] })), ...MORE]
-  // The page of cells in view. On GitHub's page, or with one of its sets on show, the nameplate wears GitHub's mark.
-  const [page, setPage] = useState(0)
-  const brand = brandOf(pages[page]?.[0]?.set) ?? brandOf(set)
+  // The nameplate reads NYSgpt until a source's set is chosen (Enter or a click on its cell); then it wears that
+  // source's logo. Moving the keyboard or the page of cells across a source does not change it (Brendan, 2026-11-19).
+  const brand = brandOf(set)
 
   return (
     <div className="hm-mast" data-inspect="HomeMasthead">
@@ -73,15 +72,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
           <span className="hm-all" aria-hidden>{LIBRARY_SIZE}</span>
         </button>
 
-        <div
-          className="hm-cells"
-          data-inspect="LedgerScroll"
-          onScroll={e => {
-            const el = e.currentTarget
-            const p = Math.round(el.scrollLeft / (el.clientWidth || 1))
-            if (p !== page) setPage(p)
-          }}
-        >
+        <div className="hm-cells" data-inspect="LedgerScroll">
           {pages.map((cells, p) => (
           <div className="hm-cpage" key={p}>
           {cells.map((l, i) => {

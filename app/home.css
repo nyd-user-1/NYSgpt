@@ -287,6 +287,7 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
 /* GitHub's masthead page: the nameplate keeps its size and the wordmark's place; the mark lies over it */
 .hm-ghm { pointer-events: none; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity .5s; color: var(--paper-text); }
 .hm-ghm svg, .hm-ghm img { width: clamp(2.5rem, 8cqw, 4.5rem); height: auto; }
+.hm-ghm img { border-radius: 14px; }
 .hm-name.hm-gh .hm-wm { opacity: 0; }
 .hm-name.hm-gh .hm-ghm { opacity: 1; }
 .hm-name.hm-gh:hover .hm-ghm { opacity: 0; }

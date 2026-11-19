@@ -19,8 +19,9 @@ export const SOURCE_PAGES: SourceKind[][] = [
   ['hf-models', 'hf-datasets', 'hf-spaces', 'hf-papers'],
 ]
 export const SOURCE_KINDS: SourceKind[] = SOURCE_PAGES.flat()
-/** The source whose mark the nameplate wears for this set: GitHub's or Hugging Face's, or none. */
-export const brandOf = (k: BoxKind | null | undefined): 'github' | 'hf' | null => (!k ? null : k.startsWith('gh-') ? 'github' : k.startsWith('hf-') ? 'hf' : null)
+/** The source whose logo the nameplate wears while this set is on show; none for the first four sets. */
+export const brandOf = (k: BoxKind | null | undefined): 'github' | 'hf' | 'aa' | 'kaggle' | 'llmstats' | null =>
+  !k ? null : k.startsWith('gh-') ? 'github' : k.startsWith('hf-') ? 'hf' : k === 'aa' || k === 'kaggle' || k === 'llmstats' ? k : null
 export const SOURCES: Record<SourceKind, { word: string; unit: string }> = {
   aa: { word: 'Artificial Analysis', unit: 'Models' },
   kaggle: { word: 'Kaggle', unit: 'Datasets' },
