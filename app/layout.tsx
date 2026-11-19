@@ -5,6 +5,7 @@ import { DM_Sans, Fraunces, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { ProductStatusProvider } from "@/components/ProductStatus";
 import { SwitchboardProvider, SwitchboardShell } from "@/components/SwitchboardPanel";
+import { DevToolsMount } from "@/components/dev/devtools-mount";
 import { getDigest } from "@/lib/digest";
 import { CARDS, SWITCHBOARD } from "@/lib/home-data";
 import { siteConfig } from "@/lib/site";
@@ -97,6 +98,8 @@ export default async function RootLayout({
             </SwitchboardProvider>
           </ProductStatusProvider>
         </ThemeProvider>
+        {/* Dev Tools (comments, sonar, inspector): on the dev server alone; a production build carries none of it. */}
+        <DevToolsMount />
       </body>
     </html>
   );

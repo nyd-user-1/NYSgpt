@@ -1,0 +1,27 @@
+/* The dev tools' colours and shadows: pax-trinity's light-theme values (src/app/pax2.css), which the ported
+   files read as Tailwind's var shorthand (bg-(--pax2-blue) and the like). Loaded with the tools, on the dev
+   server alone, so no production page carries them. */
+:root {
+  --pax2-blue: #1e3a8a;
+  --pax2-light-blue: #2563eb;
+  --pax2-lavender: #dbeafe;
+  --pax2-surface: #ffffff;
+  --pax2-lift: #ffffff;
+  --pax2-raised: #ffffff;
+  --pax2-red: #dc2626;
+  --pax2-sidebar: #f5f7fb;
+  --night-900: #0f172a;
+  --shadow-e1: 0 1px 2px rgb(15 23 42 / 0.04), 0 1px 1px rgb(15 23 42 / 0.03);
+  --shadow-e2: 0 4px 14px -4px rgb(15 23 42 / 0.1), 0 2px 4px -2px rgb(15 23 42 / 0.06);
+  --shadow-header: 0 4px 12px -8px rgb(15 23 42 / 0.21);
+}
+
+/* The panel rows' icon hover (pax2.css): scale 1 → 1.2 → 1, 0.5s ease-in-out. */
+@keyframes icon-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.group:hover > .icon-pop { animation: icon-pop 0.5s ease-in-out; }
+@media (prefers-reduced-motion: reduce) {
+  .group:hover > .icon-pop { animation: none; }
+}
