@@ -3,7 +3,6 @@
  * sketch draws them (lucide shapes, and GitHub's mark for GitHub tools).
  */
 import type { BoxIcon } from '@/lib/home-boxes'
-import { SOURCE_MARKS } from '@/lib/home-sources'
 
 const P = { viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true } as const
 
@@ -50,7 +49,7 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
         </svg>
       )
     // The sources wear their own logos (Brendan, 2026-11-19). Hugging Face, Artificial Analysis and LLM Stats are the
-    // files he supplied, in public/logos/sources/; Kaggle's is its mark from Simple Icons (CC0) in Kaggle's blue.
+    // Kaggle are the files he supplied, in public/logos/sources/.
     case 'hf':
       // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
       return <img src="/logos/sources/huggingface.svg" alt="" />
@@ -61,11 +60,8 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
       // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
       return <img src="/logos/sources/llm-stats.png" alt="" />
     case 'kaggle':
-      return (
-        <svg viewBox="0 0 24 24" fill="#20beff" aria-hidden>
-          <path d={SOURCE_MARKS.kaggle} />
-        </svg>
-      )
+      // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
+      return <img src="/logos/sources/kaggle.png" alt="" />
     case 'download':
       return (
         <svg {...P}>
