@@ -245,6 +245,7 @@ export function HomePlate() {
                       openCatalog(b, e.currentTarget)
                     }}
                   >
+                    <AnimateOnHover>
                     <button
                       type="button"
                       className="hm-kbtn"
@@ -268,6 +269,7 @@ export function HomePlate() {
                     >
                       <Icon name="kebab" />
                     </button>
+                    </AnimateOnHover>
                     <span className="hm-pinm" aria-hidden>
                       📍
                     </span>
@@ -412,20 +414,27 @@ function BoxMenu({
         <span>{box.group}</span>
       </div>
       <div className="hm-ksep" />
+      <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" disabled={first} onClick={act(() => home.pin(key))}>
         <Icon name="pin" />
         <span>Pin to top</span>
       </button>
+      </AnimateOnHover>
       {pinned && (
+        <AnimateOnHover>
         <button type="button" role="menuitem" className="hm-krow" onClick={act(() => home.unpin(key))}>
           <Icon name="pin" />
           <span>Unpin</span>
         </button>
+        </AnimateOnHover>
       )}
+      <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(() => home.toggleFav(key))}>
         <Icon name="star" fill={fav ? '#fbbf24' : undefined} />
         <span>{fav ? 'Unfavorite' : 'Favorite'}</span>
       </button>
+      </AnimateOnHover>
+      <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(() => home.toggleShelf(box))}>
         <Icon name="grid" />
         <span>{onShelf ? 'Remove from Blocks' : 'Add to Blocks'}</span>
@@ -435,19 +444,26 @@ function BoxMenu({
           </span>
         )}
       </button>
+      </AnimateOnHover>
       <div className="hm-ksep" />
+      <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(onOpen)}>
         <Icon name="open" />
         <span>Open in catalog</span>
       </button>
+      </AnimateOnHover>
+      <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(onPanel)}>
         <Icon name="panel" />
         <span>Open in panel</span>
       </button>
+      </AnimateOnHover>
+      <AnimateOnHover>
       <button type="button" role="menuitem" className="hm-krow" onClick={act(() => navigator.clipboard?.writeText(box.title))}>
         <Icon name="copy" />
         <span>Copy name</span>
       </button>
+      </AnimateOnHover>
     </div>,
     document.body,
   )

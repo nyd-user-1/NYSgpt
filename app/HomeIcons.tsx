@@ -7,6 +7,20 @@ import { Database } from '@/components/animate-ui/icons/database'
 import { Layers } from '@/components/animate-ui/icons/layers'
 import { Braces } from '@/components/animate-ui/icons/braces'
 import { MessagesSquare } from '@/components/animate-ui/icons/messages-square'
+import { FileText } from '@/components/animate-ui/icons/file-text'
+// From animate-ui's own registry (animate-ui.com/r/icons-lucide-*.json, fetched 2026-11-19), as written.
+import { Palette } from '@/components/animate-ui/icons/palette'
+import { Download } from '@/components/animate-ui/icons/download'
+import { Pin } from '@/components/animate-ui/icons/pin'
+import { Copy } from '@/components/animate-ui/icons/copy'
+import { Check } from '@/components/animate-ui/icons/check'
+import { Plus } from '@/components/animate-ui/icons/plus'
+import { X } from '@/components/animate-ui/icons/x'
+import { ChevronLeft } from '@/components/animate-ui/icons/chevron-left'
+import { ChevronRight } from '@/components/animate-ui/icons/chevron-right'
+import { ArrowRight } from '@/components/animate-ui/icons/arrow-right'
+import { PanelRight } from '@/components/animate-ui/icons/panel-right'
+import { EllipsisVertical } from '@/components/animate-ui/icons/ellipsis-vertical'
 
 /* Brief 50 (2026-11-19): the icons govblock animates (database, layers, braces, messages-square) are govblock's
    own (components/animate-ui/icons/, as written); they play when an AnimateOnHover control around them is under
@@ -69,15 +83,7 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
         </svg>
       )
     case 'palette':
-      return (
-        <svg {...P}>
-          <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
-          <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
-          <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
-          <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-          <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
-        </svg>
-      )
+      return <Palette aria-hidden />
     case 'braces':
       return <Braces aria-hidden />
     case 'plug':
@@ -90,15 +96,7 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
         </svg>
       )
     case 'file':
-      return (
-        <svg {...P}>
-          <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
-          <path d="M14 2v4a2 2 0 0 0 2 2h4" />
-          <path d="M10 9H8" />
-          <path d="M16 13H8" />
-          <path d="M16 17H8" />
-        </svg>
-      )
+      return <FileText aria-hidden />
     case 'table':
       return (
         <svg {...P}>
@@ -109,13 +107,7 @@ export function TypeIcon({ icon }: { icon: BoxIcon }) {
         </svg>
       )
     case 'download':
-      return (
-        <svg {...P}>
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 15 17 10" />
-          <line x1="12" x2="12" y1="15" y2="3" />
-        </svg>
-      )
+      return <Download aria-hidden />
     default:
       return (
         <svg {...P}>
@@ -195,8 +187,26 @@ const PATHS = {
 
 export type IconName = keyof typeof PATHS
 
+/* The Icon() names that have a published animated icon (govblock's or animate-ui's). star (animate-ui's only
+   motion is a scale), grid and open (none published) stay drawn above with the two-tone fill only. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ANIMATED: Partial<Record<IconName, React.ComponentType<any>>> = {
+  panel: PanelRight,
+  kebab: EllipsisVertical,
+  pin: Pin,
+  copy: Copy,
+  check: Check,
+  plus: Plus,
+  x: X,
+  left: ChevronLeft,
+  right: ChevronRight,
+  arrow: ArrowRight,
+}
+
 export function Icon({ name, fill, style }: { name: IconName; fill?: string; style?: React.CSSProperties }) {
   if (name === 'chat') return <MessagesSquare aria-hidden fill={fill ?? 'none'} style={style} />
+  const A = ANIMATED[name]
+  if (A) return <A aria-hidden fill={fill ?? 'none'} style={style} />
   return (
     <svg {...P} fill={fill ?? 'none'} style={style}>
       {PATHS[name]}

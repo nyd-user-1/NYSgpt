@@ -337,10 +337,11 @@ body.hm-sbdrag .hm-sbanim { transition: none !important; }
    its outline in the colour and its shapes filled with that colour's tint (the + menu does it with
    group-hover:fill-* and text-*; here the same two properties). A box's icons use the box's type colour;
    the controls with no type colour use the site blue (--paper-strong). The motion comes from govblock's
-   icons (AnimateOnHover); no icon scales. */
+   icons (AnimateOnHover); no icon scales. The tint is translucent: a shape drawn later (the cylinder body of the
+   database icon) must not cover an earlier shape's outline (its top ring), as an opaque fill did. */
 .hm-card .hm-ti > svg, .hm-kbtn svg, .hm-pnl svg, .hm-fav svg, .hm-krow svg, .hm-ovr svg, .hm-oarr svg, .hm-stile .hm-sic svg, .hm-sx svg, .hm-ovqx svg { transition: fill .15s, color .15s; }
-.hm-card:hover .hm-ti > svg, .hm-card[data-nav-on] .hm-ti > svg { fill: color-mix(in oklab, var(--type) 16%, var(--paper)); }
-.hm-kbtn:hover svg, .hm-kbtn[aria-expanded="true"] svg, .hm-fav:not(.hm-on):hover svg { fill: color-mix(in oklab, currentColor 16%, var(--paper)); }
-.hm-krow:hover svg { color: var(--paper-strong); fill: color-mix(in oklab, var(--paper-strong) 16%, var(--paper)); }
-.hm-ovr:hover svg, .hm-ovqx:hover svg, .hm-sx:hover svg { color: var(--paper-strong); fill: color-mix(in oklab, var(--paper-strong) 16%, var(--paper)); }
-.hm-stile:hover .hm-sic svg, .hm-stile:focus-visible .hm-sic svg { fill: color-mix(in oklab, currentColor 16%, var(--paper)); }
+.hm-card:hover .hm-ti > svg, .hm-card[data-nav-on] .hm-ti > svg { fill: color-mix(in oklab, var(--type) 22%, transparent); }
+.hm-kbtn:hover svg, .hm-kbtn[aria-expanded="true"] svg, .hm-fav:not(.hm-on):hover svg { fill: color-mix(in oklab, currentColor 22%, transparent); }
+.hm-krow:hover svg { color: var(--paper-strong); fill: color-mix(in oklab, var(--paper-strong) 22%, transparent); }
+.hm-ovr:hover svg, .hm-ovqx:hover svg, .hm-sx:hover svg { color: var(--paper-strong); fill: color-mix(in oklab, var(--paper-strong) 22%, transparent); }
+.hm-stile:hover .hm-sic svg, .hm-stile:focus-visible .hm-sic svg { fill: color-mix(in oklab, currentColor 22%, transparent); }
