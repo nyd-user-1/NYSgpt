@@ -21,8 +21,10 @@ export type FoundTable = {
 }
 export type Scope = { db: string | null; table: string | null }
 
-type Raw = { s: string; p: string; t: number; a: string; r: string; n: number | null; y: string; v?: 1; nf?: number; f: (string | undefined)[][] }
-type Entry = { raw: Raw; topic: string; w: Map<string, number>; nameText: string; aboutText: string; y0: number | null; y1: number | null }
+// f rows: [name number, type number, description, sample, sample]; x: a list in X of further field names (numbers into N)
+type Raw = { s: string; p: string; t: number; a: string; r: string; n: number | null; y: string; v?: 1; f: (string | number | undefined)[][]; x?: number }
+type Field = { name: string; type: string; desc: string; s: string[] }
+type Entry = { raw: Raw; fields: Field[]; more: string[]; topic: string; w: Map<string, number>; nameText: string; aboutText: string; y0: number | null; y1: number | null }
 type Index = { topics: string[]; entries: Entry[]; idf: Map<string, number> }
 
 const STOP = new Set(
@@ -75,7 +77,7 @@ let INDEX: Index | null = null
 function load(): Index {
   if (INDEX) return INDEX
   const file = path.join(process.cwd(), "lib", "library-index.json")
-  const j = JSON.parse(fs.readFileSync(file, "utf8")) as { topics: string[]; tables: Raw[] }
+  const j = JSON.parse(fs.readFileSync(file, "utf8")) as { topics: string[]; N: string[]; T: string[]; X: number[][]; tables: Raw[] }
   const df = new Map<string, number>()
   const entries: Entry[] = j.tables.map((raw) => {
     const topic = j.topics[raw.t]
@@ -83,18 +85,21 @@ function load(): Index {
     const add = (text: string, weight: number) => {
       for (const t of terms(text)) if ((w.get(t) ?? 0) < weight) w.set(t, weight)
     }
-    for (const f of raw.f) {
-      add((f[3] ?? "") + " " + (f[4] ?? ""), 0.6)
-      add(f[2] ?? "", 1)
-      add((f[0] ?? "").replace(/_/g, " "), 2)
+    const fields: Field[] = raw.f.map((f) => ({ name: j.N[f[0] as number] ?? "", type: j.T[f[1] as number] ?? "", desc: (f[2] as string) ?? "", s: [f[3], f[4]].filter((v): v is string => typeof v === "string" && v !== "") }))
+    const more = raw.x === undefined ? [] : (j.X[raw.x] ?? []).map((i) => j.N[i] ?? "")
+    for (const f of fields) {
+      add(f.s.join(" "), 0.6)
+      add(f.desc, 1)
+      add(f.name.replace(/_/g, " "), 2)
     }
+    for (const name of more) add(name.replace(/_/g, " "), 2)
     add(raw.a + " " + raw.r, 3)
     add(topic, 4)
     add(raw.s.replace(/^govblock_/, "").replace(/[._]/g, " "), 5)
     add(raw.p, 6)
     for (const t of w.keys()) df.set(t, (df.get(t) ?? 0) + 1)
     const [y0, y1] = yearsOf(raw.y)
-    return { raw, topic, w, nameText: " " + words(raw.p + " " + raw.s.replace(/[._]/g, " ")).join(" ") + " ", aboutText: " " + words(raw.a + " " + raw.r + " " + topic).join(" ") + " ", y0, y1 }
+    return { raw, fields, more, topic, w, nameText: " " + words(raw.p + " " + raw.s.replace(/[._]/g, " ")).join(" ") + " ", aboutText: " " + words(raw.a + " " + raw.r + " " + topic).join(" ") + " ", y0, y1 }
   })
   const N = entries.length
   const idf = new Map<string, number>()
@@ -113,13 +118,16 @@ function toFound(e: Entry): FoundTable {
     rowIs: r.r,
     rows: r.n,
     years: r.y,
-    fields: r.f.map((f) => {
-      const out: FoundField = { name: f[0] ?? "", type: f[1] ?? "" }
-      if (f[2]) out.description = f[2]
-      const s = [f[3], f[4]].filter((x): x is string => !!x)
-      if (s.length) out.samples = s
-      return out
-    }),
+    // every field: the first ones with their description and samples, the rest by name (the type comes from the query API)
+    fields: [
+      ...e.fields.map((f) => {
+        const out: FoundField = { name: f.name, type: f.type }
+        if (f.desc) out.description = f.desc
+        if (f.s.length) out.samples = f.s
+        return out
+      }),
+      ...e.more.map((name) => ({ name, type: "" })),
+    ],
   }
 }
 

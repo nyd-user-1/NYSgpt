@@ -2,7 +2,8 @@
 // Keeps only what the Data Library query API can reach: govblock_* databases, less its closed databases and
 // tables (aws/data-library/query_api.py DENY_DB, DENY_TB), less anything marked internal, raw files and buckets.
 // Per table: stored name, plain name, topic, about, what a row is, rows, years, and up to MAXF fields
-// (name, type, description, two samples; no samples from credential-like columns).
+// (name, type, description, two samples; no samples from credential-like columns), then every further field's
+// name and type (`x`), so the finder can match any field and the chat sees the whole list.
 // Writes lib/library-index.json (read by lib/find-tables.ts) and public/library-topics.json (the scope picker).
 // Run: node scripts/library-index.mjs [path to catalog-reconciled.json]
 import fs from 'node:fs';
@@ -10,7 +11,7 @@ import path from 'node:path';
 
 const SRC = process.argv[2] || path.join(process.env.HOME, 'Downloads/NYSgpt-catalog-2026-11-12/catalog-reconciled.json');
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
-const MAXF = 32, DESC = 100, SAMPLE = 40, ABOUT = 320;
+const MAXF = 20, DESC = 80, SAMPLE = 28, ABOUT = 260;
 
 // the query API's own rules (aws/data-library/query_api.py), read from the file so they stay in step
 const api = fs.readFileSync(path.join(ROOT, 'aws/data-library/query_api.py'), 'utf8');
@@ -24,16 +25,22 @@ const C = JSON.parse(fs.readFileSync(SRC, 'utf8'));
 const keep = C.filter((e) => (e.kind === 'table' || e.kind === 'view') && /^govblock_[a-z0-9_]+$/.test(e.database) && !DENY_DB.has(e.database) && !DENY_TB.test(`${e.database}.${e.table}`) && !e.internal);
 const topics = [...new Set(keep.map((e) => e.topic))].sort((a, b) => a.localeCompare(b));
 const ti = Object.fromEntries(topics.map((t, i) => [t, i]));
+// field names are stored once in N and named by number (in f rows and in x); a list several tables share is stored once in X
+const N = [], NI = new Map(), X = [], XI = new Map(), T = [], TI = new Map();
+const tid = (t) => { if (!TI.has(t)) { TI.set(t, T.length); T.push(t); } return TI.get(t); };
+const nid = (n) => { if (!NI.has(n)) { NI.set(n, N.length); N.push(n); } return NI.get(n); };
+const xid = (list) => { const key = list.join(','); if (!XI.has(key)) { XI.set(key, X.length); X.push(list); } return XI.get(key); };
 const tables = keep.map((e) => {
   const f = (e.fields || []).slice(0, MAXF).map((x) => {
     const s = CRED.test(x.name) ? [] : (x.samples || []).filter((v) => v !== null && v !== '' && v !== 'hidden').slice(0, 2).map((v) => cut(v, SAMPLE));
-    const row = [x.name, x.type || '', cut(x.desc, DESC), ...s];
+    const row = [nid(x.name), tid(x.type || ''), cut(x.desc, DESC), ...s];
     while (row.length > 2 && row[row.length - 1] === '') row.pop();
     return row;
   });
-  return { s: `${e.database}.${e.table}`, p: e.pn || e.table, t: ti[e.topic], a: cut(e.about, ABOUT), r: cut(e.row_is, 140), n: e.rows ?? null, y: e.years || '', v: e.kind === 'view' ? 1 : undefined, nf: (e.fields || []).length > MAXF ? (e.fields || []).length : undefined, f };
+  const more = (e.fields || []).slice(MAXF).map((x) => nid(x.name));
+  return { s: `${e.database}.${e.table}`, p: e.pn || e.table, t: ti[e.topic], a: cut(e.about, ABOUT), r: cut(e.row_is, 140), n: e.rows ?? null, y: e.years || '', v: e.kind === 'view' ? 1 : undefined, f, x: more.length ? xid(more) : undefined };
 });
-const out = { built: new Date().toISOString(), source: path.basename(SRC), topics, tables };
+const out = { built: new Date().toISOString(), source: path.basename(SRC), topics, N, T, X, tables };
 fs.writeFileSync(path.join(ROOT, 'lib/library-index.json'), JSON.stringify(out));
 const pick = topics.map((t, i) => ({ topic: t, tables: tables.filter((x) => x.t === i).map((x) => ({ stored: x.s, plain: x.p })).sort((a, b) => a.plain.localeCompare(b.plain)) }));
 fs.writeFileSync(path.join(ROOT, 'public/library-topics.json'), JSON.stringify(pick));
