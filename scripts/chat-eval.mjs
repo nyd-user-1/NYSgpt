@@ -108,13 +108,16 @@ function score(q, r) {
   const got = (r.tables ?? []).map(tableName)
   const tableFound = want.length ? got.some(g => want.some(w => g === w || g.endsWith(`.${w}`) || w.endsWith(`.${g}`))) : null
   const queryRan = (r.sql ?? []).length > 0 && !r.error
-  const refusedLib = r.refused === 'not-in-library' || (!r.refused && REFUSE_LIB.test(r.answer ?? ''))
-  const refusedBig = r.refused === 'too-large' || (!r.refused && REFUSE_BIG.test(r.answer ?? ''))
-  const refused = !!r.refused || refusedLib || refusedBig
+  // The server sets `refused` to a label, or to true when it cannot say which (it also sets true when an
+  // answer has no query behind it); then the answer's words decide.
+  const label = typeof r.refused === 'string' ? r.refused : null
+  const refusedLib = label === 'not-in-library' || (!label && REFUSE_LIB.test(r.answer ?? ''))
+  const refusedBig = label === 'too-large' || (!label && REFUSE_BIG.test(r.answer ?? ''))
+  const refused = !!label || refusedLib || refusedBig
   let answerMatch = null
   let verdict
   if (r.error) verdict = 'error'
-  else if (q.kind === 'unanswerable') verdict = refusedLib || r.refused === 'other' ? 'refused-correctly' : 'should-have-refused'
+  else if (q.kind === 'unanswerable') verdict = refusedLib || label === 'other' || (r.refused === true && !queryRan) ? 'refused-correctly' : 'should-have-refused'
   else if (q.kind === 'too-large') verdict = refusedBig ? 'refused-correctly' : 'should-have-refused'
   else {
     const e = q.expected
@@ -123,7 +126,7 @@ function score(q, r) {
       verdict = answerMatch ? 'right' : refused ? 'refused-wrongly' : 'wrong'
     } else verdict = refused ? 'refused-wrongly' : queryRan ? 'answered-unchecked' : 'no-query'
   }
-  return { tableFound, queryRan, answerMatch, refused, verdict }
+  return { tableFound, queryRan, answerMatch, refused, verdict, fromCatalog: verdict === 'right' && !queryRan }
 }
 
 /* ── the run ── */
@@ -142,7 +145,7 @@ for (const q of questions) {
   costModel += cm
   costAthena += ca
   results.push({ id: q.id, question: q.question, subject: q.subject, kind: q.kind, expectedTables: q.tables ?? [], expected: q.expected ?? null, ...r, ...s, costModel: cm, costAthena: ca })
-  console.log(`${s.verdict}${s.tableFound === false ? ' (table missed)' : ''} ${(r.ms / 1000).toFixed(1)} s`)
+  console.log(`${s.verdict}${s.fromCatalog ? ' (from the catalog count, no query)' : ''}${s.tableFound === false ? ' (table missed)' : ''} ${(r.ms / 1000).toFixed(1)} s`)
 }
 
 const count = v => results.filter(r => r.verdict === v).length
@@ -153,8 +156,11 @@ const summary = {
   note: NOTE,
   asked: results.length,
   of: questions.length,
-  answered: results.filter(r => !r.error && !r.refused).length,
+  answered: results.filter(r => !r.error && r.verdict !== 'refused-correctly' && r.verdict !== 'refused-wrongly').length,
   right: count('right'),
+  rightWithQuery: results.filter(r => r.verdict === 'right' && r.queryRan).length,
+  rightFromCatalog: results.filter(r => r.fromCatalog).length,
+  queried: results.filter(r => r.queryRan).length,
   wrong: count('wrong') + count('refused-wrongly') + count('should-have-refused') + count('no-query'),
   refusedCorrectly: count('refused-correctly'),
   unchecked: count('answered-unchecked'),
@@ -185,9 +191,9 @@ writeFileSync(
 
 /* the README table */
 const readme = join(OUT, 'README.md')
-const head = `# /chat over the library: evaluation runs (brief 49)\n\nEach run asks the test set (docs/briefs/49-test-set.json) of the dev box's /api/chat and scores the replies by comparison: numbers within 1 percent, names exactly, refusals where due. A run's folder holds every reply (results.json) and the ones to read by hand (unmatched.md). Cost is model tokens at Claude Haiku 4.5's Bedrock price plus Athena bytes at $5 a terabyte.\n\n| Run | Asked | Answered | Right | Wrong | Refused correctly | Table found | Cost | Per message | Note |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---|\n`
+const head = `# /chat over the library: evaluation runs (brief 49)\n\nEach run asks the test set (docs/briefs/49-test-set.json) of the dev box's /api/chat and scores the replies by comparison: numbers within 1 percent, names exactly, refusals where due. A run's folder holds every reply (results.json) and the ones to read by hand (unmatched.md). Cost is model tokens at Claude Haiku 4.5's Bedrock price plus Athena bytes at $5 a terabyte.\n\n| Run | Asked | Answered | Right (with a query) | Wrong | Refused correctly | Table found | Cost | Per message | Note |\n|---|---:|---:|---:|---:|---:|---:|---:|---:|---|\n`
 const fmt$ = v => `$${v.toFixed(v < 0.1 ? 4 : 2)}`
-const row = `| ${runName} | ${summary.asked} of ${summary.of} | ${summary.answered} | ${summary.right} | ${summary.wrong} | ${summary.refusedCorrectly} | ${summary.tableFound} of ${summary.tableExpected} | ${fmt$(summary.cost)} | ${fmt$(summary.perMessage)} | ${[NOTE, stopped].filter(Boolean).join('; ')} |\n`
+const row = `| ${runName} | ${summary.asked} of ${summary.of} | ${summary.answered} | ${summary.right} (${summary.rightWithQuery}) | ${summary.wrong} | ${summary.refusedCorrectly} | ${summary.tableFound} of ${summary.tableExpected} | ${fmt$(summary.cost)} | ${fmt$(summary.perMessage)} | ${[NOTE, stopped].filter(Boolean).join('; ')} |\n`
 writeFileSync(readme, (existsSync(readme) ? readFileSync(readme, 'utf8') : head) + row)
 
 console.log(`\n${runName}: asked ${summary.asked} of ${summary.of}; right ${summary.right}, wrong ${summary.wrong}, refused correctly ${summary.refusedCorrectly}, unchecked ${summary.unchecked}, errors ${summary.errors}; table found ${summary.tableFound} of ${summary.tableExpected}; cost ${fmt$(summary.cost)} (model ${fmt$(costModel)}, Athena ${fmt$(costAthena)}); night so far model ${fmt$(spentModel + costModel)}, Athena ${fmt$(spentAthena + costAthena)}${stopped ? `; stopped: ${stopped}` : ''}`)
