@@ -11,9 +11,11 @@ import { TYPE_COLOR } from '@/lib/home-boxes'
 // by the date; after the last file the list carries on from the start in a new order. Rows are drawn windowed, so
 // 2,000 or 20,000 cost the same.
 
-/** [question, [[stored, plain, rows]], topic, kind, sql] as the build writes it. */
-type Raw = [string, [string, string, number | null][], string, string, string]
-export type Question = { q: string; tables: { stored: string; plain: string; rows: number | null }[]; topic: string; kind: string; sql: string; key: string }
+/** A query's result from its one free run (brief 58): columns, at most 10 rows, the date it was run. */
+export type Answer = { c: string[]; r: (string | number | boolean | null)[][]; on: string }
+/** [question, [[stored, plain, rows]], topic, kind, sql, answer?] as the build writes it. */
+type Raw = [string, [string, string, number | null][], string, string, string, Answer?]
+export type Question = { q: string; tables: { stored: string; plain: string; rows: number | null }[]; topic: string; kind: string; sql: string; answer?: Answer; key: string }
 type Manifest = { count: number; chunks: number; first: number }
 
 const BASE = '/search-questions'
@@ -72,7 +74,7 @@ export function useQuestions() {
       const raw = await file(f)
       const keep = cycle === 0 && f === 0 ? raw.slice(0, m.first) : []
       const mixed = shuffle(cycle === 0 && f === 0 ? raw.slice(m.first) : raw, seed.current + f * 31 + cycle * 7919)
-      const next = [...keep, ...mixed].map((r, i) => ({ q: r[0], tables: r[1].map(([stored, plain, rows]) => ({ stored, plain, rows })), topic: r[2], kind: r[3], sql: r[4], key: `${cycle}:${f}:${i}` }))
+      const next = [...keep, ...mixed].map((r, i) => ({ q: r[0], tables: r[1].map(([stored, plain, rows]) => ({ stored, plain, rows })), topic: r[2], kind: r[3], sql: r[4], ...(r[5] ? { answer: r[5] } : {}), key: `${cycle}:${f}:${i}` }))
       setItems((prev) => [...prev, ...next])
     } finally {
       busy.current = false

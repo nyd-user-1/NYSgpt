@@ -3,8 +3,9 @@
  "chunks": 9,
  "chunk": 250,
  "first": 14,
- "built": "2026-11-19T13:15:45.902Z",
+ "built": "2026-11-19T13:43:09.794Z",
  "withSql": 2040,
+ "answered": 248,
  "topics": {
   "Chemical Compounds": 99,
   "Population, Income and Housing": 71,

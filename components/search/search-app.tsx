@@ -341,7 +341,7 @@ export function SearchApp({ pick, view }: { pick: string | null; view: TryView |
     setExpanded(null)
     const t = question.tables[0]
     if (t) {
-      setPicked({ kind: 'table', stored: t.stored, ...(question.sql ? { sql: question.sql } : {}) })
+      setPicked({ kind: 'table', stored: t.stored, ...(question.sql ? { sql: question.sql } : {}), ...(question.answer ? { answer: { ...question.answer, tables: question.tables.map((x) => x.plain) } } : {}) })
       setTryView(question.sql ? 'api' : 'fields')
     }
     input.current?.focus()

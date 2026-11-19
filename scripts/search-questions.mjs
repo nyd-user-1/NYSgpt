@@ -11,10 +11,16 @@
 // names only the question's tables; no two questions the same or nearly so (lower-cased, numbers and capitalised
 // names taken out). Rejected lines are listed and left out.
 //
-// Output, public/search-questions/: manifest.json { count, chunks, first, built, topics, kinds } and q-000.json …
-// (250 a file), each an array of [question, [[stored, plain, rows]], topic, kind, sql]. The first-screen questions
-// come first; the rest follow in an order where neighbours differ in topic and kind.
+// Output, public/search-questions/: manifest.json { count, chunks, first, built, topics, kinds, answered } and
+// q-000.json … (250 a file), each an array of [question, [[stored, plain, rows]], topic, kind, sql, answer?]. The
+// first-screen questions come first; the rest follow in an order where neighbours differ in topic and kind.
+//
+// Answers (brief 58): scripts/search-answers.json holds each query's result from one free run (DuckDB on the lake's
+// Parquet files), keyed by the first 12 hex of the SQL's SHA-1, so an edited query loses its answer until it is run
+// again. A question whose stored result has rows gets { c: columns, r: at most 10 rows, on: the date run } as its
+// sixth element. Queries that returned no rows, or one row of empty values, are listed for their authors to fix.
 
+import crypto from "node:crypto"
 import fs from "node:fs"
 import path from "node:path"
 
@@ -97,16 +103,28 @@ while (pool.length) {
 }
 const all = [...first, ...ordered]
 
+const ANSWERS = path.join(ROOT, "scripts", "search-answers.json")
+const answers = fs.existsSync(ANSWERS) ? JSON.parse(fs.readFileSync(ANSWERS, "utf8")).answers ?? {} : {}
+const hashOf = (sql) => crypto.createHash("sha1").update(sql).digest("hex").slice(0, 12)
+const flagged = []
+for (const r of all) {
+  const a = r[4] ? answers[hashOf(r[4])] : null
+  if (a?.st === "ok") r.push({ c: a.c, r: a.r, on: a.on })
+  else if (a && (a.st === "empty" || a.st === "null")) flagged.push([a.st === "empty" ? "no rows" : "one row, all empty", r[0]])
+}
+
 fs.mkdirSync(OUT, { recursive: true })
 for (const f of fs.readdirSync(OUT)) if (/^q-\d+\.json$/.test(f)) fs.unlinkSync(path.join(OUT, f))
 const chunks = Math.ceil(all.length / CHUNK)
 for (let c = 0; c < chunks; c++) fs.writeFileSync(path.join(OUT, `q-${String(c).padStart(3, "0")}.json`), JSON.stringify(all.slice(c * CHUNK, (c + 1) * CHUNK)))
 const count = (k) => Object.fromEntries([...all.reduce((m, r) => m.set(r[k], (m.get(r[k]) ?? 0) + 1), new Map())].sort((a, b) => b[1] - a[1]))
-const manifest = { count: all.length, chunks, chunk: CHUNK, first: first.length, built: new Date().toISOString(), withSql: all.filter((r) => r[4]).length, topics: count(2), kinds: count(3) }
+const manifest = { count: all.length, chunks, chunk: CHUNK, first: first.length, built: new Date().toISOString(), withSql: all.filter((r) => r[4]).length, answered: all.filter((r) => r[5]).length, topics: count(2), kinds: count(3) }
 fs.writeFileSync(path.join(OUT, "manifest.json"), JSON.stringify(manifest, null, 1))
 
 console.log(`questions: ${all.length} (${first.length} first screen, ${manifest.withSql} with SQL), ${chunks} files, ${Object.keys(manifest.topics).length} topics`)
 console.log("by kind:", JSON.stringify(manifest.kinds))
+console.log(`answers stored: ${manifest.answered}; queries to fix (their free run found nothing): ${flagged.length}`)
+for (const [why, q] of flagged) console.log(`  ${why}: ${q}`)
 if (rejects.length) {
   console.log(`rejected ${rejects.length}:`)
   for (const [n, why, q] of rejects) console.log(`  line ${n}: ${why}: ${q}`)

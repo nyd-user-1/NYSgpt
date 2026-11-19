@@ -53,6 +53,15 @@
   .sr-tabs { gap: 0; }
   .sr-tab { padding: 8px 7px; letter-spacing: 0.06em; }
 }
+.sr-ans { margin: 0 0 22px; }
+.sr-fig { display: flex; flex-direction: column; gap: 6px; }
+.sr-fig-n { font-size: 44px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em; color: var(--paper-text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.sr-fig-l { font-family: var(--font-mono), ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-faint); }
+.sr-pairs { margin: 0; display: grid; gap: 10px; }
+.sr-pairs div { display: grid; grid-template-columns: minmax(8em, 40%) 1fr; gap: 12px; align-items: baseline; }
+.sr-pairs dt { font-family: var(--font-mono), ui-monospace, monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--paper-faint); }
+.sr-pairs dd { margin: 0; font-size: 22px; color: var(--paper-text); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.sr-ans-on { margin: 10px 0 0; font-size: 13px; color: var(--paper-muted); }
 .sr-tools { margin: 0; display: grid; gap: 8px; }
 .sr-tools div { display: grid; grid-template-columns: 9.5em 1fr; gap: 12px; align-items: baseline; }
 .sr-tools dt { font-family: var(--font-mono), ui-monospace, monospace; font-size: 12px; color: var(--paper-text); }

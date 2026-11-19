@@ -6,6 +6,7 @@ import { TableDetail, type TableView } from '@/app/TableDetail'
 import { KIND_NOUN, SET_INFO, type Box } from '@/lib/home-boxes'
 import { compactNum, loadCatalog, loadSample, type Sample, type Table } from '@/lib/home-catalog'
 
+import type { Answer } from './question-list'
 import type { FullTable, Out, TableHit } from './search-worker'
 
 // /search's try panel (brief 53): what is picked, tried for real. A table shows the catalog overlay's three views
@@ -17,7 +18,13 @@ import type { FullTable, Out, TableHit } from './search-worker'
 // their own keys, so their stored facts stand as the sample. The site holds no key here and calls no model.
 
 export type TryView = TableView | 'api' | 'curl' | 'mcp'
-export type Picked = { kind: 'db'; topic: string } | { kind: 'table'; stored: string; field?: string; /** a question's or a name's SQL for the API view (brief 57) */ sql?: string } | { kind: 'box'; box: Box } | { kind: 'resolve'; box: Box }
+/** A question's stored answer (brief 58) and the plain names of the tables it was run against. */
+export type StoredAnswer = Answer & { tables: string[] }
+export type Picked =
+  | { kind: 'db'; topic: string }
+  | { kind: 'table'; stored: string; field?: string; /** a question's or a name's SQL for the API view (brief 57) */ sql?: string; answer?: StoredAnswer }
+  | { kind: 'box'; box: Box }
+  | { kind: 'resolve'; box: Box }
 
 const API = 'https://data.nysgpt.com'
 const MCP = `${API}/mcp`
@@ -258,7 +265,43 @@ function McpView() {
   )
 }
 
-function TableTry({ stored, sql, view, onView, worker }: { stored: string; sql?: string; view: TryView; onView: (v: TryView) => void; worker: Worker }) {
+const DAY = new Intl.DateTimeFormat('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' })
+const cell = (v: string | number | boolean | null) =>
+  v == null ? '' : typeof v === 'number' ? v.toLocaleString('en-US', { maximumFractionDigits: Number.isInteger(v) ? 0 : 2 }) : String(v)
+const heading = (c: string) => c.replace(/_/g, ' ')
+
+/** A question's answer from its stored run: one figure large, one row as pairs, or the short table; then its date and
+ *  tables, so it is never taken for a live call. */
+function AnswerView({ a }: { a: StoredAnswer }) {
+  const one = a.r.length === 1
+  const on = DAY.format(new Date(`${a.on}T00:00:00Z`))
+  return (
+    <div className="sr-ans">
+      {one && a.c.length === 1 ? (
+        <div className="sr-fig">
+          <span className="sr-fig-n">{cell(a.r[0][0])}</span>
+          <span className="sr-fig-l">{heading(a.c[0])}</span>
+        </div>
+      ) : one ? (
+        <dl className="sr-pairs">
+          {a.c.map((c, i) => (
+            <div key={i}>
+              <dt>{heading(c)}</dt>
+              <dd>{cell(a.r[0][i])}</dd>
+            </div>
+          ))}
+        </dl>
+      ) : (
+        <Grid columns={a.c.map(heading)} rows={a.r.map((row) => row.map((v) => (v == null ? null : cell(v))))} />
+      )}
+      <p className="sr-ans-on">
+        Run on {on} against {a.tables.join(', ')}
+      </p>
+    </div>
+  )
+}
+
+function TableTry({ stored, sql, answer, view, onView, worker }: { stored: string; sql?: string; answer?: StoredAnswer; view: TryView; onView: (v: TryView) => void; worker: Worker }) {
   const [t, setT] = useState<FullTable | null | 'loading'>('loading')
   const [home, setHome] = useState<Table | null>(null)
   // The SQL lives here so the cURL tab follows edits made in the API view.
@@ -293,6 +336,7 @@ function TableTry({ stored, sql, view, onView, worker }: { stored: string; sql?:
   if (!t || !asTable) return <p className="sr-note">That table is not in the index.</p>
   return (
     <div className="sr-table">
+      {answer && <AnswerView a={answer} />}
       <div className="sr-tabs" role="tablist">
         {VIEWS.map((v) => (
           <button key={v.id} type="button" role="tab" aria-selected={view === v.id} className={view === v.id ? 'sr-tab sr-tab-on' : 'sr-tab'} onClick={() => onView(v.id)}>
@@ -427,5 +471,5 @@ export function TryPanel({ picked, view, onView, worker, ready, onPick }: { pick
   if (!worker || !ready) return <p className="sr-note">Loading the table index…</p>
   if (picked.kind === 'resolve') return <Resolve box={picked.box} worker={worker} onPick={onPick} />
   if (picked.kind === 'db') return <DbTry topic={picked.topic} worker={worker} onPick={onPick} />
-  return <TableTry stored={picked.stored} sql={picked.sql} view={view} onView={onView} worker={worker} />
+  return <TableTry stored={picked.stored} sql={picked.sql} answer={picked.answer} view={view} onView={onView} worker={worker} />
 }
