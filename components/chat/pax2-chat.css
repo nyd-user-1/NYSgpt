@@ -8,7 +8,7 @@
 .pax-chat {
   --t-frame: #e3e9f1;
   --t-sidebar: #f5f7fb;
-  --t-surface: #f5f7fb;
+  --t-surface: #ffffff; /* white, not PAX Light's #f5f7fb (Brendan, 2026-11-19): the chat ground matches the shell header */
   --t-raised: #ffffff;
   --t-tint: #eef2f8;
   --t-lift: #ffffff;
@@ -490,4 +490,12 @@
 .pax-chat .erd-travel {
     animation: none;
   }
+}
+
+/* The app shell's header on the chat page carries a slight shadow along its bottom edge (Brendan, 2026-11-19),
+   so it reads as a bar above the white page. Only on this route: the rule needs the chat wrapper in the frame. */
+[data-app-frame]:has(.pax-chat) > [data-chrome] {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.05), 0 2px 6px rgb(15 23 42 / 0.04);
 }
