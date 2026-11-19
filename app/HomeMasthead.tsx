@@ -97,6 +97,8 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
                 onClick={() => home.toggleSet(s)}
               >
                 <span className="hm-word">{l.word}</span>
+                {/* the figure counting up under the mouse is the first masthead's alone (Brendan, 2026-11-19) */}
+                {p === 0 && (
                 <span className="hm-figw" aria-hidden>
                   <span className={`hm-lf hm-short ${l.exact ? 'hm-has-full' : ''}`}>
                     <CountUp value={fig.count} decimals={fig.decimals} suffix={fig.suffix} duration={1400} trigger="hover" />
@@ -108,6 +110,7 @@ export function HomeMasthead({ ledger }: { ledger: LedgerEntry[] }) {
                   )}
                   <span className="hm-lu">{l.unit}</span>
                 </span>
+                )}
                 <span className="hm-enter" aria-hidden>
                   <svg viewBox="0 0 24 24" width="22" height="22">
                     <circle cx="12" cy="12" r="11" />
