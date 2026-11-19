@@ -103,7 +103,8 @@ const TextType = dynamic(() => import('@/components/text-type'), { loading: () =
 const VideoBlock = dynamic(() => import('@/components/chat/video-block').then((m) => m.VideoBlock), { ssr: false, loading: () => <div className="aspect-video w-full animate-pulse rounded-xl bg-pax2-surface/70" /> })
 // The record flow (camera, upload, the template chooser with Remotion's Player and zod) loads when Record is pressed.
 const RecordFlow = dynamic(() => import('@/components/chat/record-flow').then((m) => m.RecordFlow), { ssr: false })
-const READY = ['Ready to make change?', 'Ready to make a video?', 'Ready to make a storyboard?', 'Ready to make a script?', 'Ready to make a difference?', 'Ready. Set. Go.']
+// NYSgpt's lines (Brendan, 2026-11-19), in the source's pattern: one per masthead set, then the source's last line.
+const READY = ['Ready to find a database?', 'Ready to find a table?', 'Ready to find a model?', 'Ready to find a platform?', 'Ready to find an answer?', 'Ready. Set. Go.']
 
 const RECORD_OPENER = "I'm ready to make my first video — where do we start?"
 
@@ -1282,7 +1283,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
                 <div className="transition-transform duration-150" style={{ transform: `translateY(-${grow}px)` }}>
                   {heading ?? (
                     <div className="flex h-[65px] flex-col items-center justify-center">
-                      <TextType as="span" text={READY} loop={false} typingSpeed={70} className="font-display text-2xl font-normal text-pax2-blue md:text-3xl" />
+                      <TextType as="span" text={READY} loop={false} typingSpeed={70} className="font-display text-2xl font-normal text-black md:text-3xl" />
                     </div>
                   )}
                 </div>

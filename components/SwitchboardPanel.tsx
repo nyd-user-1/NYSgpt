@@ -97,8 +97,8 @@ export type ChannelId = 'slack' | 'discord' | 'ask'
 
 type Ctx = {
   open: boolean
-  /** The panel's width, a CSS length: half the window (50vw, the default), a
-   *  third, or whatever the drag handle set; kept in this browser (2026-11-19).
+  /** The panel's width, a CSS length: a third of the window (the default, 2026-11-19), half,
+   *  or whatever the drag handle set; kept in this browser (2026-11-19).
    *  Lives here, not in the panel, because SwitchboardShell sizes the page's
    *  padding from it — the push has to match the panel's actual width. */
   width: string
@@ -129,7 +129,7 @@ export function useSwitchboard() {
 
 export function SwitchboardProvider({ cards, digest, children }: { cards: HomeCardData[]; digest: Digest; children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
-  const [width, setWidthState] = useState('50vw')
+  const [width, setWidthState] = useState('33.3333vw')
   const [view, setView] = useState<View>({ kind: 'menu' })
 
   /* the width: set on the root as --sbw (the panel, the page's push and the
@@ -684,7 +684,7 @@ function countProps(value: number) {
   return { value: f.count, decimals: f.decimals, suffix: f.suffix }
 }
 
-const WIDTH_KEY = 'sb-width'
+const WIDTH_KEY = 'sb-width-2'
 
 /** The panel search's test: every word of the search is in the text. */
 function match(q: string, text: string) {

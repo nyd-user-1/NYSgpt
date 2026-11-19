@@ -31,7 +31,7 @@ export function AppLayout({
       {/* Sidebar — wired in step 2; collapsed (w-0) until opened. */}
       <div
         data-chrome
-        className={`shrink-0 transition-all duration-300 ease-in-out overflow-hidden ${
+        className={`shrink-0 transition-all duration-500 ease-in-out overflow-hidden ${
           sidebarOpen ? "w-full sm:w-[240px] sm:mr-[18px]" : "w-0"
         }`}
       >

@@ -27,7 +27,7 @@ export default async function ChatPage({ searchParams }: { searchParams: Promise
   const saved = c ? await openChat(c) : null
   const chatId = saved ? saved.meta.id : crypto.randomUUID()
   return (
-    <AppLayout>
+    <AppLayout paperMode>
       <div className={`pax-chat ${sans.variable} ${mono.variable} flex min-h-0 flex-1 flex-col font-sans text-foreground antialiased`}>
         <RandomUUID />
         <Chat key={chatId} chatId={chatId} initialMessages={saved?.messages} record={record === "1"} explore={false} scripts={SCRIPTS} videos={[]} shorts={[]} />
