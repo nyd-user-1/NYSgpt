@@ -3,12 +3,10 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import { Columns2, Columns3, Sparkles, ArrowUpRight } from 'lucide-react'
+import { Columns2, Columns3, ArrowRight, ArrowUpRight } from 'lucide-react'
 // brief 50: the published animated icons (animate-ui's registry, as written), played by their button or row.
 import { X } from '@/components/animate-ui/icons/x'
-import { ChevronRight } from '@/components/animate-ui/icons/chevron-right'
 import { ArrowLeft } from '@/components/animate-ui/icons/arrow-left'
-import { ArrowRight } from '@/components/animate-ui/icons/arrow-right'
 import { AnimateOnHover } from '@/components/animate-on-hover'
 import { CountUp } from '@/components/CountUp'
 import { compact } from '@/lib/compact'
@@ -18,7 +16,7 @@ import { SwitchboardApiList } from './SwitchboardApiList'
 import { AwsConsole, AwsRegister, type AwsPlan, type AwsSubscription } from './MarketplaceViews'
 import type { Digest } from '@/lib/digest'
 import { FeedbackDialog } from '@/components/FeedbackDialog'
-import { BOXES, KIND_NOUN, SET_INFO, TYPE_COLOR } from '@/lib/home-boxes'
+import { BOXES, KIND_NOUN, SET_INFO, TYPE_COLOR, brandOf, type Box } from '@/lib/home-boxes'
 import { boxKey, getHome, home, shelfItems, shelfSlots, useHome, type ShelfItem } from '@/lib/home-store'
 import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
@@ -229,74 +227,41 @@ const GLYPH = 'h-4 w-4 shrink-0 text-[var(--paper-faint)] transition-colors grou
 const LABEL =
   'min-w-0 flex-1 truncate text-[15px] leading-tight text-[var(--paper-text)] transition-colors group-hover/row:text-[var(--paper-strong)]'
 
-/** A plain row: the whole thing drills down. Used by the ten products. */
-function Row({ children, onClick }: { children: React.ReactNode; onClick: () => void }) {
-  return (
-    <AnimateOnHover>
-    <button onClick={onClick} className={ROW}>
-      <span className={LABEL} style={SERIF}>{children}</span>
-      <ChevronRight className={GLYPH} />
-    </button>
-    </AnimateOnHover>
-  )
+/** Every row's end mark (2026-11-19): a right arrow that turns to the up-right arrow while its row is hovered. */
+function Arrow() {
+  return <ArrowRight className={`${GLYPH} transition-[rotate,color] duration-300 ease-out group-hover/row:-rotate-45`} />
 }
 
-/**
- * A channel row — Slack, Discord, Ask NYSgpt — which has TWO destinations:
- * drill INTO the panel, or leave for the service.
- *
- * So it cannot be one `<Link>`. The row and its `Open` chip are a button that
- * pushes the next view; the ↗ is a separate anchor that leaves. Nesting an
- * anchor inside a link would be invalid HTML and would make the whole row
- * ambiguous to a keyboard user, which is the actual reason for the split rather
- * than the styling.
- *
- * The ↗ carries the circular hover chrome the home cards use, so "this is a
- * target" reads the same in both places.
- */
-function ChannelRow({
-  children, icon, onOpen, href, sameTab,
-}: {
-  children: React.ReactNode
-  icon: React.ReactNode
-  onOpen: () => void
-  href: string
-  sameTab?: boolean
-}) {
+/* Each listing's mark: its own logo, else its source's, else the NYSgpt block. */
+const BRAND_LOGO: Record<string, string> = {
+  hf: '/logos/sources/huggingface.svg',
+  aa: '/logos/sources/artificial-analysis.png',
+  kaggle: '/logos/sources/kaggle.png',
+  llmstats: '/logos/sources/llm-stats.png',
+}
+const LISTINGS: Box[] = (() => {
+  const seen = new Set<string>()
+  return BOXES.filter(b => !seen.has(boxKey(b)) && !!seen.add(boxKey(b)))
+    .sort((a, b) => a.title.localeCompare(b.title, 'en', { sensitivity: 'base', numeric: true }))
+})()
+function ListingMark({ b }: { b: Box }) {
+  const brand = brandOf(b.kind)
+  if (brand === 'github' && !b.logo) return <span className="flex h-4 w-4 shrink-0 items-center justify-center text-[var(--paper-text)] [&_svg]:h-4 [&_svg]:w-4"><TypeIcon icon="github" /></span>
+  // eslint-disable-next-line @next/next/no-img-element -- a 16px logo from public/
+  return <img src={b.logo ?? (brand ? BRAND_LOGO[brand] : '/logos/platforms/nysgpt.svg')} alt="" className="h-4 w-4 shrink-0 rounded-[3px] object-contain" />
+}
+function ListingRow({ b, onClick }: { b: Box; onClick: () => void }) {
   return (
-    /* Same ROW as every other row — same px-5 py-4, so the height matches the
-       products exactly. The two children add NO vertical padding of their own:
-       the arrow's tap target comes from p-2 cancelled by -my-2, which grows the
-       hit area without growing the row. Splitting the row must not resize it. */
-    <div className={ROW}>
-      <button onClick={onOpen} className="flex min-w-0 flex-1 items-center gap-3 text-left">
-        <span className="shrink-0 text-[var(--paper-faint)]">{icon}</span>
-        <span className={LABEL} style={SERIF}>{children}</span>
-        <span
-          className="shrink-0 rounded-full border border-[var(--paper-rule)] px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] text-[var(--paper-faint)] transition-colors group-hover/row:border-[var(--paper-strong)] group-hover/row:text-[var(--paper-strong)]"
-          style={MONO}
-        >
-          Open
-        </span>
-      </button>
-      <Link
-        href={href}
-        {...(sameTab ? {} : { target: '_blank', rel: 'noreferrer noopener' })}
-        aria-label="Open externally"
-        onClick={e => e.stopPropagation()}
-        className="-my-2 flex shrink-0 items-center justify-center rounded-full p-2 transition-colors hover:bg-[var(--paper-rule-soft)]"
-      >
-        <span className="relative h-4 w-4">
-          <ArrowRight className={`${GLYPH} absolute inset-0 opacity-100 group-hover/row:opacity-0`} />
-          <ArrowUpRight className={`${GLYPH} absolute inset-0 opacity-0 group-hover/row:opacity-100`} />
-        </span>
-      </Link>
-    </div>
+    <button onClick={onClick} className={ROW} style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 53px' }}>
+      <ListingMark b={b} />
+      <span className={LABEL} style={SERIF}>{b.title}</span>
+      <Arrow />
+    </button>
   )
 }
 
 function SwitchboardPanel() {
-  const { open, width, setWidth, view, setView, cards, digest, close, openMenu, openProduct, openChannel } = useSwitchboard()
+  const { open, width, setWidth, view, setView, cards, digest, close, openMenu, openBox, openData } = useSwitchboard()
   const [mounted, setMounted] = useState(false)
   const { linkProps } = useProductStatus()
   /** The panel search: it filters the rows of the view on show, and clears when the view changes. */
@@ -605,48 +570,9 @@ function SwitchboardPanel() {
                   <p className="mt-3 text-[13px] leading-[1.6] text-[var(--paper-muted)]" style={SANS}>{INTRO}</p>
                 </div>
 
-                {/* lucide ships no Slack or Discord mark, so both are brand
-                    assets from /public — the same files 44B's panel uses, which
-                    keeps the two panels identical. */}
-                {match(q, 'Slack') && (
-                <ChannelRow
-                  icon={<img src="/logos/250px-Slack_icon_2019.svg.png" alt="" className="h-4 w-4 shrink-0 object-contain" />}
-                  onOpen={() => openChannel('slack')}
-                  href={CHANNELS.slack.href}
-                >
-                  Slack
-                </ChannelRow>
-                )}
-                {match(q, 'Discord') && (
-                <ChannelRow
-                  icon={<img src="/discord-icon.svg" alt="" className="h-4 w-4 shrink-0 object-contain" />}
-                  onOpen={() => openChannel('discord')}
-                  href={CHANNELS.discord.href}
-                >
-                  Discord
-                </ChannelRow>
-                )}
-                {match(q, 'Ask NYSgpt') && (
-                <ChannelRow
-                  icon={<Sparkles className="h-4 w-4" />}
-                  onOpen={() => openChannel('ask')}
-                  href={CHANNELS.ask.href}
-                  sameTab
-                >
-                  Ask NYSgpt
-                </ChannelRow>
-                )}
-
-                {/* 2026-11-19 (the option 3 sketch): the Blocks shelf and the data. */}
-                {match(q, 'Blocks') && <Row onClick={() => setView({ kind: 'blocks' })}>Blocks</Row>}
-                {match(q, 'Data') && <Row onClick={() => setView({ kind: 'data' })}>Data</Row>}
-
-                <p className="px-5 pb-2 pt-5 text-[10px] uppercase tracking-[0.28em] text-[var(--paper-faint)]" style={MONO}>
-                  Products
-                </p>
-
-                {cards.map((c, i) => match(q, c.title) && (
-                  <Row key={c.href + c.title} onClick={() => openProduct(i)}>{c.title}</Row>
+                {/* 2026-11-19: every listing from every content plate, A to Z, each with its mark. */}
+                {LISTINGS.map(b => match(q, b.title) && (
+                  <ListingRow key={boxKey(b)} b={b} onClick={() => (b.kind === 'data' ? openData(b.title) : b.kind === 'tables' ? openData(b.group) : openBox(boxKey(b)))} />
                 ))}
               </>
             )}
@@ -1005,7 +931,7 @@ function DataView({ view, q, onGo }: { view: { db?: string; table?: number; rows
     <button onClick={go} className={ROW}>
       <span className={LABEL} style={SERIF}>{label}</span>
       <span className="hm-count">{count}</span>
-      <ChevronRight className={GLYPH} />
+      <Arrow />
     </button>
     </AnimateOnHover>
   )
