@@ -128,7 +128,19 @@ export function FieldsTable({ fields, byName, style }: { fields: Field[]; byName
   const copy = async () => {
     const lines = [['field', 'type', 'description', 'sample'], ...fields.map(f => [f.name, f.type, f.desc, f.sample])]
     try {
-      await navigator.clipboard.writeText(lines.map(l => l.map(v => (v ?? '').replace(/[\t\n]+/g, ' ')).join('\t')).join('\n'))
+      const text = lines.map(l => l.map(v => (v ?? '').replace(/[\t\n]+/g, ' ')).join('\t')).join('\n')
+      // The clipboard API needs a secure page; the dev box is plain http, so there the copy goes through a hidden text box.
+      if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text)
+      else {
+        const box = document.createElement('textarea')
+        box.value = text
+        box.style.cssText = 'position:fixed;opacity:0;pointer-events:none'
+        document.body.appendChild(box)
+        box.select()
+        const ok = document.execCommand('copy')
+        box.remove()
+        if (!ok) return
+      }
       setCopied(true)
       window.setTimeout(() => setCopied(false), 1500)
     } catch {}
