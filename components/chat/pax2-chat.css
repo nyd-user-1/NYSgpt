@@ -64,12 +64,12 @@
   /* the two pale washes the record and search states use */
   --color-red-50: color-mix(in oklab, #f87171 14%, var(--paper));
   --color-blue-50: color-mix(in oklab, #3b82f6 16%, var(--paper));
+  /* the find-in-chat marks (chat.tsx's ::highlight rule reads this; light keeps its pink) */
+  --pax-chat-hit: rgb(248 113 113 / 0.28);
 }
 /* the tools row's and menus' hover, a black wash in light, is a white wash on the dark paper */
 .dark .pax-chat [class~="hover:bg-[rgba(0,0,0,0.07)]"]:hover,
 .dark .pax-chat [class~="bg-[rgba(0,0,0,0.07)]"] { background-color: rgb(255 255 255 / 0.08); }
-/* the find-in-chat marks: the light pink would sit under light type */
-.dark ::highlight(pax-chat-hit) { background-color: rgb(248 113 113 / 0.28); }
 /* the scroll bars' thumb, a little lighter on the dark paper */
 .dark .pax-chat ::-webkit-scrollbar-thumb, .dark .pax-chat::-webkit-scrollbar-thumb { background: rgb(240 233 216 / 0.22); background-clip: padding-box; }
 .dark .pax-chat ::-webkit-scrollbar-thumb:hover, .dark .pax-chat::-webkit-scrollbar-thumb:hover { background: rgb(240 233 216 / 0.36); background-clip: padding-box; }

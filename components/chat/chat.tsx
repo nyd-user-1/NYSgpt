@@ -1255,7 +1255,7 @@ export function Chat({ scripts = [], videos = [], shorts = [], compact = false, 
         </div>
       )}
       {/* Search mode's marks: every hit tinted, the current one red. */}
-      <style>{'::highlight(pax-chat-hit){background-color:#fee2e2;color:inherit}::highlight(pax-chat-hit-active){background-color:#dc2626;color:#fff}'}</style>
+      <style>{'::highlight(pax-chat-hit){background-color:var(--pax-chat-hit,#fee2e2);color:inherit}::highlight(pax-chat-hit-active){background-color:#dc2626;color:#fff}'}</style>
       {briefSend && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-6" onClick={() => setBriefSend(null)}>
           <div className="w-full max-w-xl rounded-2xl border border-[var(--border)] bg-[var(--inp-bg)] p-5 shadow-e1" onClick={(e) => e.stopPropagation()}>
