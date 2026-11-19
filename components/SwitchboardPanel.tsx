@@ -416,20 +416,13 @@ function SwitchboardPanel() {
             </AnimateOnHover>
           </div>
 
-          {/* The panel search (2026-11-19, from the option 3 sketch). */}
-          {view.kind !== 'aws-register' && view.kind !== 'aws-console' && !(view.kind === 'data' && view.table != null) && !devSub && (
-            <div className="hm-sbs">
-              <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search..." aria-label="Search the panel" />
-            </div>
-          )}
-
           {/* Dev Comments and Settings fill the body above the footer and scroll inside themselves. */}
           {devSub && DevToolsSubView ? (
-            <div className="flex min-h-0 flex-1 flex-col pb-[42px]">
+            <div className="flex min-h-0 flex-1 flex-col">
               <DevToolsSubView sub={devSub} />
             </div>
           ) : (
-          <div className="no-scrollbar flex-1 overflow-y-auto pb-[42px]">
+          <div className="no-scrollbar flex-1 overflow-y-auto">
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
             <div className="flex min-h-full flex-col">
@@ -674,7 +667,7 @@ function SwitchboardPanel() {
                 to the panel's bottom edge even when the content runs short —
                 the Visit link lives at the bottom, always (ruling 2026-08-24). */}
             {deep && (channel || product!.href) && (
-              <div className="sticky bottom-[42px] z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
+              <div className="sticky bottom-0 z-10 mt-auto border-t border-[var(--paper-rule)] bg-[var(--paper)]/85 backdrop-blur-md">
                 {/* ⚠ Branch on WHICH view this is — never `channel?.x ?? product!.x`.
                     `??` only short-circuits on a non-nullish left side, and
                     `sameTab` is undefined for Slack and Discord, so that spelling
@@ -704,13 +697,12 @@ function SwitchboardPanel() {
           </div>
           )}
 
-          {/* The page's footer, moved here from under the plate (2026-11-19, the
-              option 3 sketch): always at the panel's foot, the content scrolling
-              behind it. */}
-          <div className="hm-sbf">
-            <FeedbackDialog />
-            <a href="/data">Data Library</a>
-          </div>
+          {/* The panel search, at the panel's foot under a top rule, where the Contact and Data Library footer stood (Brendan, 2026-11-19). */}
+          {view.kind !== 'aws-register' && view.kind !== 'aws-console' && !(view.kind === 'data' && view.table != null) && !devSub && (
+            <div className="hm-sbs">
+              <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search..." aria-label="Search the panel" />
+            </div>
+          )}
         </div>
       </aside>
       <SplitHandle open={open} width={width} setWidth={setWidth} />

@@ -231,7 +231,7 @@
 }
 
 /* ── the switchboard's new views ──────────────────────────────────────── */
-.hm-sbs { flex-shrink: 0; border-bottom: 1px solid var(--paper-rule); padding: 10px 20px; }
+.hm-sbs { flex-shrink: 0; border-top: 1px solid var(--paper-rule); padding: 10px 20px; }
 .hm-sbs input { width: 100%; border: 1px solid var(--paper-rule); border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 13px; background: var(--paper); color: var(--paper-text); }
 .hm-sbf { position: absolute; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; height: 42px; border-top: 1px solid var(--paper-rule); background: color-mix(in oklab, var(--paper) 85%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 0 20px; font-family: var(--font-mono), ui-monospace, monospace; font-size: 10px; text-transform: uppercase; letter-spacing: .28em; color: var(--paper-faint); }
 .hm-sbf { container-type: inline-size; gap: 12px; }
