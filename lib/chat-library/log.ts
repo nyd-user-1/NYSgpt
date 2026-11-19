@@ -10,8 +10,9 @@ import path from "node:path"
 export const LOG_DIR = process.env.NYSGPT_CHAT_LOG_DIR || path.join(homedir(), ".nysgpt-chat")
 const FILE = path.join(LOG_DIR, "messages.jsonl")
 
-/** The night's caps (brief 49): model calls $1.00, Athena through the query API $0.50. */
-export const CAPS = { model: 1.0, athena: 0.5 }
+/** The night's caps (brief 49): model calls $1.00, raised by the lead after run 1 by a final $1.00 to $2.05 in all
+ *  (the first $1.05 was spent); Athena through the query API $0.50. */
+export const CAPS = { model: 2.05, athena: 0.5 }
 
 /** Claude Haiku 4.5 on Bedrock, dollars per million tokens. */
 export const HAIKU_PRICE = { input: 1.0, output: 5.0, cacheRead: 0.1, cacheWrite: 1.25 }

@@ -3,7 +3,7 @@ import { BedrockRuntimeClient, type Message } from "@aws-sdk/client-bedrock-runt
 import { streamWithTools } from "@/lib/chat-data/converse-loop"
 import { findTables, type FoundTable, type Scope } from "@/lib/find-tables"
 import { CAPS, modelCost, spent, writeLog, type LogLine, type Tokens } from "@/lib/chat-library/log"
-import { MAX_QUERIES, systemPrompt, TOOLS } from "@/lib/chat-library/prompt"
+import { MAX_DESCRIBED, MAX_QUERIES, MAX_SEARCHES, systemPrompt, TOOLS } from "@/lib/chat-library/prompt"
 import { athenaCost, ROWS_TO_MODEL, runQuery, tablesIn } from "@/lib/chat-library/query"
 
 // /api/chat on NYSgpt (brief 49): the chat answers from the library in three steps the model drives with tools,
@@ -30,7 +30,7 @@ export const maxDuration = 300
 
 const MODEL = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 const REGION = process.env.NYSGPT_CHAT_REGION ?? "us-east-2"
-const MAX_ROUNDS = 7
+const MAX_ROUNDS = 6
 
 const g = globalThis as typeof globalThis & { __chatBedrock?: BedrockRuntimeClient }
 const client = () => (g.__chatBedrock ??= new BedrockRuntimeClient({ region: REGION }))
@@ -56,17 +56,82 @@ const NOT_CONNECTED = "**This chat is not connected here.** It answers from the 
 
 const bytesText = (b: number) => (b >= 1024 ** 3 ? `${(b / 1024 ** 3).toFixed(1)} GB` : b >= 1024 ** 2 ? `${(b / 1024 ** 2).toFixed(1)} MB` : b > 0 ? `${Math.max(1, Math.round(b / 1024))} KB` : "no data")
 
-/** A found table as the model sees it: its first 30 fields, short descriptions, two short samples at most. */
-const forModel = (t: FoundTable) => ({
+/** A table's full field list from the Data Library's /table endpoint (the schema, not a query: no Athena cost), with
+ *  the index's sample values laid on where it has them. The index keeps at most 32 fields a table; a wide table
+ *  (usaspending_contracts has 297) needs the rest. Kept for the server's life. */
+const API = process.env.NYSGPT_QUERY_API ?? "https://data.nysgpt.com"
+const gf = globalThis as typeof globalThis & { __chatSchemas?: Map<string, Promise<FoundTable["fields"] | null>> }
+const schemas = (gf.__chatSchemas ??= new Map())
+function schemaOf(stored: string): Promise<FoundTable["fields"] | null> {
+  const kept = schemas.get(stored)
+  if (kept) return kept
+  const [database, table] = stored.split(".")
+  const p = fetch(`${API}/table?database=${encodeURIComponent(database)}&table=${encodeURIComponent(table)}`, { headers: { "x-api-key": process.env.NYSGPT_CHAT_QUERY_KEY ?? "" }, signal: AbortSignal.timeout(15_000), cache: "no-store" })
+    .then((x) => (x.ok ? x.json() : null))
+    .then((b: { fields?: { name: string; type: string; description?: string }[] } | null) => (b?.fields?.length ? b.fields.map((f) => ({ name: f.name, type: f.type, ...(f.description ? { description: f.description } : {}) })) : null))
+    .catch(() => null)
+  schemas.set(stored, p)
+  return p
+}
+/** The table with every field: the schema's list, each with the index's samples where it has them. */
+async function withAllFields(t: FoundTable): Promise<FoundTable> {
+  const all = await schemaOf(t.stored)
+  if (!all || all.length <= t.fields.length) return t
+  const known = new Map(t.fields.map((f) => [f.name, f]))
+  return { ...t, fields: all.map((f) => ({ ...f, ...(known.get(f.name)?.samples ? { samples: known.get(f.name)!.samples } : {}), ...(known.get(f.name)?.description && !f.description ? { description: known.get(f.name)!.description } : {}) })) }
+}
+
+/** The words of a question or a search, for choosing which of a table's fields a card shows. */
+const termsOf = (s: string) => new Set((s.toLowerCase().match(/[a-z0-9]+/g) ?? []).filter((w) => w.length > 2))
+
+/** A table's 12 fields that best match the words (name parts first, then the description), in the table's order. */
+function likelyFields(t: FoundTable, terms: Set<string>, limit = 12) {
+  const scored = t.fields.map((f, i) => {
+    const parts = f.name.toLowerCase().split(/[^a-z0-9]+/)
+    const desc = termsOf(f.description ?? "")
+    let score = 0
+    for (const w of terms) {
+      if (parts.some((p) => p === w || (w.length > 3 && p.startsWith(w.slice(0, 4))))) score += 2
+      else if (desc.has(w)) score += 1
+    }
+    return { f, i, score }
+  })
+  const top = scored.filter((x) => x.score > 0).sort((a, b) => b.score - a.score || a.i - b.i).slice(0, limit)
+  const rest = scored.filter((x) => !top.includes(x)).slice(0, limit - top.length)
+  return [...top, ...rest].sort((a, b) => a.i - b.i).map((x) => x.f)
+}
+
+/** A found table as a search shows it: a short card with the 12 fields that best match the question, one short
+ *  sample each. describe_table gives the rest. */
+const card = (t: FoundTable, terms: Set<string>) => ({
   stored: t.stored,
   plain: t.plain,
   topic: t.topic,
-  about: t.about,
-  row_is: t.rowIs,
+  about: t.about.slice(0, 160),
+  row_is: t.rowIs.slice(0, 80),
   rows: t.rows,
   years: t.years,
-  fields: t.fields.slice(0, 30).map((f) => ({ name: f.name, type: f.type, ...(f.description ? { description: f.description.slice(0, 90) } : {}), ...(f.samples?.length ? { samples: f.samples.slice(0, 2).map((v) => String(v).slice(0, 40)) } : {}) })),
+  fields: likelyFields(t, terms).map((f) => `${f.name} ${f.type}${f.samples?.length ? ` = ${String(f.samples[0]).slice(0, 32)}` : ""}`),
+  fields_in_all: t.fields.length,
 })
+
+/** One table's fields as describe_table shows them, 40 at a time, one short sample each. */
+const PAGE = 40
+const fieldsOf = (t: FoundTable, rest: boolean, terms: Set<string>) => {
+  const from = rest ? PAGE : 0
+  // The fields that match the question first, then the table's order.
+  const first = likelyFields(t, terms, PAGE)
+  const ordered = [...first, ...t.fields.filter((f) => !first.includes(f))]
+  const shown = ordered.slice(from, from + (rest ? 120 : PAGE))
+  return {
+    table: t.stored,
+    plain: t.plain,
+    row_is: t.rowIs,
+    fields: shown.map((f) => ({ name: f.name, type: f.type, ...(f.description ? { about: f.description.slice(0, 80) } : {}), ...(f.samples?.length ? { sample: String(f.samples[0]).slice(0, 40) } : {}) })),
+    shown: `${from + 1} to ${from + shown.length} of ${t.fields.length}`,
+    ...(!rest && t.fields.length > PAGE ? { more: `${t.fields.length - PAGE} more fields: call describe_table with rest: true` } : {}),
+  }
+}
 
 function scopeOf(v: unknown): Scope | null {
   const s = v as { db?: unknown; table?: unknown } | null
@@ -90,6 +155,9 @@ export async function POST(req: Request) {
   const tokens: Tokens = { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 }
   const state = {
     found: new Map<string, string>(),
+    tables: new Map<string, FoundTable>(),
+    searches: 0,
+    described: new Set<string>(),
     used: new Set<string>(),
     queries: [] as LogLine["queries"],
     refused: null as string | null,
@@ -118,16 +186,33 @@ export async function POST(req: Request) {
 
   const turns: Message[] = history.map((m) => ({ role: m.role as "user" | "assistant", content: [{ text: m.role === "assistant" ? prose(m.content) : m.content.slice(0, 4000) }] }))
 
-  const run = async (name: string, input: Record<string, unknown>): Promise<{ ok: boolean; payload: unknown }> => {
+  const run = async (name: string, input: Record<string, unknown>): Promise<{ ok: boolean; payload: unknown; summary?: string }> => {
     if (name === "find_tables") {
+      if (state.searches >= MAX_SEARCHES) return { ok: false, payload: { error: `The limit of ${MAX_SEARCHES} searches for this question is reached. Work with the tables already found.` } }
+      state.searches++
       const words = String(input.question ?? question).slice(0, 500)
-      let found = await findTables(words, 8, scope ?? undefined)
+      let found = await findTables(words, 6, scope ?? undefined)
       // Nothing within the reader's chosen database or table (a name the index does not use, or a database the
       // query service cannot reach): the whole library, said so.
       const widened = !!scope && !found.length
-      if (widened) found = await findTables(words, 8)
-      for (const t of found) state.found.set(t.stored.toLowerCase(), t.plain)
-      return { ok: true, payload: found.length ? { tables: found.map(forModel), ...(widened ? { note: "Nothing matched inside the reader's chosen database or table; these are from the whole library." } : {}) } : { tables: [], note: "No table in the catalog matched." } }
+      if (widened) found = await findTables(words, 6)
+      found = await Promise.all(found.map(withAllFields))
+      for (const t of found) {
+        state.found.set(t.stored.toLowerCase(), t.plain)
+        state.tables.set(t.stored.toLowerCase(), t)
+      }
+      const summary = found.length ? `find_tables("${words.slice(0, 80)}") showed: ${found.map((t) => `${t.stored} (${t.plain})`).join("; ")}` : `find_tables("${words.slice(0, 80)}") found nothing.`
+      const nudge = state.searches >= 2 && !state.queries.length ? { next: "Choose the best of the tables found so far and query it now." } : {}
+      return { ok: true, summary, payload: found.length ? { tables: found.map((t) => card(t, termsOf(`${question} ${words}`))), ...nudge, ...(widened ? { note: "Nothing matched inside the reader's chosen database or table; these are from the whole library." } : {}) } : { tables: [], note: "No table in the catalog matched." } }
+    }
+    if (name === "describe_table") {
+      const key = String(input.table ?? "").trim().toLowerCase()
+      const t = state.tables.get(key)
+      if (!t) return { ok: false, payload: { error: "Describe only a table that find_tables returned, by its stored name database.table." } }
+      if (!state.described.has(key) && state.described.size >= MAX_DESCRIBED) return { ok: false, payload: { error: `The limit of ${MAX_DESCRIBED} described tables for this question is reached.` } }
+      state.described.add(key)
+      const out = fieldsOf(t, input.rest === true, termsOf(`${question} ${String(input.table ?? "")}`))
+      return { ok: true, payload: out, summary: `describe_table(${t.stored}) showed fields ${out.shown}: ${out.fields.slice(0, 60).map((f) => f.name).join(", ")}` }
     }
     if (name === "run_query") {
       if (state.tooLarge) return { ok: false, payload: { error: "The last query hit the scan limit. Do not run another; call cannot_answer with too-large and suggest a narrower question." } }
