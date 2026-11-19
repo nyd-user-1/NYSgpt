@@ -39,7 +39,15 @@ const PAGE = 5
 export function HomePlate() {
   const { set, pins, favs, shelf, overlay } = useHome()
   const { open: panelOpen, openBox, openData } = useSwitchboard()
-  const boxes = useMemo(() => sortBoxes(BOXES.filter(b => (set ? b.kind === set : !isSource(b.kind))), pins), [set, pins])
+  // Two rows, always (Brendan, 2026-11-19). A box is keyed by its set and name; two boxes with one key leave stray
+  // boxes behind when the set changes, which once pushed the plate to a third row, so a repeat is dropped here too.
+  const boxes = useMemo(() => {
+    const seen = new Set<string>()
+    return sortBoxes(
+      BOXES.filter(b => (set ? b.kind === set : !isSource(b.kind)) && !seen.has(boxKey(b)) && !!seen.add(boxKey(b))),
+      pins,
+    )
+  }, [set, pins])
   const columns = Math.ceil(boxes.length / 2)
   const pin = useRef<HTMLDivElement>(null)
   const [menu, setMenu] = useState<{ box: Box; at: DOMRect } | null>(null)

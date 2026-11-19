@@ -7,7 +7,7 @@ import type { Box, SetEntry } from './home-boxes'
 
 export const SOURCE_MARKS: Record<string, string> = {
  "huggingface": "M12.025 1.13c-5.77 0-10.449 4.647-10.449 10.378 0 1.112.178 2.181.503 3.185.064-.222.203-.444.416-.577a.96.96 0 0 1 .524-.15c.293 0 .584.124.84.284.278.173.48.408.71.694.226.282.458.611.684.951v-.014c.017-.324.106-.622.264-.874s.403-.487.762-.543c.3-.047.596.06.787.203s.31.313.4.467c.15.257.212.468.233.542.01.026.653 1.552 1.657 2.54.616.605 1.01 1.223 1.082 1.912.055.537-.096 1.059-.38 1.572.637.121 1.294.187 1.967.187.657 0 1.298-.063 1.921-.178-.287-.517-.44-1.041-.384-1.581.07-.69.465-1.307 1.081-1.913 1.004-.987 1.647-2.513 1.657-2.539.021-.074.083-.285.233-.542.09-.154.208-.323.4-.467a1.08 1.08 0 0 1 .787-.203c.359.056.604.29.762.543s.247.55.265.874v.015c.225-.34.457-.67.683-.952.23-.286.432-.52.71-.694.257-.16.547-.284.84-.285a.97.97 0 0 1 .524.151c.228.143.373.388.43.625l.006.04a10.3 10.3 0 0 0 .534-3.273c0-5.731-4.678-10.378-10.449-10.378M8.327 6.583a1.5 1.5 0 0 1 .713.174 1.487 1.487 0 0 1 .617 2.013c-.183.343-.762-.214-1.102-.094-.38.134-.532.914-.917.71a1.487 1.487 0 0 1 .69-2.803m7.486 0a1.487 1.487 0 0 1 .689 2.803c-.385.204-.536-.576-.916-.71-.34-.12-.92.437-1.103.094a1.487 1.487 0 0 1 .617-2.013 1.5 1.5 0 0 1 .713-.174m-10.68 1.55a.96.96 0 1 1 0 1.921.96.96 0 0 1 0-1.92m13.838 0a.96.96 0 1 1 0 1.92.96.96 0 0 1 0-1.92M8.489 11.458c.588.01 1.965 1.157 3.572 1.164 1.607-.007 2.984-1.155 3.572-1.164.196-.003.305.12.305.454 0 .886-.424 2.328-1.563 3.202-.22-.756-1.396-1.366-1.63-1.32q-.011.001-.02.006l-.044.026-.01.008-.03.024q-.018.017-.035.036l-.032.04a1 1 0 0 0-.058.09l-.014.025q-.049.088-.11.19a1 1 0 0 1-.083.116 1.2 1.2 0 0 1-.173.18q-.035.029-.075.058a1.3 1.3 0 0 1-.251-.243 1 1 0 0 1-.076-.107c-.124-.193-.177-.363-.337-.444-.034-.016-.104-.008-.2.022q-.094.03-.216.087-.06.028-.125.063l-.13.074q-.067.04-.136.086a3 3 0 0 0-.135.096 3 3 0 0 0-.26.219 2 2 0 0 0-.12.121 2 2 0 0 0-.106.128l-.002.002a2 2 0 0 0-.09.132l-.001.001a1.2 1.2 0 0 0-.105.212q-.013.036-.024.073c-1.139-.875-1.563-2.317-1.563-3.203 0-.334.109-.457.305-.454m.836 10.354c.824-1.19.766-2.082-.365-3.194-1.13-1.112-1.789-2.738-1.789-2.738s-.246-.945-.806-.858-.97 1.499.202 2.362c1.173.864-.233 1.45-.685.64-.45-.812-1.683-2.896-2.322-3.295s-1.089-.175-.938.647 2.822 2.813 2.562 3.244-1.176-.506-1.176-.506-2.866-2.567-3.49-1.898.473 1.23 2.037 2.16c1.564.932 1.686 1.178 1.464 1.53s-3.675-2.511-4-1.297c-.323 1.214 3.524 1.567 3.287 2.405-.238.839-2.71-1.587-3.216-.642-.506.946 3.49 2.056 3.522 2.064 1.29.33 4.568 1.028 5.713-.624m5.349 0c-.824-1.19-.766-2.082.365-3.194 1.13-1.112 1.789-2.738 1.789-2.738s.246-.945.806-.858.97 1.499-.202 2.362c-1.173.864.233 1.45.685.64.451-.812 1.683-2.896 2.322-3.295s1.089-.175.938.647-2.822 2.813-2.562 3.244 1.176-.506 1.176-.506 2.866-2.567 3.49-1.898-.473 1.23-2.037 2.16c-1.564.932-1.686 1.178-1.464 1.53s3.675-2.511 4-1.297c.323 1.214-3.524 1.567-3.287 2.405.238.839 2.71-1.587 3.216-.642.506.946-3.49 2.056-3.522 2.064-1.29.33-4.568 1.028-5.713-.624",
- "kaggle": "M.1025 7.3475c-.0681 0-.1022.0341-.1022.102v6.752c0 .0681.034.1022.1022.1022h.7049c.068 0 .1022-.034.1022-.1023v-1.481l.4187-.3985 1.5016 1.91c.041.0477.0884.0716.143.0716h.9091c.0476 0 .0748-.0135.0817-.0407.0135-.041.0066-.075-.0206-.1023l-1.9816-2.4618 1.9002-1.8384c.0204-.0205.0237-.051.01-.092-.0137-.0339-.0408-.051-.0816-.051h-.9398c-.0477 0-.0953.024-.143.0716L.9096 11.607V7.4496c0-.0679-.0342-.102-.1022-.102zm18.0417 0c-.068 0-.102.0341-.102.102v6.752c0 .0681.034.102.102.102h.705c.068 0 .102-.034.102-.102v-6.752c0-.068-.034-.102-.102-.102zM5.961 9.6254c-.5653 0-1.11.1806-1.6343.5415-.0545.0545-.0648.102-.0307.143l.3676.5208c.0272.0477.0717.0545.133.0204.3948-.2722.783-.4086 1.1644-.4086.2927 0 .5158.0886.669.2656.1532.1771.2197.3917.1992.6436-.6606.0681-1.1545.1495-1.4813.245-.8308.2383-1.2461.6913-1.2461 1.3586 0 .4222.1533.7695.4598 1.0419.3132.2654.6845.3982 1.1134.3982.4698 0 .8545-.1125 1.1542-.3372v.1432c0 .0682.0374.102.1123.102h.7048c.068 0 .102-.0338.102-.102V11.372c0-.6604-.2245-1.1406-.6739-1.4403-.3065-.2043-.6776-.3063-1.1134-.3063zm4.3225 0c-.6742 0-1.195.2622-1.5627.7865-.3133.4359-.4699.9671-.4699 1.5936 0 .6604.1634 1.2087.4903 1.6444.3744.4972.892.7455 1.5526.7455.5313 0 .9567-.1327 1.2768-.3982v.531c0 .858-.4122 1.287-1.236 1.287-.361 0-.732-.1907-1.1132-.572a.098.098 0 00-.0716-.0306c-.034 0-.0613.0102-.0817.0307l-.4802.48c-.0408.0613-.0375.1124.0103.1532.1361.1157.2554.2129.3576.2911.102.0783.1905.1413.2656.189.354.1975.7284.2961 1.1235.2961.6808 0 1.207-.1925 1.5781-.577.3711-.3848.5567-.9484.5567-1.6903V9.8196c0-.068-.034-.102-.102-.102h-.705c-.0682 0-.1021.034-.1021.102v.2043c-.3471-.2657-.7763-.3985-1.287-.3985zm4.8021 0c-.6742 0-1.195.2622-1.5627.7865-.3132.4359-.4699.9671-.4699 1.5936 0 .6604.1633 1.2087.4903 1.6444.3744.4972.892.7455 1.5526.7455.5311 0 .9566-.1327 1.2768-.3982v.531c0 .858-.4122 1.287-1.236 1.287-.361 0-.732-.1907-1.1133-.572a.098.098 0 00-.0716-.0306c-.034 0-.0612.0102-.0816.0307l-.48.48c-.0409.0613-.0376.1124.01.1532.1363.1157.2555.2129.3576.2911.1021.0783.1906.1413.2657.189.354.1975.7285.2961 1.1237.2961.6808 0 1.2068-.1925 1.5781-.577.371-.3848.5565-.9484.5565-1.6903V9.8196c0-.068-.034-.102-.102-.102h-.7049c-.0682 0-.1022.034-.1022.102v.2043c-.3474-.2657-.7763-.3985-1.287-.3985zm6.7457 0c-.6537 0-1.185.211-1.5936.6332-.4427.4632-.664 1.0283-.664 1.6956 0 .7083.225 1.2905.6743 1.7467.463.463 1.042.6945 1.7366.6945.6467 0 1.2154-.1838 1.7057-.5515.0545-.041.0545-.0884 0-.143l-.4802-.4903c-.041-.0409-.0919-.0409-.1533 0-.2998.2112-.6368.3167-1.0112.3167-.4222 0-.7729-.119-1.052-.3576-.2452-.2248-.3882-.5038-.429-.8375h3.3197c.0679 0 .1022-.0341.1022-.1023l.01-.2244c.0341-.6878-.1668-1.26-.6025-1.7162-.4224-.4426-.9432-.664-1.5627-.664zm-.0206.7865c.3268 0 .6062.1056.8377.3166.2452.211.371.4734.378.7865h-2.4618c.0613-.3269.2077-.5925.4392-.7968.2313-.2042.5004-.3063.8069-.3063zm-11.4249.102c.6196 0 1.0146.2181 1.1848.6538v1.6854c-.1702.4358-.5755.6538-1.2155.6538-.3133 0-.5687-.0986-.7661-.2963-.2656-.2518-.3983-.6538-.3983-1.2053 0-.9941.3984-1.4914 1.1951-1.4914zm4.802 0c.6196 0 1.0148.2181 1.1851.6538h-.0002v1.6854c-.1703.4358-.5755.6538-1.2155.6538-.3132 0-.5686-.0986-.7661-.2963-.2655-.2518-.3983-.6538-.3983-1.2053 0-.9941.3983-1.4914 1.195-1.4914zm-8.3586 1.6547v1.0215c-.286.286-.6675.412-1.1441.3779-.1703-.0135-.32-.0663-.4493-.1582-.1294-.0919-.2045-.2129-.2249-.3627-.0341-.2657.1158-.47.4495-.6129.2452-.1088.7013-.1974 1.3688-.2656z"
+ "kaggle": "M18.825 23.859c-.022.092-.117.141-.281.141h-3.139c-.187 0-.351-.082-.492-.248l-5.178-6.589-1.448 1.374v5.111c0 .235-.117.352-.351.352H5.505c-.236 0-.354-.117-.354-.352V.353c0-.233.118-.353.354-.353h2.431c.234 0 .351.12.351.353v14.343l6.203-6.272c.165-.165.33-.246.495-.246h3.239c.144 0 .236.06.285.18.046.149.034.255-.036.315l-6.555 6.344 6.836 8.507c.095.104.117.208.07.336"
 }
 
 export const SOURCE_BOXES: Box[] = [
@@ -580,15 +580,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf",
-  "title": "prithivMLmods/Gender-Classifier-Mini",
-  "group": "Image classification",
-  "body": "Image classification, 5.4M downloads in the last month, 23 likes.",
-  "foot": "5.4M",
-  "accent": "",
-  "icon": "hf"
- },
- {
-  "kind": "hf",
   "title": "microsoft/mdeberta-v3-base",
   "group": "Fill mask",
   "body": "Fill mask, 5.3M downloads in the last month, 265 likes.",
@@ -611,6 +602,15 @@ export const SOURCE_BOXES: Box[] = [
   "group": "Time series forecasting",
   "body": "Time series forecasting, 5.2M downloads in the last month, 86 likes.",
   "foot": "5.2M",
+  "accent": "",
+  "icon": "hf"
+ },
+ {
+  "kind": "hf",
+  "title": "prithivMLmods/Gender-Classifier-Mini",
+  "group": "Image classification",
+  "body": "Image classification, 5.1M downloads in the last month, 23 likes.",
+  "foot": "5.1M",
   "accent": "",
   "icon": "hf"
  },
@@ -661,18 +661,18 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "hf",
-  "title": "pyannote/speaker-diarization-community-1",
-  "group": "Automatic speech recognition",
-  "body": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
+  "title": "Qwen/Qwen2.5-1.5B-Instruct",
+  "group": "Text generation",
+  "body": "Text generation, 4.9M downloads in the last month, 947 likes.",
   "foot": "4.9M",
   "accent": "",
   "icon": "hf"
  },
  {
   "kind": "hf",
-  "title": "Qwen/Qwen2.5-1.5B-Instruct",
-  "group": "Text generation",
-  "body": "Text generation, 4.9M downloads in the last month, 947 likes.",
+  "title": "pyannote/speaker-diarization-community-1",
+  "group": "Automatic speech recognition",
+  "body": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
   "foot": "4.9M",
   "accent": "",
   "icon": "hf"
@@ -2086,7 +2086,7 @@ export const SOURCE_BOXES: Box[] = [
   "title": "CherryHQ/cherry-studio",
   "group": "Skills",
   "body": "Your AI workspace for models, agents, and productivity.",
-  "foot": "53.6K",
+  "foot": "53.7K",
   "accent": "",
   "icon": "github"
  },
@@ -2740,24 +2740,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "Leonxlnx/taste-skill",
-  "group": "Design",
-  "body": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages.",
-  "foot": "119K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "pbakaus/impeccable",
-  "group": "Design",
-  "body": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
-  "foot": "113K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "mui/material-ui",
   "group": "Design",
   "body": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
@@ -2852,15 +2834,6 @@ export const SOURCE_BOXES: Box[] = [
   "group": "Design",
   "body": "☁️ Nextcloud server, a safe home for all your data.",
   "foot": "37.6K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "alchaincyf/huashu-design",
-  "group": "Design",
-  "body": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill…",
-  "foot": "29.9K",
   "accent": "",
   "icon": "github"
  },
@@ -3608,6 +3581,33 @@ export const SOURCE_BOXES: Box[] = [
   "group": "Design",
   "body": "A simple and easy-to-use immediate-mode gui library.",
   "foot": "5.3K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "nateherkai/scroll-craft",
+  "group": "Design",
+  "body": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a…",
+  "foot": "5.2K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "JakeLin/SwiftLanguageWeather",
+  "group": "Design",
+  "body": "Swift Language Weather is an iOS weather app developed in Swift 4.",
+  "foot": "5.2K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "Appllama/appllama-skills",
+  "group": "Design",
+  "body": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
+  "foot": "5.2K",
   "accent": "",
   "icon": "github"
  },
@@ -4513,15 +4513,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "morluto/rea",
-  "group": "MCP",
-  "body": "Reverse engineer anything with agents, from app behavior down to native binaries.",
-  "foot": "469K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "affaan-m/ECC",
   "group": "MCP",
   "body": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex…",
@@ -4540,24 +4531,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "langgenius/dify",
-  "group": "MCP",
-  "body": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so…",
-  "foot": "161K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "Snailclimb/JavaGuide",
-  "group": "MCP",
-  "body": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发.",
-  "foot": "160K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "open-webui/open-webui",
   "group": "MCP",
   "body": "User-friendly AI Interface (Supports Ollama, OpenAI API, ...).",
@@ -4567,37 +4540,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "farion1231/cc-switch",
-  "group": "MCP",
-  "body": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io.",
-  "foot": "156K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "Graphify-Labs/graphify",
-  "group": "MCP",
-  "body": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor…",
-  "foot": "150K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "browser-use/browser-use",
   "group": "MCP",
   "body": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
   "foot": "121K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "paperclipai/paperclip",
-  "group": "MCP",
-  "body": "The open-source app everyone uses to manage agents at work.",
-  "foot": "115K",
   "accent": "",
   "icon": "github"
  },
@@ -4684,15 +4630,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "lobehub/lobehub",
-  "group": "MCP",
-  "body": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every…",
-  "foot": "85.8K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "ruvnet/ruflo",
   "group": "MCP",
   "body": "🌊 The original agent harness. Deploy intelligent multi-player swarms, coordinate autonomous workflows, and build conversational AI systems…",
@@ -4715,15 +4652,6 @@ export const SOURCE_BOXES: Box[] = [
   "group": "MCP",
   "body": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 20% fewer tokens for coding agents, 60-95% fewer tokens for JSON, same…",
   "foot": "80.1K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "ComposioHQ/awesome-claude-skills",
-  "group": "MCP",
-  "body": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows.",
-  "foot": "79.8K",
   "accent": "",
   "icon": "github"
  },
@@ -4792,24 +4720,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "CherryHQ/cherry-studio",
-  "group": "MCP",
-  "body": "Your AI workspace for models, agents, and productivity.",
-  "foot": "53.6K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "mudler/LocalAI",
-  "group": "MCP",
-  "body": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
-  "foot": "50.4K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "HKUDS/nanobot",
   "group": "MCP",
   "body": "Your lightweight open-source personal agent.",
@@ -4819,46 +4729,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "sickn33/agentic-awesome-skills",
-  "group": "MCP",
-  "body": "3,000+ reusable AI agent skills for Claude Code, Codex, Cursor and Gemini CLI. AAS Core adds local catalog discovery, agent-owned selection and plan…",
-  "foot": "50K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "DeusData/codebase-memory-mcp",
   "group": "MCP",
   "body": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent…",
   "foot": "48.8K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "jeecgboot/JeecgBoot",
-  "group": "MCP",
-  "body": "一款免费开源的 AI 低代码平台，也是 AI 时代构建复杂业务系统的开源基座！权限、多租户、工作流、报表、大屏、AI 知识库等通用能力开箱即用，AI 只需生成业务差异部分。AI Skills 一句话生成完整系统——建表、前后端代码、菜单权限、BPM 流程、表单、报表、大屏全自动。内置 AI…",
-  "foot": "48.5K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "zhayujie/CowAgent",
-  "group": "MCP",
-  "body": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent…",
-  "foot": "48K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "anthropics/claude-plugins-official",
-  "group": "MCP",
-  "body": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
-  "foot": "47.7K",
   "accent": "",
   "icon": "github"
  },
@@ -4891,15 +4765,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "reactive-resume/reactive-resume",
-  "group": "MCP",
-  "body": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out…",
-  "foot": "45.9K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "Kong/kong",
   "group": "MCP",
   "body": "🦍 The API and AI Gateway.",
@@ -4913,15 +4778,6 @@ export const SOURCE_BOXES: Box[] = [
   "group": "MCP",
   "body": "The fastest, cheapest, most efficient open-source agent harness. Run more than 500 agents on a $10 VPS.",
   "foot": "42.8K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "wshobson/agents",
-  "group": "MCP",
-  "body": "Plugins, agents, skills, and commands for Claude Code, Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi, written once in…",
-  "foot": "42.7K",
   "accent": "",
   "icon": "github"
  },
@@ -5008,15 +4864,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "agentscope-ai/QwenPaw",
-  "group": "MCP",
-  "body": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible…",
-  "foot": "38K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "DayuanJiang/next-ai-draw-io",
   "group": "MCP",
   "body": "Draw and edit draw.io diagrams by chatting with an AI. Web app, desktop app, and an MCP server for Claude Code, Cursor, Codex and VS Code.",
@@ -5057,33 +4904,6 @@ export const SOURCE_BOXES: Box[] = [
   "group": "MCP",
   "body": "GitHub's official MCP Server.",
   "foot": "34.6K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "mksglu/context-mode",
-  "group": "MCP",
-  "body": "Free, local plugin that keeps tool output out of your coding agent's context window. Sandbox and SQLite FTS5 search, 99% fewer bytes in context…",
-  "foot": "34.3K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "davila7/claude-code-templates",
-  "group": "MCP",
-  "body": "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods.",
-  "foot": "34K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "alibaba/nacos",
-  "group": "MCP",
-  "body": "an easy-to-use dynamic service discovery, configuration and service management platform for building AI cloud native applications.",
-  "foot": "33.5K",
   "accent": "",
   "icon": "github"
  },
@@ -5197,15 +5017,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "yikart/AiToEarn",
-  "group": "MCP",
-  "body": "Let's use AI to Earn!",
-  "foot": "28.4K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "OtterMind/Chat2DB",
   "group": "MCP",
   "body": "Chat2DB is a free, cross-platform, local-first database client and SQL workspace for developers, DBAs, analysts, and data teams. Connect to 40+…",
@@ -5233,15 +5044,6 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "NVIDIA/SkillSpector",
-  "group": "MCP",
-  "body": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and…",
-  "foot": "26.9K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "go-kratos/kratos",
   "group": "MCP",
   "body": "Your ultimate Go microservices framework for the cloud-native era.",
@@ -5260,28 +5062,10 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "pascalorg/editor",
-  "group": "MCP",
-  "body": "Open-source 3D architecture software for AECO, scan-to-BIM. Agent-friendly, browser-first, MCP, CLI.",
-  "foot": "25.6K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "vercel-labs/agent-desktop",
   "group": "MCP",
   "body": "Computer use CLI for AI agents.",
   "foot": "25.4K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "flipped-aurora/gin-vue-admin",
-  "group": "MCP",
-  "body": "🚀Vite+Vue3+Gin拥有AI辅助的基础开发平台，企业级业务AI+开发解决方案，内置mcp辅助服务，内置skills管理，支持TS和JS混用。它集成了JWT鉴权、权限管理、动态路由、显隐可控组件、分页封装、多点登录拦截、资源权限、上传下载、代码生成器、表单生成器和可配置的导入导出等开发必备…",
-  "foot": "25.1K",
   "accent": "",
   "icon": "github"
  },
@@ -5386,28 +5170,244 @@ export const SOURCE_BOXES: Box[] = [
  },
  {
   "kind": "github",
-  "title": "eclipse-theia/theia",
-  "group": "MCP",
-  "body": "Eclipse Theia is an open-source platform for building custom IDEs and tools for browser and desktop. It includes Theia AI, the vendor-neutral AI…",
-  "foot": "21.8K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
-  "title": "Evil0ctal/Douyin_TikTok_Download_API",
-  "group": "MCP",
-  "body": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark…",
-  "foot": "21.5K",
-  "accent": "",
-  "icon": "github"
- },
- {
-  "kind": "github",
   "title": "qax-os/excelize",
   "group": "MCP",
   "body": "Go language library for reading and writing Microsoft Excel™ (XLAM / XLSM / XLSX / XLTM / XLTX) spreadsheets.",
   "foot": "21.1K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "modelscope/FunASR",
+  "group": "MCP",
+  "body": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and…",
+  "foot": "21.1K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "datawhalechina/easy-vibe",
+  "group": "MCP",
+  "body": "💻 Vibe Coding 101｜Your First Course For AI Product Builders.",
+  "foot": "20.5K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "rocketride-org/rocketride-server",
+  "group": "MCP",
+  "body": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers…",
+  "foot": "20K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "xerj-org/xerj",
+  "group": "MCP",
+  "body": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and…",
+  "foot": "19.3K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "browser-use/browser-harness",
+  "group": "MCP",
+  "body": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
+  "foot": "19.2K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "nukeop/nuclear",
+  "group": "MCP",
+  "body": "Streaming music player that finds free music for you.",
+  "foot": "19K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "jub0t/Concat",
+  "group": "MCP",
+  "body": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
+  "foot": "18.8K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "microsoft/mcp-for-beginners",
+  "group": "MCP",
+  "body": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java…",
+  "foot": "17.7K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "xpzouying/xiaohongshu-mcp",
+  "group": "MCP",
+  "body": "MCP for xiaohongshu.com.",
+  "foot": "17.2K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "apify/apify-mcp-server",
+  "group": "MCP",
+  "body": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using…",
+  "foot": "17K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "triggerdotdev/trigger.dev",
+  "group": "MCP",
+  "body": "Trigger.dev – build and deploy durable AI agents and workflows.",
+  "foot": "16.8K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "budtmo/docker-android",
+  "group": "MCP",
+  "body": "Android in docker solution with noVNC supported, video recording, mcp server and AI-agent.",
+  "foot": "16.2K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "CoplayDev/unity-mcp",
+  "group": "MCP",
+  "body": "Unity MCP acts as a bridge between AI assistants and your Unity Editor. Give your LLM tools to manage assets, control scenes, edit scripts, and…",
+  "foot": "16.1K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "open-metadata/OpenMetadata",
+  "group": "MCP",
+  "body": "The Open Context Layer for Data and AI , OpenMetadata is the open platform for building trusted data context and business semantics for humans, AI…",
+  "foot": "15.8K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "liketrek/TREK",
+  "group": "MCP",
+  "body": "The most complete open-source travel planner: real-time collaboration, bookings, budgets, packing lists, journals, offline PWA, SSO and an AI-ready…",
+  "foot": "15.8K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "tonhowtf/omniget",
+  "group": "MCP",
+  "body": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media…",
+  "foot": "14.5K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "OpenByteInc/QuantDinger",
+  "group": "MCP",
+  "body": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization…",
+  "foot": "13.9K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "modelcontextprotocol/typescript-sdk",
+  "group": "MCP",
+  "body": "The official TypeScript SDK for Model Context Protocol servers and clients.",
+  "foot": "13.8K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "0x4m4/hexstrike-ai",
+  "group": "MCP",
+  "body": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for…",
+  "foot": "13.7K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "mrexodia/ida-pro-mcp",
+  "group": "MCP",
+  "body": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+  "foot": "13.5K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "ccfos/nightingale",
+  "group": "MCP",
+  "body": "Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
+  "foot": "13.5K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "tadata-org/fastapi_mcp",
+  "group": "MCP",
+  "body": "Expose your FastAPI endpoints as Model Context Protocol (MCP) tools, with Auth!",
+  "foot": "12K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "0xJacky/nginx-ui",
+  "group": "MCP",
+  "body": "Yet another WebUI for Nginx.",
+  "foot": "11.8K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "holaboss-ai/holaOS",
+  "group": "MCP",
+  "body": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps…",
+  "foot": "11.5K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "xinnan-tech/xiaozhi-esp32-server",
+  "group": "MCP",
+  "body": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
+  "foot": "11.3K",
+  "accent": "",
+  "icon": "github"
+ },
+ {
+  "kind": "github",
+  "title": "trailhq/Trail-Code",
+  "group": "MCP",
+  "body": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they…",
+  "foot": "11.3K",
   "accent": "",
   "icon": "github"
  },
@@ -5469,7 +5469,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (High)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 51 tokens a second.",
+  "body": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 50 tokens a second.",
   "foot": "60.1",
   "accent": "",
   "icon": "aa"
@@ -5505,7 +5505,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Gemini 4 Carbon (Medium)",
   "group": "Google",
-  "body": "Google, Intelligence Index 58.3, 8 per million tokens (3 to 1 input to output), 76 tokens a second.",
+  "body": "Google, Intelligence Index 58.3, 8 per million tokens (3 to 1 input to output), 78 tokens a second.",
   "foot": "58.3",
   "accent": "",
   "icon": "aa"
@@ -5523,7 +5523,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Sol (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 102 tokens a second.",
+  "body": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
   "foot": "57.3",
   "accent": "",
   "icon": "aa"
@@ -5532,7 +5532,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (Medium)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 46 tokens a second.",
+  "body": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 42 tokens a second.",
   "foot": "57",
   "accent": "",
   "icon": "aa"
@@ -5541,7 +5541,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6 Astra (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 44 tokens a second.",
+  "body": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 47 tokens a second.",
   "foot": "56.9",
   "accent": "",
   "icon": "aa"
@@ -5559,7 +5559,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Sol (Xhigh)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 101 tokens a second.",
+  "body": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
   "foot": "55.7",
   "accent": "",
   "icon": "aa"
@@ -5640,7 +5640,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Gemini 4 Hydrogen (Xhigh)",
   "group": "Google",
-  "body": "Google, Intelligence Index 53.9, 3 per million tokens (3 to 1 input to output), 209 tokens a second.",
+  "body": "Google, Intelligence Index 53.9, 3 per million tokens (3 to 1 input to output), 215 tokens a second.",
   "foot": "53.9",
   "accent": "",
   "icon": "aa"
@@ -5685,7 +5685,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.1 Terra (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 83 tokens a second.",
+  "body": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 86 tokens a second.",
   "foot": "51.3",
   "accent": "",
   "icon": "aa"
@@ -5694,7 +5694,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Gemini 4 Hydrogen (High)",
   "group": "Google",
-  "body": "Google, Intelligence Index 50.8, 3 per million tokens (3 to 1 input to output), 200 tokens a second.",
+  "body": "Google, Intelligence Index 50.8, 3 per million tokens (3 to 1 input to output), 205 tokens a second.",
   "foot": "50.8",
   "accent": "",
   "icon": "aa"
@@ -5703,7 +5703,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Gemini 4 Argon (High)",
   "group": "Google",
-  "body": "Google, Intelligence Index 50.4, 4 per million tokens (3 to 1 input to output), 86 tokens a second.",
+  "body": "Google, Intelligence Index 50.4, 4 per million tokens (3 to 1 input to output), 87 tokens a second.",
   "foot": "50.4",
   "accent": "",
   "icon": "aa"
@@ -5784,7 +5784,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "Kimi K3.1 Pro",
   "group": "Kimi",
-  "body": "Kimi, Intelligence Index 46.5, 4 per million tokens (3 to 1 input to output), 28 tokens a second.",
+  "body": "Kimi, Intelligence Index 46.5, 4 per million tokens (3 to 1 input to output), 29 tokens a second.",
   "foot": "46.5",
   "accent": "",
   "icon": "aa"
@@ -5802,7 +5802,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6.2 Astra (Low)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 45.7, 16 per million tokens (3 to 1 input to output), 45 tokens a second.",
+  "body": "OpenAI, Intelligence Index 45.7, 16 per million tokens (3 to 1 input to output), 43 tokens a second.",
   "foot": "45.7",
   "accent": "",
   "icon": "aa"
@@ -5829,7 +5829,7 @@ export const SOURCE_BOXES: Box[] = [
   "kind": "aa",
   "title": "GPT-6 Sol (Max)",
   "group": "OpenAI",
-  "body": "OpenAI, Intelligence Index 44.2, 4 per million tokens (3 to 1 input to output), 136 tokens a second.",
+  "body": "OpenAI, Intelligence Index 44.2, 4 per million tokens (3 to 1 input to output), 135 tokens a second.",
   "foot": "44.2",
   "accent": "",
   "icon": "aa"
@@ -6528,7 +6528,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (High)",
-   "about": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 51 tokens a second.",
+   "about": "OpenAI, Intelligence Index 60.1, 16 per million tokens (3 to 1 input to output), 50 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -6548,7 +6548,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "51"
+     "desc": "50"
     },
     {
      "name": "Released",
@@ -6668,7 +6668,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Google",
    "table": "Gemini 4 Carbon (Medium)",
-   "about": "Google, Intelligence Index 58.3, 8 per million tokens (3 to 1 input to output), 76 tokens a second.",
+   "about": "Google, Intelligence Index 58.3, 8 per million tokens (3 to 1 input to output), 78 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -6688,7 +6688,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "76"
+     "desc": "78"
     },
     {
      "name": "Released",
@@ -6738,7 +6738,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Sol (Max)",
-   "about": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 102 tokens a second.",
+   "about": "OpenAI, Intelligence Index 57.3, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -6758,7 +6758,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "102"
+     "desc": "98"
     },
     {
      "name": "Released",
@@ -6773,7 +6773,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (Medium)",
-   "about": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 46 tokens a second.",
+   "about": "OpenAI, Intelligence Index 57, 16 per million tokens (3 to 1 input to output), 42 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -6793,7 +6793,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "46"
+     "desc": "42"
     },
     {
      "name": "Released",
@@ -6808,7 +6808,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6 Astra (Max)",
-   "about": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 44 tokens a second.",
+   "about": "OpenAI, Intelligence Index 56.9, 20 per million tokens (3 to 1 input to output), 47 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -6828,7 +6828,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "44"
+     "desc": "47"
     },
     {
      "name": "Released",
@@ -6878,7 +6878,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Sol (Xhigh)",
-   "about": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 101 tokens a second.",
+   "about": "OpenAI, Intelligence Index 55.7, 4 per million tokens (3 to 1 input to output), 98 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -6898,7 +6898,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "101"
+     "desc": "98"
     },
     {
      "name": "Released",
@@ -7193,7 +7193,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Google",
    "table": "Gemini 4 Hydrogen (Xhigh)",
-   "about": "Google, Intelligence Index 53.9, 3 per million tokens (3 to 1 input to output), 209 tokens a second.",
+   "about": "Google, Intelligence Index 53.9, 3 per million tokens (3 to 1 input to output), 215 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7213,7 +7213,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "209"
+     "desc": "215"
     },
     {
      "name": "Released",
@@ -7368,7 +7368,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6.1 Terra (Max)",
-   "about": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 83 tokens a second.",
+   "about": "OpenAI, Intelligence Index 51.3, 2 per million tokens (3 to 1 input to output), 86 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7388,7 +7388,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "83"
+     "desc": "86"
     },
     {
      "name": "Released",
@@ -7403,7 +7403,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Google",
    "table": "Gemini 4 Hydrogen (High)",
-   "about": "Google, Intelligence Index 50.8, 3 per million tokens (3 to 1 input to output), 200 tokens a second.",
+   "about": "Google, Intelligence Index 50.8, 3 per million tokens (3 to 1 input to output), 205 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7423,7 +7423,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "200"
+     "desc": "205"
     },
     {
      "name": "Released",
@@ -7438,7 +7438,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Google",
    "table": "Gemini 4 Argon (High)",
-   "about": "Google, Intelligence Index 50.4, 4 per million tokens (3 to 1 input to output), 86 tokens a second.",
+   "about": "Google, Intelligence Index 50.4, 4 per million tokens (3 to 1 input to output), 87 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7458,7 +7458,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "86"
+     "desc": "87"
     },
     {
      "name": "Released",
@@ -7741,7 +7741,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "Kimi",
    "table": "Kimi K3.1 Pro",
-   "about": "Kimi, Intelligence Index 46.5, 4 per million tokens (3 to 1 input to output), 28 tokens a second.",
+   "about": "Kimi, Intelligence Index 46.5, 4 per million tokens (3 to 1 input to output), 29 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7761,7 +7761,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "28"
+     "desc": "29"
     },
     {
      "name": "Released",
@@ -7811,7 +7811,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6.2 Astra (Low)",
-   "about": "OpenAI, Intelligence Index 45.7, 16 per million tokens (3 to 1 input to output), 45 tokens a second.",
+   "about": "OpenAI, Intelligence Index 45.7, 16 per million tokens (3 to 1 input to output), 43 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7831,7 +7831,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "45"
+     "desc": "43"
     },
     {
      "name": "Released",
@@ -7916,7 +7916,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   {
    "database": "OpenAI",
    "table": "GPT-6 Sol (Max)",
-   "about": "OpenAI, Intelligence Index 44.2, 4 per million tokens (3 to 1 input to output), 136 tokens a second.",
+   "about": "OpenAI, Intelligence Index 44.2, 4 per million tokens (3 to 1 input to output), 135 tokens a second.",
    "fields": [
     {
      "name": "Maker",
@@ -7936,7 +7936,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Output tokens a second",
-     "desc": "136"
+     "desc": "135"
     },
     {
      "name": "Released",
@@ -8062,7 +8062,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "468,901"
+     "desc": "468,922"
     },
     {
      "name": "Forks",
@@ -8093,7 +8093,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "321,555"
+     "desc": "321,560"
     },
     {
      "name": "Forks",
@@ -8124,7 +8124,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "197,415"
+     "desc": "197,418"
     },
     {
      "name": "Forks",
@@ -8151,7 +8151,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "194,421"
+     "desc": "194,423"
     },
     {
      "name": "Forks",
@@ -8182,7 +8182,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "161,476"
+     "desc": "161,475"
     },
     {
      "name": "Forks",
@@ -8209,11 +8209,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "159,616"
+     "desc": "159,618"
     },
     {
      "name": "Forks",
-     "desc": "46,108"
+     "desc": "46,107"
     },
     {
      "name": "Language",
@@ -8240,7 +8240,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "155,686"
+     "desc": "155,690"
     },
     {
      "name": "Forks",
@@ -8271,11 +8271,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "150,328"
+     "desc": "150,333"
     },
     {
      "name": "Forks",
-     "desc": "14,455"
+     "desc": "14,457"
     },
     {
      "name": "Language",
@@ -8333,11 +8333,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "118,635"
+     "desc": "118,637"
     },
     {
      "name": "Forks",
-     "desc": "7,936"
+     "desc": "7,937"
     },
     {
      "name": "Language",
@@ -8395,11 +8395,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "114,900"
+     "desc": "114,901"
     },
     {
      "name": "Forks",
-     "desc": "19,080"
+     "desc": "19,079"
     },
     {
      "name": "Language",
@@ -8426,7 +8426,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "113,109"
+     "desc": "113,115"
     },
     {
      "name": "Forks",
@@ -8457,7 +8457,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "108,407"
+     "desc": "108,409"
     },
     {
      "name": "Forks",
@@ -8488,11 +8488,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "97,876"
+     "desc": "97,881"
     },
     {
      "name": "Forks",
-     "desc": "6,683"
+     "desc": "6,684"
     },
     {
      "name": "Language",
@@ -8519,7 +8519,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "93,230"
+     "desc": "93,231"
     },
     {
      "name": "Forks",
@@ -8550,7 +8550,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "85,835"
+     "desc": "85,836"
     },
     {
      "name": "Forks",
@@ -8577,11 +8577,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "83,636"
+     "desc": "83,637"
     },
     {
      "name": "Forks",
-     "desc": "15,330"
+     "desc": "15,331"
     },
     {
      "name": "Language",
@@ -8662,7 +8662,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "70,966"
+     "desc": "70,968"
     },
     {
      "name": "Forks",
@@ -8724,7 +8724,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "68,319"
+     "desc": "68,321"
     },
     {
      "name": "Forks",
@@ -8755,7 +8755,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "61,668"
+     "desc": "61,669"
     },
     {
      "name": "Forks",
@@ -8786,7 +8786,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "61,339"
+     "desc": "61,340"
     },
     {
      "name": "Forks",
@@ -8844,7 +8844,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,058"
+     "desc": "58,061"
     },
     {
      "name": "Forks",
@@ -8906,11 +8906,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "54,262"
+     "desc": "54,265"
     },
     {
      "name": "Forks",
-     "desc": "4,488"
+     "desc": "4,489"
     },
     {
      "name": "Language",
@@ -8964,7 +8964,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,650"
+     "desc": "53,651"
     },
     {
      "name": "Forks",
@@ -8995,7 +8995,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "53,193"
+     "desc": "53,194"
     },
     {
      "name": "Forks",
@@ -9088,7 +9088,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "48,006"
+     "desc": "48,005"
     },
     {
      "name": "Forks",
@@ -9150,7 +9150,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "45,909"
+     "desc": "45,910"
     },
     {
      "name": "Forks",
@@ -9243,7 +9243,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "39,486"
+     "desc": "39,487"
     },
     {
      "name": "Forks",
@@ -9274,11 +9274,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,619"
+     "desc": "38,622"
     },
     {
      "name": "Forks",
-     "desc": "4,924"
+     "desc": "4,925"
     },
     {
      "name": "Language",
@@ -9394,7 +9394,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "35,967"
+     "desc": "35,968"
     },
     {
      "name": "Forks",
@@ -9456,7 +9456,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,289"
+     "desc": "34,290"
     },
     {
      "name": "Forks",
@@ -9483,7 +9483,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,987"
+     "desc": "33,988"
     },
     {
      "name": "Forks",
@@ -9576,11 +9576,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,399"
+     "desc": "33,400"
     },
     {
      "name": "Forks",
-     "desc": "3,531"
+     "desc": "3,532"
     },
     {
      "name": "Language",
@@ -9669,7 +9669,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,102"
+     "desc": "30,103"
     },
     {
      "name": "Forks",
@@ -9700,7 +9700,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,099"
+     "desc": "30,098"
     },
     {
      "name": "Forks",
@@ -9793,11 +9793,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,383"
+     "desc": "28,385"
     },
     {
      "name": "Forks",
-     "desc": "4,745"
+     "desc": "4,746"
     },
     {
      "name": "Language",
@@ -10006,7 +10006,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,614"
+     "desc": "25,615"
     },
     {
      "name": "Forks",
@@ -10095,7 +10095,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "24,437"
+     "desc": "24,438"
     },
     {
      "name": "Forks",
@@ -10130,7 +10130,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "1,336"
+     "desc": "1,337"
     },
     {
      "name": "Language",
@@ -10188,7 +10188,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,970"
+     "desc": "21,971"
     },
     {
      "name": "Forks",
@@ -10250,7 +10250,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,495"
+     "desc": "21,498"
     },
     {
      "name": "Forks",
@@ -10281,7 +10281,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,250"
+     "desc": "21,251"
     },
     {
      "name": "Forks",
@@ -10347,7 +10347,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "1,563"
+     "desc": "1,562"
     },
     {
      "name": "Language",
@@ -10405,11 +10405,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "18,498"
+     "desc": "18,499"
     },
     {
      "name": "Forks",
-     "desc": "2,320"
+     "desc": "2,321"
     },
     {
      "name": "Language",
@@ -10432,7 +10432,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "17,361"
+     "desc": "17,360"
     },
     {
      "name": "Forks",
@@ -10486,11 +10486,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,702"
+     "desc": "16,704"
     },
     {
      "name": "Forks",
-     "desc": "2,825"
+     "desc": "2,826"
     },
     {
      "name": "Language",
@@ -10660,7 +10660,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,471"
+     "desc": "15,473"
     },
     {
      "name": "Forks",
@@ -10873,11 +10873,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "13,551"
+     "desc": "13,552"
     },
     {
      "name": "Forks",
-     "desc": "1,367"
+     "desc": "1,368"
     },
     {
      "name": "Language",
@@ -10904,7 +10904,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,964"
+     "desc": "12,966"
     },
     {
      "name": "Forks",
@@ -10931,7 +10931,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,628"
+     "desc": "12,629"
     },
     {
      "name": "Forks",
@@ -11055,7 +11055,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "12,276"
+     "desc": "12,279"
     },
     {
      "name": "Forks",
@@ -11082,7 +11082,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "378,445"
+     "desc": "378,446"
     },
     {
      "name": "Forks",
@@ -11109,11 +11109,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "151,514"
+     "desc": "151,524"
     },
     {
      "name": "Forks",
-     "desc": "16,004"
+     "desc": "16,005"
     },
     {
      "name": "Language",
@@ -11140,7 +11140,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "128,200"
+     "desc": "128,201"
     },
     {
      "name": "Forks",
@@ -11157,68 +11157,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/VoltAgent/awesome-design-md"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "Leonxlnx/taste-skill",
-   "about": "Agent skills that give coding agents taste: art direction, reference images and a browser check instead of generic AI pages.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "118,635"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,936"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-08"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Leonxlnx/taste-skill"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "pbakaus/impeccable",
-   "about": "The design vocabulary for your coding agent. Steer with polish and bolder, review with critique and audit, catch AI slop before it ships.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "113,110"
-    },
-    {
-     "name": "Forks",
-     "desc": "6,738"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/pbakaus/impeccable"
     }
    ]
   },
@@ -11548,37 +11486,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/nextcloud/server"
-    }
-   ]
-  },
-  {
-   "database": "Design",
-   "table": "alchaincyf/huashu-design",
-   "about": "Huashu Design 3.0 · 在 agent 里打一句话，拿回能交付的设计：网页 / App 原型 / 可编辑 PPTX / 动画 / 信息图 · 六个候选挑三个方向 · 84 种带样张的风格库 · 越用越懂你的外观账本与设计体检 · HTML-native design skill for Claude Code, Codex, Cursor & any agent.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "29,852"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,185"
-    },
-    {
-     "name": "Language",
-     "desc": "HTML"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-10"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alchaincyf/huashu-design"
     }
    ]
   },
@@ -14060,6 +13967,95 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    ]
   },
   {
+   "database": "Design",
+   "table": "nateherkai/scroll-craft",
+   "about": "An agent skill for building premium, immersive, scroll-driven websites. Works with Codex, Claude Code, and other coding agents. Also available as a Claude Code plugin.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,249"
+    },
+    {
+     "name": "Forks",
+     "desc": "732"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-30"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nateherkai/scroll-craft"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "JakeLin/SwiftLanguageWeather",
+   "about": "Swift Language Weather is an iOS weather app developed in Swift 4.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,239"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,206"
+    },
+    {
+     "name": "Language",
+     "desc": "Swift"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2023-09-04"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/JakeLin/SwiftLanguageWeather"
+    }
+   ]
+  },
+  {
+   "database": "Design",
+   "table": "Appllama/appllama-skills",
+   "about": "A builder, not just a researcher. Agent skills that turn top-grossing app patterns into native-quality mobile screens.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "5,231"
+    },
+    {
+     "name": "Forks",
+     "desc": "265"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-09-06"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/Appllama/appllama-skills"
+    }
+   ]
+  },
+  {
    "database": "API",
    "table": "public-apis/public-apis",
    "about": "A collective list of free APIs.",
@@ -14070,7 +14066,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "56,116"
+     "desc": "56,117"
     },
     {
      "name": "Language",
@@ -14631,7 +14627,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,448"
+     "desc": "37,447"
     },
     {
      "name": "Forks",
@@ -14828,7 +14824,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "29,088"
+     "desc": "29,087"
     },
     {
      "name": "Forks",
@@ -14859,7 +14855,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,943"
+     "desc": "28,942"
     },
     {
      "name": "Forks",
@@ -15099,7 +15095,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "1,730"
+     "desc": "1,731"
     },
     {
      "name": "Language",
@@ -15157,7 +15153,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "21,493"
+     "desc": "21,494"
     },
     {
      "name": "Forks",
@@ -15606,7 +15602,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "3,010"
+     "desc": "3,011"
     },
     {
      "name": "Language",
@@ -15664,7 +15660,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "16,429"
+     "desc": "16,428"
     },
     {
      "name": "Forks",
@@ -15861,7 +15857,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "15,671"
+     "desc": "15,670"
     },
     {
      "name": "Forks",
@@ -16593,7 +16589,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "6,064"
+     "desc": "6,063"
     },
     {
      "name": "Language",
@@ -16883,7 +16879,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "9,345"
+     "desc": "9,344"
     },
     {
      "name": "Forks",
@@ -17033,47 +17029,16 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "morluto/rea",
-   "about": "Reverse engineer anything with agents, from app behavior down to native binaries.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "468,902"
-    },
-    {
-     "name": "Forks",
-     "desc": "114,609"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/morluto/rea"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "affaan-m/ECC",
    "about": "The agent harness performance optimization system. Skills, instincts, memory, security, and research-first development for Claude Code, Codex, Opencode, Cursor and beyond.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "306,824"
+     "desc": "306,828"
     },
     {
      "name": "Forks",
-     "desc": "45,165"
+     "desc": "45,167"
     },
     {
      "name": "Language",
@@ -17100,7 +17065,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "211,306"
+     "desc": "211,308"
     },
     {
      "name": "Forks",
@@ -17117,64 +17082,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/n8n-io/n8n"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "langgenius/dify",
-   "about": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "161,476"
-    },
-    {
-     "name": "Forks",
-     "desc": "25,528"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/langgenius/dify"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "Snailclimb/JavaGuide",
-   "about": "Java 面试 & 后端通用面试指南，覆盖计算机基础、数据库、分布式、高并发、系统设计与 AI 应用开发.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "159,616"
-    },
-    {
-     "name": "Forks",
-     "desc": "46,108"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-10-25"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Snailclimb/JavaGuide"
     }
    ]
   },
@@ -17207,74 +17114,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "farion1231/cc-switch",
-   "about": "A cross-platform desktop All-in-One assistant for Claude Code, Codex, OpenCode,DeepSeek Harness and more. Only official website: ccswitch.io.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "155,686"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,186"
-    },
-    {
-     "name": "Language",
-     "desc": "Rust"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/farion1231/cc-switch"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "Graphify-Labs/graphify",
-   "about": "Turn any codebase, with its docs, SQL schemas, configs, and PDFs, into a queryable knowledge graph. A /graphify skill for Claude Code, Cursor, Codex, and Gemini CLI: local deterministic AST parsing, every edge explained, no vector store.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "150,328"
-    },
-    {
-     "name": "Forks",
-     "desc": "14,455"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Graphify-Labs/graphify"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "browser-use/browser-use",
    "about": "Open-source Python library for AI browser agents, plus Browser Use Cloud: stealth browsers and a hosted agent API.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "121,466"
+     "desc": "121,467"
     },
     {
      "name": "Forks",
@@ -17300,43 +17145,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "paperclipai/paperclip",
-   "about": "The open-source app everyone uses to manage agents at work.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "114,900"
-    },
-    {
-     "name": "Forks",
-     "desc": "19,080"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/paperclipai/paperclip"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "Panniantong/Agent-Reach",
    "about": "Give your AI agent eyes to see the entire internet. Read & search Twitter, Reddit, YouTube, GitHub, Bilibili, XiaoHongShu — one CLI, zero API fees.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "113,151"
+     "desc": "113,154"
     },
     {
      "name": "Forks",
@@ -17460,7 +17274,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "98,170"
+     "desc": "98,174"
     },
     {
      "name": "Forks",
@@ -17487,11 +17301,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "90,923"
+     "desc": "90,924"
     },
     {
      "name": "Forks",
-     "desc": "14,115"
+     "desc": "14,116"
     },
     {
      "name": "Language",
@@ -17549,7 +17363,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "87,547"
+     "desc": "87,548"
     },
     {
      "name": "Forks",
@@ -17580,7 +17394,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "86,710"
+     "desc": "86,714"
     },
     {
      "name": "Forks",
@@ -17601,33 +17415,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/heygen-com/hyperframes"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "lobehub/lobehub",
-   "about": "🤯 LobeHub - Super-Agents on Your Team. Add super-agents to the chats your team already uses.They take on work by themselves and get better every week.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "85,835"
-    },
-    {
-     "name": "Forks",
-     "desc": "16,351"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/lobehub/lobehub"
     }
    ]
   },
@@ -17700,7 +17487,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "80,128"
+     "desc": "80,130"
     },
     {
      "name": "Forks",
@@ -17726,39 +17513,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "ComposioHQ/awesome-claude-skills",
-   "about": "A curated list of awesome Claude Skills, resources, and tools for customizing Claude AI workflows.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "79,850"
-    },
-    {
-     "name": "Forks",
-     "desc": "9,788"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-09-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/ComposioHQ/awesome-claude-skills"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "rohitg00/ai-engineering-from-scratch",
    "about": "Learn AI Engineering! Learn it. Build it. Ship it for others.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "79,552"
+     "desc": "79,553"
     },
     {
      "name": "Forks",
@@ -17882,7 +17642,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,781"
+     "desc": "58,783"
     },
     {
      "name": "Forks",
@@ -17913,7 +17673,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "58,270"
+     "desc": "58,272"
     },
     {
      "name": "Forks",
@@ -17970,74 +17730,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "CherryHQ/cherry-studio",
-   "about": "Your AI workspace for models, agents, and productivity.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "53,650"
-    },
-    {
-     "name": "Forks",
-     "desc": "5,239"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "AGPL-3.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/CherryHQ/cherry-studio"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "mudler/LocalAI",
-   "about": "LocalAI is the open-source AI engine. Run any model - LLMs, vision, voice, image, video - on any hardware. No GPU required.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "50,443"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,618"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mudler/LocalAI"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "HKUDS/nanobot",
    "about": "Your lightweight open-source personal agent.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "50,197"
+     "desc": "50,198"
     },
     {
      "name": "Forks",
@@ -18063,43 +17761,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "sickn33/agentic-awesome-skills",
-   "about": "3,000+ reusable AI agent skills for Claude Code, Codex, Cursor and Gemini CLI. AAS Core adds local catalog discovery, agent-owned selection and plan preview. CLI, MCP and plugins.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "49,974"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,244"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/sickn33/agentic-awesome-skills"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "DeusData/codebase-memory-mcp",
    "about": "Local code intelligence for developers and AI agents. Connect code, docs and infrastructure in a persistent graph, with CBM Lens, MCP tools, agent integrations and change-aware test selection.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "48,847"
+     "desc": "48,849"
     },
     {
      "name": "Forks",
@@ -18125,105 +17792,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "jeecgboot/JeecgBoot",
-   "about": "一款免费开源的 AI 低代码平台，也是 AI 时代构建复杂业务系统的开源基座！权限、多租户、工作流、报表、大屏、AI 知识库等通用能力开箱即用，AI 只需生成业务差异部分。AI Skills 一句话生成完整系统——建表、前后端代码、菜单权限、BPM 流程、表单、报表、大屏全自动。内置 AI 应用平台（聊天、知识库、流程编排、MCP），兼容主流大模型.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "48,522"
-    },
-    {
-     "name": "Forks",
-     "desc": "16,219"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-11"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/jeecgboot/JeecgBoot"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "zhayujie/CowAgent",
-   "about": "Open-source personal AI assistant & Agent Harness. Plans tasks, runs tools and skills, self-evolves with memory and knowledge. Multi-agent, multi-model, multi-channel. Lightweight, extensible, one-line install.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "48,006"
-    },
-    {
-     "name": "Forks",
-     "desc": "10,434"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/zhayujie/CowAgent"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "anthropics/claude-plugins-official",
-   "about": "Official, Anthropic-managed directory of high quality Claude Code Plugins.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "47,688"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,943"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/anthropics/claude-plugins-official"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "LibreChat-AI/LibreChat",
    "about": "Enhanced ChatGPT Clone: Features Agents, MCP, Skills, DeepSeek, Anthropic, AWS, OpenAI, Responses API, Azure, Groq, o1, GPT-5, Mistral, OpenRouter, Vertex AI, Gemini, Artifacts, AI model switching, message search, Code Interpreter, langchain, DALL-E-3, OpenAPI Actions, Functions, Secure Multi-User…",
    "fields": [
     {
      "name": "Stars",
-     "desc": "47,338"
+     "desc": "47,337"
     },
     {
      "name": "Forks",
@@ -18311,43 +17885,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "reactive-resume/reactive-resume",
-   "about": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "45,909"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,962"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/reactive-resume/reactive-resume"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "Kong/kong",
    "about": "🦍 The API and AI Gateway.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "44,397"
+     "desc": "44,398"
     },
     {
      "name": "Forks",
@@ -18404,37 +17947,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "wshobson/agents",
-   "about": "Plugins, agents, skills, and commands for Claude Code, Codex CLI, Cursor, OpenCode, Antigravity CLI, GitHub Copilot, and Pi, written once in Markdown and adapted to each tool by generators with validation and evals.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "42,682"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,513"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/wshobson/agents"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "patchy631/ai-engineering-hub",
    "about": "In-depth tutorials on LLMs, RAGs and real-world AI agent applications.",
    "fields": [
@@ -18471,7 +17983,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "41,183"
+     "desc": "41,182"
     },
     {
      "name": "Forks",
@@ -18630,7 +18142,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Forks",
-     "desc": "4,529"
+     "desc": "4,528"
     },
     {
      "name": "Language",
@@ -18657,7 +18169,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,529"
+     "desc": "38,531"
     },
     {
      "name": "Forks",
@@ -18688,11 +18200,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "38,512"
+     "desc": "38,513"
     },
     {
      "name": "Forks",
-     "desc": "6,271"
+     "desc": "6,270"
     },
     {
      "name": "Language",
@@ -18714,43 +18226,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "agentscope-ai/QwenPaw",
-   "about": "Your Personal AI Assistant; easy to install, deploy on your own machine or on the cloud; supports multiple chat apps with easily extensible capabilities.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "37,962"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,293"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/agentscope-ai/QwenPaw"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "DayuanJiang/next-ai-draw-io",
    "about": "Draw and edit draw.io diagrams by chatting with an AI. Web app, desktop app, and an MCP server for Claude Code, Cursor, Codex and VS Code.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "37,064"
+     "desc": "37,065"
     },
     {
      "name": "Forks",
@@ -18812,7 +18293,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "36,286"
+     "desc": "36,287"
     },
     {
      "name": "Forks",
@@ -18843,7 +18324,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "34,983"
+     "desc": "34,984"
     },
     {
      "name": "Forks",
@@ -18900,101 +18381,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "mksglu/context-mode",
-   "about": "Free, local plugin that keeps tool output out of your coding agent's context window. Sandbox and SQLite FTS5 search, 99% fewer bytes in context. Works with Claude Code, Codex, Pi, OMP, OpenCode, Gemini CLI, Copilot CLI and 4 more agents. Zero telemetry.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "34,289"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,357"
-    },
-    {
-     "name": "Language",
-     "desc": "JavaScript"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/mksglu/context-mode"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "davila7/claude-code-templates",
-   "about": "Open-source registry and CLI for Claude Code components: agents, commands, skills, hooks, MCPs, settings and mods.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,987"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,046"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/davila7/claude-code-templates"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "alibaba/nacos",
-   "about": "an easy-to-use dynamic service discovery, configuration and service management platform for building AI cloud native applications.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "33,534"
-    },
-    {
-     "name": "Forks",
-     "desc": "13,292"
-    },
-    {
-     "name": "Language",
-     "desc": "Java"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/alibaba/nacos"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "78/xiaozhi-esp32",
    "about": "An MCP-based chatbot | 一个基于MCP的聊天机器人.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "33,447"
+     "desc": "33,448"
     },
     {
      "name": "Forks",
@@ -19114,7 +18506,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,858"
+     "desc": "30,863"
     },
     {
      "name": "Forks",
@@ -19176,7 +18568,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "30,774"
+     "desc": "30,775"
     },
     {
      "name": "Forks",
@@ -19265,7 +18657,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "29,629"
+     "desc": "29,630"
     },
     {
      "name": "Forks",
@@ -19349,37 +18741,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "yikart/AiToEarn",
-   "about": "Let's use AI to Earn!",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "28,383"
-    },
-    {
-     "name": "Forks",
-     "desc": "4,745"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-16"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/yikart/AiToEarn"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "OtterMind/Chat2DB",
    "about": "Chat2DB is a free, cross-platform, local-first database client and SQL workspace for developers, DBAs, analysts, and data teams. Connect to 40+ databases, manage data, edit and run SQL, and use your own AI model to generate, explain, and optimize queries. Available on desktop, web, Docker, and…",
    "fields": [
@@ -19412,7 +18773,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "28,287"
+     "desc": "28,289"
     },
     {
      "name": "Forks",
@@ -19464,37 +18825,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/deepset-ai/haystack"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "NVIDIA/SkillSpector",
-   "about": "Security scanner for AI agent skills. Detect vulnerabilities, malicious patterns, security risks, prompt injection, data exfiltration, and supply-chain risks in Claude Code, Codex, and MCP skills before you install them.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "26,868"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,392"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/NVIDIA/SkillSpector"
     }
    ]
   },
@@ -19558,43 +18888,12 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "pascalorg/editor",
-   "about": "Open-source 3D architecture software for AECO, scan-to-BIM. Agent-friendly, browser-first, MCP, CLI.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,614"
-    },
-    {
-     "name": "Forks",
-     "desc": "3,185"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "MIT"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-18"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/pascalorg/editor"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "vercel-labs/agent-desktop",
    "about": "Computer use CLI for AI agents.",
    "fields": [
     {
      "name": "Stars",
-     "desc": "25,421"
+     "desc": "25,426"
     },
     {
      "name": "Forks",
@@ -19615,37 +18914,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/vercel-labs/agent-desktop"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "flipped-aurora/gin-vue-admin",
-   "about": "🚀Vite+Vue3+Gin拥有AI辅助的基础开发平台，企业级业务AI+开发解决方案，内置mcp辅助服务，内置skills管理，支持TS和JS混用。它集成了JWT鉴权、权限管理、动态路由、显隐可控组件、分页封装、多点登录拦截、资源权限、上传下载、代码生成器、表单生成器和可配置的导入导出等开发必备功能。.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "25,144"
-    },
-    {
-     "name": "Forks",
-     "desc": "7,101"
-    },
-    {
-     "name": "Language",
-     "desc": "Go"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-17"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/flipped-aurora/gin-vue-admin"
     }
    ]
   },
@@ -19807,7 +19075,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,812"
+     "desc": "22,813"
     },
     {
      "name": "Forks",
@@ -19892,7 +19160,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    "fields": [
     {
      "name": "Stars",
-     "desc": "22,222"
+     "desc": "22,223"
     },
     {
      "name": "Forks",
@@ -19972,68 +19240,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
   },
   {
    "database": "MCP",
-   "table": "eclipse-theia/theia",
-   "about": "Eclipse Theia is an open-source platform for building custom IDEs and tools for browser and desktop. It includes Theia AI, the vendor-neutral AI harness platform, and powers the AI-native Theia IDE.",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,772"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,948"
-    },
-    {
-     "name": "Language",
-     "desc": "TypeScript"
-    },
-    {
-     "name": "Licence",
-     "desc": "EPL-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-19"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/eclipse-theia/theia"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
-   "table": "Evil0ctal/Douyin_TikTok_Download_API",
-   "about": "🚀 自托管的抖音、TikTok、B 站数据采集与无水印视频下载 API，支持 AI agent 通过 MCP 调用与离线语音转文字，Docker 一键部署。| Self-hosted TikTok, Douyin & Bilibili scraper and no-watermark video downloader — async REST API, MCP server for AI agents, CLI and web console, plus offline speech-to-text for downloaded videos. Self-healing identity…",
-   "fields": [
-    {
-     "name": "Stars",
-     "desc": "21,493"
-    },
-    {
-     "name": "Forks",
-     "desc": "2,984"
-    },
-    {
-     "name": "Language",
-     "desc": "Python"
-    },
-    {
-     "name": "Licence",
-     "desc": "Apache-2.0"
-    },
-    {
-     "name": "Updated",
-     "desc": "2026-11-14"
-    },
-    {
-     "name": "Link",
-     "desc": "https://github.com/Evil0ctal/Douyin_TikTok_Download_API"
-    }
-   ]
-  },
-  {
-   "database": "MCP",
    "table": "qax-os/excelize",
    "about": "Go language library for reading and writing Microsoft Excel™ (XLAM / XLSM / XLSX / XLTM / XLTX) spreadsheets.",
    "fields": [
@@ -20060,6 +19266,796 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://github.com/qax-os/excelize"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "modelscope/FunASR",
+   "about": "Open-source speech recognition toolkit for training, inference, streaming ASR, VAD, punctuation, speaker diarization pipelines, and OpenAI-compatible/MCP serving.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "21,070"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,137"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/modelscope/FunASR"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "datawhalechina/easy-vibe",
+   "about": "💻 Vibe Coding 101｜Your First Course For AI Product Builders.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,470"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,977"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-10-22"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/datawhalechina/easy-vibe"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "rocketride-org/rocketride-server",
+   "about": "High-performance AI pipeline engine with a C++ core and 50+ Python-extensible nodes. Build, debug, and scale LLM workflows with 13+ model providers, 8+ vector databases, and agent orchestration, all from your IDE. Includes VS Code extension, TypeScript/Python SDKs, and Docker deployment.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "20,016"
+    },
+    {
+     "name": "Forks",
+     "desc": "8,684"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/rocketride-org/rocketride-server"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xerj-org/xerj",
+   "about": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybrid search, code search without grep, agent memory and RAG. Elasticsearch-compatible API; Corpus Hub serves hundreds of reference memory corpora.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,256"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,442"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xerj-org/xerj"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "browser-use/browser-harness",
+   "about": "Let Claude Code, Codex or Cursor use your real Chrome, logged in as you. One prompt to set up. Open source, MIT.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "19,152"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,896"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/browser-use/browser-harness"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "nukeop/nuclear",
+   "about": "Streaming music player that finds free music for you.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,968"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,360"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/nukeop/nuclear"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "jub0t/Concat",
+   "about": "Beta: The truly free, open-source, local-first, cross-platform video editor. Scriptable through a JSON-RPC API & MCP.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "18,826"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,304"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/jub0t/Concat"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "microsoft/mcp-for-beginners",
+   "about": "This open-source curriculum introduces the fundamentals of Model Context Protocol (MCP) through real-world, cross-language examples in .NET, Java, TypeScript, JavaScript, Rust and Python. Designed for developers, it focuses on practical techniques for building modular, scalable, and secure AI…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,679"
+    },
+    {
+     "name": "Forks",
+     "desc": "5,696"
+    },
+    {
+     "name": "Language",
+     "desc": "Jupyter Notebook"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-13"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/microsoft/mcp-for-beginners"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xpzouying/xiaohongshu-mcp",
+   "about": "MCP for xiaohongshu.com.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "17,211"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,536"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xpzouying/xiaohongshu-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "apify/apify-mcp-server",
+   "about": "The Apify MCP server enables your AI agents to extract data from social media, search engines, maps, e-commerce sites, or any other website using thousands of ready-made scrapers, crawlers, and automation tools available on the Apify Store.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,952"
+    },
+    {
+     "name": "Forks",
+     "desc": "469"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/apify/apify-mcp-server"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "triggerdotdev/trigger.dev",
+   "about": "Trigger.dev – build and deploy durable AI agents and workflows.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,782"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,533"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/triggerdotdev/trigger.dev"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "budtmo/docker-android",
+   "about": "Android in docker solution with noVNC supported, video recording, mcp server and AI-agent.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,163"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,796"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/budtmo/docker-android"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "CoplayDev/unity-mcp",
+   "about": "Unity MCP acts as a bridge between AI assistants and your Unity Editor. Give your LLM tools to manage assets, control scenes, edit scripts, and automate tasks within Unity.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "16,067"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,643"
+    },
+    {
+     "name": "Language",
+     "desc": "C#"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-17"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/CoplayDev/unity-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "open-metadata/OpenMetadata",
+   "about": "The Open Context Layer for Data and AI , OpenMetadata is the open platform for building trusted data context and business semantics for humans, AI assistants, and agents.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,817"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,527"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/open-metadata/OpenMetadata"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "liketrek/TREK",
+   "about": "The most complete open-source travel planner: real-time collaboration, bookings, budgets, packing lists, journals, offline PWA, SSO and an AI-ready MCP server, with planet-wide place search and routing built in.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "15,810"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,352"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/liketrek/TREK"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "tonhowtf/omniget",
+   "about": "A local MCP server that gives your coding agent a desktop toolbox: downloads from YouTube, torrents and every site yt-dlp supports, media conversion, files, chats and system cleanup. One line connects Claude Code, Codex, Cursor or Gemini CLI, and sensitive actions wait for your click. Free and…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "14,499"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,251"
+    },
+    {
+     "name": "Language",
+     "desc": "Rust"
+    },
+    {
+     "name": "Licence",
+     "desc": "GPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-18"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tonhowtf/omniget"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "OpenByteInc/QuantDinger",
+   "about": "The most complete open-source, self-hosted Agentic Trading OS—AI research, Python strategies, factor discovery, backtesting, optimization, paper/live multi-asset execution, risk controls, monitoring, MCP, and multi-tenant SaaS in one auditable stack.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,862"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,825"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-16"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/OpenByteInc/QuantDinger"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "modelcontextprotocol/typescript-sdk",
+   "about": "The official TypeScript SDK for Model Context Protocol servers and clients.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,785"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,406"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/modelcontextprotocol/typescript-sdk"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "0x4m4/hexstrike-ai",
+   "about": "HexStrike AI MCP Agents is an advanced MCP server that lets AI agents (Claude, GPT, Copilot, etc.) autonomously run 150+ cybersecurity tools for automated pentesting, vulnerability discovery, bug bounty automation, and security research. Seamlessly bridge LLMs with real-world offensive security…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,740"
+    },
+    {
+     "name": "Forks",
+     "desc": "2,816"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-08-03"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/0x4m4/hexstrike-ai"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "mrexodia/ida-pro-mcp",
+   "about": "AI-powered reverse engineering assistant that bridges IDA Pro with language models through MCP.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,525"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,661"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-12"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/mrexodia/ida-pro-mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "ccfos/nightingale",
+   "about": "Open-source, self-hosted alerting for metrics, logs, and databases. Includes a built-in AI agent and MCP server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "13,506"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,801"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "Apache-2.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/ccfos/nightingale"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "tadata-org/fastapi_mcp",
+   "about": "Expose your FastAPI endpoints as Model Context Protocol (MCP) tools, with Auth!",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "12,030"
+    },
+    {
+     "name": "Forks",
+     "desc": "965"
+    },
+    {
+     "name": "Language",
+     "desc": "Python"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2025-11-24"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/tadata-org/fastapi_mcp"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "0xJacky/nginx-ui",
+   "about": "Yet another WebUI for Nginx.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,801"
+    },
+    {
+     "name": "Forks",
+     "desc": "921"
+    },
+    {
+     "name": "Language",
+     "desc": "Go"
+    },
+    {
+     "name": "Licence",
+     "desc": "AGPL-3.0"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/0xJacky/nginx-ui"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "holaboss-ai/holaOS",
+   "about": "Open-source agentic workspace enterprises can make their own. Connect the systems you already run — 100+ integrations, MCP, chat tools, apps, browser, local files — with shared memory. Any agent (Claude Code, Codex), any model, or BYOK. Set up in clicks, not months. Local-first: your data never…",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,453"
+    },
+    {
+     "name": "Forks",
+     "desc": "729"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-15"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/holaboss-ai/holaOS"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "xinnan-tech/xiaozhi-esp32-server",
+   "about": "本项目为xiaozhi-esp32提供后端服务，帮助您快速搭建ESP32设备控制服务器。Backend service for xiaozhi-esp32, helps you quickly build an ESP32 device control server.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,341"
+    },
+    {
+     "name": "Forks",
+     "desc": "3,857"
+    },
+    {
+     "name": "Language",
+     "desc": "JavaScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/xinnan-tech/xiaozhi-esp32-server"
+    }
+   ]
+  },
+  {
+   "database": "MCP",
+   "table": "trailhq/Trail-Code",
+   "about": "One shared memory for every coding agent on your team. Claude Code, Cursor and Codex get a map of your code and your team's past decisions, so they pick up where you left off.",
+   "fields": [
+    {
+     "name": "Stars",
+     "desc": "11,341"
+    },
+    {
+     "name": "Forks",
+     "desc": "1,023"
+    },
+    {
+     "name": "Language",
+     "desc": "TypeScript"
+    },
+    {
+     "name": "Licence",
+     "desc": "MIT"
+    },
+    {
+     "name": "Updated",
+     "desc": "2026-11-19"
+    },
+    {
+     "name": "Link",
+     "desc": "https://github.com/trailhq/Trail-Code"
     }
    ]
   }
@@ -21364,7 +21360,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "1,269"
+     "desc": "1,270"
     },
     {
      "name": "Library",
@@ -21445,7 +21441,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "4,406"
+     "desc": "4,407"
     },
     {
      "name": "Library",
@@ -21755,33 +21751,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    ]
   },
   {
-   "database": "Image classification",
-   "table": "prithivMLmods/Gender-Classifier-Mini",
-   "about": "Image classification, 5.4M downloads in the last month, 23 likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Image classification"
-    },
-    {
-     "name": "Downloads",
-     "desc": "5,403,090"
-    },
-    {
-     "name": "Likes",
-     "desc": "23"
-    },
-    {
-     "name": "Library",
-     "desc": "transformers"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/prithivMLmods/Gender-Classifier-Mini"
-    }
-   ]
-  },
-  {
    "database": "Fill mask",
    "table": "microsoft/mdeberta-v3-base",
    "about": "Fill mask, 5.3M downloads in the last month, 265 likes.",
@@ -21855,6 +21824,33 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://huggingface.co/autogluon/chronos-bolt-small"
+    }
+   ]
+  },
+  {
+   "database": "Image classification",
+   "table": "prithivMLmods/Gender-Classifier-Mini",
+   "about": "Image classification, 5.1M downloads in the last month, 23 likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Image classification"
+    },
+    {
+     "name": "Downloads",
+     "desc": "5,146,899"
+    },
+    {
+     "name": "Likes",
+     "desc": "23"
+    },
+    {
+     "name": "Library",
+     "desc": "transformers"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/prithivMLmods/Gender-Classifier-Mini"
     }
    ]
   },
@@ -21994,33 +21990,6 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
    ]
   },
   {
-   "database": "Automatic speech recognition",
-   "table": "pyannote/speaker-diarization-community-1",
-   "about": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
-   "fields": [
-    {
-     "name": "Task",
-     "desc": "Automatic speech recognition"
-    },
-    {
-     "name": "Downloads",
-     "desc": "4,911,741"
-    },
-    {
-     "name": "Likes",
-     "desc": "4,708"
-    },
-    {
-     "name": "Library",
-     "desc": "pyannote-audio"
-    },
-    {
-     "name": "Link",
-     "desc": "https://huggingface.co/pyannote/speaker-diarization-community-1"
-    }
-   ]
-  },
-  {
    "database": "Text generation",
    "table": "Qwen/Qwen2.5-1.5B-Instruct",
    "about": "Text generation, 4.9M downloads in the last month, 947 likes.",
@@ -22044,6 +22013,33 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     {
      "name": "Link",
      "desc": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct"
+    }
+   ]
+  },
+  {
+   "database": "Automatic speech recognition",
+   "table": "pyannote/speaker-diarization-community-1",
+   "about": "Automatic speech recognition, 4.9M downloads in the last month, 4.7K likes.",
+   "fields": [
+    {
+     "name": "Task",
+     "desc": "Automatic speech recognition"
+    },
+    {
+     "name": "Downloads",
+     "desc": "4,903,235"
+    },
+    {
+     "name": "Likes",
+     "desc": "4,711"
+    },
+    {
+     "name": "Library",
+     "desc": "pyannote-audio"
+    },
+    {
+     "name": "Link",
+     "desc": "https://huggingface.co/pyannote/speaker-diarization-community-1"
     }
    ]
   },
@@ -22467,7 +22463,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Likes",
-     "desc": "2,363"
+     "desc": "2,365"
     },
     {
      "name": "Library",
@@ -22793,7 +22789,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "1,224,664"
+     "desc": "1,224,665"
     },
     {
      "name": "Size",
@@ -22828,7 +22824,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "243,891"
+     "desc": "243,892"
     },
     {
      "name": "Size",
@@ -22863,7 +22859,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "825,448"
+     "desc": "825,452"
     },
     {
      "name": "Size",
@@ -22898,7 +22894,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "722,291"
+     "desc": "722,300"
     },
     {
      "name": "Size",
@@ -23003,7 +22999,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "323,314"
+     "desc": "323,315"
     },
     {
      "name": "Size",
@@ -23108,7 +23104,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "532,874"
+     "desc": "532,875"
     },
     {
      "name": "Size",
@@ -23143,7 +23139,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "304,396"
+     "desc": "304,397"
     },
     {
      "name": "Size",
@@ -23178,7 +23174,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "966,378"
+     "desc": "966,384"
     },
     {
      "name": "Size",
@@ -23248,7 +23244,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "706,430"
+     "desc": "706,434"
     },
     {
      "name": "Size",
@@ -23283,7 +23279,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "180,691"
+     "desc": "180,693"
     },
     {
      "name": "Size",
@@ -23314,11 +23310,11 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Votes",
-     "desc": "4,517"
+     "desc": "4,518"
     },
     {
      "name": "Downloads",
-     "desc": "412,754"
+     "desc": "412,758"
     },
     {
      "name": "Size",
@@ -23353,7 +23349,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "556,014"
+     "desc": "556,016"
     },
     {
      "name": "Size",
@@ -23388,7 +23384,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "300,237"
+     "desc": "300,238"
     },
     {
      "name": "Size",
@@ -23423,7 +23419,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "575,190"
+     "desc": "575,193"
     },
     {
      "name": "Size",
@@ -23493,7 +23489,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "639,558"
+     "desc": "639,561"
     },
     {
      "name": "Size",
@@ -23598,7 +23594,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "317,425"
+     "desc": "317,427"
     },
     {
      "name": "Size",
@@ -23668,7 +23664,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "444,349"
+     "desc": "444,351"
     },
     {
      "name": "Size",
@@ -23773,7 +23769,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "308,279"
+     "desc": "308,281"
     },
     {
      "name": "Size",
@@ -23808,7 +23804,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "380,192"
+     "desc": "380,193"
     },
     {
      "name": "Size",
@@ -23913,7 +23909,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "265,158"
+     "desc": "265,160"
     },
     {
      "name": "Size",
@@ -23983,7 +23979,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "248,665"
+     "desc": "248,666"
     },
     {
      "name": "Size",
@@ -24123,7 +24119,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "208,807"
+     "desc": "208,808"
     },
     {
      "name": "Size",
@@ -24193,7 +24189,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "280,405"
+     "desc": "280,407"
     },
     {
      "name": "Size",
@@ -24333,7 +24329,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "149,028"
+     "desc": "149,029"
     },
     {
      "name": "Size",
@@ -24543,7 +24539,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "174,029"
+     "desc": "174,030"
     },
     {
      "name": "Size",
@@ -24578,7 +24574,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "296,967"
+     "desc": "296,968"
     },
     {
      "name": "Size",
@@ -24683,7 +24679,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "173,426"
+     "desc": "173,427"
     },
     {
      "name": "Size",
@@ -24718,7 +24714,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "338,642"
+     "desc": "338,643"
     },
     {
      "name": "Size",
@@ -24823,7 +24819,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "168,120"
+     "desc": "168,121"
     },
     {
      "name": "Size",
@@ -24928,7 +24924,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "398,888"
+     "desc": "398,889"
     },
     {
      "name": "Size",
@@ -25103,7 +25099,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "385,596"
+     "desc": "385,620"
     },
     {
      "name": "Size",
@@ -25173,7 +25169,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "173,366"
+     "desc": "173,369"
     },
     {
      "name": "Size",
@@ -25243,7 +25239,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "249,186"
+     "desc": "249,187"
     },
     {
      "name": "Size",
@@ -25278,7 +25274,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "311,931"
+     "desc": "311,934"
     },
     {
      "name": "Size",
@@ -25523,7 +25519,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "137,961"
+     "desc": "137,964"
     },
     {
      "name": "Size",
@@ -25838,7 +25834,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "166,010"
+     "desc": "166,012"
     },
     {
      "name": "Size",
@@ -25978,7 +25974,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "169,444"
+     "desc": "169,446"
     },
     {
      "name": "Size",
@@ -26013,7 +26009,7 @@ export const SOURCE_INFO: Record<'aa' | 'github' | 'hf' | 'kaggle' | 'llmstats',
     },
     {
      "name": "Downloads",
-     "desc": "145,838"
+     "desc": "145,839"
     },
     {
      "name": "Size",
