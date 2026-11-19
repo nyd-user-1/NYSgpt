@@ -184,7 +184,7 @@ export function usePointer(): [boolean, () => void] {
   return [on, () => void togglePointer()]
 }
 
-type Mark = { id: string; pk: string; path: string; target?: string; author: string; authorName: string; photo?: string; text: string; point?: { xf: number; yf: number } }
+type Mark = { id: string; pk: string; sk: string; path: string; target?: string; author: string; authorName: string; photo?: string; text: string; point?: { xf: number; yf: number } }
 
 /** The header's crosshair, the page's comment markers, and the outline that waits for a page to arrive. */
 export function HousekeepingTool() {
@@ -280,10 +280,17 @@ export function HousekeepingTool() {
   )
 }
 
+/** Checks a comment off (resolves it) and tells the pins and the panel to reload (NYSgpt, 2026-11-19: the pin's x). */
+async function checkOff(m: Mark) {
+  const res = await fetch("/api/housekeeping", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ pk: m.pk, sk: m.sk, status: "resolved" }) }).catch(() => null)
+  if (res?.ok) window.dispatchEvent(new Event(HOUSEKEEPING_CHANGED))
+}
+
 /** One headshot per open comment at its element's top-right corner, pulsing; a press opens it in
- *  the panel. They follow the element through scroll and resize, and hide when it is off the page. */
+ *  the panel. They follow the element through scroll and resize, and hide when it is off the page.
+ *  NYSgpt (Brendan, 2026-11-19): each pin wears the crosshair button's x, which checks its comment off. */
 function Marks({ marks }: { marks: Mark[] }) {
-  const refs = React.useRef(new Map<string, HTMLButtonElement>())
+  const refs = React.useRef(new Map<string, HTMLSpanElement>())
   React.useEffect(() => {
     let raf = 0
     const cache = new Map<string, Element | null>()
@@ -327,19 +334,24 @@ function Marks({ marks }: { marks: Mark[] }) {
       {marks.map((m) => {
         const photo = m.photo
         return (
-          <button
+          // The pin and its x are two buttons side by side in one placed box (a button cannot hold a button).
+          <span
             key={m.id}
             ref={(el) => {
               if (el) refs.current.set(m.id, el)
               else refs.current.delete(m.id)
             }}
+            data-sonar-exempt
+            style={{ display: "none" }}
+            className="fixed top-0 left-0 z-[60] size-6"
+          >
+          <button
             type="button"
             onClick={() => openHousekeeping(m.id, m.pk)}
             title={`${m.authorName}: ${m.text}`}
             aria-label={`Open ${m.authorName}'s comment`}
             data-sonar-exempt
-            style={{ display: "none" }}
-            className="group fixed top-0 left-0 z-[60] size-6 rounded-[12px] rounded-bl-[2px]"
+            className="group absolute inset-0 size-6 rounded-[12px] rounded-bl-[2px]"
           >
             <span className="absolute inset-0 animate-ping rounded-[12px] rounded-bl-[2px] bg-(--pax2-light-blue)/60" />
             <span className="relative flex size-6 items-center justify-center overflow-hidden rounded-[12px] rounded-bl-[2px] bg-(--pax2-blue) text-[10px] font-semibold text-white ring-2 ring-(--pax2-surface) shadow-(--shadow-e2) transition-transform group-hover:scale-110">
@@ -351,6 +363,17 @@ function Marks({ marks }: { marks: Mark[] }) {
               )}
             </span>
           </button>
+          <button
+            type="button"
+            data-sonar-exempt
+            onClick={() => void checkOff(m)}
+            aria-label={`Check off ${m.authorName}'s comment`}
+            title="Check off this comment"
+            className="absolute -top-1.5 -right-1.5 z-10 flex size-4 items-center justify-center rounded-full bg-(--night-900) text-white shadow-(--shadow-e1) transition-transform hover:scale-110"
+          >
+            <X className="size-2.5" strokeWidth={3} />
+          </button>
+          </span>
         )
       })}
     </div>,

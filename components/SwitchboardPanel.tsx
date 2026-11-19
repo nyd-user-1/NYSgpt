@@ -18,6 +18,7 @@ import { compactNum, loadCatalog, type Table } from '@/lib/home-catalog'
 import { Icon, TypeIcon } from '@/app/HomeIcons'
 import { TableDetail } from '@/app/TableDetail'
 import '@/app/home.css'
+import { DEV_TOOLS, DEV_TOOLS_TITLE, DevToolsEntry, DevToolsSubView, type DevToolsSub } from '@/components/dev/devtools-slots'
 
 /**
  * The nysgpt.com switchboard panel — the right-hand drawer, and the store that
@@ -81,7 +82,9 @@ export type AwsView =
 /** `channel` is the Slack / Discord / Ask drill-down; `product` is one card. */
 type View =
   | { kind: 'menu' }
-  | { kind: 'product'; index: number }
+  /* `sub`: a view the Dev Tools entry's menu opens (Dev Comments, Settings), on the dev server alone
+     (components/dev/devtools-slots.tsx, brief 44). */
+  | { kind: 'product'; index: number; sub?: DevToolsSub }
   | { kind: 'channel'; id: ChannelId }
   | AwsView
   /* 2026-11-19, brief 43 (the option 3 sketch): the Blocks shelf, one box,
@@ -287,7 +290,8 @@ function SwitchboardPanel() {
 
   /** One level up: a table to its database, a database to the list, anything else to the menu. */
   const back = useCallback(() => {
-    if (view.kind === 'data' && view.table != null) setView({ kind: 'data', db: view.db })
+    if (view.kind === 'product' && view.sub) setView({ kind: 'product', index: view.index })
+    else if (view.kind === 'data' && view.table != null) setView({ kind: 'data', db: view.db })
     else if (view.kind === 'data' && view.db) setView({ kind: 'data' })
     else openMenu()
   }, [view, setView, openMenu])
@@ -306,6 +310,9 @@ function SwitchboardPanel() {
   if (!mounted) return null
 
   const product = view.kind === 'product' ? cards[view.index] : null
+  // The Dev Tools entry holds the dev tools' menu on the dev server; a production build keeps its placeholder.
+  const devTools = Boolean(product && product.title === DEV_TOOLS && DevToolsEntry)
+  const devSub = devTools && view.kind === 'product' ? view.sub : undefined
   const channel = view.kind === 'channel' ? CHANNELS[view.id] : null
   // One level down the live dot becomes a back arrow and the title becomes the
   // destination — that pair IS the navigation model, so no view stack is needed.
@@ -319,7 +326,7 @@ function SwitchboardPanel() {
   const awsTitle = view.kind === 'aws-register' ? view.plan.product : view.kind === 'aws-console' ? view.sub.product : null
   const box = view.kind === 'box' ? BOXES.find(b => boxKey(b) === view.key) ?? null : null
   const newTitle = view.kind === 'blocks' ? 'Blocks' : box ? box.title : view.kind === 'data' ? (view.db ?? 'Data') : null
-  const title = awsTitle ?? newTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
+  const title = (devSub && DEV_TOOLS_TITLE ? DEV_TOOLS_TITLE[devSub] : null) ?? awsTitle ?? newTitle ?? (product ? (product.domain ?? (product.href ? product.href.replace(/^https?:\/\//, '') : product.title)) : channel?.name ?? 'Switchboard')
   const deeper = deep || view.kind === 'blocks' || view.kind === 'box' || view.kind === 'data'
   const half = width === '50vw'
 
@@ -387,12 +394,18 @@ function SwitchboardPanel() {
           </div>
 
           {/* The panel search (2026-11-19, from the option 3 sketch). */}
-          {view.kind !== 'aws-register' && view.kind !== 'aws-console' && !(view.kind === 'data' && view.table != null) && (
+          {view.kind !== 'aws-register' && view.kind !== 'aws-console' && !(view.kind === 'data' && view.table != null) && !devSub && (
             <div className="hm-sbs">
               <input value={q} onChange={e => setQ(e.target.value)} placeholder="Search..." aria-label="Search the panel" />
             </div>
           )}
 
+          {/* Dev Comments and Settings fill the body above the footer and scroll inside themselves. */}
+          {devSub && DevToolsSubView ? (
+            <div className="flex min-h-0 flex-1 flex-col pb-[42px]">
+              <DevToolsSubView sub={devSub} />
+            </div>
+          ) : (
           <div className="no-scrollbar flex-1 overflow-y-auto pb-[42px]">
             {/* min-h-full + flex-col so the Visit footer's mt-auto can pin it
                 to the panel's bottom edge when the content runs short. */}
@@ -475,6 +488,9 @@ function SwitchboardPanel() {
                   )
                 )}
               </>
+            ) : product && devTools && DevToolsEntry && view.kind === 'product' ? (
+              /* ── DEV TOOLS (the dev server's) ───────────────────────── */
+              <DevToolsEntry q={q} onSub={sub => setView({ kind: 'product', index: view.index, sub })} />
             ) : product ? (
               /* ── PRODUCT VIEW ────────────────────────────────────────── */
               <>
@@ -645,6 +661,7 @@ function SwitchboardPanel() {
             )}
             </div>
           </div>
+          )}
 
           {/* The page's footer, moved here from under the plate (2026-11-19, the
               option 3 sketch): always at the panel's foot, the content scrolling
@@ -675,6 +692,9 @@ function match(q: string, text: string) {
   const t = text.toLowerCase()
   return q.toLowerCase().split(/\s+/).filter(Boolean).every(w => t.includes(w))
 }
+
+/** The panel's menu row and its search test, for the Dev Tools entry's menu (components/dev/devtools-entry.tsx). */
+export const PANEL_ROW = { Row, ROW, LABEL, GLYPH, SERIF, match }
 
 /** The box's element on the plate, so the catalog can grow out of it. */
 function boxEl(title: string) {

@@ -95,11 +95,11 @@ export default async function RootLayout({
           <ProductStatusProvider cards={CARDS}>
             <SwitchboardProvider cards={SWITCHBOARD} digest={digest}>
               <SwitchboardShell>{children}</SwitchboardShell>
+              {/* Dev Tools (comments, sonar, inspector): on the dev server alone; a production build carries none of it. */}
+              <DevToolsMount />
             </SwitchboardProvider>
           </ProductStatusProvider>
         </ThemeProvider>
-        {/* Dev Tools (comments, sonar, inspector): on the dev server alone; a production build carries none of it. */}
-        <DevToolsMount />
       </body>
     </html>
   );

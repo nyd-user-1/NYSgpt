@@ -307,6 +307,8 @@ export function HousekeepingView() {
     if (!res.ok) return setError((await res.json().catch(() => ({}))).error ?? "That did not save.")
     setEditing(null)
     await load()
+    // A check-off or a reopen moves the page's pins at once (NYSgpt, 2026-11-19): they reload on this event.
+    if (patch.status) window.dispatchEvent(new Event(HOUSEKEEPING_CHANGED))
   }
 
   /** Shows a message's prompt in place of its text (or its text again), writing it first if none is stored. */
