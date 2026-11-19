@@ -2,7 +2,7 @@ import { ChevronsLeftRight, Columns2, Cpu, Database, FileText, Github, Layers, L
 import * as React from "react"
 
 import { Icon, TypeIcon } from "@/app/HomeIcons"
-import { BOXES, KIND_NOUN, SOURCES, TYPE_COLOR, type Box, type BoxKind, type SourceKind } from "@/lib/home-boxes"
+import { BOXES, KIND_NOUN, SOURCES, TYPE_COLOR, type Box, type BoxKind, type SourceKind, brandOf } from "@/lib/home-boxes"
 import { LEDGER } from "@/lib/home-data"
 import { compact } from "@/lib/compact"
 import { getHome, home } from "@/lib/home-store"
@@ -79,6 +79,9 @@ const iconOf = (k: BoxKind): Box["icon"] => {
 
 /** A page row's tile for a set: its colour from TYPE_COLOR and its icon or mark from the boxes. */
 const setTile = (k: BoxKind) => {
+  // a source's page wears the source's logo (GitHub, Hugging Face and the rest), whatever icon its boxes carry
+  const brand = brandOf(k)
+  if (brand) return { mark: brand as Box["icon"], tint: TYPE_COLOR[k] }
   const icon = iconOf(k)
   return MARKS.has(icon) ? { mark: icon, tint: TYPE_COLOR[k] } : { icon: glyph(icon), tint: TYPE_COLOR[k] }
 }
