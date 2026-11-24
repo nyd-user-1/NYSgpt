@@ -1,0 +1,29 @@
+{
+  // Cloudflare Workers deploy of the Next.js app through @opennextjs/cloudflare
+  // (2026-11-03). Production stays on Amplify; this worker is the Cloudflare
+  // build of the same repo. Workers Builds CI runs:
+  //   build:  npx opennextjs-cloudflare build
+  //   deploy: npx opennextjs-cloudflare deploy
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nysgpt",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Secrets set by hand, once (wrangler secret put; they survive every deploy):
+  //   AWS_BEARER_TOKEN_BEDROCK — the nysgpt-chat-worker IAM user's Bedrock API key
+  //   NSR_ATHENA_KEY_ID        — that user's access key (policy nsr-athena-read): the chat's
+  //   NSR_ATHENA_SECRET          NSR tools query the lake parquet through Athena
+  //   NSR_DATABASE_URL         — unused since 2026-11-04 (the NSR corpus left Neon for the lake)
+  "vars": {
+    // The workers.dev build answers without a Cognito session (sign-in isn't wired there).
+    // Delete this line to require sign-in again.
+    "NYSGPT_CHAT_OPEN": "1"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
